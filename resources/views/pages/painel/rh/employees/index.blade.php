@@ -8,7 +8,7 @@
             <h1 class="h2">Funcionários</h1>
             <div class="btn-toolbar mb-2 mb-md-0 float-right">
                 <div class="btn-group mr-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary mr-2">Export</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary mr-2">Exportar</button>
                     <a href="{{ route('employees.create') }}" class="btn btn-dark"><i class="fas fa-user-plus"></i>
                         Novo</a>
                 </div>
