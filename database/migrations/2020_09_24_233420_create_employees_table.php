@@ -22,10 +22,9 @@ class CreateEmployeesTable extends Migration
             $table->string('endereco');
             $table->string('estado_civil');
             $table->string('cargo');
-            $table->string('salario');
+            $table->double('salario', 10, 2);
             $table->enum('cnh', ['0', '1'])->default('0');
             $table->string('email')->unique();
-            $table->string('logo')->nullable();
             $table->string('url')->unique();
 
             $table->timestamps();

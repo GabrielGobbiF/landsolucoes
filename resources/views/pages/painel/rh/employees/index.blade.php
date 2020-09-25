@@ -9,7 +9,8 @@
             <div class="btn-toolbar mb-2 mb-md-0 float-right">
                 <div class="btn-group mr-2">
                     <button type="button" class="btn btn-sm btn-outline-secondary mr-2">Export</button>
-                    <a href="" class="btn btn-dark"><i class="fas fa-user-plus"></i> Novo</a>
+                    <a href="{{ route('employees.create') }}" class="btn btn-dark"><i class="fas fa-user-plus"></i>
+                        Novo</a>
                 </div>
             </div>
         </div>
@@ -30,10 +31,10 @@
                     <td>{{ $employees->cnh == 0 ? 'não' : 'sim' }}</td>
                     <td>{{ $employees->email }}</td>
                     <td>
-                        <a href="{{ route('employees.show', $employees->id) }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('employees.show', $employees->uuid) }}" class="btn btn-sm btn-primary">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{ route('employees.destroy', $employees->id) }}" class="btn btn-sm btn-danger">
+                        <a href="{{ route('employees.destroy', $employees->uuid) }}" class="btn btn-sm btn-danger">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>

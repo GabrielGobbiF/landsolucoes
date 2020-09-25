@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Employees;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Employees::creating(function ($model) {
+            $model->uuid = Str::uuid();
+        });
     }
 }

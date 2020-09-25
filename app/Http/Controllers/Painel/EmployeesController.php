@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateEmployee;
 use App\Models\Employees;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.painel.rh.employees.create');
     }
 
     /**
@@ -44,9 +45,13 @@ class EmployeesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateEmployee $request)
     {
-        //
+        $this->repository->create($request->all());
+
+        return redirect()
+            ->route('employees')
+            ->with('message', 'Criado com sucesso');
     }
 
     /**
@@ -55,9 +60,19 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        $employee = $this->repository->where('uuid', $uuid)->first();
+
+        if (!$employee) {
+            return redirect()
+                ->route('employees')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        return view('pages.painel.rh.employees.show', [
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -67,9 +82,23 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateEmployee $request, $uuid)
     {
-        //
+        $columns = $request->all();
+
+        $employee = $this->repository->where('uuid', $uuid)->first();
+
+        if (!$employee) {
+            return redirect()
+                ->route('employees')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $employee->update($columns);
+
+        return view('pages.painel.rh.employees.show', [
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -78,8 +107,22 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        $employee = $this->repository
+            ->where('uuid', $uuid)
+            ->first();
+
+        if (!$employee) {
+            return redirect()
+                ->route('employees')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $employee->delete();
+
+        return redirect()
+            ->route('employees')
+            ->with('message', 'Deletado com sucesso!');
     }
 }
