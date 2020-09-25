@@ -11,7 +11,5 @@ class PermissionController extends Controller
 {
     public function permission(Request $request)
     {
-
-
     }
 }
