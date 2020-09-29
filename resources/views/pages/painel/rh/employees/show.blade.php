@@ -3,7 +3,7 @@
 @section('title', 'Editar Funcionário')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <h4 class="text-center">{{ $employee->name ?? '' }} </h4>
         <div class="card">
             <ul class="nav nav-tabs" id="myTab_employee" role="tablist">

@@ -132,30 +132,51 @@ class EmployeesController extends Controller
         $docs['entrevista'] = false;
 
         foreach ($documentos as $documento) {
-            switch ($documento->type) {
-                case 'entrevista':
-                    $docs['documentos_entrevista'][] = $documento;
-                    break;
-                case 'contratacao':
-                    $docs['documentos_contratacao'][] = $documento;
-                    break;
-                case 'acompanhamento':
-                    $docs['documentos_acompanhamento'][] = $documento;
-                    break;
-                case 'documentos':
-                    $docs['documentos_docs'][] = $documento;
-                    break;
-                default:
-                    $docs['documentos_all'][] = $documento;
-                    break;
+            $nome_usuario = '';
+            $data_enviada = '';
+
+            if ($documento->updated_by != '') {
+                $usuario = User::where('id', $documento->updated_by)->first();
+                $nome_usuario = $usuario->name;
+                $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
             }
 
+            $array_docs = (object) [
+                'id' => $documento->id,
+                'status' => $documento->status,
+                'applicable' => $documento->applicable,
+                'along_month' => $documento->along_month,
+                'document_link' => $documento->document_link != '' ? env('APP_URL') . '/storage/' . $documento->document_link : '',
+                'employee_auditory_id' => $documento->employee_auditory_id,
+                'name' => $documento->name,
+                'description' => $documento->description,
+                'user_envio' => $nome_usuario,
+                'data_envio' => $data_enviada,
+                'option_name' => $documento->option_name
+            ];
+
+            switch ($documento->type) {
+                case 'entrevista':
+                    $docs['documentos_entrevista'][] = $array_docs;
+                    break;
+                case 'contratacao':
+                    $docs['documentos_contratacao'][] = $array_docs;
+                    break;
+                case 'acompanhamento':
+                    $docs['documentos_acompanhamento'][] = $array_docs;
+                    break;
+                case 'documentos':
+                    $docs['documentos_docs'][] = $array_docs;
+                    break;
+                default:
+                    $docs['documentos_all'][] = $array_docs;
+                    break;
+            }
 
             if ($documento->auditory_id == '46' && $documento->status === '1') {
                 $docs['entrevista'] = true;
             }
         }
-
         return $docs;
     }
 

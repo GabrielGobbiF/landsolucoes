@@ -3,9 +3,9 @@
         @foreach ($documentos['documentos_docs'] as $documento)
             <tr data-id="{{ $documento->employee_auditory_id }}" data-name="{{ $documento->name }}"
                 data-type="documentos">
-                <th style="width: 44%"> <span data-toggle="tooltip" title=""> {{ $documento->description ?? '' }}</span>
+                <th > <span data-toggle="tooltip" title=""> {{ $documento->description ?? '' }}</span>
                 </th>
-                <th class="text-center">
+                <th style="width: 44%" class="text-center">
                     <div class="form-group">
                         <div class="radio">
                             <label style="margin-right:5px">
@@ -28,15 +28,10 @@
                     </div>
                 </th>
                 @if ($documento->status == '1' && $documento->document_link != '')
-                    @php
-                    $usuario = Auth::user()->where('id', $documento->updated_by)->first();
-                    $nome_usuario = $usuario->name;
-                    $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
-                    $doc = '<a href=""> ver </a>'
-                    @endphp
                     <th class="text-center">
-                        <span style="font-size:13px"> documento enviado por {{ $nome_usuario }} em {{ $data_enviada }}
-                            <a target="_blank" href="{{ env('APP_URL') . '/storage/' . $documento->document_link }}">
+                        <span style="font-size:13px"> documento enviado por {{ $documento->user_envio }} em
+                            {{ $documento->data_envio }}
+                            <a target="_blank" href="{{ $documento->document_link }}">
                                 ver </a><span>
                     </th>
                 @else
