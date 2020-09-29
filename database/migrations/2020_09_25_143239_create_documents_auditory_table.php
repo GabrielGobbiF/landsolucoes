@@ -13,7 +13,7 @@ class CreateDocumentsAuditoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents_auditory', function (Blueprint $table) {
+        Schema::create('auditory', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('description')->nullable();
@@ -21,6 +21,7 @@ class CreateDocumentsAuditoryTable extends Migration
             $table->string('order')->nullable();
             $table->string('option_name')->nullable();
             $table->integer('doc_applicable')->default('1')->nullable();
+            $table->integer('along_month')->default('0')->nullable();
 
         });
     }
@@ -32,6 +33,6 @@ class CreateDocumentsAuditoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents_auditory');
+        Schema::dropIfExists('auditory');
     }
 }

@@ -2,13 +2,13 @@
     <div class="row">
         <div class="col-md-2 border-right">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active text-center" id="v-pills-entrevista-tab" data-toggle="pill"
+                <a class="nav-link active  text-center" id="v-pills-entrevista-tab" data-toggle="pill"
                     href="#v-pills-entrevista" role="tab" aria-controls="v-pills-entrevista"
                     aria-selected="true">Entrevista</a>
                 <a class="nav-link {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-contratacao-tab"
                     data-toggle="pill" href="#v-pills-contratacao" role="tab" aria-controls="v-pills-contratacao"
                     aria-selected="false">Contratação</a>
-                <a class="nav-link {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-ac_mensal-tab"
+                <a class="nav-link  {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-ac_mensal-tab"
                     data-toggle="pill" href="#v-pills-ac_mensal" role="tab" aria-controls="v-pills-ac_mensal"
                     aria-selected="false">Acompanhamento Mensal</a>
                 <a class="nav-link {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-documentos-tab"
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-entrevista" role="tabpanel"
+                <div class="tab-pane fade show active " id="v-pills-entrevista" role="tabpanel"
                     aria-labelledby="v-pills-entrevista-tab">
                     @include('pages.painel.rh.employees._partials.entrevista')
                 </div>
@@ -32,14 +32,14 @@
                     @include('pages.painel.rh.employees._partials.contratacao')
 
                 </div>
-                <div class="tab-pane fade" id="v-pills-ac_mensal" role="tabpanel"
+                <div class="tab-pane fade " id="v-pills-ac_mensal" role="tabpanel"
                     aria-labelledby="v-pills-ac_mensal-tab">
                     @include('pages.painel.rh.employees._partials.ac_mensal')
 
                 </div>
                 <div class="tab-pane fade" id="v-pills-documentos" role="tabpanel"
                     aria-labelledby="v-pills-documentos-tab">
-
+                    @include('pages.painel.rh.employees._partials.documentos')
                 </div>
             </div>
         </div>
@@ -48,12 +48,14 @@
 
 <div class="modal" id="modal--save--document" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog" role="document">
-        <form action="{{ route('employees.auditory.update', $employee->uuid) }}" method="POST"
+        <form id="update--Auditory" action="{{ route('employees.auditory.update', $employee->uuid) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="auditory_id" id="auditory_id">
+            <input type="hidden" name="employees_auditory_month_id" id="employees_auditory_month_id">
             <input type="hidden" name="type_pasta" id="type_pasta">
             <input type="hidden" name="document_name" id="document_name">
+            <input type="hidden" name="data_month" id="data_month">
 
             <div class="modal-content">
                 <div class="modal-header">

@@ -24,8 +24,8 @@ class CreateEmployeesAuditoryTable extends Migration
             $table->unsignedBigInteger('auditory_id');
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->foreign('auditory_id')->references('id')->on('documents_auditory');
-            $table->unsignedBigInteger('update_by')->nullable();
+            $table->foreign('auditory_id')->references('id')->on('auditory');
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->timestamps();
         });

@@ -50,21 +50,30 @@ class EmployeesController extends Controller
      */
     public function store(StoreUpdateEmployee $request)
     {
+
         $employee = $this->repository->create($request->all());
 
-        $documents_auditory = DB::select(
-            "SELECT id,doc_applicable FROM documents_auditory"
+        $auditory = DB::select(
+            "SELECT id,doc_applicable,doc_along_month FROM auditory"
         );
 
-        foreach ($documents_auditory as $doc) {
+        foreach ($auditory as $doc) {
             $auditory_id = $doc->id;
             $applicable = $doc->doc_applicable;
+            $along_month = $doc->doc_along_month;
 
-            DB::insert('INSERT INTO employees_auditory (auditory_id, employee_id, applicable) VALUES (:auditory_id, :employee_id, :applicable)', [
+            DB::insert('INSERT INTO employees_auditory (auditory_id, employee_id, applicable, along_month) VALUES (:auditory_id, :employee_id, :applicable, :along_month)', [
                 'auditory_id' => $auditory_id,
                 'employee_id' => $employee->id,
                 'applicable' => $applicable,
+                'along_month' => $along_month
             ]);
+
+            $employees_auditory_id = DB::getPdo()->lastInsertId();
+
+            if ($along_month == true) {
+                $this->gerarParcelasMes($employees_auditory_id);
+            }
         }
 
         return redirect()
@@ -112,7 +121,7 @@ class EmployeesController extends Controller
 
         $documentos = DB::select(
             "SELECT *, ea.id as employee_auditory_id FROM employees_auditory ea
-                INNER JOIN documents_auditory da ON (ea.auditory_id = da.id)
+                INNER JOIN auditory da ON (ea.auditory_id = da.id)
                 WHERE ea.employee_id = :employee_id
             ",
             [
@@ -134,7 +143,7 @@ class EmployeesController extends Controller
                     $docs['documentos_acompanhamento'][] = $documento;
                     break;
                 case 'documentos':
-                    $docs['documentos_documentos'][] = $documento;
+                    $docs['documentos_docs'][] = $documento;
                     break;
                 default:
                     $docs['documentos_all'][] = $documento;
@@ -241,13 +250,13 @@ class EmployeesController extends Controller
 
             DB::update('UPDATE employees_auditory SET
                 status = :status,
-                update_by = :update_by,
+                updated_by = :updated_by,
                 updated_at = :date_now,
                 document_link = :document_link,
                 applicable = 1
             WHERE id = :auditory_id', [
                 'status' => '1',
-                'update_by' => $user->id,
+                'updated_by' => $user->id,
                 'auditory_id' => $request->auditory_id,
                 'date_now' => date('Y-m-d H:i:s'),
                 'document_link' => $upload
@@ -263,6 +272,12 @@ class EmployeesController extends Controller
             ->with('message', 'Nenhum arquivo selecionado');
     }
 
+    /**
+     * atualizar o documento_auditory para ser aplicavel
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response JSON
+     */
     public function update_auditory_applicable(Request $request)
     {
         $update = DB::update('UPDATE employees_auditory SET
@@ -273,5 +288,19 @@ class EmployeesController extends Controller
         ]);
 
         return response()->json($update);
+    }
+    public function gerarParcelasMes($employees_auditory_id)
+    {
+        $mes = date("m");
+        $ano = date("Y");
+
+        for ($x = 0; $x <= 20; $x++) {
+            $dt_parcelas[$x] = date("Y-m", strtotime("+" . $x . " month", mktime(0, 0, 0, $mes, '25', $ano)));
+
+            DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
+                'month' => $dt_parcelas[$x],
+                'employees_auditory_id' => $employees_auditory_id,
+            ]);
+        }
     }
 }

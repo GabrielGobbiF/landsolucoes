@@ -1,4 +1,5 @@
 @csrf
+<input type="hidden" id="employee_id" value="{{ $employee->uuid ?? ''}}" />
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">

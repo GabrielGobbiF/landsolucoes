@@ -55,7 +55,7 @@
                 </th>
                 @if ($documento->status == '1' && $documento->document_link != '')
                     @php
-                    $usuario = Auth::user()->where('id', $documento->update_by)->first();
+                    $usuario = Auth::user()->where('id', $documento->updated_by)->first();
                     $nome_usuario = $usuario->name;
                     $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
                     $doc = '<a href=""> ver </a>'

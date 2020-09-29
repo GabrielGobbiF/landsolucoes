@@ -29,10 +29,10 @@
                     <td>{{ $employees->rg }}</td>
                     <td>{{ $employees->email }}</td>
                     <td>
-                        <a href="{{ route('employees.show', $employees->uuid) }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('employees.show', $employees->uuid) }}" class="btn btn-xs btn-dark ">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{ route('employees.destroy', $employees->uuid) }}" class="btn btn-sm btn-danger">
+                        <a href="{{ route('employees.destroy', $employees->uuid) }}" class="btn btn-xs btn-danger">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
