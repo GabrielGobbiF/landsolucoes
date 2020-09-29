@@ -21,7 +21,7 @@ class CreateDocumentsAuditoryTable extends Migration
             $table->string('order')->nullable();
             $table->string('option_name')->nullable();
             $table->integer('doc_applicable')->default('1')->nullable();
-            $table->integer('along_month')->default('0')->nullable();
+            $table->integer('doc_along_month')->default('0')->nullable();
 
         });
     }

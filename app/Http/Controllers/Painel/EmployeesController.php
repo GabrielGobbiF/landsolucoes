@@ -315,7 +315,7 @@ class EmployeesController extends Controller
         $mes = date("m");
         $ano = date("Y");
 
-        for ($x = 0; $x <= 20; $x++) {
+        for ($x = 0; $x <= 30; $x++) {
             $dt_parcelas[$x] = date("Y-m", strtotime("+" . $x . " month", mktime(0, 0, 0, $mes, '25', $ano)));
 
             DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [

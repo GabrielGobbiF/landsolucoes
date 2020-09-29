@@ -19,6 +19,7 @@ class CreateEmployeesAuditoryTable extends Migration
             $table->string('observacao')->nullable();
             $table->integer('applicable')->default('1')->nullable();
             $table->string('document_link')->nullable();
+            $table->integer('along_month')->nullable();
 
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('auditory_id');
