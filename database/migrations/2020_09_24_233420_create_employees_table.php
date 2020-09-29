@@ -23,9 +23,10 @@ class CreateEmployeesTable extends Migration
             $table->string('estado_civil');
             $table->string('cargo');
             $table->double('salario', 10, 2);
-            $table->enum('cnh', ['0', '1'])->default('0');
+            $table->enum('cnh', ['0', '1'])->default('0')->nullable();
             $table->string('email')->unique();
-            $table->string('url')->unique();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
 
             $table->timestamps();
         });

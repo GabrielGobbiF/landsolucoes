@@ -83,7 +83,6 @@
         </div>
     </div>
 </div>
-
 <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Salvar</button>
+    <input  type="submit" class="btn btn-primary" onclick="this.disabled = true; this.value = 'Salvando…'; this.form.submit();" value="Salvar">
 </div>

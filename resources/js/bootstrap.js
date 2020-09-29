@@ -1,41 +1,67 @@
 window._ = require('lodash');
 
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap');
-} catch (e) {}
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
+} catch (e) { }
 
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+window.$ = window.jQuery = require('jquery/dist/jquery');
 
-// import Echo from 'laravel-echo';
+jQuery(function () {
+    $('.status').on('change', function (e) {
+        var id = $(this).closest('tr').data('id');
+        var pasta = $(this).closest('tr').data('type');
+        var name = $(this).closest('tr').data('name');
 
-// window.Pusher = require('pusher-js');
+        $('#auditory_id').val(id);
+        $('#type_pasta').val(pasta);
+        $('#document_name').val(name);
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+        $('#modal--save--document').modal({ show: true });
+
+        $('.btn-cancel').on('click', function () {
+            $('#option_nao_' + id).prop('checked', true);
+        })
+    });
+
+    $('.applicable').on('change', function (e) {
+        var id = $(this).val();
+        if ($(this).is(":checked")) {
+            if (confirm('Deseja alterar esse documento para aplicavel?')) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: 'http://127.0.0.1:8000/rh/employees/update_auditory_applicable',
+                    type: 'POST',
+                    ajax: true,
+                    dataType: "JSON",
+                    data: {
+                        auditory_id: id
+                    },
+                    dataType: 'json',
+                    success: function (json) {
+                        $('.radio_applicable_' + id).css('display', 'none');
+                        $('#yesorno_' + id).css('display', '');
+                    },
+                });
+            } else {
+                $(this).prop('checked', false);
+            }
+        }
+
+    });
+
+    if (window.location.hash == 'documentos-tab') {
+        $('#myTab_employee #documentos-tab').tab('show')
+    }
+});
+
+function employees() {
+
+}

@@ -19,7 +19,6 @@
                 <tr class="text-center">
                     <th style="text-align:left">Nome</th>
                     <th>RG</th>
-                    <th>CNH</th>
                     <th>Email</th>
                     <th>Ação</th>
                 </tr>
@@ -28,7 +27,6 @@
                 <tr class="text-center">
                     <td style="text-align:left">{{ $employees->name }}</td>
                     <td>{{ $employees->rg }}</td>
-                    <td>{{ $employees->cnh == 0 ? 'não' : 'sim' }}</td>
                     <td>{{ $employees->email }}</td>
                     <td>
                         <a href="{{ route('employees.show', $employees->uuid) }}" class="btn btn-sm btn-primary">

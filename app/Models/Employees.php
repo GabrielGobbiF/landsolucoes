@@ -10,4 +10,9 @@ class Employees extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email', 'url'];
+
+    public function auditory()
+    {
+        return $this->hasMany(Auditory::class, 'employee_id');
+    }
 }

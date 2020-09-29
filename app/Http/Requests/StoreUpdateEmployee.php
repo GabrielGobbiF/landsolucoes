@@ -28,8 +28,8 @@ class StoreUpdateEmployee extends FormRequest
 
         return [
             'name' => "required|min:5|max:255|unique:employees,name,{$uuid},uuid",
-            'rg' => "required|digits:9|regex:/^\d+(\.\d{1,2})?$/",
-            'ctps' => "required|regex:/^\d+(\.\d{1,2})?$/",
+            'rg' => "required|regex:/^\d+(\.\d{1,2})?$/|unique:employees,rg,{$uuid},uuid",
+            'ctps' => "required|regex:/^\d+(\.\d{1,2})?$/|unique:employees,ctps,{$uuid},uuid",
             'email' => "required|min:3|max:255|unique:employees,email,{$uuid},uuid",
             'endereco' => "required|min:3|max:255",
             'estado_civil' => "required|min:3|max:255",
