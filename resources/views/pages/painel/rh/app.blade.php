@@ -11,7 +11,17 @@
     <title>RH Land</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @if (config('app.env') == 'local')
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset(mix('css/app.css'), true) }}">
+    @endif
+    @if (config('app.env') == 'local')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @else
+        <script src="{{ asset(mix('js/app.js'), true) }}"></script>
+    @endif
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 
@@ -21,10 +31,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 
 <body>
@@ -106,4 +112,5 @@
         </main>
     </div>
 </body>
+
 </html>
