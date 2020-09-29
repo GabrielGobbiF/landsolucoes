@@ -17,13 +17,10 @@
         <link rel="stylesheet" href="{{ asset(mix('css/app.css'), true) }}">
     @endif
     @if (config('app.env') == 'local')
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     @else
-        <script src="{{ asset(mix('js/app.js'), true) }}"></script>
+        <script src="{{ asset(mix('js/app.js'), true) }}" defer></script>
     @endif
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 

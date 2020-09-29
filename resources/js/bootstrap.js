@@ -1,4 +1,3 @@
-window._ = require('lodash');
 
 try {
     window.Popper = require('popper.js').default;
@@ -6,12 +5,7 @@ try {
     require('bootstrap');
 } catch (e) { }
 
-window.axios = require('axios');
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
 jQuery(function () {
-
     $('.applicable').on('change', function (e) {
         var id = $(this).val();
         if ($(this).is(":checked")) {
