@@ -21,6 +21,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+
     <script>
         var BASE = `{{ env('APP_URL') }}`;
 
@@ -106,5 +108,8 @@
         </main>
     </div>
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
 
 </html>

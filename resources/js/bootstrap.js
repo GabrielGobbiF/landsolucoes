@@ -1,3 +1,4 @@
+window.toastr = require('toastr');
 
 try {
     window.Popper = require('popper.js').default;
@@ -6,7 +7,7 @@ try {
 } catch (e) { }
 
 jQuery(function () {
-    $('.applicable').on('change', function (e) {
+    $('.doc_applicable').on('change', function (e) {
         var id = $(this).val();
         if ($(this).is(":checked")) {
             if (confirm('Deseja alterar esse documento para aplicavel?')) {
@@ -14,7 +15,7 @@ jQuery(function () {
                     headers: {
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: BASE+'/rh/employees/update_auditory_applicable',
+                    url: BASE + '/rh/employees/update_auditory_applicable',
                     type: 'POST',
                     ajax: true,
                     dataType: "JSON",
@@ -41,7 +42,7 @@ jQuery(function () {
         var id = $(this).data('id');
         $('.acompanhamento-mensal').addClass('d-none');
         $.ajax({
-            url: BASE+'/rh/auditorys/month/' + id,
+            url: BASE + '/rh/auditorys/month/' + id,
             type: "GET",
             ajax: true,
             dataType: "JSON",
@@ -91,19 +92,19 @@ jQuery(function () {
                     $('.title_table--mensal').html(j.title);
 
                 } else {
-                    alert(j.message);
+                    toastr.error(j.message);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error get data from ajax');
+                toastr.error('Error');
             }
         });
     });
 
-    $('#cnh_check').on('change', function (){
-        if($(this).is(":checked")){
+    $('#cnh_check').on('change', function () {
+        if ($(this).is(":checked")) {
             $('.div--cnh_number').removeClass('d-none')
-        }else {
+        } else {
             $('#input--cnh_number').val('');
             $('.div--cnh_number').addClass('d-none')
         }
@@ -117,6 +118,7 @@ jQuery(function () {
         $('.acompanhamento-mensal').removeClass('d-none');
         $('.table-mensal').addClass('d-none');
     })
+
 });
 
 function updateAuditoryMonth(v) {
@@ -127,7 +129,7 @@ function updateAuditoryMonth(v) {
     var data_month = $(v).closest('tr').data('month');
 
     if (pasta == 'Acompanhamento_mensal') {
-        $('#update--Auditory').attr('action', BASE+'/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
+        $('#update--Auditory').attr('action', BASE + '/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
         $('#employees_auditory_month_id').val(id);
         $('#employees_auditory_month_id').val(id);
         $('#data_month').val(data_month);
