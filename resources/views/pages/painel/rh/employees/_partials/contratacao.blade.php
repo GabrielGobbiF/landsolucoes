@@ -9,16 +9,16 @@
                     <div class="form-group">
                         <div class="radio">
                             @if ($documento->applicable == '0')
-                                <div class="radio_applicable_{{ $documento->id }}">
+                                <div class="radio_doc_applicable_{{ $documento->id }}">
                                     <label style="margin-right:5px">
-                                        <input type="checkbox" class="applicable"
+                                        <input type="checkbox" class="doc_applicable"
                                             value="{{ $documento->id }}" />
                                         Aplicável
                                     </label>
                                 </div>
 
                                 <div style="display:none"
-                                    class="radio_applicable_{{ $documento->id }}"
+                                    class="radio_doc_applicable_{{ $documento->id }}"
                                     id="yesorno_{{ $documento->id }}">
                                     <label style="margin-right:5px">
                                         <input type="radio" data-collumn="status" class="status"

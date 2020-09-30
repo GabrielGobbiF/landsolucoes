@@ -18098,7 +18098,7 @@ jQuery(function () {
             auditory_id: id
           }
         }, _defineProperty(_$$ajax, "dataType", 'json'), _defineProperty(_$$ajax, "success", function success(json) {
-          $('.radio_applicable_' + id).css('display', 'none');
+          $('.radio_doc_applicable_' + id).css('display', 'none');
           $('#yesorno_' + id).css('display', '');
         }), _$$ajax));
       } else {

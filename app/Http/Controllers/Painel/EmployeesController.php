@@ -256,10 +256,10 @@ class EmployeesController extends Controller
     public function update_auditory_applicable(Request $request)
     {
         $update = DB::update('UPDATE employees_auditory SET
-                applicable = :applicable
+                doc_applicable = :doc_applicable
             WHERE id = :auditory_id', [
-            'applicable' => 1,
-            'auditory_id' => $request->auditory_id,
+            'doc_applicable' => 1,
+            'auditory_id' => $request->id,
         ]);
 
         return response()->json($update);
@@ -308,10 +308,9 @@ class EmployeesController extends Controller
             $array_docs = (object) [
                 'id' => $documento->id,
                 'status' => $documento->status,
-                'applicable' => $documento->applicable,
-                'along_month' => $documento->along_month,
+                'applicable' => $documento->doc_applicable,
+                'along_month' => $documento->doc_along_month,
                 'document_link' => $documento->document_link != '' ? asset('storage/' . $documento->document_link) : '',
-                'employee_auditory_id' => $documento->employee_auditory_id,
                 'name' => $documento->name,
                 'description' => $documento->description,
                 'user_envio' => $nome_usuario,
@@ -337,11 +336,10 @@ class EmployeesController extends Controller
                     break;
             }
 
-            if ($documento->auditory_id == '46' && $documento->status === '1') {
+            if ($documento->name == 'entrevista' && $documento->status === '1') {
                 $docs['entrevista'] = true;
             }
         }
-
         return $docs;
     }
 }

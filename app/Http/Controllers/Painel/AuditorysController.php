@@ -28,17 +28,15 @@ class AuditorysController extends Controller
 
         $months = [];
 
-        $employee_auditory = DB::select('SELECT id,auditory_id FROM employees_auditory WHERE id = :id', [':id' => $id]);
+        $employee_auditory = DB::select('SELECT id,name,description FROM employees_auditory WHERE id = :id', [':id' => $id]);
 
         if (!$employee_auditory) {
             return response()->json(['error' => true, 'message' => 'não encontrado contate o administrador']);
         }
 
-        $auditory = $this->getNameAuditory($employee_auditory[0]->auditory_id);
-
         $employees_auditory_month = DB::select('SELECT id,status,empAudMont.month,docs_link,updated_by,updated_at FROM employees_auditory_month empAudMont
-        WHERE employees_auditory_id = :employees_auditory_id AND empAudMont.month <= :mes', [
-            'employees_auditory_id' => $employee_auditory[0]->id,
+        WHERE employees_auditory_id = :employees_id AND empAudMont.month <= :mes', [
+            'employees_id' => $employee_auditory[0]->id,
             'mes' => $mes,
         ]);
 
@@ -67,21 +65,12 @@ class AuditorysController extends Controller
         }
 
         $employees_auditory_month = [
-            'title' => $auditory->description,
-            'name' => $auditory->name,
+            'title' => $employee_auditory[0]->description,
+            'name' => $employee_auditory[0]->name,
             'payments' => $months
         ];
 
         return response()->json($employees_auditory_month);
-    }
-
-    public function getNameAuditory($auditory_id)
-    {
-        $auditory = DB::select('SELECT name,description FROM auditory
-        WHERE id = :id', [
-            'id' => $auditory_id,
-        ]);
-        return $auditory[0];
     }
 
     public function updateEmployeesAuditoryMonth(Request $request, $employee_id)

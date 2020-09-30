@@ -23,7 +23,7 @@ jQuery(function () {
                     },
                     dataType: 'json',
                     success: function (json) {
-                        $('.radio_applicable_' + id).css('display', 'none');
+                        $('.radio_doc_applicable_' + id).css('display', 'none');
                         $('#yesorno_' + id).css('display', '');
                     },
                 });
