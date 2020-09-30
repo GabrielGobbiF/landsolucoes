@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersRolesTable extends Migration
@@ -24,6 +25,13 @@ class CreateUsersRolesTable extends Migration
             //SETTING THE PRIMARY KEYS
             $table->primary(['user_id', 'role_id']);
         });
+
+        DB::table('users_roles')->insert(
+            [
+                'user_id' => '1',
+                'role_id' => '1',
+            ]
+        );
     }
 
     /**

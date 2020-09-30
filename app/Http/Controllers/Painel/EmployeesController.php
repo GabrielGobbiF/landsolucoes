@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEmployee;
+use App\Models\Auditory;
 use App\Models\Employees;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -64,24 +65,27 @@ class EmployeesController extends Controller
         $employee = $this->repository->create($columns);
 
         $auditory = DB::select(
-            "SELECT id,doc_applicable,doc_along_month FROM auditory"
+            "SELECT * FROM auditory"
         );
 
         foreach ($auditory as $doc) {
-            $auditory_id = $doc->id;
-            $applicable = $doc->doc_applicable;
-            $along_month = $doc->doc_along_month;
 
-            DB::insert('INSERT INTO employees_auditory (auditory_id, employee_id, applicable, along_month) VALUES (:auditory_id, :employee_id, :applicable, :along_month)', [
-                'auditory_id' => $auditory_id,
+            $docColumns = [
+                'name' => $doc->name,
+                'description' => $doc->description,
+                'type' => $doc->type,
+                'order' => $doc->order,
+                'option_name' => $doc->option_name,
+                'doc_applicable' => $doc->doc_applicable,
+                'doc_along_month' => $doc->doc_along_month,
                 'employee_id' => $employee->id,
-                'applicable' => $applicable,
-                'along_month' => $along_month
-            ]);
+            ];
 
-            $employees_auditory_id = DB::getPdo()->lastInsertId();
+            $employees_auditory = Auditory::create($docColumns);
 
-            if ($along_month == true) {
+            $employees_auditory_id = $employees_auditory->id;
+
+            if ($doc->doc_along_month == true) {
                 $this->gerarParcelasMes($employees_auditory_id, $request->date_contract);
             }
         }
@@ -107,7 +111,9 @@ class EmployeesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $documentos = $this->getDocumentAuditoryByEmployee($employee->id);
+        $documentos = $employee->auditory()->get();
+
+        $documentos = $this->getDocumentAuditoryByEmployee($documentos);
 
         $entrevista = $documentos['entrevista'] == true ?? false;
 
@@ -116,78 +122,6 @@ class EmployeesController extends Controller
             'documentos' => $documentos,
             'entrevista' => $entrevista
         ]);
-    }
-
-    /**
-     * Pegar o array dos documentos auditoria
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getDocumentAuditoryByEmployee($id)
-    {
-        $docs = [];
-
-        $documentos = DB::select(
-            "SELECT *, ea.id as employee_auditory_id FROM employees_auditory ea
-                INNER JOIN auditory da ON (ea.auditory_id = da.id)
-                WHERE ea.employee_id = :employee_id
-            ",
-            [
-                'employee_id' => $id
-            ]
-        );
-
-        $docs['entrevista'] = false;
-
-        foreach ($documentos as $documento) {
-            $nome_usuario = '';
-            $data_enviada = '';
-
-            if ($documento->updated_by != '') {
-                $usuario = User::where('id', $documento->updated_by)->first();
-                $nome_usuario = $usuario->name;
-                $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
-            }
-
-            $array_docs = (object) [
-                'id' => $documento->id,
-                'status' => $documento->status,
-                'applicable' => $documento->applicable,
-                'along_month' => $documento->along_month,
-                'document_link' => $documento->document_link != '' ? asset('storage/' . $documento->document_link) : '',
-                'employee_auditory_id' => $documento->employee_auditory_id,
-                'name' => $documento->name,
-                'description' => $documento->description,
-                'user_envio' => $nome_usuario,
-                'data_envio' => $data_enviada,
-                'option_name' => $documento->option_name
-            ];
-
-            switch ($documento->type) {
-                case 'entrevista':
-                    $docs['documentos_entrevista'][] = $array_docs;
-                    break;
-                case 'contratacao':
-                    $docs['documentos_contratacao'][] = $array_docs;
-                    break;
-                case 'acompanhamento':
-                    $docs['documentos_acompanhamento'][] = $array_docs;
-                    break;
-                case 'documentos':
-                    $docs['documentos_docs'][] = $array_docs;
-                    break;
-                default:
-                    $docs['documentos_all'][] = $array_docs;
-                    break;
-            }
-
-            if ($documento->auditory_id == '46' && $documento->status === '1') {
-                $docs['entrevista'] = true;
-            }
-        }
-        return $docs;
     }
 
     /**
@@ -219,7 +153,9 @@ class EmployeesController extends Controller
 
         $employee->update($columns);
 
-        $documentos = $this->getDocumentAuditoryByEmployee($employee->id);
+        $documentos = $employee->auditory()->get();
+
+        $documentos = $this->getDocumentAuditoryByEmployee($documentos);
 
         $entrevista = $documentos['entrevista'] == true ?? false;
 
@@ -277,7 +213,7 @@ class EmployeesController extends Controller
 
             $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
 
-            $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}", "{$docs_name}.pdf", 'public');
+            $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}", "{$docs_name}.pdf");
 
             if (empty($request->auditory_id)) {
                 return redirect()
@@ -292,7 +228,7 @@ class EmployeesController extends Controller
                 updated_by = :updated_by,
                 updated_at = :date_now,
                 document_link = :document_link,
-                applicable = 1
+                doc_applicable = 1
             WHERE id = :auditory_id', [
                 'status' => '1',
                 'updated_by' => $user->id,
@@ -343,5 +279,69 @@ class EmployeesController extends Controller
                 'employees_auditory_id' => $employees_auditory_id,
             ]);
         }
+    }
+
+    /**
+     * Pegar o array dos documentos auditoria
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getDocumentAuditoryByEmployee($documentos)
+    {
+        $docs = [];
+
+        $docs['entrevista'] = false;
+
+        foreach ($documentos as $documento) {
+
+            $nome_usuario = '';
+            $data_enviada = '';
+
+            if ($documento->updated_by != '') {
+                $usuario = User::where('id', $documento->updated_by)->first();
+                $nome_usuario = $usuario->name;
+                $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
+            }
+
+            $array_docs = (object) [
+                'id' => $documento->id,
+                'status' => $documento->status,
+                'applicable' => $documento->applicable,
+                'along_month' => $documento->along_month,
+                'document_link' => $documento->document_link != '' ? asset('storage/' . $documento->document_link) : '',
+                'employee_auditory_id' => $documento->employee_auditory_id,
+                'name' => $documento->name,
+                'description' => $documento->description,
+                'user_envio' => $nome_usuario,
+                'data_envio' => $data_enviada,
+                'option_name' => $documento->option_name
+            ];
+
+            switch ($documento->type) {
+                case 'entrevista':
+                    $docs['documentos_entrevista'][] = $array_docs;
+                    break;
+                case 'contratacao':
+                    $docs['documentos_contratacao'][] = $array_docs;
+                    break;
+                case 'acompanhamento':
+                    $docs['documentos_acompanhamento'][] = $array_docs;
+                    break;
+                case 'documentos':
+                    $docs['documentos_docs'][] = $array_docs;
+                    break;
+                default:
+                    $docs['documentos_all'][] = $array_docs;
+                    break;
+            }
+
+            if ($documento->auditory_id == '46' && $documento->status === '1') {
+                $docs['entrevista'] = true;
+            }
+        }
+
+        return $docs;
     }
 }

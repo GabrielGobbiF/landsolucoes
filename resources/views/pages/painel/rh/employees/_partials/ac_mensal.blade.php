@@ -2,7 +2,7 @@
     <table class="table">
         <tbody>
             @foreach ($documentos['documentos_acompanhamento'] as $documento)
-                <tr data-id="{{ $documento->employee_auditory_id }}" data-name="{{ $documento->name }}"
+                <tr data-id="{{ $documento->id }}" data-name="{{ $documento->name }}"
                     data-type="contratacao">
                     <th style="width: 44%"> <span data-toggle="tooltip" title="">
                             {{ $documento->description ?? '' }}
@@ -12,15 +12,15 @@
                         @if ($documento->along_month == true)
                             <div class="form-group">
                                 <div class="radio">
-                                    <a href="#" data-id="{{ $documento->employee_auditory_id }}"
+                                    <a href="#" data-id="{{ $documento->id }}"
                                         class="visibility_auditory_month">Visualizar</a>
                                 </div>
                             </div>
                         @else
                             <label style="margin-right:5px">
                                 <input type="radio" data-collumn="status" class="status"
-                                    name="status_{{ $documento->employee_auditory_id }}"
-                                    id="option_sim_{{ $documento->employee_auditory_id }}" value="1"
+                                    name="status_{{ $documento->id }}"
+                                    id="option_sim_{{ $documento->id }}" value="1"
                                     {{ $documento->status == '1' ? 'checked' : '' }} />
                                 Sim
                             </label>
@@ -28,8 +28,8 @@
                             @if ($documento->status != '1')
                                 <label>
                                     <input type="radio" data-collumn="status" class="status"
-                                        name="status_{{ $documento->employee_auditory_id }}"
-                                        id="option_nao_{{ $documento->employee_auditory_id }}" value="0"
+                                        name="status_{{ $documento->id }}"
+                                        id="option_nao_{{ $documento->id }}" value="0"
                                         {{ $documento->status == '0' ? 'checked' : '' }} />
                                     Não
                                 </label>

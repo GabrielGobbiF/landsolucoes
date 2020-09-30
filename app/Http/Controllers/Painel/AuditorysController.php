@@ -48,19 +48,19 @@ class AuditorysController extends Controller
 
         foreach ($employees_auditory_month as $month) {
 
-            if($month->docs_link != '' ){
+            if ($month->docs_link != '') {
                 $usuario = User::where('id', $month->updated_by)->first();
                 $nome_usuario = $usuario->name;
                 $data_enviada = date('d/m/Y H:i', strtotime($month->updated_at));
-                $doc = 'Documento enviado por '.$nome_usuario.' em '.$data_enviada;
-            }else {
+                $doc = 'Documento enviado por ' . $nome_usuario . ' em ' . $data_enviada;
+            } else {
                 $doc = '';
             }
 
             $months[] = [
                 'id' => $month->id,
                 'month' => date('m/Y', strtotime($month->month)),
-                'docs' => $month->docs_link != '' ? asset('storage/'. $month->docs_link) : false,
+                'docs' => $month->docs_link != '' ? asset('storage/' . $month->docs_link) : false,
                 'status' => $month->status ? 'OK' : 'Pendente',
                 'docs_envio' => $doc
             ];
@@ -107,7 +107,7 @@ class AuditorysController extends Controller
 
             $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
 
-            $data_doc = str_replace('/', '_',$request->data_month);
+            $data_doc = str_replace('/', '_', $request->data_month);
 
             $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}/{$request->document_name}/{$data_doc}", "{$docs_name}.pdf");
 
@@ -141,4 +141,6 @@ class AuditorysController extends Controller
             ->back()
             ->with('message', 'Nenhum arquivo selecionado');
     }
+
+
 }

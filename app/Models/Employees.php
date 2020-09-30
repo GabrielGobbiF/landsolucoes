@@ -13,6 +13,6 @@ class Employees extends Model
 
     public function auditory()
     {
-        return $this->hasMany(Auditory::class, 'employee_id');
+        return $this->hasMany(Auditory::class, 'employee_id', 'id');
     }
 }

@@ -22,6 +22,7 @@ class CreateEmployeesTable extends Migration
             $table->string('endereco');
             $table->string('estado_civil');
             $table->string('cargo');
+            $table->date('date_contract');
             $table->string('cnh_number')->nullable();
             $table->double('salario', 10, 2);
             $table->enum('cnh', ['0', '1'])->default('0')->nullable();

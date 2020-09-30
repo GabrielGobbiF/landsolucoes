@@ -15,17 +15,20 @@ class CreateEmployeesAuditoryTable extends Migration
     {
         Schema::create('employees_auditory', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('status', ['0', '1'])->default('0');
-            $table->string('observacao')->nullable();
-            $table->integer('applicable')->default('1')->nullable();
-            $table->string('document_link')->nullable();
-            $table->integer('along_month')->nullable();
 
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('auditory_id');
+            $table->string('name')->nullable();
+            $table->string('description')->nullable();
+            $table->string('type')->nullable();
+            $table->string('document_link')->nullable();
+            $table->integer('order')->nullable();
+            $table->string('option_name')->nullable();
+            $table->integer('doc_applicable')->default('1')->nullable();
+            $table->integer('doc_along_month')->nullable();
+            $table->enum('status', ['0', '1'])->default('0');
+
+            $table->unsignedBigInteger('employee_id')->nullable();
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->foreign('auditory_id')->references('id')->on('auditory');
             $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->timestamps();

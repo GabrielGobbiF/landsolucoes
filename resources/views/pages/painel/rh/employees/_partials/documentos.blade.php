@@ -1,7 +1,7 @@
 <table class="table">
     <tbody>
         @foreach ($documentos['documentos_docs'] as $documento)
-            <tr data-id="{{ $documento->employee_auditory_id }}" data-name="{{ $documento->name }}"
+            <tr data-id="{{ $documento->id }}" data-name="{{ $documento->name }}"
                 data-type="documentos">
                 <th > <span data-toggle="tooltip" title=""> {{ $documento->description ?? '' }}</span>
                 </th>
@@ -10,16 +10,16 @@
                         <div class="radio">
                             <label style="margin-right:5px">
                                 <input type="radio" data-collumn="status" class="status"
-                                    name="status_{{ $documento->employee_auditory_id }}"
-                                    id="option_sim_{{ $documento->employee_auditory_id }}" value="1"
+                                    name="status_{{ $documento->id }}"
+                                    id="option_sim_{{ $documento->id }}" value="1"
                                     {{ $documento->status == '1' ? 'checked' : '' }} />
                                 Sim
                             </label>
                             @if ($documento->status != '1')
                                 <label>
                                     <input type="radio" data-collumn="status" class="status"
-                                        name="status_{{ $documento->employee_auditory_id }}"
-                                        id="option_nao_{{ $documento->employee_auditory_id }}" value="0"
+                                        name="status_{{ $documento->id }}"
+                                        id="option_nao_{{ $documento->id }}" value="0"
                                         {{ $documento->status == '0' ? 'checked' : '' }} />
                                     Não
                                 </label>
