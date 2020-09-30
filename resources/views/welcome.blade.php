@@ -441,7 +441,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs"
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="#"
                                         class="underline text-gray-900 dark:text-white">Obras</a></div>
                             </div>
                         </div>
@@ -484,7 +484,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/"
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="#"
                                         class="underline text-gray-900 dark:text-white">Veiculos</a></div>
                             </div>
                         </div>

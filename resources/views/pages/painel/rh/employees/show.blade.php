@@ -9,7 +9,7 @@
             <ul class="nav nav-tabs" id="myTab_employee" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active " id="dados-tab" data-toggle="tab" href="#dados" role="tab"
-                        aria-controls="dados" aria-selected="true">Informações</a>
+                        aria-controls="dados" aria-selected="true">Cadastro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " id="documentos-tab" data-toggle="tab" href="#documentos" role="tab"

@@ -48,6 +48,10 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employees') }}">Auditoria da Empresa</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('employees') }}">Relátorio</a>
                             </li>
                         </ul>
