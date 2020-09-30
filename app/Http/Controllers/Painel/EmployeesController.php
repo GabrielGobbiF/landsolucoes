@@ -277,7 +277,7 @@ class EmployeesController extends Controller
 
             $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
 
-            $upload = $request->file->storeAs("storage/documentos/employees/{$employee_name}/{$request->type_pasta}", "{$docs_name}.pdf");
+            $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}", "{$docs_name}.pdf");
 
             if (empty($request->auditory_id)) {
                 return redirect()
