@@ -18079,7 +18079,7 @@ try {
 } catch (e) {}
 
 jQuery(function () {
-  $('.applicable').on('change', function (e) {
+  $('.doc_applicable').on('change', function (e) {
     var id = $(this).val();
 
     if ($(this).is(":checked")) {
