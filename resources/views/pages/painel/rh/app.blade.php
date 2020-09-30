@@ -10,17 +10,10 @@
 
     <title>RH Land</title>
 
+    <script src="{{ asset(mix('js/app.js'), true) }}" defer></script>
+
     <!-- Scripts -->
-    @if (config('app.env') == 'local')
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @else
-        <link rel="stylesheet" href="{{ asset(mix('css/app.css'), true) }}">
-    @endif
-    @if (config('app.env') == 'local')
-        <script src="{{ asset('js/app.js') }}" defer></script>
-    @else
-        <script src="{{ asset(mix('js/app.js'), true) }}" defer></script>
-    @endif
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 
