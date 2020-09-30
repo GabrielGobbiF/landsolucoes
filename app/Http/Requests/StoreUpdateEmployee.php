@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUpdateEmployee extends FormRequest
@@ -23,7 +24,6 @@ class StoreUpdateEmployee extends FormRequest
      */
     public function rules()
     {
-
         $uuid = $this->segment(3);
 
         return [
@@ -34,7 +34,9 @@ class StoreUpdateEmployee extends FormRequest
             'endereco' => "required|min:3|max:255",
             'estado_civil' => "required|min:3|max:255",
             'cargo' => "required|min:3|max:255",
-            'salario' => "required|regex:/^\d+(\.\d{1,2})?$/",
+            'salario' => "required|max:8|regex:/^\d+(\.\d{1,2})?$/",
+            'cnh_number' => "nullable|regex:/^\d+(\.\d{1,2})?$/",
+            'date_contract' => "required",
         ];
     }
 }

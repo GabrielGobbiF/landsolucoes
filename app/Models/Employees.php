@@ -9,7 +9,7 @@ class Employees extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email', 'url'];
+    protected $fillable = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email', 'url', 'cnh_number', 'date_contract'];
 
     public function auditory()
     {

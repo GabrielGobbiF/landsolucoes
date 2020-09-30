@@ -50,8 +50,17 @@ class EmployeesController extends Controller
      */
     public function store(StoreUpdateEmployee $request)
     {
+        $columns = $request->all();
 
-        $employee = $this->repository->create($request->all());
+        if (!$request->cnh) {
+            $columns['cnh'] = '0';
+        }
+
+        if ($request->date_contract) {
+            $columns['date_contract'] = date('Y-m-d', strtotime(str_replace('/', '-', $request->date_contract)));
+        }
+
+        $employee = $this->repository->create($columns);
 
         $auditory = DB::select(
             "SELECT id,doc_applicable,doc_along_month FROM auditory"
@@ -72,7 +81,7 @@ class EmployeesController extends Controller
             $employees_auditory_id = DB::getPdo()->lastInsertId();
 
             if ($along_month == true) {
-                $this->gerarParcelasMes($employees_auditory_id);
+                $this->gerarParcelasMes($employees_auditory_id, $request->date_contract);
             }
         }
 
@@ -146,7 +155,7 @@ class EmployeesController extends Controller
                 'status' => $documento->status,
                 'applicable' => $documento->applicable,
                 'along_month' => $documento->along_month,
-                'document_link' => $documento->document_link != '' ? env('APP_URL') . '/storage/' . $documento->document_link : '',
+                'document_link' => $documento->document_link != '' ? asset('storage/' . $documento->document_link) : '',
                 'employee_auditory_id' => $documento->employee_auditory_id,
                 'name' => $documento->name,
                 'description' => $documento->description,
@@ -190,6 +199,14 @@ class EmployeesController extends Controller
     public function update(StoreUpdateEmployee $request, $uuid)
     {
         $columns = $request->all();
+
+        if (!$request->cnh) {
+            $columns['cnh'] = '0';
+        }
+
+        if ($request->date_contract) {
+            $columns['date_contract'] = date('Y-m-d', strtotime(str_replace('/', '-', $request->date_contract)));
+        }
 
         $employee = $this->repository->where('uuid', $uuid)->first();
 
@@ -310,12 +327,14 @@ class EmployeesController extends Controller
 
         return response()->json($update);
     }
-    public function gerarParcelasMes($employees_auditory_id)
+    public function gerarParcelasMes($employees_auditory_id, $data_contratacao)
     {
-        $mes = date("m");
-        $ano = date("Y");
+        $dataContratacao = explode('/', $data_contratacao);
 
-        for ($x = 0; $x <= 30; $x++) {
+        $mes = $dataContratacao[1];
+        $ano = $dataContratacao[2];
+
+        for ($x = 0; $x <= 50; $x++) {
             $dt_parcelas[$x] = date("Y-m", strtotime("+" . $x . " month", mktime(0, 0, 0, $mes, '25', $ano)));
 
             DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [

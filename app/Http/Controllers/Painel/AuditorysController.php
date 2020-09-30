@@ -60,7 +60,7 @@ class AuditorysController extends Controller
             $months[] = [
                 'id' => $month->id,
                 'month' => date('m/Y', strtotime($month->month)),
-                'docs' => $month->docs_link != '' ? env('APP_URL') . '/storage/' . $month->docs_link : false,
+                'docs' => $month->docs_link != '' ? asset('storage/'. $month->docs_link) : false,
                 'status' => $month->status ? 'OK' : 'Pendente',
                 'docs_envio' => $doc
             ];

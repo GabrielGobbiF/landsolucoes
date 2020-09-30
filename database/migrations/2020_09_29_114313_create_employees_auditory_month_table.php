@@ -18,6 +18,7 @@ class CreateEmployeesAuditoryMonthTable extends Migration
             $table->enum('status', ['0', '1'])->default('0');
             $table->string('month')->nullable();
             $table->string('docs_link')->nullable();
+            $table->date('date_contract')->nullable();
 
             $table->unsignedBigInteger('employees_auditory_id');
 

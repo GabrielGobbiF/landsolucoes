@@ -11,9 +11,6 @@
                 <a class="nav-link  {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-ac_mensal-tab"
                     data-toggle="pill" href="#v-pills-ac_mensal" role="tab" aria-controls="v-pills-ac_mensal"
                     aria-selected="false">Acompanhamento Mensal</a>
-                <a class="nav-link {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-documentos-tab"
-                    data-toggle="pill" href="#v-pills-documentos" role="tab" aria-controls="v-pills-documentos"
-                    aria-selected="false">Documentos</a>
                 <hr>
                 <a class="nav-link disabled text-center" style="color:rgb(239 109 109)" id="v-pills-documentos-tab"
                     data-toggle="pill" href="#v-pills-documentos" role="tab" aria-controls="v-pills-documentos"
@@ -26,20 +23,13 @@
                     aria-labelledby="v-pills-entrevista-tab">
                     @include('pages.painel.rh.employees._partials.entrevista')
                 </div>
-
                 <div class="tab-pane fade" id="v-pills-contratacao" role="tabpanel"
                     aria-labelledby="v-pills-contratacao-tab">
                     @include('pages.painel.rh.employees._partials.contratacao')
-
                 </div>
                 <div class="tab-pane fade " id="v-pills-ac_mensal" role="tabpanel"
                     aria-labelledby="v-pills-ac_mensal-tab">
                     @include('pages.painel.rh.employees._partials.ac_mensal')
-
-                </div>
-                <div class="tab-pane fade" id="v-pills-documentos" role="tabpanel"
-                    aria-labelledby="v-pills-documentos-tab">
-                    @include('pages.painel.rh.employees._partials.documentos')
                 </div>
             </div>
         </div>

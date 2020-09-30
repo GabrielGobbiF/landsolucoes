@@ -1,5 +1,5 @@
 @csrf
-<input type="hidden" id="employee_id" value="{{ $employee->uuid ?? ''}}" />
+<input type="hidden" id="employee_id" value="{{ $employee->uuid ?? '' }}" />
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
@@ -47,8 +47,20 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--estado_civil">Estado Civil</label>
-                <input type="text" name="estado_civil" class="form-control @error('estado_civil') is-invalid @enderror"
-                    id="input--estado_civil" value="{{ $employee->estado_civil ?? old('estado_civil') }}">
+                <select name="estado_civil" id="input--estado_civil"
+                    class="form-control @error('estado_civil') is-invalid @enderror">
+                    <option
+                        {{ isset($employee->estado_civil) && $employee->estado_civil == 'Casado' ? 'selected' : '' }}
+                        value="Casado" class="">Casado</option>
+                    <option {{ isset($employee->estado_civil) && $employee->estado_civil == 'Viuvo' ? 'selected' : '' }}
+                        value="Viuvo" class="">Viuvo</option>
+                    <option
+                        {{ isset($employee->estado_civil) && $employee->estado_civil == 'Não especificado' ? 'selected' : '' }}
+                        value="Não especificado" class="">Não especificado</option>
+                        <option
+                        {{ isset($employee->estado_civil) && $employee->estado_civil == 'Solteiro' ? 'selected' : '' }}
+                        value="Solteiro" class="">Solteiro</option>
+                </select>
             </div>
         </div>
 
@@ -62,9 +74,16 @@
 
         <div class="col-md-3">
             <div class="form-group">
-                <label for="input--salario">Salario</label>
+                <label for="input--salario">Salário</label>
                 <input type="text" name="salario" class="form-control @error('salario') is-invalid @enderror"
                     id="input--salario" value="{{ $employee->salario ?? old('salario') }}">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="input--date_contract">Data Contratação</label>
+                <input type="text" name="date_contract" class="form-control @error('date_contract') is-invalid @enderror"
+                    id="input--date_contract" value="{{ isset($employee->date_contract) ? date('d/m/Y', strtotime($employee->date_contract)) : old('date_contract') }}">
             </div>
         </div>
 
@@ -73,17 +92,25 @@
                 <label for="input--cnh">CNH</label>
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck"
-                            value="{{ $employee->cnh ?? old('cnh') }}">
-                        <label class="form-check-label" for="gridCheck">
+                        <input class="form-check-input" type="checkbox" id="cnh_check" name="cnh" value="1"
+                            {{ isset($employee->cnh) && $employee->cnh == 1 ? 'checked' : '' }}>
+                        <label class="form-check-label" for="cnh_check">
                             Sim
                         </label>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-3 {{ isset($employee->cnh) && $employee->cnh != 0 ? '' : 'd-none' }} div--cnh_number">
+            <div class="form-group">
+                <label for="input--cnh_number">CNH Nº</label>
+                <input type="text" name="cnh_number" class="form-control @error('cnh_number') is-invalid @enderror"
+                    id="input--cnh_number" value="{{ $employee->cnh_number ?? old('cnh_number') }}">
+            </div>
+        </div>
     </div>
 </div>
 <div class="card-footer">
-    <input  type="submit" class="btn btn-primary" onclick="this.disabled = true; this.value = 'Salvando…'; this.form.submit();" value="Salvar">
+    <input type="submit" class="btn btn-primary"
+        onclick="this.disabled = true; this.value = 'Salvando…'; this.form.submit();" value="Salvar">
 </div>
