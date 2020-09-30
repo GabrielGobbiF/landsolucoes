@@ -18090,7 +18090,7 @@ jQuery(function () {
           headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
           },
-          url: 'http://127.0.0.1:8000/rh/employees/update_auditory_applicable',
+          url: 'http://teste.landsolucoes.com.br/rh/employees/update_auditory_applicable',
           type: 'POST',
           ajax: true,
           dataType: "JSON",
@@ -18115,7 +18115,7 @@ jQuery(function () {
     var id = $(this).data('id');
     $('.acompanhamento-mensal').addClass('d-none');
     $.ajax({
-      url: 'http://127.0.0.1:8000/rh/auditorys/month/' + id,
+      url: 'http://teste.landsolucoes.com.br/rh/auditorys/month/' + id,
       type: "GET",
       ajax: true,
       dataType: "JSON",
@@ -18185,7 +18185,7 @@ function updateAuditoryMonth(v) {
   var data_month = $(v).closest('tr').data('month');
 
   if (pasta == 'Acompanhamento_mensal') {
-    $('#update--Auditory').attr('action', 'http://127.0.0.1:8000/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
+    $('#update--Auditory').attr('action', 'http://teste.landsolucoes.com.br/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
     $('#employees_auditory_month_id').val(id);
     $('#employees_auditory_month_id').val(id);
     $('#data_month').val(data_month);
