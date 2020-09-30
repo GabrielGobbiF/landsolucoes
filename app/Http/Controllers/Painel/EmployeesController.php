@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeesController extends Controller
 {
@@ -278,7 +279,6 @@ class EmployeesController extends Controller
 
             $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}", "{$docs_name}.pdf");
 
-            $r = $request->file->move(public_path("documentos/employees/{$employee_name}/{$request->type_pasta}"), "{$docs_name}.pdf");
 
             if (empty($request->auditory_id)) {
                 return redirect()
