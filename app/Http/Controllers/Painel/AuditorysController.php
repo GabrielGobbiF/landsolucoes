@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employees;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class AuditorysController extends Controller
 {
     protected $employees;
 
-    public function __construct(Employees $employees)
+    public function __construct(Employee $employees)
     {
         $this->middleware('auth');
 

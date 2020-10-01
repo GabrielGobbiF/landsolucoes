@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Painel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEmployee;
 use App\Models\Auditory;
-use App\Models\Employees;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class EmployeesController extends Controller
 {
     protected $repository;
 
-    public function __construct(Employees $employees)
+    public function __construct(Employee $employees)
     {
         $this->middleware('auth');
 
@@ -134,6 +134,7 @@ class EmployeesController extends Controller
     public function update(StoreUpdateEmployee $request, $uuid)
     {
         $columns = $request->all();
+        $columns['updated_by'] = Auth::user()->id;
 
         if (!$request->cnh) {
             $columns['cnh'] = '0';

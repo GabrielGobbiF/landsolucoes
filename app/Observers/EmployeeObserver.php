@@ -3,32 +3,27 @@
 namespace App\Observers;
 
 use Illuminate\Support\Str;
-use App\Models\Employees;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 
 class EmployeeObserver
 {
+    public function __construct()
+    {
+    }
     /**
-     * Handle the Employees "creating" event.
+     * Handle the Employee "creating" event.
      *
-     * @param  \App\Models\Employees  $employee
+     * @param  \App\Models\Employee  $employee
      * @return void
      */
-    public function creating(Employees $employee)
+    public function creating(Employee $employee)
     {
         $user = Auth::user();
-        $employee->created_at = $user->id;
+
+        $employee->uuid = Str::uuid();
+        $employee->created_by = $user->id;
     }
 
-    /**
-     * Handle the Employees "updated" event.
-     *
-     * @param  \App\Models\Employees  $employee
-     * @return void
-     */
-    public function updating(Employees $employee)
-    {
-        $user = Auth::user();
-        $employee->updated_by = $user->id;
-    }
 }

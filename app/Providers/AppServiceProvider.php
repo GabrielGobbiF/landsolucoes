@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Employees;
+use App\Models\{
+    Employee
+};
+use App\Observers\{
+    EmployeeObserver
+};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -30,16 +35,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        Employees::creating(function ($model) {
-            $user = Auth::user();
-            $model->uuid = Str::uuid();
-            $model->created_by = $user->id;
-        });
-
-        Employees::updating(function ($model) {
-            $user = Auth::user();
-            $model->updated_by = $user->id;
-        });
-
+        Employee::observe(EmployeeObserver::class);
     }
 }
