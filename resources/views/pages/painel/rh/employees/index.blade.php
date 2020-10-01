@@ -18,16 +18,16 @@
             <thead>
                 <tr class="text-center">
                     <th style="text-align:left">Nome</th>
-                    <th>RG</th>
-                    <th>Email</th>
+                    <th class="mobile--hidden">RG</th>
+                    <th class="mobile--hidden">Email</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             @foreach ($employees as $employees)
                 <tr class="text-center">
                     <td style="text-align:left">{{ $employees->name }}</td>
-                    <td>{{ $employees->rg }}</td>
-                    <td>{{ $employees->email }}</td>
+                    <td class="mobile--hidden">{{ $employees->rg }}</td>
+                    <td class="mobile--hidden">{{ $employees->email }}</td>
                     <td>
                         <a href="{{ route('employees.show', $employees->uuid) }}" class="btn btn-xs btn-dark ">
                             <i class="fa fa-edit"></i>

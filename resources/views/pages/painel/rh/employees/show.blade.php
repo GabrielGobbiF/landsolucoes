@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <h4 class="text-center">{{ $employee->name ?? '' }} </h4>
-        <div class="card">
+        <div class="card mt-3">
             <ul class="nav nav-tabs" id="myTab_employee" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active " id="dados-tab" data-toggle="tab" href="#dados" role="tab"

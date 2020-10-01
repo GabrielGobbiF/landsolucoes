@@ -25,6 +25,17 @@
         var BASE = `{{ env('APP_URL') }}`;
 
     </script>
+
+    <style class="">
+        @media only screen and (max-width: 900px) {
+            .mobile--hidden {
+                display: none;
+            }
+            .title_table--mensal{
+                text-align: center
+            }
+        }
+    </style>
 </head>
 
 <body>
