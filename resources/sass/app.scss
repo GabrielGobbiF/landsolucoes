@@ -7,11 +7,10 @@ $navbar-dark-color: #eee;
 
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
-
 @import 'variables';
 
 @import 'bootstrap-table.scss';
 
-// Bootstrap
+@import '_fontawesome.scss';
+
 @import '~bootstrap/scss/bootstrap';

@@ -2,32 +2,32 @@
     <div class="row">
         <div class="col-md-2 border-right">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active  text-center" id="v-pills-entrevista-tab" data-toggle="pill"
+                <a class="nav-link nav-link_auditory active text-center" id="v-pills-entrevista-tab" data-toggle="pill"
                     href="#v-pills-entrevista" role="tab" aria-controls="v-pills-entrevista"
                     aria-selected="true">Entrevista</a>
-                <a class="nav-link {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-contratacao-tab"
+                <a class="nav-link nav-link_auditory {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-contratacao-tab"
                     data-toggle="pill" href="#v-pills-contratacao" role="tab" aria-controls="v-pills-contratacao"
                     aria-selected="false">Contratação</a>
-                <a class="nav-link  {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-ac_mensal-tab"
+                <a class="nav-link nav-link_auditory  {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-ac_mensal-tab"
                     data-toggle="pill" href="#v-pills-ac_mensal" role="tab" aria-controls="v-pills-ac_mensal"
                     aria-selected="false">Acompanhamento Mensal</a>
                 <hr>
-                <a class="nav-link disabled text-center" style="color:rgb(239 109 109)" id="v-pills-documentos-tab"
+                <a class="nav-link nav-link_auditory disabled text-center" style="color:rgb(239 109 109)" id="v-pills-documentos-tab"
                     data-toggle="pill" href="#v-pills-documentos" role="tab" aria-controls="v-pills-documentos"
                     aria-selected="false">Dispensa</a>
             </div>
         </div>
         <div class="col-md-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active " id="v-pills-entrevista" role="tabpanel"
+                <div class="tab-pane tab-pane_auditory fade show active " id="v-pills-entrevista" role="tabpanel"
                     aria-labelledby="v-pills-entrevista-tab">
                     @include('pages.painel.rh.employees._partials.entrevista')
                 </div>
-                <div class="tab-pane fade" id="v-pills-contratacao" role="tabpanel"
+                <div class="tab-pane tab-pane_auditory fade" id="v-pills-contratacao" role="tabpanel"
                     aria-labelledby="v-pills-contratacao-tab">
                     @include('pages.painel.rh.employees._partials.contratacao')
                 </div>
-                <div class="tab-pane fade " id="v-pills-ac_mensal" role="tabpanel"
+                <div class="tab-pane tab-pane_auditory fade " id="v-pills-ac_mensal" role="tabpanel"
                     aria-labelledby="v-pills-ac_mensal-tab">
                     @include('pages.painel.rh.employees._partials.ac_mensal')
                 </div>

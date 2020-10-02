@@ -11,7 +11,7 @@
     <title>RH Land</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}" sync></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -58,15 +58,15 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('employees') }}">Funcionários</a>
+                                <a class="nav-link nav-header" id="funcionarios" href="{{ route('employees') }}">Funcionários</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('employees') }}">Auditoria da Empresa</a>
+                                <a class="nav-link nav-header" href="{{ route('employees') }}">Auditoria da Empresa</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('employees') }}">Relátorio</a>
+                                <a class="nav-link nav-header" href="{{ route('employees') }}">Relátorio</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
@@ -92,19 +92,7 @@
             </nav>
         @endif
         <main class="py-4">
-
-            @if ($errors->any())
-                <!--<div class="alert alert-danger">
-                    <div style="border: 1px solid #ccc; padding:20px" class="">
-                        @foreach ($errors->all() as $error)
-                             {{ $error }}<br>
-                        @endforeach
-                    </div>
-                </div>-->
-            @endif
-
             @yield('content')
-
         </main>
     </div>
 </body>

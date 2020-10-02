@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateEmployee;
 use App\Models\Auditory;
 use App\Models\Employee;
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -154,17 +155,11 @@ class EmployeesController extends Controller
 
         $employee->update($columns);
 
-        $documentos = $employee->auditory()->get();
+        $request->session()->flash('message', 'Atualizado com sucesso');
 
-        $documentos = $this->getDocumentAuditoryByEmployee($documentos);
-
-        $entrevista = $documentos['entrevista'] == true ?? false;
-
-        return view('pages.painel.rh.employees.show', [
-            'employee' => $employee,
-            'documentos' => $documentos,
-            'entrevista' => $entrevista
-        ]);
+        return redirect()
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
     }
 
     /**

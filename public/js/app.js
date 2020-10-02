@@ -19524,6 +19524,43 @@ try {
 } catch (e) {}
 
 jQuery(function () {
+  //localStorage.getItem('tab-pane') == null ? localStorage.setItem('tab-pane', 'thumblist') : '';
+  localStorage.getItem('nav-tabs_employee') == null || localStorage.getItem('nav-tabs_employee') == undefined ? localStorage.setItem('nav-tabs_employee', 'dados-tab') : '';
+  var tab_employee = localStorage.getItem('nav-tabs_employee');
+  var tab_pane_employee = tab_employee.replace("-tab", "");
+  $('.nav-link_employee').removeClass('active');
+  $('#' + tab_employee).addClass('active');
+  $('.tab-pane_employee').removeClass('show active');
+  $('#' + tab_pane_employee).addClass('show active');
+  $('.nav-link_employee').on('click', function () {
+    var tab_employee = $(this).attr('id');
+    localStorage.setItem('nav-tabs_employee', tab_employee);
+    $('.nav-link_employee').removeClass('active');
+    $('.tab-pane_employee').removeClass('show active');
+    var tab_pane_employee = tab_employee.replace("-tab", "");
+    $('#' + tab_pane_employee).addClass('show active');
+    $('#' + tab_employee).addClass('active');
+  });
+  localStorage.getItem('nav-link_auditory') == null || localStorage.getItem('nav-link_auditory') == undefined ? localStorage.setItem('nav-link_auditory', 'v-pills-entrevista-tab') : '';
+  var tab_auditory = localStorage.getItem('nav-link_auditory');
+  var tab_pane_auditory = tab_auditory.replace("-tab", "");
+  $('.nav-link_auditory').removeClass('active');
+  $('#' + tab_auditory).addClass('active');
+  $('.tab-pane_auditory').removeClass('show active');
+  $('#' + tab_pane_auditory).addClass('show active');
+  $('.nav-link_auditory').on('click', function () {
+    var tab_auditory = $(this).attr('id');
+    localStorage.setItem('nav-link_auditory', tab_auditory);
+    $('.nav-link_auditory').removeClass('active');
+    $('.tab-pane_auditory').removeClass('show active');
+    var tab_pane_auditory = tab_auditory.replace("-tab", "");
+    $('#' + tab_pane_auditory).addClass('show active');
+    $('#' + tab_auditory).addClass('active');
+  });
+  $('.nav-header').on('click', function () {
+    localStorage.setItem('nav-tabs_employee', 'dados-tab');
+    localStorage.setItem('nav-link_auditory', 'v-pills-entrevista-tab');
+  });
   $('.doc_applicable').on('change', function (e) {
     var id = $(this).val();
 
