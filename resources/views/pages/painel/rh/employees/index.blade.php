@@ -51,7 +51,7 @@
                         <a href="{{ route('employees.show', $employees->uuid) }}" class="btn btn-xs btn-dark ">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{ route('employees.destroy', $employees->uuid) }}" class="btn btn-xs btn-danger">
+                        <a href="JavaScript:void(0)" data-href="{{ route('employees.destroy', $employees->uuid) }}" class="btn btn-xs btn-danger btn-delete">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>

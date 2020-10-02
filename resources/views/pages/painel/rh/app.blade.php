@@ -94,6 +94,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        @include('pages.layouts.modal_delete')
     </div>
 </body>
 <script class="">

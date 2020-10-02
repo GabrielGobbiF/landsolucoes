@@ -19561,6 +19561,13 @@ jQuery(function () {
     localStorage.setItem('nav-tabs_employee', 'dados-tab');
     localStorage.setItem('nav-link_auditory', 'v-pills-entrevista-tab');
   });
+  $('.btn-delete').on('click', function () {
+    var href = $(this).data('href');
+    $('#modal-delete').modal('show');
+    $('#modal-confirm').on('click', function () {
+      window.location.href = href;
+    });
+  });
   $('.doc_applicable').on('change', function (e) {
     var id = $(this).val();
 
