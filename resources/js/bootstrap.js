@@ -65,7 +65,7 @@ jQuery(function () {
         localStorage.setItem('nav-link_auditory', 'v-pills-entrevista-tab')
     });
 
-
+    $('[data-toggle="tooltip"]').tooltip()
 
     $('.btn-delete').on('click', function () {
         var href = $(this).data('href');
