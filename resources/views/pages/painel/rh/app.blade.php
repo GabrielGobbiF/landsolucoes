@@ -11,7 +11,6 @@
     <title>RH Land</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
     <!-- Fonts -->
@@ -21,20 +20,24 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+
     <script>
         var BASE = `{{ env('APP_URL') }}`;
-
     </script>
+    <script src="{{ asset('js/app.js') }}" ></script>
 
     <style class="">
         @media only screen and (max-width: 900px) {
             .mobile--hidden {
                 display: none;
             }
-            .title_table--mensal{
+
+            .title_table--mensal {
                 text-align: center
             }
         }
+
     </style>
 </head>
 
@@ -91,29 +94,13 @@
         <main class="py-4">
 
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <!--<div class="alert alert-danger">
                     <div style="border: 1px solid #ccc; padding:20px" class="">
                         @foreach ($errors->all() as $error)
-                            {{ $error }}<br>
+                             {{ $error }}<br>
                         @endforeach
                     </div>
-                </div>
-            @endif
-
-            @if (session('message'))
-                <div class="alert alert-danger">
-                    <div style="border: 1px solid #ccc; padding:20px" class="">
-                        {{ session('message') }}<br>
-                    </div>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    <div style="border: 1px solid #ccc; padding:20px" class="">
-                        {{ session('error') }}<br>
-                    </div>
-                </div>
+                </div>-->
             @endif
 
             @yield('content')
@@ -121,5 +108,8 @@
         </main>
     </div>
 </body>
+<script class="">
+    @include('pages.layouts.notification')
+</script>
 
 </html>

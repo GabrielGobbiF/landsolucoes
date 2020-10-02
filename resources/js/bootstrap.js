@@ -2,7 +2,14 @@
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.toastr = require('toastr');
     require('bootstrap');
+    require('bootstrap-table');
+    require('tableexport.jquery.plugin/bower_components/tableExport.jquery.plugin/tableExport.min');
+    require('bootstrap-table/dist/locale/bootstrap-table-pt-BR');
+    require('bootstrap-table/dist/extensions/export/bootstrap-table-export.min');
+    require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min');
+
 } catch (e) { }
 
 jQuery(function () {
@@ -14,7 +21,7 @@ jQuery(function () {
                     headers: {
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: BASE+'/rh/employees/update_auditory_applicable',
+                    url: BASE + '/rh/employees/update_auditory_applicable',
                     type: 'POST',
                     ajax: true,
                     dataType: "JSON",
@@ -41,7 +48,7 @@ jQuery(function () {
         var id = $(this).data('id');
         $('.acompanhamento-mensal').addClass('d-none');
         $.ajax({
-            url: BASE+'/rh/auditorys/month/' + id,
+            url: BASE + '/rh/auditorys/month/' + id,
             type: "GET",
             ajax: true,
             dataType: "JSON",
@@ -100,10 +107,10 @@ jQuery(function () {
         });
     });
 
-    $('#cnh_check').on('change', function (){
-        if($(this).is(":checked")){
+    $('#cnh_check').on('change', function () {
+        if ($(this).is(":checked")) {
             $('.div--cnh_number').removeClass('d-none')
-        }else {
+        } else {
             $('#input--cnh_number').val('');
             $('.div--cnh_number').addClass('d-none')
         }
@@ -127,7 +134,7 @@ function updateAuditoryMonth(v) {
     var data_month = $(v).closest('tr').data('month');
 
     if (pasta == 'Acompanhamento_mensal') {
-        $('#update--Auditory').attr('action', BASE+'/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
+        $('#update--Auditory').attr('action', BASE + '/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
         $('#employees_auditory_month_id').val(id);
         $('#employees_auditory_month_id').val(id);
         $('#data_month').val(data_month);

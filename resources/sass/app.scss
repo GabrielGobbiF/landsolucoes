@@ -1,10 +1,17 @@
-// Fonts
+$theme-colors: (
+    "primary": #000000c2,
+    'dark' : #000000c2
+);
+
+$navbar-dark-color: #eee;
+
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
-// Variables
 @import 'variables';
+
+@import 'bootstrap-table.scss';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
