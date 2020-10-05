@@ -160,11 +160,11 @@ jQuery(function () {
                     $('.title_table--mensal').html(j.title);
 
                 } else {
-                    alert(j.message);
+                    toastr.error(j.message);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error get data from ajax');
+                toastr.error('Error get data from ajax');
             }
         });
     });
@@ -195,11 +195,38 @@ function updateAuditoryMonth(v) {
     var employee_id = $('#employee_id').val();
     var data_month = $(v).closest('tr').data('month');
 
+    $('.cursos--employees').css('display','none');
+
     if (pasta == 'Acompanhamento_mensal') {
         $('#update--Auditory').attr('action', BASE + '/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
         $('#employees_auditory_month_id').val(id);
         $('#employees_auditory_month_id').val(id);
         $('#data_month').val(data_month);
+    }
+    if(pasta == 'cursos'){
+        options = ''
+
+        options += '<div class="row">'
+        options += '    <div class="col-md-6">'
+        options += '        <div class="form-group">'
+        options += '            <label for="input--date_accomplished">Data Realizada</label>'
+        options += '            <input type="text" name="date_accomplished"'
+        options += '                class="form-control"'
+        options += '                id="input--date_accomplished" value="">'
+        options += '        </div>'
+        options += '    </div>'
+        options += '    <div class="col-md-6">'
+        options += '        <div class="form-group">'
+        options += '            <label for="input--validity">Vigência (em dias) </label>'
+        options += '            <input type="text" name="validity"'
+        options += '                class="form-control"'
+        options += '                id="input--validity" value="">'
+        options += '        </div>'
+        options += '    </div>'
+        options += '</div>'
+
+        $('.cursos--employees').css('display','');
+        $('.cursos--employees').html(options);
     }
 
     $('#auditory_id').val(id);

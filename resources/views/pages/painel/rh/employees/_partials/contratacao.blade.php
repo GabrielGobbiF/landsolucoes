@@ -21,7 +21,7 @@
                                     class="radio_doc_applicable_{{ $documento->id }}"
                                     id="yesorno_{{ $documento->id }}">
                                     <label style="margin-right:5px">
-                                        <input type="radio" data-collumn="status" class="status"
+                                        <input type="radio" data-collumn="status" class="{{$documento->status != '1' ? 'status' : ''}}"
                                             name="status_{{ $documento->id }}"
                                             id="option_sim_{{ $documento->id }}" value="1"
                                             {{ $documento->status == '1' ? 'checked' : '' }} />
@@ -29,7 +29,7 @@
                                     </label>
                                     @if ($documento->status != '1')
                                         <label>
-                                            <input type="radio" data-collumn="status" class="status"
+                                            <input type="radio" data-collumn="status"
                                                 name="status_{{ $documento->id }}"
                                                 id="option_nao_{{ $documento->id }}" value="0"
                                                 {{ $documento->status == '0' ? 'checked' : '' }} />
@@ -39,7 +39,7 @@
                                 </div>
                             @else
                                 <label style="margin-right:5px">
-                                    <input type="radio" data-collumn="status" class="status"
+                                    <input type="radio" data-collumn="status" class="{{$documento->status != '1' ? 'status' : ''}}"
                                         name="status_{{ $documento->id }}"
                                         id="option_sim_{{ $documento->id }}" value="1"
                                         {{ $documento->status == '1' ? 'checked' : '' }} />
@@ -48,7 +48,7 @@
 
                                 @if ($documento->status != '1')
                                     <label>
-                                        <input type="radio" data-collumn="status" class="status"
+                                        <input type="radio" data-collumn="status"
                                             name="status_{{ $documento->id }}"
                                             id="option_nao_{{ $documento->id }}" value="0"
                                             {{ $documento->status == '0' ? 'checked' : '' }} />

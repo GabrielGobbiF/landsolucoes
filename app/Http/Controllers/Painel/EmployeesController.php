@@ -219,18 +219,26 @@ class EmployeesController extends Controller
 
             $user = Auth::user();
 
+            $validity = $request->validity ?? '';
+
+            $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : '';
+
             DB::update('UPDATE employees_auditory SET
                 status = :status,
                 updated_by = :updated_by,
                 updated_at = :date_now,
                 document_link = :document_link,
-                doc_applicable = 1
+                doc_applicable = 1,
+                date_accomplished = :date_accomplished,
+                validity = :validity
             WHERE id = :auditory_id', [
                 'status' => '1',
                 'updated_by' => $user->id,
                 'auditory_id' => $request->auditory_id,
                 'date_now' => date('Y-m-d H:i:s'),
-                'document_link' => $upload
+                'document_link' => $upload,
+                'validity' => $validity,
+                'date_accomplished' => $date_accomplished
             ]);
 
             return redirect()
@@ -294,11 +302,16 @@ class EmployeesController extends Controller
 
             $nome_usuario = '';
             $data_enviada = '';
+            $data_vigencia_curso = '';
 
             if ($documento->updated_by != '') {
                 $usuario = User::where('id', $documento->updated_by)->first();
                 $nome_usuario = $usuario->name;
                 $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
+            }
+
+            if ($documento->date_accomplished != '' && $documento->status === '1') {
+                $data_vigencia_curso = $this->vigenciaCursoByEmployee($documento);
             }
 
             $array_docs = (object) [
@@ -311,7 +324,8 @@ class EmployeesController extends Controller
                 'description' => $documento->description,
                 'user_envio' => $nome_usuario,
                 'data_envio' => $data_enviada,
-                'option_name' => $documento->option_name
+                'option_name' => $documento->option_name,
+                'data_vigencia_curso' => $data_vigencia_curso
             ];
 
             switch ($documento->type) {
@@ -327,6 +341,9 @@ class EmployeesController extends Controller
                 case 'documentos':
                     $docs['documentos_docs'][] = $array_docs;
                     break;
+                case 'cursos':
+                    $docs['cursos'][] = $array_docs;
+                    break;
                 default:
                     $docs['documentos_all'][] = $array_docs;
                     break;
@@ -337,5 +354,14 @@ class EmployeesController extends Controller
             }
         }
         return $docs;
+    }
+
+    public function vigenciaCursoByEmployee($documento)
+    {
+        $data_realizada = $documento['date_accomplished'];
+        $dias_vigencia = $documento['validity'];
+
+        return date('d/m/Y', strtotime("+{$dias_vigencia} days", strtotime($data_realizada)));
+
     }
 }

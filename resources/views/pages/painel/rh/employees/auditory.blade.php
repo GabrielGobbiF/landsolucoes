@@ -5,16 +5,20 @@
                 <a class="nav-link nav-link_auditory active text-center" id="v-pills-entrevista-tab" data-toggle="pill"
                     href="#v-pills-entrevista" role="tab" aria-controls="v-pills-entrevista"
                     aria-selected="true">Entrevista</a>
-                <a class="nav-link nav-link_auditory {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-contratacao-tab"
-                    data-toggle="pill" href="#v-pills-contratacao" role="tab" aria-controls="v-pills-contratacao"
-                    aria-selected="false">Contratação</a>
-                <a class="nav-link nav-link_auditory  {{ $entrevista == true ? '' : 'disabled' }} text-center" id="v-pills-ac_mensal-tab"
-                    data-toggle="pill" href="#v-pills-ac_mensal" role="tab" aria-controls="v-pills-ac_mensal"
-                    aria-selected="false">Acompanhamento Mensal</a>
+                <a class="nav-link nav-link_auditory {{ $entrevista == true ? '' : 'disabled' }} text-center"
+                    id="v-pills-contratacao-tab" data-toggle="pill" href="#v-pills-contratacao" role="tab"
+                    aria-controls="v-pills-contratacao" aria-selected="false">Contratação</a>
+                <a class="nav-link nav-link_auditory  {{ $entrevista == true ? '' : 'disabled' }} text-center"
+                    id="v-pills-ac_mensal-tab" data-toggle="pill" href="#v-pills-ac_mensal" role="tab"
+                    aria-controls="v-pills-ac_mensal" aria-selected="false">Acompanhamento Mensal</a>
+
+                <a class="nav-link nav-link_auditory  {{ $entrevista == true ? '' : 'disabled' }} text-center"
+                    id="v-pills-cursos-tab" data-toggle="pill" href="#v-pills-cursos" role="tab"
+                    aria-controls="v-pills-cursos" aria-selected="false">Cursos</a>
                 <hr>
-                <a class="nav-link nav-link_auditory disabled text-center" style="color:rgb(239 109 109)" id="v-pills-documentos-tab"
-                    data-toggle="pill" href="#v-pills-documentos" role="tab" aria-controls="v-pills-documentos"
-                    aria-selected="false">Dispensa</a>
+                <a class="nav-link nav-link_auditory disabled text-center" style="color:rgb(239 109 109)"
+                    id="v-pills-documentos-tab" data-toggle="pill" href="#v-pills-documentos" role="tab"
+                    aria-controls="v-pills-documentos" aria-selected="false">Dispensa</a>
             </div>
         </div>
         <div class="col-md-10">
@@ -30,6 +34,11 @@
                 <div class="tab-pane tab-pane_auditory fade " id="v-pills-ac_mensal" role="tabpanel"
                     aria-labelledby="v-pills-ac_mensal-tab">
                     @include('pages.painel.rh.employees._partials.ac_mensal')
+                </div>
+
+                <div class="tab-pane tab-pane_auditory fade " id="v-pills-cursos" role="tabpanel"
+                    aria-labelledby="v-pills-cursos-tab">
+                    @include('pages.painel.rh.employees._partials.cursos')
                 </div>
             </div>
         </div>
@@ -60,6 +69,9 @@
                         <p class="help-block">somente arquivos <b>PDF</b></p>
                         <br>
                         <p class="help-block">por favor, confirme o documento antes de enviar</p>
+                    </div>
+
+                    <div class="cursos--employees">
 
                     </div>
                 </div>
