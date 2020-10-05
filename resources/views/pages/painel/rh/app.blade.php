@@ -66,7 +66,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link nav-header" href="{{ route('employees') }}">Relátorio</a>
+                                <a class="nav-link nav-header" href="{{ route('relatorios.employees') }}">Relátorio</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">

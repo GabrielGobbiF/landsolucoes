@@ -5,6 +5,7 @@ try {
     window.toastr = require('toastr');
     require('bootstrap');
     require('bootstrap-table');
+    require('select2/dist/js/select2.min.js');
     require('tableexport.jquery.plugin/bower_components/tableExport.jquery.plugin/tableExport.min');
     require('bootstrap-table/dist/locale/bootstrap-table-pt-BR');
     require('bootstrap-table/dist/extensions/export/bootstrap-table-export.min');
@@ -13,6 +14,8 @@ try {
 } catch (e) { }
 
 jQuery(function () {
+
+    $('.select2').select2();
 
     //localStorage.getItem('tab-pane') == null ? localStorage.setItem('tab-pane', 'thumblist') : '';
 
