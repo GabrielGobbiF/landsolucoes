@@ -221,7 +221,7 @@ class EmployeesController extends Controller
 
             $validity = $request->validity ?? '';
 
-            $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : '0000-00-00';
+            $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : NULL;
 
             DB::update('UPDATE employees_auditory SET
                 status = :status,
