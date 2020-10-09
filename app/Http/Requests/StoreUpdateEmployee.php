@@ -28,14 +28,14 @@ class StoreUpdateEmployee extends FormRequest
 
         return [
             'name' => "required|min:5|max:255|unique:employees,name,{$uuid},uuid",
-            'rg' => "required|regex:/^\d+(\.\d{1,2})?$/|unique:employees,rg,{$uuid},uuid",
-            'ctps' => "required|regex:/^\d+(\.\d{1,2})?$/|unique:employees,ctps,{$uuid},uuid",
+            'rg' => "required|unique:employees,rg,{$uuid},uuid",
+            'ctps' => "required|unique:employees,ctps,{$uuid},uuid",
             'email' => "required|min:3|max:255|unique:employees,email,{$uuid},uuid",
             'endereco' => "required|min:3|max:255",
             'estado_civil' => "required|min:3|max:255",
             'cargo' => "required|min:3|max:255",
-            'salario' => "required|max:8|regex:/^\d+(\.\d{1,2})?$/",
-            'cnh_number' => "nullable|regex:/^\d+(\.\d{1,2})?$/",
+            'salario' => "required|max:10",
+            'cnh_number' => "nullable",
             'date_contract' => "required",
         ];
     }

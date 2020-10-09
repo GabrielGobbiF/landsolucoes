@@ -24,7 +24,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--rg">RG</label>
-                <input type="text" name="rg" class="form-control @error('rg') is-invalid @enderror" id="input--rg"
+                <input type="text" name="rg" class="form-control rg @error('rg') is-invalid @enderror" id="input--rg"
                     value="{{ $employee->rg ?? old('rg') }}" autocomplete="off">
             </div>
         </div>
@@ -50,16 +50,19 @@
                 <select name="estado_civil" id="input--estado_civil"
                     class="form-control @error('estado_civil') is-invalid @enderror">
                     <option
+                        {{ isset($employee->estado_civil) && $employee->estado_civil == 'Solteiro' ? 'selected' : '' }}
+                        value="Solteiro" class="">Solteiro</option>
+                    <option
                         {{ isset($employee->estado_civil) && $employee->estado_civil == 'Casado' ? 'selected' : '' }}
                         value="Casado" class="">Casado</option>
-                    <option {{ isset($employee->estado_civil) && $employee->estado_civil == 'Viuvo' ? 'selected' : '' }}
-                        value="Viuvo" class="">Viuvo</option>
+                    <option {{ isset($employee->estado_civil) && $employee->estado_civil == 'União Estável' ? 'selected' : '' }}
+                        value="União Estável" class="">União estável</option>
+                    <option {{ isset($employee->estado_civil) && $employee->estado_civil == 'Divorciado' ? 'selected' : '' }}
+                        value="Divorciado" class="">Divorciado</option>
                     <option
                         {{ isset($employee->estado_civil) && $employee->estado_civil == 'Não especificado' ? 'selected' : '' }}
                         value="Não especificado" class="">Não especificado</option>
-                        <option
-                        {{ isset($employee->estado_civil) && $employee->estado_civil == 'Solteiro' ? 'selected' : '' }}
-                        value="Solteiro" class="">Solteiro</option>
+
                 </select>
             </div>
         </div>
@@ -67,7 +70,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--cargo">Cargo</label>
-                <input type="text" name="cargo" class="form-control @error('cargo') is-invalid @enderror"
+                <input type="text" name="cargo" class="form-control  @error('cargo') is-invalid @enderror"
                     id="input--cargo" value="{{ $employee->cargo ?? old('cargo') }}">
             </div>
         </div>
@@ -75,15 +78,16 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--salario">Salário</label>
-                <input type="text" name="salario" class="form-control @error('salario') is-invalid @enderror"
+                <input type="text" name="salario" class="form-control money @error('salario') is-invalid @enderror"
                     id="input--salario" value="{{ $employee->salario ?? old('salario') }}">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--date_contract">Data Contratação</label>
-                <input type="text" name="date_contract" class="form-control @error('date_contract') is-invalid @enderror"
-                    id="input--date_contract" value="{{ isset($employee->date_contract) ? date('d/m/Y', strtotime($employee->date_contract)) : '10/10/2020' }}">
+                <input type="text" name="date_contract"
+                    class="form-control date @error('date_contract') is-invalid @enderror" id="input--date_contract"
+                    value="{{ isset($employee->date_contract) ? date('d/m/Y', strtotime($employee->date_contract)) : '10/10/2020' }}">
             </div>
         </div>
 

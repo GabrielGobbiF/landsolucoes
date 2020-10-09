@@ -10,12 +10,21 @@ try {
     require('bootstrap-table/dist/locale/bootstrap-table-pt-BR');
     require('bootstrap-table/dist/extensions/export/bootstrap-table-export.min');
     require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min');
+    require('jquery_mask/dist/jquery.mask.min.js');
+
+
 
 } catch (e) { }
 
 jQuery(function () {
 
     $('.select2').select2();
+
+    $('.date').mask('00/00/0000');
+
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+
+    $('.rg').mask('00000000-0');
 
     //localStorage.getItem('tab-pane') == null ? localStorage.setItem('tab-pane', 'thumblist') : '';
 
