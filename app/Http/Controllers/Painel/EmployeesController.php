@@ -63,6 +63,8 @@ class EmployeesController extends Controller
             $columns['date_contract'] = date('Y-m-d', strtotime(str_replace('/', '-', $request->date_contract)));
         }
 
+        $columns['salario'] = str_replace(',', '.', $request->salario);
+
         $employee = $this->repository->create($columns);
 
         $auditory = DB::select(
@@ -362,6 +364,5 @@ class EmployeesController extends Controller
         $dias_vigencia = $documento['validity'];
 
         return date('d/m/Y', strtotime("+{$dias_vigencia} days", strtotime($data_realizada)));
-
     }
 }

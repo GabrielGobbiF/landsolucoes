@@ -79,7 +79,7 @@
             <div class="form-group">
                 <label for="input--salario">Salário</label>
                 <input type="text" name="salario" class="form-control money @error('salario') is-invalid @enderror"
-                    id="input--salario" value="{{ $employee->salario ?? old('salario') }}">
+                    id="input--salario" value="{{ number_format($employee->salario, 2, ',', ' ') ?? old('salario') }}">
             </div>
         </div>
         <div class="col-md-3">

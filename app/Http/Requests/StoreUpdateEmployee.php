@@ -34,7 +34,7 @@ class StoreUpdateEmployee extends FormRequest
             'endereco' => "required|min:3|max:255",
             'estado_civil' => "required|min:3|max:255",
             'cargo' => "required|min:3|max:255",
-            'salario' => "required|max:10",
+            'salario' => "required|max:15",
             'cnh_number' => "nullable",
             'date_contract' => "required",
         ];
