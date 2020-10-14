@@ -397,7 +397,6 @@ class EmployeesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        return response()->json(DB::update('update employees set dispense = 1 where uuid = ?', [$uuid]));
-
+        return response()->json(DB::update('update employees set dispense = 1 where id = ?', [$employee->id]));
     }
 }

@@ -35,7 +35,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             [
                 'name' => 'Bruno Costa',
-                'password' => '$2y$10$UhE85Mlvba7YxJxVTF2vuuDlaIMxAM96F6pMOHnhfdxVf9cfbehAu',
+                'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
                 'email' => 'bruno@bruno',
             ]
         );
