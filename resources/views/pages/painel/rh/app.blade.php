@@ -62,7 +62,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link nav-header" href="{{ route('employees') }}">Auditoria da Empresa</a>
+                                <a class="nav-link nav-header" href="{{ route('auditory.company') }}">Auditoria da Empresa</a>
                             </li>
 
                             <li class="nav-item">

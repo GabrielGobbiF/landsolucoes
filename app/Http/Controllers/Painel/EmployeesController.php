@@ -70,7 +70,7 @@ class EmployeesController extends Controller
         $employee = $this->repository->create($columns);
 
         $auditory = DB::select(
-            "SELECT * FROM auditory WHERE type <> 'cursos'"
+            "SELECT * FROM auditory WHERE type <> 'cursos' AND type <> 'documentos' "
         );
 
         foreach ($auditory as $doc) {
@@ -359,9 +359,6 @@ class EmployeesController extends Controller
                     break;
                 case 'acompanhamento':
                     $docs['documentos_acompanhamento'][] = $array_docs;
-                    break;
-                case 'documentos':
-                    $docs['documentos_docs'][] = $array_docs;
                     break;
                 case 'cursos':
                     $docs['cursos'][] = $array_docs;

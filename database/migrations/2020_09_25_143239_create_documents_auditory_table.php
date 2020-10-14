@@ -23,6 +23,7 @@ class CreateDocumentsAuditoryTable extends Migration
             $table->integer('doc_applicable')->default('1')->nullable();
             $table->integer('doc_along_month')->default('0')->nullable();
             $table->integer('doc_along_year')->default('0')->nullable();
+            $table->integer('epi')->default('0')->nullable();
         });
     }
 

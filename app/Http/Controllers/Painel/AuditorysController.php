@@ -20,6 +20,16 @@ class AuditorysController extends Controller
         $this->employees = $employees;
     }
 
+    public function auditory_company()
+    {
+
+        $auditory = DB::select(
+            "SELECT * FROM auditory WHERE type = 'documentos'"
+        );
+
+        return view('pages.painel.rh.auditory_company.index', );
+    }
+
     public function getParcelasAuditoryById($id)
     {
         $mes = date('Y-m');
@@ -48,7 +58,7 @@ class AuditorysController extends Controller
 
             $date1 = $month->month != '' ? date('Y-m', strtotime($month->month)) : date('Y-m', strtotime($month->date_accomplished));
 
-            if ($date1 <= date('Y-m')) {
+            if ($date1 <= date('Y-m') || $month->status == '1') {
                 $validade = '';
 
                 if ($month->date_accomplished != '' && $month->validity != '') {
@@ -124,8 +134,9 @@ class AuditorysController extends Controller
 
             $employees_auditory = $employee->auditory()->create($auditory);
 
-            DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
+            DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id, date_accomplished) VALUES (:month, :employees_auditory_id, :date_accomplished)', [
                 'month' => '',
+                'date_accomplished' => '',
                 'employees_auditory_id' => $employees_auditory->id,
             ]);
         }
@@ -212,7 +223,7 @@ class AuditorysController extends Controller
 
                 $auditory_employee_month = DB::select('SELECT * FROM employees_auditory_month WHERE employees_auditory_id = ? ORDER BY id DESC LIMIT 1', [$auditory_employee[0]->employees_auditory_id]);
 
-                $audit_employee= DB::select('SELECT doc_along_year FROM employees_auditory WHERE id = ? ', [$auditory_employee[0]->employees_auditory_id]);
+                $audit_employee = DB::select('SELECT doc_along_year FROM employees_auditory WHERE id = ? ', [$auditory_employee[0]->employees_auditory_id]);
 
                 $date1 = date('Y-m', strtotime($auditory_employee_month[0]->month));
 
@@ -222,7 +233,7 @@ class AuditorysController extends Controller
                     $porMesOrYear = $audit_employee[0]->doc_along_year == 1 ? 'year' : 'months';
 
                     DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
-                        'month' => date('Y-m', strtotime($date1.' + 1 '.$porMesOrYear)),
+                        'month' => date('Y-m', strtotime($date1 . ' + 1 ' . $porMesOrYear)),
                         'employees_auditory_id' => $auditory_employee[0]->employees_auditory_id,
                     ]);
                 }
@@ -243,6 +254,4 @@ class AuditorysController extends Controller
 
         return response()->json(['error' => true, 'message' => 'não encontrado contate o administrador']);
     }
-
-
 }
