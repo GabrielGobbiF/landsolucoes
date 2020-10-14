@@ -13,22 +13,49 @@ try {
     require('jquery_mask/dist/jquery.mask.min.js');
     require('bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js');
 
-
 } catch (e) { }
 
 jQuery(function () {
 
+
+    $('.open_dispense_employee').on('click', function () {
+
+        $('#modal-dispense--employee').modal('show');
+
+        $('.modal-confirm').on('click', function () {
+            var employee_id = $('#employee_id').val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: BASE + '/rh/employees/dispense/'+ employee_id,
+                type: 'PUT',
+                ajax: true,
+                dataType: "JSON",
+                data: {
+                    dispense: 1
+                },
+                dataType: 'json',
+                success: function (json) {
+                    localStorage.setItem('nav-link_auditory', 'v-pills-dispensa-tab')
+                    location.reload();
+                },
+            });
+        })
+
+    })
+
     $('.btn-submit').on('click', function () {
         var form = $(this).closest('form');
         $(this).html('Salvando...');
-        $(this).attr('disable', true);
+        $(this).attr('disabled', true);
 
         if ($('#file_document').val() != '') {
             form.submit();
         } else {
             toastr.error('selecione um documento');
             $(this).html('Salvar');
-            $(this).attr('disable', false);
+            $(this).attr('disabled', false);
         }
     })
 

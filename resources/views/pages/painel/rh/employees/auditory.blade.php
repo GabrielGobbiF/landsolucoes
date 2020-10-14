@@ -16,9 +16,13 @@
                     id="v-pills-cursos-tab" data-toggle="pill" href="#v-pills-cursos" role="tab"
                     aria-controls="v-pills-cursos" aria-selected="false">Cursos</a>
                 <hr>
-                <a class="nav-link nav-link_auditory disabled text-center" style="color:rgb(239 109 109)"
-                    id="v-pills-documentos-tab" data-toggle="pill" href="#v-pills-documentos" role="tab"
-                    aria-controls="v-pills-documentos" aria-selected="false">Dispensa</a>
+                @if ($employee->dispense == true)
+                    <a class="nav-link nav-link_auditory text-center" id="v-pills-dispensa-tab"
+                        style="color:rgb(239 109 109)" data-toggle="pill" href="#v-pills-dispensa" role="tab"
+                        aria-controls="v-pills-dispensa" aria-selected="false">Dispensa</a>
+                @else
+                    <a style="color:rgb(239 109 109); cursor: pointer;" class="text-center open_dispense_employee">Dispensa</a>
+                @endif
             </div>
         </div>
         <div class="col-md-10">
@@ -34,6 +38,13 @@
                 <div class="tab-pane tab-pane_auditory fade " id="v-pills-ac_mensal" role="tabpanel"
                     aria-labelledby="v-pills-ac_mensal-tab">
                     @include('pages.painel.rh.employees._partials.ac_mensal')
+                </div>
+
+                <div class="tab-pane tab-pane_auditory fade " id="v-pills-dispensa" role="tabpanel"
+                    aria-labelledby="v-pills-dispensa-tab">
+                    @if ($employee->dispense == true)
+                        @include('pages.painel.rh.employees._partials.dispensa')
+                    @endif
                 </div>
 
                 <div class="tab-pane tab-pane_auditory fade " id="v-pills-cursos" role="tabpanel"
@@ -74,10 +85,11 @@
                     <div class="cursos--employees"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-submit" >Salvar</button>
+                    <button type="button" class="btn btn-primary btn-submit">Salvar</button>
                     <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+@include('pages.painel.rh.employees._partials.modals.dispense_modal')

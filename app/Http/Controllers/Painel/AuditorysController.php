@@ -244,10 +244,5 @@ class AuditorysController extends Controller
         return response()->json(['error' => true, 'message' => 'não encontrado contate o administrador']);
     }
 
-    public function dispensaEmployee(){
 
-
-
-
-    }
 }

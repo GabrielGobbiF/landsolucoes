@@ -275,7 +275,7 @@ class EmployeesController extends Controller
     public function gerarParcelasMes($employees_auditory_id, $data_contratacao, $year)
     {
         $dataContratacao = explode('/', $data_contratacao);
-//
+        //
         $mes = $dataContratacao[1];
         $ano = $dataContratacao[2];
 
@@ -366,6 +366,9 @@ class EmployeesController extends Controller
                 case 'cursos':
                     $docs['cursos'][] = $array_docs;
                     break;
+                case 'dispensa':
+                    $docs['documentos_dispensa'][] = $array_docs;
+                    break;
                 default:
                     $docs['documentos_all'][] = $array_docs;
                     break;
@@ -374,6 +377,7 @@ class EmployeesController extends Controller
             if ($documento->name == 'entrevista' && $documento->status === '1') {
                 $docs['entrevista'] = true;
             }
+
         }
         return $docs;
     }
@@ -384,5 +388,19 @@ class EmployeesController extends Controller
         $dias_vigencia = $documento['validity'];
 
         return date('d/m/Y', strtotime("+{$dias_vigencia} days", strtotime($data_realizada)));
+    }
+
+    public function dispensaEmployee($uuid)
+    {
+        $employee = $this->repository->where('uuid', $uuid)->first();
+
+        if (!$employee) {
+            return redirect()
+                ->route('employees')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        return response()->json(DB::update('update employees set dispense = 1 where uuid = ?', [$uuid]));
+
     }
 }

@@ -19602,17 +19602,40 @@ try {
 } catch (e) {}
 
 jQuery(function () {
+  $('.open_dispense_employee').on('click', function () {
+    $('#modal-dispense--employee').modal('show');
+    $('.modal-confirm').on('click', function () {
+      var _$$ajax;
+
+      var employee_id = $('#employee_id').val();
+      $.ajax((_$$ajax = {
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: BASE + '/rh/employees/dispense/' + employee_id,
+        type: 'PUT',
+        ajax: true,
+        dataType: "JSON",
+        data: {
+          dispense: 1
+        }
+      }, _defineProperty(_$$ajax, "dataType", 'json'), _defineProperty(_$$ajax, "success", function success(json) {
+        localStorage.setItem('nav-link_auditory', 'v-pills-dispensa-tab');
+        location.reload();
+      }), _$$ajax));
+    });
+  });
   $('.btn-submit').on('click', function () {
     var form = $(this).closest('form');
     $(this).html('Salvando...');
-    $(this).attr('disable', true);
+    $(this).attr('disabled', true);
 
     if ($('#file_document').val() != '') {
       form.submit();
     } else {
       toastr.error('selecione um documento');
       $(this).html('Salvar');
-      $(this).attr('disable', false);
+      $(this).attr('disabled', false);
     }
   });
   $('#cursos_employee').bootstrapDualListbox({
@@ -19727,9 +19750,9 @@ jQuery(function () {
 
     if ($(this).is(":checked")) {
       if (confirm('Deseja alterar esse documento para aplicavel?')) {
-        var _$$ajax;
+        var _$$ajax2;
 
-        $.ajax((_$$ajax = {
+        $.ajax((_$$ajax2 = {
           headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
           },
@@ -19740,10 +19763,10 @@ jQuery(function () {
           data: {
             auditory_id: id
           }
-        }, _defineProperty(_$$ajax, "dataType", 'json'), _defineProperty(_$$ajax, "success", function success(json) {
+        }, _defineProperty(_$$ajax2, "dataType", 'json'), _defineProperty(_$$ajax2, "success", function success(json) {
           $('.radio_doc_applicable_' + id).css('display', 'none');
           $('#yesorno_' + id).css('display', '');
-        }), _$$ajax));
+        }), _$$ajax2));
       } else {
         $(this).prop('checked', false);
       }
@@ -19829,9 +19852,9 @@ jQuery(function () {
       }
     });
     $('.new').on('click', function () {
-      var _$$ajax2;
+      var _$$ajax3;
 
-      $.ajax((_$$ajax2 = {
+      $.ajax((_$$ajax3 = {
         headers: {
           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
@@ -19842,10 +19865,10 @@ jQuery(function () {
         data: {
           auditory_id: id
         }
-      }, _defineProperty(_$$ajax2, "dataType", 'json'), _defineProperty(_$$ajax2, "success", function success(json) {
+      }, _defineProperty(_$$ajax3, "dataType", 'json'), _defineProperty(_$$ajax3, "success", function success(json) {
         console.log(json);
         $('.rows_table--mensal').append("<p>Test</p>");
-      }), _$$ajax2));
+      }), _$$ajax3));
     });
   });
   $('#cnh_check').on('change', function () {
