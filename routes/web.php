@@ -49,6 +49,11 @@ Route::group(['middleware' => 'role:rh'], function () {
         Route::post('/employees/{id}/auditory/update', [App\Http\Controllers\Painel\EmployeesController::class, 'auditoryUpdate'])->name('employees.auditory.update');
         Route::get('/auditorys/month/{employees_auditory_id}', [App\Http\Controllers\Painel\AuditorysController::class, 'getParcelasAuditoryById'])->name('auditorys.month.show');
         Route::post('/employees/{id}/auditory/updateAuditoryMonth', [App\Http\Controllers\Painel\AuditorysController::class, 'updateEmployeesAuditoryMonth'])->name('employees.auditory.month.update');
+        Route::post('/employees/{id}/auditory/storeAuditoryEmployee', [App\Http\Controllers\Painel\AuditorysController::class, 'storeAuditoryEmployee'])->name('employees.auditory.store');
+
+        Route::post('/employees/auditory/storeAuditoryMonthEmployee', [App\Http\Controllers\Painel\AuditorysController::class, 'storeAuditoryMonthEmployee'])->name('employees.auditory.month.store');
+
+
         /*
         |--------------------------------------------------------------------------
         | Employees - Relátorio

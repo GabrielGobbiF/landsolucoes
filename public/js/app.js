@@ -5363,6 +5363,29 @@
 
 /***/ }),
 
+/***/ "./node_modules/bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+ *  Bootstrap Duallistbox - v4.0.2
+ *  A responsive dual listbox widget optimized for Twitter Bootstrap. It works on all modern browsers and on touch devices.
+ *  http://www.virtuosoft.eu/code/bootstrap-duallistbox/
+ *
+ *  Made by István Ujj-Mészáros
+ *  Under Apache License v2.0 License
+ */
+
+!function(n){ true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (n),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined}(function(a){var i="bootstrapDualListbox",n={filterTextClear:"show all",filterPlaceHolder:"Filter",moveSelectedLabel:"Move selected",moveAllLabel:"Move all",removeSelectedLabel:"Remove selected",removeAllLabel:"Remove all",moveOnSelect:!0,moveOnDoubleClick:!0,preserveSelectionOnMove:!1,selectedListLabel:!1,nonSelectedListLabel:!1,helperSelectNamePostfix:"_helper",selectorMinimalHeight:100,showFilterInputs:!0,nonSelectedFilter:"",selectedFilter:"",infoText:"Showing all {0}",infoTextFiltered:'<span class="badge badge-warning">Filtered</span> {0} from {1}',infoTextEmpty:"Empty list",filterOnValues:!1,sortByInputOrder:!1,eventMoveOverride:!1,eventMoveAllOverride:!1,eventRemoveOverride:!1,eventRemoveAllOverride:!1,btnClass:"btn-outline-secondary",btnMoveText:"&gt;",btnRemoveText:"&lt;",btnMoveAllText:"&gt;&gt;",btnRemoveAllText:"&lt;&lt;"},s=/android/i.test(navigator.userAgent.toLowerCase());function l(e,t){this.element=a(e),this.settings=a.extend({},n,t),this._defaults=n,this._name=i,this.init()}function t(e){e.element.trigger("change")}function o(s){s.element.find("option").each(function(e,t){var n=a(t);void 0===n.data("original-index")&&n.data("original-index",s.elementCount++),void 0===n.data("_selected")&&n.data("_selected",!1)})}function r(s,i,l){s.element.find("option").each(function(e,t){var n=a(t);n.data("original-index")===i&&(n.prop("selected",l),l?(n.attr("data-sortindex",s.sortIndex),s.sortIndex++):n.removeAttr("data-sortindex"))})}function c(e,n){return console.log(e,n),e.replace(/{(\d+)}/g,function(e,t){return void 0!==n[t]?n[t]:e})}function h(e){if(e.settings.infoText){var t=e.elements.select1.find("option").length,n=e.elements.select2.find("option").length,s=e.element.find("option").length-e.selectedElements,i=e.selectedElements,l="";l=0==s?e.settings.infoTextEmpty:c(t===s?e.settings.infoText:e.settings.infoTextFiltered,[t,s]),e.elements.info1.html(l),e.elements.box1.toggleClass("filtered",!(t===s||0==s)),l=0===i?e.settings.infoTextEmpty:c(n===i?e.settings.infoText:e.settings.infoTextFiltered,[n,i]),e.elements.info2.html(l),e.elements.box2.toggleClass("filtered",!(n===i||0===i))}}function m(s){s.selectedElements=0,s.elements.select1.empty(),s.elements.select2.empty(),s.element.find("option").each(function(e,t){var n=a(t);n.prop("selected")?(s.selectedElements++,s.elements.select2.append(n.clone(!0).prop("selected",n.data("_selected")))):s.elements.select1.append(n.clone(!0).prop("selected",n.data("_selected")))}),s.settings.showFilterInputs&&(e(s,1),e(s,2)),h(s)}function e(i,l){if(i.settings.showFilterInputs){d(i,l),i.elements["select"+l].empty().scrollTop(0);var o,r=i.element.find("option"),e=i.element;e=1===l?r.not(":selected"):e.find("option:selected");try{o=new RegExp(a.trim(i.elements["filterInput"+l].val()),"gi")}catch(e){o=new RegExp("/a^/","gi")}e.each(function(e,t){var n=a(t),s=!0;(t.text.match(o)||i.settings.filterOnValues&&n.attr("value").match(o))&&(s=!1,i.elements["select"+l].append(n.clone(!0).prop("selected",n.data("_selected")))),r.eq(n.data("original-index")).data("filtered"+l,s)}),h(i)}}function d(e,t){var s=e.element.find("option");e.elements["select"+t].find("option").each(function(e,t){var n=a(t);s.eq(n.data("original-index")).data("_selected",n.prop("selected"))})}function u(e){var t=e.children("option");t.sort(function(e,t){var n=parseInt(e.getAttribute("data-sortindex")),s=parseInt(t.getAttribute("data-sortindex"));return s<n?1:n<s?-1:0}),t.detach().appendTo(e)}function v(e,t){e.find("option").sort(function(e,t){return a(e).data("original-index")>a(t).data("original-index")?1:-1}).appendTo(e),m(t)}function f(s){"all"!==s.settings.preserveSelectionOnMove||s.settings.moveOnSelect?"moved"!==s.settings.preserveSelectionOnMove||s.settings.moveOnSelect||d(s,1):(d(s,1),d(s,2)),s.elements.select1.find("option:selected").each(function(e,t){var n=a(t);n.data("filtered1")||r(s,n.data("original-index"),!0)}),m(s),t(s),s.settings.sortByInputOrder?u(s.elements.select2):v(s.elements.select2,s)}function p(s){"all"!==s.settings.preserveSelectionOnMove||s.settings.moveOnSelect?"moved"!==s.settings.preserveSelectionOnMove||s.settings.moveOnSelect||d(s,2):(d(s,1),d(s,2)),s.elements.select2.find("option:selected").each(function(e,t){var n=a(t);n.data("filtered2")||r(s,n.data("original-index"),!1)}),m(s),t(s),v(s.elements.select1,s),s.settings.sortByInputOrder&&u(s.elements.select2)}function g(n){n.elements.form.submit(function(e){n.elements.filterInput1.is(":focus")?(e.preventDefault(),n.elements.filterInput1.focusout()):n.elements.filterInput2.is(":focus")&&(e.preventDefault(),n.elements.filterInput2.focusout())}),n.element.on("bootstrapDualListbox.refresh",function(e,t){n.refresh(t)}),n.elements.filterClear1.on("click",function(){n.setNonSelectedFilter("",!0)}),n.elements.filterClear2.on("click",function(){n.setSelectedFilter("",!0)}),!1===n.settings.eventMoveOverride&&n.elements.moveButton.on("click",function(){f(n)}),!1===n.settings.eventMoveAllOverride&&n.elements.moveAllButton.on("click",function(){var s;"all"!==(s=n).settings.preserveSelectionOnMove||s.settings.moveOnSelect?"moved"!==s.settings.preserveSelectionOnMove||s.settings.moveOnSelect||d(s,1):(d(s,1),d(s,2)),s.element.find("option").each(function(e,t){var n=a(t);n.data("filtered1")||(n.prop("selected",!0),n.attr("data-sortindex",s.sortIndex),s.sortIndex++)}),m(s),t(s)}),!1===n.settings.eventRemoveOverride&&n.elements.removeButton.on("click",function(){p(n)}),!1===n.settings.eventRemoveAllOverride&&n.elements.removeAllButton.on("click",function(){var e;"all"!==(e=n).settings.preserveSelectionOnMove||e.settings.moveOnSelect?"moved"!==e.settings.preserveSelectionOnMove||e.settings.moveOnSelect||d(e,2):(d(e,1),d(e,2)),e.element.find("option").each(function(e,t){var n=a(t);n.data("filtered2")||(n.prop("selected",!1),n.removeAttr("data-sortindex"))}),m(e),t(e)}),n.elements.filterInput1.on("change keyup",function(){e(n,1)}),n.elements.filterInput2.on("change keyup",function(){e(n,2)})}l.prototype={init:function(){this.container=a('<div class="bootstrap-duallistbox-container row"> <div class="box1 col-md-6">   <label></label>   <span class="info-container">     <span class="info"></span>     <button type="button" class="btn btn-sm clear1" style="float:right!important;"></button>   </span>   <input class="form-control filter" type="text">   <div class="btn-group buttons">     <button type="button" class="btn moveall"></button>     <button type="button" class="btn move"></button>   </div>   <select multiple="multiple"></select> </div> <div class="box2 col-md-6">   <label></label>   <span class="info-container">     <span class="info"></span>     <button type="button" class="btn btn-sm clear2" style="float:right!important;"></button>   </span>   <input class="form-control filter" type="text">   <div class="btn-group buttons">     <button type="button" class="btn remove"></button>     <button type="button" class="btn removeall"></button>   </div>   <select multiple="multiple"></select> </div></div>').insertBefore(this.element),this.elements={originalSelect:this.element,box1:a(".box1",this.container),box2:a(".box2",this.container),filterInput1:a(".box1 .filter",this.container),filterInput2:a(".box2 .filter",this.container),filterClear1:a(".box1 .clear1",this.container),filterClear2:a(".box2 .clear2",this.container),label1:a(".box1 > label",this.container),label2:a(".box2 > label",this.container),info1:a(".box1 .info",this.container),info2:a(".box2 .info",this.container),select1:a(".box1 select",this.container),select2:a(".box2 select",this.container),moveButton:a(".box1 .move",this.container),removeButton:a(".box2 .remove",this.container),moveAllButton:a(".box1 .moveall",this.container),removeAllButton:a(".box2 .removeall",this.container),form:a(a(".box1 .filter",this.container)[0].form)},this.originalSelectName=this.element.attr("name")||"";var e="bootstrap-duallistbox-nonselected-list_"+this.originalSelectName,t="bootstrap-duallistbox-selected-list_"+this.originalSelectName;return this.elements.select1.attr("id",e),this.elements.select2.attr("id",t),this.elements.label1.attr("for",e),this.elements.label2.attr("for",t),this.selectedElements=0,this.sortIndex=0,this.elementCount=0,this.setFilterTextClear(this.settings.filterTextClear),this.setFilterPlaceHolder(this.settings.filterPlaceHolder),this.setMoveSelectedLabel(this.settings.moveSelectedLabel),this.setMoveAllLabel(this.settings.moveAllLabel),this.setRemoveSelectedLabel(this.settings.removeSelectedLabel),this.setRemoveAllLabel(this.settings.removeAllLabel),this.setMoveOnSelect(this.settings.moveOnSelect),this.setMoveOnDoubleClick(this.settings.moveOnDoubleClick),this.setPreserveSelectionOnMove(this.settings.preserveSelectionOnMove),this.setSelectedListLabel(this.settings.selectedListLabel),this.setNonSelectedListLabel(this.settings.nonSelectedListLabel),this.setHelperSelectNamePostfix(this.settings.helperSelectNamePostfix),this.setSelectOrMinimalHeight(this.settings.selectorMinimalHeight),o(this),this.setShowFilterInputs(this.settings.showFilterInputs),this.setNonSelectedFilter(this.settings.nonSelectedFilter),this.setSelectedFilter(this.settings.selectedFilter),this.setInfoText(this.settings.infoText),this.setInfoTextFiltered(this.settings.infoTextFiltered),this.setInfoTextEmpty(this.settings.infoTextEmpty),this.setFilterOnValues(this.settings.filterOnValues),this.setSortByInputOrder(this.settings.sortByInputOrder),this.setEventMoveOverride(this.settings.eventMoveOverride),this.setEventMoveAllOverride(this.settings.eventMoveAllOverride),this.setEventRemoveOverride(this.settings.eventRemoveOverride),this.setEventRemoveAllOverride(this.settings.eventRemoveAllOverride),this.setBtnClass(this.settings.btnClass),this.setBtnMoveText(this.settings.btnMoveText),this.setBtnRemoveText(this.settings.btnRemoveText),this.setBtnMoveAllText(this.settings.btnMoveAllText),this.setBtnRemoveAllText(this.settings.btnRemoveAllText),this.element.hide(),g(this),m(this),this.element},setFilterTextClear:function(e,t){return this.settings.filterTextClear=e,this.elements.filterClear1.html(e),this.elements.filterClear2.html(e),t&&m(this),this.element},setFilterPlaceHolder:function(e,t){return this.settings.filterPlaceHolder=e,this.elements.filterInput1.attr("placeholder",e),this.elements.filterInput2.attr("placeholder",e),t&&m(this),this.element},setMoveSelectedLabel:function(e,t){return this.settings.moveSelectedLabel=e,this.elements.moveButton.attr("title",e),t&&m(this),this.element},setMoveAllLabel:function(e,t){return this.settings.moveAllLabel=e,this.elements.moveAllButton.attr("title",e),t&&m(this),this.element},setRemoveSelectedLabel:function(e,t){return this.settings.removeSelectedLabel=e,this.elements.removeButton.attr("title",e),t&&m(this),this.element},setRemoveAllLabel:function(e,t){return this.settings.removeAllLabel=e,this.elements.removeAllButton.attr("title",e),t&&m(this),this.element},setMoveOnSelect:function(e,t){if(s&&(e=!0),this.settings.moveOnSelect=e,this.settings.moveOnSelect){this.container.addClass("moveonselect");var n=this;this.elements.select1.on("change",function(){f(n)}),this.elements.select2.on("change",function(){p(n)}),this.elements.moveButton.detach(),this.elements.removeButton.detach()}else this.container.removeClass("moveonselect"),this.elements.select1.off("change"),this.elements.select2.off("change"),this.elements.moveButton.insertAfter(this.elements.moveAllButton),this.elements.removeButton.insertBefore(this.elements.removeAllButton);return t&&m(this),this.element},setMoveOnDoubleClick:function(e,t){if(s&&(e=!1),this.settings.moveOnDoubleClick=e,this.settings.moveOnDoubleClick){this.container.addClass("moveondoubleclick");var n=this;this.elements.select1.on("dblclick",function(){f(n)}),this.elements.select2.on("dblclick",function(){p(n)})}else this.container.removeClass("moveondoubleclick"),this.elements.select1.off("dblclick"),this.elements.select2.off("dblclick");return t&&m(this),this.element},setPreserveSelectionOnMove:function(e,t){return s&&(e=!1),this.settings.preserveSelectionOnMove=e,t&&m(this),this.element},setSelectedListLabel:function(e,t){return(this.settings.selectedListLabel=e)?this.elements.label2.show().html(e):this.elements.label2.hide().html(e),t&&m(this),this.element},setNonSelectedListLabel:function(e,t){return(this.settings.nonSelectedListLabel=e)?this.elements.label1.show().html(e):this.elements.label1.hide().html(e),t&&m(this),this.element},setHelperSelectNamePostfix:function(e,t){return(this.settings.helperSelectNamePostfix=e)?(this.elements.select1.attr("name",this.originalSelectName+e+"1"),this.elements.select2.attr("name",this.originalSelectName+e+"2")):(this.elements.select1.removeAttr("name"),this.elements.select2.removeAttr("name")),t&&m(this),this.element},setSelectOrMinimalHeight:function(e,t){this.settings.selectorMinimalHeight=e;var n=this.element.height();return this.element.height()<e&&(n=e),this.elements.select1.height(n),this.elements.select2.height(n),t&&m(this),this.element},setShowFilterInputs:function(e,t){return e?(this.elements.filterInput1.show(),this.elements.filterInput2.show()):(this.setNonSelectedFilter(""),this.setSelectedFilter(""),m(this),this.elements.filterInput1.hide(),this.elements.filterInput2.hide()),this.settings.showFilterInputs=e,t&&m(this),this.element},setNonSelectedFilter:function(e,t){if(this.settings.showFilterInputs)return this.settings.nonSelectedFilter=e,this.elements.filterInput1.val(e),t&&m(this),this.element},setSelectedFilter:function(e,t){if(this.settings.showFilterInputs)return this.settings.selectedFilter=e,this.elements.filterInput2.val(e),t&&m(this),this.element},setInfoText:function(e,t){return(this.settings.infoText=e)?(this.elements.info1.show(),this.elements.info2.show()):(this.elements.info1.hide(),this.elements.info2.hide()),t&&m(this),this.element},setInfoTextFiltered:function(e,t){return this.settings.infoTextFiltered=e,t&&m(this),this.element},setInfoTextEmpty:function(e,t){return this.settings.infoTextEmpty=e,t&&m(this),this.element},setFilterOnValues:function(e,t){return this.settings.filterOnValues=e,t&&m(this),this.element},setSortByInputOrder:function(e,t){return this.settings.sortByInputOrder=e,t&&m(this),this.element},setEventMoveOverride:function(e,t){return this.settings.eventMoveOverride=e,t&&m(this),this.element},setEventMoveAllOverride:function(e,t){return this.settings.eventMoveAllOverride=e,t&&m(this),this.element},setEventRemoveOverride:function(e,t){return this.settings.eventRemoveOverride=e,t&&m(this),this.element},setEventRemoveAllOverride:function(e,t){return this.settings.eventRemoveAllOverride=e,t&&m(this),this.element},setBtnClass:function(e,t){return this.settings.btnClass=e,this.elements.moveButton.attr("class","btn move").addClass(e),this.elements.removeButton.attr("class","btn remove").addClass(e),this.elements.moveAllButton.attr("class","btn moveall").addClass(e),this.elements.removeAllButton.attr("class","btn removeall").addClass(e),t&&m(this),this.element},setBtnMoveText:function(e,t){return this.settings.btnMoveText=e,this.elements.moveButton.html(e),t&&m(this),this.element},setBtnRemoveText:function(e,t){return this.settings.btnMoveText=e,this.elements.removeButton.html(e),t&&m(this),this.element},setBtnMoveAllText:function(e,t){return this.settings.btnMoveText=e,this.elements.moveAllButton.html(e),t&&m(this),this.element},setBtnRemoveAllText:function(e,t){return this.settings.btnMoveText=e,this.elements.removeAllButton.html(e),t&&m(this),this.element},getContainer:function(){return this.container},refresh:function(e){var t;o(this),e?(t=this).elements.select1.find("option").each(function(){t.element.find("option").data("_selected",!1)}):(d(this,1),d(this,2)),m(this)},destroy:function(){return this.container.remove(),this.element.show(),a.data(this,"plugin_"+i,null),this.element}},a.fn[i]=function(n){var t,s=arguments;return void 0===n||"object"==typeof n?this.each(function(){a(this).is("select")?a.data(this,"plugin_"+i)||a.data(this,"plugin_"+i,new l(this,n)):a(this).find("select").each(function(e,t){a(t).bootstrapDualListbox(n)})}):"string"==typeof n&&"_"!==n[0]&&"init"!==n?(this.each(function(){var e=a.data(this,"plugin_"+i);e instanceof l&&"function"==typeof e[n]&&(t=e[n].apply(e,Array.prototype.slice.call(s,1)))}),void 0!==t?t:this):void 0}});
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -19574,9 +19597,79 @@ try {
   __webpack_require__(/*! bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min */ "./node_modules/bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min.js");
 
   __webpack_require__(/*! jquery_mask/dist/jquery.mask.min.js */ "./node_modules/jquery_mask/dist/jquery.mask.min.js");
+
+  __webpack_require__(/*! bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js */ "./node_modules/bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js");
 } catch (e) {}
 
 jQuery(function () {
+  $('.btn-submit').on('click', function () {
+    var form = $(this).closest('form');
+    $(this).html('Salvando...');
+    $(this).attr('disable', true);
+
+    if ($('#file_document').val() != '') {
+      form.submit();
+    } else {
+      toastr.error('selecione um documento');
+      $(this).html('Salvar');
+      $(this).attr('disable', false);
+    }
+  });
+  $('#cursos_employee').bootstrapDualListbox({
+    // default text
+    filterTextClear: 'mostrar todos',
+    filterPlaceHolder: 'Filtar',
+    moveSelectedLabel: 'Move selected',
+    moveAllLabel: 'Mover todos',
+    removeSelectedLabel: 'Remover selecionados',
+    removeAllLabel: 'Remover todos',
+    // true/false (forced true on androids, see the comment later)
+    moveOnSelect: true,
+    // 'all' / 'moved' / false
+    preserveSelectionOnMove: false,
+    // 'string', false
+    selectedListLabel: false,
+    // 'string', false
+    nonSelectedListLabel: false,
+    // 'string_of_postfix' / false
+    helperSelectNamePostfix: '_helper',
+    // minimal height in pixels
+    selectorMinimalHeight: 300,
+    // whether to show filter inputs
+    showFilterInputs: true,
+    // string, filter the non selected options
+    nonSelectedFilter: '',
+    // string, filter the selected options
+    selectedFilter: '',
+    // text when all options are visible / false for no info text
+    infoText: 'Todos {0}',
+    // when not all of the options are visible due to the filter
+    infoTextFiltered: '<span class="badge badge-warning">Filtrar</span> {0} from {1}',
+    // when there are no options present in the list
+    infoTextEmpty: 'Lista vazia',
+    // sort by input order
+    sortByInputOrder: false,
+    // filter by selector's values, boolean
+    filterOnValues: false,
+    // boolean, allows user to unbind default event behaviour and run their own instead
+    eventMoveOverride: false,
+    // boolean, allows user to unbind default event behaviour and run their own instead
+    eventMoveAllOverride: false,
+    // boolean, allows user to unbind default event behaviour and run their own instead
+    eventRemoveOverride: false,
+    // boolean, allows user to unbind default event behaviour and run their own instead
+    eventRemoveAllOverride: false,
+    // sets the button style class for all the buttons
+    btnClass: 'btn-outline-secondary',
+    // string, sets the text for the "Move" button
+    btnMoveText: '&gt;',
+    // string, sets the text for the "Remove" button
+    btnRemoveText: '&lt;',
+    // string, sets the text for the "Move All" button
+    btnMoveAllText: '&gt;&gt;',
+    // string, sets the text for the "Remove All" button
+    btnRemoveAllText: '&lt;&lt;'
+  });
   $('.select2').select2();
   $('.date').mask('00/00/0000');
   $('.money').mask('000.000.000.000.000,00', {
@@ -19615,6 +19708,7 @@ jQuery(function () {
     var tab_pane_auditory = tab_auditory.replace("-tab", "");
     $('#' + tab_pane_auditory).addClass('show active');
     $('#' + tab_auditory).addClass('active');
+    resetDiv();
   });
   $('.nav-header').on('click', function () {
     localStorage.setItem('nav-tabs_employee', 'dados-tab');
@@ -19662,21 +19756,39 @@ jQuery(function () {
 
   $('.visibility_auditory_month').on('click', function () {
     var id = $(this).data('id');
-    $('.acompanhamento-mensal').addClass('d-none');
+    $('.acompanhamentoOrCurso').addClass('d-none');
     $.ajax({
       url: BASE + '/rh/auditorys/month/' + id,
       type: "GET",
       ajax: true,
       dataType: "JSON",
       success: function success(j) {
+        var type = j.type == 'cursos' ? 'cursos' : 'Acompanhamento_mensal';
         options = '';
 
         if (j.error != true) {
           if (j.payments != null && j.payments.length > 0) {
             for (var i = 0; i < j.payments.length; i++) {
               var color = j.payments[i].status == 'Pendente' ? '#ff2f2f' : '#0746b9';
-              options += '<tr class="text-center tr_auditory" data-id="' + j.payments[i].id + '"  data-month="' + j.payments[i].month + '" data-name="' + j.name + '" data-type="Acompanhamento_mensal">';
-              options += '   <td>' + j.payments[i].month + '</td>';
+
+              if (type == 'cursos') {
+                $('.month').addClass('d-none');
+                $('.month_accomplished').removeClass('d-none');
+                $('.vigence').removeClass('d-none');
+                var month = j.payments[i].date_accomplished;
+              } else {
+                $('.month').removeClass('d-none');
+                $('.month_accomplished').addClass('d-none');
+                $('.vigence').addClass('d-none');
+                var month = j.payments[i].month;
+              }
+
+              options += '<tr class="text-center tr_auditory" data-id="' + j.payments[i].id + '"  data-month="' + j.payments[i].month + '" data-name="' + j.name + '" data-type="' + type + '">';
+              options += '   <td>' + month + '</td>';
+
+              if (type == 'cursos') {
+                options += '   <td>' + j.payments[i].validade + '</td>';
+              }
 
               if (j.payments[i].status == 'Pendente') {
                 options += '<td class="status auditory_update" style="cursor:pointer;color:' + color + '" data-status="' + j.payments[i].status + '">' + j.payments[i].status + '</td>';
@@ -19694,7 +19806,7 @@ jQuery(function () {
             }
           }
 
-          $('#rows_table--mensal').html(options).show();
+          $('.rows_table--mensal').html(options).show();
           $('.status').on('click', function () {
             updateAuditoryMonth(this);
           });
@@ -19716,6 +19828,25 @@ jQuery(function () {
         toastr.error('Error get data from ajax');
       }
     });
+    $('.new').on('click', function () {
+      var _$$ajax2;
+
+      $.ajax((_$$ajax2 = {
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: BASE + '/rh/employees/auditory/storeAuditoryMonthEmployee',
+        type: 'POST',
+        ajax: true,
+        dataType: "JSON",
+        data: {
+          auditory_id: id
+        }
+      }, _defineProperty(_$$ajax2, "dataType", 'json'), _defineProperty(_$$ajax2, "success", function success(json) {
+        console.log(json);
+        $('.rows_table--mensal').append("<p>Test</p>");
+      }), _$$ajax2));
+    });
   });
   $('#cnh_check').on('change', function () {
     if ($(this).is(":checked")) {
@@ -19729,7 +19860,7 @@ jQuery(function () {
     updateAuditoryMonth(this);
   });
   $('.back').on('click', function () {
-    $('.acompanhamento-mensal').removeClass('d-none');
+    $('.acompanhamentoOrCurso').removeClass('d-none');
     $('.table-mensal').addClass('d-none');
   });
 });
@@ -19742,7 +19873,7 @@ function updateAuditoryMonth(v) {
   var data_month = $(v).closest('tr').data('month');
   $('.cursos--employees').css('display', 'none');
 
-  if (pasta == 'Acompanhamento_mensal') {
+  if (pasta == 'Acompanhamento_mensal' || pasta == 'cursos') {
     $('#update--Auditory').attr('action', BASE + '/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
     $('#employees_auditory_month_id').val(id);
     $('#employees_auditory_month_id').val(id);
@@ -19782,6 +19913,11 @@ function updateAuditoryMonth(v) {
   $('.btn-cancel').on('click', function () {
     $('#option_nao_' + id).prop('checked', true);
   });
+}
+
+function resetDiv() {
+  $('.acompanhamentoOrCurso').removeClass('d-none');
+  $('.table-mensal').addClass('d-none');
 }
 
 /***/ }),

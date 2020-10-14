@@ -24,8 +24,8 @@ class CreateEmployeesAuditoryTable extends Migration
             $table->string('option_name')->nullable();
             $table->integer('doc_applicable')->default('1')->nullable();
             $table->integer('doc_along_month')->nullable();
-            $table->date('date_accomplished')->nullable();
-            $table->string('validity')->nullable();
+            $table->integer('doc_along_year')->default('0')->nullable();
+
 
             $table->enum('status', ['0', '1'])->default('0');
 

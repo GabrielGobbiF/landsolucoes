@@ -1,9 +1,9 @@
-<div class="acompanhamento-mensal ">
+<div class="acompanhamentoOrCurso">
     <table class="table">
         <tbody>
             @foreach ($documentos['documentos_acompanhamento'] as $documento)
                 <tr data-id="{{ $documento->id }}" data-name="{{ $documento->name }}"
-                    data-type="contratacao">
+                    data-type="Acompanhamento_mensal">
                     <th style="width: 44%"> <span data-toggle="tooltip" title="">
                             {{ $documento->description ?? '' }}
                         </span>
@@ -42,24 +42,5 @@
     </table>
 </div>
 
-<div class="table-mensal d-none">
-    <table class="table text-center">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-            <h3 class="title_table--mensal"> </h3>
-            <div class="float-right">
-                <button class="btn btn-xs btn-primary back">
-                    <i class="fas fa-long-arrow-alt-left"></i>
-                    Voltar
-                </button>
-            </div>
-        </div>
-        <thead>
-            <tr>
-                <th scope="col">Mês</th>
-                <th scope="col">Status</th>
-                <th scope="col">Documento</th>
-            </tr>
-        </thead>
-        <tbody id="rows_table--mensal"></tbody>
-    </table>
-</div>
+@include('pages.painel.rh.employees._partials.mothOrYear')
+

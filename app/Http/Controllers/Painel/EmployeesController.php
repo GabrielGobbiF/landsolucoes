@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateEmployee;
 use App\Models\Auditory;
 use App\Models\Employee;
 use App\Models\User;
+use DateTime;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,12 +64,13 @@ class EmployeesController extends Controller
             $columns['date_contract'] = date('Y-m-d', strtotime(str_replace('/', '-', $request->date_contract)));
         }
 
-        $columns['salario'] = str_replace(',', '.', $request->salario);
+        $columns['salario'] = str_replace('.', '', $request->salario);
+        $columns['salario'] = str_replace(',', '.', $columns['salario']);
 
         $employee = $this->repository->create($columns);
 
         $auditory = DB::select(
-            "SELECT * FROM auditory"
+            "SELECT * FROM auditory WHERE type <> 'cursos'"
         );
 
         foreach ($auditory as $doc) {
@@ -81,6 +83,7 @@ class EmployeesController extends Controller
                 'option_name' => $doc->option_name,
                 'doc_applicable' => $doc->doc_applicable,
                 'doc_along_month' => $doc->doc_along_month,
+                'doc_along_year' => $doc->doc_along_year,
                 'employee_id' => $employee->id,
             ];
 
@@ -89,7 +92,7 @@ class EmployeesController extends Controller
             $employees_auditory_id = $employees_auditory->id;
 
             if ($doc->doc_along_month == true) {
-                $this->gerarParcelasMes($employees_auditory_id, $request->date_contract);
+                $this->gerarParcelasMes($employees_auditory_id, $request->date_contract, $doc->doc_along_year);
             }
         }
 
@@ -118,12 +121,19 @@ class EmployeesController extends Controller
 
         $documentos = $this->getDocumentAuditoryByEmployee($documentos);
 
+        $cursosInEmployee = DB::table('auditory')
+            ->select('id', 'description')
+            ->where('type', '=', 'cursos')
+            ->whereNotIn('description', DB::table('employees_auditory')->select('description')->where('employee_id', '=', $employee->id))
+            ->get()->toArray();
+
         $entrevista = $documentos['entrevista'] == true ?? false;
 
         return view('pages.painel.rh.employees.show', [
             'employee' => $employee,
             'documentos' => $documentos,
-            'entrevista' => $entrevista
+            'entrevista' => $entrevista,
+            'cursosInEmployee' => $cursosInEmployee
         ]);
     }
 
@@ -221,26 +231,18 @@ class EmployeesController extends Controller
 
             $user = Auth::user();
 
-            $validity = $request->validity ?? '';
-
-            $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : NULL;
-
             DB::update('UPDATE employees_auditory SET
                 status = :status,
                 updated_by = :updated_by,
                 updated_at = :date_now,
                 document_link = :document_link,
-                doc_applicable = 1,
-                date_accomplished = :date_accomplished,
-                validity = :validity
+                doc_applicable = 1
             WHERE id = :auditory_id', [
                 'status' => '1',
                 'updated_by' => $user->id,
                 'auditory_id' => $request->auditory_id,
                 'date_now' => date('Y-m-d H:i:s'),
                 'document_link' => $upload,
-                'validity' => $validity,
-                'date_accomplished' => $date_accomplished
             ]);
 
             return redirect()
@@ -270,20 +272,38 @@ class EmployeesController extends Controller
 
         return response()->json($update);
     }
-    public function gerarParcelasMes($employees_auditory_id, $data_contratacao)
+    public function gerarParcelasMes($employees_auditory_id, $data_contratacao, $year)
     {
         $dataContratacao = explode('/', $data_contratacao);
-
+//
         $mes = $dataContratacao[1];
         $ano = $dataContratacao[2];
 
-        for ($x = 0; $x <= 50; $x++) {
-            $dt_parcelas[$x] = date("Y-m", strtotime("+" . $x . " month", mktime(0, 0, 0, $mes, '25', $ano)));
+        $data_contratacao = date('Y-m-d', strtotime(str_replace('/', '-', $data_contratacao)));
 
-            DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
-                'month' => $dt_parcelas[$x],
-                'employees_auditory_id' => $employees_auditory_id,
-            ]);
+        $data1 = new DateTime($data_contratacao);
+        $data2 = new DateTime(date('Y-m-d'));
+
+        $intervalo = $data1->diff($data2);
+
+        if ($year == '0') {
+            for ($x = 0; $x <= $intervalo->m; $x++) {
+                $dt_parcelas[$x] = date("Y-m", strtotime("+" . $x . " month", mktime(0, 0, 0, $mes, '25', $ano)));
+
+                DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
+                    'month' => $dt_parcelas[$x],
+                    'employees_auditory_id' => $employees_auditory_id,
+                ]);
+            }
+        } else {
+            for ($x = 0; $x <= 5; $x++) {
+                $dt_parcelas[$x] = date("Y-m", strtotime("+" . $x . " year", mktime(0, 0, 0, $mes, '25', $ano)));
+
+                DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
+                    'month' => $dt_parcelas[$x],
+                    'employees_auditory_id' => $employees_auditory_id,
+                ]);
+            }
         }
     }
 

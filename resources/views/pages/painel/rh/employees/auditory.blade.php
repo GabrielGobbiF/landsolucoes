@@ -65,19 +65,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="file" name="file" id="file_document">
+                        <input type="file" name="file" id="file_document" required>
                         <p class="help-block">somente arquivos <b>PDF</b></p>
                         <br>
                         <p class="help-block">por favor, confirme o documento antes de enviar</p>
                     </div>
 
-                    <div class="cursos--employees">
-
-                    </div>
+                    <div class="cursos--employees"></div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary"
-                        onclick="this.disabled = true; this.value = 'Salvando…'; this.form.submit();" value="Salvar">
+                    <button type="button" class="btn btn-primary btn-submit" >Salvar</button>
                     <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>

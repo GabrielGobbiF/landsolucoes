@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateEmployeesAuditoryMonthTable extends Migration
@@ -18,6 +19,8 @@ class CreateEmployeesAuditoryMonthTable extends Migration
             $table->enum('status', ['0', '1'])->default('0');
             $table->string('month')->nullable();
             $table->string('docs_link')->nullable();
+            $table->date('date_accomplished')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('validity')->nullable();
 
             $table->unsignedBigInteger('employees_auditory_id');
 
