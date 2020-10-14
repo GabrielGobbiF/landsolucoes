@@ -71,10 +71,25 @@ class RelatorioEmployee extends Controller
                     if ($request->tipo_auditoria) {
                         $query->where('type', $request->tipo_auditoria);
                     }
-
                 })
                 ->latest()
-                ->get();
+                ->get()->toArray();
+
+            foreach ($results_auditorys as $documento) {
+                if ($documento['doc_along_month'] == 1) {
+                    $along_month = DB::select('SELECT * FROM employees_auditory_month
+                    WHERE employees_auditory_id = :employees_auditory_id AND month <= :mes AND status = "0" ', [
+                        'employees_auditory_id' => $documento['id'],
+                        'mes' => date('Y-m')
+                    ]);
+                    if (count($along_month) == 0) {
+                        $key = array_search($documento['name'], array_column($results_auditorys, 'name'));
+                        if ($key !== false) {
+                            unset($results_auditorys[$key]);
+                        }
+                    }
+                }
+            }
 
             //$results_auditorys = DB::select('SELECT * FROM employees_auditory
             //WHERE employee_id = :auditory_id ', [
@@ -84,7 +99,8 @@ class RelatorioEmployee extends Controller
             $results[] = (object) [
                 'name' => $employeesSearch->name,
                 'uuid' => $employeesSearch->uuid,
-                'auditory' => count($results_auditorys)
+                'auditory' => count($results_auditorys),
+                'documentos' => (object) $results_auditorys
             ];
         }
 

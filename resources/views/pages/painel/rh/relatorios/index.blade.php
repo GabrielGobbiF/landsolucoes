@@ -28,18 +28,18 @@
                         </div>
 
                         <!--<div class="col-md-3">
-                            <div class="form-group">
-                                <label for="input--cargo">Pendência</label>
-                                <select name="filter[pendencia]" class="form-control select2">
-                                    <option
-                                        {{ isset($filters['filter']['pendencia']) && $filters['filter']['pendencia'] == '' ? 'selected' : '' }}
-                                        value="">Todas</option>
-                                    <option
-                                        {{ isset($filters['filter']['pendencia']) && $filters['filter']['pendencia'] == 'pendencia' ? 'selected' : '' }}
-                                        value="pendencia">Somente Pendência</option>
-                                </select>
-                            </div>
-                        </div>-->
+                                                                                <div class="form-group">
+                                                                                    <label for="input--cargo">Pendência</label>
+                                                                                    <select name="filter[pendencia]" class="form-control select2">
+                                                                                        <option
+                                                                                            {{ isset($filters['filter']['pendencia']) && $filters['filter']['pendencia'] == '' ? 'selected' : '' }}
+                                                                                            value="">Todas</option>
+                                                                                        <option
+                                                                                            {{ isset($filters['filter']['pendencia']) && $filters['filter']['pendencia'] == 'pendencia' ? 'selected' : '' }}
+                                                                                            value="pendencia">Somente Pendência</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>-->
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -72,22 +72,40 @@
         </form>
 
         @if (count($results) > 0)
-            <table id="table" class="table table-hover table-striped mt-3">
+            @foreach ($results as $employee)
 
-                @foreach ($results as $employee)
-                    <tr class="">
-                        <td>{{ $employee->name }}</td>
-                        <td>{{ $employee->auditory }} Pendência(s)</td>
-                        <td>
-                            <a href="{{route('employees.show', $employee->uuid)}}" data-toggle="tooltip" data-placement="top" title="Visualizar"
-                                class="btn btn-xs btn-dark"> <i class="fa fa-info"></i>
-                            </a>
-                        </td>
+                <div class="accordion mt-3" id="accordionEmployee">
+                    <div class="card">
+                        <a class="" type="button" data-toggle="collapse"
+                            data-target="#collapse{{ $employee->uuid }}" aria-expanded="true"
+                            aria-controls="collapse{{ $employee->uuid }}">
+                            <div class="card-header d-flex" id="headingOne">
+                                <h5 class="mb-0 btn text-left">{{ $employee->name }}</h5>
+                                <h5 class="mb-0 btn text-left">{{ $employee->auditory }} Pendência(s)</h5>
+                            </div>
+                        </a>
+                        <div id="collapse{{ $employee->uuid }}" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionEmployee">
+                            <div class="card-body">
+                                <table id="table" class="table table-hover">
+                                    @foreach ($employee->documentos as $docs)
+                                        <tr class="">
+                                            <td>{{ $docs['description'] }}</td>
+                                            <td>
+                                                <a href="{{ route('employees.show', $employee->uuid) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Visualizar"
+                                                    class="btn btn-xs btn-dark"> <i class="fa fa-info"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                    </tr>
-                @endforeach
-
-            </table>
+                </div>
+            @endforeach
         @endif
     </div>
 
