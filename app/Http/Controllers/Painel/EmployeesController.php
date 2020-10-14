@@ -391,12 +391,16 @@ class EmployeesController extends Controller
     {
         $employee = $this->repository->where('uuid', $uuid)->first();
 
+        error_log(print_r($employee,1));
+
         if (!$employee) {
             return redirect()
                 ->route('employees')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        return response()->json(DB::update('update employees set dispense = 1 where id = ?', [$employee->id]));
+        $update = DB::update('update employees set dispense = 1 where id = ?', [$employee->id]);
+
+        return response()->json($update);
     }
 }
