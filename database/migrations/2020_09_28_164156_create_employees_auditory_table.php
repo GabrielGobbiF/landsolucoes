@@ -26,7 +26,6 @@ class CreateEmployeesAuditoryTable extends Migration
             $table->integer('doc_along_month')->nullable();
             $table->integer('doc_along_year')->default('0')->nullable();
             $table->integer('epi')->default('0')->nullable();
-            $table->string('epi_description')->nullable();
 
             $table->enum('status', ['0', '1'])->default('0');
 

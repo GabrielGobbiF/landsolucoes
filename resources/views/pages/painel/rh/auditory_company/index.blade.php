@@ -10,19 +10,15 @@
             <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right"></div>
         </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Documento</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($documentos = [] as $documento)
+        <div class="acompanhamentoOrCurso">
+            <table class="table">
+                <tbody>
+                    ainda terminando
+                </tbody>
+            </table>
+        </div>
 
-                @endforeach
-            </tbody>
-        </table>
+
     </div>
 
 @endsection

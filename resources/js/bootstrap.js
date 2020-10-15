@@ -18,6 +18,7 @@ try {
 jQuery(function () {
 
 
+
     $('.open_dispense_employee').on('click', function () {
 
         $('#modal-dispense--employee').modal('show');
@@ -28,7 +29,7 @@ jQuery(function () {
                 headers: {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: BASE + '/rh/employees/dispense/'+ employee_id,
+                url: BASE + '/rh/employees/dispense/' + employee_id,
                 type: 'PUT',
                 ajax: true,
                 dataType: "JSON",
@@ -46,17 +47,40 @@ jQuery(function () {
     })
 
     $('.btn-submit').on('click', function () {
+        $('#input--date_accomplished').removeClass('is-invalid');
+        $('#input--epi_description').removeClass('is-invalid');
         var form = $(this).closest('form');
         $(this).html('Salvando...');
         $(this).attr('disabled', true);
 
-        if ($('#file_document').val() != '') {
-            form.submit();
-        } else {
+        if ($('#file_document').val() == '') {
             toastr.error('selecione um documento');
             $(this).html('Salvar');
             $(this).attr('disabled', false);
+            return;
         }
+
+        if ($('#required').val() == 'true') {
+
+            if ($('#input--epi_description').val() == '' || $('#input--date_accomplished') == '') {
+
+                if ($('#input--date_accomplished').val() == '') {
+                    $('#input--date_accomplished').addClass('is-invalid');
+                }
+
+                if ($('#input--epi_description').val() == '') {
+                    $('#input--epi_description').addClass('is-invalid');
+                }
+
+                toastr.error('por favor, complete os campos');
+                $(this).html('Salvar');
+                $(this).attr('disabled', false);
+                return;
+            }
+        }
+
+        form.submit();
+
     })
 
     $('#cursos_employee').bootstrapDualListbox({
@@ -242,10 +266,75 @@ jQuery(function () {
         $('#myTab_employee #documentos-tab').tab('show')
     }
 
+    $('.visibility_auditory_epi').on('click', function () {
+        var id = $(this).data('id');
+        $('#epi_id').val(id);
+        $('.table-mensal').addClass('d-none');
+
+        $.ajax({
+            url: BASE + '/rh/auditorys/month/' + id,
+            type: "GET",
+            ajax: true,
+            dataType: "JSON",
+            success: function success(j) {
+
+                options = '';
+
+                if (j.error != true) {
+                    if (j.payments != null && j.payments.length > 0) {
+                        for (var i = 0; i < j.payments.length; i++) {
+                            var color = j.payments[i].status == 'Pendente' ? '#ff2f2f' : '#0746b9';
+                            options += '<tr class="text-center tr_auditory" data-id="' + j.payments[i].id + '"  data-month="' + j.payments[i].month + '" data-name="' + j.name + '" data-type="Acompanhamento_mensal">';
+                            options += '   <td>' + j.payments[i].epi_description + '</td>';
+                            options += '   <td>' + j.payments[i].date_accomplished + '</td>';
+                            if (j.payments[i].status == 'Pendente') {
+                                options += '<td class="epi_doc auditory_update" style="cursor:pointer;color:' + color + '" data-status="' + j.payments[i].status + '">' + j.payments[i].status + '</td>';
+                            } else {
+                                options += '<td class="" style="color:' + color + '" data-status="' + j.payments[i].status + '">' + j.payments[i].status + '</td>';
+                            }
+                            if (j.payments[i].docs != false) {
+                                options += '<td>' + j.payments[i].docs_envio + ' <a target="_blank" href="' + j.payments[i].docs + '"> Ver </a> </td>';
+                            } else {
+                                options += '<td></td>';
+                            }
+                            options += '</tr>';
+                        }
+                    }
+
+                    $('.rows_table--epi').html(options).show();
+                    $('.epi_doc').on('click', function () {
+                        updateAuditoryMonth(this, 'epi');
+                    });
+                    $('.auditory_update').on('mouseover', function () {
+                        if ($(this).data('status') != 'OK') {
+                            $(this).html('Atualizar');
+                        }
+                    });
+                    $('.auditory_update').on('mouseleave', function () {
+                        $(this).html($(this).data('status'));
+                    });
+                    $('.table-epi').removeClass('d-none');
+                    $('.acompanhamentoOrCurso').addClass('d-none');
+                    $('.title_table--mensal').html(j.title);
+                } else {
+                    toastr.error(j.message);
+                }
+
+            },
+            error: function error(jqXHR, textStatus, errorThrown) {
+                toastr.error('Error get data from ajax');
+            }
+        });
+
+
+    });
+
     $('.visibility_auditory_month').on('click', function () {
         var id = $(this).data('id');
 
         $('.acompanhamentoOrCurso').addClass('d-none');
+        $('.table-epi').addClass('d-none');
+
         $.ajax({
             url: BASE + '/rh/auditorys/month/' + id,
             type: "GET",
@@ -301,7 +390,7 @@ jQuery(function () {
 
                     $('.rows_table--mensal').html(options).show();
                     $('.status').on('click', function () {
-                        updateAuditoryMonth(this);
+                        updateAuditoryMonth(this, '');
                     });
                     $('.auditory_update').on('mouseover', function () {
                         if ($(this).data('status') != 'OK') {
@@ -322,25 +411,7 @@ jQuery(function () {
             }
         });
 
-        $('.new').on('click', function () {
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: BASE + '/rh/employees/auditory/storeAuditoryMonthEmployee',
-                type: 'POST',
-                ajax: true,
-                dataType: "JSON",
-                data: {
-                    auditory_id: id
-                },
-                dataType: 'json',
-                success: function (json) {
-                    console.log(json);
-                    $('.rows_table--mensal').append("<p>Test</p>");
-                },
-            });
-        });
+
 
     });
 
@@ -354,25 +425,27 @@ jQuery(function () {
     })
 
     $('.status').on('click', function (e) {
-        updateAuditoryMonth(this);
+        updateAuditoryMonth(this, '');
     });
 
     $('.back').on('click', function () {
         $('.acompanhamentoOrCurso').removeClass('d-none');
         $('.table-mensal').addClass('d-none');
+        $('.table-epi').addClass('d-none');
     })
-
 
 });
 
-function updateAuditoryMonth(v) {
+function updateAuditoryMonth(v, type) {
+
     var id = $(v).closest('tr').data('id');
     var pasta = $(v).closest('tr').data('type');
     var name = $(v).closest('tr').data('name');
     var employee_id = $('#employee_id').val();
     var data_month = $(v).closest('tr').data('month');
 
-    $('.cursos--employees').css('display', 'none');
+    $('.cursos--employees').addClass('d-none');
+    $('.epi--employees').addClass('d-none');
 
     if (pasta == 'Acompanhamento_mensal' || pasta == 'cursos') {
         $('#update--Auditory').attr('action', BASE + '/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
@@ -402,8 +475,36 @@ function updateAuditoryMonth(v) {
         options += '    </div>'
         options += '</div>'
 
-        $('.cursos--employees').css('display', '');
+        $('#required').val('true');
+        $('.cursos--employees').removeClass('d-none');
         $('.cursos--employees').html(options);
+    }
+
+    if (type == 'epi') {
+        options = ''
+
+        options += '<div class="row">'
+        options += '    <div class="col-md-6">'
+        options += '        <div class="form-group">'
+        options += '            <label for="input--epi_description">Descrição do EPI</label>'
+        options += '            <input type="text" name="epi_description"'
+        options += '                class="form-control"'
+        options += '                id="input--epi_description" value="">'
+        options += '        </div>'
+        options += '    </div>'
+        options += '    <div class="col-md-6">'
+        options += '        <div class="form-group">'
+        options += '            <label for="input--date_accomplished">Mês Retirado (10/2020)</label>'
+        options += '            <input type="text" name="date_accomplished"'
+        options += '                class="form-control date"'
+        options += '                id="input--date_accomplished" value="10/2020">'
+        options += '        </div>'
+        options += '    </div>'
+        options += '</div>'
+
+        $('#required').val('true');
+        $('.epi--employees').removeClass('d-none');
+        $('.epi--employees').html(options);
     }
 
     $('#auditory_id').val(id);
@@ -421,8 +522,6 @@ function resetDiv() {
 
     $('.acompanhamentoOrCurso').removeClass('d-none');
     $('.table-mensal').addClass('d-none');
-
-
 
 }
 

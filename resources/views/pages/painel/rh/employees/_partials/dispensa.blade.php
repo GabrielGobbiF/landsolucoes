@@ -26,7 +26,7 @@
                 </th>
                 @if ($documento->status == '1' && $documento->document_link != '')
                     <th class="text-center">
-                        <span style="font-size:13px"> documento enviado por {{ $documento->user_envio }} em
+                        <span style="font-size:13px"> Doc enviado por {{ $documento->user_envio }} em
                             {{ $documento->data_envio }}
                             <a target="_blank" href="{{ $documento->document_link }}">
                                 ver </a><span>

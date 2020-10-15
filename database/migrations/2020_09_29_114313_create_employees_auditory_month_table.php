@@ -21,6 +21,7 @@ class CreateEmployeesAuditoryMonthTable extends Migration
             $table->string('docs_link')->nullable();
             $table->string('date_accomplished')->nullable();
             $table->string('validity')->nullable();
+            $table->string('epi_description')->nullable();
 
             $table->unsignedBigInteger('employees_auditory_id');
 

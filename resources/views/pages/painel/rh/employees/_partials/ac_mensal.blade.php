@@ -13,7 +13,7 @@
                             <div class="form-group">
                                 <div class="radio">
                                     <a href="#" data-id="{{ $documento->id }}"
-                                        class="visibility_auditory_month">Visualizar</a>
+                                        class="{{$documento->epi == 0 ? 'visibility_auditory_month' : 'visibility_auditory_epi'}}">Visualizar</a>
                                 </div>
                             </div>
                         @else

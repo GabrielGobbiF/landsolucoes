@@ -23,6 +23,9 @@ class EmployeesController extends Controller
         $this->middleware('auth');
 
         $this->repository = $employees;
+
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        date_default_timezone_set('America/Sao_Paulo');
     }
     /**
      * Display a listing of the resource.
@@ -74,7 +77,6 @@ class EmployeesController extends Controller
         );
 
         foreach ($auditory as $doc) {
-
             $docColumns = [
                 'name' => $doc->name,
                 'description' => $doc->description,
@@ -85,13 +87,14 @@ class EmployeesController extends Controller
                 'doc_along_month' => $doc->doc_along_month,
                 'doc_along_year' => $doc->doc_along_year,
                 'employee_id' => $employee->id,
+                'epi' => $doc->epi
             ];
 
             $employees_auditory = Auditory::create($docColumns);
 
             $employees_auditory_id = $employees_auditory->id;
 
-            if ($doc->doc_along_month == true) {
+            if ($doc->doc_along_month == true && $doc->epi != 1) {
                 $this->gerarParcelasMes($employees_auditory_id, $request->date_contract, $doc->doc_along_year);
             }
         }
@@ -347,7 +350,8 @@ class EmployeesController extends Controller
                 'user_envio' => $nome_usuario,
                 'data_envio' => $data_enviada,
                 'option_name' => $documento->option_name,
-                'data_vigencia_curso' => $data_vigencia_curso
+                'data_vigencia_curso' => $data_vigencia_curso,
+                'epi' => $documento->epi
             ];
 
             switch ($documento->type) {
@@ -374,7 +378,6 @@ class EmployeesController extends Controller
             if ($documento->name == 'entrevista' && $documento->status === '1') {
                 $docs['entrevista'] = true;
             }
-
         }
         return $docs;
     }
@@ -391,15 +394,13 @@ class EmployeesController extends Controller
     {
         $employee = $this->repository->where('uuid', $uuid)->first();
 
-        error_log(print_r($employee,1));
-
         if (!$employee) {
             return redirect()
                 ->route('employees')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $update = DB::update('update employees set dispense = 1 where id = ?', [$employee->id]);
+        $update = DB::update('update employees set dispense = "1" where id = ?', [$employee->id]);
 
         return response()->json($update);
     }

@@ -66,6 +66,7 @@
             <input type="hidden" name="type_pasta" id="type_pasta">
             <input type="hidden" name="document_name" id="document_name">
             <input type="hidden" name="data_month" id="data_month">
+            <input type="hidden" id="required" value="false" >
 
             <div class="modal-content">
                 <div class="modal-header">
@@ -82,7 +83,8 @@
                         <p class="help-block">por favor, confirme o documento antes de enviar</p>
                     </div>
 
-                    <div class="cursos--employees"></div>
+                    <div class="cursos--employees d-none"></div>
+                    <div class="epi--employees d-none"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary btn-submit">Salvar</button>
