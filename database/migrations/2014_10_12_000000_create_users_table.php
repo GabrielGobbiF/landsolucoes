@@ -39,6 +39,14 @@ class CreateUsersTable extends Migration
                 'email' => 'bruno@bruno',
             ]
         );
+
+        DB::table('users')->insert(
+            [
+                'name' => 'Livia',
+                'password' => '$2y$10$Z2LncyeGcNVwIOCDKMG5b.sLcFgtGaKSRtHUS3hU60XY3KstrJR4i',
+                'email' => 'livia@livia',
+            ]
+        );
     }
 
     /**
