@@ -33,12 +33,10 @@
                     <i class="fas fa-long-arrow-alt-left"></i>
                     Voltar
                 </button>
-
                 <button class="btn btn-xs btn-primary new_epi" onclick="newEpi()">
                     <i class="fas fa-plus"></i>
                     Novo
                 </button>
-
             </div>
         </div>
         <thead class="epi--thead">
@@ -52,7 +50,6 @@
         <tbody class="rows_table--epi"></tbody>
     </table>
 </div>
-
 
 <script>
     function newEpi() {

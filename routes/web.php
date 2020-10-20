@@ -42,6 +42,7 @@ Route::group(['middleware' => 'role:rh'], function () {
         Route::put('/employees/{id}', [App\Http\Controllers\Painel\EmployeesController::class, 'update'])->name('employees.update');
         Route::put('/employees/dispense/{id}', [App\Http\Controllers\Painel\EmployeesController::class, 'dispensaEmployee'])->name('employees.dispense');
         Route::get('/employees/delete/{id}', [App\Http\Controllers\Painel\EmployeesController::class, 'destroy'])->name('employees.destroy');
+
         /*
         |--------------------------------------------------------------------------
         | Employees - Relátorio
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'role:rh'], function () {
         */
         Route::get('/relatorio/search', [App\Http\Controllers\Painel\Relatorios\RelatorioEmployee::class, 'search'])->name('relatorio.employee.search');
         Route::get('/relatorio', [App\Http\Controllers\Painel\Relatorios\RelatorioEmployee::class, 'index'])->name('relatorios.employees');
+
         /*
         |--------------------------------------------------------------------------
         | Auditory_Employees - Funcionário Auditoria
@@ -63,9 +65,13 @@ Route::group(['middleware' => 'role:rh'], function () {
 
         /*
         |--------------------------------------------------------------------------
-        | Auditoria
+        | Auditoria Empresa
         |--------------------------------------------------------------------------
         */
         Route::get('/auditory/company', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company'])->name('auditory.company');
+        Route::post('/auditory/company/update', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_update'])->name('auditory.company.update');
+        Route::post('/auditory/company/store', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_store'])->name('auditory.company.store');
+
+
     });
 });

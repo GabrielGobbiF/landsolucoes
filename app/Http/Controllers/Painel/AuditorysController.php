@@ -28,13 +28,104 @@ class AuditorysController extends Controller
      */
     public function auditory_company()
     {
+        $docs = [];
+
         $auditory = DB::select(
-            "SELECT * FROM auditory WHERE type = 'documentos' "
+            "SELECT * FROM company_auditory"
         );
 
+        foreach ($auditory as $documento) {
+
+            $nome_usuario = '';
+            $data_enviada = '';
+
+            if ($documento->updated_by != '') {
+                $usuario = User::where('id', $documento->updated_by)->first();
+                $nome_usuario = $usuario->name;
+                $data_enviada = date('d/m/Y H:i', strtotime($documento->updated_at));
+            }
+
+            $array_docs = (object) [
+                'id' => $documento->id,
+                'status' => $documento->status,
+                'document_link' => $documento->document_link != '' ? asset('storage/' . $documento->document_link) : '',
+                'name' => $documento->name,
+                'description' => $documento->description,
+                'user_envio' => $nome_usuario,
+                'data_envio' => $data_enviada,
+            ];
+
+            $docs[] = $array_docs;
+        }
+
         return view('pages.painel.rh.auditory_company.index', [
-            'documentos' => $auditory
+            'documentos' => $docs
         ]);
+    }
+
+    public function auditory_company_store(Request $request)
+    {
+
+        $name = $this->retiraAcentos($request->input('name'));
+
+        $description = mb_strtoupper($request->input('name'), 'utf-8');
+
+        DB::insert('INSERT INTO company_auditory (name, description, type) VALUES (:name, :description, :type)', [
+            'name' => $name,
+            'description' => $description,
+            'type' => 'documentos'
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('message', 'Inserido com sucesso');
+    }
+
+    public function auditory_company_update(Request $request)
+    {
+        if ($request->hasFile('file') && $request->file->isValid()) {
+
+            if ($request->file->extension() != 'pdf') {
+                return redirect()
+                    ->back()
+                    ->with('message', 'Somente arquivos em PDF');
+            }
+
+            $company_name = 'landsolucoes';
+
+            $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
+
+            $upload = $request->file->storeAs("documentos/empresa/{$company_name}", "{$docs_name}.pdf");
+
+            if (empty($request->auditory_id)) {
+                return redirect()
+                    ->back()
+                    ->with('message', 'Nenhum registro selecionado!');
+            }
+
+            $user = Auth::user();
+
+            DB::update('UPDATE company_auditory SET
+                status = :status,
+                updated_by = :updated_by,
+                updated_at = :date_now,
+                document_link = :document_link
+            WHERE id = :auditory_id', [
+                'status' => '1',
+                'updated_by' => $user->id,
+                'auditory_id' => $request->auditory_id,
+                'date_now' => date('Y-m-d H:i:s'),
+                'document_link' => $upload,
+            ]);
+
+            return redirect()
+                ->back()
+                ->with('message', 'Atualizado com sucesso');
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Nenhum arquivo selecionado');
     }
 
     /**
@@ -277,7 +368,21 @@ class AuditorysController extends Controller
             }
             return $this->getParcelasAuditoryById($employee_auditory_id);
         } else {
-            return response()->json(['error'=>true, 'message'=>'Existe Pendências']);
+            return response()->json(['error' => true, 'message' => 'Existe Pendências']);
         }
+    }
+
+    function retiraAcentos($string)
+    {
+        $acentos  =  'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
+        $sem_acentos  =  'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
+        $string = strtr($string, utf8_decode($acentos), $sem_acentos);
+        $string = str_replace(" ", "_", $string);
+        $string = str_replace("(", "_", $string);
+        $string = str_replace(")", "_", $string);
+        $string = str_replace(",", "_", $string);
+
+        $string = mb_strtolower($string, 'UTF-8');
+        return utf8_decode($string);
     }
 }
