@@ -23,6 +23,9 @@ class AuditorysController extends Controller
         date_default_timezone_set('America/Sao_Paulo');
     }
 
+    /**
+     * Tela de documentos da Empresa
+     */
     public function auditory_company()
     {
         $auditory = DB::select(
@@ -34,6 +37,9 @@ class AuditorysController extends Controller
         ]);
     }
 
+    /**
+     * Acompanhamento Mensal ou Anual
+     */
     public function getParcelasAuditoryById($id)
     {
         $mes = date('Y-m');
@@ -51,7 +57,6 @@ class AuditorysController extends Controller
         $employees_auditory_month = DB::select('SELECT id,status,empAudMont.month,docs_link,updated_by,updated_at,date_accomplished,validity,epi_description FROM employees_auditory_month empAudMont
         WHERE employees_auditory_id = :employees_id', [
             'employees_id' => $employee_auditory[0]->id,
-
         ]);
 
         foreach ($employees_auditory_month as $month) {
@@ -102,7 +107,7 @@ class AuditorysController extends Controller
     }
 
     /**
-     * Adicionar uma autitoria em um usuario
+     * Adicionar uma autitoria (CURSO) em um usuario
      * Exemplo: curso RN6 no funcionar Gabriel
      * @param  \Illuminate\Http\Request  $request
      * @param   $employee_id
@@ -146,6 +151,8 @@ class AuditorysController extends Controller
             ->back()
             ->with('message', 'Atualizado');
     }
+
+
 
     public function updateEmployeesAuditoryMonth(Request $request, $employee_id)
     {
@@ -215,15 +222,14 @@ class AuditorysController extends Controller
 
             $auditory_employee = DB::select('select employees_auditory_id from employees_auditory_month where id = ?', [$request->employees_auditory_month_id]);
 
-            if ($request->epi_description != '') {
+            if ($request->epi_description == '') {
+
                 if ($request->type_pasta == 'cursos') {
                     DB::insert('INSERT INTO employees_auditory_month (date_accomplished, employees_auditory_id) VALUES (:date_accomplished, :employees_auditory_id)', [
                         'date_accomplished' => $data_validade,
                         'employees_auditory_id' => $auditory_employee[0]->employees_auditory_id,
                     ]);
-                }
-
-                if ($request->type_pasta != 'cursos') {
+                } else {
 
                     $auditory_employee_month = DB::select('SELECT * FROM employees_auditory_month WHERE employees_auditory_id = ? ORDER BY id DESC LIMIT 1', [$auditory_employee[0]->employees_auditory_id]);
 
@@ -258,15 +264,20 @@ class AuditorysController extends Controller
     {
         $employee_auditory_id = $request->auditory_id;
 
-        $insert = DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
-            'month' => date('Y-m'),
-            'employees_auditory_id' => $employee_auditory_id,
-        ]);
+        $auditory_employee_month = DB::select('SELECT * FROM employees_auditory_month WHERE employees_auditory_id = ? AND status = "0"', [$employee_auditory_id]);
 
-        if (!$insert) {
-            return response()->json(['error' => true, 'message' => 'não encontrado contate o administrador']);
+        if (isset($auditory_employee_month) && count($auditory_employee_month) == 0) {
+            $insert = DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
+                'month' => date('Y-m'),
+                'employees_auditory_id' => $employee_auditory_id,
+            ]);
+
+            if (!$insert) {
+                return response()->json(['error' => true, 'message' => 'não encontrado contate o administrador']);
+            }
+            return $this->getParcelasAuditoryById($employee_auditory_id);
+        } else {
+            return response()->json(['error'=>true, 'message'=>'Existe Pendências']);
         }
-
-        return $this->getParcelasAuditoryById($employee_auditory_id);
     }
 }

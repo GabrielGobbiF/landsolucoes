@@ -19566,6 +19566,8 @@ module.exports = g;
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./components/auditory */ "./resources/js/components/auditory.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -19574,8 +19576,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
   \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
@@ -19602,62 +19602,17 @@ try {
 } catch (e) {}
 
 jQuery(function () {
-  $('.open_dispense_employee').on('click', function () {
-    $('#modal-dispense--employee').modal('show');
-    $('.modal-confirm').on('click', function () {
-      var _$$ajax;
-
-      var employee_id = $('#employee_id').val();
-      $.ajax((_$$ajax = {
-        headers: {
-          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: BASE + '/rh/employees/dispense/' + employee_id,
-        type: 'PUT',
-        ajax: true,
-        dataType: "JSON",
-        data: {
-          dispense: 1
-        }
-      }, _defineProperty(_$$ajax, "dataType", 'json'), _defineProperty(_$$ajax, "success", function success(json) {
-        localStorage.setItem('nav-link_auditory', 'v-pills-dispensa-tab');
-        location.reload();
-      }), _$$ajax));
-    });
+  $('.select2').select2();
+  $('.date').mask('00/00/0000');
+  $('.money').mask('000.000.000.000.000,00', {
+    reverse: true
   });
-  $('.btn-submit').on('click', function () {
-    $('#input--date_accomplished').removeClass('is-invalid');
-    $('#input--epi_description').removeClass('is-invalid');
-    var form = $(this).closest('form');
-    $(this).html('Salvando...');
-    $(this).attr('disabled', true);
+  $('.rg').mask('00000000-0');
 
-    if ($('#file_document').val() == '') {
-      toastr.error('selecione um documento');
-      $(this).html('Salvar');
-      $(this).attr('disabled', false);
-      return;
-    }
+  if (window.location.hash == 'documentos-tab') {
+    $('#myTab_employee #documentos-tab').tab('show');
+  }
 
-    if ($('#required').val() == 'true') {
-      if ($('#input--epi_description').val() == '' || $('#input--date_accomplished') == '') {
-        if ($('#input--date_accomplished').val() == '') {
-          $('#input--date_accomplished').addClass('is-invalid');
-        }
-
-        if ($('#input--epi_description').val() == '') {
-          $('#input--epi_description').addClass('is-invalid');
-        }
-
-        toastr.error('por favor, complete os campos');
-        $(this).html('Salvar');
-        $(this).attr('disabled', false);
-        return;
-      }
-    }
-
-    form.submit();
-  });
   $('#cursos_employee').bootstrapDualListbox({
     // default text
     filterTextClear: 'mostrar todos',
@@ -19712,13 +19667,7 @@ jQuery(function () {
     btnMoveAllText: '&gt;&gt;',
     // string, sets the text for the "Remove All" button
     btnRemoveAllText: '&lt;&lt;'
-  });
-  $('.select2').select2();
-  $('.date').mask('00/00/0000');
-  $('.money').mask('000.000.000.000.000,00', {
-    reverse: true
-  });
-  $('.rg').mask('00000000-0'); //localStorage.getItem('tab-pane') == null ? localStorage.setItem('tab-pane', 'thumblist') : '';
+  }); //localStorage.getItem('tab-pane') == null ? localStorage.setItem('tab-pane', 'thumblist') : '';
 
   localStorage.getItem('nav-tabs_employee') == null || localStorage.getItem('nav-tabs_employee') == undefined ? localStorage.setItem('nav-tabs_employee', 'dados-tab') : '';
   var tab_employee = localStorage.getItem('nav-tabs_employee');
@@ -19765,6 +19714,103 @@ jQuery(function () {
       window.location.href = href;
     });
   });
+  $('#cnh_check').on('change', function () {
+    if ($(this).is(":checked")) {
+      $('.div--cnh_number').removeClass('d-none');
+    } else {
+      $('#input--cnh_number').val('');
+      $('.div--cnh_number').addClass('d-none');
+    }
+  });
+  $('.back').on('click', function () {
+    $('.acompanhamentoOrCurso').removeClass('d-none');
+    $('.table-mensal').addClass('d-none');
+    $('.table-epi').addClass('d-none');
+  });
+});
+
+function resetDiv() {
+  $('.acompanhamentoOrCurso').removeClass('d-none');
+  $('.table-mensal').addClass('d-none');
+  $('.table-epi').addClass('d-none');
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/auditory.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/auditory.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+console.log('auditory');
+jQuery(function () {
+  /**
+  * Modal para abrir a demissão do funcionario
+  */
+  $('.open_dispense_employee').on('click', function () {
+    $('#modal-dispense--employee').modal('show');
+    $('.modal-confirm').on('click', function () {
+      var _$$ajax;
+
+      var employee_id = $('#employee_id').val();
+      $.ajax((_$$ajax = {
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: BASE + '/rh/employees/dispense/' + employee_id,
+        type: 'PUT',
+        ajax: true,
+        dataType: "JSON",
+        data: {
+          dispense: 1
+        }
+      }, _defineProperty(_$$ajax, "dataType", 'json'), _defineProperty(_$$ajax, "success", function success(json) {
+        localStorage.setItem('nav-link_auditory', 'v-pills-dispensa-tab');
+        location.reload();
+      }), _$$ajax));
+    });
+  });
+  /**
+  * Form de adicicionar o documento a uma auditoria
+  */
+
+  $('.btn-submit').on('click', function () {
+    $('#input--date_accomplished').removeClass('is-invalid');
+    $('#input--epi_description').removeClass('is-invalid');
+    var form = $(this).closest('form');
+    $(this).html('Salvando...');
+    $(this).attr('disabled', true);
+
+    if ($('#file_document').val() == '') {
+      toastr.error('selecione um documento');
+      $(this).html('Salvar');
+      $(this).attr('disabled', false);
+      return;
+    }
+
+    if ($('#required').val() == 'true') {
+      if ($('#input--epi_description').val() == '' || $('#input--date_accomplished') == '') {
+        if ($('#input--date_accomplished').val() == '') {
+          $('#input--date_accomplished').addClass('is-invalid');
+        }
+
+        if ($('#input--epi_description').val() == '') {
+          $('#input--epi_description').addClass('is-invalid');
+        }
+
+        toastr.error('por favor, complete os campos');
+        $(this).html('Salvar');
+        $(this).attr('disabled', false);
+        return;
+      }
+    }
+
+    form.submit();
+  });
   $('.doc_applicable').on('change', function (e) {
     var id = $(this).val();
 
@@ -19792,11 +19838,6 @@ jQuery(function () {
       }
     }
   });
-
-  if (window.location.hash == 'documentos-tab') {
-    $('#myTab_employee #documentos-tab').tab('show');
-  }
-
   $('.visibility_auditory_epi').on('click', function () {
     var id = $(this).data('id');
     $('#epi_id').val(id);
@@ -19933,105 +19974,10 @@ jQuery(function () {
       }
     });
   });
-  $('#cnh_check').on('change', function () {
-    if ($(this).is(":checked")) {
-      $('.div--cnh_number').removeClass('d-none');
-    } else {
-      $('#input--cnh_number').val('');
-      $('.div--cnh_number').addClass('d-none');
-    }
-  });
   $('.status').on('click', function (e) {
     updateAuditoryMonth(this, '');
   });
-  $('.back').on('click', function () {
-    $('.acompanhamentoOrCurso').removeClass('d-none');
-    $('.table-mensal').addClass('d-none');
-    $('.table-epi').addClass('d-none');
-  });
 });
-
-function updateAuditoryMonth(v, type) {
-  var id = $(v).closest('tr').data('id');
-  var pasta = $(v).closest('tr').data('type');
-  var name = $(v).closest('tr').data('name');
-  var employee_id = $('#employee_id').val();
-  var data_month = $(v).closest('tr').data('month');
-  $('.cursos--employees').addClass('d-none');
-  $('.epi--employees').addClass('d-none');
-
-  if (pasta == 'Acompanhamento_mensal' || pasta == 'cursos') {
-    $('#update--Auditory').attr('action', BASE + '/rh/employees/' + employee_id + '/auditory/updateAuditoryMonth');
-    $('#employees_auditory_month_id').val(id);
-    $('#employees_auditory_month_id').val(id);
-    $('#data_month').val(data_month);
-  }
-
-  if (pasta == 'cursos') {
-    options = '';
-    options += '<div class="row">';
-    options += '    <div class="col-md-6">';
-    options += '        <div class="form-group">';
-    options += '            <label for="input--date_accomplished">Data Realizada</label>';
-    options += '            <input type="text" name="date_accomplished"';
-    options += '                class="form-control"';
-    options += '                id="input--date_accomplished" value="">';
-    options += '        </div>';
-    options += '    </div>';
-    options += '    <div class="col-md-6">';
-    options += '        <div class="form-group">';
-    options += '            <label for="input--validity">Vigência (em dias) </label>';
-    options += '            <input type="text" name="validity"';
-    options += '                class="form-control"';
-    options += '                id="input--validity" value="">';
-    options += '        </div>';
-    options += '    </div>';
-    options += '</div>';
-    $('#required').val('true');
-    $('.cursos--employees').removeClass('d-none');
-    $('.cursos--employees').html(options);
-  }
-
-  if (type == 'epi') {
-    options = '';
-    options += '<div class="row">';
-    options += '    <div class="col-md-6">';
-    options += '        <div class="form-group">';
-    options += '            <label for="input--epi_description">Descrição do EPI</label>';
-    options += '            <input type="text" name="epi_description"';
-    options += '                class="form-control"';
-    options += '                id="input--epi_description" value="">';
-    options += '        </div>';
-    options += '    </div>';
-    options += '    <div class="col-md-6">';
-    options += '        <div class="form-group">';
-    options += '            <label for="input--date_accomplished">Mês Retirado (10/2020)</label>';
-    options += '            <input type="text" name="date_accomplished"';
-    options += '                class="form-control date"';
-    options += '                id="input--date_accomplished" value="10/2020">';
-    options += '        </div>';
-    options += '    </div>';
-    options += '</div>';
-    $('#required').val('true');
-    $('.epi--employees').removeClass('d-none');
-    $('.epi--employees').html(options);
-  }
-
-  $('#auditory_id').val(id);
-  $('#type_pasta').val(pasta);
-  $('#document_name').val(name);
-  $('#modal--save--document').modal({
-    show: true
-  });
-  $('.btn-cancel').on('click', function () {
-    $('#option_nao_' + id).prop('checked', true);
-  });
-}
-
-function resetDiv() {
-  $('.acompanhamentoOrCurso').removeClass('d-none');
-  $('.table-mensal').addClass('d-none');
-}
 
 /***/ }),
 

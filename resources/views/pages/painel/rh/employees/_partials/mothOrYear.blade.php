@@ -44,7 +44,7 @@
         <thead class="epi--thead">
             <tr>
                 <th scope="col">Descrição</th>
-                <th scope="col">Mês Retirado</th>
+                <th scope="col">Mês</th>
                 <th scope="col">Status</th>
                 <th scope="col">Documento</th>
             </tr>
@@ -75,6 +75,8 @@
                 dataType: 'json',
                 success: function(j) {
                     options = '';
+
+                    console.log(j.error);
 
                     if (j.error != true) {
                         if (j.payments != null && j.payments.length > 0) {
@@ -128,6 +130,8 @@
                         $('.new_epi').html('Novo');
                     } else {
                         toastr.error(j.message);
+                        $('.new_epi').prop('disabled', false);
+                        $('.new_epi').html('Novo');
                     }
                 },
             });
@@ -186,7 +190,7 @@
             options += '<div class="row">'
             options += '    <div class="col-md-6">'
             options += '        <div class="form-group">'
-            options += '            <label for="input--epi_description">Descrição do EPI</label>'
+            options += '            <label for="input--epi_description">Descrição</label>'
             options += '            <input type="text" name="epi_description"'
             options += '                class="form-control"'
             options += '                id="input--epi_description" value="">'
@@ -194,7 +198,7 @@
             options += '    </div>'
             options += '    <div class="col-md-6">'
             options += '        <div class="form-group">'
-            options += '            <label for="input--date_accomplished">Mês Retirado (10/2020)</label>'
+            options += '            <label for="input--date_accomplished">Mês (10/2020)</label>'
             options += '            <input type="text" name="date_accomplished"'
             options += '                class="form-control date"'
             options += '                id="input--date_accomplished" value="10/2020">'

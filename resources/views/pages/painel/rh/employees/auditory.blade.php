@@ -10,7 +10,7 @@
                     aria-controls="v-pills-contratacao" aria-selected="false">Contratação</a>
                 <a class="nav-link nav-link_auditory  {{ $entrevista == true ? '' : 'disabled' }} text-center"
                     id="v-pills-ac_mensal-tab" data-toggle="pill" href="#v-pills-ac_mensal" role="tab"
-                    aria-controls="v-pills-ac_mensal" aria-selected="false">Acompanhamento Mensal</a>
+                    aria-controls="v-pills-ac_mensal" aria-selected="false">Acompanhamento Periódico</a>
 
                 <a class="nav-link nav-link_auditory  {{ $entrevista == true ? '' : 'disabled' }} text-center"
                     id="v-pills-cursos-tab" data-toggle="pill" href="#v-pills-cursos" role="tab"
