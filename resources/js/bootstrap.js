@@ -175,9 +175,11 @@ jQuery(function () {
     $('#cnh_check').on('change', function () {
         if ($(this).is(":checked")) {
             $('.div--cnh_number').removeClass('d-none')
+            $('.div--cnh_validity').removeClass('d-none')
         } else {
             $('#input--cnh_number').val('');
             $('.div--cnh_number').addClass('d-none')
+            $('.div--cnh_validity').addClass('d-none')
         }
     })
 

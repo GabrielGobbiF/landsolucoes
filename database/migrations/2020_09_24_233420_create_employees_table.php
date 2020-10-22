@@ -26,6 +26,7 @@ class CreateEmployeesTable extends Migration
             $table->string('cnh_number')->nullable();
             $table->double('salario', 10, 2);
             $table->enum('cnh', ['0', '1'])->default('0')->nullable();
+            $table->string('cnh_validity')->nullable();
             $table->enum('dispense', ['0', '1'])->default('0')->nullable();
             $table->string('email')->unique();
             $table->integer('created_by')->nullable();

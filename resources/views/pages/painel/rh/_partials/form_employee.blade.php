@@ -112,6 +112,13 @@
                     id="input--cnh_number" value="{{ $employee->cnh_number ?? old('cnh_number') }}">
             </div>
         </div>
+        <div class="col-md-3 {{ isset($employee->cnh) && $employee->cnh != 0 ? '' : 'd-none' }} div--cnh_validity">
+            <div class="form-group">
+                <label for="input--cnh_validity">CNH Validade</label>
+                <input type="text" name="cnh_validity" class="form-control date @error('cnh_validity') is-invalid @enderror"
+                    id="input--cnh_validity" value="{{ $employee->cnh_validity ?? old('cnh_validity') }}">
+            </div>
+        </div>
     </div>
 </div>
 <div class="card-footer">

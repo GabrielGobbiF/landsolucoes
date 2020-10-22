@@ -11,7 +11,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/database/migrations/2020_10_01_014120_create_activity_log_table.php
-database/migrations/2020_10_01_014120_create_activity_log_table.php
-database/migrations/2020_10_01_014120_create_activity_log_table
+
 

@@ -174,9 +174,15 @@ class AuditorysController extends Controller
                     $doc = '';
                 }
 
+                if($employee_auditory[0]->name == 'recibos_de_decimo_terceiro_salario'){
+                    $month_date = $month->month != '' ? date('Y', strtotime($month->month)) : '';
+                } else {
+                    $month_date = $month->month != '' ? date('m/Y', strtotime($month->month)) : '';
+                }
+
                 $months[] = [
                     'id' => $month->id,
-                    'month' => $month->month != '' ? date('m/Y', strtotime($month->month)) : '',
+                    'month' => $month_date,
                     'docs' => $month->docs_link != '' ? asset('storage/' . $month->docs_link) : false,
                     'status' => $month->status ? 'OK' : 'Pendente',
                     'docs_envio' => $doc,
