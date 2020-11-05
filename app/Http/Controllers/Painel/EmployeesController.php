@@ -99,6 +99,25 @@ class EmployeesController extends Controller
             }
         }
 
+        $cursoNR16 = DB::select(
+            "SELECT * FROM auditory WHERE name = 'nr16' LIMIT 1"
+        );
+
+        $cursoObrigatorio = [
+            'name' => $cursoNR16[0]->name,
+                'description' => $cursoNR16[0]->description,
+                'type' => $cursoNR16[0]->type,
+                'order' => $cursoNR16[0]->order,
+                'option_name' => $cursoNR16[0]->option_name,
+                'doc_applicable' => $cursoNR16[0]->doc_applicable,
+                'doc_along_month' => $cursoNR16[0]->doc_along_month,
+                'doc_along_year' => $cursoNR16[0]->doc_along_year,
+                'employee_id' => $employee->id,
+                'epi' => $cursoNR16[0]->epi
+        ];
+
+        Auditory::create($cursoObrigatorio);
+
         return redirect()
             ->route('employees')
             ->with('message', 'Criado com sucesso');
@@ -159,6 +178,9 @@ class EmployeesController extends Controller
         if ($request->date_contract) {
             $columns['date_contract'] = date('Y-m-d', strtotime(str_replace('/', '-', $request->date_contract)));
         }
+
+        $columns['salario'] = str_replace('.', '', $request->salario);
+        $columns['salario'] = str_replace(',', '.', $columns['salario']);
 
         $employee = $this->repository->where('uuid', $uuid)->first();
 

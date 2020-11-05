@@ -10,9 +10,9 @@ class Employee extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email', 'cnh_number', 'cnh_validity','date_contract'];
+    protected $fillable = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email', 'equipe', 'cnh_number', 'cnh_validity','date_contract'];
 
-    protected static $logAttributes = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email', 'cnh_validity','cnh_number', 'date_contract'];
+    protected static $logAttributes = ['name', 'rg', 'ctps', 'endereco', 'estado_civil', 'cargo', 'salario', 'cnh', 'email','equipe', 'cnh_validity','cnh_number', 'date_contract'];
 
     protected static $logName = 'Employee';
 

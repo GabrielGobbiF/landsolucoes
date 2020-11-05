@@ -174,7 +174,7 @@ class AuditorysController extends Controller
                     $doc = '';
                 }
 
-                if($employee_auditory[0]->name == 'recibos_de_decimo_terceiro_salario'){
+                if ($employee_auditory[0]->name == 'recibos_de_decimo_terceiro_salario') {
                     $month_date = $month->month != '' ? date('Y', strtotime($month->month)) : '';
                 } else {
                     $month_date = $month->month != '' ? date('m/Y', strtotime($month->month)) : '';
@@ -376,6 +376,23 @@ class AuditorysController extends Controller
         } else {
             return response()->json(['error' => true, 'message' => 'Existe Pendências']);
         }
+    }
+
+    public function auditory_company_delete($id)
+    {
+        $auditory_company = DB::select('SELECT id,name FROM company_auditory WHERE id = :id', [':id' => $id]);
+
+        if (!$auditory_company) {
+            return redirect()
+                ->route('auditory.company')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        DB::delete('delete FROM company_auditory where id = :id', [':id' => $auditory_company[0]->id]);
+
+        return redirect()
+            ->route('auditory.company')
+            ->with('message', 'Deletado com sucesso!');
     }
 
     function retiraAcentos($string)

@@ -44,7 +44,7 @@
                     id="input--endereco" value="{{ $employee->endereco ?? old('endereco') }}" autocomplete="off">
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="input--estado_civil">Estado Civil</label>
                 <select name="estado_civil" id="input--estado_civil"
@@ -75,19 +75,28 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="input--salario">Salário</label>
                 <input type="text" name="salario" class="form-control money @error('salario') is-invalid @enderror"
                     id="input--salario" value="{{isset($employee->salario) ? number_format($employee->salario, 2, ',', ' ') : old('salario')   }}">
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--date_contract">Data Contratação</label>
                 <input type="text" name="date_contract"
                     class="form-control date @error('date_contract') is-invalid @enderror" id="input--date_contract"
                     value="{{ isset($employee->date_contract) ? date('d/m/Y', strtotime($employee->date_contract)) : '10/10/2020' }}">
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="input--equipe">Equipe</label>
+                <input type="text" name="equipe" class="form-control  @error('equipe') is-invalid @enderror"
+                    id="input--equipe" value="{{$employee->equipe ?? old('equipe')   }}">
             </div>
         </div>
 

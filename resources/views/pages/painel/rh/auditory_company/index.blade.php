@@ -54,6 +54,11 @@
                         @else
                             <th> </th>
                         @endif
+                        <th>
+                            <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" title="Deletar" data-href="{{ route('auditory.company.delete',  $documento->id) }}" class="btn btn-xs btn-danger btn-delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </th>
                     </tr>
                 @endforeach
             </tbody>
