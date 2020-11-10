@@ -380,7 +380,7 @@ class AuditorysController extends Controller
 
     public function auditory_company_delete($id)
     {
-        $auditory_company = DB::select('SELECT id,name FROM company_auditory WHERE id = :id', [':id' => $id]);
+        $auditory_company = DB::select('SELECT id,name FROM company_auditory WHERE id = :id LIMIT 1', [':id' => $id]);
 
         if (!$auditory_company) {
             return redirect()

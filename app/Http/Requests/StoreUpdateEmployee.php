@@ -30,7 +30,6 @@ class StoreUpdateEmployee extends FormRequest
             'name' => "required|min:5|max:255|unique:employees,name,{$uuid},uuid",
             'rg' => "required|unique:employees,rg,{$uuid},uuid",
             'ctps' => "required|unique:employees,ctps,{$uuid},uuid",
-            'email' => "required|min:3|max:255|unique:employees,email,{$uuid},uuid",
             'endereco' => "required|min:3|max:255",
             'estado_civil' => "required|min:3|max:255",
             'cargo' => "required|min:3|max:255",
