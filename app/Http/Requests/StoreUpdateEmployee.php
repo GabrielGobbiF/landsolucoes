@@ -31,11 +31,10 @@ class StoreUpdateEmployee extends FormRequest
             'rg' => "required|unique:employees,rg,{$uuid},uuid",
             'ctps' => "required|unique:employees,ctps,{$uuid},uuid",
             'endereco' => "required|min:3|max:255",
-            'estado_civil' => "required|min:3|max:255",
             'cargo' => "required|min:3|max:255",
             'salario' => "required|max:15",
             'cnh_number' => "nullable",
-            'date_contract' => "required",
+            'date_contract' => ['required', 'date_format:d/m/Y'],
         ];
     }
 }

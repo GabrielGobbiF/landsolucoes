@@ -88,7 +88,7 @@
                 <label for="input--date_contract">Data Contratação</label>
                 <input type="text" name="date_contract"
                     class="form-control date @error('date_contract') is-invalid @enderror" id="input--date_contract"
-                    value="{{ isset($employee->date_contract) ? date('d/m/Y', strtotime($employee->date_contract)) : '10/10/2020' }}">
+                    value="{{ isset($employee->date_contract) ? date('d/m/Y', strtotime($employee->date_contract)) : old('date_contract') }}">
             </div>
         </div>
 
