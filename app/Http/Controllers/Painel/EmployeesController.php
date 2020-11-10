@@ -34,7 +34,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = $this->repository->paginate();
+        $employees = $this->repository->all();
 
         return view('pages.painel.rh.employees.index', compact('employees'));
     }
