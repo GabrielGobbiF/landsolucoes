@@ -28,6 +28,9 @@ class CreateEmployeesAuditoryTable extends Migration
             $table->integer('epi')->default('0')->nullable();
 
             $table->enum('status', ['0', '1'])->default('0');
+            $table->enum('is_active', ['0', '1'])->default('0');
+
+            $table->string('reason_change')->nullable();
 
             $table->unsignedBigInteger('employee_id')->nullable();
 

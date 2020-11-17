@@ -11,6 +11,5 @@ class Auditory extends Model
 
     protected $table = 'employees_auditory';
 
-    protected $fillable = ['name', 'description', 'type', 'employee_id', 'order', 'epi', 'option_name', 'doc_applicable', 'doc_along_month', 'status', 'document_link', 'employee_id', 'updated_by'];
-
+    protected $fillable = ['name', 'description', 'type', 'employee_id', 'order', 'epi', 'option_name', 'doc_applicable', 'doc_along_month', 'status', 'document_link', 'employee_id', 'updated_by', 'is_active', 'reason_change'];
 }

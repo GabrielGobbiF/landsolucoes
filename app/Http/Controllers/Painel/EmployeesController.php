@@ -104,7 +104,7 @@ class EmployeesController extends Controller
         );
 
         $cursoObrigatorio = [
-            'name' => $cursoNR16[0]->name,
+                'name' => $cursoNR16[0]->name,
                 'description' => $cursoNR16[0]->description,
                 'type' => $cursoNR16[0]->type,
                 'order' => $cursoNR16[0]->order,
@@ -116,7 +116,13 @@ class EmployeesController extends Controller
                 'epi' => $cursoNR16[0]->epi
         ];
 
-        Auditory::create($cursoObrigatorio);
+        $auditory = Auditory::create($cursoObrigatorio);
+
+        DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id, date_accomplished) VALUES (:month, :employees_auditory_id, :date_accomplished)', [
+            'month' => '',
+            'date_accomplished' => '',
+            'employees_auditory_id' => $auditory->id,
+        ]);
 
         return redirect()
             ->route('employees')
@@ -139,7 +145,7 @@ class EmployeesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $documentos = $employee->auditory()->get();
+        $documentos = $employee->auditory()->where('is_active', '0')->orderby('order', 'ASC')->get();
 
         $documentos = $this->getDocumentAuditoryByEmployee($documentos);
 
@@ -426,4 +432,6 @@ class EmployeesController extends Controller
 
         return response()->json($update);
     }
+
+
 }

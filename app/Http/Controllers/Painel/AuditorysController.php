@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AuditorysController extends Controller
 {
@@ -393,6 +394,84 @@ class AuditorysController extends Controller
         return redirect()
             ->route('auditory.company')
             ->with('message', 'Deletado com sucesso!');
+    }
+
+    //Alterar o documento caso, colocou o errado
+    public function change_document_auditory(Request $request)
+    {
+        if ($request->hasFile('file') && $request->file->isValid()) {
+
+            $id_user = Auth::user()->id;
+            $id = $request->documento_id;
+            $reason_change = $request->reason;
+            $employee_id = $request->employee_id;
+
+            if ($request->file->extension() != 'pdf') {
+                return redirect()
+                    ->back()
+                    ->with('message', 'Somente arquivos em PDF');
+            }
+
+            $employee = $this->employees->where('uuid', $employee_id)->first();
+
+            if (!$employee) {
+                return redirect()
+                    ->route('employees')
+                    ->with('message', 'Registro não encontrado!');
+            }
+
+            $auditory_company = DB::select('SELECT * FROM employees_auditory WHERE id = :id LIMIT 1', [':id' => $id]);
+
+            $employee_name = str_replace(' ', '_', mb_strtolower($employee->name, 'UTF-8'));
+
+            $docs_name = $auditory_company[0]->name . '_' . uniqid(date('HisYmd'));
+
+            $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$auditory_company[0]->name}", "{$docs_name}.pdf");
+
+            if (!$auditory_company) {
+                return redirect()
+                    ->route('employees')
+                    ->with('message', 'Registro não encontrado!');
+            }
+
+            Storage::move($auditory_company[0]->document_link, "documentos/employees/{$employee_name}/trocados/{$docs_name}.pdf");
+
+            DB::insert('INSERT INTO employees_auditory (name, description, type, option_name, doc_applicable, doc_along_month, doc_along_year, epi, employee_id, `status`, document_link, updated_by, `order`, updated_at)
+            VALUES (:name, :description, :type, :option_name, :doc_applicable, :doc_along_month, :doc_along_year, :epi, :employee_id, :status, :document_link, :id_user, :order, :updated_at)', [
+                'name' => $auditory_company[0]->name,
+                'description' => $auditory_company[0]->description,
+                'type' => $auditory_company[0]->type,
+                'option_name' => $auditory_company[0]->option_name,
+                'doc_applicable' => $auditory_company[0]->doc_applicable,
+                'doc_along_month' => $auditory_company[0]->doc_along_month,
+                'doc_along_year' => $auditory_company[0]->doc_along_year,
+                'epi' => $auditory_company[0]->epi,
+                'employee_id' => $auditory_company[0]->employee_id,
+                'status' => '1',
+                'document_link' => $upload,
+                'id_user' => $id_user,
+                'order' => $auditory_company[0]->order,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+            DB::update('update employees_auditory set
+            updated_by = :id_user,
+            is_active = "1",
+            reason_change = :reason_change
+            where id = :id', [
+                ':id' => $id,
+                ':reason_change' => $reason_change,
+                ':id_user' => $id_user,
+            ]);
+
+            return redirect()
+                ->route('employees.show', $employee_id)
+                ->with('message', 'Atualizado com sucessso');
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Nenhum arquivo selecionado');
     }
 
     function retiraAcentos($string)

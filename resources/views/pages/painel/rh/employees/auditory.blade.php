@@ -23,6 +23,7 @@
                 @else
                     <a style="color:rgb(239 109 109); cursor: pointer;" class="text-center open_dispense_employee">Dispensa</a>
                 @endif
+
             </div>
         </div>
         <div class="col-md-10">
@@ -95,3 +96,5 @@
     </div>
 </div>
 @include('pages.painel.rh.employees._partials.modals.dispense_modal')
+@include('pages.layouts.modal_change')
+

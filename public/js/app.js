@@ -19714,6 +19714,22 @@ jQuery(function () {
       window.location.href = href;
     });
   });
+  $('.btn-change').on('click', function () {
+    var href = $(this).data('href');
+    $('#modal-change').modal('show');
+    $('#documento_id').val(href);
+    $('#modal-confirm').on('click', function () {
+      if ($('#reason').val() == '') {
+        toastr.error('Motivo é obrigatorio');
+      } else {
+        if ($('#file_document_change').val() == '') {
+          toastr.error('Documento é obrigatorio');
+        } else {
+          $('#form_change').submit();
+        }
+      }
+    });
+  });
   $('#cnh_check').on('change', function () {
     if ($(this).is(":checked")) {
       $('.div--cnh_number').removeClass('d-none');

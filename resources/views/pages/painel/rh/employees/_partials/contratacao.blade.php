@@ -66,7 +66,14 @@
                             <a target="_blank" href="{{ $documento->document_link }}">
                                 ver </a><span>
                     </th>
+                    <th>
+                        <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-href="{{ $documento->id }}"
+                            class="btn btn-small btn-danger btn-change" data-original-title="Alterar">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </th>
                 @else
+                    <th> </th>
                     <th> </th>
                 @endif
             </tr>
