@@ -3,17 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Auth::routes();
 
 Route::get('/', function () {
@@ -76,6 +65,28 @@ Route::group(['middleware' => 'role:rh'], function () {
         Route::post('/auditory/company/store', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_store'])->name('auditory.company.store');
 
         Route::get('/auditory/company/{id_auditory_company}/delete', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_delete'])->name('auditory.company.delete');
-
     });
 });
+
+Route::group(['middleware' => 'role:vehicles'], function () {
+    /*
+        |--------------------------------------------------------------------------
+        | Veiculos
+        |--------------------------------------------------------------------------
+        */
+    Route::resource('vehicles', App\Http\Controllers\Painel\VehiclesController::class);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Usuarios
+|--------------------------------------------------------------------------
+*/
+Route::resource('users', App\Http\Controllers\Painel\UsersController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Roles
+|--------------------------------------------------------------------------
+*/
+Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);

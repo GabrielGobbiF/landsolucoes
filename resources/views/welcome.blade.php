@@ -406,13 +406,13 @@
         @if (Route::has('login'))
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 @auth
-                <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-   {{ __('Sair') }}
-</a>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-   @csrf
-</form>
+                    <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        {{ __('Sair') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 @else
                     <a href="{{ route('login') }}" class="text-sm text-gray-200 underline">Login</a>
                     @if (Route::has('register'))
@@ -424,6 +424,17 @@
         <div class="max-w-12xl mx-auto sm:px-12 lg:px-8">
             <div class="mt-8 overflow-hidden text-center">
                 <div class="grid grid-cols-1 md:grid-cols-2">
+
+                    @if (Auth::user()->hasRole('admin'))
+                    <div class="p-6">
+                        <div class="flex items-center">
+
+                            <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ route('users.index') }}"
+                                    class="underline text-gray-900 dark:text-white">Usuários</a></div>
+                        </div>
+                    </div>
+                    @endif
+
                     @if (Auth::user()->hasRole('builds') || Auth::user()->hasRole('admin'))
                         <div class="p-6">
                             <div class="flex items-center">
@@ -484,7 +495,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="#"
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ route('vehicles.index') }}"
                                         class="underline text-gray-900 dark:text-white">Veiculos</a></div>
                             </div>
                         </div>
