@@ -18,14 +18,18 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+
+    <link href="{{ asset('css/painel/css/app.min.css') }}" rel="stylesheet">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
 
+
     <script>
         var BASE = `{{ env('APP_URL') }}`;
     </script>
-    <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <style class="">
         @media only screen and (max-width: 900px) {
@@ -36,6 +40,26 @@
             .title_table--mensal {
                 text-align: center
             }
+        }
+
+        .bootstrap-table {
+            width: 100%;
+        }
+
+        .table-borderless {
+            border: 0px;
+        }
+
+        .select2-selection__rendered {
+            line-height: 31px !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 35px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 34px !important;
         }
 
     </style>
@@ -97,8 +121,8 @@
         @include('pages.layouts.modal_delete')
     </div>
 </body>
-<script class="">
+
+<script>
     @include('pages.layouts.notification')
 </script>
-
 </html>

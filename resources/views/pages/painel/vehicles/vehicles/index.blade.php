@@ -44,7 +44,7 @@
                     <td class="mobile--hidden">{{ $vehicle->renavam }}</td>
                     <td class="mobile--hidden">{{ $vehicle->secure }}</td>
                     <td>
-                        <a href="{{ route('vehicles.show', $vehicle->id) }}" data-toggle="tooltip" data-placement="top" title="Visualizar" class="btn btn-xs btn-dark ">
+                       <a href="{{ route('vehicles.show', $vehicle->id) }}" data-toggle="tooltip" data-placement="top" title="Visualizar" class="btn btn-xs btn-dark ">
                             <i class="fa fa-edit"></i>
                         </a>
                         <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" title="Deletar" data-href="{{ route('vehicles.destroy', $vehicle->id) }}" class="btn btn-xs btn-danger btn-delete">

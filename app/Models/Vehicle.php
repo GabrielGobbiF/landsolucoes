@@ -55,4 +55,10 @@ class Vehicle extends Model
     ];
 
     protected static $logName = 'Vehicles';
+
+    public function activitys(){
+
+        return $this->hasMany(VehicleActivities::class, 'vehicle_id', 'id');
+
+    }
 }

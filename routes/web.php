@@ -70,12 +70,22 @@ Route::group(['middleware' => 'role:rh'], function () {
 
 Route::group(['middleware' => 'role:vehicles'], function () {
     /*
-        |--------------------------------------------------------------------------
-        | Veiculos
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | Veiculos
+    |--------------------------------------------------------------------------
+    */
     Route::resource('vehicles', App\Http\Controllers\Painel\VehiclesController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Veiculos Atividades
+    |--------------------------------------------------------------------------
+    */
+    Route::post('vehicles/{vehicle_id}/activitys', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'store'])->name('vehicles.activitys.store');
 });
+
+
+Route::get('vehicles/{vehicle_id}/qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'qrcode'])->name('vehicles.activitys.qrcode');
 
 /*
 |--------------------------------------------------------------------------

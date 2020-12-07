@@ -5,6 +5,10 @@ $theme-colors: (
 
 $navbar-dark-color: #eee;
 
+$custom-file-text: (
+  pt: "Selecione",
+);
+
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 @import 'variables';
