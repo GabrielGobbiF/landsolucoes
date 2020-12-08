@@ -150,7 +150,6 @@ class VehicleActivitiesController extends Controller
     }
 
 
-
     /**
      * Search results
      *

@@ -10,18 +10,14 @@
 
     <title>Veiculos Land</title>
 
-    <script src="{{ asset('js/main.js') }}" sync></script>
-
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
 
     </script>
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('mobile/js/app.js') }}"></script>
 
     <style>
         .select2-selection__rendered {
@@ -54,7 +50,7 @@
                 <div class="mb-1 text-center"><span class="mb-2">Clique para selecionar</span></div>
 
                 <div class="justify-content-center d-flex mb-5">
-                    <button class="btn btn-primary btn-atividade ml-1 p-2" data-type="saida">Nova Atividade</button>
+                    <button class="btn btn-primary btn-atividade ml-1 p-2" data-type="atividade">Nova Atividade</button>
                     <button class="btn btn-primary btn-atividade ml-1 p-2" data-type="manutencao">Nova Manutenção</button>
                     <button class="btn btn-primary btn-atividade ml-1 p-2" data-type="abastecimento">Novo Abastecimento</button>
                 </div>
@@ -98,6 +94,30 @@
                         </div>
                     </div>
 
+
+                    <div class="row dados_type atividade d-none">
+                        <div class="col-md-12 atividade d-none">
+                            <div class="form-group text-center">
+                                <label for="input--tipo_atividade ">Tipo de Atividade</label>
+                                <div class="justify-content-center d-flex mb-5">
+                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="saida">Sáida</button>
+                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="cliente">Cliente</button>
+                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra">Obra</button>
+                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 div--manutencao d-none">
+                            <div class="form-group text-center">
+                                <label for="input--tipo_atividade_descricao">Nome da Manutenção</label>
+                                <div class="justify-content-center d-flex mb-5" id="select--tipo_atividade_descricao"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                     <div class="descricao d-none row dados_type">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -133,8 +153,6 @@
 </body>
 
 <script>
-    @include('pages.layouts.notification')
-
     function description() {
         $('#div--button-submit').addClass('d-none');
         if ($('#input--description').val() != '' && $('#input--km_start').val() != '') {
@@ -175,6 +193,10 @@
 
             case 'manutencao':
                 $('.manutencao').removeClass('d-none');
+                break;
+
+            case 'atividade':
+                $('.atividade').removeClass('d-none');
                 break;
 
             default:
