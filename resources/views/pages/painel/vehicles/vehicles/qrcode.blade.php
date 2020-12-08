@@ -407,15 +407,17 @@
                 },
                 dataType: 'json',
             }).done(function(response) {
+                var html = 'endereço não encontrado';
                 $('.div--endereco_obra').removeClass('d-none');
-
-                html = '<a target="_blank" href="https://www.waze.com/ul?q="' + response.endereco + '> ' + response.endereco + ' </a>';
-
+                if (response) {
+                    if (response.text != undefined || response.text != '') {
+                        $('.div--endereco_obra').removeClass('d-none');
+                        html = '<a target="_blank" href="https://www.waze.com/ul?q=' + response.link + '"> ' + response.text + ' </a>';
+                    }
+                }
                 $('.endereco_obra').html(html).show();
             });
-
         });
-
     }
 
 </script>
