@@ -343,69 +343,69 @@
         $('#activity_description').val(description + ': ' + type);
     }
 
-    function getObra() {
-        $('.div--endereco_obra').addClass('d-none');
-        $('.endereco_obra').html('').show();
-
-        $("#obra--select").select2({
-                placeholder: "Buscar",
-                minimumInputLength: 1,
-                language: "pt-br",
-                formatNoMatches: function() {
-                    return "Pesquisa não encontrada";
-                },
-                inputTooShort: function() {
-                    return "Digite para Pesquisar";
-                },
-                ajax: {
-                    url: 'http://www.landsolucoes.com.br/api/getAllObrasTokenUDsddi',
-                    dataType: 'json',
-                    data: function(term, page) {
-                        return {
-                            q: term, //search term
-                        };
-                    },
-                    results: function(data, page) {
-                        return {
-                            results: data.results,
-                        };
-                    }
-                },
-                escapeMarkup: function(m) {
-                    return m;
-                }
-            }
-
-        );
-
-        $('#obra--select').on('select2:select', function(e) {
-            var titulo = $(this).select2('data');
-            var coluna = titulo[0].id;
-            var nome = titulo[0].text;
-            console.log(nome);
-            $.ajax({
-                url: 'http://www.landsolucoes.com.br/api/getEnderecoObraByTokenUDDS',
-                type: 'GET',
-                data: {
-                    id: coluna
-                },
-                dataType: 'json',
-            }).done(function(response) {
-                var html = 'endereço não encontrado';
-                $('.div--endereco_obra').removeClass('d-none');
-                if (response) {
-                    if (response.text != undefined || response.text != '') {
-                        $('.div--endereco_obra').removeClass('d-none');
-                        html = '<a target="_blank" href="https://www.waze.com/ul?q=' + response.link + '"> ' + response.text + ' </a>';
-                    }
-                }
-                $('#obra_id').val(coluna);
-                $('#obr_razao_social').val(nome);
-                $('.endereco_obra').html(html).show();
-            });
-        });
-    }
-
+    //function getObra() {
+    //    $('.div--endereco_obra').addClass('d-none');
+    //    $('.endereco_obra').html('').show();
+//
+    //    $("#obra--select").select2({
+    //            placeholder: "Buscar",
+    //            minimumInputLength: 1,
+    //            language: "pt-br",
+    //            formatNoMatches: function() {
+    //                return "Pesquisa não encontrada";
+    //            },
+    //            inputTooShort: function() {
+    //                return "Digite para Pesquisar";
+    //            },
+    //            ajax: {
+    //                url: 'http://www.landsolucoes.com.br/api/getAllObrasTokenUDsddi',
+    //                dataType: 'json',
+    //                data: function(term, page) {
+    //                    return {
+    //                        q: term, //search term
+    //                    };
+    //                },
+    //                results: function(data, page) {
+    //                    return {
+    //                        results: data.results,
+    //                    };
+    //                }
+    //            },
+    //            escapeMarkup: function(m) {
+    //                return m;
+    //            }
+    //        }
+//
+    //    );
+//
+    //    $('#obra--select').on('select2:select', function(e) {
+    //        var titulo = $(this).select2('data');
+    //        var coluna = titulo[0].id;
+    //        var nome = titulo[0].text;
+    //        console.log(nome);
+    //        $.ajax({
+    //            url: 'http://www.landsolucoes.com.br/api/getEnderecoObraByTokenUDDS',
+    //            type: 'GET',
+    //            data: {
+    //                id: coluna
+    //            },
+    //            dataType: 'json',
+    //        }).done(function(response) {
+    //            var html = 'endereço não encontrado';
+    //            $('.div--endereco_obra').removeClass('d-none');
+    //            if (response) {
+    //                if (response.text != undefined || response.text != '') {
+    //                    $('.div--endereco_obra').removeClass('d-none');
+    //                    html = '<a target="_blank" href="https://www.waze.com/ul?q=' + response.link + '"> ' + response.text + ' </a>';
+    //                }
+    //            }
+    //            $('#obra_id').val(coluna);
+    //            $('#obr_razao_social').val(nome);
+    //            $('.endereco_obra').html(html).show();
+    //        });
+    //    });
+    //}
+//
     function resetInputs() {
         //Zerar Inputs Form
         $('#activity_name').val('');
