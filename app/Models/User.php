@@ -24,6 +24,7 @@ class User extends Authenticatable
         'telefone_celular',
         'uuid',
         'is_active',
+        'username'
 
     ];
 
@@ -36,6 +37,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'id',
+        'username'
     ];
 
     /**

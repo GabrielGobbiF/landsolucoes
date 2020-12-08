@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('user')->unique();
             $table->string('telefone_celular')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -31,6 +32,7 @@ class CreateUsersTable extends Migration
                 'name' => 'Gabriel Gobbi',
                 'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
                 'email' => 'gabriel.gobbi15@gmail.com',
+                'user' => 'gabriel.gobbi'
             ]
         );
 
@@ -39,6 +41,7 @@ class CreateUsersTable extends Migration
                 'name' => 'Bruno Costa',
                 'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
                 'email' => 'bruno@bruno',
+                'user' => 'bruno'
             ]
         );
 
@@ -47,6 +50,7 @@ class CreateUsersTable extends Migration
                 'name' => 'Livia',
                 'password' => '$2y$10$Z2LncyeGcNVwIOCDKMG5b.sLcFgtGaKSRtHUS3hU60XY3KstrJR4i',
                 'email' => 'livia@livia',
+                'user' => 'livia',
             ]
         );
     }

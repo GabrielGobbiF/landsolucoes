@@ -39,7 +39,7 @@
 <body>
     <div id="app">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " style="    max-width: 42em; height: 100vh;">
-            <header class="masthead mb-5 mt-5">
+            <header class="masthead mb-3 mt-2">
                 <div class="text-center">
                     <h4 class="cover-heading ">{{ $vehicle->name }}</h4>
                     <span>{{ $vehicle->board }}</span>
@@ -85,7 +85,7 @@
 
                     <div class="row dados_type abastecimento d-none">
                         <div class="col-md-12 abastecimento">
-                            <label for="input--liters">Foto da Nota</label>
+                            <label for="image">Foto da Nota</label>
                             <div class="custom-file">
                                 <input lang="pt" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
                                     value="{{ $vehicle_activities->nota_fiscal ?? old('image') }}">
@@ -100,7 +100,8 @@
                             <div class="form-group text-center">
                                 <label for="input--tipo_atividade ">Tipo de Atividade</label>
                                 <div class="justify-content-center d-flex mb-5">
-                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="saida">Sáida</button>
+                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="saida">Saida</button>
+                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="retorno">Retorno</button>
                                     <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="cliente">Cliente</button>
                                     <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra">Obra</button>
                                     <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
@@ -108,15 +109,36 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12 div--manutencao d-none">
+                        <div class="col-md-12 div--nome_atividade d-none">
                             <div class="form-group text-center">
-                                <label for="input--tipo_atividade_descricao">Nome da Manutenção</label>
+                                <label for="input--tipo_atividade_descricao">Nome da Atividade</label>
                                 <div class="justify-content-center d-flex mb-5" id="select--tipo_atividade_descricao"></div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="obra d-none dados_type row mb-2">
+                        <div class="col-md-12">
+                            <div class="form-group text-center">
+                                <label for="input--obra ">Obra</label>
+                                <!-- <select class="form-control select2" name="obra" required id="input--obra">
+                                    <option value="">Selecione</option>
+                                    <option value="mecanico">Mêcanico</option>
+                                    <option value="iluminacao">Iluminação</option>
+                                    <option value="avarias">Avarias</option>
+                                </select>-->
 
+                                <select class="form-control" id="obra--select">
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-3 mb-3 d-none text-center div--endereco_obra">
+                            <span class="endereco_obra"></span>
+                        </div>
+                    </div>
 
                     <div class="descricao d-none row dados_type">
                         <div class="col-md-12">
@@ -172,14 +194,17 @@
         $('.btn-atividade').removeClass('btn-success');
         $('.btn-atividade').addClass('btn-primary');
 
+        $('.btn-manutencao').removeClass('btn-success');
+        $('.btn-manutencao').addClass('btn-primary');
+
+        $('.btn-tipo_atividade').removeClass('btn-success');
+        $('.btn-tipo_atividade').addClass('btn-primary');
+
         $('#dados').addClass('d-none');
         $('.dados_type').addClass('d-none');
         $('.descricao').addClass('d-none');
         $('#div--button-submit').addClass('d-none');
         $('.div--manutencao').addClass('d-none');
-
-        $('.btn-manutencao').removeClass('btn-success');
-        $('.btn-manutencao').addClass('btn-primary');
 
         $(this).toggleClass('btn-primary');
         $(this).toggleClass('btn-success');
@@ -295,6 +320,35 @@
 
     })
 
+    $('.btn-tipo_atividade').on('click', function() {
+        $('.descricao').addClass('d-none');
+        $('.obra').addClass('d-none');
+
+        $('.btn-tipo_atividade').removeClass('btn-success');
+        $('.btn-tipo_atividade').addClass('btn-primary');
+
+        $(this).toggleClass('btn-primary');
+        $(this).toggleClass('btn-success');
+
+        var type = $(this).attr('data-type');
+
+        switch (type) {
+            case 'saida':
+
+                break;
+
+            case 'obra':
+                $('.obra').removeClass('d-none');
+                getObra()
+
+            default:
+                $('.descricao').removeClass('d-none');
+                break;
+
+        }
+        $('#dados').removeClass('d-none');
+    })
+
     function changetype(v) {
         $('.btn-nome_manutencao').removeClass('btn-success');
         $('.btn-nome_manutencao').addClass('btn-primary');
@@ -303,6 +357,65 @@
         $(v).toggleClass('btn-success');
 
         $('.descricao').removeClass('d-none');
+    }
+
+    function getObra() {
+        $('.div--endereco_obra').addClass('d-none');
+        $('.endereco_obra').html('').show();
+
+        $("#obra--select").select2({
+                placeholder: "Buscar",
+                minimumInputLength: 1,
+                language: "pt-br",
+                formatNoMatches: function() {
+                    return "Pesquisa não encontrada";
+                },
+                inputTooShort: function() {
+                    return "Digite para Pesquisar";
+                },
+                ajax: {
+                    url: 'http://www2.cena.com.br/api/getAllObrasTokenUDsddi',
+                    dataType: 'json',
+                    data: function(term, page) {
+                        return {
+                            q: term, //search term
+                        };
+                    },
+                    results: function(data, page) {
+                        return {
+                            results: data.results,
+                        };
+                    }
+                },
+                escapeMarkup: function(m) {
+                    return m;
+                }
+            }
+
+        );
+
+        $('#obra--select').on('select2:select', function(e) {
+
+            var titulo = $(this).select2('data');
+            var coluna = titulo[0].id;
+
+            $.ajax({
+                url: 'http://www2.cena.com.br/api/getEnderecoObraByTokenUDDS',
+                type: 'GET',
+                data: {
+                    id: coluna
+                },
+                dataType: 'json',
+            }).done(function(response) {
+                $('.div--endereco_obra').removeClass('d-none');
+
+                html = '<a target="_blank" href="https://www.waze.com/ul?q="' + response.endereco + '> ' + response.endereco + ' </a>';
+
+                $('.endereco_obra').html(html).show();
+            });
+
+        });
+
     }
 
 </script>
