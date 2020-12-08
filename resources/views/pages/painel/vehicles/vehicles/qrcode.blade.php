@@ -238,6 +238,7 @@
         $('.div--btn-tipo_atividade_type').addClass('d-none')
 
         $(this).toggleClass('btn-primary');
+
         $(this).toggleClass('btn-success');
 
         //Zerar Inputs Form
