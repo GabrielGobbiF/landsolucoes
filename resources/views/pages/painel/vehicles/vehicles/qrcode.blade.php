@@ -374,7 +374,7 @@
                     return "Digite para Pesquisar";
                 },
                 ajax: {
-                    url: 'http://www2.cena.com.br/api/getAllObrasTokenUDsddi',
+                    url: 'http://www.landsolucoes.com.br/api/getAllObrasTokenUDsddi',
                     dataType: 'json',
                     data: function(term, page) {
                         return {
@@ -400,7 +400,7 @@
             var coluna = titulo[0].id;
 
             $.ajax({
-                url: 'http://www2.cena.com.br/api/getEnderecoObraByTokenUDDS',
+                url: 'http://www.landsolucoes.com.br/api/getEnderecoObraByTokenUDDS',
                 type: 'GET',
                 data: {
                     id: coluna
