@@ -80,13 +80,37 @@ class VehiclesController extends Controller
 
         $activitys = $vehicle->activitys()->orderby('id', 'DESC')->get();
 
+        $abastecimento = [];
+        $manutencao = [];
+        $atividade = [];
+
+        foreach ($activitys as $activity) {
+            $tipo = $activity->title;
+            switch ($tipo) {
+                case 'manutencao':
+                    $manutencao[] = $activity;
+                    break;
+                case 'abastecimento':
+                    $abastecimento[] = $activity;
+                    break;
+                case 'atividade':
+                    $atividade[] = $activity;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         $activityEnd = $vehicle->activitys()->orderby('id', 'DESC')->first();
 
         $ultimaKM = isset($activityEnd->km_end) && $activityEnd->km_end != '' ? $activityEnd->km_end : '';
 
         return view('pages.painel.vehicles.vehicles.show', [
             'vehicle' => $vehicle,
-            'activitys' => $activitys,
+            'manutencao' => $manutencao,
+            'abastecimento' => $abastecimento,
+            'atividade' => $atividade,
+            //'activitys' => $activitys,
             'ultimaKM' => $ultimaKM
         ]);
     }
@@ -181,9 +205,14 @@ class VehiclesController extends Controller
 
         $usersDrivers = $drivers->users()->get();
 
+        $activityEnd = $vehicle->activitys()->orderby('id', 'DESC')->first();
+
+        $ultimaKM = isset($activityEnd->km_end) && $activityEnd->km_end != '' ? $activityEnd->km_end : '';
+
         return view('pages.painel.vehicles.vehicles.qrcode', [
             'usersDrivers' => $usersDrivers,
-            'vehicle' => $vehicle
+            'vehicle' => $vehicle,
+            'ultimaKM' => $ultimaKM
         ]);
     }
 }

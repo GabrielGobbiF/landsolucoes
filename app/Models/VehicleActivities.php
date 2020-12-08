@@ -18,6 +18,9 @@ class VehicleActivities extends Model
         'driver_name',
         'driver_id',
         'observation',
+        'type',
+        'obra_id',
+        'obr_razao_social',
         'nota_fiscal'
     ];
 
@@ -37,6 +40,9 @@ class VehicleActivities extends Model
         'observation',
         'created_at',
         'updated_at',
+        'type',
+        'obra_id',
+        'obr_razao_social',
         'nota_fiscal'
     ];
 

@@ -19,6 +19,10 @@ class CreateVehicleActivitiesTable extends Migration
             $table->string('description')->nullable();
             $table->string('km_start');
             $table->string('km_end')->nullable();
+            $table->string('type')->nullable();
+            $table->string('obr_razao_social')->nullable();
+
+            $table->integer('obra_id')->nullable();
 
             $table->string('driver_name');
             $table->integer('driver_id');

@@ -37,9 +37,15 @@
 </head>
 
 <body>
+
     <div id="app">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " style="    max-width: 42em; height: 100vh;">
             <header class="masthead mb-3 mt-2">
+
+                <div class="justify-content-between d-flex mb-4">
+                    <span>{{ Auth::user()->name }} </span>
+                </div>
+
                 <div class="text-center">
                     <h4 class="cover-heading ">{{ $vehicle->name }}</h4>
                     <span>{{ $vehicle->board }}</span>
@@ -68,7 +74,7 @@
                                     <option value="avarias">Avarias</option>
                                 </select>-->
                                 <div class="justify-content-center d-flex mb-5">
-                                    <button class="btn btn-primary btn-manutencao ml-1 p-2" data-type="mecanico">Mêcanico</button>
+                                    <button class="btn btn-primary btn-manutencao ml-1 p-2" data-type="mêcanico">Mêcanico</button>
                                     <button class="btn btn-primary btn-manutencao ml-1 p-2" data-type="iluminacao">Iluminação</button>
                                     <button class="btn btn-primary btn-manutencao ml-1 p-2" data-type="avarias">Avarias</button>
                                 </div>
@@ -83,25 +89,23 @@
                         </div>
                     </div>
 
-                    <div class="row dados_type abastecimento d-none">
-                        <div class="col-md-12 abastecimento">
-                            <label for="image">Foto da Nota</label>
-                            <div class="custom-file">
-                                <input lang="pt" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
-                                    value="{{ $vehicle_activities->nota_fiscal ?? old('image') }}">
-                                <label class="custom-file-label" for="customFile"></label>
-                            </div>
-                        </div>
-                    </div>
 
 
                     <div class="row dados_type atividade d-none">
                         <div class="col-md-12 atividade d-none">
                             <div class="form-group text-center">
-                                <label for="input--tipo_atividade ">Tipo de Atividade</label>
+                                <label for="input--tipo_atividade "></label>
                                 <div class="justify-content-center d-flex mb-5">
-                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="saida">Saida</button>
-                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="retorno">Retorno</button>
+                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="saida">Saida</button>
+                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="retorno">Retorno</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 div--btn-tipo_atividade_type d-none">
+                            <div class="form-group text-center">
+                                <label for="input--tipo_atividade_descricao">Nome da Atividade</label>
+                                <div class="justify-content-center d-flex mb-5" id="select--btn-tipo_atividade_type_descricao">
                                     <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="cliente">Cliente</button>
                                     <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra">Obra</button>
                                     <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
@@ -121,53 +125,60 @@
                         <div class="col-md-12">
                             <div class="form-group text-center">
                                 <label for="input--obra ">Obra</label>
-                                <!-- <select class="form-control select2" name="obra" required id="input--obra">
-                                    <option value="">Selecione</option>
-                                    <option value="mecanico">Mêcanico</option>
-                                    <option value="iluminacao">Iluminação</option>
-                                    <option value="avarias">Avarias</option>
-                                </select>-->
-
-                                <select class="form-control" id="obra--select">
-
-                                </select>
-
+                                <select class="form-control" id="obra--select"> </select>
                             </div>
                         </div>
-
                         <div class="col-md-12 mt-3 mb-3 d-none text-center div--endereco_obra">
                             <span class="endereco_obra"></span>
                         </div>
                     </div>
 
-                    <div class="descricao d-none row dados_type">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="input--km_start">Kilometragem do carro (apenas numeros)</label>
-                                <input type="number" name="km_start" onkeyup="description()" class="form-control @error('km_start') is-invalid @enderror" id="input--km_start"
-                                    value="{{ $ultimaKM ?? old('km_start') }}"
-                                    autocomplete="off">
-                                <input type="hidden" name="ultimaKM" value="{{ $ultimaKM ?? old('km_start') }}" autocomplete="off">
-                                <div class="invalid-feedback">
-                                    KM precisa ser maior que o KM Atual
+                    <form role="form" enctype="multipart/form-data" action="{{ route('vehicles.activitys.store', $vehicle->id) }}" method="POST">
+                        @csrf
+
+                        <div class="row dados_type abastecimento d-none mb-4">
+                            <div class="col-md-12 abastecimento">
+                                <label for="image">Foto da Nota</label>
+                                <div class="custom-file">
+                                    <input lang="pt" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
+                                        value="">
+                                    <label class="custom-file-label" for="customFile"></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="input--description">Descrição</label>
-                                <textarea type="text" name="description" onkeyup="description()" placeholder="Digite um breve detalhamento"
-                                    class="form-control @error('description') is-invalid @enderror"
-                                    id="input--description"
-                                    autocomplete="off"></textarea>
+
+                        <div class="descricao d-none row dados_type">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="input--km_start">Kilometragem do carro (apenas numeros)</label>
+                                    <input type="number" name="km_start" onkeyup="submit_form()" class="form-control" id="input--km_start" value="">
+                                    <input type="hidden" name="ultimaKM" value="{{ $ultimaKM ?? '' }}" autocomplete="off">
+                                    <div class="invalid-feedback">
+                                        KM precisa ser maior que o KM Atual
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="input--observation">Observação</label>
+                                    <textarea type="text" name="observation" onkeyup="submit_form()" placeholder="Digite um breve detalhamento"
+                                        class="form-control @error('observation') is-invalid @enderror"
+                                        id="input--observation" value=""></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row justify-content-center d-none mt-2" id="div--button-submit">
-                        <button type="submit" class="btn btn-success">Enviar</button>
-                    </div>
+                        <input type="hidden" id="activity_name" name="title">
+                        <input type="hidden" id="activity_type" name="type">
+                        <input type="hidden" id="activity_description" name="description">
+                        <input type="hidden" id="obra_id" name="obra_id">
+                        <input type="hidden" id="obr_razao_social" name="obr_razao_social">
 
+                        <div class="row justify-content-center d-none mt-2" id="div--button-submit">
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </div>
+
+                    </form>
                 </div>
             </main>
         </div>
@@ -175,9 +186,9 @@
 </body>
 
 <script>
-    function description() {
+    function submit_form() {
         $('#div--button-submit').addClass('d-none');
-        if ($('#input--description').val() != '' && $('#input--km_start').val() != '') {
+        if ($('#input--observation').val() != '' && $('#input--km_start').val() != '') {
             $('#div--button-submit').removeClass('d-none');
         }
     }
@@ -189,7 +200,26 @@
         }
     })
 
+
+    $('.btn-tipo_atividade_type').on('click', function() {
+        var type = $(this).attr('data-type');
+
+        $('.btn-tipo_atividade_type').removeClass('btn-success');
+        $('.btn-tipo_atividade_type').addClass('btn-primary');
+
+        $(this).toggleClass('btn-primary');
+        $(this).toggleClass('btn-success');
+
+        $('.div--btn-tipo_atividade_type').removeClass('d-none');
+
+        $('#activity_type').val(type);
+    })
+
+
     $('.btn-atividade').on('click', function() {
+
+        $('.btn-tipo_atividade_type').removeClass('btn-success');
+        $('.btn-tipo_atividade_type').addClass('btn-primary');
 
         $('.btn-atividade').removeClass('btn-success');
         $('.btn-atividade').addClass('btn-primary');
@@ -205,29 +235,20 @@
         $('.descricao').addClass('d-none');
         $('#div--button-submit').addClass('d-none');
         $('.div--manutencao').addClass('d-none');
+        $('.div--btn-tipo_atividade_type').addClass('d-none')
 
         $(this).toggleClass('btn-primary');
         $(this).toggleClass('btn-success');
 
+        //Zerar Inputs Form
+        resetInputs();
+
         var type = $(this).attr('data-type');
 
-        switch (type) {
-            case 'abastecimento':
-                $('.abastecimento').removeClass('d-none');
-                break;
+        $('.' + type).removeClass('d-none');
 
-            case 'manutencao':
-                $('.manutencao').removeClass('d-none');
-                break;
-
-            case 'atividade':
-                $('.atividade').removeClass('d-none');
-                break;
-
-            default:
-                break;
-
-        }
+        $('#activity_name').val(type);
+        $('.descricao').removeClass('d-none');
         $('#dados').removeClass('d-none');
     })
 
@@ -246,28 +267,24 @@
         var coluna = $(this).attr('data-type');
         var options = '';
 
+        $('#activity_description').val(coluna);
+
         if (coluna != 0) {
 
             switch (coluna) {
-                case 'mecanico':
-
+                case 'mêcanico':
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="oleo">Óleo</button>'
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="motor">Motor</button>'
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="revisao">Revisão</button>'
-
                     break;
-
                 case 'iluminacao':
-
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="farois">Farois</button>'
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="fusiveis">Fusiveis</button>'
                     break;
-
                 case 'avarias':
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="amassados">Amassados</button>'
                     options += '<button class="btn btn-primary btn-nome_manutencao ml-1 p-2" onclick="changetype(this)" data-type="riscos">Riscos</button>'
                     break;
-
                 default:
                     options += '';
                     break;
@@ -280,48 +297,8 @@
         }
     })
 
-    $('#input--tipo_manutencao').on('change', function() {
-        $('.div--manutencao').addClass('d-none');
-        $('.descricao').addClass('d-none');
-
-        var titulo = $('#input--tipo_manutencao').select2('data');
-        var coluna = titulo[0].id;
-        var options = '<option value="">Selecione</option>';
-
-        if (coluna != 0) {
-
-            switch (coluna) {
-                case 'mecanico':
-                    options += '<option value="oleo">Óleo</option>';
-                    options += '<option value="motor">Motor</option>';
-                    options += '<option value="revisao">Revisão</option>';
-                    break;
-
-                case 'iluminacao':
-                    options += '<option value="farois">Farois</option>';
-                    options += '<option value="fusiveis">Fusiveis</option>';
-                    break;
-
-                case 'avarias':
-                    options += '<option value="farois">Farois</option>';
-                    options += '<option value="fusiveis">Fusiveis</option>';
-
-                    options += '<option value="amassados">Amassados</option>';
-                    options += '<option value="riscos">Riscos</option>';
-                    break;
-
-                default:
-                    options += '<option value="oleo">Óleo</option>';
-                    break;
-            }
-            $('#select--tipo_manutencao_descricao').html(options).show();
-            $('.div--manutencao').removeClass('d-none');
-        }
-
-    })
-
     $('.btn-tipo_atividade').on('click', function() {
-        $('.descricao').addClass('d-none');
+
         $('.obra').addClass('d-none');
 
         $('.btn-tipo_atividade').removeClass('btn-success');
@@ -346,10 +323,12 @@
                 break;
 
         }
+        $('#activity_description').val(type);
         $('#dados').removeClass('d-none');
     })
 
     function changetype(v) {
+
         $('.btn-nome_manutencao').removeClass('btn-success');
         $('.btn-nome_manutencao').addClass('btn-primary');
 
@@ -357,6 +336,10 @@
         $(v).toggleClass('btn-success');
 
         $('.descricao').removeClass('d-none');
+
+        var type = $(v).attr('data-type');
+        var description = $('#activity_description').val();
+        $('#activity_description').val(description + ': ' + type);
     }
 
     function getObra() {
@@ -395,10 +378,10 @@
         );
 
         $('#obra--select').on('select2:select', function(e) {
-
             var titulo = $(this).select2('data');
             var coluna = titulo[0].id;
-
+            var nome = titulo[0].text;
+            console.log(nome);
             $.ajax({
                 url: 'http://www.landsolucoes.com.br/api/getEnderecoObraByTokenUDDS',
                 type: 'GET',
@@ -415,9 +398,18 @@
                         html = '<a target="_blank" href="https://www.waze.com/ul?q=' + response.link + '"> ' + response.text + ' </a>';
                     }
                 }
+                $('#obra_id').val(coluna);
+                $('#obr_razao_social').val(nome);
                 $('.endereco_obra').html(html).show();
             });
         });
+    }
+
+    function resetInputs() {
+        //Zerar Inputs Form
+        $('#activity_name').val('');
+        $('#activity_type').val('');
+        $('#activity_description').val('');
     }
 
 </script>

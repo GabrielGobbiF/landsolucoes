@@ -51,7 +51,7 @@ class VehicleActivitiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateVehicleActivitie $request, $vehicle_id)
+    public function store(Request $request, $vehicle_id)
     {
         $columns = $request->all();
 
@@ -63,8 +63,6 @@ class VehicleActivitiesController extends Controller
 
         $columns['driver_id'] = Auth::user()->id;
         $columns['driver_name'] = Auth::user()->name;
-
-        $columns['km_end'] = $columns['km_start'];
 
         $activity = $vehicle->activitys()->create($columns);
 
