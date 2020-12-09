@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateVehicle;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class VehiclesController extends Controller
 {
@@ -205,14 +207,17 @@ class VehiclesController extends Controller
 
         $usersDrivers = $drivers->users()->get();
 
-        $activityEnd = $vehicle->activitys()->orderby('id', 'DESC')->first();
-
-        $ultimaKM = isset($activityEnd->km_end) && $activityEnd->km_end != '' ? $activityEnd->km_end : '';
+        //Verificar se existe status em aberto desse Motorista
+        $activityStatusOpen = $vehicle->activitys()
+            ->where('driver_id', Auth::user()->id)
+            ->where('status', Config::get('constants.EM_ABERTO'))
+            ->where('title', 'atividade')
+            ->first();
 
         return view('pages.painel.vehicles.vehicles.qrcode', [
             'usersDrivers' => $usersDrivers,
             'vehicle' => $vehicle,
-            'ultimaKM' => $ultimaKM
+            'activityStatusOpen' => $activityStatusOpen
         ]);
     }
 }

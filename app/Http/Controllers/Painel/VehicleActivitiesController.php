@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUpdateVehicleActivitie;
 use App\Models\Role;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 class VehicleActivitiesController extends Controller
@@ -109,17 +110,28 @@ class VehicleActivitiesController extends Controller
      * @param  \App\Models\vehicles  $vehicles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $vehicle_id, $activity_id)
     {
-        $columns = $request->all();
 
-        if (!$vehicle = $this->repository->where('id', $id)->first()) {
+        $columns = $request->only(['km_start', 'description', 'type', 'observation']);
+
+        if (!$vehicle = $this->repository->where('id', $vehicle_id)->first()) {
             return redirect()
                 ->route('vehicles.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $vehicle->update($columns);
+        $columnsUpdate = [
+            'km_end' => $columns['km_start'],
+            'description_return' => $columns['description'],
+            'observation_return' => $columns['observation'],
+            'updated_at' => date('Y-m-d H:i:s'),
+            'status' => Config::get('constants.FINALIZADO')
+        ];
+
+        $activity = VehicleActivities::where('id', $activity_id)->first();
+
+        $activity->update($columnsUpdate);
 
         return redirect()
             ->back()

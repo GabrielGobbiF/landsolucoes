@@ -21,7 +21,10 @@ class VehicleActivities extends Model
         'type',
         'obra_id',
         'obr_razao_social',
-        'nota_fiscal'
+        'nota_fiscal',
+        'description_return',
+        'observation_return',
+        'status'
     ];
 
     protected $hidden = [
@@ -43,7 +46,10 @@ class VehicleActivities extends Model
         'type',
         'obra_id',
         'obr_razao_social',
-        'nota_fiscal'
+        'nota_fiscal',
+        'description_return',
+        'observation_return',
+        'status'
     ];
 
     protected static $logName = 'VehicleActivities';

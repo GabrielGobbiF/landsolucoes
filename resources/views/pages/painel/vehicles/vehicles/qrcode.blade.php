@@ -67,12 +67,6 @@
                         <div class="col-md-12 manutencao d-none">
                             <div class="form-group text-center">
                                 <label for="input--tipo_manutencao ">Tipo de Manutenção</label>
-                                <!-- <select class="form-control select2" name="tipo_manutencao" required id="input--tipo_manutencao">
-                                    <option value="">Selecione</option>
-                                    <option value="mecanico">Mêcanico</option>
-                                    <option value="iluminacao">Iluminação</option>
-                                    <option value="avarias">Avarias</option>
-                                </select>-->
                                 <div class="justify-content-center d-flex mb-5">
                                     <button class="btn btn-primary btn-manutencao ml-1 p-2" data-type="mêcanico">Mêcanico</button>
                                     <button class="btn btn-primary btn-manutencao ml-1 p-2" data-type="iluminacao">Iluminação</button>
@@ -89,97 +83,107 @@
                         </div>
                     </div>
 
-
-
                     <div class="row dados_type atividade d-none">
                         <div class="col-md-12 atividade d-none">
                             <div class="form-group text-center">
                                 <label for="input--tipo_atividade "></label>
-                                <div class="justify-content-center d-flex mb-5">
-                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="saida">Saida</button>
-                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="retorno">Retorno</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 div--btn-tipo_atividade_type d-none">
-                            <div class="form-group text-center">
-                                <label for="input--tipo_atividade_descricao">Nome da Atividade</label>
-                                <div class="justify-content-center d-flex mb-5" id="select--btn-tipo_atividade_type_descricao">
-                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="cliente">Cliente</button>
-                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra">Obra</button>
-                                    <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 div--nome_atividade d-none">
-                            <div class="form-group text-center">
-                                <label for="input--tipo_atividade_descricao">Nome da Atividade</label>
-                                <div class="justify-content-center d-flex mb-5" id="select--tipo_atividade_descricao"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="obra d-none dados_type row mb-2">
-                        <div class="col-md-12">
-                            <div class="form-group text-center">
-                                <label for="input--obra ">Obra</label>
-                                <select class="form-control" id="obra--select"> </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12 mt-3 mb-3 d-none text-center div--endereco_obra">
-                            <span class="endereco_obra"></span>
-                        </div>
-                    </div>
-
-                    <form role="form" enctype="multipart/form-data" action="{{ route('vehicles.activitys.store', $vehicle->id) }}" method="POST">
-                        @csrf
-
-                        <div class="row dados_type abastecimento d-none mb-4">
-                            <div class="col-md-12 abastecimento">
-                                <label for="image">Foto da Nota</label>
-                                <div class="custom-file">
-                                    <input lang="pt" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
-                                        value="">
-                                    <label class="custom-file-label" for="customFile"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="descricao d-none row dados_type">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="input--km_start">Kilometragem do carro (apenas numeros)</label>
-                                    <input type="number" name="km_start" onkeyup="submit_form()" class="form-control" id="input--km_start" value="">
-                                    <input type="hidden" name="ultimaKM" value="{{ $ultimaKM ?? '' }}" autocomplete="off">
-                                    <div class="invalid-feedback">
-                                        KM precisa ser maior que o KM Atual
+                                @if (!$activityStatusOpen)
+                                    <div class="justify-content-center d-flex mb-5">
+                                        <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="saida">Saida</button>
+                                        <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="retorno">Retorno</button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="input--observation">Observação</label>
-                                    <textarea type="text" name="observation" onkeyup="submit_form()" placeholder="Digite um breve detalhamento"
-                                        class="form-control @error('observation') is-invalid @enderror"
-                                        id="input--observation" value=""></textarea>
-                                </div>
+                                @else
+                                    <span>Existe uma saida sem registro de retorno, por favor atualize</span>
+                                    <br>
+                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2 mt-3 mb-4" data-type="retorno">Retorno</button>
+                                @endif
                             </div>
                         </div>
+                    </div>
 
-                        <input type="hidden" id="activity_name" name="title">
-                        <input type="hidden" id="activity_type" name="type">
-                        <input type="hidden" id="activity_description" name="description">
-                        <input type="hidden" id="obra_id" name="obra_id">
-                        <input type="hidden" id="obr_razao_social" name="obr_razao_social">
-
-                        <div class="row justify-content-center d-none mt-2" id="div--button-submit">
-                            <button type="submit" class="btn btn-success">Enviar</button>
+                    <div class="col-md-12 div--btn-tipo_atividade_type d-none">
+                        <div class="form-group text-center">
+                            <div class="justify-content-center d-flex mb-5" id="select--btn-tipo_atividade_type_descricao">
+                                <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="cliente">Cliente</button>
+                                <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra">Obra</button>
+                                <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
+                            </div>
                         </div>
+                    </div>
 
-                    </form>
+                    <div class="col-md-12 div--nome_atividade d-none">
+                        <div class="form-group text-center">
+                            <label for="input--tipo_atividade_descricao">Nome da Atividade</label>
+                            <div class="justify-content-center d-flex mb-5" id="select--tipo_atividade_descricao"></div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="obra d-none dados_type row mb-2">
+                    <div class="col-md-12">
+                        <div class="form-group text-center">
+                            <label for="input--obra ">Obra</label>
+                            <select class="form-control" id="obra--select"> </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3 mb-3 d-none text-center div--endereco_obra">
+                        <span class="endereco_obra"></span>
+                    </div>
+                </div>
+
+                <form role="form" enctype="multipart/form-data" action="
+                    {{ isset($activityStatusOpen) ? route('vehicles.activitys.update', [$vehicle->id, $activityStatusOpen->id]) : route('vehicles.activitys.store', $vehicle->id) }}
+                    " method="POST">
+                    @csrf
+                    @if (isset($activityStatusOpen))
+                        @method('PUT')
+                    @endif
+
+                    <input type="hidden" id="activity_name" name="title">
+                    <input type="hidden" id="activity_type" name="type">
+                    <input type="hidden" id="activity_description" name="description">
+                    <input type="hidden" id="obra_id" name="obra_id">
+                    <input type="hidden" id="obr_razao_social" name="obr_razao_social">
+
+                    <div class="row dados_type abastecimento d-none mb-4">
+                        <div class="col-md-12 abastecimento">
+                            <label for="image">Foto da Nota</label>
+                            <div class="custom-file">
+                                <input lang="pt" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
+                                    value="">
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="descricao d-none row dados_type">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="input--km_start">Kilometragem do carro (apenas numeros)</label>
+                                <input type="number" name="km_start" onkeyup="submit_form()" class="form-control" id="input--km_start" value="">
+                                <input type="hidden" name="ultimaKM" value="{{ $ultimaKM ?? '' }}" autocomplete="off">
+                                <div class="invalid-feedback">
+                                    KM precisa ser maior que o KM Atual
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="input--observation">Observação</label>
+                                <textarea type="text" name="observation" onkeyup="submit_form()" placeholder="Digite um breve detalhamento"
+                                    class="form-control @error('observation') is-invalid @enderror"
+                                    id="input--observation" value=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-center d-none mt-2" id="div--button-submit">
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </div>
+
+                </form>
+
             </main>
         </div>
     </div>
@@ -188,7 +192,7 @@
 <script>
     function submit_form() {
         $('#div--button-submit').addClass('d-none');
-        if ($('#input--observation').val() != '' && $('#input--km_start').val() != '') {
+        if ($('#input--km_start').val() != '') {
             $('#div--button-submit').removeClass('d-none');
         }
     }
@@ -199,22 +203,6 @@
             $('#div--button-submit').removeClass('d-none');
         }
     })
-
-
-    $('.btn-tipo_atividade_type').on('click', function() {
-        var type = $(this).attr('data-type');
-
-        $('.btn-tipo_atividade_type').removeClass('btn-success');
-        $('.btn-tipo_atividade_type').addClass('btn-primary');
-
-        $(this).toggleClass('btn-primary');
-        $(this).toggleClass('btn-success');
-
-        $('.div--btn-tipo_atividade_type').removeClass('d-none');
-
-        $('#activity_type').val(type);
-    })
-
 
     $('.btn-atividade').on('click', function() {
 
@@ -249,8 +237,28 @@
         $('.' + type).removeClass('d-none');
 
         $('#activity_name').val(type);
-        $('.descricao').removeClass('d-none');
+        //$('.descricao').removeClass('d-none');
         $('#dados').removeClass('d-none');
+    })
+
+
+    $('.btn-tipo_atividade_type').on('click', function() {
+        var type = $(this).attr('data-type');
+
+        if (type == 'retorno') {
+            //$('#select--btn-tipo_atividade_type_descricao').append('<button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="galpao">Galpão</button>')
+        }
+
+        $('.btn-tipo_atividade_type').removeClass('btn-success');
+        $('.btn-tipo_atividade_type').addClass('btn-primary');
+
+        $(this).toggleClass('btn-primary');
+        $(this).toggleClass('btn-success');
+
+        $('.div--btn-tipo_atividade_type').removeClass('d-none');
+
+
+        $('#activity_type').val(type);
     })
 
 
@@ -411,6 +419,8 @@
         $('#activity_name').val('');
         $('#activity_type').val('');
         $('#activity_description').val('');
+        $('#input--observation').val('');
+        $('#input--km_start').val('');
     }
 
 </script>

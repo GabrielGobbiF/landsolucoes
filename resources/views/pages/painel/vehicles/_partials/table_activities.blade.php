@@ -5,45 +5,67 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                <table data-toggle="table" id="table" class="table table-borderless" data-search="true"
+                <table data-toggle="table" id="table" class="table table-hover" data-search="true"
                     data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
                     data-cookie-id-table="vehicles" data-buttons-class="dark" data-toolbar="#toolbar-activitys">
-                    <thead style="border-bottom: 1px solid rgba(0, 0, 0, 0.125)">
+                    <thead>
+                        <tr>
+                            <th colspan="4" data-halign="center">Saida</th>
+                            <th colspan="3" data-halign="center">Retorno</th>
+                        </tr>
+
                         <tr>
                             <th>#</th>
                             <th>Descrição</th>
-                            <th>Tipo</th>
-                            <th>Obra</th>
-                            <th>KM</th>
-                            <th class="text-center">Data</th>
+                            <th data-halign="center">KM Saída</th>
+                            <th data-halign="center">Data Saida</th>
+
+                            <th data-halign="center">KM Retorno</th>
+                            <th data-halign="center">Data Retorno</th>
+                            <th data-halign="right">Retorno</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($atividade as $activitys)
+                        @foreach ($atividade as $activity)
                             <tr>
-                                <td>{{ $activitys->id }}</td>
+                                <td>{{ $activity->id }}</td>
+
+                                <!-- Saida -->
                                 <td>
-                                    <a href="javascript:void(0);" onclick="editHistorico(2666)">
-                                        {{ ucfirst($activitys->title) }}
-                                    </a>
+                                    {{ ucfirst($activity->type) }}
                                     <br>
-                                    <small>Motorista: <b>{{ $activitys->driver_name }} </b></small>
-                                </td>
-                                <td>
-                                    {{ ucfirst($activitys->type) }}
+                                    <small>para: <b>{{ $activity->description }}</b></small>
+                                    @if ($activity->obra_id != '')
+                                        <a href="http://www.landsolucoes.com.br/obras/edit/{{ $activity->obra_id }}" target="_blank"> {{ $activity->obr_razao_social }} </a>
+                                    @endif
                                     <br>
-                                    <small>para: <b>{{ $activitys->description }} </b></small>
+                                    <small>motorista: <b>{{ $activity->driver_name }}</b></small>
                                 </td>
-                                @if ($activitys->obra_id != '')
-                                    <td>
-                                        <a href="http://www.landsolucoes.com.br/obras/edit/{{ $activitys->obra_id }}" target="_blank"> {{ $activitys->obr_razao_social }} </a>
+                                <td class="text-center">{{ $activity->km_start ?? '' }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($activity->created_at)->format('d/m/Y h:i:s') ?? '' }}</td>
+
+                                <!-- retorno -->
+
+                                @if ($activity->status == '0')
+                                    <td colspan="3" class="text-center">
+                                        <span class="badge-{{ $activity->status == '0' ? 'danger' : 'success' }} badge mr-2">
+                                            {{ $activity->status == '0' ? 'em aberto' : 'finalizado' }}
+                                        </span>
                                     </td>
                                 @else
-                                    <td></td>
+                                    <td class="text-center">{{ $activity->km_end ?? '' }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($activity->updated_at)->format('d/m/Y h:i:s') ?? '' }}</td>
+                                    <td class="text-right">
+                                        Retorno
+                                        <br>
+                                        <small>para: <b>{{ $activity->description_return }}</b></small>
+                                        <br>
+                                        <small>motorista: <b>{{ $activity->driver_name }}</b></small>
+                                    </td>
                                 @endif
-                                <td>{{ $activitys->km_start ?? '' }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($activitys->created_at)->format('d/m/Y h:i:s') ?? '' }}</td>
                             </tr>
+
                         @endforeach
                     </tbody>
                 </table>

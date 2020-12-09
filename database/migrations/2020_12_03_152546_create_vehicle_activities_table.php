@@ -21,6 +21,7 @@ class CreateVehicleActivitiesTable extends Migration
             $table->string('km_end')->nullable();
             $table->string('type')->nullable();
             $table->string('obr_razao_social')->nullable();
+            $table->string('description_return')->nullable();
 
             $table->integer('obra_id')->nullable();
 
@@ -29,7 +30,10 @@ class CreateVehicleActivitiesTable extends Migration
             $table->unsignedBigInteger('vehicle_id');
 
             $table->text('observation')->nullable();
-            $table->text('liters')->nullable();
+            $table->text('observation_return')->nullable();
+
+            $table->enum('status', ['0', '1'])->default('0');
+
             $table->string('nota_fiscal')->nullable();
 
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
