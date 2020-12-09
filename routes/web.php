@@ -83,7 +83,6 @@ Route::group(['middleware' => 'role:vehicles'], function () {
     */
     Route::post('vehicles/{vehicle_id}/activitys', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'store'])->name('vehicles.activitys.store');
     Route::put('vehicles/{vehicle_id}/activitys/{activity_id}', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'update'])->name('vehicles.activitys.update');
-
 });
 
 
@@ -102,3 +101,5 @@ Route::resource('users', App\Http\Controllers\Painel\UsersController::class);
 |--------------------------------------------------------------------------
 */
 Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
+
+
