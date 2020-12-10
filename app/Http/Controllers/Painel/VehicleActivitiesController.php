@@ -134,7 +134,7 @@ class VehicleActivitiesController extends Controller
         $activity->update($columnsUpdate);
 
         return redirect()
-            ->back()
+            ->route("vehicles/$vehicle_id}/qrcode")
             ->with('message', 'Atualizado com sucesso');
     }
 
