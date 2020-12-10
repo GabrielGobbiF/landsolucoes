@@ -6,7 +6,7 @@
     $token = $request['token_id'] ?? '';
     @endphp
 
-    @if ($token == '72635fe5-f761-4cfa-add7-6aa9e6ca924f')
+    @if ($token == '72635fe5-f761-4cfa-add7-6aa9e6ca924f' || App::environment('local'))
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">

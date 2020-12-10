@@ -9,10 +9,11 @@
                     <div class="card-body">
 
                         @if (session('error'))
-                            <div class="bg-danger p-2 container mb-3 text-center" style="width: 70%">
-                                <span class="text-light ">Login ou senha incorretos</span>
+                        <div class="alert alert-danger" role="alert">
+                                Login ou senha incorretos
                             </div>
                         @endif
+
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group row">
