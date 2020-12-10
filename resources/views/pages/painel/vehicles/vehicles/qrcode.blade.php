@@ -108,8 +108,7 @@
                     <div class="col-md-12 div--btn-tipo_atividade_type d-none">
                         <div class="form-group text-center">
                             <div class="justify-content-center d-flex mb-5" id="select--btn-tipo_atividade_type_descricao">
-                                <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="cliente">Cliente</button>
-                                <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra">Obra</button>
+                                <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra"> Obra / Cliente </button>
                                 <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
                             </div>
                         </div>
