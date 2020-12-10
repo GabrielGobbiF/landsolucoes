@@ -19,7 +19,7 @@
 
                     <div class="text-center">
 
-                       <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->generate(route('vehicles.activitys.qrcode', $vehicle->id))) !!} ">
+                       <!-- <img src="data:image/png;base64,  ">-->
 
                     </div>
 
