@@ -38,6 +38,8 @@
                                     <small>para: <b>{{ $activity->description }}</b></small>
                                     @if ($activity->obra_id != '')
                                         <a href="http://www.landsolucoes.com.br/obras/edit/{{ $activity->obra_id }}" target="_blank"> {{ $activity->obr_razao_social }} </a>
+                                    @else
+                                        {{ $activity->observation_return }}
                                     @endif
                                     <br>
                                     <small>motorista: <b>{{ $activity->driver_name }}</b></small>
