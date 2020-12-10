@@ -9,7 +9,7 @@
                     <div class="card-body">
 
                         @if (session('error'))
-                            <div class="bg-danger p-2 container mb-5 text-center" style="width: 70%">
+                            <div class="bg-danger p-2 container mb-3 text-center" style="width: 70%">
                                 <span class="text-light ">Login ou senha incorretos</span>
                             </div>
                         @endif
