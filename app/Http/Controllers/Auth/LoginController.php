@@ -50,7 +50,7 @@ class LoginController extends Controller
             return $this->sendLoginResponse($request);
         }
 
-        if (Auth::attempt($request->only($field, 'password'), $request->filled('remember'))) {
+        if(Auth::check()){
             return redirect('/');
         }
 
