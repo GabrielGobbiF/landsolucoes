@@ -15,13 +15,25 @@
                     <!-- <a class="nav-link mb-2" id="v-pills-maintenance-tab" data-toggle="pill" href="#v-pills-maintenance" role="tab" aria-controls="v-pills-maintenance" aria-selected="false">Histórico</a> -->
                     <!--<a class="nav-link mb-2 " id="v-pills-new-tab" data-toggle="pill" href="#v-pills-new" role="tab" aria-controls="v-pills-new" aria-selected="false">Novo</a>-->
                     <div class="text-center">
-                        @if (App::environment('production'))
-                            <img src="data:image/png;base64, {!!  base64_encode(
-                                QrCode::format('png')
-                                    ->size(100)
-                                    ->generate(route('vehicles.activitys.qrcode', $vehicle->id)),
-                            ) !!} ">
-                        @endif
+                        <div class="col-md-12 mt-2">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    @if (App::environment('production'))
+                                        <img src="data:image/png;base64, {!!  base64_encode(
+                                                QrCode::format('png')
+                                                    ->size(150)
+                                                    ->generate(route('vehicles.activitys.qrcode', $vehicle->id)),
+                                            ) !!} ">
+                                    @else
+                                        {!! QrCode::size(150)->generate('ItSolutionStuff.com') !!}
+                                    @endif
+
+                                    <div class="mt-2">
+                                        {{ $vehicle->board }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

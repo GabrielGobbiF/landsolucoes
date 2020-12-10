@@ -55,7 +55,6 @@
                                     @else
                                         {!! QrCode::size(150)->generate('ItSolutionStuff.com') !!}
                                     @endif
-
                                     <div class="mt-2">
                                         {{ $vehicle->board }}
                                     </div>
