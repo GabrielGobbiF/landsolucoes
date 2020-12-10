@@ -74,6 +74,8 @@ Route::group(['middleware' => 'role:vehicles'], function () {
     | Veiculos
     |--------------------------------------------------------------------------
     */
+    Route::get('vehicles/qrcode/all-qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'genereted_all_qrcode'])->name('vehicles.all.qrcode');
+
     Route::resource('vehicles', App\Http\Controllers\Painel\VehiclesController::class);
 
     /*

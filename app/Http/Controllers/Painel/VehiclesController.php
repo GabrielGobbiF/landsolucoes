@@ -220,4 +220,13 @@ class VehiclesController extends Controller
             'activityStatusOpen' => $activityStatusOpen
         ]);
     }
+
+    public function genereted_all_qrcode()
+    {
+        $vehicles = $this->repository->all();
+
+        return view('pages.painel.vehicles.vehicles.all_qrcode', [
+            'vehicles' => $vehicles
+        ]);
+    }
 }
