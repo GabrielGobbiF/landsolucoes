@@ -43,6 +43,12 @@
             <header class="masthead mb-3 mt-2">
                 <div class="justify-content-between d-flex mb-4">
                     <span>{{ Auth::user()->name }} </span>
+                    @if (session('message'))
+                        <div class="bg-success p-1">
+                            <span class="text-light">{{ session('message') }}</span>
+                        </div>
+                    @endif
+
                 </div>
                 <div class="text-center">
                     <h4 class="cover-heading ">{{ $vehicle->name }}</h4>
@@ -152,7 +158,7 @@
                                 <label class="custom-file-label" for="customFile"></label>
                             </div>
                             <div class="text-center mt-2">
-                                <img src="" class="img-fit-cover img-thumbnail" name="preview" style="object-position: top;width: 40%;">
+                                <img src="" class="img-fit-cover img-thumbnail" name="preview" id="preview_img" style="object-position: top;width: 40%;">
                             </div>
                         </div>
                     </div>
@@ -194,13 +200,6 @@
         }
     }
 
-    $('#image').on('change', function() {
-        $('#div--button-submit').addClass('d-none');
-        if ($('#image').val() != '') {
-            $('#div--button-submit').removeClass('d-none');
-        }
-    })
-
     $('.btn-atividade').on('click', function() {
 
         $('.btn-tipo_atividade_type').removeClass('btn-success');
@@ -221,6 +220,8 @@
         $('#div--button-submit').addClass('d-none');
         $('.div--manutencao').addClass('d-none');
         $('.div--btn-tipo_atividade_type').addClass('d-none')
+
+        $('#preview_img').attr('src', '');
 
         $(this).toggleClass('btn-primary');
 
