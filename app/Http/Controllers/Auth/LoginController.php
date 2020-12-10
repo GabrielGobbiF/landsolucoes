@@ -42,19 +42,41 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $field = filter_var($request->input('email_or_username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $request->merge([$field => $request->input('email_or_username')]);
+        $login_type = filter_var($request->input('email_or_username'), FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
+        $request->merge([
+            $login_type => $request->input('email_or_username')
+        ]);
+
+        if (Auth::attempt($request->only($login_type, 'password'))) {
+            return redirect()->intended($this->redirectPath());
         }
 
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect('/');
         }
 
         return redirect('/login')
             ->with('error', 'These credentials do not match our records.');
+
+        exit();
+        abort(404);
+
+        //$field = filter_var($request->input('email_or_username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        //$request->merge([$field => $request->input('email_or_username')]);
+        //if (Auth::attempt($request->only($login_type, 'password'))) {
+        //    return redirect()->intended($this->redirectPath());
+        //}
+        //$attemptLogin = $this->guard()->attempt(
+        //    $this->credentials($request),
+        //    $request->filled('remember')
+        //);
+        //if ($attemptLogin) {
+        //    return $this->sendLoginResponse($request);
+        //}
+
     }
 }
