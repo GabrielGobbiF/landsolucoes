@@ -77,8 +77,8 @@ class VehicleActivitiesController extends Controller
         }
 
         return redirect()
-            ->route('vehicles.show', $vehicle_id)
-            ->with('message', 'Criado com sucesso');
+            ->route('vehicles.activitys.qrcode', $vehicle_id)
+            ->with('message', 'Atualizado com sucesso');
     }
 
     /**
@@ -134,7 +134,7 @@ class VehicleActivitiesController extends Controller
         $activity->update($columnsUpdate);
 
         return redirect()
-            ->route("vehicles/$vehicle_id}/qrcode")
+            ->route('vehicles.activitys.qrcode', $vehicle_id)
             ->with('message', 'Atualizado com sucesso');
     }
 
