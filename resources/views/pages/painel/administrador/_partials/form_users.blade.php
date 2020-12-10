@@ -2,12 +2,21 @@
 <input type="hidden" id="user_id" value="{{ $user->id ?? '' }}" />
 <div class="card-body">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="form-group">
                 <label for="input--name">Nome</label>
                 <input type="text" name="name" {{ isset($user->id) && (Auth::user()->id == $user->id || Auth::user()->hasRole('admin')) ? '' : 'disabled' }}
                     class="form-control @error('name') is-invalid @enderror" id="input--name"
                     value="{{ $user->name ?? old('name') }}" autocomplete="off">
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="input--name">Usuario</label>
+                <input type="text" name="username" {{ isset($user->id) && (Auth::user()->id == $user->id || Auth::user()->hasRole('admin')) ? '' : 'disabled' }}
+                    class="form-control @error('username') is-invalid @enderror" id="input--username"
+                    value="{{ $user->username ?? old('username') }}" autocomplete="off">
 
             </div>
         </div>
@@ -22,7 +31,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="input--telefone_celular">Telefone</label>
                 <input type="text" name="telefone_celular" {{ isset($user->id) && (Auth::user()->id == $user->id || Auth::user()->hasRole('admin')) ? '' : 'disabled' }}
@@ -84,7 +93,4 @@
             <i class='fas fa-edit'></i> Salvar
         </button>
     @endif
-    <a href="{{ route('users.index') }}" class="btn btn-danger">
-        <i class='fas fa-undo-alt'></i> Cancelar
-    </a>
 </div>
