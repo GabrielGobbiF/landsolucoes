@@ -45,7 +45,8 @@
                     @foreach ($vehicles as $vehicle)
                         <div class="col-md-2 mt-2">
                             <div class="card">
-                                <div class="card-body text-center">
+                                <div class="card-body text-center" style="justify-content: center;
+                                display: grid;">
                                     @if (App::environment('production'))
                                         <img src="data:image/png;base64, {!!  base64_encode(
                                             QrCode::format('png')
