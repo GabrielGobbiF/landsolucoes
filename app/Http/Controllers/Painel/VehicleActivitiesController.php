@@ -62,7 +62,7 @@ class VehicleActivitiesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $columns['driver_id'] = Auth::user()->id;
+        $columns['driver_id']   = Auth::user()->id;
         $columns['driver_name'] = Auth::user()->name;
 
         $activity = $vehicle->activitys()->create($columns);
@@ -112,7 +112,6 @@ class VehicleActivitiesController extends Controller
      */
     public function update(Request $request, $vehicle_id, $activity_id)
     {
-
         $columns = $request->only(['km_start', 'description', 'type', 'observation']);
 
         if (!$vehicle = $this->repository->where('id', $vehicle_id)->first()) {
@@ -158,7 +157,6 @@ class VehicleActivitiesController extends Controller
             ->route('vehicles.index')
             ->with('message', 'Deletado com sucesso!');
     }
-
 
     /**
      * Search results

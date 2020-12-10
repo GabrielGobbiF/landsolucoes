@@ -38,15 +38,12 @@
 </head>
 
 <body>
-
     <div id="app">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " style="    max-width: 42em; height: 100vh;">
             <header class="masthead mb-3 mt-2">
-
                 <div class="justify-content-between d-flex mb-4">
                     <span>{{ Auth::user()->name }} </span>
                 </div>
-
                 <div class="text-center">
                     <h4 class="cover-heading ">{{ $vehicle->name }}</h4>
                     <span>{{ $vehicle->board }}</span>
@@ -150,9 +147,12 @@
                         <div class="col-md-12 abastecimento">
                             <label for="image">Foto da Nota</label>
                             <div class="custom-file">
-                                <input lang="pt" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
+                                <input lang="pt" type="file" onchange="previewImagem()" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image"
                                     value="">
                                 <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <div class="text-center mt-2">
+                                <img src="" class="img-fit-cover img-thumbnail" name="preview" style="object-position: top;width: 40%;">
                             </div>
                         </div>
                     </div>
@@ -177,14 +177,10 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="row justify-content-center d-none mt-2" id="div--button-submit">
                         <button type="submit" class="btn btn-success">Enviar</button>
                     </div>
-
                 </form>
-
             </main>
         </div>
     </div>
@@ -238,7 +234,10 @@
         $('.' + type).removeClass('d-none');
 
         $('#activity_name').val(type);
-        //$('.descricao').removeClass('d-none');
+
+        if (type == 'abastecimento') {
+            //$('.descricao').removeClass('d-none');
+        }
         $('#dados').removeClass('d-none');
     })
 
@@ -422,6 +421,26 @@
         $('#activity_description').val('');
         $('#input--observation').val('');
         $('#input--km_start').val('');
+    }
+
+    function previewImagem() {
+
+        var imagem = document.querySelector('input[id=image]').files[0];
+        var preview = document.querySelector('img[name=preview]');
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            preview.src = reader.result;
+
+        }
+
+        if (imagem) {
+            $('.descricao').removeClass('d-none');
+            reader.readAsDataURL(imagem);
+        } else {
+            preview.src = "";
+        }
     }
 
 </script>

@@ -35,7 +35,7 @@ class StoreUpdateVehicleActivitie extends FormRequest
         ];
 
         if ($this->method() == 'PUT') {
-            $rules['km_end'] = "required|regex:/^\d+(\.\d{1,2})?$/";
+            //$rules['km_end'] = "required|regex:/^\d+(\.\d{1,2})?$/";
         }
 
         if(Request::input('title') == 'abastecimento' && $this->method() == 'POST'){
