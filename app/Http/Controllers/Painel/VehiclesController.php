@@ -10,8 +10,6 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
 class VehiclesController extends Controller
 {
     protected $repository;
@@ -109,8 +107,6 @@ class VehiclesController extends Controller
 
         $ultimaKM = isset($activityEnd->km_end) && $activityEnd->km_end != '' ? $activityEnd->km_end : '';
 
-        //$image = $this->qrcodeImage();
-
         return view('pages.painel.vehicles.vehicles.show', [
             'vehicle' => $vehicle,
             'manutencao' => $manutencao,
@@ -118,17 +114,7 @@ class VehiclesController extends Controller
             'atividade' => $atividade,
             //'activitys' => $activitys,
             'ultimaKM' => $ultimaKM,
-            //'image' => $image,
         ]);
-    }
-
-    private function qrcodeImage()
-    {
-        $image = QrCode::format('png')
-            ->size(100)->errorCorrection('H')
-            ->generate('MyNotePaper');
-
-        return response($image)->header('Content-type', 'image/png');
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -42,12 +43,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $field = filter_var($request->input('email_or_username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
         $request->merge([$field => $request->input('email_or_username')]);
-        if (\Auth::attempt($request->only($field, 'password'), $request->filled('remember'))) {
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+
+        if (Auth::attempt($request->only($field, 'password'), $request->filled('remember'))) {
             return redirect('/');
         }
-        return redirect('/login')->withErrors([
-            'error' => 'These credentials do not match our records.',
-        ]);
+
+        return redirect('/login')
+            ->with('error', 'These credentials do not match our records.');
     }
 }
