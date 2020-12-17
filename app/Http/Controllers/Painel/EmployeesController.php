@@ -250,7 +250,7 @@ class EmployeesController extends Controller
 
             $employee_name = str_replace(' ', '_', mb_strtolower($employee->name, 'UTF-8'));
 
-            $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
+            $docs_name = mb_strimwidth($request->document_name, 0, 12) . '_' . uniqid(date('HisYmd'));
 
             $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}", "{$docs_name}.pdf");
 
