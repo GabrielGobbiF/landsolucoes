@@ -24,8 +24,8 @@ class User extends Authenticatable
         'telefone_celular',
         'uuid',
         'is_active',
-        'username'
-
+        'username',
+        'password_verified'
     ];
 
     /**
@@ -37,7 +37,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'id',
-        'username'
+        'username',
+        'password_verified'
     ];
 
     /**

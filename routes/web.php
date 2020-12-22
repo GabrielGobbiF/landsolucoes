@@ -9,7 +9,11 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
+
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
+Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
 Route::group(['middleware' => 'role:rh'], function () {
     /*
@@ -19,10 +23,10 @@ Route::group(['middleware' => 'role:rh'], function () {
     */
     Route::prefix('rh')->middleware('auth')->group(function () {
         /*
-        |--------------------------------------------------------------------------
-        | Employees - Funcionários
-        |--------------------------------------------------------------------------
-        */
+            |--------------------------------------------------------------------------
+            | Employees - Funcionários
+            |--------------------------------------------------------------------------
+            */
         Route::get('/', [App\Http\Controllers\Painel\EmployeesController::class, 'index'])->name('employees');
         Route::get('/employees', [App\Http\Controllers\Painel\EmployeesController::class, 'index'])->name('employees');
         Route::get('/employees/create', [App\Http\Controllers\Painel\EmployeesController::class, 'create'])->name('employees.create');
@@ -75,7 +79,6 @@ Route::group(['middleware' => 'role:vehicles'], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('vehicles/qrcode/all-qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'genereted_all_qrcode'])->name('vehicles.all.qrcode');
-
     Route::resource('vehicles', App\Http\Controllers\Painel\VehiclesController::class);
 
     /*
@@ -91,17 +94,15 @@ Route::post('vehicles/{vehicle_id}/activitys', [App\Http\Controllers\Painel\Vehi
 
 
 /*
-|--------------------------------------------------------------------------
-| Usuarios
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | Usuarios
+    |--------------------------------------------------------------------------
+    */
 Route::resource('users', App\Http\Controllers\Painel\UsersController::class);
 
 /*
-|--------------------------------------------------------------------------
-| Roles
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | Roles
+    |--------------------------------------------------------------------------
+    */
 Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
-
-

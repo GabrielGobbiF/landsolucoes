@@ -52,10 +52,22 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($request->only($login_type, 'password'))) {
+
+            if (Auth::check() && Auth::user()->password_verified == 'N') {
+
+                return redirect()->route('password.change');
+            }
+
             return redirect()->intended($this->redirectPath());
         }
 
         if (Auth::check()) {
+
+            if (Auth::user()->password_verified == 'N') {
+
+                return redirect()->route('password.change');
+            }
+
             return redirect('/');
         }
 
