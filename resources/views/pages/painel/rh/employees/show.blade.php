@@ -11,10 +11,12 @@
                     <a class="nav-link nav-link_employee active" id="dados-tab" data-toggle="tab" href="#dados" role="tab"
                         aria-controls="dados" aria-selected="true">Cadastro</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link_employee" id="documentos-tab" data-toggle="tab" href="#documentos" role="tab"
-                        aria-controls="documentos" aria-selected="false">Auditoria</a>
-                </li>
+                @if (Auth::user()->can('view_employee_document_auditory'))
+                    <li class="nav-item">
+                        <a class="nav-link nav-link_employee" id="documentos-tab" data-toggle="tab" href="#documentos" role="tab"
+                            aria-controls="documentos" aria-selected="false">Auditoria</a>
+                    </li>
+                @endif
             </ul>
 
             <div class="tab-content" id="myTabContent">
@@ -25,9 +27,11 @@
                         @include('pages.painel.rh._partials.form_employee')
                     </form>
                 </div>
-                <div class="tab-pane tab-pane_employee fade" id="documentos" role="tabpanel" aria-labelledby="documentos-tab">
-                    @include('pages.painel.rh.employees.auditory')
-                </div>
+                @if (Auth::user()->can('view_employee_document_auditory'))
+                    <div class="tab-pane tab-pane_employee fade" id="documentos" role="tabpanel" aria-labelledby="documentos-tab">
+                        @include('pages.painel.rh.employees.auditory')
+                    </div>
+                @endif
             </div>
         </div>
     </div>

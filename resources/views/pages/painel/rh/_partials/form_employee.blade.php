@@ -75,13 +75,15 @@
             </div>
         </div>
 
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="input--salario">Salário</label>
-                <input type="text" name="salario" class="form-control money @error('salario') is-invalid @enderror"
-                    id="input--salario" value="{{isset($employee->salario) ? number_format($employee->salario, 2, ',', ' ') : old('salario')   }}">
+        @if (Auth::user()->can('view_employee_salary'))
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="input--salario">Salário</label>
+                    <input type="text" name="salario" class="form-control money @error('salario') is-invalid @enderror"
+                        id="input--salario" value="{{ isset($employee->salario) ? number_format($employee->salario, 2, ',', ' ') : old('salario') }}">
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="col-md-3">
             <div class="form-group">
@@ -96,7 +98,7 @@
             <div class="form-group">
                 <label for="input--equipe">Equipe</label>
                 <input type="text" name="equipe" class="form-control  @error('equipe') is-invalid @enderror"
-                    id="input--equipe" value="{{$employee->equipe ?? old('equipe')   }}">
+                    id="input--equipe" value="{{ $employee->equipe ?? old('equipe') }}">
             </div>
         </div>
 
