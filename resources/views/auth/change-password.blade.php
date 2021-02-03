@@ -31,6 +31,9 @@
                                         document.getElementById('logout-form').submit();">
                             {{ __('Sair') }}
                         </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </div>
                     <div class="col-md-8">
 
