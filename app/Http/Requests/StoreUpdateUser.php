@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreUpdateUser extends FormRequest
 {
@@ -23,15 +24,15 @@ class StoreUpdateUser extends FormRequest
      */
     public function rules()
     {
-        $uuid = $this->segment(3);
+        $uuid = Auth::user()->uuid;
 
-        return [
-            //'name' => "required|min:3|max:255|unique:users,name,{$uuid},uuid",
-            //'email' => "required|min:3|email|max:255|unique:users,email,{$uuid},uuid",
-            //'login' => "required|min:3|max:255|unique:users,login,{$uuid},uuid",
-            //'rg' => "required|min:3|max:255|unique:users,rg,{$uuid},uuid",
-            //'whatsapp' => "required|min:3|max:255|unique:users,whatsapp,{$uuid},uuid",
-
+        $rules = [
+            'name' => "required|min:3|max:255|unique:users,name,{$uuid},uuid",
+            'username' => "required|min:3|max:255|unique:users,username,{$uuid},uuid",
+            'email' => "nullable|min:3|email|max:255|unique:users,email,{$uuid},uuid"
         ];
+
+        return $rules;
+
     }
 }

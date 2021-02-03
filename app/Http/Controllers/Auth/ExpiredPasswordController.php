@@ -24,6 +24,7 @@ class ExpiredPasswordController extends Controller
         $request->user()->update([
             'password' => bcrypt($request->password),
             'password_verified' => 'Y',
+            'rg' => $request->rg
         ]);
 
         return redirect()->intended('/');

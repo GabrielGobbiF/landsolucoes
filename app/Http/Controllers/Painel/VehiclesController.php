@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Painel;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateUser;
 use App\Http\Requests\StoreUpdateVehicle;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class VehiclesController extends Controller
 {
@@ -228,5 +234,42 @@ class VehiclesController extends Controller
         return view('pages.painel.vehicles.vehicles.all_qrcode', [
             'vehicles' => $vehicles
         ]);
+    }
+
+    public function drivers()
+    {
+
+        $drivers = User::whereHas('roles', function ($query) {
+            return $query->where('slug', 'driver');
+        })->get();
+
+        return view('pages.painel.vehicles.vehicles.drivers.index', [
+            'drivers' => $drivers
+        ]);
+    }
+
+    public function drivers_create()
+    {
+        return view('pages.painel.vehicles.vehicles.drivers.create');
+    }
+
+    public function drivers_store(StoreUpdateUser $request)
+    {
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'] ?? null,
+            'password' => Hash::make('cena1234'),
+            'uuid' => Str::uuid(),
+            'username' => strtolower(mb_convert_case($request['username'], MB_CASE_TITLE, "UTF-8")),
+            'password_verified' => 'N',
+        ]);
+
+        $dev_role = Role::where('slug', 'driver')->first();
+
+        $user->roles()->attach($dev_role);
+
+        return redirect()
+            ->route('vehicles.drivers')
+            ->with('message', 'Criado com sucesso!');
     }
 }

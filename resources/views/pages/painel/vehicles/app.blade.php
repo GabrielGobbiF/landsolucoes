@@ -86,7 +86,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link nav-header" href="{{ route('vehicles.index') }}">Motoristas</a>
+                                <a class="nav-link nav-header" href="{{ route('vehicles.drivers') }}">Motoristas</a>
                             </li>
 
                             <li class="nav-item">

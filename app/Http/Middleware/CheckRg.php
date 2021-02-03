@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckBanned
+class CheckPassword
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,14 @@ class CheckBanned
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->is_active == '1') {
-            auth()->logout();
+        $id = Auth::user()->id;
+        if (auth()->check()) {
 
-            $message = 'Your account has been suspended. Please contact administrator.';
-
-            return redirect()->route('login')->withMessage($message);
+            if ($id != '3' || $id != '6' || $id != '8') {
+                if (Auth::user()->rg == '') {
+                    return redirect()->route('password.change');
+                }
+            }
         }
 
         return $next($request);
