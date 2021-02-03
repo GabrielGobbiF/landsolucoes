@@ -145,7 +145,7 @@ class EmployeesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $documentos = $employee->auditory()->where('is_active', '0')->groupby('description')->orderby('order', 'ASC')->get();
+        $documentos = $employee->auditory()->where('is_active', '0')->groupBy('description')->orderby('order', 'ASC')->get();
 
         $documentos = $this->getDocumentAuditoryByEmployee($documentos);
 

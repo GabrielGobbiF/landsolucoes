@@ -407,7 +407,7 @@
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 @auth
                     <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
                         {{ __('Sair') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
