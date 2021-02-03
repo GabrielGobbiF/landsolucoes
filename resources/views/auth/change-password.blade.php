@@ -26,7 +26,14 @@
         <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
+                    <div class="col-md-12 align-items-end">
+                        <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            {{ __('Sair') }}
+                        </a>
+                    </div>
                     <div class="col-md-8">
+
                         <div class="card">
                             <div class="card-header">Por favor, antes de usar o sistema altere sua senha</div>
                             <div class="card-body">
@@ -65,7 +72,7 @@
                                         <div class="form-group row">
                                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">RG</label>
                                             <div class="col-md-6">
-                                                <input type="number" class="form-control" name="rg" required >
+                                                <input type="number" class="form-control" name="rg" required>
                                             </div>
                                         </div>
                                     @endif
