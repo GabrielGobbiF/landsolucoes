@@ -104,16 +104,16 @@ class EmployeesController extends Controller
         );
 
         $cursoObrigatorio = [
-                'name' => $cursoNR16[0]->name,
-                'description' => $cursoNR16[0]->description,
-                'type' => $cursoNR16[0]->type,
-                'order' => $cursoNR16[0]->order,
-                'option_name' => $cursoNR16[0]->option_name,
-                'doc_applicable' => $cursoNR16[0]->doc_applicable,
-                'doc_along_month' => $cursoNR16[0]->doc_along_month,
-                'doc_along_year' => $cursoNR16[0]->doc_along_year,
-                'employee_id' => $employee->id,
-                'epi' => $cursoNR16[0]->epi
+            'name' => $cursoNR16[0]->name,
+            'description' => $cursoNR16[0]->description,
+            'type' => $cursoNR16[0]->type,
+            'order' => $cursoNR16[0]->order,
+            'option_name' => $cursoNR16[0]->option_name,
+            'doc_applicable' => $cursoNR16[0]->doc_applicable,
+            'doc_along_month' => $cursoNR16[0]->doc_along_month,
+            'doc_along_year' => $cursoNR16[0]->doc_along_year,
+            'employee_id' => $employee->id,
+            'epi' => $cursoNR16[0]->epi
         ];
 
         $auditory = Auditory::create($cursoObrigatorio);
@@ -145,7 +145,15 @@ class EmployeesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $documentos = $employee->auditory()->where('is_active', '0')->groupBy('description')->orderby('order', 'ASC')->get();
+        $documentos = $employee->auditory()->where('is_active', '0')->groupby('description')->orderby('order', 'ASC')->get();
+
+        //$documentos = DB::select('SELECT *, emp.description as `desc` FROM employees_auditory emp WHERE employee_id = 7 GROUP BY `desc`');
+
+        //$documentos = DB::table('employees_auditory')
+        //    ->groupBy('description')
+        //    ->get();
+//
+        //dd($documentos);
 
         $documentos = $this->getDocumentAuditoryByEmployee($documentos);
 
@@ -432,6 +440,4 @@ class EmployeesController extends Controller
 
         return response()->json($update);
     }
-
-
 }

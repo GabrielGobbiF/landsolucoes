@@ -51,9 +51,7 @@
                         <a href="{{ route('employees.show', $employees->uuid) }}" data-toggle="tooltip" data-placement="top" title="Visualizar" class="btn btn-xs btn-dark ">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" title="Deletar" data-href="{{ route('employees.destroy', $employees->uuid) }}" class="btn btn-xs btn-danger btn-delete">
-                            <i class="fa fa-trash"></i>
-                        </a>
+
                     </td>
                 </tr>
             @endforeach
