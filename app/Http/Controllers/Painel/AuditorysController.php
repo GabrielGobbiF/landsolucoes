@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -254,6 +255,8 @@ class AuditorysController extends Controller
 
     public function updateEmployeesAuditoryMonth(Request $request, $employee_id)
     {
+
+
         if ($request->hasFile('file') && $request->file->isValid()) {
 
             if ($request->file->extension() != 'pdf') {
@@ -292,7 +295,16 @@ class AuditorysController extends Controller
 
                 $validity = $request->validity ?? '';
 
-                $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : NULL;
+                if ($request->date_accomplished != '') {
+                    if (strlen($request->date_accomplished) <= 7) {
+                        $dataChange = str_replace('/', '-', '01/' . $request->date_accomplished);
+                        $date_accomplished = Carbon::parse($dataChange)->format('Y-m-d');
+                    } else {
+                        $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : NULL;
+                    }
+                } else {
+                    $date_accomplished = '';
+                }
 
                 $dias_vigencia = $validity;
 
