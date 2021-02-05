@@ -11,7 +11,7 @@
                     <thead>
                         <tr>
                             <th colspan="4" data-halign="center">Saida</th>
-                            <th colspan="3" data-halign="center">Retorno</th>
+                            <th colspan="3" data-halign="center">Chegada</th>
                         </tr>
 
                         <tr>
@@ -20,9 +20,9 @@
                             <th data-halign="center">KM Saída</th>
                             <th data-halign="center">Data Saida</th>
 
-                            <th data-halign="center">KM Retorno</th>
-                            <th data-halign="center">Data Retorno</th>
-                            <th data-halign="right">Retorno</th>
+                            <th data-halign="center">KM Chegada</th>
+                            <th data-halign="center">Data Chegada</th>
+                            <th data-halign="right">Chegada</th>
 
                         </tr>
                     </thead>
@@ -47,7 +47,7 @@
                                 <td class="text-center">{{ $activity->km_start ?? '' }}</td>
                                 <td class="text-center">{{ \Carbon\Carbon::parse($activity->created_at)->format('d/m/Y h:i:s') ?? '' }}</td>
 
-                                <!-- retorno -->
+                                <!-- Chegada -->
 
                                 @if ($activity->status == '0')
                                     <td colspan="3" class="text-center">
@@ -59,7 +59,7 @@
                                     <td class="text-center">{{ $activity->km_end ?? '' }}</td>
                                     <td class="text-center">{{ \Carbon\Carbon::parse($activity->updated_at)->format('d/m/Y h:i:s') ?? '' }}</td>
                                     <td class="text-right">
-                                        Retorno
+                                        Chegada
                                         <br>
                                         <small>para: <b>{{ $activity->description_return }}</b></small>
                                         <br>

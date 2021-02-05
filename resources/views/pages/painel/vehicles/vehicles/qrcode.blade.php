@@ -94,22 +94,34 @@
                                 @if (!$activityStatusOpen)
                                     <div class="justify-content-center d-flex mb-5">
                                         <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="saida">Saida</button>
-                                        <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="retorno">Retorno</button>
+                                        <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2" data-type="retorno">Chegada</button>
                                     </div>
                                 @else
-                                    <span>Existe uma saida sem registro de retorno, por favor atualize</span>
+                                    <span>Existe uma saida sem registro de chegada, por favor atualize</span>
                                     <br>
-                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2 mt-3 mb-4" data-type="retorno">Retorno</button>
+                                    <br>
+                                    <span style="color: blue;">{{ $activityStatusOpen->obr_razao_social }}</span>
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-primary btn-tipo_atividade_type ml-1 p-2 mt-3 mb-4" data-type="retorno">Chegada</button>
                                 @endif
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-12 div--btn-tipo_atividade_type d-none">
+
                         <div class="form-group text-center">
                             <div class="justify-content-center d-flex mb-5" id="select--btn-tipo_atividade_type_descricao">
                                 <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="obra"> Obra / Cliente </button>
                                 <button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="outros">Outros</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center d-none">
+                            <div class="justify-content-center d-flex mb-5">
+                                <label for="radioTypeObra">Sai </label>
+                                <input type="radio" value="saida" class="md1" id="radioTypeObra">
                             </div>
                         </div>
                     </div>
@@ -125,8 +137,13 @@
                 <div class="obra d-none dados_type row mb-2">
                     <div class="col-md-12">
                         <div class="form-group text-center">
-                            <label for="input--obra ">Obra</label>
-                            <select class="form-control" id="obra--select"> </select>
+                            <label for="input--obra">Obra</label>
+                            <select class="form-control select2" placeholder="Selecione" id="edp">
+                                <option selected value="">Selecione</option>
+                                @foreach ($edps as $edp)
+                                    <option value="{{ $edp->id }}" data-type="{{ $edp->endereco }}">{{ $edp->nome }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-12 mt-3 mb-3 d-none text-center div--endereco_obra">
@@ -241,23 +258,41 @@
         $('#dados').removeClass('d-none');
     })
 
+    $('#edp').on('change', function() {
+
+        var get = $(this).select2('data');
+        console.log(get[0]);
+        var response = get[0].element.attributes[1].value;
+
+        var html = 'endereço não encontrado';
+        $('.div--endereco_obra').removeClass('d-none');
+        if (response) {
+            if (response != undefined || response != '') {
+                $('.div--endereco_obra').removeClass('d-none');
+                html = '<a target="_blank" href="https://www.waze.com/ul?q=' + response + '"> ' + response + ' </a>';
+            }
+        }
+        $('#obra_id').val(get[0].id);
+        $('#obr_razao_social').val(get[0].text);
+        $('.endereco_obra').html(html).show();
+
+    })
 
     $('.btn-tipo_atividade_type').on('click', function() {
         var type = $(this).attr('data-type');
 
         if (type == 'retorno') {
             //$('#select--btn-tipo_atividade_type_descricao').append('<button class="btn btn-primary btn-tipo_atividade ml-1 p-2" data-type="galpao">Galpão</button>')
+            $('.descricao').removeClass('d-none');
+            $('#activity_description').val('chegada');
+            $('.div--btn-tipo_atividade_type').addClass('d-none');
+        } else {
+            $('.div--btn-tipo_atividade_type').removeClass('d-none');
         }
-
         $('.btn-tipo_atividade_type').removeClass('btn-success');
         $('.btn-tipo_atividade_type').addClass('btn-primary');
-
         $(this).toggleClass('btn-primary');
         $(this).toggleClass('btn-success');
-
-        $('.div--btn-tipo_atividade_type').removeClass('d-none');
-
-
         $('#activity_type').val(type);
     })
 
@@ -399,17 +434,7 @@
                 },
                 dataType: 'json',
             }).done(function(response) {
-                var html = 'endereço não encontrado';
-                $('.div--endereco_obra').removeClass('d-none');
-                if (response) {
-                    if (response.text != undefined || response.text != '') {
-                        $('.div--endereco_obra').removeClass('d-none');
-                        html = '<a target="_blank" href="https://www.waze.com/ul?q=' + response.link + '"> ' + response.text + ' </a>';
-                    }
-                }
-                $('#obra_id').val(coluna);
-                $('#obr_razao_social').val(nome);
-                $('.endereco_obra').html(html).show();
+
             });
         });
     }

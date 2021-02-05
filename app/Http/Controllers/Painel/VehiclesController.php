@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -220,9 +221,13 @@ class VehiclesController extends Controller
             ->where('title', 'atividade')
             ->first();
 
+        /* todoFazer  retirar */
+        $edps = DB::select('select * from edp');
+
         return view('pages.painel.vehicles.vehicles.qrcode', [
             'usersDrivers' => $usersDrivers,
             'vehicle' => $vehicle,
+            'edps' => $edps,
             'activityStatusOpen' => $activityStatusOpen
         ]);
     }
