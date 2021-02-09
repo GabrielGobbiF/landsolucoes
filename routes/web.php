@@ -71,14 +71,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::group(['middleware' => 'role:portaria'], function () {
 
-        /*
-        |--------------------------------------------------------------------------
-        | Portaria
-        |--------------------------------------------------------------------------
-        */
-        Route::get('vehicles/portaria', [App\Http\Controllers\Painel\PortariaController::class, 'index'])->name('vehicles.portaria');
-        Route::get('vehicles/portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'create'])->name('vehicles.portaria.register');
-        Route::post('vehicles/portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'store'])->name('vehicles.portaria.create');
+
+
 
 
     });
@@ -110,13 +104,21 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         | Veiculos Atividades
         |--------------------------------------------------------------------------
         */
+
+        /*
+        |--------------------------------------------------------------------------
+        | Portaria
+        |--------------------------------------------------------------------------
+        */
+        Route::get('portaria', [App\Http\Controllers\Painel\PortariaController::class, 'index'])->name('vehicles.portaria');
     });
 
 
     Route::get('vehicles/{vehicle_id}/qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'qrcode'])->name('vehicles.activitys.qrcode');
     Route::put('vehicles/{vehicle_id}/activitys/{activity_id}', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'update'])->name('vehicles.activitys.update');
     Route::post('vehicles/{vehicle_id}/activitys', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'store'])->name('vehicles.activitys.store');
-
+    Route::get('portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'create'])->name('vehicles.portaria.register');
+    Route::post('portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'store'])->name('vehicles.portaria.create');
 
     /*
     |--------------------------------------------------------------------------
