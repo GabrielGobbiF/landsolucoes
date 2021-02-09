@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'uuid' => Str::uuid(),
             'username' => mb_convert_case($data['username'], MB_CASE_TITLE, "UTF-8"),
-            'password_verified' => 'Y',
+            'password_verified' => 'N',
         ]);
 
         $dev_role = Role::where('slug', $data['roles'])->first();
