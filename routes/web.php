@@ -16,10 +16,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::group(['middleware' => 'role:rh'], function () {
         /*
-    |--------------------------------------------------------------------------
-    | RH - Recursos Humanos Cena
-    |--------------------------------------------------------------------------
-    */
+        |--------------------------------------------------------------------------
+        | RH - Recursos Humanos Cena
+        |--------------------------------------------------------------------------
+        */
         Route::prefix('rh')->middleware('auth')->group(function () {
             /*
             |--------------------------------------------------------------------------
@@ -69,6 +69,20 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         });
     });
 
+    Route::group(['middleware' => 'role:portaria'], function () {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Portaria
+        |--------------------------------------------------------------------------
+        */
+        Route::get('vehicles/portaria', [App\Http\Controllers\Painel\PortariaController::class, 'index'])->name('vehicles.portaria');
+        Route::get('vehicles/portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'create'])->name('vehicles.portaria.register');
+        Route::post('vehicles/portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'store'])->name('vehicles.portaria.create');
+
+
+    });
+
     Route::group(['middleware' => 'role:vehicles'], function () {
 
         /*
@@ -79,6 +93,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         Route::get('vehicles/drivers', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('vehicles.drivers');
         Route::get('vehicles/drivers/create', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_create'])->name('vehicles.drivers.create');
         Route::post('vehicles/drivers/store', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_store'])->name('vehicles.drivers.store');
+        Route::post('vehicles/drivers/{driver_id}/active-or-desactive', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_activeOrdesactive'])->name('vehicles.drivers.activeOrdesactive');
+        Route::post('vehicles/drivers/{driver_id}/reset-password', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_reset_password'])->name('vehicles.drivers.password.reset');
+
 
         /*
         |--------------------------------------------------------------------------
@@ -94,6 +111,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         |--------------------------------------------------------------------------
         */
     });
+
 
     Route::get('vehicles/{vehicle_id}/qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'qrcode'])->name('vehicles.activitys.qrcode');
     Route::put('vehicles/{vehicle_id}/activitys/{activity_id}', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'update'])->name('vehicles.activitys.update');

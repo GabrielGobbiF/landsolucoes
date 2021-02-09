@@ -165,11 +165,16 @@ jQuery(function () {
     $('[data-toggle="tooltip"]').tooltip()
 
     $('.btn-delete').on('click', function () {
-        var href = $(this).data('href');
+        var href  = $(this).attr('data-href');
+        var title = $(this).attr('data-title');
+        var text  = $(this).attr('data-original-title');
+        if (text != null && title != null) {
+            $('.modal-title').html(title);
+            $('#modal-confirm').html(text);
+            $('.modal-text-body').html('Tem certeza que deseja ' + text + '?');
+        }
+        $('#form-modal-action').attr('action', href)
         $('#modal-delete').modal('show');
-        $('#modal-confirm').on('click', function () {
-            window.location.href = href;
-        })
     });
 
     $('.btn-change').on('click', function () {

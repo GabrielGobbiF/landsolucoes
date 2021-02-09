@@ -20,9 +20,9 @@ class CheckBanned
         if (auth()->check() && auth()->user()->is_active == '1') {
             auth()->logout();
 
-            $message = 'Your account has been suspended. Please contact administrator.';
+            $message = 'Conta desativada. Contate o administrador';
 
-            return redirect()->route('login')->withMessage($message);
+            return redirect()->route('login')->with('error', $message);
         }
 
         return $next($request);

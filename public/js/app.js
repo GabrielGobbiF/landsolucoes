@@ -19710,11 +19710,18 @@ jQuery(function () {
   });
   $('[data-toggle="tooltip"]').tooltip();
   $('.btn-delete').on('click', function () {
-    var href = $(this).data('href');
+    var href = $(this).attr('data-href');
+    var title = $(this).attr('data-title');
+    var text = $(this).attr('data-original-title');
+
+    if (text != null && title != null) {
+      $('.modal-title').html(title);
+      $('#modal-confirm').html(text);
+      $('.modal-text-body').html('Tem certeza que deseja ' + text + '?');
+    }
+
+    $('#form-modal-action').attr('action', href);
     $('#modal-delete').modal('show');
-    $('#modal-confirm').on('click', function () {
-      window.location.href = href;
-    });
   });
   $('.btn-change').on('click', function () {
     var href = $(this).data('href');
@@ -20001,38 +20008,14 @@ jQuery(function () {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/toastr.scss":
-/*!************************************!*\
-  !*** ./resources/sass/toastr.scss ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!******************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/toastr.scss ***!
-  \******************************************************************************************/
+/*!***********************************!*\
+  !*** multi ./resources/js/app.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\__Wamp\htdocs\Projetos\Trabalho\Landsolucoes\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\__Wamp\htdocs\Projetos\Trabalho\Landsolucoes\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! D:\__Wamp\htdocs\Projetos\Trabalho\Landsolucoes\resources\sass\toastr.scss */"./resources/sass/toastr.scss");
+module.exports = __webpack_require__(/*! D:\__Wamp\htdocs\Projetos\Trabalho\Landsolucoes\app_land\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Painel;
 
-use App\Models\Vehicle;
+use App\Models\Portaria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateUser;
-use App\Http\Requests\StoreUpdateVehicle;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -17,15 +17,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 
-class VehiclesController extends Controller
+class PortariaController extends Controller
 {
     protected $repository;
 
-    public function __construct(Vehicle $vehicles)
+    public function __construct(Portaria $portaria)
     {
         $this->middleware('auth');
 
-        $this->repository = $vehicles;
+        $this->repository = $portaria;
     }
 
     /**
@@ -35,9 +35,21 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        $vehicles = $this->repository->all();
+        $portarias = $this->repository->all();
 
-        return view('pages.painel.vehicles.vehicles.index', compact('vehicles'));
+        foreach ($portarias as $portaria) {
+
+            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->first() ?? [];
+            $veiculoName = $veiculo->name . ' ' . $veiculo->board;
+
+            $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
+            $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
+            $portaria['veiculo'] = $veiculoName;
+            $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y h:i:s');
+        }
+        return view('pages.painel.vehicles.portaria.index', [
+            'portarias' => $portarias
+        ]);
     }
 
     /**
@@ -47,29 +59,33 @@ class VehiclesController extends Controller
      */
     public function create()
     {
-        return view('pages.painel.vehicles.vehicles.create');
+        $drivers = User::whereHas('roles', function ($query) {
+            return $query->where('slug', 'driver');
+        })->get();
+
+        $vehicles = Vehicle::all();
+
+        return view('pages.painel.vehicles.portaria.register', [
+            'drivers' => $drivers,
+            'vehicles' => $vehicles
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateVehicle $request)
+    public function store(Request $request)
     {
         $columns = $request->all();
 
-        $columns['secure'] = isset($columns['secure']) ? '1' : '0';
-        $columns['tracker'] = isset($columns['tracker']) ? '1' : '0';
-        $columns['rented'] = isset($columns['rented']) ? '1' : '0';
-        $columns['external_camera'] = isset($columns['external_camera']) ? '1' : '0';
-        $columns['internal_camera'] = isset($columns['internal_camera']) ? '1' : '0';
+        $columns['user_id'] = Auth::id();
 
-        $vehicles = $this->repository->create($columns);
+        $this->repository->create($columns);
 
         return redirect()
-            ->route('vehicles.index')
+            ->route('vehicles.portaria.register')
             ->with('message', 'Criado com sucesso');
     }
 

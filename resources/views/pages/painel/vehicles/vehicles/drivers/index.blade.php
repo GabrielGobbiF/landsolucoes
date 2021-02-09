@@ -27,6 +27,8 @@
                 <tr class="text-center">
                     <th data-align="left">Nome</th>
                     <th class="mobile--hidden">Username</th>
+                    <th class="mobile--hidden">Status</th>
+                    <th class="mobile--hidden">Ação</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +36,32 @@
                     <tr class="text-center">
                         <td style="text-align:left">{{ $driver->name }}</td>
                         <td style="text-align:left">{{ $driver->username }}</td>
+                        <td>{!! $driver->is_active == 0
+                            ? '<span class="badge badge-soft-success font-size-12">Ativo</span>'
+                            : '<span
+                                class="badge badge-soft-danger font-size-12">Desativado</span>' !!}</td>
+                        <td>
+                            <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Resetar Senha" data-href="{{ route('vehicles.drivers.password.reset', $driver->id) }}"
+                                class="btn btn-xs btn-warning btn-delete"
+                                data-original-title="Resetar">
+                                <i class="fa fa-unlock-alt"></i>
+                            </a>
+                            @if ($driver->is_active == '0')
+                                <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Desativar"
+                                    data-href="{{ route('vehicles.drivers.activeOrdesactive', [$driver->id, 'desactive' => true]) }}"
+                                    class="btn btn-xs btn-danger btn-delete"
+                                    data-original-title="Desativar Usuário">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            @else
+                                <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Ativar"
+                                    data-href="{{ route('vehicles.drivers.activeOrdesactive', [$driver->id, 'desactive' => false]) }}"
+                                    class="btn btn-xs btn-success btn-delete"
+                                    data-original-title="Ativar Usuário">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

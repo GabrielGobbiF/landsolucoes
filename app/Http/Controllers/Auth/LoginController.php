@@ -72,7 +72,7 @@ class LoginController extends Controller
         }
 
         return redirect('/login')
-            ->with('error', 'These credentials do not match our records.');
+            ->with('error', 'Login ou senha incorretos.');
 
         exit();
         abort(404);

@@ -10,7 +10,7 @@
 
                         @if (session('error'))
                             <div class="alert alert-danger" role="alert">
-                                Login ou senha incorretos
+                                {{ session('error') }}
                             </div>
                         @endif
 

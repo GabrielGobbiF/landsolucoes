@@ -90,6 +90,10 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link nav-header" href="{{ route('vehicles.portaria') }}">Portaria</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link nav-header" href="#">Relátorio</a>
                             </li>
                         </ul>
