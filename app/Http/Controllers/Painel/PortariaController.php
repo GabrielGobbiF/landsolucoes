@@ -93,7 +93,7 @@ class PortariaController extends Controller
 
         $localSaveAttachment = "portaria/veiculos/" . $columns['vehicle_id'] . '/' . $date;
 
-        if ($columns['attachments']) {
+        if (isset($columns['attachments'])) {
             foreach ($columns['attachments'] as $attachment) {
                 if ($attachment->isValid()) {
                     $path = Storage::put($localSaveAttachment, $attachment);
