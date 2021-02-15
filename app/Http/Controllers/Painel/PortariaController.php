@@ -36,7 +36,7 @@ class PortariaController extends Controller
      */
     public function index()
     {
-        $portarias = $this->repository->orderby('id','DESC')->get();
+        $portarias = $this->repository->orderby('id', 'DESC')->get();
 
         foreach ($portarias as $portaria) {
 
@@ -70,9 +70,26 @@ class PortariaController extends Controller
 
         $vehicles = Vehicle::orderby('name')->get();
 
+        $portarias = $this->repository->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->get();
+
+        foreach ($portarias as $portaria) {
+
+            $images = explode(', ', $portaria->files);
+
+            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->first() ?? [];
+            $veiculoName = $veiculo->name . ' ' . $veiculo->board;
+
+            $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
+            $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
+            $portaria['veiculo'] = $veiculoName;
+            $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y h:i:s');
+            $portaria['images'] = $images;
+        }
+
         return view('pages.painel.vehicles.portaria.register', [
             'drivers' => $drivers,
-            'vehicles' => $vehicles
+            'vehicles' => $vehicles,
+            'portarias' => $portarias
         ]);
     }
 

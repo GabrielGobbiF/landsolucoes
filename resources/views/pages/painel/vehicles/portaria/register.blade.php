@@ -126,7 +126,35 @@
                     <div class="row justify-content-center mt-2" id="div--button-submit">
                         <button type="submit" class="btn btn-success">Enviar</button>
                     </div>
+
                 </form>
+
+                <div class="table-responsive mt-4">
+                    <div class="header">
+                        <h4>Registros de hoje</h4>
+                    </div>
+                    <table class='table table-hover'>
+                        <thead>
+                            <tr>
+                                <th>Motorista</th>
+                                <th>Veiculo</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($portarias as $portaria)
+                                <tr>
+                                    <td>{{ $portaria->motorista }}</td>
+                                    <td>{{ $portaria->veiculo }}</td>
+                                    <td>{{ $portaria->data }}</td>
+                                    <td>{{ $portaria->type }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </main>
         </div>
     </div>
