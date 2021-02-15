@@ -36,7 +36,7 @@ class PortariaController extends Controller
      */
     public function index()
     {
-        $portarias = $this->repository->all();
+        $portarias = $this->repository->orderby('id','DESC')->get();
 
         foreach ($portarias as $portaria) {
 
