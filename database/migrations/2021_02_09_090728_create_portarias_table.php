@@ -19,6 +19,7 @@ class CreatePortariasTable extends Migration
             $table->integer('motorista_id');
             $table->integer('vehicle_id');
             $table->string('observations')->nullable();
+            $table->longText('file')->nullable();
             $table->enum('type', ['saida', 'retorno'])->default('saida');
 
             $table->timestamps();

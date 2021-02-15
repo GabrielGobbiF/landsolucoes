@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -39,6 +40,8 @@ class PortariaController extends Controller
 
         foreach ($portarias as $portaria) {
 
+            $images = explode(', ', $portaria->files);
+
             $veiculo = Vehicle::where('id', $portaria->vehicle_id)->first() ?? [];
             $veiculoName = $veiculo->name . ' ' . $veiculo->board;
 
@@ -46,7 +49,9 @@ class PortariaController extends Controller
             $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
             $portaria['veiculo'] = $veiculoName;
             $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y h:i:s');
+            $portaria['images'] = $images;
         }
+
         return view('pages.painel.vehicles.portaria.index', [
             'portarias' => $portarias
         ]);
@@ -61,9 +66,9 @@ class PortariaController extends Controller
     {
         $drivers = User::whereHas('roles', function ($query) {
             return $query->where('slug', 'driver');
-        })->get();
+        })->orderby('users.name')->get();
 
-        $vehicles = Vehicle::all();
+        $vehicles = Vehicle::orderby('name')->get();
 
         return view('pages.painel.vehicles.portaria.register', [
             'drivers' => $drivers,
@@ -81,6 +86,25 @@ class PortariaController extends Controller
         $columns = $request->all();
 
         $columns['user_id'] = Auth::id();
+
+        $attachmentsSave = [];
+
+        $date = date('d_m_Y_h_i_s');
+
+        $localSaveAttachment = "portaria/veiculos/" . $columns['vehicle_id'] . '/' . $date;
+
+        if ($columns['attachments']) {
+            foreach ($columns['attachments'] as $attachment) {
+                if ($attachment->isValid()) {
+                    $path = Storage::put($localSaveAttachment, $attachment);
+                    $attachmentsSave[] = $path;
+                }
+            }
+
+            $attachments = implode(', ', $attachmentsSave);
+
+            $columns['files'] = $attachments;
+        }
 
         $this->repository->create($columns);
 
@@ -211,126 +235,5 @@ class PortariaController extends Controller
             ->paginate();
 
         return view('pages.painel.vehicles.vehicles.index', compact('vehicles', 'filters'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function qrcode($vehicle_id)
-    {
-        if (!$vehicle = $this->repository->find($vehicle_id)) {
-            return redirect()
-                ->route('vehicles.index')
-                ->with('message', 'Registro não encontrado!');
-        }
-
-        $drivers = Role::where('slug', 'driver')->first();
-
-        $usersDrivers = $drivers->users()->get();
-
-        //Verificar se existe status em aberto desse Motorista
-        $activityStatusOpen = $vehicle->activitys()
-            ->where('driver_id', Auth::user()->id)
-            ->where('status', Config::get('constants.EM_ABERTO'))
-            ->where('title', 'atividade')
-            ->first();
-
-        /* todoFazer  retirar */
-        $edps = DB::select('select * from edp');
-
-        return view('pages.painel.vehicles.vehicles.qrcode', [
-            'usersDrivers' => $usersDrivers,
-            'vehicle' => $vehicle,
-            'edps' => $edps,
-            'activityStatusOpen' => $activityStatusOpen
-        ]);
-    }
-
-    public function genereted_all_qrcode()
-    {
-        $vehicles = $this->repository->all();
-
-        return view('pages.painel.vehicles.vehicles.all_qrcode', [
-            'vehicles' => $vehicles
-        ]);
-    }
-
-    public function drivers()
-    {
-        $drivers = User::whereHas('roles', function ($query) {
-            return $query->where('slug', 'driver');
-        })->get();
-
-        return view('pages.painel.vehicles.vehicles.drivers.index', [
-            'drivers' => $drivers
-        ]);
-    }
-
-    public function drivers_create()
-    {
-        return view('pages.painel.vehicles.vehicles.drivers.create');
-    }
-
-    public function drivers_store(StoreUpdateUser $request)
-    {
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'] ?? null,
-            'password' => Hash::make('cena1234'),
-            'uuid' => Str::uuid(),
-            'username' => strtolower(mb_convert_case($request['username'], MB_CASE_TITLE, "UTF-8")),
-            'password_verified' => 'N',
-        ]);
-
-        $dev_role = Role::where('slug', 'driver')->first();
-
-        $user->roles()->attach($dev_role);
-
-        return redirect()
-            ->route('vehicles.drivers')
-            ->with('message', 'Criado com sucesso!');
-    }
-
-    public function driver_activeOrdesactive(Request $request, $driver_id)
-    {
-        $type = $request->input('desactive') == true ? 1 : 0;
-
-        if (!$user = User::where('id', $driver_id)->first()) {
-            return redirect()
-                ->route('vehicles.drivers')
-                ->with('message', 'Registro não encontrado!');
-        }
-
-        $columns = [
-            'is_active' => $type
-        ];
-
-        $user->update($columns);
-
-        return redirect()
-            ->route('vehicles.drivers')
-            ->with('message', 'Alterado com sucesso!');
-    }
-
-    public function driver_reset_password($driver_id)
-    {
-        if (!$user = User::where('id', $driver_id)->first()) {
-            return redirect()
-                ->route('vehicles.drivers')
-                ->with('message', 'Registro não encontrado!');
-        }
-
-        $columns = [
-            'password' => Hash::make('cena1234'),
-            'password_verified' => 'N'
-        ];
-
-        $user->update($columns);
-
-        return redirect()
-            ->route('vehicles.drivers')
-            ->with('message', 'Senha alterada com sucesso!');
     }
 }

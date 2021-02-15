@@ -57,7 +57,7 @@
             </header>
 
             <main role="main">
-                <form id="form-register" role="form" class="needs-validation" novalidate action="{{ route('vehicles.portaria.create') }}" method="POST">
+                <form id="form-register" role="form" class="needs-validation" action="{{ route('vehicles.portaria.create') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-12 text-center mb-4">
@@ -68,6 +68,7 @@
                             <div class="form-group">
                                 <label>Veiculo</label>
                                 <select name="vehicle_id" id="vehicle_id" class="select2" required>
+                                    <option value="">Selecione</option>
                                     @foreach ($vehicles as $vehicle)
                                         <option required value="{{ $vehicle->id }}">{{ $vehicle->name }} - {{ $vehicle->board }}</option>
                                     @endforeach
@@ -79,10 +80,18 @@
                             <div class="form-group">
                                 <label>Motorista</label>
                                 <select name="motorista_id" id="motorista_id" class="select2" required>
+                                    <option value="">Selecione</option>
                                     @foreach ($drivers as $drive)
                                         <option required value="{{ $drive->id }}">{{ $drive->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="images">Fotos</label>
+                                <input type="file" class="form-control-file" id="images" name="attachments[]" multiple accept='image/*'>
                             </div>
                         </div>
 

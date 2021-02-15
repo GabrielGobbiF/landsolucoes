@@ -25,22 +25,31 @@
 
                     <th class="mobile--hidden" data-visible="false">Observações</th>
 
+                    <th class="mobile--hidden" data-width="300">Files</th>
+
                 </tr>
 
             </thead>
-            @foreach ($portarias as $portaria)
-                <tr class="text-center">
-                    <td style="text-align:left">{{ $portaria->porteiro }}</td>
-                    <td class="mobile--hidden">{{ $portaria->motorista }}</td>
-                    <td class="mobile--hidden">{{ $portaria->veiculo }}</td>
+            <tbody>
+                @foreach ($portarias as $portaria)
+                    <tr class="text-center">
+                        <td style="text-align:left">{{ $portaria->porteiro }}</td>
+                        <td class="mobile--hidden">{{ $portaria->motorista }}</td>
+                        <td class="mobile--hidden">{{ $portaria->veiculo }}</td>
 
-                    <td class="mobile--hidden">{{ $portaria->data }}</td>
-                    <td class="mobile--hidden">{{ $portaria->type }}</td>
-                    <td class="mobile--hidden">{{ $portaria->observations }}</td>
+                        <td class="mobile--hidden">{{ $portaria->data }}</td>
+                        <td class="mobile--hidden">{{ $portaria->type }}</td>
+                        <td class="mobile--hidden">{{ $portaria->observations }}</td>
 
-
-                </tr>
-            @endforeach
+                        <td class="mobile--hidden">
+                            @if ($portaria->files != '')
+                                @foreach ($portaria->images as $image)
+                                    <a href="{{ asset('storage/' . $image) }}" class=""> <img src="{{ asset('storage/' . $image) }}" width="20%"></a>
+                                @endforeach
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

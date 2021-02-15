@@ -23,6 +23,7 @@ class Portaria extends Model
         'motorista_id',
         'vehicle_id',
         'observations',
+        'files',
         'type',
     ];
 
@@ -32,6 +33,7 @@ class Portaria extends Model
         'motorista_id',
         'vehicle_id',
         'observations',
+        'files',
         'type',
         'created_at',
         'updated_at'

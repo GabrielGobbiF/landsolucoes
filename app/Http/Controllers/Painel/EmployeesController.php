@@ -155,7 +155,7 @@ class EmployeesController extends Controller
 //
         //dd($documentos);
 
-        $documentos = $this->getDocumentAuditoryByEmployee($documentos);
+        $documentos = $this->getDocumentAuditoryByEmployee($documentos); 
 
         $cursosInEmployee = DB::table('auditory')
             ->select('id', 'description')
