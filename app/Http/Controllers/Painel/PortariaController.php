@@ -42,7 +42,7 @@ class PortariaController extends Controller
 
             $images = explode(', ', $portaria->files);
 
-            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->first() ?? [];
+            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->where('is_active', 'Y')->first() ?? [];
             $veiculoName = $veiculo->name . ' ' . $veiculo->board;
 
             $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
@@ -68,7 +68,7 @@ class PortariaController extends Controller
             return $query->where('slug', 'driver');
         })->orderby('users.name')->get();
 
-        $vehicles = Vehicle::orderby('name')->get();
+        $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 
         $portarias = $this->repository->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->get();
 
@@ -76,7 +76,7 @@ class PortariaController extends Controller
 
             $images = explode(', ', $portaria->files);
 
-            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->first() ?? [];
+            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->where('is_active', 'Y')->first() ?? [];
             $veiculoName = $veiculo->name . ' ' . $veiculo->board;
 
             $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';

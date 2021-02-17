@@ -35,7 +35,7 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        $vehicles = $this->repository->all();
+        $vehicles = $this->repository->where('is_active', 'Y')->get();
 
         return view('pages.painel.vehicles.vehicles.index', compact('vehicles'));
     }
@@ -168,7 +168,10 @@ class VehiclesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $vehicles->delete();
+        $vehicles->is_active = 'N';
+        $vehicles->save();
+        $vehicles->update();
+        //$vehicles->delete();
 
         return redirect()
             ->route('vehicles.index')

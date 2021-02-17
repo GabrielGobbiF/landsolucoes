@@ -2,6 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <form id="form-modal-action" role="form" class="needs-validation" method="POST">
             @csrf
+            @method('delete')
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title">Deletar</h6>
