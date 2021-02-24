@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-center">Novo Motorista</h1>
+        <h1 class="text-center">Editar Motorista</h1>
         <div class="card mt-3">
             <form role="form" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('vehicles.drivers.update', $user->id) }}" method="POST">
                 @csrf
