@@ -46,6 +46,11 @@
                                 data-original-title="Resetar">
                                 <i class="fa fa-unlock-alt"></i>
                             </a>
+                            <a href="{{ route('vehicles.drivers.show', [$driver->id]) }}" data-toggle="tooltip" data-placement="top" data-title="Ativar"
+                                    class="btn btn-xs btn-dark"
+                                    data-original-title="Editar Usuário">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             @if ($driver->is_active == '0')
                                 <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Desativar"
                                     data-href="{{ route('vehicles.drivers.activeOrdesactive', [$driver->id, 'desactive' => true]) }}"

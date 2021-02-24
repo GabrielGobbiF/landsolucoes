@@ -320,4 +320,34 @@ class VehiclesController extends Controller
             ->route('vehicles.drivers')
             ->with('message', 'Senha alterada com sucesso!');
     }
+
+    public function drivers_show($driver_id)
+    {
+        if (!$user = User::where('id', $driver_id)->first()) {
+            return redirect()
+                ->route('vehicles.drivers')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        return view('pages.painel.vehicles.vehicles.drivers.show', [
+            'user' => $user
+        ]);
+    }
+
+    public function drivers_update(Request $request, $driver_id)
+    {
+        if (!$user = User::where('id', $driver_id)->first()) {
+            return redirect()
+                ->route('vehicles.drivers')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $columns = $request->all();
+
+        $user->update($columns);
+
+        return redirect()
+            ->route('vehicles.drivers')
+            ->with('message', 'Alterado com sucesso!');
+    }
 }

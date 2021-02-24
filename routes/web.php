@@ -70,11 +70,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     });
 
     Route::group(['middleware' => 'role:portaria'], function () {
-
-
-
-
-
     });
 
     Route::group(['middleware' => 'role:vehicles'], function () {
@@ -86,9 +81,11 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         */
         Route::get('vehicles/drivers', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('vehicles.drivers');
         Route::get('vehicles/drivers/create', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_create'])->name('vehicles.drivers.create');
+        Route::get('vehicles/drivers/{driver_id}', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_show'])->name('vehicles.drivers.show');
+        Route::put('vehicles/drivers/{driver_id}/update', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_update'])->name('vehicles.drivers.update');
         Route::post('vehicles/drivers/store', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_store'])->name('vehicles.drivers.store');
         Route::delete('vehicles/drivers/{driver_id}/active-or-desactive', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_activeOrdesactive'])->name('vehicles.drivers.activeOrdesactive');
-        Route::post('vehicles/drivers/{driver_id}/reset-password', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_reset_password'])->name('vehicles.drivers.password.reset');
+        Route::delete('vehicles/drivers/{driver_id}/reset-password', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_reset_password'])->name('vehicles.drivers.password.reset');
 
 
         /*
