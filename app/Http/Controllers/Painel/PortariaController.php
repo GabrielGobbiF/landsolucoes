@@ -43,13 +43,16 @@ class PortariaController extends Controller
             $images = explode(', ', $portaria->files);
 
             $veiculo = Vehicle::where('id', $portaria->vehicle_id)->where('is_active', 'Y')->first() ?? [];
-            $veiculoName = $veiculo->name . ' ' . $veiculo->board;
 
-            $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
-            $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
-            $portaria['veiculo'] = $veiculoName;
-            $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y h:i:s');
-            $portaria['images'] = $images;
+            if ($veiculo) {
+                $veiculoName = $veiculo->name . ' ' . $veiculo->board;
+
+                $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
+                $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
+                $portaria['veiculo'] = $veiculoName;
+                $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s');
+                $portaria['images'] = $images;
+            }
         }
 
         return view('pages.painel.vehicles.portaria.index', [
