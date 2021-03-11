@@ -87,42 +87,56 @@ class AuditorysController extends Controller
     {
         if ($request->hasFile('file') && $request->file->isValid()) {
 
-            if ($request->file->extension() != 'pdf') {
+            try {
+
+                $limit = ini_get('memory_limit');
+                ini_set('memory_limit', -1);
+                set_time_limit(300);
+
+                if ($request->file->extension() != 'pdf') {
+                    return redirect()
+                        ->back()
+                        ->with('message', 'Somente arquivos em PDF');
+                }
+
+                $company_name = 'landsolucoes';
+
+                $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
+
+                $upload = $request->file->storeAs("documentos/empresa/{$company_name}", "{$docs_name}.pdf");
+
+                if (empty($request->auditory_id)) {
+                    return redirect()
+                        ->back()
+                        ->with('message', 'Nenhum registro selecionado!');
+                }
+
+                $user = Auth::user();
+
+                DB::update('UPDATE company_auditory SET
+                    status = :status,
+                    updated_by = :updated_by,
+                    updated_at = :date_now,
+                    document_link = :document_link
+                WHERE id = :auditory_id', [
+                    'status' => '1',
+                    'updated_by' => $user->id,
+                    'auditory_id' => $request->auditory_id,
+                    'date_now' => date('Y-m-d H:i:s'),
+                    'document_link' => $upload,
+                ]);
+
+                ini_set('memory_limit', $limit);
+                set_time_limit(30);
+
                 return redirect()
                     ->back()
-                    ->with('message', 'Somente arquivos em PDF');
-            }
-
-            $company_name = 'landsolucoes';
-
-            $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
-
-            $upload = $request->file->storeAs("documentos/empresa/{$company_name}", "{$docs_name}.pdf");
-
-            if (empty($request->auditory_id)) {
+                    ->with('message', 'Atualizado com sucesso');
+            } catch (\Throwable $th) {
                 return redirect()
                     ->back()
-                    ->with('message', 'Nenhum registro selecionado!');
+                    ->with('error', 'Erro com o arquivo');
             }
-
-            $user = Auth::user();
-
-            DB::update('UPDATE company_auditory SET
-                status = :status,
-                updated_by = :updated_by,
-                updated_at = :date_now,
-                document_link = :document_link
-            WHERE id = :auditory_id', [
-                'status' => '1',
-                'updated_by' => $user->id,
-                'auditory_id' => $request->auditory_id,
-                'date_now' => date('Y-m-d H:i:s'),
-                'document_link' => $upload,
-            ]);
-
-            return redirect()
-                ->back()
-                ->with('message', 'Atualizado com sucesso');
         }
 
         return redirect()
@@ -259,110 +273,122 @@ class AuditorysController extends Controller
 
         if ($request->hasFile('file') && $request->file->isValid()) {
 
-            if ($request->file->extension() != 'pdf') {
-                return redirect()
-                    ->back()
-                    ->with('message', 'Somente arquivos em PDF');
-            }
-
-            $employee = $this->employees->where('uuid', $employee_id)->first();
-
-            if (!$employee) {
-                return redirect()
-                    ->route('employees')
-                    ->with('message', 'Registro não encontrado!');
-            }
-
-            $employee_name = str_replace(' ', '_', mb_strtolower($employee->name, 'UTF-8'));
-
-            $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
-
-            $data_doc = str_replace('/', '_', $request->data_month);
-
-            $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}/{$request->document_name}/{$data_doc}", "{$docs_name}.pdf");
-
-            if (empty($request->employees_auditory_month_id)) {
-                return redirect()
-                    ->back()
-                    ->with('message', 'Nenhum registro selecionado!');
-            }
-
-            $user = Auth::user();
-
-            $validity = '';
-
-            if ($request->type_pasta == 'cursos') {
-
-                $validity = $request->validity ?? '';
-
-                if ($request->date_accomplished != '') {
-                    if (strlen($request->date_accomplished) <= 7) {
-                        $dataChange = str_replace('/', '-', '01/' . $request->date_accomplished);
-                        $date_accomplished = Carbon::parse($dataChange)->format('Y-m-d');
-                    } else {
-                        $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : NULL;
-                    }
-                } else {
-                    $date_accomplished = '';
+            try {
+                $limit = ini_get('memory_limit');
+                ini_set('memory_limit', -1);
+                set_time_limit(300);
+                if ($request->file->extension() != 'pdf') {
+                    return redirect()
+                        ->back()
+                        ->with('message', 'Somente arquivos em PDF');
                 }
 
-                $dias_vigencia = $validity;
+                $employee = $this->employees->where('uuid', $employee_id)->first();
 
-                $data_validade = date('Y-m-d', strtotime("+{$dias_vigencia} days", strtotime($date_accomplished)));
-            }
+                if (!$employee) {
+                    return redirect()
+                        ->route('employees')
+                        ->with('message', 'Registro não encontrado!');
+                }
 
-            DB::update('UPDATE employees_auditory_month SET
-                status = :status,
-                updated_by = :updated_by,
-                updated_at = :date_now,
-                docs_link = :document_link,
-                date_accomplished = :date_accomplished,
-                validity = :validity,
-                epi_description = :epi_description
-            WHERE id = :employees_auditory_month_id', [
-                'status' => '1',
-                'updated_by' => $user->id,
-                'employees_auditory_month_id' => $request->employees_auditory_month_id,
-                'date_now' => date('Y-m-d H:i:s'),
-                'document_link' => $upload,
-                'validity' => $validity,
-                'date_accomplished' => $date_accomplished ?? date('Y-m-d'),
-                'epi_description' => $request->epi_description ?? ''
-            ]);
+                $employee_name = str_replace(' ', '_', mb_strtolower($employee->name, 'UTF-8'));
 
-            $auditory_employee = DB::select('select employees_auditory_id from employees_auditory_month where id = ?', [$request->employees_auditory_month_id]);
+                $docs_name = $request->document_name . '_' . uniqid(date('HisYmd'));
 
-            if ($request->epi_description == '') {
+                $data_doc = str_replace('/', '_', $request->data_month);
+
+                $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$request->type_pasta}/{$request->document_name}/{$data_doc}", "{$docs_name}.pdf");
+
+                if (empty($request->employees_auditory_month_id)) {
+                    return redirect()
+                        ->back()
+                        ->with('message', 'Nenhum registro selecionado!');
+                }
+
+                $user = Auth::user();
+
+                $validity = '';
 
                 if ($request->type_pasta == 'cursos') {
-                    DB::insert('INSERT INTO employees_auditory_month (date_accomplished, employees_auditory_id) VALUES (:date_accomplished, :employees_auditory_id)', [
-                        'date_accomplished' => $data_validade,
-                        'employees_auditory_id' => $auditory_employee[0]->employees_auditory_id,
-                    ]);
-                } else {
 
-                    $auditory_employee_month = DB::select('SELECT * FROM employees_auditory_month WHERE employees_auditory_id = ? ORDER BY id DESC LIMIT 1', [$auditory_employee[0]->employees_auditory_id]);
+                    $validity = $request->validity ?? '';
 
-                    $audit_employee = DB::select('SELECT doc_along_year FROM employees_auditory WHERE id = ? ', [$auditory_employee[0]->employees_auditory_id]);
-
-                    $date1 = date('Y-m', strtotime($auditory_employee_month[0]->month));
-
-                    if ($date1 > date('Y-m')) {
+                    if ($request->date_accomplished != '') {
+                        if (strlen($request->date_accomplished) <= 7) {
+                            $dataChange = str_replace('/', '-', '01/' . $request->date_accomplished);
+                            $date_accomplished = Carbon::parse($dataChange)->format('Y-m-d');
+                        } else {
+                            $date_accomplished = $request->date_accomplished ? date('Y-m-d', strtotime(str_replace('/', '-', $request->date_accomplished))) : NULL;
+                        }
                     } else {
+                        $date_accomplished = '';
+                    }
 
-                        $porMesOrYear = $audit_employee[0]->doc_along_year == 1 ? 'year' : 'months';
+                    $dias_vigencia = $validity;
 
-                        DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
-                            'month' => date('Y-m', strtotime($date1 . ' + 1 ' . $porMesOrYear)),
+                    $data_validade = date('Y-m-d', strtotime("+{$dias_vigencia} days", strtotime($date_accomplished)));
+                }
+
+                DB::update('UPDATE employees_auditory_month SET
+                    status = :status,
+                    updated_by = :updated_by,
+                    updated_at = :date_now,
+                    docs_link = :document_link,
+                    date_accomplished = :date_accomplished,
+                    validity = :validity,
+                    epi_description = :epi_description
+                WHERE id = :employees_auditory_month_id', [
+                    'status' => '1',
+                    'updated_by' => $user->id,
+                    'employees_auditory_month_id' => $request->employees_auditory_month_id,
+                    'date_now' => date('Y-m-d H:i:s'),
+                    'document_link' => $upload,
+                    'validity' => $validity,
+                    'date_accomplished' => $date_accomplished ?? date('Y-m-d'),
+                    'epi_description' => $request->epi_description ?? ''
+                ]);
+
+                $auditory_employee = DB::select('select employees_auditory_id from employees_auditory_month where id = ?', [$request->employees_auditory_month_id]);
+
+                if ($request->epi_description == '') {
+
+                    if ($request->type_pasta == 'cursos') {
+                        DB::insert('INSERT INTO employees_auditory_month (date_accomplished, employees_auditory_id) VALUES (:date_accomplished, :employees_auditory_id)', [
+                            'date_accomplished' => $data_validade,
                             'employees_auditory_id' => $auditory_employee[0]->employees_auditory_id,
                         ]);
+                    } else {
+
+                        $auditory_employee_month = DB::select('SELECT * FROM employees_auditory_month WHERE employees_auditory_id = ? ORDER BY id DESC LIMIT 1', [$auditory_employee[0]->employees_auditory_id]);
+
+                        $audit_employee = DB::select('SELECT doc_along_year FROM employees_auditory WHERE id = ? ', [$auditory_employee[0]->employees_auditory_id]);
+
+                        $date1 = date('Y-m', strtotime($auditory_employee_month[0]->month));
+
+                        if ($date1 > date('Y-m')) {
+                        } else {
+
+                            $porMesOrYear = $audit_employee[0]->doc_along_year == 1 ? 'year' : 'months';
+
+                            DB::insert('INSERT INTO employees_auditory_month (month, employees_auditory_id) VALUES (:month, :employees_auditory_id)', [
+                                'month' => date('Y-m', strtotime($date1 . ' + 1 ' . $porMesOrYear)),
+                                'employees_auditory_id' => $auditory_employee[0]->employees_auditory_id,
+                            ]);
+                        }
                     }
                 }
-            }
 
-            return redirect()
-                ->back()
-                ->with('message', 'Atualizado com sucesso');
+                ini_set('memory_limit', $limit);
+                set_time_limit(30);
+
+                return redirect()
+                    ->back()
+                    ->with('message', 'Atualizado com sucesso');
+            } catch (\Throwable $th) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Erro com o arquivo');
+            }
         }
 
         return redirect()
@@ -412,73 +438,84 @@ class AuditorysController extends Controller
     public function change_document_auditory(Request $request)
     {
         if ($request->hasFile('file') && $request->file->isValid()) {
+            try {
+                $limit = ini_get('memory_limit');
+                ini_set('memory_limit', -1);
+                set_time_limit(300);
+                $id_user = Auth::user()->id;
+                $id = $request->documento_id;
+                $reason_change = $request->reason;
+                $employee_id = $request->employee_id;
 
-            $id_user = Auth::user()->id;
-            $id = $request->documento_id;
-            $reason_change = $request->reason;
-            $employee_id = $request->employee_id;
+                if ($request->file->extension() != 'pdf') {
+                    return redirect()
+                        ->back()
+                        ->with('message', 'Somente arquivos em PDF');
+                }
 
-            if ($request->file->extension() != 'pdf') {
+                $employee = $this->employees->where('uuid', $employee_id)->first();
+
+                if (!$employee) {
+                    return redirect()
+                        ->route('employees')
+                        ->with('message', 'Registro não encontrado!');
+                }
+
+                $auditory_company = DB::select('SELECT * FROM employees_auditory WHERE id = :id LIMIT 1', [':id' => $id]);
+
+                $employee_name = str_replace(' ', '_', mb_strtolower($employee->name, 'UTF-8'));
+
+                $docs_name = $auditory_company[0]->name . '_' . uniqid(date('HisYmd'));
+
+                $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$auditory_company[0]->name}", "{$docs_name}.pdf");
+
+                if (!$auditory_company) {
+                    return redirect()
+                        ->route('employees')
+                        ->with('message', 'Registro não encontrado!');
+                }
+
+                Storage::move($auditory_company[0]->document_link, "documentos/employees/{$employee_name}/trocados/{$docs_name}.pdf");
+
+                DB::insert('INSERT INTO employees_auditory (name, description, type, option_name, doc_applicable, doc_along_month, doc_along_year, epi, employee_id, `status`, document_link, updated_by, `order`, updated_at)
+                    VALUES (:name, :description, :type, :option_name, :doc_applicable, :doc_along_month, :doc_along_year, :epi, :employee_id, :status, :document_link, :id_user, :order, :updated_at)', [
+                    'name' => $auditory_company[0]->name,
+                    'description' => $auditory_company[0]->description,
+                    'type' => $auditory_company[0]->type,
+                    'option_name' => $auditory_company[0]->option_name,
+                    'doc_applicable' => $auditory_company[0]->doc_applicable,
+                    'doc_along_month' => $auditory_company[0]->doc_along_month,
+                    'doc_along_year' => $auditory_company[0]->doc_along_year,
+                    'epi' => $auditory_company[0]->epi,
+                    'employee_id' => $auditory_company[0]->employee_id,
+                    'status' => '1',
+                    'document_link' => $upload,
+                    'id_user' => $id_user,
+                    'order' => $auditory_company[0]->order,
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+
+                DB::update('update employees_auditory set
+                updated_by = :id_user,
+                is_active = "1",
+                reason_change = :reason_change
+                where id = :id', [
+                    ':id' => $id,
+                    ':reason_change' => $reason_change,
+                    ':id_user' => $id_user,
+                ]);
+
+                ini_set('memory_limit', $limit);
+                set_time_limit(30);
+
+                return redirect()
+                    ->route('employees.show', $employee_id)
+                    ->with('message', 'Atualizado com sucessso');
+            } catch (\Throwable $th) {
                 return redirect()
                     ->back()
-                    ->with('message', 'Somente arquivos em PDF');
+                    ->with('error', 'Erro com o arquivo');
             }
-
-            $employee = $this->employees->where('uuid', $employee_id)->first();
-
-            if (!$employee) {
-                return redirect()
-                    ->route('employees')
-                    ->with('message', 'Registro não encontrado!');
-            }
-
-            $auditory_company = DB::select('SELECT * FROM employees_auditory WHERE id = :id LIMIT 1', [':id' => $id]);
-
-            $employee_name = str_replace(' ', '_', mb_strtolower($employee->name, 'UTF-8'));
-
-            $docs_name = $auditory_company[0]->name . '_' . uniqid(date('HisYmd'));
-
-            $upload = $request->file->storeAs("documentos/employees/{$employee_name}/{$auditory_company[0]->name}", "{$docs_name}.pdf");
-
-            if (!$auditory_company) {
-                return redirect()
-                    ->route('employees')
-                    ->with('message', 'Registro não encontrado!');
-            }
-
-            Storage::move($auditory_company[0]->document_link, "documentos/employees/{$employee_name}/trocados/{$docs_name}.pdf");
-
-            DB::insert('INSERT INTO employees_auditory (name, description, type, option_name, doc_applicable, doc_along_month, doc_along_year, epi, employee_id, `status`, document_link, updated_by, `order`, updated_at)
-            VALUES (:name, :description, :type, :option_name, :doc_applicable, :doc_along_month, :doc_along_year, :epi, :employee_id, :status, :document_link, :id_user, :order, :updated_at)', [
-                'name' => $auditory_company[0]->name,
-                'description' => $auditory_company[0]->description,
-                'type' => $auditory_company[0]->type,
-                'option_name' => $auditory_company[0]->option_name,
-                'doc_applicable' => $auditory_company[0]->doc_applicable,
-                'doc_along_month' => $auditory_company[0]->doc_along_month,
-                'doc_along_year' => $auditory_company[0]->doc_along_year,
-                'epi' => $auditory_company[0]->epi,
-                'employee_id' => $auditory_company[0]->employee_id,
-                'status' => '1',
-                'document_link' => $upload,
-                'id_user' => $id_user,
-                'order' => $auditory_company[0]->order,
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
-
-            DB::update('update employees_auditory set
-            updated_by = :id_user,
-            is_active = "1",
-            reason_change = :reason_change
-            where id = :id', [
-                ':id' => $id,
-                ':reason_change' => $reason_change,
-                ':id_user' => $id_user,
-            ]);
-
-            return redirect()
-                ->route('employees.show', $employee_id)
-                ->with('message', 'Atualizado com sucessso');
         }
 
         return redirect()
