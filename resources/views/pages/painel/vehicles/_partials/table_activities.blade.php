@@ -45,7 +45,7 @@
                                     <small>motorista: <b>{{ $activity->driver_name }}</b></small>
                                 </td>
                                 <td class="text-center">{{ $activity->km_start ?? '' }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($activity->created_at)->format('d/m/Y h:i:s') ?? '' }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($activity->created_at)->format('d/m/Y H:i:s') ?? '' }}</td>
 
                                 <!-- Chegada -->
 
@@ -57,7 +57,7 @@
                                     </td>
                                 @else
                                     <td class="text-center">{{ $activity->km_end ?? '' }}</td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($activity->updated_at)->format('d/m/Y h:i:s') ?? '' }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($activity->updated_at)->format('d/m/Y H:i:s') ?? '' }}</td>
                                     <td class="text-right">
                                         Chegada
                                         <br>

@@ -36,7 +36,7 @@
                                     <td></td>
                                 @endif
 
-                                <td class="text-center">{{ \Carbon\Carbon::parse($supply->created_at)->format('d/m/Y h:i:s') ?? '' }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($supply->created_at)->format('d/m/Y H:i:s') ?? '' }}</td>
 
                             </tr>
                         @endforeach

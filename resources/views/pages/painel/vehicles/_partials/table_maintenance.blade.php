@@ -24,7 +24,7 @@
                                 <td>{{ ucfirst($maintenance->description) }}</td>
                                 <td>{{ $maintenance->km_start }}</td>
                                 <td>{{ $maintenance->driver_name }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($maintenance->created_at)->format('d/m/Y h:i:s') ?? '' }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($maintenance->created_at)->format('d/m/Y H:i:s') ?? '' }}</td>
                             </tr>
                         @endforeach
                     </tbody>
