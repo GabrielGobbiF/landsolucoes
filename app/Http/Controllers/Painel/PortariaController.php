@@ -85,7 +85,7 @@ class PortariaController extends Controller
             $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
             $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
             $portaria['veiculo'] = $veiculoName;
-            $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y h:i:s');
+            $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s');
             $portaria['images'] = $images;
         }
 

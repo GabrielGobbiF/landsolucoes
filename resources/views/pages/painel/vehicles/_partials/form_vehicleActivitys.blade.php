@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label for="input--created_at">Data</label>
                     <input type="text" name="created_at" disabled class="form-control datetime @error('created_at') is-invalid @enderror" id="input--created_at"
-                        value="{{ $vehicle_activities->created_at ?? date('d/m/Y h:i:s') }}" autocomplete="off">
+                        value="{{ $vehicle_activities->created_at ?? date('d/m/Y H:i:s') }}" autocomplete="off">
                 </div>
             </div>
 
