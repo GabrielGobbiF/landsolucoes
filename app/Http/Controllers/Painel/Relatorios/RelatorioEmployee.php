@@ -37,6 +37,7 @@ class RelatorioEmployee extends Controller
     {
         $employees = $this->employees->all();
 
+
         $filters = $request->only('filter');
 
         $employees_results = $this->employees
@@ -57,17 +58,22 @@ class RelatorioEmployee extends Controller
 
         foreach ($employees_results as $employeesSearch) {
 
+            $dispense = $employeesSearch->dispense == '0' ? false : true;
+
             $request = (object) [
                 'employee_id' => $employeesSearch->id,
                 'tipo_auditoria' => $filters['filter']['tipo_auditoria'],
             ];
 
             $results_auditorys = $this->auditorys
-                ->where(function ($query) use ($request) {
+                ->where(function ($query) use ($request, $dispense) {
                     $employees_id = $request->employee_id;
                     $query->where('employee_id', $employees_id);
                     $query->where('doc_applicable', '1');
                     $query->where('status', '0');
+                    if (!$dispense) {
+                        $query->where('type', '<>', 'dispensa');
+                    }
                     if ($request->tipo_auditoria) {
                         $query->where('type', $request->tipo_auditoria);
                     }
