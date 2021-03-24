@@ -19941,6 +19941,14 @@ jQuery(function () {
         if (j.error != true) {
           if (j.payments != null && j.payments.length > 0) {
             for (var i = 0; i < j.payments.length; i++) {
+              if (j.payments[0].docs == false) {
+                $('.removeCourse').removeClass('d-none');
+                $('.form-remove-course-employee').attr('action', BASE + '/rh/employees/' + id + '/removeCourse');
+              } else {
+                $('.removeCourse').addClass('d-none');
+                $('.form-remove-course-employee').attr('action', '');
+              }
+
               var color = j.payments[i].status == 'Pendente' ? '#ff2f2f' : '#0746b9';
 
               if (type == 'cursos') {

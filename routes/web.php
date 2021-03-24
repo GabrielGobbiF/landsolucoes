@@ -58,6 +58,13 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
             /*
             |--------------------------------------------------------------------------
+            | Curso
+            |--------------------------------------------------------------------------
+            */
+            Route::delete('/employees/{id_auditory}/removeCourse', [App\Http\Controllers\Painel\AuditorysController::class, 'removeCourse'])->name('auditorys.remove.course');
+
+            /*
+            |--------------------------------------------------------------------------
             | Auditoria Empresa
             |--------------------------------------------------------------------------
             */
@@ -141,6 +148,4 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('/alterDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'alterDocAuditory'])->name('dev.alter.doc.auditory');
         });
     });
-
-
 });

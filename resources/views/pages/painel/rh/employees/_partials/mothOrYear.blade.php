@@ -2,12 +2,18 @@
     <table class="table text-center">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
             <h3 class="title_table--mensal"> </h3>
-            <div class="float-right">
+            <div class="float-right d-flex">
                 <button class="btn btn-xs btn-danger back">
                     <i class="fas fa-long-arrow-alt-left"></i>
                     Voltar
                 </button>
-
+                <div class="ml-2 d-none removeCourse" >
+                    <form role='form' class='needs-validation form-remove-course-employee' action='{{route('auditorys.remove.course', [1,2])}}' method='POST'>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Retirar</button>
+                    </form>
+                </div>
             </div>
         </div>
         <thead>
@@ -73,8 +79,6 @@
                 success: function(j) {
                     options = '';
 
-                    console.log(j.error);
-
                     if (j.error != true) {
                         if (j.payments != null && j.payments.length > 0) {
                             for (var i = 0; i < j.payments.length; i++) {
@@ -104,6 +108,7 @@
                                 }
                                 options += '</tr>';
                             }
+
                         }
 
                         $('.rows_table--epi').html(options).show();
@@ -125,6 +130,9 @@
 
                         $('.new_epi').prop('disabled', false);
                         $('.new_epi').html('Novo');
+
+
+
                     } else {
                         toastr.error(j.message);
                         $('.new_epi').prop('disabled', false);

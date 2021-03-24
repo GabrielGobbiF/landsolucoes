@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auditory;
 use App\Models\Employee;
 use App\Models\User;
 use Carbon\Carbon;
@@ -535,5 +536,21 @@ class AuditorysController extends Controller
 
         $string = mb_strtolower($string, 'UTF-8');
         return utf8_decode($string);
+    }
+
+    public function removeCourse(Request $request, $auditory_id)
+    {
+        if (!$auditory_company = Auditory::find($auditory_id)) {
+            return redirect()
+                ->route('auditory.company')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $auditory_company->delete();
+
+        return redirect()
+            ->back()
+            ->with('message', 'Curso removido com sucesso');
+
     }
 }
