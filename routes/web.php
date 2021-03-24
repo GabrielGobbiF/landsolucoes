@@ -64,7 +64,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('/auditory/company', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company'])->name('auditory.company');
             Route::post('/auditory/company/update', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_update'])->name('auditory.company.update');
             Route::post('/auditory/company/store', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_store'])->name('auditory.company.store');
-
             Route::get('/auditory/company/{id_auditory_company}/delete', [App\Http\Controllers\Painel\AuditorysController::class, 'auditory_company_delete'])->name('auditory.company.delete');
         });
     });
@@ -130,4 +129,18 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     |--------------------------------------------------------------------------
     */
     Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
+
+
+
+    Route::group(['middleware' => 'role:desenvolvedor'], function () {
+        Route::prefix('dev')->group(function () {
+            Route::get('/', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'index'])->name('dev.index');
+            Route::post('/updateNameAllEmployee', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'alterNameAllEmployees'])->name('dev.alter.name.all.employee');
+            Route::post('/deleteAllEmployee', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'deleteAllEmployees'])->name('dev.delete.name.all.employee');
+            Route::post('/deleteDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'deleteDocAuditory'])->name('dev.delete.doc.auditory');
+            Route::post('/alterDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'alterDocAuditory'])->name('dev.alter.doc.auditory');
+        });
+    });
+
+
 });

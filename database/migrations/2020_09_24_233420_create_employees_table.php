@@ -24,6 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->string('cargo');
             $table->date('date_contract');
             $table->string('cnh_number')->nullable();
+            $table->string('equipe')->nullable();
             $table->double('salario', 10, 2);
             $table->enum('cnh', ['0', '1'])->default('0')->nullable();
             $table->string('cnh_validity')->nullable();

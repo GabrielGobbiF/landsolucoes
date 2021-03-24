@@ -33,19 +33,6 @@ class CreateUsersRolesTable extends Migration
             ]
         );
 
-        DB::table('users_roles')->insert(
-            [
-                'user_id' => '2',
-                'role_id' => '1',
-            ]
-        );
-
-        DB::table('users_roles')->insert(
-            [
-                'user_id' => '3',
-                'role_id' => '1',
-            ]
-        );
     }
 
     /**

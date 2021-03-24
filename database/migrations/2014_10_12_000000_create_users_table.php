@@ -33,27 +33,11 @@ class CreateUsersTable extends Migration
                 'name' => 'Gabriel Gobbi',
                 'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
                 'email' => 'gabriel.gobbi15@gmail.com',
-                'user' => 'gabriel.gobbi'
+                'user' => 'gabriel.gobbi',
+                'uuid' => '3edascdsa'
             ]
         );
 
-        DB::table('users')->insert(
-            [
-                'name' => 'Bruno Costa',
-                'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
-                'email' => 'bruno@bruno',
-                'user' => 'bruno'
-            ]
-        );
-
-        DB::table('users')->insert(
-            [
-                'name' => 'Livia',
-                'password' => '$2y$10$Z2LncyeGcNVwIOCDKMG5b.sLcFgtGaKSRtHUS3hU60XY3KstrJR4i',
-                'email' => 'livia@livia',
-                'user' => 'livia',
-            ]
-        );
     }
 
     /**
