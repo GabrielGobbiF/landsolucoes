@@ -5,27 +5,37 @@ jQuery(function () {
     /**
     * Modal para abrir a demissão do funcionario
     */
-    $('.open_dispense_employee').on('click', function () {
+    $('.open_dispense_employee').on('click', function (e) {
         $('#modal-dispense--employee').modal('show');
         $('.modal-confirm').on('click', function () {
             var employee_id = $('#employee_id').val();
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: BASE + '/rh/employees/dispense/' + employee_id,
-                type: 'PUT',
-                ajax: true,
-                dataType: "JSON",
-                data: {
-                    dispense: 1
-                },
-                dataType: 'json',
-                success: function (json) {
-                    localStorage.setItem('nav-link_auditory', 'v-pills-dispensa-tab')
-                    location.reload();
-                },
-            });
+            var type = $('#typeDispense').val();
+
+            if (type == null || type == '') {
+                toastr.error('Selecione um tipo de dispensa');
+                $('#typeDispense').addClass('parsley-error');
+                e.preventDefault();
+            } else {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: BASE + '/rh/employees/dispense/' + employee_id,
+                    type: 'PUT',
+                    ajax: true,
+                    dataType: "JSON",
+                    data: {
+                        dispense: 1,
+                        type: type
+                    },
+                    dataType: 'json',
+                    success: function (json) {
+                        localStorage.setItem('nav-link_auditory', 'v-pills-dispensa-tab')
+                        location.reload();
+                    },
+                });
+            }
+
         })
     })
 

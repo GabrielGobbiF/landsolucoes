@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -73,7 +74,7 @@ class EmployeesController extends Controller
         $employee = $this->repository->create($columns);
 
         $auditory = DB::select(
-            "SELECT * FROM auditory WHERE type <> 'cursos' AND type <> 'documentos' "
+            "SELECT * FROM auditory WHERE type <> 'cursos' AND type <> 'documentos' AND type <> 'dispensa' "
         );
 
         foreach ($auditory as $doc) {
@@ -152,7 +153,7 @@ class EmployeesController extends Controller
         //$documentos = DB::table('employees_auditory')
         //    ->groupBy('description')
         //    ->get();
-//
+        //
         //dd($documentos);
 
         $documentos = $this->getDocumentAuditoryByEmployee($documentos);
@@ -426,8 +427,10 @@ class EmployeesController extends Controller
         return date('d/m/Y', strtotime("+{$dias_vigencia} days", strtotime($data_realizada)));
     }
 
-    public function dispensaEmployee($uuid)
+    public function dispensaEmployee(Request $request, $uuid)
     {
+        $tipo = $request->input('type');
+
         $employee = $this->repository->where('uuid', $uuid)->first();
 
         if (!$employee) {
@@ -436,10 +439,38 @@ class EmployeesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
+        $auditory = DB::select(
+            "SELECT * FROM auditory WHERE type = 'dispensa' "
+        );
+
+        $typeArrayDispense = Config::get('constants.' . $tipo);
+
+        #dd($typeArrayDispense);
+
+        #dd($auditory);
+
+        foreach ($auditory as $doc) {
+
+            if(in_array($doc->description, $typeArrayDispense, true)){
+                $docColumns = [
+                    'name' => $doc->name,
+                    'description' => $doc->description,
+                    'type' => $doc->type,
+                    'order' => $doc->order,
+                    'option_name' => $doc->option_name,
+                    'doc_applicable' => $doc->doc_applicable,
+                    'doc_along_month' => $doc->doc_along_month,
+                    'doc_along_year' => $doc->doc_along_year,
+                    'employee_id' => $employee->id,
+                    'epi' => $doc->epi
+                ];
+
+                $employees_auditory = Auditory::create($docColumns);
+            }
+        }
+
         $update = DB::update('update employees set dispense = "1" where id = ?', [$employee->id]);
 
         return response()->json($update);
     }
-
-
 }
