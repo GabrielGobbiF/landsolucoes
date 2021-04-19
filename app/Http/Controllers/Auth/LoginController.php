@@ -48,7 +48,7 @@ class LoginController extends Controller
             : 'username';
 
         $request->merge([
-            $login_type => $request->input('email_or_username')
+            $login_type => mb_strtolower($request->input('email_or_username'), 'UTF-8')
         ]);
 
         if (Auth::attempt($request->only($login_type, 'password'))) {
