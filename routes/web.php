@@ -75,6 +75,25 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         });
     });
 
+    Route::group(['middleware' => 'role:builds'], function () {
+        /*
+        |--------------------------------------------------------------------------
+        | Obras
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
+
+
+        #Route::prefix('obras')->middleware('auth')->group(function () {
+            /*
+            |--------------------------------------------------------------------------
+            | Obras
+            |--------------------------------------------------------------------------
+            */
+
+        #});
+    });
+
     Route::group(['middleware' => 'role:portaria'], function () {
     });
 
