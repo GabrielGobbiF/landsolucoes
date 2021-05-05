@@ -178,7 +178,9 @@ return [
 
         App\Providers\PermissionsServiceProvider::class,
 
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        jeremykenedy\Slack\Laravel\ServiceProvider::class,
+
 
     ],
 
@@ -232,7 +234,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Slack' => jeremykenedy\Slack\Laravel\Facade::class,
+
 
     ],
 
