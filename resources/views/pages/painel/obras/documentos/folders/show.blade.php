@@ -10,14 +10,21 @@
                 <a href="{{ route('obras.index') }}" class="breadcrumb-item">
                     <li class="tx-15">Home</li>
                 </a>
-                <li class="breadcrumb-item active tx-15">Documentos</li>
+                <a href="{{ route('documentos.index') }}" class="breadcrumb-item">
+                    <li class="tx-15">Documentos</li>
+                </a>
+                @if ($pastaPai && $pastaPai->name != '')
+                    <a href="{{ route('folder.show', $pastaPai->uuid) }}" class="breadcrumb-item">
+                        <li class="tx-15">{{ $pastaPai->name }}</li>
+                    </a>
+                @endif
+                <li class="breadcrumb-item active tx-15">{{ $pasta->name }}</li>
             </ol>
         </div>
         <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right">
             <div class="btn-group mr-2">
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-pasta"><i class="fas fa-folder-open"></i> Adicionar Pasta</button>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-pasta"><i class="fas fa-folder-open"></i> Adicionar Pasta em {{ $pasta->name }}</button>
                 <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-documento"><i class="fas fa-file-import"></i> Adicionar Documento</button>
-
             </div>
         </div>
     </div>
@@ -25,13 +32,13 @@
 
 @section('content')
     <div class="row">
-        @foreach ($directorys as $directory)
+        @foreach ($pastasFilhas as $directory)
             <div class="col-md-3 mt-2">
                 <div class="card">
                     <div class="card-body">
                         <div class="media">
                             <div class="media-body overflow-hidden">
-                                <a href="{{route('folder.show', $directory->uuid)}}">
+                                <a href="{{ route('folder.show', $directory->uuid) }}">
                                     <p class="text-truncate font-size-14 mb-2">{{ $directory->name }}</p>
                                 </a>
                             </div>

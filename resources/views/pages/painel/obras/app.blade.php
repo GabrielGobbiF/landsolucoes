@@ -67,9 +67,19 @@
             </nav>
         @endif
 
+
         <main class="py-4">
-            @yield('content')
+            <div class="page-content">
+                <div class="container">
+                    <div class="page-title-box">
+                        @section('sidebar') @show
+                    </div>
+                    @yield('content')
+                </div>
+            </div>
         </main>
+
+
         @include('pages.layouts.modal_delete')
     </div>
 </body>

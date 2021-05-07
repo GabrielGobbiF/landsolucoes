@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Painel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Obra;
+use App\Models\Pasta;
 use DirectoryIterator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class DocumentosController extends Controller
 {
@@ -27,55 +30,33 @@ class DocumentosController extends Controller
      */
     public function index()
     {
-        $directorys = Storage::disk('local')->directories('00tR9vps6D');
+        $directorys = Pasta::whereNull('folder_childer')->get(); #Storage::disk('local')->directories('00tR9vps6D');
 
-        return view('pages.painel.obras.obras.index', [
+        return view('pages.painel.obras.documentos.index', [
             'directorys' => $directorys,
         ]);
     }
 
-    public function index1()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        $dir = new DirectoryIterator('../storage/app/00tR9vps6D');
+        dd($request);
+        $columns = $request->except('_token');
 
-        foreach ($dir as $file) {
-            // verifica se $file é diferente de '.' ou '..'
-            if (!$file->isDot()) {
-                // listando somente os diretórios
-                if ($file->isDir()) {
-                    // atribui o nome do diretório a variável
-                    $dirName = $file->getFilename();
-
-                    // subdiretórios
-                    $caminho = $file->getPathname();
-                    // chamada da função de recursividade
-                    $this->recursivo($caminho, $dirName);
-                }
-
-                // listando somente os arquivos do diretório
-                if ($file->isFile()) {
-                    // atribui o nome do arquivo a variável
-                    $fileName = $file->getFilename();
-                    //
-                    echo "fotos: " . $fileName . "<br>";
-                }
+        if (isset($columns['attachments'])) {
+            if ($columns['attachment']->isValid()) {
+                Storage::disk('local')->put($folder->uuid, $columns['attachment']);
             }
         }
-    }
 
-    private function recursivo($caminho, $dirName)
-    {
-        global $dirName;
 
-        $DI = new DirectoryIterator($caminho);
-
-        foreach ($DI as $file) {
-            if (!$file->isDot()) {
-                if ($file->isFile()) {
-                    $fileName = $file->getFilename();
-                    echo $dirName . " : " . $fileName . "<br>";
-                }
-            }
-        }
+        return redirect()
+            ->back()
+            ->with('message', 'Criado com sucesso');
     }
 }

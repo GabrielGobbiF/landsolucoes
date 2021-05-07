@@ -5,11 +5,11 @@ return [
 
     'menus' => [
         'l' => [
-            [
-                'name' =>  'Obras',
-                'icon' =>  'ri-dashboard-line',
-                'route' => 'obras.index',
-            ],
+            //[
+            //    'name' =>  'Obras',
+            //    'icon' =>  'ri-dashboard-line',
+            //    'route' => 'obras.index',
+            //],
             [
                 'name' =>  'Documentos',
                 'icon' =>  'ri-dashboard-line',

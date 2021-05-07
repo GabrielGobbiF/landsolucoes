@@ -3,10 +3,14 @@
 namespace App\Providers;
 
 use App\Models\{
-    Employee
+    Documento,
+    Employee,
+    Pasta
 };
 use App\Observers\{
-    EmployeeObserver
+    EmployeeObserver,
+    PastaObserver,
+    DocumentoObserver
 };
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -46,5 +50,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Employee::observe(EmployeeObserver::class);
+        Pasta::observe(PastaObserver::class);
+        Documento::observe(DocumentoObserver::class);
     }
 }

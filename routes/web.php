@@ -89,7 +89,14 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::resource('documentos', App\Http\Controllers\Painel\DocumentosController::class);
+            Route::resource('pastas', App\Http\Controllers\Painel\PastaController::class);
 
+            Route::get('documentos/folder/{folder_id}', [App\Http\Controllers\Painel\PastaController::class, 'show'])->name('folder.show');
+            /*
+            |--------------------------------------------------------------------------
+            | Obras
+            |--------------------------------------------------------------------------
+            */
             Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
         });
     });
