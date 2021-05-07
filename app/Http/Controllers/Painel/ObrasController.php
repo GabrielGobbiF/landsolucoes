@@ -26,7 +26,7 @@ class ObrasController extends Controller
     {
         #$obra = $this->repository->all();
 
-        return view('pages.painel.obras.obras.index', []);
+        return view('pages.painel.obras.documentos.index', []);
     }
 
     /**

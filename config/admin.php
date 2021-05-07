@@ -4,7 +4,7 @@ return [
     'dataLayout' => 'vertical',
 
     'menus' => [
-        'obras' => [
+        'l' => [
             [
                 'name' =>  'Obras',
                 'icon' =>  'ri-dashboard-line',
@@ -13,7 +13,7 @@ return [
             [
                 'name' =>  'Documentos',
                 'icon' =>  'ri-dashboard-line',
-                'route' => 'obras.index',
+                'route' => 'documentos.index',
             ],
         ]
     ]

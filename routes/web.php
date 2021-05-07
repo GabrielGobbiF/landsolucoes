@@ -81,17 +81,17 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         | Obras
         |--------------------------------------------------------------------------
         */
-        Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
 
-
-        #Route::prefix('obras')->middleware('auth')->group(function () {
+        Route::prefix('l')->middleware('auth')->group(function () {
             /*
             |--------------------------------------------------------------------------
-            | Obras
+            | Documentos
             |--------------------------------------------------------------------------
             */
+            Route::resource('documentos', App\Http\Controllers\Painel\DocumentosController::class);
 
-        #});
+            Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
+        });
     });
 
     Route::group(['middleware' => 'role:portaria'], function () {
