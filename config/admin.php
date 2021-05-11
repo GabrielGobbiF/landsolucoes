@@ -11,7 +11,7 @@ return [
             //    'route' => 'obras.index',
             //],
             [
-                'name' =>  'Documentos',
+                'name' =>  'Arquivos',
                 'icon' =>  'ri-dashboard-line',
                 'route' => 'documentos.index',
             ],

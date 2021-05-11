@@ -5,12 +5,9 @@
 @section('sidebar')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <div>
-            <h1 class="h2">Documentos</h1>
+            <h1 class="h2">Arquivos</h1>
             <ol class="breadcrumb">
-                <a href="{{ route('obras.index') }}" class="breadcrumb-item">
-                    <li class="tx-15">Home</li>
-                </a>
-                <li class="breadcrumb-item active tx-15">Documentos</li>
+                <li class="breadcrumb-item active tx-15">Arquivos</li>
             </ol>
         </div>
         <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right">
