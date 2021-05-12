@@ -20,7 +20,7 @@
                                 <div class="card-body text-center">
 
 
-                                        {!! QrCode::size(150)->generate($route ) !!}
+                                        {!! QrCode::size(150)->generate(route('vehicles.activitys.qrcode', $vehicle->id)) !!}
 
                                     <div class="mt-2">
                                         {{ $vehicle->board }}
