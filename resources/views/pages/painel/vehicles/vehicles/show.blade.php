@@ -18,8 +18,16 @@
                         <div class="col-md-12 mt-2">
                             <div class="card">
                                 <div class="card-body text-center">
+                                    @if (App::environment('production'))
+                                        <img src="data:image/svg;base64, {!! base64_encode(
+                                                 QrCode::format('svg')->size(150)->generate(route('vehicles.activitys.qrcode', $vehicle->id)),
+            ) !!} ">
+                                    @else
+                                    @php $route = route('vehicles.activitys.qrcode', $vehicle->id);
 
-                                        {!! QrCode::size(150)->generate(route('vehicles.activitys.qrcode', $vehicle->id)) !!}
+                                    @endphp
+                                        {!! QrCode::size(150)->generate($route ) !!}
+                                    @endif
 
                                     <div class="mt-2">
                                         {{ $vehicle->board }}
