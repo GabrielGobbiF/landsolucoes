@@ -13,7 +13,7 @@ return [
             [
                 'name' =>  'Arquivos',
                 'icon' =>  'ri-dashboard-line',
-                'route' => 'documentos.index',
+                'route' => 'arquivos.index',
             ],
         ]
     ]

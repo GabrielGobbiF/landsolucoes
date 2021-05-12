@@ -88,10 +88,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Documentos
             |--------------------------------------------------------------------------
             */
-            Route::resource('documentos', App\Http\Controllers\Painel\DocumentosController::class);
+            Route::resource('arquivos', App\Http\Controllers\Painel\DocumentosController::class);
             Route::resource('pastas', App\Http\Controllers\Painel\PastaController::class);
 
-            Route::get('documentos/folder/{folder_id}', [App\Http\Controllers\Painel\PastaController::class, 'show'])->name('folder.show');
+            Route::get('arquivos/folder/{folder_id}', [App\Http\Controllers\Painel\PastaController::class, 'show'])->name('folder.show');
             /*
             |--------------------------------------------------------------------------
             | Obras

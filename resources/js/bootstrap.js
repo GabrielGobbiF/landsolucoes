@@ -6,16 +6,18 @@ try {
     require('bootstrap');
     require('bootstrap-table');
     require('select2/dist/js/select2.min.js');
-    require('tableexport.jquery.plugin/bower_components/tableExport.jquery.plugin/tableExport.min');
     require('bootstrap-table/dist/locale/bootstrap-table-pt-BR');
     require('bootstrap-table/dist/extensions/export/bootstrap-table-export.min');
     require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min');
-    require('jquery_mask/dist/jquery.mask.min.js');
+    require('jquery-mask-plugin/dist/jquery.mask.min.js');
     require('bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js');
+    require('dropzone');
 
 } catch (e) { }
 
 jQuery(function () {
+
+    Dropzone.autoDiscover = false;
 
     $('.select2').select2({ width: '100%' });
 

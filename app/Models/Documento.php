@@ -12,5 +12,9 @@ class Documento extends Model
     protected $fillable = [
         'name',
         'folder',
+        'url',
+        'slug',
+        'ext',
+        'folder'
     ];
 }

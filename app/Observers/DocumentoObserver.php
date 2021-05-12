@@ -16,7 +16,7 @@ class DocumentoObserver
     public function creating(Documento $documento)
     {
         $documento->uuid = uniqid(((date('s') / 12) * 24) + mt_rand(800, 9999));
-        $documento->slug = Str::slug(mb_strtolower($documento->name, 'UTF-8'), '_');
+
     }
 
     /**
@@ -27,6 +27,6 @@ class DocumentoObserver
      */
     public function updating(Documento $documento)
     {
-        $documento->slug = Str::slug(mb_strtolower($documento->name, 'UTF-8'), '_');
+
     }
 }

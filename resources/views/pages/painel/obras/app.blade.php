@@ -20,8 +20,12 @@
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
+
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
 
 </head>
 
@@ -83,8 +87,14 @@
         @include('pages.layouts.modal_delete')
     </div>
 </body>
+
+
+@yield('scripts')
+
+
 <script>
     @include('pages.layouts.notification')
 
 </script>
+
 </html>

@@ -18,7 +18,7 @@ class PastaObserver
         $pasta->uuid = uniqid(((date('s') / 12) * 24) + mt_rand(800, 9999));
         $pasta->name = ucfirst($pasta->name);
         $pasta->slug = Str::slug(mb_strtolower($pasta->name, 'UTF-8'), '_');
-        $pasta->url =  "00tR9vps6D/" . $pasta->uuid;
+        $pasta->url =  $pasta->url . '/' . $pasta->uuid;
     }
 
     /**
@@ -31,6 +31,6 @@ class PastaObserver
     {
         $pasta->slug = Str::slug(mb_strtolower($pasta->name, 'UTF-8'), '_');
         $pasta->name = ucfirst($pasta->name);
-        $pasta->url =  "00tR9vps6D/" . $pasta->uuid;
+        $pasta->url =  $pasta->url . '/' . $pasta->uuid;
     }
 }

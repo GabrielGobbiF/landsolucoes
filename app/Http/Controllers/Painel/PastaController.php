@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use App\Models\Pasta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Documento;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -51,9 +52,18 @@ class PastaController extends Controller
     {
         $columns = $request->except('_token');
 
+        $idPastaPai = $request->input('folder_childer') ?? false;
+
+        if ($idPastaPai) {
+            $pastaPai    = $this->repository->where('uuid', $idPastaPai)->first();
+        }
+
+        $url =  isset($pastaPai) ? $pastaPai->url : "00tR9vps6D";
+
         if ($columns['name'] != '') {
+            $columns['url'] = $url;
             $folder =  $this->repository->create($columns);
-            Storage::disk('local')->makeDirectory("00tR9vps6D/" . $folder->uuid);
+            Storage::makeDirectory($url . '/' . $folder->uuid);
         }
 
         return redirect()
@@ -77,12 +87,15 @@ class PastaController extends Controller
 
         $pastasFilhas = $this->repository->where('folder_childer', $id)->get();
 
-        $pastaPai    = $this->repository->where('uuid', $pasta->folder_childer)->where('id','<>', $pasta->id)->first();
+        $pastaPai    = $this->repository->where('uuid', $pasta->folder_childer)->where('id', '<>', $pasta->id)->first();
 
-        return view('pages.painel.obras.documentos.folders.show', [
+        $documentos = Documento::where('folder', $pasta->uuid)->get();
+
+        return view('pages.painel.obras.arquivos.folders.show', [
             'pasta' => $pasta,
             'pastasFilhas' => $pastasFilhas,
-            'pastaPai' => $pastaPai
+            'pastaPai' => $pastaPai,
+            'documentos' => $documentos
         ]);
     }
 

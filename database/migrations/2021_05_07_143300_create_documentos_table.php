@@ -18,6 +18,7 @@ class CreateDocumentosTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('slug')->nullable();
             $table->string('name')->nullable();
+            $table->string('ext')->nullable();
             $table->string('url');
             $table->uuid('folder')->nullable();
 
