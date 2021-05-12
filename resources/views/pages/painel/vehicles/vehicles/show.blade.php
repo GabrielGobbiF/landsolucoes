@@ -19,7 +19,7 @@
                             <div class="card">
                                 <div class="card-body text-center">
                                     @if (App::environment('production'))
-                                        <img src="data:image/svg;base64, {!! base64_encode(
+                                        <img src="data:image/png;base64, {!! base64_encode(
                                                  QrCode::format('svg')->size(150)->generate(route('vehicles.activitys.qrcode', $vehicle->id)),
             ) !!} ">
                                     @else
