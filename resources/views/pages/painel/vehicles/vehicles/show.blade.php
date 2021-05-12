@@ -18,14 +18,19 @@
                         <div class="col-md-12 mt-2">
                             <div class="card">
                                 <div class="card-body text-center">
+                                    @if (App::environment('production'))
+
+                                        @php$veiId = $vehicle->id;@endphp
 
 
-                                    @php
-                                        $veiId = $vehicle->id;
 
-                                        echo QrCode::size(150)->generate("app.landsolucoes.com.br/v/$veiId/qr");
+                                        <img src="data:image/png;base64, {!! base64_encode(
+    QrCode::format('png')->size(150)->generate("app.landsolucoes.com.br/v/$veiId/qr"),
+) !!} ">
 
-                                    @endphp
+                                    @else
+                                        {!! QrCode::size(150)->generate('ItSolutionStuff.com') !!}
+                                    @endif
 
                                     <div class="mt-2">
                                         {{ $vehicle->board }}
