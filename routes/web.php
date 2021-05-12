@@ -144,6 +144,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
 
     Route::get('vehicles/{vehicle_id}/qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'qrcode'])->name('vehicles.activitys.qrcode');
+    Route::get('v/{vehicle_id}/qr', [App\Http\Controllers\Painel\VehiclesController::class, 'qrcode']);
     Route::put('vehicles/{vehicle_id}/activitys/{activity_id}', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'update'])->name('vehicles.activitys.update');
     Route::post('vehicles/{vehicle_id}/activitys', [App\Http\Controllers\Painel\VehicleActivitiesController::class, 'store'])->name('vehicles.activitys.store');
     Route::get('portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'create'])->name('vehicles.portaria.register');

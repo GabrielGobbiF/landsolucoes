@@ -21,10 +21,9 @@
 
 
                                     @php
+                                        $veiId = $vehicle->id;
 
-
-                                       echo QrCode::size(150)->generate(route('vehicles.activitys.qrcode', $vehicle->id));
-
+                                        echo QrCode::size(150)->generate("app.landsolucoes.com.br/v/$veiId/qr");
 
                                     @endphp
 
