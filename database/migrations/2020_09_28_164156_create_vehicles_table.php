@@ -32,6 +32,7 @@ class CreateVehiclesTable extends Migration
             $table->enum('external_camera', ['1', '0'])->default('0');
             $table->enum('internal_camera', ['1', '0'])->default('0');
             $table->enum('rented', ['1', '0'])->default('0');
+            $table->enum('is_active', ['Y', 'N'])->default('Y');
 
             $table->string('tracker_company')->nullable();
             $table->string('rented_company')->nullable();

@@ -27,6 +27,7 @@ class StoreUpdateVehicle extends FormRequest
 
         return [
             'name' => "required|min:3|max:255",
+            'year' => "required",
             'board' => "required|min:3|max:255|unique:vehicles,name,{$id},id",
         ];
     }
