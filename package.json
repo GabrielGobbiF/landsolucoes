@@ -30,6 +30,7 @@
         "bootstrap-table": "^1.18.0",
         "bootstrap4-duallistbox": "^4.0.2",
         "dropzone": "^5.9.2",
+        "feather-icons": "^4.28.0",
         "jquery-mask-plugin": "^1.14.16",
         "select2": "^4.0.13",
         "tableexport.jquery.plugin": "^1.10.20",

@@ -10,10 +10,9 @@ const mix = require('laravel-mix')
  |
 */
 
-mix.js('resources/js/app.js', 'public/js')
-//    .sass('resources/sass/app.scss', 'public/css')
-//    .sass('resources/sass/toastr.scss', 'public/css');
-
-    //mix.scripts('node_modules/jquery/dist/jquery.js','public/js/jquery/jquery.js');
-
-//mix.js('resources/mobile/js/app.js', 'public/mobile/js')
+mix//.js('resources/assets/painel/js/app.js', 'public/panel/js')
+    .js('resources/assets/painel/js/bootstrap.js', 'public/panel/js')
+    .js('resources/assets/lib/js/functions.js', 'public/panel/js')
+    .sass('resources/assets/painel/sass/app.scss', 'public/panel/css')
+    //.sass('resources/assets/painel/sass/bootstrap.scss', 'public/panel/css')
+    .sourceMaps();

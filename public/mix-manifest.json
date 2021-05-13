@@ -1,3 +1,5 @@
 {
-    "/js/app.js": "/js/app.js"
+    "/panel/js/bootstrap.js": "/panel/js/bootstrap.js",
+    "/panel/css/app.css": "/panel/css/app.css",
+    "/panel/js/functions.js": "/panel/js/functions.js"
 }

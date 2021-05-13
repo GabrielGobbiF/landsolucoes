@@ -26,7 +26,6 @@
 
     <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 
-
 </head>
 
 <body>

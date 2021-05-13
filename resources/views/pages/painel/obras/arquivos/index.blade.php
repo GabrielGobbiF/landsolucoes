@@ -1,123 +1,89 @@
-@extends('pages.painel.obras.app')
+@extends('app')
 
 @section('title', 'Obras')
 
-@section('sidebar')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-        <div>
-            <h1 class="h2"></h1>
-        </div>
-        <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right">
-            <div class="btn-group mr-2">
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-pasta"><i class="fas fa-folder-open"></i> Adicionar Pasta</button>
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-documento"><i class="fas fa-file-import"></i> Adicionar Documento</button>
-            </div>
-        </div>
-    </div>
-@stop
 
 @section('content')
-    @if (count($directorys) > 0)
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="h2">Pastas</h1>
-            </div>
-            @foreach ($directorys as $directory)
-                <div class="col-md-3 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media">
-                                <div class="media-body overflow-hidden">
-                                    <a href="{{ route('folder.show', $directory->uuid) }}">
-                                        <p class="text-truncate font-size-14 mb-2"><i class="fa fa-folder"></i> {{ $directory->name }}</p>
-                                    </a>
+
+    <div class="arquivos">
+
+        @include('pages.painel.obras._partials.file-sidebar')
+
+        <div class="filemgr-content">
+            <div class="filemgr-content-body ps ps--active-y">
+                <div class="pd-20 pd-lg-25 pd-xl-30">
+                    <h4 class="mg-b-15 mg-lg-b-25">Todos os arquivos</h4>
+                    <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Recentes Adicionados</label>
+                    <div class="row row-xs">
+                        @if (count($documentos) > 0)
+                            @foreach ($documentos as $documento)
+                                @php
+                                    /* todoFazer colocar o documento em um resource   */
+                                    $getColorAndIcon = getIconByExtDoc($documento->ext);
+                                    $color = $getColorAndIcon['color'];
+                                    $icon = $getColorAndIcon['icon'];
+                                @endphp
+                                <div class="col-6 col-sm-4 col-md-3">
+                                    <div class="card card-file">
+                                        <div class="dropdown-file">
+                                            <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#modalViewDetails" data-toggle="modal" class="dropdown-item details"><i data-feather="info"></i>View Details</a>
+                                                <a href="" class="dropdown-item important"><i data-feather="star"></i>Mark as Important</a>
+                                                <a href="#modalShare" data-toggle="modal" class="dropdown-item share"><i data-feather="share"></i>Share</a>
+                                                <a href="" class="dropdown-item download"><i data-feather="download"></i>Download</a>
+                                                <a href="#modalCopy" data-toggle="modal" class="dropdown-item copy"><i data-feather="copy"></i>Copy to</a>
+                                                <a href="#modalMove" data-toggle="modal" class="dropdown-item move"><i data-feather="folder"></i>Move to</a>
+                                                <a href="#" class="dropdown-item rename"><i data-feather="edit"></i>Rename</a>
+                                                <a href="#" class="dropdown-item delete"><i data-feather="trash"></i>Delete</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-file-thumb tx-danger">
+                                            <i class="far {{ $icon }}"></i>
+                                        </div>
+                                        <div class="card-body">
+                                            <h6><a href="" class="link-02"> {{ $documento->name }}</a></h6>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-primary">
-                                    <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excluir"
-                                        data-href="{{ route('pastas.destroy', $directory->id) }}" class="btn-delete"
-                                        data-original-title="Excluir Pasta">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                            @endforeach
+                        @endif
+                    </div>
+                    <hr class="mg-y-40 bd-0">
+                    <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Pastas</label>
+                    <div class="row row-xs">
+                        @foreach ($directorys as $directory)
+                            <div class="col-sm-6 col-lg-4 col-xl-3 mg-t-5">
+                                <div class="media media-folder">
+                                    <i data-feather="folder"></i>
+                                    <div class="media-body">
+                                        <h6><a href="" class="link-02">{{ $directory->name }}</a></h6>
+                                        <span>2 files</span>
+                                    </div>
+                                    <div class="dropdown-file">
+                                        <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#modalViewDetails" data-toggle="modal" class="dropdown-item details"><i data-feather="info"></i>View Details</a>
+                                            <a href="" class="dropdown-item important"><i data-feather="star"></i>Mark as Important</a>
+                                            <a href="#modalShare" data-toggle="modal" class="dropdown-item share"><i data-feather="share"></i>Share</a>
+                                            <a href="" class="dropdown-item download"><i data-feather="download"></i>Download</a>
+                                            <a href="#modalCopy" data-toggle="modal" class="dropdown-item copy"><i data-feather="copy"></i>Copy to</a>
+                                            <a href="#modalMove" data-toggle="modal" class="dropdown-item move"><i data-feather="folder"></i>Move to</a>
+                                            <a href="#" class="dropdown-item rename"><i data-feather="edit"></i>Rename</a>
+                                            <a href="#" class="dropdown-item delete"><i data-feather="trash"></i>Delete</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
+
+
+
                 </div>
-            @endforeach
-        </div>
-    @endif
-    @if (count($documentos) > 0)
-        <hr class="my-4">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="h2">Documentos</h1>
             </div>
-            @foreach ($documentos as $documento)
-                @php
-                    /* todoFazer colocar o documento em um resource   */
-                    $getColorAndIcon = getIconByExtDoc($documento->ext);
-                    $color = $getColorAndIcon['color'];
-                    $icon = $getColorAndIcon['icon'];
-                @endphp
-                <div class="col-md-3 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media">
-                                <div class="media-body overflow-hidden">
-                                    <a href="{{ asset($documento->url) }}" target="_blank">
-                                        <p class="text-truncate font-size-14 mb-2"><i class="fa {{ $icon }}" style="font-size: 34px;color: {{ $color }}"></i> {{ $documento->name }}
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="text-primary">
-                                    <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excluir"
-                                        data-href="{{ route('arquivos.destroy', $documento->id) }}" class="btn-delete"
-                                        data-original-title="Excluir Documento">
-                                        <i class="fa fa-trash" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
-    @endif
-    @include('pages.painel.obras._partials.modals.modal-add-pasta')
-    @include('pages.painel.obras._partials.modals.modal-add-document')
 
-@section('scripts')
-    <script>
-        function dropHandler(ev) {
-            console.log('File(s) dropped');
-
-            // Impedir o comportamento padrão (impedir que o arquivo seja aberto)
-            ev.preventDefault();
-
-            if (ev.dataTransfer.items) {
-                // Use a interface DataTransferItemList para acessar o (s) arquivo (s)
-                for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-                    // Se os itens soltos não forem arquivos, rejeite-os
-                    if (ev.dataTransfer.items[i].kind === 'file') {
-                        var file = ev.dataTransfer.items[i].getAsFile();
-                        console.log('... file[' + i + '].name = ' + file.name);
-                    }
-                }
-            } else {
-                // Use a interface DataTransfer para acessar o (s) arquivo (s)
-                for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-                    console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
-                }
-            }
-        }
-
-        function dragOverHandler(ev) {
-            console.log('File(s) in drop zone');
-
-            // Impedir o comportamento padrão (impedir que o arquivo seja aberto)
-            ev.preventDefault();
-        }
-
-    </script>
-@endsection
-@endsection
+        @include('pages.painel.obras._partials.modals.modal-add-pasta')
+        @include('pages.painel.obras._partials.modals.modal-add-document')
+    @endsection

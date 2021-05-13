@@ -8,6 +8,11 @@ Auth::routes();
 Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
 Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
+
+Route::get('/obras', function () {
+    return redirect()->to('http://www.landsolucoes.com.br/obras');
+})->name('obras');
+
 Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::get('/', function () {
