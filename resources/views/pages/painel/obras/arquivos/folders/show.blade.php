@@ -1,128 +1,97 @@
-@extends('pages.painel.obras.app')
+@extends('app')
 
-@section('title', 'Obras')
+@section('title', 'Arquivos')
 
-@section('sidebar')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-        <div>
-            <h1 class="h2"></h1>
-            <ol class="breadcrumb">
-                <a href="{{ route('arquivos.index') }}" class="breadcrumb-item">
-                    <li class="tx-15">Arquivos</li>
-                </a>
-                @if ($pastaPai && $pastaPai->name != '')
-                    <a href="{{ route('folder.show', $pastaPai->uuid) }}" class="breadcrumb-item">
-                        <li class="tx-15">{{ $pastaPai->name }}</li>
-                    </a>
-                @endif
-                <li class="breadcrumb-item active tx-15">{{ $pasta->name }}</li>
-            </ol>
-        </div>
-        <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right">
-            <div class="btn-group mr-2">
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-pasta"><i class="fas fa-folder-open"></i> Adicionar Pasta em {{ $pasta->name }}</button>
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-add-documento"><i class="fas fa-file-import"></i> Adicionar Documento</button>
+@section('content')
+    <div class="arquivos">
+
+        @include('pages.painel.obras._partials.file-sidebar')
+
+        <div class="filemgr-content">
+            <div class="filemgr-content-body ps ps--active-y">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mg-b-0">
+                        <li class="breadcrumb-item"><a href="{{ route('arquivos.index') }}">Arquivos</a></li>
+                        @if ($pastaPai && $pastaPai->name != '')
+                            <li class="breadcrumb-item"><a href="{{ route('folder.show', $pastaPai->uuid) }}">{{ $pastaPai->name }}</a></li>
+                        @endif
+                        <li class="breadcrumb-item active" aria-current="page">{{ $pasta->name }}</li>
+                    </ol>
+                </nav>
+                <div class="pd-20 pd-lg-25 pd-xl-30">
+                    @if (count($pastasFilhas) > 0)
+                        <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Pastas</label>
+                        <div class="row row-xs">
+                            @foreach ($pastasFilhas as $directory)
+                                <div class="col-sm-6 col-lg-4 col-xl-3 mg-t-5">
+                                    <div class="media media-folder">
+                                        <i data-feather="folder"></i>
+                                        <div class="media-body">
+                                            <h6><a href="{{ route('folder.show', $directory->uuid) }}" class="link-02">{{ $directory->name }}</a></h6>
+                                            <span>{{ $directory->documentos_count }} files</span>
+                                        </div>
+                                        <div class="dropdown-file">
+                                            <a href="{{ route('folder.show', $directory->uuid) }}" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <form id="form-delete" role="form" class="needs-validation" onSubmit="if(!confirm('Tem certeza que deseja excluir?')){return false;}" action="{{ route('pastas.destroy', $directory->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" id="modal-confirm" data-btn-text="Deletando" class="dropdown-item delete"><i data-feather="trash"></i>Deletar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <hr class="mg-y-40 bd-0">
+                    @endif
+                    <div class="row row-xs">
+                        @if (count($documentos) > 0)
+                            @foreach ($documentos as $documento)
+                                @php
+                                    /* todoFazer colocar o documento em um resource   */
+                                    $getColorAndIcon = getIconByExtDoc($documento->ext);
+                                    $color = $getColorAndIcon['color'];
+                                    $icon = $getColorAndIcon['icon'];
+                                @endphp
+                                <div class="col-6 col-sm-4 col-md-3">
+                                    <div class="card card-file">
+                                        <div class="dropdown-file">
+                                            <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#modalViewDetails" data-toggle="modal" class="dropdown-item details d-none"><i data-feather="info"></i>View Details</a>
+                                                <a href="" class="dropdown-item important  d-none"><i data-feather="star"></i>Mark as Important</a>
+                                                <a href="#modalShare" data-toggle="modal" class="dropdown-item share d-none"><i data-feather="share"></i>Share</a>
+                                                <a href="{{ asset($documento->url) }}" class="dropdown-item download" download="{{ $documento->slug }}"><i data-feather="download"></i>Download</a>
+                                                <a href="#modalCopy" data-toggle="modal" class="dropdown-item copy d-none"><i data-feather="copy"></i>Copy to</a>
+                                                <a href="#modalMove" data-toggle="modal" class="dropdown-item move  d-none"><i data-feather="folder"></i>Move to</a>
+                                                <a href="#" class="dropdown-item rename d-none"><i data-feather="edit"></i>Rename</a>
+                                                <form id="form-delete" role="form" class="needs-validation" onSubmit="if(!confirm('Tem certeza que deseja excluir?')){return false;}" action="{{ route('arquivos.destroy', $documento->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" id="modal-confirm" data-btn-text="Deletando" class="dropdown-item delete"><i data-feather="trash"></i>Deletar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="card-file-thumb tx-danger">
+                                            <i class="far {{ $icon }}"></i>
+                                        </div>
+                                        <div class="card-body">
+                                            <h6><a href="" class="link-02"> {{ $documento->name }}</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-@stop
-
-@section('content')
-    @if (count($pastasFilhas) > 0)
-        <div class="row">
-            @foreach ($pastasFilhas as $directory)
-                <div class="col-md-3 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media">
-                                <div class="media-body overflow-hidden">
-                                    <a href="{{ route('folder.show', $directory->uuid) }}">
-                                        <p class="text-truncate font-size-14 mb-2"><i class="fa fa-folder"></i> {{ $directory->name }}</p>
-                                    </a>
-                                </div>
-                                <div class="text-primary">
-                                    <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excluir"
-                                        data-href="{{ route('pastas.destroy', $directory->id) }}" class="btn-delete"
-                                        data-original-title="Excluir Pasta">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-    @if (count($documentos) > 0)
-        <hr class="my-4">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="h2">Documentos</h1>
-            </div>
-            @foreach ($documentos as $documento)
-                @php
-                    /* todoFazer colocar o documento em um resource   */
-                    $getColorAndIcon = getIconByExtDoc($documento->ext);
-                    $color = $getColorAndIcon['color'];
-                    $icon = $getColorAndIcon['icon'];
-                @endphp
-                <div class="col-md-3 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media">
-                                <div class="media-body overflow-hidden">
-                                    <a href="{{ asset($documento->url) }}" target="_blank">
-                                        <p class="text-truncate font-size-14 mb-2"><i class="fa {{ $icon }}" style="font-size: 34px;color: {{ $color }}"></i> {{ $documento->name }}
-                                        </p>
-                                    </a>
-                                </div>
-                                <div class="text-primary">
-                                    <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excluir"
-                                        data-href="{{ route('arquivos.destroy', $documento->id) }}" class="btn-delete"
-                                        data-original-title="Excluir Documento">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
 
     @include('pages.painel.obras._partials.modals.modal-add-pasta')
     @include('pages.painel.obras._partials.modals.modal-add-document')
-
-
-@section('scripts')
-    <script>
-        function dropHandler(ev) {
-            console.log('File(s) dropped');
-
-            // Impedir o comportamento padrão (impedir que o arquivo seja aberto)
-            ev.preventDefault();
-
-            if (ev.dataTransfer.items) {
-                // Use a interface DataTransferItemList para acessar o (s) arquivo (s)
-                for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-                    // Se os itens soltos não forem arquivos, rejeite-os
-                    if (ev.dataTransfer.items[i].kind === 'file') {
-                        var file = ev.dataTransfer.items[i].getAsFile();
-                        console.log('... file[' + i + '].name = ' + file.name);
-                    }
-                }
-            } else {
-                // Use a interface DataTransfer para acessar o (s) arquivo (s)
-                for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-                    console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
-                }
-            }
-        }
-
-    </script>
-@endsection
 
 @endsection

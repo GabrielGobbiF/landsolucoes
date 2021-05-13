@@ -467,7 +467,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="http://www.landsolucoes.com.br/obras"
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{route('arquivos.index')}}"
                                         class="underline text-gray-900 dark:text-white">Obras</a></div>
                             </div>
                         </div>

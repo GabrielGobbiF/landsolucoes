@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Painel;
+namespace App\Http\Controllers\Painel\Obras;
 
-use App\Models\Pasta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Documento;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Obra;
 
-class PastaController extends Controller
+class ObrasController extends Controller
 {
     protected $repository;
 
-    public function __construct(Pasta $pasta)
+    public function __construct(Obra $obra)
     {
         $this->middleware('auth');
 
-        $this->repository = $pasta;
+        $this->repository = $obra;
     }
 
     /**
@@ -27,9 +24,9 @@ class PastaController extends Controller
      */
     public function index()
     {
-        $pasta = $this->repository->whereNull('folder_childer')->toSql();
+        #$obra = $this->repository->all();
 
-        return view('admin.pages.settings.index', []);
+        return view('pages.painel.obras.obras.index', []);
     }
 
     /**
@@ -39,7 +36,7 @@ class PastaController extends Controller
      */
     public function create()
     {
-        return view('pages.teste.create');
+        return view('pages.obra.create');
     }
 
     /**
@@ -50,84 +47,63 @@ class PastaController extends Controller
      */
     public function store(Request $request)
     {
-        $columns = $request->except('_token');
+        $columns = $request->all();
 
-        $idPastaPai = $request->input('folder_childer') ?? false;
-
-        if ($idPastaPai) {
-            $pastaPai    = $this->repository->where('uuid', $idPastaPai)->first();
-        }
-
-        $url =  isset($pastaPai) ? $pastaPai->url : "00tR9vps6D";
-
-        if ($columns['name'] != '') {
-            $columns['url'] = $url;
-            $folder =  $this->repository->create($columns);
-            Storage::makeDirectory($url . '/' . $folder->uuid);
-        }
+        $obra = $this->repository->create($columns);
 
         return redirect()
-            ->back()
+            ->route('obra')
             ->with('message', 'Criado com sucesso');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\teste  $id
+     * @param  \App\Models\obra  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (!$pasta = $this->repository->where('uuid', $id)->first()) {
+        if (!$obra = $this->repository->find($id)) {
             return redirect()
-                ->route('obras.index')
+                ->route('obras')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $pastasFilhas = $this->repository->where('folder_childer', $id)->get();
-
-        $pastaPai    = $this->repository->where('uuid', $pasta->folder_childer)->where('id', '<>', $pasta->id)->first();
-
-        $documentos = Documento::where('folder', $pasta->uuid)->get();
-
-        return view('pages.painel.obras.arquivos.folders.show', [
-            'pasta' => $pasta,
-            'pastasFilhas' => $pastasFilhas,
-            'pastaPai' => $pastaPai,
-            'documentos' => $documentos
+        return view('pages.obras.show', [
+            'obra' => $obra,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\teste  $pasta
+     * @param  \App\Models\obra  $obra
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        return view('pages.teste.create');
+        return view('pages.obra.create');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\teste  $pasta
+     * @param  \App\Models\obra  $obra
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $columns = $request->all();
 
-        if (!$pasta = $this->repository->where('id', $id)->first()) {
+        if (!$obra = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('testes')
+                ->route('obras')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $pasta->update($columns);
+        $obra->update($columns);
 
         return redirect()
             ->back()
@@ -137,21 +113,21 @@ class PastaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\teste  $pasta
+     * @param  \App\Models\obra  $obra
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (!$pasta = $this->repository->find($id)) {
+        if (!$obra = $this->repository->find($id)) {
             return redirect()
-                ->route('testes')
+                ->route('obras')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $pasta->delete();
+        $obra->delete();
 
         return redirect()
-            ->back()
+            ->route('obras')
             ->with('message', 'Deletado com sucesso!');
     }
 
@@ -165,7 +141,7 @@ class PastaController extends Controller
     {
         $filters = $request->only('filter');
 
-        $pasta = $this->repository
+        $obra = $this->repository
             ->where(function ($query) use ($request) {
                 if ($request->filter) {
                     $query->where('name', $request->filter);
@@ -174,6 +150,6 @@ class PastaController extends Controller
             })
             ->paginate();
 
-        return view('pages.teste.index', compact('teste', 'filters'));
+        return view('pages.obra.index', compact('obra', 'filters'));
     }
 }

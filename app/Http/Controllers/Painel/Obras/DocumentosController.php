@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Painel;
+namespace App\Http\Controllers\Painel\Obras;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,11 +26,24 @@ class DocumentosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $directorys = Pasta::whereNull('folder_childer')->get(); #Storage::disk('local')->directories('00tR9vps6D');
+        $directorys = Pasta::where(function ($query) use ($request) {
+            if ($request->search) {
+                $query->where('name', 'like', '%'.$request->search.'%');
+            } else {
+                $query->whereNull('folder_childer');
+            }
+        })->withCount('documentos')->get(); #Storage::disk('local')->directories('00tR9vps6D');
 
-        $documentos = Documento::whereNull('folder')->get();
+        $documentos = Documento::where(function ($query) use ($request) {
+            if ($request->search) {
+                $query->where('name', 'like', '%'.$request->search.'%');
+                $query->orWhere('ext', 'like', '%'.$request->search.'%');
+            } else {
+                $query->whereNull('folder');
+            }
+        })->orderBy('id','DESC')->limit(!$request->search?4:null)->get();
 
         return view('pages.painel.obras.arquivos.index', [
             'directorys' => $directorys,

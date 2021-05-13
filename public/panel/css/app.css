@@ -2837,12 +2837,6 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
   bottom: 0;
 }
 
-@media (min-width: 1200px) {
-  .arquivos .filemgr-content-body > div:first-child {
-    max-width: 1140px;
-  }
-}
-
 .arquivos .dropdown-file {
   position: absolute;
   top: 8px;

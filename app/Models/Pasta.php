@@ -17,7 +17,7 @@ class Pasta extends Model
 
     public function documentos()
     {
-        return $this->belongsToMany(Documentos::class, 'documentos_pastas');
+        return $this->hasMany(Documento::class, 'folder', 'uuid');
     }
 
 }
