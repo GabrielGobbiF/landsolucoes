@@ -2996,6 +2996,71 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
   }
 }
 
+.arquivos .l--1 {
+  left: -1px;
+}
+
+.arquivos .t--1 {
+  top: -1px;
+}
+
+.arquivos .pos-absolute {
+  position: absolute;
+}
+
+.arquivos .marker-warning {
+  color: #fff;
+}
+
+.arquivos .marker-icon {
+  overflow: hidden;
+  display: flex;
+  width: 45px;
+  height: 45px;
+}
+
+.arquivos .marker-icon svg {
+  width: 16px;
+  height: 16px;
+  margin-top: calc(30% - 8px);
+  margin-left: calc(30% - 8px);
+  position: relative;
+  z-index: 1;
+}
+
+.arquivos .fav span {
+  color: #000000c2;
+}
+
+.arquivos .marker-icon i {
+  width: 16px;
+  height: 16px;
+  margin-top: calc(30% - 8px);
+  margin-left: calc(30% - 8px);
+  position: relative;
+  z-index: 1;
+}
+
+.arquivos svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.arquivos .marker-warning.marker-icon::before {
+  background-color: #ffc107;
+}
+
+.arquivos .marker-icon::before {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -70%;
+  width: 140%;
+  height: 140%;
+  background-color: #f3f5f9;
+  transform: rotate(45deg);
+}
+
 /* ###### 9.1 Background  ###### */
 
 .bg-none {

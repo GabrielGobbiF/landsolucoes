@@ -180,7 +180,7 @@ return [
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         jeremykenedy\Slack\Laravel\ServiceProvider::class,
-
+        #Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 

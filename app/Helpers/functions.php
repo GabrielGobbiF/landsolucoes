@@ -11,15 +11,15 @@ function getIconByExtDoc($extensao)
     switch ($extensao) {
         case 'png':
             $icon = 'fas fa-image';
-            $color = '#d43030';
+            $color = '#d49430';
             break;
         case 'jpg':
             $icon = 'fas fa-image';
-            $color = '#d43030';
+            $color = '#d49430';
             break;
         case 'jpeg':
             $icon = 'fas fa-image';
-            $color = '#d43030';
+            $color = '#d49430';
             break;
         case 'gif':
             $icon = 'fas fa-image';
@@ -29,12 +29,24 @@ function getIconByExtDoc($extensao)
             $icon = 'fas fa-file-pdf';
             $color = '#d43030';
             break;
+        case 'pptx':
+            $icon = 'fas fa-file-powerpoint';
+            $color = '#cc4f2e';
+            break;
         case 'xlsx':
             $icon = 'fas fa-file-excel';
             $color = '#30d435';
             break;
+        case 'doc':
+            $icon = 'fas fa-file-word';
+            $color = '#1757b7';
+            break;
+        case 'docx':
+            $icon = 'fas fa-file-word';
+            $color = '#1757b7';
+            break;
         default:
-            $icon = 'fas fa-image';
+            $icon = 'fas fa-file';
             $color = '#d43030';
             break;
     }

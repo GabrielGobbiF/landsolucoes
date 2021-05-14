@@ -93,10 +93,15 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Documentos
             |--------------------------------------------------------------------------
             */
-            Route::resource('arquivos', App\Http\Controllers\Painel\Obras\DocumentosController::class);
-            Route::resource('pastas', App\Http\Controllers\Painel\Obras\PastaController::class);
+            Route::get('arquivos/my-favorites', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'favorites'])->name('arquivos.my.favorites');
 
             Route::get('arquivos/folder/{folder_id}', [App\Http\Controllers\Painel\Obras\PastaController::class, 'show'])->name('folder.show');
+
+            Route::post('arquivos/favorite', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'favorite'])->name('arquivos.favorite');
+            Route::post('arquivos/unfavorite', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'unfavorite'])->name('arquivos.unfavorite');
+            Route::resource('pastas', App\Http\Controllers\Painel\Obras\PastaController::class);
+            Route::resource('arquivos', App\Http\Controllers\Painel\Obras\DocumentosController::class);
+
             /*
             |--------------------------------------------------------------------------
             | Obras

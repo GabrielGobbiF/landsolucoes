@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel\Obras;
 use App\Models\Pasta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DocumentosResource;
 use App\Models\Documento;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -85,7 +86,7 @@ class PastaController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $pastasFilhas = $this->repository->where('folder_childer', $id)->withCount('documentos')->get();
+        $pastasFilhas = $this->repository->where('folder_childer', $id)->withCount('documentos')->orderBy('name', 'ASC')->get();
 
         $pastaPai    = $this->repository->where('uuid', $pasta->folder_childer)->where('id', '<>', $pasta->id)->first();
 
@@ -95,7 +96,7 @@ class PastaController extends Controller
             'pasta' => $pasta,
             'pastasFilhas' => $pastasFilhas,
             'pastaPai' => $pastaPai,
-            'documentos' => $documentos
+            'documentos' => DocumentosResource::collection($documentos)
         ]);
     }
 

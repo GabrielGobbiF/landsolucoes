@@ -120,13 +120,16 @@
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
 
-    @yield('scripts')
+
     @include('pages.layouts.modal_delete')
 
     <script>
         @include('pages.layouts.notification')
 
     </script>
+
+    @yield('scripts')
+
 
 </body>
 

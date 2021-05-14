@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Painel\Obras;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DocumentosResource;
 use App\Models\Documento;
 use App\Models\Pasta;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -34,7 +36,7 @@ class DocumentosController extends Controller
             } else {
                 $query->whereNull('folder_childer');
             }
-        })->withCount('documentos')->get(); #Storage::disk('local')->directories('00tR9vps6D');
+        })->withCount('documentos')->orderBy('name', 'ASC')->get(); #Storage::disk('local')->directories('00tR9vps6D');
 
         $documentos = Documento::where(function ($query) use ($request) {
             if ($request->search) {
@@ -45,7 +47,27 @@ class DocumentosController extends Controller
 
         return view('pages.painel.obras.arquivos.index', [
             'directorys' => $directorys,
-            'documentos' => $documentos,
+            'documentos' => $documentos
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function favorites(Request $request)
+    {
+        $documentos = $request->user()->files()->where(function ($query) use ($request) {
+            if ($request->search) {
+                $query->orWhere('name', 'like', '%' . $request->search . '%');
+                $query->orWhere('ext', 'like', '%' . $request->search . '%');
+                $query->orWhere('uuid',  $request->search);
+            }
+        })->orderBy('id', 'DESC')->get();
+
+        return view('pages.painel.obras.arquivos.favorites', [
+            'documentos' => $documentos
         ]);
     }
 
@@ -116,5 +138,19 @@ class DocumentosController extends Controller
         return redirect()
             ->back()
             ->with('message', 'Deletado com sucesso!');
+    }
+
+    public function favorite(Request $request)
+    {
+        $request->user()->files()->attach($request->file_id);
+
+        return json_encode('fav');
+    }
+
+    public function unfavorite(Request $request)
+    {
+        $request->user()->files()->detach($request->file_id);
+
+        return json_encode('unfav');
     }
 }

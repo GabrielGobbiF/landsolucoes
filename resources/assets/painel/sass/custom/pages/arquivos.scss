@@ -352,4 +352,66 @@
             margin-left: 60px;
         }
     }
+
+    .l--1 {
+        left: -1px;
+    }
+    .t--1 {
+        top: -1px;
+    }
+    .pos-absolute {
+        position: absolute;
+    }
+    .marker-warning {
+        color: #fff;
+    }
+    .marker-icon {
+        overflow: hidden;
+        display: flex;
+        width: 45px;
+        height: 45px;
+    }
+
+    .marker-icon svg {
+        width: 16px;
+        height: 16px;
+        margin-top: calc(30% - 8px);
+        margin-left: calc(30% - 8px);
+        position: relative;
+        z-index: 1;
+    }
+
+    .fav {
+        span {
+            color: #000000c2;
+        }
+    }
+
+    .marker-icon i {
+        width: 16px;
+        height: 16px;
+        margin-top: calc(30% - 8px);
+        margin-left: calc(30% - 8px);
+        position: relative;
+        z-index: 1;
+    }
+
+    svg {
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    .marker-warning.marker-icon::before {
+        background-color: #ffc107;
+    }
+    .marker-icon::before {
+        content: "";
+        position: absolute;
+        top: -70%;
+        left: -70%;
+        width: 140%;
+        height: 140%;
+        background-color: #f3f5f9;
+        transform: rotate(45deg);
+    }
 }

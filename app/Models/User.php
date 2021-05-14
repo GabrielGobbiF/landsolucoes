@@ -50,4 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function files()
+    {
+        return $this->belongsToMany(Documento::class, 'users_files_favorites', 'user_id', 'file_id')->withTimeStamps();
+    }
 }
