@@ -30,7 +30,7 @@ class DocumentosController extends Controller
     {
         $directorys = Pasta::where(function ($query) use ($request) {
             if ($request->search) {
-                $query->where('name', 'like', '%'.$request->search.'%');
+                $query->where('name', 'like', '%' . $request->search . '%');
             } else {
                 $query->whereNull('folder_childer');
             }
@@ -38,12 +38,10 @@ class DocumentosController extends Controller
 
         $documentos = Documento::where(function ($query) use ($request) {
             if ($request->search) {
-                $query->where('name', 'like', '%'.$request->search.'%');
-                $query->orWhere('ext', 'like', '%'.$request->search.'%');
-            } else {
-                $query->whereNull('folder');
+                $query->where('name', 'like', '%' . $request->search . '%');
+                $query->orWhere('ext', 'like', '%' . $request->search . '%');
             }
-        })->orderBy('id','DESC')->limit(!$request->search?4:null)->get();
+        })->orderBy('id', 'DESC')->limit(!$request->search ? 4 : null)->get();
 
         return view('pages.painel.obras.arquivos.index', [
             'directorys' => $directorys,
