@@ -81,7 +81,7 @@
                         <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @include('pages.painel._partials.avatar', [
-                            'avatar' => Auth::user()->avatar,
+                            'avatar' => '',
                             'name' => Auth::user()->name,
                             ])
                         </button>
