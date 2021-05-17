@@ -60,7 +60,7 @@
                 <div class='card-body pd-15' id="files-row">
                 </div>
                 <div class="card-footer">
-                    <button type='submit' class='btn btn-sm btn-primary'>Baixar</button>
+                    <button type='submit' class='btn btn-sm btn-primary btn-download'>Baixar</button>
                     <button type='button' class='btn btn-sm btn-outline-info btn-submit'>Enviar</button>
                 </div>
             </form>

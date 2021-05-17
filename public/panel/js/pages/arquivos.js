@@ -67,8 +67,6 @@ $(function () {
         });
     })
 
-
-
     $('.download').on('click', function () {
         var v = $(this);
         var file_id = v.attr('data-id');
@@ -79,6 +77,13 @@ $(function () {
         }
         saveItemfiles(item);
     })
+
+    $('.btn-download').on('click', function () {
+        localStorage.setItem('files', JSON.stringify([]));
+        $('#files-downloading').addClass('d-none');
+    })
+
+
 
     var setFiles = function (filesItems) {
         localStorage.setItem('files', JSON.stringify(filesItems));
