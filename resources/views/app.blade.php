@@ -120,7 +120,6 @@
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
 
-
     @include('pages.layouts.modal_delete')
 
     <script>

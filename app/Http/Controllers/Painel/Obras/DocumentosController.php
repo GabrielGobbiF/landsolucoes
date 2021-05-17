@@ -10,6 +10,8 @@ use App\Models\Pasta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use ZipArchive;
+use File as File;
 
 class DocumentosController extends Controller
 {
@@ -143,14 +145,41 @@ class DocumentosController extends Controller
     public function favorite(Request $request)
     {
         $request->user()->files()->attach($request->file_id);
-
-        return json_encode('fav');
+        return response(['fav'], 200);
     }
 
     public function unfavorite(Request $request)
     {
         $request->user()->files()->detach($request->file_id);
+        return response(['unfav'], 200);
+    }
 
-        return json_encode('unfav');
+    public function download(Request $request)
+    {
+        $files = $request->input('files');
+        $files = json_decode($files, true);
+
+        $values = array_map(function ($files) {
+            return $files['id'];
+        }, $files);
+
+        $files = Documento::whereIn('id', $values)->get();
+
+        $zip = new ZipArchive;
+
+        Storage::delete("00tR9vps6D/arquivos.zip");
+
+        $zip->open(storage_path("app/public/00tR9vps6D/arquivos.zip"), ZipArchive::CREATE);
+
+        foreach ($files as $file) {
+            $local = str_replace('storage/', '', $file->url);
+            if (Storage::has($local)) {
+                $zip->addFile(storage_path("app/public/$local"), $file->name . '.' . $file->ext);
+            }
+        }
+
+        $zip->close();
+
+        return response()->download(storage_path("app/public/00tR9vps6D/arquivos.zip"));
     }
 }

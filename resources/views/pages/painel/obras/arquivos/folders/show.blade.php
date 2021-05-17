@@ -3,8 +3,7 @@
 @section('title', 'Arquivos')
 
 @section('content')
-    <div class="arquivos">
-
+    <div class="arquivos filemgr-wrapper">
         @include('pages.painel.obras._partials.file-sidebar')
 
         <div class="filemgr-content">
@@ -59,7 +58,7 @@
     @include('pages.painel.obras._partials.modals.modal-add-document')
 
 @section('scripts')
-    <script src="{{ asset('panel/js/pages/documents.js') }}"></script>
+    <script src="{{ asset('panel/js/pages/arquivos.js') }}"></script>
 @endsection
 
 @endsection

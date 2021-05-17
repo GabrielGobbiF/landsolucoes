@@ -4,16 +4,10 @@
 
 
 @section('content')
-
-    <div class="arquivos">
-
+    <div class="arquivos filemgr-wrapper">
         @include('pages.painel.obras._partials.file-sidebar')
-
         <div class="filemgr-content">
-
             <div class="filemgr-content-body ps ps--active-y">
-
-
                 <div class="pd-20 pd-lg-25 pd-xl-30">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                         @if (Request::input('search'))
@@ -78,6 +72,6 @@
     @include('pages.painel.obras._partials.modals.modal-add-document')
 
 @section('scripts')
-    <script src="{{ asset('panel/js/pages/documents.js') }}"></script>
+    <script src="{{ asset('panel/js/pages/arquivos.js') }}"></script>
 @endsection
 @endsection

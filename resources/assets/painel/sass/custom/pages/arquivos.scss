@@ -1,4 +1,13 @@
+.filemgr-wrapper {
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 .arquivos {
+
     @media (max-width: 991.98px) {
         .app-filemgr.filemgr-sidebar-show .filemgr-sidebar {
             left: 0;
@@ -10,13 +19,6 @@
         }
     }
 
-    .filemgr-wrapper {
-        position: fixed;
-        top: 55px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
     @media (min-width: 992px) {
         .filemgr-wrapper {
             top: 70px;
@@ -104,7 +106,6 @@
         right: 0;
         bottom: 0;
         transition: all 0.3s;
-        margin-top: 70px;
         padding: calc(55px + 24px) calc(24px / 2) 60px calc(24px / 2);
     }
     @media (prefers-reduced-motion: reduce) {
@@ -413,5 +414,12 @@
         height: 140%;
         background-color: #f3f5f9;
         transform: rotate(45deg);
+    }
+
+    .card-file {
+        padding: 10px;
+        position: relative;
+        border-color: rgba(72, 94, 144, 0.16);
+        transition: all 0.2s ease-in-out;
     }
 }

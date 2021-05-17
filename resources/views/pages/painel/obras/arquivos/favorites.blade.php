@@ -44,6 +44,6 @@
     @include('pages.painel.obras._partials.modals.modal-add-document')
 
 @section('scripts')
-    <script src="{{ asset('panel/js/pages/documents.js') }}"></script>
+    <script src="{{ asset('panel/js/pages/arquivos.js') }}"></script>
 @endsection
 @endsection
