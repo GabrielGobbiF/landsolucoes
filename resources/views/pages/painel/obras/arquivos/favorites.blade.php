@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="arquivos">
+    <div class="arquivos filemgr-wrapper">
         @include('pages.painel.obras._partials.file-sidebar')
         <div class="filemgr-content">
             <div class="filemgr-content-body ps ps--active-y">
