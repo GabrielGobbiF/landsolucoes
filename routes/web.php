@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,10 @@ Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordC
 Route::get('/obras', function () {
     return redirect()->to('http://www.landsolucoes.com.br/obras');
 })->name('obras');
+
+Route::get('/cron', function () {
+    Artisan::call("command:carReview");
+});
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
