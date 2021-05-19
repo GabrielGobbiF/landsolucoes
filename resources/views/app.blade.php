@@ -114,7 +114,6 @@
                 </div>
             </div>
         </div>
-        @include('pages.layouts.modal_delete')
     </div>
 
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
@@ -125,6 +124,8 @@
         @include('pages.layouts.notification')
 
     </script>
+
+    @include('pages.layouts.modal_delete')
 
     @yield('scripts')
 
