@@ -8,7 +8,6 @@ Auth::routes();
 Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
 Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
-
 Route::get('/obras', function () {
     return redirect()->to('http://www.landsolucoes.com.br/obras');
 })->name('obras');
@@ -17,7 +16,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::get('/', function () {
         return view('welcome');
-    })->middleware('auth');
+    })->name('home')->middleware('auth');
 
     Route::group(['middleware' => 'role:rh'], function () {
         /*
@@ -173,6 +172,19 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     |--------------------------------------------------------------------------
     */
     Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification');
+    Route::get('/notify/sendTest', [App\Http\Controllers\NotificationController::class, 'notifyUsersTest'])->name('notifications.send.test');
+
+    Route::get('/notifications/{uuid}/read', [App\Http\Controllers\NotificationController::class, 'read'])->name('notifications.read');
+    Route::get('/notifications/{uuid}/archived', [App\Http\Controllers\NotificationController::class, 'archived'])->name('notifications.archived');
+    Route::get('/notifications/{uuid}/deleted', [App\Http\Controllers\NotificationController::class, 'deleted'])->name('notifications.deleted');
+    Route::get('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'readAll'])->name('notifications.read.all');
 
 
 

@@ -1,9 +1,12 @@
 <?php
 
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
+
 function formatDateAndTime($value, $format = 'd/m/Y')
 {
     // Utiliza a classe de Carbon para converter ao formato de data ou hora desejado
-    return Carbon\Carbon::parse($value)->format($format);
+    return Carbon::parse($value)->format($format);
 }
 
 function getIconByExtDoc($extensao)
@@ -55,4 +58,15 @@ function getIconByExtDoc($extensao)
         'icon' => $icon,
         'color' => $color
     ];
+}
+
+function dateTournamentForHumans($date = null)
+{
+    if ($date) {
+        $dateForForHuman = new Carbon($date, 'America/Sao_paulo');
+        return $dateForForHuman->diffForHumans([
+            'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+            'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
+        ]);
+    }
 }

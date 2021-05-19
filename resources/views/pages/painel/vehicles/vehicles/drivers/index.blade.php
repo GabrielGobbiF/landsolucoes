@@ -1,6 +1,6 @@
-@extends('pages.painel.vehicles.app')
+@extends('app')
 
-@section('title', 'Veiculos')
+@section('title', 'Veiculos Motoristas')
 
 @section('content')
 

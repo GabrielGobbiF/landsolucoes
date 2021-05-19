@@ -8,6 +8,10 @@
 
 .arquivos {
 
+    a {
+        color: #000000c2 !important;
+    }
+
     @media (max-width: 991.98px) {
         .app-filemgr.filemgr-sidebar-show .filemgr-sidebar {
             left: 0;

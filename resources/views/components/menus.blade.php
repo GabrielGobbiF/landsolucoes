@@ -1,4 +1,3 @@
-
 @if ($dataLayout == 'vertical')
     <div class="vertical-menu">
         <div data-simplebar class="h-100">
@@ -23,16 +22,25 @@
             <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
                     <ul class="navbar-nav">
-                        @foreach ($menus as $menu)
+                        @if (isset($menus['back']) && $menus['back'])
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route($menu['route']) }}">
-                                    <i class="{{ $menu['icon'] }} mr-2"></i> {{ __($menu['name']) }}
+                                <a class="nav-link" href="{{ url()->previous() }}">
+                                    <i class="ri-arrow-left-line mr-2"></i> Voltar
                                 </a>
                             </li>
+                        @endif
+                        @foreach ($menus as $menu)
+                            @if ($menu != 'back')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route($menu['route']) }}">
+                                        <i class="{{ $menu['icon'] }} mr-2"></i> {{ __($menu['name']) }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
             </nav>
-        </div> 
+        </div>
     </div>
 @endif

@@ -24,6 +24,7 @@ class CreateVehicleActivitiesTable extends Migration
             $table->string('description_return')->nullable();
 
             $table->integer('obra_id')->nullable();
+            $table->integer('notify_send')->default('0');
 
             $table->string('driver_name');
             $table->integer('driver_id');

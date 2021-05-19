@@ -7,6 +7,7 @@ use App\Models\{
     Employee,
     Pasta
 };
+use App\Notifications\DataBaseChannel;
 use App\Observers\{
     EmployeeObserver,
     PastaObserver,
@@ -52,5 +53,7 @@ class AppServiceProvider extends ServiceProvider
         Employee::observe(EmployeeObserver::class);
         Pasta::observe(PastaObserver::class);
         Documento::observe(DocumentoObserver::class);
+
+        $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }
 }

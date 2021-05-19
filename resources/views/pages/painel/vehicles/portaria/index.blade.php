@@ -1,4 +1,4 @@
-@extends('pages.painel.vehicles.app')
+@extends('app')
 
 @section('title', 'Portaria')
 
