@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group">
-                <label for="input--year">Ano de Fabricação </label>
+                <label for="input--year">Ano Fabricação</label>
                 <input type="text" name="year" class="form-control @error('year') is-invalid @enderror" id="input--year" value="{{ $vehicle->year ?? old('year') }}" autocomplete="off">
             </div>
         </div>
