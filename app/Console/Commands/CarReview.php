@@ -41,10 +41,6 @@ class CarReview extends Command
      */
     public function handle()
     {
-        \Slack::send(
-            'oi'
-        );
-
         $db = DB::select('select * from vehicle_activities t where t.id = (select id from vehicle_activities va where va.vehicle_id = t.vehicle_id order by created_at desc limit 0, 1) AND notify_send = 0');
 
         foreach ($db as $activityVehicle) {
