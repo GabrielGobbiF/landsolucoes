@@ -48,15 +48,14 @@ class CarReview extends Command
 
             if ($km != '') {
                 if (($km % 10000) == 0 && $activityVehicle->notify_send != '1') {
-                    $users = User::whereIn('id', [1])->get();
+                    $users = User::whereIn('id', [1, 5])->get();
                     $users->each->notify(new SendNotification("Carro chegou a $km km", 'fas fa-car-alt', route('vehicles.show', $activityVehicle->id)));
                     $activityVeh = VehicleActivities::find($activityVehicle->id);
-                    #$activityVeh->notify_send = '1';
+                    $activityVeh->notify_send = '1';
                     $activityVeh->update();
                     $activityVeh->save();
                 }
             }
         }
-
     }
 }
