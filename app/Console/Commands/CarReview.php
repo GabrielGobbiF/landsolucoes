@@ -41,13 +41,17 @@ class CarReview extends Command
      */
     public function handle()
     {
+        \Slack::send(
+            'oi'
+        );
+
         $db = DB::select('select * from vehicle_activities t where t.id = (select id from vehicle_activities va where va.vehicle_id = t.vehicle_id order by created_at desc limit 0, 1) AND notify_send = 0');
 
         foreach ($db as $activityVehicle) {
             $km = $activityVehicle->km_end != '' ? $activityVehicle->km_end : $activityVehicle->km_start;
 
             if ($km != '') {
-                if (($km % 10000) == 0 && $activityVehicle->notify_send != '1') {
+                if ((($km % 10000) == 0 || $km % 10000 == 0) && $activityVehicle->notify_send != '1') {
                     $users = User::whereIn('id', [1, 5])->get();
                     $users->each->notify(new SendNotification("Carro chegou a $km km", 'fas fa-car-alt', route('vehicles.show', $activityVehicle->id)));
                     $activityVeh = VehicleActivities::find($activityVehicle->id);
