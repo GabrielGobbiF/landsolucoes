@@ -6,7 +6,7 @@
     <div class="container-fluid" style="    max-width: 1400px!important;">
         <h4 class="text-center">{{ $vehicle->name ?? '' }} </h4>
         <div class="row mt-3">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link mb-2 active" id="v-pills-dados-tab" data-toggle="pill" href="#v-pills-dados" role="tab" aria-controls="v-pills-dados" aria-selected="true">Dados</a>
                     <a class="nav-link mb-2" id="v-pills-activities-tab" data-toggle="pill" href="#v-pills-activities" role="tab" aria-controls="v-pills-activities" aria-selected="false">Atividades</a>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-dados" role="tabpanel" aria-labelledby="v-pills-dados-tab">
                         <div class="card">
