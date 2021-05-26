@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,30 +14,26 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique();
-            $table->string('name');
-            $table->string('email')->unique()->nullable();
-            $table->string('username')->unique();
-            $table->string('rg')->unique()->nullable();
-            $table->string('telefone_celular')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('company_name');                      //Razão Social
+            $table->string('username');                          //Nome fantasia
+            $table->string('cnpj')->unique()->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
 
-        DB::table('users')->insert(
+        DB::table('clients')->insert(
             [
-                'name' => 'Gabriel Gobbi',
+                'company_name' => 'SANCA ENGENHARIA LTDA',
                 'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
-                'email' => 'gabriel.gobbi15@gmail.com',
-                'username' => 'gabriel.gobbi',
-                'uuid' => '3edascdsa'
+                'username' => 'SANCA',
+                'uuid' => '321312312312',
+                'cnpj' => '50614163000132',
             ]
         );
-
     }
 
     /**
@@ -47,6 +43,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clients');
     }
 }

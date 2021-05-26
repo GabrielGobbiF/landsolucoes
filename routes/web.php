@@ -5,17 +5,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
-
 Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
 Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
-Route::get('/obras', function () {
-    return redirect()->to('http://www.landsolucoes.com.br/obras');
-})->name('obras');
+Route::group(['middleware' => ['Client']], function () {
+    //Login Routes...
+    Route::get('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
+    Route::post('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'login'])->name('clients.login');
+    Route::post('/clients/logout', [App\Http\Controllers\Auth\Clients\LoginController::class, 'logout']);
 
-Route::get('/cron', function () {
-    Artisan::call("command:carReview");
+    Route::prefix('clients')->group(function () {
+        Route::get('/obras', function () {
+            dd('obras clientes');
+        });
+    });
 });
+
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
@@ -203,3 +208,11 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         });
     });
 });
+
+Route::get('/cron', function () {
+    Artisan::call("command:carReview");
+});
+
+Route::get('/obras', function () {
+    return redirect()->to('http://www.landsolucoes.com.br/obras');
+})->name('obras');
