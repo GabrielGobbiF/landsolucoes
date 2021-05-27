@@ -16,8 +16,18 @@ try {
     require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min');
     require('bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js');
 
-    const feather  = require('feather-icons')
+    const feather = require('feather-icons')
     feather.replace()
+
+    var $table = $('#table')
+
+    $(function () {
+        $table.bootstrapTable()
+
+        $table.bootstrapTable('refreshOptions', {
+            classes: 'table table-hover'
+        })
+    })
 
 } catch (e) { }
 

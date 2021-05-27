@@ -9,13 +9,18 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                     <h1 class="h2">Veiculos</h1>
-                    <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right">
+                </div>
+
+                <div id="toolbar">
+                    <div class="form-inline" role="form">
                         <div class="btn-group mr-2">
-                            <a href="{{ route('vehicles.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-dark"><i class="fas fa-car"></i>
-                                Novo</a>
+                            <a href="{{ route('vehicles.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-dark waves-effect waves-light"><i class="ri-add-circle-line align-middle mr-2"></i>
+                                Novo
+                            </a>
                         </div>
                     </div>
                 </div>
+
 
                 <table data-toggle="table" id="table" class="table table-hover table-striped" data-search="true" data-show-refresh="true" data-show-fullscreen="true"
                     data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
