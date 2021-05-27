@@ -3,6 +3,12 @@ jQuery(function () {
 
     console.log('init global functions');
 
+    var $table = $('#table')
+    $table.bootstrapTable()
+    $table.bootstrapTable('refreshOptions', {
+        classes: 'table table-hover'
+    })
+
     $('.btn-submit').on('click', function () {
         var text = $(this).attr('data-btn-text');
         text = text != null ? text : 'Salvando...';
@@ -179,7 +185,6 @@ jQuery(function () {
 
     $('[data-toggle="tooltip"]').tooltip()
 
-
     $('.btn-delete').on('click', function () {
         var href = $(this).attr('data-href');
         var title = $(this).attr('data-title');
@@ -240,8 +245,8 @@ jQuery(function () {
         }
     });
 
-    var tamanho = $(".cpf-cnpj").val().length;
-    if (tamanho <= 13) {
+    var tamanho = $(".cpf-cnpj").val();
+    if (tamanho && tamanho.length <= 13) {
         $('.cpf-cnpj').mask('000.000.000-00', {
             reverse: true
         });
@@ -250,6 +255,12 @@ jQuery(function () {
             reverse: true
         });
     }
+
+    $('#preloader-content').fadeOut(100, function(){
+        $(this).remove();
+        $('.table').removeClass('d-none');
+     });
+
 });
 
 function resetDiv() {
@@ -257,6 +268,8 @@ function resetDiv() {
     $('.table-mensal').addClass('d-none');
     $('.table-epi').addClass('d-none');
 }
+
+
 
 
 

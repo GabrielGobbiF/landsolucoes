@@ -19,16 +19,6 @@ try {
     const feather = require('feather-icons')
     feather.replace()
 
-    var $table = $('#table')
-
-    $(function () {
-        $table.bootstrapTable()
-
-        $table.bootstrapTable('refreshOptions', {
-            classes: 'table table-hover'
-        })
-    })
-
 } catch (e) { }
 
 

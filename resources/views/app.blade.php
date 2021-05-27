@@ -18,7 +18,6 @@
     <link href="{{ asset('panel/icons/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
 
-
     <script>
         var BASE_URL = `{{ env('APP_URL') }}`;
 
@@ -120,6 +119,7 @@
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
+    <script src="{{ asset('panel/js/lib.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
 
     <script>
@@ -130,7 +130,6 @@
     @include('pages.layouts.modal_delete')
 
     @yield('scripts')
-
 
 </body>
 

@@ -7,54 +7,62 @@
 
     <div class="card">
         <div class="card-body">
-            <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 
-            <div id="toolbar">
-                <div class="form-inline" role="form">
-                    <div class="btn-group mr-2">
-                        <button type="button" data-toggle="modal" data-target="#modal-add-client" class="btn btn-dark waves-effect waves-light">
-                            <i class="ri-add-circle-line align-middle mr-2"></i> Novo
-                        </button>
-                    </div>
+            <div class="text-center" id="preloader-content">
+                <div class="spinner-border text-primary m-1 align-self-center" role="status">
+                    <span class="sr-only"></span>
                 </div>
             </div>
 
-            <table id="table" data-search="true" data-show-refresh="true"
-                data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
-                data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                data-cookie-id-table="clients" data-toolbar="#toolbar" data-buttons-class="dark" >
-                <thead>
-                    <tr>
-                        <th data-field="id" data-visible="false">#</th>
-                        <th class="mobile--hidden">Razão Social</th>
-                        <th>Apelido</th>
-                        <th data-visible="false">CNPJ</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($clients as $clientf)
+            <div class="table table-responsive d-none">
+
+                <div id="toolbar">
+                    <div class="form-inline" role="form">
+                        <div class="btn-group mr-2">
+                            <button type="button" data-toggle="modal" data-target="#modal-add-client" class="btn btn-dark waves-effect waves-light">
+                                <i class="ri-add-circle-line align-middle mr-2"></i> Novo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="table" data-search="true" data-show-refresh="true"
+                    data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
+                    data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
+                    data-cookie-id-table="clients" data-toolbar="#toolbar" data-buttons-class="dark">
+                    <thead>
                         <tr>
-                            <td>{{ $clientf->uuid }}</td>
-                            <td>{{ $clientf->company_name }}</td>
-                            <td>{{ $clientf->username }}</td>
-                            <td>{{ $clientf->cnpj }}</td>
-                            <td>
-                                <a href="{{ route('clients.show', [$clientf->uuid]) }}" data-toggle="tooltip" data-placement="top" data-title="Ativar"
-                                    class="btn btn-xs btn-info"
-                                    data-original-title="Editar Cliente">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Deletar" data-href="{{ route('clients.destroy', $clientf->uuid) }}"
-                                    class="btn btn-xs btn-danger btn-delete"
-                                    data-original-title="Deletar">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
+                            <th data-field="id" data-visible="false">#</th>
+                            <th class="mobile--hidden">Razão Social</th>
+                            <th>Apelido</th>
+                            <th data-visible="false">CNPJ</th>
+                            <th></th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($clients as $clientf)
+                            <tr>
+                                <td>{{ $clientf->uuid }}</td>
+                                <td>{{ $clientf->company_name }}</td>
+                                <td>{{ $clientf->username }}</td>
+                                <td>{{ $clientf->cnpj }}</td>
+                                <td>
+                                    <a href="{{ route('clients.show', [$clientf->uuid]) }}" data-toggle="tooltip" data-placement="top" data-title="Ativar"
+                                        class="btn btn-xs btn-info"
+                                        data-original-title="Editar Cliente">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Deletar" data-href="{{ route('clients.destroy', $clientf->uuid) }}"
+                                        class="btn btn-xs btn-danger btn-delete"
+                                        data-original-title="Deletar">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

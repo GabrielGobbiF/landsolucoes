@@ -30,9 +30,12 @@ class Menus extends Component
 
         $menus = Config::get("admin.menus.$base");
 
+        $segment = $base == 'l' ? Request::segment(2) : Request::segment(1);
+
         return view('components.menus', [
             'menus' => $menus,
-            'dataLayout' => $dataLayout
+            'dataLayout' => $dataLayout,
+            'segment' => $segment
         ]);
     }
 

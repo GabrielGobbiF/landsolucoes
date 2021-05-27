@@ -5,10 +5,18 @@ return [
 
     'menus' => [
         'l' => [
+
             [
                 'name' =>  'Clientes',
+                'atc' =>  'clients',
                 'icon' =>  'ri-user-shared-fill',
                 'route' => 'clients.index',
+            ],
+            [
+                'name' =>  'Serviços',
+                'atc' =>  'services',
+                'icon' =>  'ri-git-repository-private-fill',
+                'route' => 'services.index',
             ],
             [
                 'name' =>  'Obras',
@@ -17,9 +25,11 @@ return [
             ],
             [
                 'name' =>  'Arquivos',
-                'icon' =>  ' ri-file-list-3-line',
+                'atc' =>  'arquivos',
+                'icon' =>  'ri-file-list-3-line',
                 'route' => 'arquivos.index',
             ],
+
 
         ],
         'dev' => [

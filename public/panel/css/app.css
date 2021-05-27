@@ -421,10 +421,10 @@ div.fixed-table-scroll-outer {
 }
 
 table thead tr th:last-child {
-  text-align: center;
+  text-align: right;
 }
 table tbody tr td:last-child {
-  text-align: center;
+  text-align: right;
 }
 
 .page-list .dropdown .btn {
@@ -886,16 +886,16 @@ body[data-layout=horizontal] .footer {
 }
 
 .mm-active {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 .mm-active .active {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 .mm-active .active i {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 .mm-active > i {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 
 @media (max-width: 992px) {
@@ -1069,22 +1069,22 @@ body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul ul {
   background-color: white;
 }
 body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active i {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 body[data-sidebar=dark] .mm-active {
-  color: #d7e4ec !important;
+  color: #d9241b !important;
 }
 body[data-sidebar=dark] .mm-active > i {
-  color: #d7e4ec !important;
+  color: #d9241b !important;
 }
 body[data-sidebar=dark] .mm-active .active {
-  color: #d7e4ec !important;
+  color: #d9241b !important;
 }
 body[data-sidebar=dark] .mm-active .active i {
-  color: #d7e4ec !important;
+  color: #d9241b !important;
 }
 body[data-sidebar=dark] .menu-title {
   color: #8590a5;
@@ -1194,7 +1194,7 @@ body[data-sidebar=colored].vertical-collpsed .vertical-menu #sidebar-menu > ul >
   color: #fff;
 }
 body[data-sidebar=colored].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active {
-  color: #383c40 !important;
+  color: #d9241b !important;
 }
 
 .topnav {

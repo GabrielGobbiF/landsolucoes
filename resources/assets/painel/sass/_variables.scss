@@ -65,7 +65,7 @@ $sidebar-menu-item-color: #74788d;
 $sidebar-menu-sub-item-color: #7c8a96;
 $sidebar-menu-item-icon-color: #505d69;
 $sidebar-menu-item-hover-color: #383c40;
-$sidebar-menu-item-active-color: #383c40;
+$sidebar-menu-item-active-color: $primary;
 $sidebar-width:  240px;
 $sidebar-collapsed-width:  70px;
 $sidebar-width-sm:  160px;
@@ -76,7 +76,7 @@ $sidebar-dark-menu-item-color: #8590a5;
 $sidebar-dark-menu-sub-item-color: #8590a5;
 $sidebar-dark-menu-item-icon-color: #8590a5;
 $sidebar-dark-menu-item-hover-color: #d7e4ec;
-$sidebar-dark-menu-item-active-color: #d7e4ec;
+$sidebar-dark-menu-item-active-color: $primary;
 
 // Topbar - Deafult Light
 $header-height: 70px;
