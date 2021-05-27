@@ -13,7 +13,7 @@ $white: white;
     }
 
     .title_table--mensal {
-        text-align: center
+        text-align: center;
     }
 }
 
@@ -35,4 +35,14 @@ $white: white;
 
 .select2-selection__arrow {
     height: 34px !important;
+}
+
+table.table-striped {
+    thead tr th:last-child {
+        text-align: center;
+    }
+
+    tbody tr td:last-child {
+        text-align: center;
+    }
 }

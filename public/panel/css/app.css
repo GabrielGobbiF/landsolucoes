@@ -420,6 +420,13 @@ div.fixed-table-scroll-outer {
   height: 34px !important;
 }
 
+table.table-striped thead tr th:last-child {
+  text-align: center;
+}
+table.table-striped tbody tr td:last-child {
+  text-align: center;
+}
+
 /*--------------------------------------------------------------
 # Font Base
 --------------------------------------------------------------*/
@@ -433,7 +440,7 @@ body {
   line-height: 1.5;
   color: #001737;
   text-align: left;
-  background-color: #f9f9f900;
+  background-color: #ececec;
 }
 
 #page-topbar {
@@ -1533,6 +1540,99 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
 
 .waves-effect.waves-danger .waves-ripple {
   background-color: rgba(255, 61, 96, 0.4);
+}
+
+.card {
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  border: 1px solid #d2d6de;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.card-drop {
+  font-size: 20px;
+  line-height: 0;
+  color: inherit;
+}
+
+.card-title {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  margin: 7px 0 7px 0;
+}
+
+.card-title-desc {
+  color: #74788d;
+  margin-bottom: 24px;
+}
+
+.card-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+
+.card-body.box {
+  border-bottom: 1px solid #d2d6de;
+  border-left: 1px solid #d2d6de;
+  border-right: 1px solid #d2d6de;
+  border-radius: 5px;
+}
+
+.box.box-solid.box-default {
+  border: 1px solid #d2d6de;
+}
+
+.box.box-solid {
+  border-top: 0;
+}
+
+.box.box-default {
+  border-top-color: #d2d6de;
+}
+
+.box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  border-top: 3px solid #d2d6de;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.box-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 12px;
+}
+
+.box-header.with-border {
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.box-header {
+  color: #444;
+  display: block;
+  padding: 10px;
+  position: relative;
+}
+
+.box-header > .fa,
+.box-header > .glyphicon,
+.box-header > .ion,
+.box-header .box-title {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0;
+  line-height: 1;
 }
 
 .avatar-xs {
@@ -2975,6 +3075,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  background: #FFF;
 }
 .arquivos .dropdown-file {
   position: absolute;

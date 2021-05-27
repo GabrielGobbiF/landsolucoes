@@ -213,7 +213,9 @@
         left: 0;
         right: 0;
         bottom: 0;
+        background: #FFF;
     }
+
     @media (min-width: 1200px) {
         .filemgr-content-body > div:first-child {
             //max-width: 1140px;

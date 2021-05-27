@@ -118,6 +118,8 @@ return [
     'url'                  => 'O campo :attribute tem um formato inválido.',
     'uuid' => 'O campo :attribute deve ser um UUID válido.',
 
+    'cnpj_unique' => 'Este CNPJ / CPF já está sendo usado',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

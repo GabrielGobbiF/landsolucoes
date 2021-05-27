@@ -35,4 +35,9 @@ class Client extends Authenticatable
         'remember_token',
     ];
 
+    public function departments()
+    {
+        return $this->hasMany(Department::class, 'client_id');
+    }
+
 }

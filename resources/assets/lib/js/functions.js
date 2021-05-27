@@ -181,9 +181,9 @@ jQuery(function () {
 
 
     $('.btn-delete').on('click', function () {
-        var href  = $(this).attr('data-href');
+        var href = $(this).attr('data-href');
         var title = $(this).attr('data-title');
-        var text  = $(this).attr('data-original-title');
+        var text = $(this).attr('data-original-title');
         if (text != null && title != null) {
             $('.modal-title').html(title);
             $('#modal-confirm').html(text);
@@ -226,6 +226,30 @@ jQuery(function () {
         $('.table-mensal').addClass('d-none');
         $('.table-epi').addClass('d-none');
     })
+
+    $(".cpf-cnpj").on('click', function () {
+        var tamanho = $(".cpf-cnpj").val().length;
+        if (tamanho <= 13) {
+            $('.cpf-cnpj').mask('000.000.000-00', {
+                reverse: true
+            });
+        } else {
+            $('.cpf-cnpj').mask('00.000.000/0000-00', {
+                reverse: true
+            });
+        }
+    });
+
+    var tamanho = $(".cpf-cnpj").val().length;
+    if (tamanho <= 13) {
+        $('.cpf-cnpj').mask('000.000.000-00', {
+            reverse: true
+        });
+    } else {
+        $('.cpf-cnpj').mask('00.000.000/0000-00', {
+            reverse: true
+        });
+    }
 });
 
 function resetDiv() {

@@ -1,3 +1,4 @@
+
 @if ($dataLayout == 'vertical')
     <div class="vertical-menu">
         <div data-simplebar class="h-100">
@@ -25,6 +26,12 @@
                         @if (isset($menus['back']) && $menus['back'])
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url()->previous() }}">
+                                    <i class="ri-arrow-left-line mr-2"></i> Voltar
+                                </a>
+                            </li>
+                        @elseif (Request::segment(3) != '')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route(Request::segment(2) . '.index') }}">
                                     <i class="ri-arrow-left-line mr-2"></i> Voltar
                                 </a>
                             </li>

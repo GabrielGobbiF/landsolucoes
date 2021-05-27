@@ -195,6 +195,8 @@ jQuery(function () {
         $('.table-mensal').addClass('d-none');
         $('.table-epi').addClass('d-none');
     })
+
+
 });
 
 function resetDiv() {

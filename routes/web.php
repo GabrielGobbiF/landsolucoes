@@ -8,19 +8,19 @@ Auth::routes();
 Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
 Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
-Route::group(['middleware' => ['Client']], function () {
-    //Login Routes...
-    Route::get('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
-    Route::post('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'login'])->name('clients.login');
-    Route::post('/clients/logout', [App\Http\Controllers\Auth\Clients\LoginController::class, 'logout']);
 
+//Login Routes Clients...
+Route::get('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
+Route::post('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'login'])->name('clients.login');
+Route::post('/clients/logout', [App\Http\Controllers\Auth\Clients\LoginController::class, 'logout']);
+
+Route::group(['middleware' => ['CheckClient']], function () {
     Route::prefix('clients')->group(function () {
         Route::get('/obras', function () {
             dd('obras clientes');
         });
     });
 });
-
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
@@ -117,6 +117,16 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Clients
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('clients', App\Http\Controllers\Painel\Obras\ClientController::class);
+            Route::post('clients/{client_uuid}/department/store', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'store'])->name('departments.store');
+            Route::post('clients/{client_uuid}/department/{id}/update', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'update'])->name('departments.update');
+            Route::delete('clients/{client_uuid}/department/{id}/destroy', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'destroy'])->name('departments.destroy');
         });
     });
 

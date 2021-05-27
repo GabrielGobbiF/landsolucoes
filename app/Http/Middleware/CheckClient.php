@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Client
+class CheckClient
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class Client
     public function handle(Request $request, Closure $next, $guard = 'client')
     {
         if (!Auth::guard($guard)->check()) {
-            return redirect('/client/login');
+            return redirect('/clients/login');
         }
 
         return $next($request);

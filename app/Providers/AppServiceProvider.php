@@ -5,13 +5,15 @@ namespace App\Providers;
 use App\Models\{
     Documento,
     Employee,
-    Pasta
+    Pasta,
+    Client
 };
 use App\Notifications\DataBaseChannel;
 use App\Observers\{
     EmployeeObserver,
     PastaObserver,
-    DocumentoObserver
+    DocumentoObserver,
+    ClientObserver,
 };
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Employee::observe(EmployeeObserver::class);
         Pasta::observe(PastaObserver::class);
         Documento::observe(DocumentoObserver::class);
+        Client::observe(ClientObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

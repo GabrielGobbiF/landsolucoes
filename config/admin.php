@@ -6,15 +6,21 @@ return [
     'menus' => [
         'l' => [
             [
+                'name' =>  'Clientes',
+                'icon' =>  'ri-user-shared-fill',
+                'route' => 'clients.index',
+            ],
+            [
                 'name' =>  'Obras',
                 'icon' =>  'ri-building-fill',
                 'route' => 'obras',
             ],
             [
                 'name' =>  'Arquivos',
-                'icon' =>  'ri-dashboard-line',
+                'icon' =>  ' ri-file-list-3-line',
                 'route' => 'arquivos.index',
             ],
+
         ],
         'dev' => [
             [

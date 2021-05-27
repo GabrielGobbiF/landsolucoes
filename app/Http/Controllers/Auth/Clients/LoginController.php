@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/clients';
+    protected $redirectTo = '/clients/obras';
 
     protected $guard = 'client';
 
@@ -51,7 +51,6 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-
         if (Auth::guard($this->guard)->check()) {
             return redirect('/clients/obras');
         }
@@ -70,14 +69,14 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard($this->guard)->attempt($request->only($login_type, 'password'))) {
-
             return redirect()->intended($this->redirectPath());
+        }
+
+        if (Auth::guard($this->guard)->check()) {
+            return redirect('/clients/obras');
         }
 
         return redirect('/clients/login')
             ->with('error', 'Login ou senha incorretos.');
-
-        exit();
-        abort(404);
     }
 }
