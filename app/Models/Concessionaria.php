@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Concessionaria extends Model
 {
     use HasFactory;
 
@@ -19,8 +19,13 @@ class Service extends Model
         'name',
     ];
 
-    public function concessionaria()
+    public function services()
     {
-        return $this->belongsToMany(Concessionaria::class);
+        return $this->belongsToMany(Service::class);
+    }
+
+    public function departments()
+    {
+        return $this->hasMany(Department::class, 'concessionaria_id');
     }
 }

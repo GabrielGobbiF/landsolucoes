@@ -13,7 +13,10 @@
                 </form>
             </div>
             <div class='box-body box-solid'>
-                @include("pages.painel._partials.forms.form_department")
+                @include("pages.painel._partials.forms.form_department", [
+                $type = 'client_id',
+                $idType = $client->uuid
+                ])
             </div>
         </div>
     </div>

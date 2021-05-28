@@ -16,6 +16,7 @@ class Department extends Model
      */
     protected $fillable = [
         'client_id',
+        'concessionaria_id',
         'dep_responsavel',
         'dep_telefone_celular',
         'dep_telefone_fixo',

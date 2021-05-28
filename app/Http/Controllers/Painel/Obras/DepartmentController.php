@@ -5,18 +5,22 @@ namespace App\Http\Controllers\Painel\Obras;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateDepartment;
 use App\Models\Client;
+use App\Models\Concessionaria;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    protected $repository;
+    protected $repository, $client, $concessionaria;
 
-    public function __construct(Department $departments, Client $client)
+    public function __construct(Department $departments, Client $client, Concessionaria $concessionaria)
 
     {
         $this->repository = $departments;
+
         $this->client = $client;
+
+        $this->concessionaria = $concessionaria;
 
         //$this->middleware(['can:view-testes']);
     }
@@ -36,21 +40,36 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $client_uuid)
+    public function store(Request $request)
     {
         $columns = $request->input('dep');
 
-        if (!$client = $this->client->where('uuid', $client_uuid)->first()) {
+        $type = $request->input('type');
 
-            return redirect()
-                ->route('clients.index')
-                ->with('message', 'Registro (Cliente) não encontrado!');
+        $typeValue = $request->input('typeValue');
+
+        $redirect = $type == 'concessionaria_id' ? 'concessionaria' : 'client';
+
+        if ($redirect == 'concessionaria') {
+            if (!$concessionaria = $this->concessionaria->where('id', $typeValue)->first()) {
+                return redirect()
+                    ->route('concessionarias.index')
+                    ->with('message', 'Registro (Concessionaria) não encontrado!');
+            }
+            $typeValue = $concessionaria->id;
+        } else {
+            if (!$client = $this->client->where('uuid', $typeValue)->first()) {
+                return redirect()
+                    ->route('clients.index')
+                    ->with('message', 'Registro (Cliente) não encontrado!');
+            }
+            $typeValue = $client->id;
         }
 
         for ($q = 0; $q < count($columns['dep_responsavel']); $q++) {
             if ($columns['dep_responsavel'][$q] != '') {
                 $this->repository->create([
-                    "client_id" => $client->id,
+                    $type => $typeValue,
                     "dep_responsavel" => $columns['dep_responsavel'][$q],
                     "dep_telefone_celular" => $columns['dep_telefone_celular'][$q],
                     "dep_telefone_fixo" => $columns['dep_telefone_fixo'][$q],
@@ -89,9 +108,15 @@ class DepartmentController extends Controller
      * @param  \App\Models\Test  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id, $client_uuid = false)
+    public function update(Request $request,  $id)
     {
         $columns = $request->all();
+
+        $type = $request->input('type');
+
+        $typeValue = $request->input('typeValue');
+
+        $redirect = $type == 'concessionaria_id' ? 'concessionaria' : 'client';
 
         if (!$department = $this->repository->where('id', $id)->first()) {
             return redirect()
@@ -99,16 +124,12 @@ class DepartmentController extends Controller
                 ->with('error', 'Registro não encontrado!');
         }
 
-        $department->update($columns);
-
-        if ($client_uuid) {
-            return redirect()
-                ->route('clients.show', $client_uuid)
-                ->with('message', 'Atualizado com sucesso');
+        if ($columns['dep_responsavel'] != '') {
+            $department->update($columns);
         }
 
         return redirect()
-            ->back()
+            ->route($redirect . 's.show', $typeValue)
             ->with('message', 'Atualizado com sucesso');
     }
 
@@ -118,24 +139,18 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $client_uuid = false)
+    public function destroy($id)
     {
         if (!$department = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->back()
+                ->route('testes.index')
                 ->with('error', 'Registro não encontrado!');
         }
 
         $department->delete();
 
-        if ($client_uuid) {
-            return redirect()
-                ->route('clients.show', $client_uuid)
-                ->with('message', 'Atualizado com sucesso');
-        }
-
         return redirect()
-            ->route('clients.index')
-            ->with('message', 'Excluir com sucesso!');
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
     }
 }

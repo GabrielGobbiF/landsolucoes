@@ -426,6 +426,9 @@ table thead tr th:last-child {
 table tbody tr td:last-child {
   text-align: right;
 }
+table th {
+  color: #000;
+}
 
 .page-list .dropdown .btn {
   padding: 0.15rem 0.3rem;

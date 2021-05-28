@@ -131,9 +131,18 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::resource('clients', App\Http\Controllers\Painel\Obras\ClientController::class);
-            Route::post('clients/{client_uuid}/department/store', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'store'])->name('departments.store');
-            Route::post('clients/{client_uuid}/department/{id}/update', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'update'])->name('departments.update');
-            Route::delete('clients/{client_uuid}/department/{id}/destroy', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'destroy'])->name('departments.destroy');
+            Route::post('department/store', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'store'])->name('departments.store');
+            Route::post('department/{id}/update', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'update'])->name('departments.update');
+            Route::delete('department/{id}/destroy', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'destroy'])->name('departments.destroy');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Concessionaria
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('concessionarias', App\Http\Controllers\Painel\Obras\ConcessionariaController::class);
+            Route::post('concessionarias/{concessionaria_id}/service/store', [App\Http\Controllers\Painel\Obras\ConcessionariaController::class, 'concessionaria_service_store'])->name('concessionaria.service.store');
+            Route::delete('concessionarias/{consessionaria_id}/service/{service_id}/destroy', [App\Http\Controllers\Painel\Obras\ConcessionariaController::class, 'concessionaria_service_destroy'])->name('concessionaria.service.destroy');
         });
     });
 

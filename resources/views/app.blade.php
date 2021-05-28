@@ -18,6 +18,8 @@
     <link href="{{ asset('panel/icons/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
 
+    <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
+
     <script>
         var BASE_URL = `{{ env('APP_URL') }}`;
 
@@ -116,7 +118,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
     <script src="{{ asset('panel/js/lib.js') }}"></script>

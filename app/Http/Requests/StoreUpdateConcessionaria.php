@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateService extends FormRequest
+class StoreUpdateConcessionaria extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,13 @@ class StoreUpdateService extends FormRequest
         $slug = $this->segment(3);
 
         $rules = [
-            'name' => "required|min:3|max:255|unique:services,name,{$slug},slug",
+            'name' => "required|min:3|max:255|unique:concessionarias,name,{$slug},slug",
+            'service' => "required",
         ];
+
+        if ($this->method() == 'PUT') {
+            $rules['service'] = ['nullable'];
+        }
 
         return $rules;
     }

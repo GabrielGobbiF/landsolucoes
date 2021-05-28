@@ -6,7 +6,9 @@ use App\Models\{
     Documento,
     Employee,
     Pasta,
-    Client
+    Client,
+    Concessionaria,
+    Service,
 };
 use App\Notifications\DataBaseChannel;
 use App\Observers\{
@@ -14,6 +16,8 @@ use App\Observers\{
     PastaObserver,
     DocumentoObserver,
     ClientObserver,
+    ConcessionariaObserver,
+    ServiceObserver,
 };
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +60,8 @@ class AppServiceProvider extends ServiceProvider
         Pasta::observe(PastaObserver::class);
         Documento::observe(DocumentoObserver::class);
         Client::observe(ClientObserver::class);
+        Concessionaria::observe(ConcessionariaObserver::class);
+        Service::observe(ServiceObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

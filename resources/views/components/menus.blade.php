@@ -1,4 +1,3 @@
-
 @if ($dataLayout == 'vertical')
     <div class="vertical-menu">
         <div data-simplebar class="h-100">
@@ -38,8 +37,8 @@
                         @endif
                         @foreach ($menus as $menu)
                             @if ($menu != 'back')
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route($menu['route']) }}">
+                                <li class="nav-item {{ isset($menu['atc']) && $segment == $menu['atc'] ? 'active' : '' }}">
+                                    <a class="nav-link {{ isset($menu['atc']) && $segment == $menu['atc'] ? 'active' : '' }}" href="{{ route($menu['route']) }}">
                                         <i class="{{ $menu['icon'] }} mr-2"></i> {{ __($menu['name']) }}
                                     </a>
                                 </li>

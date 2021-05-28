@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12 pd-0">
             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
         </div>
     </div>

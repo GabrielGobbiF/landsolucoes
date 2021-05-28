@@ -3,16 +3,18 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
             <h3 class="box-title">Departamentos</h3>
             <button type="button" class="btn btn-outline-primary waves-effect waves-light storeDepartment">
-                <i class="ri-add-circle-line align-middle mr-2"></i> Novo
+                <i class="ri-add-circle-line align-middle mr-2"></i> Novo Departamento
             </button>
         </div>
     </div>
     <div class="box-body">
         @if (count($departments) > 0)
             @foreach ($departments as $department)
-                <form id='form-update-department-{{ $department->id }}' role='form' class='needs-validation' action='{{ route('departments.update', [$department->id, $client->uuid]) }}'
+                <form id='form-update-department-{{ $department->id }}' role='form' class='needs-validation' action='{{ route('departments.update', [$department->id]) }}'
                     method='POST'>
                     @csrf
+                    <input type="hidden" name="type" value="{{ $type }}">
+                    <input type="hidden" name="typeValue" value="{{ $idType }}">
                     <div class="row mg-0">
                         <div class="col-2">
                             <div class="form-group">
@@ -52,7 +54,7 @@
                             <div style="margin-top: 11px;right: 15%;position: relative;" class="d-flex">
                                 <button type="submit" data-toggle="tooltip" data-placement="top" data-title="Salvar" class="btn btn-info float-right "><i class="fas fa-save"></i></button>
                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excuir"
-                                    data-href="{{ route('departments.destroy', [$department->id, $client->uuid]) }}"
+                                    data-href="{{ route('departments.destroy', [$department->id]) }}"
                                     class="btn btn-xs btn-danger btn-delete ml-2"
                                     data-original-title="Excluir Departamento">
                                     <i class="fa fa-trash"></i>
@@ -64,8 +66,10 @@
             @endforeach
         @endif
 
-        <form id="form-store-department" role="form" class="needs-validation" action="{{ route('departments.store', [$client->uuid]) }}" method="POST">
+        <form id="form-store-department" role="form" class="needs-validation" action="{{ route('departments.store') }}" method="POST">
             @csrf
+            <input type="hidden" name="type" value="{{ $type }}">
+            <input type="hidden" name="typeValue" value="{{ $idType }}">
             <div class="div-store-department"></div>
             <div class="row">
                 <div class="col-md-12">
