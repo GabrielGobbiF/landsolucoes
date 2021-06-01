@@ -35,7 +35,7 @@
                     <div class="navbar-brand-box">
                         <a href="{{ url('/') }}" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="{{ asset('panel/images/logo-sm.png') }}" alt="" height="22">
+                                <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
                                 <img src="{{ asset('panel/images/logo.png') }}" alt="" height="20">
@@ -43,19 +43,24 @@
                         </a>
                         <a href="{{ url('/') }}" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="{{ asset('panel/images/logo-sm.png') }}" alt="" height="22">
+                                <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
                                 <img src="{{ asset('panel/images/logo.png') }}" alt="" height="30">
                             </span>
                         </a>
                     </div>
-                    <button type="button" class="btn btn-sm px-3 font-size-24 header-item  waves-effect" id="vertical-menu-btn">
+                    <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item collapsed" data-toggle="collapse" data-target="#topnav-menu-content" aria-expanded="false">
                         <i class="ri-menu-2-line align-middle"></i>
                     </button>
+                    @if (Request::segment(3) != '')
+                        <a href="{{ route(Request::segment(2) . '.index') }}" class="btn btn-sm px-3 font-size-24 d-lg-none header-item d-flex align-items-center">
+                            <i class="ri-arrow-left-line align-middle align-self-center"></i>
+                        </a>
+                    @endif
                 </div>
                 <div>
-                    <h4 class="text-white">@yield('title', config('app.name', 'Cena'))</h4>
+                    <h4 class="text-white mobile--hidden">@yield('title', config('app.name', 'Cena'))</h4>
                 </div>
                 <div class="d-flex">
                     <div class="dropdown d-inline-block d-lg-none ml-2">
@@ -108,12 +113,18 @@
         <!-- ============================================================== -->
         <div class="main-content">
             <div class="page-content">
-                <div class="container">
-                    <div class="page-title-box d-none">
-                        @section('sidebar') @show
+                @if (View::hasSection('content'))
+                    <div class="container">
+                        <div class="page-title-box d-none">
+                            @section('sidebar') @show
+                        </div>
+                        @yield('content')
                     </div>
-                    @yield('content')
-                </div>
+                @else
+                    <div class="container-fluid">
+                        @yield('content-fluid')
+                    </div>
+                @endif
             </div>
         </div>
     </div>

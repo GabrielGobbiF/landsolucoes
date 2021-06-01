@@ -23,10 +23,10 @@ class StoreUpdateConcessionaria extends FormRequest
      */
     public function rules()
     {
-        $slug = $this->segment(3);
+        $id = $this->segment(3);
 
         $rules = [
-            'name' => "required|min:3|max:255|unique:concessionarias,name,{$slug},slug",
+            'name' => "required|min:3|max:255|unique:concessionarias,name,{$id},id",
             'service' => "required",
         ];
 

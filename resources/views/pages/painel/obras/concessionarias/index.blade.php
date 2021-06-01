@@ -1,12 +1,11 @@
 @extends("app")
 
-@section('title', 'Concessionarias')
+@section('title', 'Concessionárias')
 
 @section('content')
 
     <div class="card">
         <div class="card-body">
-
             <div class="text-center" id="preloader-content">
                 <div class="spinner-border text-primary m-1 align-self-center" role="status">
                     <span class="sr-only"></span>
@@ -14,7 +13,6 @@
             </div>
 
             <div class="table table-responsive d-none">
-
                 <div id="toolbar">
                     <div class="form-inline" role="form">
                         <div class="btn-group mr-2">
@@ -24,36 +22,21 @@
                         </div>
                     </div>
                 </div>
-
                 <table data-toggle="table" id="table" data-search="true" data-show-refresh="true"
                     data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
                     data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                    data-cookie-id-table="concessionarias" data-toolbar="#toolbar" data-buttons-class="dark">
+                    data-cookie-id-table="concessionarias" data-toolbar="#toolbar" data-buttons-class="dark" data-unique-id="id">
                     <thead>
                         <tr>
                             <th data-field="id" data-visible="false">#</th>
-                            <th class="mobile--hidden">Razão Social</th>
-                            <th></th>
+                            <th>Razão Social</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($concessionarias as $rowConcessionaria)
-                            <tr>
+                            <tr data-href="{{ route('concessionarias.show', [$rowConcessionaria->slug]) }}">
                                 <td>{{ $rowConcessionaria->id }}</td>
                                 <td>{{ $rowConcessionaria->name }}</td>
-                                <td>
-                                    <a href="{{ route('concessionarias.show', [$rowConcessionaria->slug]) }}" data-toggle="tooltip" data-placement="top" data-title="Ativar"
-                                        class="btn btn-xs btn-info"
-                                        data-original-title="Editar Concessionaria">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Deletar"
-                                        data-href="{{ route('concessionarias.destroy', $rowConcessionaria->id) }}"
-                                        class="btn btn-xs btn-danger"
-                                        data-original-title="Deletar" onclick="btn_delete(this)">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -79,6 +62,7 @@
             </div>
         </div>
     </div>
+
 
 @section('scripts')
     @if ($errors->isNotEmpty())

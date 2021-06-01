@@ -69,7 +69,10 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        if (!$service = $this->repository->where('id', $id)->first()) {
+        if (!$service = $this->repository->where(function ($query) use ($id) {
+            $query->where('id', $id);
+            $query->orWhere('slug', $id);
+        })->first()) {
             return redirect()
                 ->route('services.index')
                 ->with('error', 'Registro não encontrado!');
@@ -100,8 +103,8 @@ class ServiceController extends Controller
         $service->update($columns);
 
         return redirect()
-            ->back()
-            ->with('message', 'Atualizado com sucesso');
+            ->route('services.show', $service->id)
+            ->with('message', 'Atualizado com sucesso!');
     }
 
     /**

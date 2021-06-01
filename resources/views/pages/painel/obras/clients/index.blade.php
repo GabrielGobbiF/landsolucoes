@@ -36,28 +36,15 @@
                             <th class="mobile--hidden">Razão Social</th>
                             <th>Apelido</th>
                             <th data-visible="false">CNPJ</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($clients as $clientf)
-                            <tr>
+                            <tr data-href="{{ route('clients.show', [$clientf->uuid]) }}">
                                 <td>{{ $clientf->uuid }}</td>
                                 <td>{{ $clientf->company_name }}</td>
                                 <td>{{ $clientf->username }}</td>
                                 <td>{{ $clientf->cnpj }}</td>
-                                <td>
-                                    <a href="{{ route('clients.show', [$clientf->uuid]) }}" data-toggle="tooltip" data-placement="top" data-title="Ativar"
-                                        class="btn btn-xs btn-info"
-                                        data-original-title="Editar Cliente">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Deletar" data-href="{{ route('clients.destroy', $clientf->uuid) }}"
-                                        class="btn btn-xs btn-danger btn-delete"
-                                        data-original-title="Deletar">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>

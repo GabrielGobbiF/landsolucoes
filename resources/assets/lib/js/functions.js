@@ -6,7 +6,7 @@ jQuery(function () {
     var $table = $('#table')
     $table.bootstrapTable()
     $table.bootstrapTable('refreshOptions', {
-        classes: 'table table-hover'
+        classes: 'table table-hover table-striped'
     })
 
     $('.btn-submit').on('click', function () {
@@ -256,10 +256,26 @@ jQuery(function () {
         });
     }
 
-    $('#preloader-content').fadeOut(100, function(){
+    $('#preloader-content').fadeOut(100, function () {
         $(this).remove();
         $('.table').removeClass('d-none');
-     });
+    });
+
+    const feather = require('feather-icons')
+    feather.replace()
+
+    $('.nav-link').on('click', function () {
+        var tab_link = $(this).attr('id');
+        var tab = $(this).attr('data-tab');
+        localStorage.setItem('nav-tabs_' + tab, tab_link)
+    });
+
+    $('tr').on('click', function () {
+        var href = $(this).attr('data-href');
+        if(href){
+            window.location.href = href;
+        }
+    })
 
 });
 
@@ -268,6 +284,7 @@ function resetDiv() {
     $('.table-mensal').addClass('d-none');
     $('.table-epi').addClass('d-none');
 }
+
 
 
 

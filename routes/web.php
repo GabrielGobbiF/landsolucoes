@@ -141,8 +141,28 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::resource('concessionarias', App\Http\Controllers\Painel\Obras\ConcessionariaController::class);
-            Route::post('concessionarias/{concessionaria_id}/service/store', [App\Http\Controllers\Painel\Obras\ConcessionariaController::class, 'concessionaria_service_store'])->name('concessionaria.service.store');
-            Route::delete('concessionarias/{consessionaria_id}/service/{service_id}/destroy', [App\Http\Controllers\Painel\Obras\ConcessionariaController::class, 'concessionaria_service_destroy'])->name('concessionaria.service.destroy');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Concessionaria X Serviço
+            |--------------------------------------------------------------------------
+            */
+            Route::get('concessionarias/{concessionaria_id}/service/{service_id}', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'index'])->name('concessionaria.service');
+            Route::post('concessionarias/{concessionaria_id}/service/store', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_store'])->name('concessionaria.service.store');
+            Route::delete('concessionarias/{consessionaria_id}/service/{service_id}/destroy', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_destroy'])->name('concessionaria.service.destroy');
+
+            Route::post('etapas/tipo/store', [App\Http\Controllers\Api\EtapasApiController::class, 'store_tipo'])->name('etapas.tipo.store');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Etapas
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('etapas', App\Http\Controllers\Painel\Obras\EtapasController::class);
+
+
+
+            Route::get('api/etapas', [App\Http\Controllers\Api\EtapasApiController::class, 'all'])->name('etapas.all');
         });
     });
 

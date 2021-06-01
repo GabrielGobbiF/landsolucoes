@@ -19,7 +19,7 @@ return [
                 'route' => 'services.index',
             ],
             [
-                'name' =>  'Concessionarias',
+                'name' =>  'Concessionárias',
                 'atc' =>  'concessionarias',
                 'icon' =>  'ri-community-line',
                 'route' => 'concessionarias.index',

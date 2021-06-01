@@ -7,6 +7,10 @@ $primary: #d9241b;
 
 $white: white;
 
+.mobile--only {
+    display: none;
+}
+
 @media only screen and (max-width: 900px) {
     .mobile--hidden {
         display: none;
@@ -14,6 +18,10 @@ $white: white;
 
     .title_table--mensal {
         text-align: center;
+    }
+
+    .mobile--only {
+        display: block;
     }
 }
 
@@ -38,11 +46,7 @@ $white: white;
 }
 
 table {
-    thead tr th:last-child {
-        text-align: right;
-    }
-
-    tbody tr td:last-child {
+    .buttons{
         text-align: right;
     }
 

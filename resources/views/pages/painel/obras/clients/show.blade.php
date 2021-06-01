@@ -12,11 +12,19 @@
                     @include("pages.painel._partials.forms.form_client")
                 </form>
             </div>
+
             <div class='box-body box-solid'>
                 @include("pages.painel._partials.forms.form_department", [
                 $type = 'client_id',
                 $idType = $client->uuid
                 ])
+            </div>
+
+            <div class="box-body box-solid">
+                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excluir Cliente" data-href="{{ route('clients.destroy', $client->uuid) }}"
+                    class="btn btn-xs btn-danger btn-delete float-left"
+                    data-original-title="Excluir Cliente"><i class="fa fa-trash"></i> Excluir Cliente
+                </a>
             </div>
         </div>
     </div>

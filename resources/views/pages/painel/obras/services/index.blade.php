@@ -32,27 +32,14 @@
                     <thead>
                         <tr>
                             <th data-field="id" data-visible="false">#</th>
-                            <th class="mobile--hidden">Razão Social</th>
-                            <th></th>
+                            <th>Razão Social</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($services as $rowService)
-                            <tr>
+                            <tr data-href="{{ route('services.show', [$rowService->slug]) }}">
                                 <td>{{ $rowService->id }}</td>
                                 <td>{{ $rowService->name }}</td>
-                                <td>
-                                    <a href="{{ route('services.show', [$rowService->id]) }}" data-toggle="tooltip" data-placement="top" data-title="Ativar"
-                                        class="btn btn-xs btn-info"
-                                        data-original-title="Editar Serviço">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Deletar" data-href="{{ route('services.destroy', $rowService->id) }}"
-                                        class="btn btn-xs btn-danger"
-                                        data-original-title="Deletar" onclick="btn_delete(this)">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>

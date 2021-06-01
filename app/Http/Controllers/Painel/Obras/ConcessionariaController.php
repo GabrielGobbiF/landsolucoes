@@ -1,25 +1,20 @@
 <?php
 
-
 namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateService;
 use App\Http\Requests\StoreUpdateConcessionaria;
 use App\Models\Concessionaria;
 use App\Models\Service;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ConcessionariaController extends Controller
 {
     protected $repository;
 
-    public function __construct(Concessionaria $concessionarias, Service $services)
+    public function __construct(Concessionaria $concessionarias)
     {
         $this->repository = $concessionarias;
-        $this->services = $services;
-
-        //$this->middleware(['can:view-concessionarias']);
     }
 
     /**
@@ -31,22 +26,12 @@ class ConcessionariaController extends Controller
     {
         $concessionarias = $this->repository->get();
 
-        $services = $this->services->get();
+        $services = Service::get();
 
         return view('pages.painel.obras.concessionarias.index', [
             'concessionarias' => $concessionarias,
             'services' => $services
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pages.painel.obras.concessionarias.create');
     }
 
     /**
@@ -89,7 +74,11 @@ class ConcessionariaController extends Controller
 
         $services = $concessionaria->services ?? [];
 
-        $servicesNotConces = Service::doesnthave('concessionaria')->get();
+        $id_concessionaria = $concessionaria->id;
+
+        $servicesNotConces = Service::whereDoesntHave('concessionaria', function (Builder $query) use ($id_concessionaria){
+            $query->where('concessionaria_id', $id_concessionaria);
+        })->get();
 
         return view('pages.painel.obras.concessionarias.show', [
             'concessionaria' => $concessionaria,
@@ -142,56 +131,5 @@ class ConcessionariaController extends Controller
         return redirect()
             ->route('concessionarias.index')
             ->with('message', 'Deletado com sucesso!');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function concessionaria_service_store(Request $request, $id)
-    {
-        $id_service = $request->input('service') ?? false;
-
-        if (!$concessionaria = $this->repository->where('id', $id)->first()) {
-            return redirect()
-                ->route('concessionarias.index')
-                ->with('error', 'Registro não encontrado!');
-        }
-
-        if (!$id_service) {
-            return redirect()
-                ->route('concessionarias.show', $concessionaria->slug)
-                ->with('error', 'Nenhum serviço selecionado');
-        }
-
-        $concessionaria->services()->attach($id_service);
-
-        return redirect()
-            ->route('concessionarias.show', $concessionaria->slug)
-            ->with('message', 'Serviço Adicionado com sucesso');
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Teste  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function concessionaria_service_destroy($id, $service_id)
-    {
-        if (!$concessionaria = $this->repository->where('id', $id)->first()) {
-            return redirect()
-                ->route('concessionarias.index')
-                ->with('error', 'Registro não encontrado!');
-        }
-
-        $concessionaria->services()->detach($service_id);
-
-        return redirect()
-            ->route('concessionarias.show', $concessionaria->slug)
-            ->with('message', 'Serviço Removido com sucesso');
     }
 }

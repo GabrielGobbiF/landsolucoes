@@ -14,10 +14,9 @@
             </div>
 
             @if (isset($services))
-                <div class="col-md-4">
-                    <label for="service">Serviço</label>
-                    <select name="service" data-placeholder="Selecione o serviço" class="form-control select2 @error('service') is-invalid @enderror">
-                        <option value="" selected></option>
+                <div class="col-md-12">
+                    <label for="service">Serviços</label>
+                    <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2 @error('service') is-invalid @enderror" multiple>
                         @foreach ($services as $service)
                             <option value="{{ $service->id }}">{{ $service->name }}</option>
                         @endforeach
@@ -25,7 +24,14 @@
                 </div>
             @endif
 
-            <div class="col-md-12 pd-0">
+            <div class="col-md-12 mt-4">
+                @if (isset($concessionaria))
+                    <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Excluir Concessionaria"
+                        data-href="{{ route('concessionarias.destroy', $concessionaria->id) }}"
+                        class="btn btn-xs btn-danger btn-delete float-left"
+                        data-original-title="Excluir Concessionaria"><i class="fa fa-trash"></i> Excluir Concessionaria
+                    </a>
+                @endif
                 <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
             </div>
         </div>
