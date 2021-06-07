@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="box">
-            <div class="box-body box-solid pd-25">
+            <div class="box-body  pd-25">
                 <div class="row">
                     <div class="col-12 col-md-2">
                         <div class="nav flex-column nav-pills" data-tab="concessionaria" id="v-tab" role="tablist" aria-orientation="vertical">
@@ -19,7 +19,7 @@
                     <div class="col-12 col-md-10">
                         <div class="tab-content text-muted" id="v-tabContent">
                             <div class="tab-pane fade show active" id="v-dados" role="tabpanel" aria-labelledby="v-dados-tab">
-                                <div class="box-body box-solid pd-t-0">
+                                <div class="box-body  pd-t-0">
                                     <form role="form" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('concessionarias.update', $concessionaria->id) }}"
                                         method="POST">
                                         @csrf
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-department" role="tabpanel" aria-labelledby="v-department-tab">
-                                <div class="box-body box-solid">
+                                <div class="box-body ">
                                     @include("pages.painel._partials.forms.form_department", [
                                     $type = "concessionaria_id",
                                     $idType = $concessionaria->id
@@ -39,8 +39,8 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-services" role="tabpanel" aria-labelledby="v-services-tab">
-                                <div class="box-body box-solid">
-                                    <div class="box box-default box-solid">
+                                <div class="box-body ">
+                                    <div class="box box-default ">
                                         <div class="box-header with-border">
                                             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                                                 <h3 class="box-title">Serviços</h3>

@@ -30,7 +30,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/clients/obras';
 
-    protected $guard = 'client';
+    protected $guard = 'clients';
 
     protected $username = 'username';
 

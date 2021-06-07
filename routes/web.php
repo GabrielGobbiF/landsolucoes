@@ -10,6 +10,7 @@ Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordC
 
 
 //Login Routes Clients...
+Route::get('/client/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
 Route::get('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
 Route::post('/clients/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'login'])->name('clients.login');
 Route::post('/clients/logout', [App\Http\Controllers\Auth\Clients\LoginController::class, 'logout']);
@@ -150,8 +151,12 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('concessionarias/{concessionaria_id}/service/{service_id}', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'index'])->name('concessionaria.service');
             Route::post('concessionarias/{concessionaria_id}/service/store', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_store'])->name('concessionaria.service.store');
             Route::delete('concessionarias/{consessionaria_id}/service/{service_id}/destroy', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_destroy'])->name('concessionaria.service.destroy');
+            Route::post('concessionarias/{concessionaria_id}/service/{service_id}/etapas/store', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_etapa_store'])->name('concessionaria.service.etapa.store');
+            Route::post('concessionarias/{concessionaria_id}/service/{service_id}/etapas/destroy', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_etapa_destroy'])->name('concessionaria.service.etapa.destroy');
+            Route::post('concessionarias/{concessionaria_id}/service/{service_id}/etapas/reorder', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_etapa_reorder'])->name('concessionaria.service.etapa.reorder');
 
             Route::post('etapas/tipo/store', [App\Http\Controllers\Api\EtapasApiController::class, 'store_tipo'])->name('etapas.tipo.store');
+
 
             /*
             |--------------------------------------------------------------------------
@@ -163,6 +168,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
 
             Route::get('api/etapas', [App\Http\Controllers\Api\EtapasApiController::class, 'all'])->name('etapas.all');
+            Route::get('api/concessionarias/{concessionaria_id}/service/{service_id}/etapas/all', [App\Http\Controllers\Api\EtapasApiController::class, 'etapasInConSev'])->name('concessionaria.service.destroy.etapas.all');
+
         });
     });
 

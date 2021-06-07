@@ -19,6 +19,9 @@
     <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
 
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 
     <script>
         var BASE_URL = `{{ env('APP_URL') }}`;
@@ -121,8 +124,8 @@
                         @yield('content')
                     </div>
                 @else
-                    <div class="container-fluid">
-                        @yield('content-fluid')
+                    <div class="container-max-fluid">
+                        @yield('content-max-fluid')
                     </div>
                 @endif
             </div>

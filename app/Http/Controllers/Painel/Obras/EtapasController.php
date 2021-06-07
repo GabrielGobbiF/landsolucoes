@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEtapa;
-use App\Models\Etapas;
+use App\Http\Resources\EtapasResource;
+use App\Models\Concessionaria;
+use App\Models\Etapa;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class EtapasController extends Controller
 {
     protected $repository;
 
-    public function __construct(Etapas $etapas)
+    public function __construct(Etapa $etapas)
     {
         $this->repository = $etapas;
     }
@@ -35,9 +38,35 @@ class EtapasController extends Controller
     {
         $columns = $request->except('redirect');
 
-        $this->repository->create($columns);
+        $store = $etapa = $this->repository->create($columns);
 
-        #return response()->json(['created' => true]);
+        if (!$concessionaria = Concessionaria::where('id', $columns['concessionaria'])->first()) {
+            return redirect()
+                ->route('concessionarias.show', $columns['concessionaria'])
+                ->with('error', 'Registro (Concessionaria) não encontrado!');
+        }
+
+        if (!$service = Service::where('id', $columns['service'])->first()) {
+            return redirect()
+                ->route('concessionarias.show', $columns['service'])
+                ->with('error', 'Registro (Serviço) não encontrado!');
+        }
+
+        $UltimaEtapa = $concessionaria->etapas($service->id)->where('tipo_id', $etapa->tipo_id)->orderby('con_service_etp.id', 'DESC')->first();
+
+        $order = 0;
+
+        if (!is_null($UltimaEtapa)) {
+            $order = $UltimaEtapa->pivot->order;
+            $order = $order + 1;
+        }
+
+        $concessionaria->etapas($service->id)->attach($etapa->id, ['service_id' => $service->id, 'order' => $order]);
+
+        return response()->json([
+            'store' => $store,
+            'success' => $store
+        ]);
 
         if ($redirect = $request->input('redirect')) {
             return redirect()
@@ -52,15 +81,15 @@ class EtapasController extends Controller
      * @param  \App\Models\Etapas  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        if (!$department = $this->repository->where('slug', $slug)->first()) {
+        if (!$etapa = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('testes.index')
                 ->with('error', 'Registro não encontrado!');
         }
 
-        return view('page.show', []);
+        return new EtapasResource($etapa);
     }
 
     /**
@@ -72,27 +101,28 @@ class EtapasController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        $columns = $request->all();
+        $columns = $request->except(['redirect', 'tipo_id']);
 
-        $type = $request->input('type');
+        $redirect = $request->input('redirect');
 
-        $typeValue = $request->input('typeValue');
-
-        $redirect = $type == 'concessionaria_id' ? 'concessionaria' : 'client';
-
-        if (!$department = $this->repository->where('id', $id)->first()) {
+        if (!$etapa = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('testes.index')
+                ->route('concessionarias.index')
                 ->with('error', 'Registro não encontrado!');
         }
 
-        if ($columns['dep_responsavel'] != '') {
-            $department->update($columns);
-        }
+        $edit = $etapa->update($columns);
 
-        return redirect()
-            ->route($redirect . 's.show', $typeValue)
-            ->with('message', 'Atualizado com sucesso');
+        return response()->json([
+            'edit' => $edit,
+            'success' => $edit
+        ]);
+
+        if ($redirect = $request->input('redirect')) {
+            return redirect()
+                ->to($redirect . '?tipo=' . $etapa->tipo_id)
+                ->with('message', 'Alterado com sucesso');
+        }
     }
 
     /**

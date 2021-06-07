@@ -1,4 +1,4 @@
-<div class="box box-default box-solid">
+<div class="box box-default bd-t-0">
     <div class="box-header with-border">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
             <h3 class="box-title">Departamentos</h3>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Etapas extends Model
+class Etapa extends Model
 {
     use HasFactory;
 
@@ -22,5 +22,10 @@ class Etapas extends Model
     public function tipo()
     {
         return $this->belongsTo(Tipo::class, 'tipo_id');
+    }
+
+    public function concessionaria()
+    {
+        return $this->belongsToMany(Concessionaria::class, 'con_service_etp', 'etapa_id');
     }
 }

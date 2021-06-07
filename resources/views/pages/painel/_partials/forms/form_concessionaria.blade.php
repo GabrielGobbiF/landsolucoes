@@ -1,5 +1,5 @@
 @csrf
-<div class="box box-default box-solid">
+<div class="box box-default bd-t-0">
     <div class="box-header with-border">
         <h3 class="box-title">Dados</h3>
     </div>

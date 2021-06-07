@@ -10,7 +10,7 @@ use App\Models\{
     Concessionaria,
     Service,
     Tipo,
-    Etapas
+    Etapa
 };
 use App\Notifications\DataBaseChannel;
 use App\Observers\{
@@ -67,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
         Concessionaria::observe(ConcessionariaObserver::class);
         Service::observe(ServiceObserver::class);
         Tipo::observe(TipoObserver::class);
-        Etapas::observe(EtapaObserver::class);
+        Etapa::observe(EtapaObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

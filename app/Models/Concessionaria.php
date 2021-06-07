@@ -28,4 +28,9 @@ class Concessionaria extends Model
     {
         return $this->hasMany(Department::class, 'concessionaria_id');
     }
+
+    public function etapas($service_id)
+    {
+        return $this->belongsToMany(Etapa::class, 'con_service_etp', 'concessionaria_id')->where(['service_id' => $service_id])->withPivot(['order']);
+    }
 }

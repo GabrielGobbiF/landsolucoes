@@ -15,7 +15,7 @@ class CheckClient
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $guard = 'client')
+    public function handle(Request $request, Closure $next, $guard = 'clients')
     {
         if (!Auth::guard($guard)->check()) {
             return redirect('/clients/login');
