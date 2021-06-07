@@ -28,4 +28,10 @@ class Etapa extends Model
     {
         return $this->belongsToMany(Concessionaria::class, 'con_service_etp', 'etapa_id');
     }
+
+    public function variables()
+    {
+        return $this->hasMany(Variable::class, 'etapa_id');
+    }
+
 }

@@ -9,6 +9,13 @@ jQuery(function () {
         classes: 'table table-hover table-striped'
     })
 
+    $('#table').on('click-cell.bs.table', function (field, value, row, $element) {
+        var href = $element._data.href;
+        if (href && href != '') {
+            window.location.href = href;
+        }
+    })
+
     $('.btn-submit').on('click', function () {
         var text = $(this).attr('data-btn-text');
         text = text != null ? text : 'Salvando...';
@@ -270,12 +277,12 @@ jQuery(function () {
         localStorage.setItem('nav-tabs_' + tab, tab_link)
     });
 
-    $('tr').on('click', function () {
-        var href = $(this).attr('data-href');
-        if(href){
-            window.location.href = href;
-        }
-    })
+    //$('tr').on('click', function () {
+    //    var href = $(this).attr('data-href');
+    //    if(href){
+    //        window.location.href = href;
+    //    }
+    //})
 
 });
 

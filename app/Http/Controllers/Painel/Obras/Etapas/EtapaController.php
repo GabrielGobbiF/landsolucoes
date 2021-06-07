@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Painel\Obras;
+namespace App\Http\Controllers\Painel\Obras\Etapas;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEtapa;
@@ -8,9 +8,10 @@ use App\Http\Resources\EtapasResource;
 use App\Models\Concessionaria;
 use App\Models\Etapa;
 use App\Models\Service;
+use App\Models\Variable;
 use Illuminate\Http\Request;
 
-class EtapasController extends Controller
+class EtapaController extends Controller
 {
     protected $repository;
 
@@ -26,6 +27,7 @@ class EtapasController extends Controller
      */
     public function index()
     {
+        abort(403);
     }
 
     /**
@@ -38,7 +40,7 @@ class EtapasController extends Controller
     {
         $columns = $request->except('redirect');
 
-        $store = $etapa = $this->repository->create($columns);
+        $etapa = $this->repository->create($columns);
 
         if (!$concessionaria = Concessionaria::where('id', $columns['concessionaria'])->first()) {
             return redirect()
@@ -63,9 +65,22 @@ class EtapasController extends Controller
 
         $concessionaria->etapas($service->id)->attach($etapa->id, ['service_id' => $service->id, 'order' => $order]);
 
+        if (isset($columns['variavel']) && !is_null($columns['variavel'])) {
+            $variavel = $columns['variavel'];
+            for ($q = 0; $q < count($variavel['nome_variavel']); $q++) {
+                if ($variavel['nome_variavel'][$q] != '') {
+                    Variable::create([
+                        "etapa_id" => $etapa->id,
+                        "name" => $variavel['nome_variavel'][$q],
+                        "price" => $variavel['preco_variavel'][$q],
+                    ]);
+                }
+            }
+        }
+
         return response()->json([
-            'store' => $store,
-            'success' => $store
+            'store' => $etapa,
+            'success' => $etapa ? true : false
         ]);
 
         if ($redirect = $request->input('redirect')) {
@@ -113,9 +128,33 @@ class EtapasController extends Controller
 
         $edit = $etapa->update($columns);
 
+        $variaveis = $etapa->variables()->get();
+
+        if (isset($columns['variavel']) && !is_null($columns['variavel'])) {
+            $variavel = $columns['variavel'];
+            for ($q = 0; $q < count($variavel['nome_variavel']); $q++) {
+                if ($variavel['nome_variavel'][$q] != '') {
+                    if (isset($variavel['id'][$q]) && $variavel['id'][$q] != '') {
+                        $variableUpdate = $variaveis->where('id', $variavel['id'][$q])->first();
+                        $variableUpdate->update([
+                            "name" => $variavel['nome_variavel'][$q],
+                            "price" => $variavel['preco_variavel'][$q],
+                        ]);
+                    } else {
+                        Variable::create([
+                            "etapa_id" => $etapa->id,
+                            "name" => $variavel['nome_variavel'][$q],
+                            "price" => $variavel['preco_variavel'][$q],
+                        ]);
+                    }
+                }
+            }
+        }
+
         return response()->json([
             'edit' => $edit,
-            'success' => $edit
+            'success' => $edit,
+            'id' => $etapa->id
         ]);
 
         if ($redirect = $request->input('redirect')) {

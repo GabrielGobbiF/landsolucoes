@@ -157,14 +157,20 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
             Route::post('etapas/tipo/store', [App\Http\Controllers\Api\EtapasApiController::class, 'store_tipo'])->name('etapas.tipo.store');
 
-
             /*
             |--------------------------------------------------------------------------
             | Etapas
             |--------------------------------------------------------------------------
             */
-            Route::resource('etapas', App\Http\Controllers\Painel\Obras\EtapasController::class);
+            Route::resource('etapas', App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class);
 
+            /*
+            |--------------------------------------------------------------------------
+            | Variaveis
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('variables', App\Http\Controllers\Painel\Obras\Etapas\VariableController::class);
+            Route::delete('variables/{variable_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\VariableController::class, 'destroy'])->name('variable.destroy');
 
 
             Route::get('api/etapas', [App\Http\Controllers\Api\EtapasApiController::class, 'all'])->name('etapas.all');

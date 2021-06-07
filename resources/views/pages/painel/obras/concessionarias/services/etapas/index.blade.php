@@ -93,6 +93,7 @@
                 $modal.find('#form-add-update-etapa').attr('action', BASE_URL + '/l/etapas')
                 $modal.find('#form-add-update-etapa')[0].reset();
                 $('#new_variavel_edit').html('')
+                $('#variavel_etapa').html('')
                 if ($tipo_name == 'Compra') {
                     $modal.find('.compra').removeClass('d-none');
                 } else {
@@ -102,8 +103,9 @@
             })
 
             $('.btn-new_variavel_edit').on('click', function() {
-                var html = '    <div class="row mg-0" >'
-                html += '    <div class="col-md-4">'
+                var html = '<div class="row mg-0" >'
+                html += '    <input type="hidden" value="" name="variavel[id][]">'
+                html += '    <div class="col-md-6">'
                 html += '        <div class="form-group" style="margin-right: 26px;margin-left: -10px;">'
                 html += '            <label>Nome da Variavel</label>'
                 html += '            <input type="text" class="form-control" value="" name="variavel[nome_variavel][]" id="nome_variavel" autocomplete="off">'
@@ -138,7 +140,9 @@
                     success: function(response) {
                         if (response.success) {
                             $('.btn-primary').attr('disabled', false);
-                            if (response.edit) {} else {
+                            if (response.edit) {
+                                edit_etapa(response.id);
+                            } else {
                                 $('#form-add-update-etapa')[0].reset();
                             }
                             initEtapas();
@@ -372,8 +376,9 @@
                     $modal.find('#form-add-update-etapa').attr('action', BASE_URL + '/l/etapas/' + id)
                     $modal.find('.modal-etapa-title').html('Editar Etapa "' + j.name + '"');
                     $modal.find('input[name="_method"]').val('put');
-                    $modal.find('.modal-btn-primary').html('Editar');
+                    $modal.find('.modal-btn-primary').html('Salvar');
                     $('#new_variavel_edit').html('')
+                    $('#variavel_etapa').html('')
                     if (j.tipo == 'Compra') {
                         $modal.find('.compra').removeClass('d-none');
                     } else {
@@ -382,8 +387,53 @@
                     $.each(j, function(index, value) {
                         $modal.find('#input--' + index).val(value)
                     })
+                    if (j.variables.length > 0) {
+                        $.each(j.variables, function(index, value) {
+                            var html = '<div class="row mg-0" >'
+                            html += '    <input type="hidden" value="' + value.id + '" name="variavel[id][]">'
+                            html += '    <div class="col-md-6">'
+                            html += '        <div class="form-group" style="margin-right: 26px;margin-left: -10px;">'
+                            html += '            <label>Nome da Variavel</label>'
+                            html += '            <input type="text" class="form-control" value="' + value.name + '" name="variavel[nome_variavel][]" id="nome_variavel_' + value.id +
+                                '" autocomplete="off">'
+                            html += '        </div>'
+                            html += '    </div>'
+                            html += '    <div class="col-md-2">'
+                            html += '        <div class="form-group"  style="margin-right: 26px;margin-left: -10px;">'
+                            html += '            <label>Preço</label>'
+                            html += '            <input type="text" class="form-control money" name="variavel[preco_variavel][]" value="' + value.price + '" id="preco_variavel_' +
+                                value.id + '" autocomplete="off">'
+                            html += '        </div>'
+                            html += '    </div>'
+                            html += '   <div class="col-md-2 align-self-center">';
+                            html += '       <i style="cursor: pointer" class="fas fa-trash" onclick="destroy_variable(' + value.id + ', ' + j.id + ')"></i>';
+                            html += '   </div>';
+
+                            $('#variavel_etapa').append(html);
+                        })
+                    }
+
                     $modal.modal('show');
                 },
+            });
+        }
+
+        function destroy_variable(variable_id, etapa_id) {
+            var url = BASE_URL + '/l/variables/' + variable_id + '/destroy'
+            $.ajax({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                type: 'DELETE',
+                dataType: 'json',
+                success: function(response) {
+                    edit_etapa(etapa_id);
+                    toastr.success('Deletado');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    toastr.error(thrownError);
+                }
             });
         }
 

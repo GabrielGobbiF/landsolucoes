@@ -24,6 +24,7 @@ class EtapasResource extends JsonResource
             "name_max" => ucfirst(mb_strtolower(mb_strimwidth($this->name, 0, 48, "..."), 'utf-8')),
             "tipo" => $this->tipo->name,
             "order" => $this->pivot->order ?? 0,
+            'variables' => isset($this->variables) ? VariableResource::collection($this->variables) : [],
         ];
     }
 

@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
+     * O Seed vai criar
+     * Serviços
+     * Concessionaria
      * @return void
      */
     public function run()

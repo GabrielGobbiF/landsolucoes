@@ -24,11 +24,8 @@
                             <th class="mobile--hidden">Veiculo</th>
                             <th class="mobile--hidden">Data</th>
                             <th class="mobile--hidden">Tipo</th>
-
                             <th class="mobile--hidden" data-visible="false">Observações</th>
-
                             <th class="mobile--hidden" data-width="300">Files</th>
-
                         </tr>
 
                     </thead>

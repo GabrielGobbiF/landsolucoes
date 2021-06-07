@@ -48,7 +48,7 @@ class EtapasApiController extends Controller
                 $query->where('concessionaria_id', $req['concessionaria_id']);
                 $query->where('service_id', $req['service_id']);
             }
-        })->with('tipo')->orderBy('name')->get();
+        })->with('tipo')->with('variables')->orderBy('name')->get();
 
         return EtapasResource::collection($etapas);
     }

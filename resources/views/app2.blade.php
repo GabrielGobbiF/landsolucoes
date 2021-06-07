@@ -667,7 +667,7 @@
 
                       options += '<input type="hidden" class="form-control" value="' + data[i].id_variavel_etapa + '" name="variavel[id][]" id="id_variavel" autocomplete="off">'
                       options += '<div class="row" style="    left: 10px;position: relative;">'
-                      options += '    <div class="col-md-4">'
+                      options += '    <div class="col-md-6">'
                       options += '        <div class="form-group" style="margin-right: 26px;margin-left: -10px;">'
                       options += '            <label>Nome da Variavel</label>'
                       options += '            <input type="text" class="form-control" value="' + data[i].nome_variavel + '" name="variavel[nome_variavel][]" id="nome_variavel" autocomplete="off">'

@@ -70,7 +70,6 @@
             $(document).ready(function() {
                 $("#modal-add-concessionaria").modal("show");
             })
-
         </script>
     @endif
 @endsection
