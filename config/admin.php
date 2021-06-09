@@ -25,6 +25,12 @@ return [
                 'route' => 'concessionarias.index',
             ],
             [
+                'name' =>  'Comercial',
+                'atc' =>  'comercial',
+                'icon' =>  'ri-file-edit-fill',
+                'route' => 'comercial.index',
+            ],
+            [
                 'name' =>  'Obras',
                 'icon' =>  'ri-building-4-line',
                 'route' => 'obras',

@@ -126,6 +126,13 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             */
             Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
 
+             /*
+            |--------------------------------------------------------------------------
+            | Comercial
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('comercial', App\Http\Controllers\Painel\Obras\ComercialController::class);
+
             /*
             |--------------------------------------------------------------------------
             | Clients
@@ -171,8 +178,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             */
             Route::resource('variables', App\Http\Controllers\Painel\Obras\Etapas\VariableController::class);
             Route::delete('variables/{variable_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\VariableController::class, 'destroy'])->name('variable.destroy');
-
-
             Route::get('api/etapas', [App\Http\Controllers\Api\EtapasApiController::class, 'all'])->name('etapas.all');
             Route::get('api/concessionarias/{concessionaria_id}/service/{service_id}/etapas/all', [App\Http\Controllers\Api\EtapasApiController::class, 'etapasInConSev'])->name('concessionaria.service.destroy.etapas.all');
 

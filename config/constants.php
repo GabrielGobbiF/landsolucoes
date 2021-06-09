@@ -130,5 +130,18 @@ return [
         'OBRA',
         'COMPRA',
         'VISTORIA',
+    ],
+
+    'status_build' => [
+        'ELABORACAO' => 'elaboração',
+        'ENVIADA' => 'enviada',
+        'APROVADA' => 'aprovada',
+        'RECUSADA' => 'recusada',
+    ],
+
+    'status_payment_build' => [
+        'PENDENTE' => '1',
+        'FATURAR' => '2',
+        'FATURADO' => '3',
     ]
 ];
