@@ -22,7 +22,7 @@
                     </div>
                 </div>
 
-                <table data-toggle="table" id="table" class="table table-hover table-striped" data-search="true" data-show-refresh="true"
+                <table data-toggle="table" id="table" class="table table-hover table-striped" data-search="true"
                     data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
                     data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
                     data-cookie-id-table="employee" data-toolbar="#toolbar" data-buttons-class="dark">

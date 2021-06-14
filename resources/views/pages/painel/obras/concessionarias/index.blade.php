@@ -22,24 +22,15 @@
                         </div>
                     </div>
                 </div>
-                <table data-toggle="table" id="table" data-search="true" data-show-refresh="true"
-                    data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
-                    data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                    data-cookie-id-table="concessionarias" data-toolbar="#toolbar" data-buttons-class="dark" data-unique-id="id">
+                <table data-toggle="table" id="table" data-table="concessionarias">
                     <thead>
                         <tr>
-                            <th data-field="id" data-visible="false">#</th>
-                            <th>Razão Social</th>
+                            <th data-field="id" data-sortable="true" data-visible="false">#</th>
+                            <th data-field="name" data-width="80%" data-width-unit="%" >Razão Social</th>
+                            <th data-field="qnt_services" data-halign="center" data-align="center">Quantidade de Serviços</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($concessionarias as $rowConcessionaria)
-                            <tr data-href="{{ route('concessionarias.show', [$rowConcessionaria->slug]) }}">
-                                <td>{{ $rowConcessionaria->id }}</td>
-                                <td>{{ $rowConcessionaria->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

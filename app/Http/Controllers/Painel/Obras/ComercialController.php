@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateComercial;
+use App\Models\Addres;
+use App\Models\Client;
+use App\Models\Concessionaria;
 use App\Models\Obra;
+use App\Models\Service;
+use App\Models\Viabilization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +21,7 @@ class ComercialController extends Controller
     {
         $this->repository = $comercial;
 
-        //$this->middleware(['can:view-comerciais']);
+        //$this->middleware(['can:view-comercial']);
     }
 
     /**
@@ -26,16 +31,7 @@ class ComercialController extends Controller
      */
     public function index()
     {
-        $comerciais  = $this->repository
-            ->where('status', '<>', 'aprovada')
-            ->with('concessionaria')
-            ->with('service')
-            ->with('client')
-            ->get();
-
-        return view('pages.painel.obras.comercial.index', [
-            'comerciais' => $comerciais
-        ]);
+        return view('pages.painel.obras.comercial.index');
     }
 
     /**
@@ -45,7 +41,15 @@ class ComercialController extends Controller
      */
     public function create()
     {
-        # return view('pages.painel.obras.comerciais.create');
+        $clients = Client::all();
+        $services = Service::all();
+        $concessionarias = Concessionaria::all();
+
+        return view('pages.painel.obras.comercial.create', [
+            'clients' => $clients,
+            'services' => $services,
+            'concessionarias' => $concessionarias,
+        ]);
     }
 
     /**
@@ -56,12 +60,19 @@ class ComercialController extends Controller
      */
     public function store(StoreUpdateComercial $request)
     {
-        $columns = $request->all();
+        $address = new Addres();
+        $viabilizacao = new Viabilization();
+
+        $columnsViabilizacao = $request->only('viabilizacao');
+        $columns = $request->except('viabilizacao');
+
+        $columns['address_id'] = $address->create()->id;
+        $columns['viabilization_id'] = $viabilizacao->create($columnsViabilizacao['viabilizacao'])->id;
 
         $this->repository->create($columns);
 
         return redirect()
-            ->route('comerciais.index')
+            ->route('comercial.index')
             ->with('message', 'Criado com sucesso');
     }
 
@@ -71,20 +82,23 @@ class ComercialController extends Controller
      * @param  \App\Models\Comercial  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id)
     {
-        if (!$client = $this->repository->where('uuid', $uuid)->with('departments')->first()) {
-
+        if (!$comercial = $this->repository->where('id', $id)->with('service')->with('concessionaria')->with('viabilizacao')->first()) {
             return redirect()
-                ->route('comerciais.index')
+                ->route('comercial.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $departments = $client->departments ?? [];
+        $clients = Client::all();
+        $services = Service::all();
+        $concessionarias = Concessionaria::all();
 
-        return view('pages.painel.obras.comerciais.show', [
-            'client' => $client,
-            'departments' => $departments,
+        return view('pages.painel.obras.comercial.show', [
+            'comercial' => $comercial,
+            'clients' => $clients,
+            'services' => $services,
+            'concessionarias' => $concessionarias,
         ]);
     }
 
@@ -101,7 +115,7 @@ class ComercialController extends Controller
 
         if (!$client = $this->repository->where('uuid', $uuid)->first()) {
             return redirect()
-                ->route('comerciais.index')
+                ->route('comercial.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -110,6 +124,26 @@ class ComercialController extends Controller
         return redirect()
             ->back()
             ->with('message', 'Atualizado com sucesso');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Test  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $status = $request->input('status');
+
+        if (!$comercial = $this->repository->where('id', $id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        return response($comercial->update(['status' => $status]), 200);
     }
 
     /**
@@ -122,14 +156,14 @@ class ComercialController extends Controller
     {
         if (!$client = $this->repository->where('uuid', $uuid)->first()) {
             return redirect()
-                ->route('comerciais.index')
+                ->route('comercial.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
         $client->delete();
 
         return redirect()
-            ->route('comerciais.index')
+            ->route('comercial.index')
             ->with('message', 'Excluir com sucesso!');
     }
 }

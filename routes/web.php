@@ -23,6 +23,15 @@ Route::group(['middleware' => ['CheckClient']], function () {
     });
 });
 
+Route::prefix('api/v1')->middleware('auth')->group(function () {
+    Route::get('/clients', [App\Http\Controllers\Api\TableApiController::class, 'clients'])->name('clients.all');
+    Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
+    Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
+    Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');
+
+    Route::get('concessionaria/{concessionaria_id}/services', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'servicesByConcessionariaId'])->name('concessionaria.service.all');
+});
+
 Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::get('/', function () {
@@ -126,11 +135,12 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             */
             Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
 
-             /*
+            /*
             |--------------------------------------------------------------------------
             | Comercial
             |--------------------------------------------------------------------------
             */
+            Route::post('comercial/{comercial_id}/updateStatus', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateStatus'])->name('comercial.update.status');
             Route::resource('comercial', App\Http\Controllers\Painel\Obras\ComercialController::class);
 
             /*
@@ -180,7 +190,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::delete('variables/{variable_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\VariableController::class, 'destroy'])->name('variable.destroy');
             Route::get('api/etapas', [App\Http\Controllers\Api\EtapasApiController::class, 'all'])->name('etapas.all');
             Route::get('api/concessionarias/{concessionaria_id}/service/{service_id}/etapas/all', [App\Http\Controllers\Api\EtapasApiController::class, 'etapasInConSev'])->name('concessionaria.service.destroy.etapas.all');
-
         });
     });
 

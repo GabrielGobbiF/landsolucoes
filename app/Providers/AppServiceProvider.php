@@ -10,7 +10,8 @@ use App\Models\{
     Concessionaria,
     Service,
     Tipo,
-    Etapa
+    Etapa,
+    Obra
 };
 use App\Notifications\DataBaseChannel;
 use App\Observers\{
@@ -22,6 +23,7 @@ use App\Observers\{
     ServiceObserver,
     TipoObserver,
     EtapaObserver,
+    ComercialObserver
 };
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
         Service::observe(ServiceObserver::class);
         Tipo::observe(TipoObserver::class);
         Etapa::observe(EtapaObserver::class);
+        Obra::observe(ComercialObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

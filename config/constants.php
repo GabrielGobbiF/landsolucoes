@@ -143,5 +143,20 @@ return [
         'PENDENTE' => '1',
         'FATURAR' => '2',
         'FATURADO' => '3',
+    ],
+    'status_final_comercial' => [
+
+        [
+            'id' => 'viavel',
+            'name' => 'Viável',
+        ],
+        [
+            'id' => 'nao_viavel',
+            'name' => 'Não Viável',
+        ],
+        [
+            'id' => 'restricao',
+            'name' => 'Viável com restrições',
+        ]
     ]
 ];

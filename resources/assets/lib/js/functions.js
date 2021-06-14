@@ -3,18 +3,12 @@ jQuery(function () {
 
     console.log('init global functions');
 
-    var $table = $('#table')
-    $table.bootstrapTable()
-    $table.bootstrapTable('refreshOptions', {
-        classes: 'table table-hover table-striped'
-    })
+    $('.select2').select2({ width: '100%' });
 
-    $('#table').on('click-cell.bs.table', function (field, value, row, $element) {
-        var href = $element._data.href;
-        if (href && href != '') {
-            window.location.href = href;
-        }
-    })
+    $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+        //document.querySelector('.select2-search__field').prop('placeholder', '3 caracteres');
+    });
 
     $('.btn-submit').on('click', function () {
         var text = $(this).attr('data-btn-text');
@@ -22,10 +16,6 @@ jQuery(function () {
         $(this).html("<i class='fa fa-spinner fa-spin'></i> " + text)
         $(this).prop('disabled', true);
         $(this).closest("form").submit();
-    });
-
-    $('.select2').select2({
-        width: '100%'
     });
 
     $('.date').mask('00/00/0000');
@@ -284,6 +274,7 @@ jQuery(function () {
     //    }
     //})
 
+
 });
 
 function resetDiv() {
@@ -291,6 +282,8 @@ function resetDiv() {
     $('.table-mensal').addClass('d-none');
     $('.table-epi').addClass('d-none');
 }
+
+
 
 
 

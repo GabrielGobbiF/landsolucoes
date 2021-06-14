@@ -436,7 +436,6 @@ table th {
 }
 
 .page-list .dropdown .btn {
-  padding: 0.15rem 0.3rem;
   font-size: 0.7875rem;
   line-height: 1.5;
   border-radius: 0.2rem;
@@ -449,6 +448,10 @@ table th {
 
 .select2-container--default .select2-results__option[aria-selected=true] {
   background-color: #bdcbda !important;
+}
+
+.is-invalid-label {
+  color: #f44336;
 }
 
 /*--------------------------------------------------------------
@@ -483,6 +486,13 @@ body {
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #ededed;
+  height: auto;
+  min-height: 100%;
 }
 
 .wrapper {
@@ -673,7 +683,7 @@ body {
 }
 
 body[data-topbar=dark] #page-topbar {
-  background-color: #171a22;
+  background-color: #0a0b0c;
 }
 
 body[data-topbar=dark] .navbar-header .dropdown.show .header-item {
@@ -1168,7 +1178,7 @@ body[data-layout=horizontal] .footer {
 }
 
 body[data-sidebar=dark] .vertical-menu {
-  background: #171a22;
+  background: #0a0b0c;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a {
@@ -1200,7 +1210,7 @@ body[data-sidebar=dark].vertical-collpsed {
 }
 
 body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > a {
-  background: #1b1f28;
+  background: #0f1012;
   color: #d7e4ec;
 }
 
@@ -1295,7 +1305,7 @@ body[data-sidebar-size=small] .footer {
 }
 
 body[data-sidebar-size=small] #sidebar-menu ul li.menu-title {
-  background-color: #1b1f28;
+  background-color: #0f1012;
 }
 
 body[data-sidebar-size=small] #sidebar-menu ul li a i {
@@ -1582,7 +1592,7 @@ body[data-sidebar=colored].vertical-collpsed .vertical-menu #sidebar-menu ul li.
   }
 
   body[data-layout=horizontal][data-topbar=light] .topnav {
-    background-color: #171a22;
+    background-color: #0a0b0c;
   }
 
   body[data-layout=horizontal][data-topbar=light] .topnav .navbar-nav .nav-link {
@@ -1944,9 +1954,9 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
 }
 
 .box-header > .box-tools {
-  position: absolute;
-  right: 10px;
-  top: 5px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  float: right !important;
 }
 
 .box-header > .box-tools [data-toggle=tooltip] {
@@ -3727,6 +3737,23 @@ th {
   width: 18px;
 }
 
+.is-invalid .select2-selection,
+.needs-validation ~ span > .select2-dropdown {
+  border-color: red !important;
+}
+
+.is-invalid + .select2-container--bootstrap .select2-selection--single {
+  border: 1px solid #f44336;
+}
+
+/**
+* bootstrap TABLE
+*/
+
+/**
+* fim
+*/
+
 .filemgr-wrapper {
   position: absolute;
   top: 55px;
@@ -4187,6 +4214,10 @@ th {
   border-color: rgba(72, 94, 144, 0.16);
   transition: all 0.2s ease-in-out;
 }
+
+/**
+* Helpers
+*/
 
 /* ###### 9.1 Background  ###### */
 

@@ -2,20 +2,16 @@
 
 @section('title', 'Clientes')
 
-
 @section('content')
 
     <div class="card">
         <div class="card-body">
-
             <div class="text-center" id="preloader-content">
                 <div class="spinner-border text-primary m-1 align-self-center" role="status">
                     <span class="sr-only"></span>
                 </div>
             </div>
-
             <div class="table table-responsive d-none">
-
                 <div id="toolbar">
                     <div class="form-inline" role="form">
                         <div class="btn-group mr-2">
@@ -25,29 +21,16 @@
                         </div>
                     </div>
                 </div>
-
-                <table id="table" data-search="true" data-show-refresh="true"
-                    data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
-                    data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                    data-cookie-id-table="clients" data-toolbar="#toolbar" data-buttons-class="dark">
+                <table data-toggle="table" id="table" data-table="clients">
                     <thead>
                         <tr>
-                            <th data-field="id" data-visible="false">#</th>
-                            <th class="mobile--hidden">Razão Social</th>
-                            <th>Apelido</th>
-                            <th data-visible="false">CNPJ</th>
+                            <th data-field="id" data-sortable="true" data-visible="false">#</th>
+                            <th data-field="company_name" data-sortable="true">Razão Social</th>
+                            <th data-field="username" data-sortable="true">Apelido</th>
+                            <th data-field="cnpj" data-visible="false">CNPJ</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($clients as $clientf)
-                            <tr data-href="{{ route('clients.show', [$clientf->uuid]) }}">
-                                <td>{{ $clientf->uuid }}</td>
-                                <td>{{ $clientf->company_name }}</td>
-                                <td>{{ $clientf->username }}</td>
-                                <td>{{ $clientf->cnpj }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

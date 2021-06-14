@@ -27,11 +27,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = $this->repository->get();
-
-        return view('pages.painel.obras.services.index', [
-            'services' => $services
-        ]);
+        return view('pages.painel.obras.services.index');
     }
 
     /**

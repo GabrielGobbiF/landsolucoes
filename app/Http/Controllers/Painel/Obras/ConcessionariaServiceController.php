@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResource;
 use App\Models\Concessionaria;
 use App\Models\Etapa;
 use App\Models\Service;
 use App\Models\Tipo;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ConcessionariaServiceController extends Controller
 {
@@ -175,5 +174,16 @@ class ConcessionariaServiceController extends Controller
         }
 
         return response()->json('reorder');
+    }
+
+    public function servicesByConcessionariaId($id_concessionaria)
+    {
+        if (!$concessionaria = Concessionaria::where('id', $id_concessionaria)->with('services')->first()) {
+            return response()->json('Object concessionaria not found', 404);
+        }
+
+        $services = $concessionaria->services ?? [];
+
+        return ServiceResource::collection($services);
     }
 }

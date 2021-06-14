@@ -22,6 +22,7 @@ class CreateObrasTable extends Migration
             $table->unsignedBigInteger('concessionaria_id');
             $table->unsignedBigInteger('address_id');
             $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('viabilization_id')->nullable();
 
             $table->string('razao_social');
             $table->longText('description')->nullable();
@@ -57,6 +58,11 @@ class CreateObrasTable extends Migration
             $table->foreign('client_id')
                 ->references('id')
                 ->on('clients')
+                ->onDelete('cascade');
+
+            $table->foreign('viabilization_id')
+                ->references('id')
+                ->on('obras_viabilizations')
                 ->onDelete('cascade');
         });
     }

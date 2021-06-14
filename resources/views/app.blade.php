@@ -23,8 +23,14 @@
 
     <link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     <script>
         var BASE_URL = `{{ env('APP_URL') }}`;
+        var BASE_URL_API = `{{ env('APP_URL_API') }}`;
 
     </script>
 
@@ -134,12 +140,12 @@
 
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
+    <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
     <script src="{{ asset('panel/js/lib.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
 
     <script>
         @include('pages.layouts.notification')
-
     </script>
 
     @include('pages.layouts.modal_delete')

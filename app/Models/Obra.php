@@ -21,6 +21,7 @@ class Obra extends Model
         'client_id',
         'concessionaria_id',
         'address_id',
+        'viabilization_id',
         'department_id',
         'razao_social',
         'description',
@@ -58,5 +59,10 @@ class Obra extends Model
     public function andress()
     {
         return $this->belongsTo(Andress::class, 'address_id');
+    }
+
+    public function viabilizacao()
+    {
+        return $this->belongsTo(Viabilization::class, 'viabilization_id');
     }
 }

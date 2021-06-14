@@ -75,3 +75,8 @@ function limpar($variavel)
 {
     return strtolower(preg_replace("/[^a-zA-Z0-9-]/", "-", strtr(utf8_decode(trim($variavel)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
 }
+
+function dataLimpa($date)
+{
+    return Carbon::parse($date)->format('d/m/Y');
+}

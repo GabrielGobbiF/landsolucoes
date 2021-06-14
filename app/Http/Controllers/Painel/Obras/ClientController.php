@@ -26,11 +26,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = $this->repository->get();
-
-        return view('pages.painel.obras.clients.index', [
-            'clients' => $clients
-        ]);
+        return view('pages.painel.obras.clients.index');
     }
 
     /**

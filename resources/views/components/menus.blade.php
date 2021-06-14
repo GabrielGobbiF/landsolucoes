@@ -18,10 +18,10 @@
     </div>
 @else
     <div class="topnav">
-        <div class="container-fluid">
+        <div class="container">
             <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
-                    <ul class="navbar-nav">
+                    <ul class="nav navbar-nav">
                         @if (isset($menus['back']) && $menus['back'])
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url()->previous() }}">
@@ -39,11 +39,12 @@
                             @if ($menu != 'back')
                                 <li class="nav-item {{ isset($menu['atc']) && $segment == $menu['atc'] ? 'active' : '' }}">
                                     <a class="nav-link {{ isset($menu['atc']) && $segment == $menu['atc'] ? 'active' : '' }}" href="{{ route($menu['route']) }}">
-                                        <i class="{{ $menu['icon'] }} mr-2"></i> {{ __($menu['name']) }}
+                                        <i style="    vertical-align: text-top;" class="{{ $menu['icon'] }} mr-2"></i> {{ __($menu['name']) }}
                                     </a>
                                 </li>
                             @endif
                         @endforeach
+                        <input type="hidden" id="url" value="{{Request::getRequestUri()}}">
                     </ul>
                 </div>
             </nav>

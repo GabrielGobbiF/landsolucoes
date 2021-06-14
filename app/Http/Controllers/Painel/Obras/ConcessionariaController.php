@@ -24,12 +24,9 @@ class ConcessionariaController extends Controller
      */
     public function index()
     {
-        $concessionarias = $this->repository->get();
-
         $services = Service::get();
 
         return view('pages.painel.obras.concessionarias.index', [
-            'concessionarias' => $concessionarias,
             'services' => $services
         ]);
     }

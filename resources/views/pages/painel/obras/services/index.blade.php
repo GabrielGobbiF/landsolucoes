@@ -25,24 +25,14 @@
                     </div>
                 </div>
 
-                <table data-toggle="table" id="table" data-search="true" data-show-refresh="true"
-                    data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
-                    data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                    data-cookie-id-table="services" data-toolbar="#toolbar" data-buttons-class="dark">
+                <table data-toggle="table" id="table" data-table="services">
                     <thead>
                         <tr>
-                            <th data-field="id" data-visible="false">#</th>
-                            <th>Razão Social</th>
+                            <th data-field="id" data-sortable="true" data-visible="false">#</th>
+                            <th data-field="name" data-sortable="true">Nome</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($services as $rowService)
-                            <tr data-href="{{ route('services.show', [$rowService->slug]) }}">
-                                <td>{{ $rowService->id }}</td>
-                                <td>{{ $rowService->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

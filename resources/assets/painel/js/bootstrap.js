@@ -16,7 +16,6 @@ try {
     require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min');
     require('bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js');
 
-
 } catch (e) { }
 
 

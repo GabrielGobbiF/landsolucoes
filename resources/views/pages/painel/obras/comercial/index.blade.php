@@ -1,13 +1,10 @@
-@extends("app2")
+@extends("app")
 
 @section('title', 'Comercial')
 
-
 @section('content')
-
     <div class="card">
         <div class="card-body">
-
             <div class="text-center" id="preloader-content">
                 <div class="spinner-border text-primary m-1 align-self-center" role="status">
                     <span class="sr-only"></span>
@@ -15,57 +12,90 @@
             </div>
 
             <div class="table table-responsive d-none">
-
                 <div id="toolbar">
                     <div class="form-inline" role="form">
                         <div class="btn-group mr-2">
-                            <button type="button" data-toggle="modal" data-target="#modal-add-comercial" class="btn btn-dark waves-effect waves-light">
+                            <a href="{{ route('comercial.create') }}" class="btn btn-dark waves-effect waves-light">
                                 <i class="ri-add-circle-line align-middle mr-2"></i> Novo
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <table id="table" data-search="true" data-show-refresh="true"
-                    data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true"
-                    data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                    data-cookie-id-table="comerciais" data-toolbar="#toolbar" data-buttons-class="dark">
+                <table data-toggle="table" id="table" data-table="comercial">
                     <thead>
                         <tr>
-                            <th>Ação</th>
-                            <th data-field="id" data-visible="false">#</th>
-                            <th>Nome Obra</th>
-                            <th>Cliente</th>
-                            <th class="mobile--hidden">Concessionaria / Serviço </th>
-                            <th data-width="170" class="mobile--hidden text-center">Status</th>
+                            <th data-field="id" data-sortable="true" data-visible="false">#</th>
+                            <th data-field="razao_social">Razão Social</th>
+                            <th data-field="client.name">Cliente</th>
+                            <th data-field="concessionaria.name">Concessionaria</th>
+                            <th data-field="service.name">Serviço</th>
+                            <th data-field="statusButton" data-align="center" data-formatter="nameFormatter">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($comerciais as $comercialf)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('comercial.show', $comercialf->id) }}" data-toggle="tooltip" data-placement="top" title="Visualizar" class="btn btn-xs btn-dark ">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </td>
-                                <td>{{ $comercialf->id }}</td>
-                                <td>{{ $comercialf->razao_social }}</td>
-                                <td>{{ $comercialf->client->username }}</td>
-                                <td>{{ $comercialf->concessionaria->name }} / {{ $comercialf->service->name }}</td>
-                                <td class="text-center">
-                                    <select class='form-control select2'>
-                                        @foreach (Config::get('constants.status_build') as $status)
-                                            <option {{ $comercialf->status == $status ? 'selected' : '' }} value='{{ $status }}'>
-                                                {{ mb_strtoupper($status, 'utf-8') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
     </div>
+
+@section('scripts')
+    <script>
+        function nameFormatter(value, row) {
+            var html = '';
+
+            var data = [
+                'elaboração',
+                'enviada',
+                'aprovada',
+                'recusada',
+            ];
+
+            html += '<select class="form-control select2" onchange="updateStatus(this)" data-value="' + row.statusButton + '" data-name="' + row.razao_social + '" data-id="' + row.id + '" >';
+            $.each(data, function(k, field) {
+                var selected = value == field ? "selected='selected'" : "";
+                const capitalized = field[0].toUpperCase() + field.substr(1);
+                html += `<option ` + selected + ` value="` + field + `">` + capitalized + `</option>`;
+            });
+            html += '</select>';
+
+            return html;
+        }
+
+        function updateStatus(v) {
+            var id = $(v).attr('data-id');
+            var name = $(v).attr('data-name');
+            var value = $(v).attr('data-value');
+            var status = $(v).val();
+            if (status == 'aprovada') {
+                Swal.fire({
+                    title: 'Aprovação de Proposta',
+                    text: 'Fazer o cadastro da obra: ' + name,
+                    confirmButtonText: 'Aprovar',
+                    allowOutsideClick: () => $(v).val(value)
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                    }
+                })
+            } else {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: BASE_URL + '/l/comercial/' + id + '/updateStatus',
+                    type: 'POST',
+                    data: {
+                        status: status,
+                    },
+                    dataType: 'json',
+                    error: function() {
+                        toastr.error('error')
+                    },
+                });
+            }
+
+        }
+
+    </script>
+@endsection
 @endsection
