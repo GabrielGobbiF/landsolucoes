@@ -8,6 +8,7 @@ use App\Models\Addres;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
+use App\Models\ObraEtapa;
 use App\Models\Service;
 use App\Models\Viabilization;
 use Illuminate\Http\Request;
@@ -60,6 +61,15 @@ class ComercialController extends Controller
      */
     public function store(StoreUpdateComercial $request)
     {
+        $concessionaria_id = $request->input('concessionaria_id');
+        $service_id = $request->input('service_id');
+
+        if (!$concessionaria = Concessionaria::where('id', $concessionaria_id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('error', 'Registro Concessionaria não encontrado!');
+        }
+
         $address = new Addres();
         $viabilizacao = new Viabilization();
 
@@ -69,11 +79,30 @@ class ComercialController extends Controller
         $columns['address_id'] = $address->create()->id;
         $columns['viabilization_id'] = $viabilizacao->create($columnsViabilizacao['viabilizacao'])->id;
 
-        $this->repository->create($columns);
+        $comercial = $this->repository->create($columns);
+
+        $etapas = $concessionaria->etapas($service_id)->get();
+
+        $this->storeEtapasComercial($etapas, $comercial->id);
 
         return redirect()
-            ->route('comercial.index')
+            ->route('comercial.show')
             ->with('message', 'Criado com sucesso');
+    }
+
+    public function storeEtapasComercial(Object $etapas, int $comercial_id)
+    {
+        foreach ($etapas as $etapa) {
+            $etapaObra = ObraEtapa::create([
+                'id_obra' => $comercial_id,
+                'id_etapa' => $etapa->id,
+                'tipo_id' => $etapa->tipo_id,
+                'nome' => $etapa->name,
+                'ordem' => $etapa->pivot->order
+            ]);
+        }
+
+        return;
     }
 
     /**
