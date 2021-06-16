@@ -65,4 +65,14 @@ class Obra extends Model
     {
         return $this->belongsTo(Viabilization::class, 'viabilization_id');
     }
+
+    public function financeiro()
+    {
+        return $this->hasOne(ObraFinanceiro::class, 'id_obra');
+    }
+
+    public function etapas()
+    {
+        return $this->hasMany(ObraEtapa::class, 'id_obra');
+    }
 }

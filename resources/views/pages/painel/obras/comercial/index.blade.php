@@ -88,8 +88,9 @@
                         status: status,
                     },
                     dataType: 'json',
-                    error: function() {
-                        toastr.error('error')
+                    error: function(j) {
+                        console.log(j);
+                        toastr.error(j.message ?? 'error')
                     },
                 });
             }

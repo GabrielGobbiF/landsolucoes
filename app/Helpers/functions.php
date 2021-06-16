@@ -71,9 +71,35 @@ function dateTournamentForHumans($date = null)
     }
 }
 
-function limpar($variavel)
+function limpar($variavel, $traco = '-')
 {
-    return strtolower(preg_replace("/[^a-zA-Z0-9-]/", "-", strtr(utf8_decode(trim($variavel)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
+    return strtolower(preg_replace("/[^a-zA-Z0-9-]/", "$traco", strtr(utf8_decode(trim($variavel)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
+}
+
+function return_format_date($date, $type = 'pt', $gDate = '-')
+{
+    if ($date != '') {
+
+        $date = ltrim($date);
+
+        $date = str_replace("/", "-", $date);
+
+        $date = new DateTime($date);
+
+        $format = $gDate == '-' ? '-' : '/';
+
+        switch ($type) {
+            case 'pt':
+                return $date->format('d' . $format . 'm' . $format . 'Y');
+                break;
+            case 'en':
+                return $date->format('Y' . $format . 'm' . $format . 'd');
+                break;
+            default:
+                return $date->format('d' . $format . 'm' . $format . 'Y');
+                break;
+        }
+    }
 }
 
 function dataLimpa($date)

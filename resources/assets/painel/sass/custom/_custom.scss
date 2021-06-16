@@ -76,6 +76,11 @@ table {
 }
 
 .is-invalid-label {
-    color: #f44336
+    color: #f44336;
 }
 
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #ececec;
+    opacity: 1;
+}

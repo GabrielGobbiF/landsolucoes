@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateComercial;
+use App\Http\Resources\ObraFinanceiroResource;
 use App\Models\Addres;
 use App\Models\Client;
 use App\Models\Concessionaria;
@@ -12,6 +13,7 @@ use App\Models\ObraEtapa;
 use App\Models\Service;
 use App\Models\Viabilization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ComercialController extends Controller
@@ -86,22 +88,39 @@ class ComercialController extends Controller
         $this->storeEtapasComercial($etapas, $comercial->id);
 
         return redirect()
-            ->route('comercial.show')
-            ->with('message', 'Criado com sucesso');
+            ->route('comercial.show', $comercial->id)
+            ->with('message', 'Criado com sucesso, Atualize o Financeiro');
     }
 
     public function storeEtapasComercial(Object $etapas, int $comercial_id)
     {
         foreach ($etapas as $etapa) {
-            $etapaObra = ObraEtapa::create([
+            $obraEtapa = ObraEtapa::create([
                 'id_obra' => $comercial_id,
                 'id_etapa' => $etapa->id,
                 'tipo_id' => $etapa->tipo_id,
                 'nome' => $etapa->name,
-                'ordem' => $etapa->pivot->order
-            ]);
-        }
+                'ordem' => $etapa->pivot->order,
+                'preco' => $etapa->preco,
+                'unidade' => $etapa->unidade,
+                'quantidade' => $etapa->quantidade,
+            ])->id;
+            $variables = $etapa->variables()->get();
 
+            if (count($variables) > 0) {
+                foreach ($variables as $variable) {
+                    DB::insert(
+                        'insert into obras_etapas_variables (etapa_id, obra_id, nome, preco) values (?,?,?,?)',
+                        [
+                            $obraEtapa,
+                            $comercial_id,
+                            $variable->name,
+                            $variable->price,
+                        ]
+                    );
+                }
+            }
+        }
         return;
     }
 
@@ -119,16 +138,66 @@ class ComercialController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $clients = Client::all();
-        $services = Service::all();
-        $concessionarias = Concessionaria::all();
+        $etapasCompras = $comercial->etapas()->with('variables')->where('tipo_id', '4')->get();
+
+        $financeiro = $comercial->financeiro()->first();
+        $financeiro = $this->financeiroResource($financeiro);
+        $financeiro = is_array($financeiro) ? false : $financeiro->toArray($financeiro);
 
         return view('pages.painel.obras.comercial.show', [
             'comercial' => $comercial,
-            'clients' => $clients,
-            'services' => $services,
-            'concessionarias' => $concessionarias,
+            'etapasCompras' => $etapasCompras,
+            'financeiro' => $financeiro
         ]);
+    }
+
+    public function financeiroResource($financeiro)
+    {
+        return !empty($financeiro) ? new ObraFinanceiroResource($financeiro) : [];
+    }
+
+    public function updateOrCreateFinanceiro(Request $request, $comercial_id)
+    {
+        $columns = $request->except('variable', 'etapa', '_token');
+
+        if (!$comercial = $this->repository->where('id', $comercial_id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        /**
+         * financeiro
+         */
+        $financeiro = $comercial->financeiro()->first();
+        empty($financeiro) ? $comercial->financeiro()->create($columns) : $financeiro->update($columns);
+
+        /**
+         * Variaveis
+         */
+        $etapas = $request->input('etapa');
+        if (!is_null($etapas)) {
+            $comercialEtapas = $comercial->etapas()->where('tipo_id', '4')->get();
+
+            foreach ($etapas as $obraEtapaId => $value) {
+                $etp = $comercialEtapas->where('id', $obraEtapaId)->first();
+                $etp->update(['quantidade' => $value]);
+            }
+        }
+
+        $variables = $request->input('variable');
+        if (!is_null($variables)) {
+            foreach ($variables as $obraVariablesId => $value) {
+                DB::update('update obras_etapas_variables set quantidade = ? where id = ?', [
+                    $value,
+                    $obraVariablesId,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
     }
 
     /**
@@ -138,17 +207,22 @@ class ComercialController extends Controller
      * @param  \App\Models\Test  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateComercial $request, $uuid)
+    public function update(StoreUpdateComercial $request, $id)
     {
-        $columns = $request->all();
 
-        if (!$client = $this->repository->where('uuid', $uuid)->first()) {
+        $columnsViabilizacao = $request->only('viabilizacao');
+
+        $columns = $request->except('viabilizacao');
+
+        if (!$comercial = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('comercial.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $client->update($columns);
+        $comercial->update($columns);
+
+        $comercial->viabilizacao()->update($columnsViabilizacao['viabilizacao']);
 
         return redirect()
             ->back()
@@ -170,6 +244,10 @@ class ComercialController extends Controller
             return redirect()
                 ->route('comercial.index')
                 ->with('message', 'Registro não encontrado!');
+        }
+
+        if( $comercial->financeiro()->first() == null){
+            return response($comercial->update(['status' => false, 'message' => 'Atualize o financiero da obra']), 404);
         }
 
         return response($comercial->update(['status' => $status]), 200);

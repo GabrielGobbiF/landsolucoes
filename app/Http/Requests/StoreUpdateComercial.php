@@ -34,6 +34,15 @@ class StoreUpdateComercial extends FormRequest
             'concessionaria_id' => ['required'],
         ];
 
+        if($this->method() == 'PUT'){
+            $rules = [
+                'client_id' => ['nullable'],
+                'service_id' => ['nullable'],
+                'concessionaria_id' => ['nullable'],
+            ];
+
+        }
+
         return $rules;
     }
 }

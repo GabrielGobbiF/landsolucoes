@@ -454,6 +454,12 @@ table th {
   color: #f44336;
 }
 
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #ececec;
+  opacity: 1;
+}
+
 /*--------------------------------------------------------------
 # Font Base
 --------------------------------------------------------------*/
@@ -2542,6 +2548,45 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
   }
 }
 
+.form-check-right {
+  padding-left: 0;
+  display: inline-block;
+  padding-right: 1.25rem;
+}
+
+.form-check-right .form-check-input {
+  right: 0;
+  margin-left: 0;
+}
+
+.form-check-right .form-check-label {
+  display: block;
+}
+
+.custom-control-right {
+  padding-left: 0;
+  padding-right: 1.5rem;
+  display: inline-block;
+}
+
+.custom-control-right .custom-control-label {
+  display: inline-block;
+}
+
+.custom-control-right .custom-control-label:before,
+.custom-control-right .custom-control-label:after {
+  left: auto;
+  right: -1.5rem;
+}
+
+.custom-control-right .custom-control-input {
+  left: auto;
+}
+
+.custom-control-label {
+  cursor: pointer;
+}
+
 .table th {
   font-weight: 600;
 }
@@ -2615,7 +2660,7 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px;
+  padding: 6px;
   line-height: 1.82857143;
   vertical-align: top;
   border-top: 1px solid #ddd;
@@ -2852,6 +2897,11 @@ th {
 .table-hover tbody tr:hover {
   color: #44607a;
   background-color: #c3d7ec;
+}
+
+.table-hover tbody tr:hover.bd-t-0-f {
+  color: #44607a;
+  background-color: transparent !important;
 }
 
 /* =============

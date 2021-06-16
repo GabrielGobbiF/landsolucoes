@@ -158,5 +158,9 @@ return [
             'id' => 'restricao',
             'name' => 'Viável com restrições',
         ]
-    ]
+    ],
+    'metodo_pagamento' => [
+        'transferência',
+        'boleto'
+    ],
 ];

@@ -23,6 +23,8 @@
 
     <link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 
+    <link href="{{ asset('panel/js/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet"
@@ -138,6 +140,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('panel/js/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
     <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
@@ -146,6 +149,7 @@
 
     <script>
         @include('pages.layouts.notification')
+
     </script>
 
     @include('pages.layouts.modal_delete')

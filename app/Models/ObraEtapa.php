@@ -36,4 +36,9 @@ class ObraEtapa extends Model
     ];
 
     protected $table = 'obras_etapas';
+
+    public function variables()
+    {
+        return $this->hasMany(ObraEtapasVariables::class, 'etapa_id', 'id');
+    }
 }

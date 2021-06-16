@@ -5,19 +5,16 @@ $tab = isset($tab) ? false : 'show active';
 @endphp
 <div class="row">
     <div class="col-md-2 {{ $tab ? 'd-none' : '' }}">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link mb-2 active" id="v-pills-dados-tab" data-toggle="pill" href="#v-pills-dados" role="tab" aria-controls="v-pills-dados" aria-selected="false">Dados</a>
-            <a class="nav-link mb-2" id="v-pills-financeiro-tab" data-toggle="pill" href="#v-pills-financeiro" role="tab" aria-controls="v-pills-financeiro" aria-selected="false">Financeiro</a>
-            <a class="nav-link mb-2" id="v-pills-iso-tab" data-toggle="pill" href="#v-pills-iso" role="tab" aria-controls="v-pills-iso" aria-selected="true">ISO</a>
+        <div class="nav flex-column nav-pills" data-tab="comercial" id="v-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link mb-2 active" data-tab="comercial" id="v-dados-tab" data-toggle="pill" href="#v-dados" role="tab" aria-controls="v-dados" aria-selected="false">Dados</a>
+            <a class="nav-link mb-2" data-tab="comercial" id="v-financeiro-tab" data-toggle="pill" href="#v-financeiro" role="tab" aria-controls="v-financeiro" aria-selected="false">Financeiro</a>
+            <a class="nav-link mb-2" data-tab="comercial" id="v-iso-tab" data-toggle="pill" href="#v-iso" role="tab" aria-controls="v-iso" aria-selected="true">ISO</a>
         </div>
     </div>
     <div class="col-md-{{ $tab ? '12' : '10' }}">
+        <div class="tab-content text-muted mt-4 mt-md-0" id="v-tabContent">
+            <div class="tab-pane fade show active" id="v-dados" role="tabpanel" aria-labelledby="v-dados-tab">
 
-
-
-        <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
-
-            <div class="tab-pane fade show active" id="v-pills-dados" role="tabpanel" aria-labelledby="v-pills-dados-tab">
                 <div class="box box-default box-solid">
                     <div class="col-md-12">
                         <div class="box-header with-border">
@@ -36,21 +33,34 @@ $tab = isset($tab) ? false : 'show active';
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="select--concessionaria" class="@error('concessionaria_id') is-invalid-label @enderror">Concessionária</label>
-                                        <select name="concessionaria_id" id="select--concessionaria" class="form-control select2 select--concessionaria @error('concessionaria_id') is-invalid @enderror">
-                                            <option value="" selected>Selecione</option>
-                                            @foreach ($concessionarias as $concessionaria)
-                                                <option {{ isset($comercial) && $comercial->concessionaria_id == $concessionaria->id ? 'selected' : '' }}
-                                                    {{ old('concessionaria_id') == $concessionaria->id ? 'selected' : '' }} value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        @if (!$edit)
+                                            <select name="concessionaria_id" id="select--concessionaria"
+                                                class="form-control select2 select--concessionaria @error('concessionaria_id') is-invalid @enderror">
+                                                <option value="" selected>Selecione</option>
+                                                @foreach ($concessionarias as $concessionaria)
+                                                    <option {{ isset($comercial) && $comercial->concessionaria_id == $concessionaria->id ? 'selected' : '' }}
+                                                        {{ old('concessionaria_id') == $concessionaria->id ? 'selected' : '' }}
+                                                        {{ Request::input('concessionaria_id') == $concessionaria->id ? 'selected' : '' }}
+                                                        value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        @else
+                                            <input type="text" name="concessionaria_id" class="form-control" readonly disabled id="input--concessionaria_id"
+                                                value="{{ $comercial->concessionaria->name }}">
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="select--service" class="@error('service_id') is-invalid-label @enderror">Tipo de Obra/Serviço</label>
-                                        <select name="service_id" id="select--service" data-placeholder="Selecione a Concessionaria" class="form-control select2"></select>
+                                        @if (!$edit)
+                                            <select name="service_id" id="select--service" data-placeholder="Selecione a Concessionaria" class="form-control select2"></select>
+                                        @else
+                                            <input type="text" name="concessionaria_id" class="form-control" readonly disabled id="input--concessionaria_id"
+                                                value="{{ $comercial->concessionaria->name }}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -68,16 +78,21 @@ $tab = isset($tab) ? false : 'show active';
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="select--client" class="@error('client_id') is-invalid-label @enderror">Cliente</label>
-                                        <select name="client_id" id="select--client" class="form-control select2">
-                                            <option value="" selected>Selecione</option>
-                                            @foreach ($clients as $client)
-                                                <option
-                                                    {{ isset($comercial) && $comercial->client_id == $client->id ? 'selected' : '' }}
-                                                    {{ old('client_id') == $client->id ? 'selected' : '' }}
-                                                    value="{{ $client->id }}"> {{ $client->company_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        @if (!$edit)
+                                            <select name="client_id" id="select--client" class="form-control select2">
+                                                <option value="" selected>Selecione</option>
+                                                @foreach ($clients as $client)
+                                                    <option
+                                                        {{ isset($comercial) && $comercial->client_id == $client->id ? 'selected' : '' }}
+                                                        {{ old('client_id') == $client->id ? 'selected' : '' }}
+                                                        value="{{ $client->id }}"> {{ $client->company_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        @else
+                                            <input type="text" name="concessionaria_id" class="form-control" readonly disabled id="input--concessionaria_id"
+                                                value="{{ $comercial->concessionaria->name }}">
+                                        @endif
                                     </div>
                                 </div>
 
@@ -100,7 +115,8 @@ $tab = isset($tab) ? false : 'show active';
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="participantes">Participantes</label>
-                                        <input type="text" class="form-control @error('viabilizacao.participantes') is-invalid @enderror" name="viabilizacao[participantes]" id="input--participantes"
+                                        <input type="text" class="form-control @error('viabilizacao.participantes') is-invalid @enderror" name="viabilizacao[participantes]"
+                                            id="input--participantes"
                                             value="{{ isset($comercial) && $comercial->viabilizacao->participantes ? $comercial->viabilizacao->participantes : old('viabilizacao.participantes') }}">
                                     </div>
                                 </div>
@@ -111,7 +127,7 @@ $tab = isset($tab) ? false : 'show active';
                 </div>
             </div>
 
-            <div class="tab-pane fade {{ $tab }}" id="v-pills-iso" role="tabpanel" aria-labelledby="v-pills-iso-tab">
+            <div class="tab-pane fade {{ $tab }}" id="v-iso" role="tabpanel" aria-labelledby="v-iso-tab">
                 <div class="box box-default box-solid">
                     <div class="col-md-12">
                         <div class="box-header with-border">
@@ -243,50 +259,11 @@ $tab = isset($tab) ? false : 'show active';
                 </div>
             </div>
 
-
-            <div class="tab-pane fade {{ $tab }}" id="v-pills-financeiro" role="tabpanel" aria-labelledby="v-pills-financeiro-tab">
-
-            </div>
+            @if ($edit)
+                <div class="tab-pane fade {{ $tab }}" id="v-financeiro" role="tabpanel" aria-labelledby="v-financeiro-tab">
+                    @include('pages.painel.obras.comercial.financeiro.index')
+                </div>
+            @endif
         </div>
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function() {
-        if ($('.select--concessionaria').val() != '') {
-            concessionaria();
-        }
-
-        $('.select--concessionaria').on('change', function() {
-            concessionaria();
-        });
-    })
-
-    function concessionaria() {
-        var concessionaria = $('.select--concessionaria').val();
-        $('#select--service').empty().trigger('change');
-        if (concessionaria != '') {
-            var url = "{{ route('concessionaria.service.all', ':id') }}";
-            url = url.replace(':id', concessionaria);
-            $.ajax({
-                url: url,
-                type: "GET",
-                ajax: true,
-                dataType: "JSON",
-                success: function(j) {
-                    var platform = `{{ isset($comercial) ? $comercial->service_id : '' }}`;
-                    $.each(j.data, function(k, field) {
-                        var newOption = new Option(field.name, field.id, false, false);
-                        $('#select--service').append(newOption);
-                    });
-                    if (platform != '') {
-                        $('#select--service').val(platform);
-                        $('#select--service').trigger('change');
-                    }
-                },
-            });
-        }
-    }
-
-</script>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Financeiro;
+use App\Models\Financial;
 use Illuminate\Http\Request;
 
-class FinanceiroController extends Controller
+class FinancialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class FinanceiroController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Financeiro  $financeiro
+     * @param  \App\Models\Financial  $Financial
      * @return \Illuminate\Http\Response
      */
-    public function show(Financeiro $financeiro)
+    public function show(Financial $Financial)
     {
         //
     }
@@ -52,10 +52,10 @@ class FinanceiroController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Financeiro  $financeiro
+     * @param  \App\Models\Financial  $Financial
      * @return \Illuminate\Http\Response
      */
-    public function edit(Financeiro $financeiro)
+    public function edit(Financial $Financial)
     {
         //
     }
@@ -64,10 +64,10 @@ class FinanceiroController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Financeiro  $financeiro
+     * @param  \App\Models\Financial  $Financial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Financeiro $financeiro)
+    public function update(Request $request, Financial $Financial)
     {
         //
     }
@@ -75,10 +75,10 @@ class FinanceiroController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Financeiro  $financeiro
+     * @param  \App\Models\Financial  $Financial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Financeiro $financeiro)
+    public function destroy(Financial $Financial)
     {
         //
     }

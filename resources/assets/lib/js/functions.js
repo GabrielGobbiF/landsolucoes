@@ -10,6 +10,12 @@ jQuery(function () {
         //document.querySelector('.select2-search__field').prop('placeholder', '3 caracteres');
     });
 
+    $(".spin").TouchSpin({
+        verticalbuttons: true,
+        verticalupclass: 'glyphicon glyphicon-plus',
+        verticaldownclass: 'glyphicon glyphicon-minus'
+    });
+
     $('.btn-submit').on('click', function () {
         var text = $(this).attr('data-btn-text');
         text = text != null ? text : 'Salvando...';
