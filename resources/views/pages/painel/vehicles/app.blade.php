@@ -28,6 +28,7 @@
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
+
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 
@@ -128,5 +129,22 @@
 
 <script>
     @include('pages.layouts.notification')
+
+    function btn_delete() {
+        $('.btn-delete').on('click', function() {
+            var href = $(this).attr('data-href');
+            var title = $(this).attr('data-title');
+            var text = $(this).attr('data-original-title');
+            if (text != null && title != null) {
+                $('.modal-title').html(title);
+                $('#modal-confirm').html(text);
+                $('.modal-text-body').html('Tem certeza que deseja ' + text + '?');
+            }
+            $('#form-modal-action').attr('action', href)
+            $('#modal-delete').modal('show');
+        });
+    }
+
 </script>
+
 </html>

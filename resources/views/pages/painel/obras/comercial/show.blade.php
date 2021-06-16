@@ -8,13 +8,13 @@
             @if ($financeiro)
                 <ul class="nav nav-pills" id="v-tab" role="tablist">
                     <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link active" data-tab="comercial" id="v-dados" data-toggle="tab" href="#dados" role="tab" aria-selected="true">
+                        <a class="nav-link active" data-tab="comercial" id="v-dados-tab" data-toggle="tab" href="#v-dados" role="tab" aria-selected="true">
                             <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                             <span class="d-none d-sm-block">Dados da Proposta</span>
                         </a>
                     </li>
                     <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" data-tab="comercial" id="v-financeiro" data-toggle="tab" href="#financeiro" role="tab" aria-selected="false">
+                        <a class="nav-link" data-tab="comercial" id="v-dados-tab" data-toggle="tab" href="#v-financeiro" role="tab" aria-selected="false">
                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                             <span class="d-none d-sm-block">Métodos de Pagamento</span>
                         </a>
@@ -28,7 +28,7 @@
                 </ul>
 
                 <div class="tab-content pd-t-20">
-                    <div class="tab-pane active" id="dados" role="tabpanel">
+                    <div class="tab-pane show" id="v-dados" role="tabpanel" aria-labelledby="v-dados">
                         <form role="form-update-comercial" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('comercial.update', $comercial->id) }}"
                             method="POST">
                             @csrf
@@ -118,15 +118,17 @@
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                         </form>
                     </div>
-                    <div class="tab-pane" id="financeiro" role="tabpanel">
+
+                    <div class="tab-pane" id="v-financeiro" role="tabpanel" aria-labelledby="v-financeiro">
                         <form role="form-update-financeiro-comercial" action="{{ route('comercial.update.financeiro', $comercial->id) }}" method="POST">
                             @csrf
                             @include('pages.painel.obras.comercial.financeiro.index')
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                         </form>
                     </div>
-                    <div class="tab-pane" id="iso" role="tabpanel">
-                        <form role="form-update-comercial" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('comercial.update', $comercial->id) }}"
+
+                    <div class="tab-pane" id="v-iso" role="tabpanel" aria-labelledby="v-iso">
+                        <form role="form-update-comercial-viabilizacao" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('comercial.update', $comercial->id) }}"
                             method="POST">
                             @csrf
                             @method('PUT')
@@ -284,9 +286,7 @@
     <script async>
         $(document).ready(function() {
             tab = localStorage.getItem('nav-tabs_comercial')
-            console.log(tab);
             $('#v-tab a#' + tab).tab('show')
         })
-
     </script>
 @stop
