@@ -6,21 +6,21 @@
     <div class="box">
         <div class='box-body pd-25'>
             @if ($financeiro)
-                <ul class="nav nav-pills" role="tablist">
+                <ul class="nav nav-pills" id="v-tab" role="tablist">
                     <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link active" data-toggle="tab" href="#dados" role="tab" aria-selected="true">
+                        <a class="nav-link active" data-tab="comercial" id="v-dados" data-toggle="tab" href="#dados" role="tab" aria-selected="true">
                             <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                             <span class="d-none d-sm-block">Dados da Proposta</span>
                         </a>
                     </li>
                     <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" data-toggle="tab" href="#financeiro" role="tab" aria-selected="false">
+                        <a class="nav-link" data-tab="comercial" id="v-financeiro" data-toggle="tab" href="#financeiro" role="tab" aria-selected="false">
                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                             <span class="d-none d-sm-block">Métodos de Pagamento</span>
                         </a>
                     </li>
                     <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" data-toggle="tab" href="#iso" role="tab" aria-selected="false">
+                        <a class="nav-link" data-tab="comercial"  id="v-iso" data-toggle="tab" href="#iso" role="tab" aria-selected="false">
                             <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                             <span class="d-none d-sm-block">ISO</span>
                         </a>
@@ -284,6 +284,7 @@
     <script async>
         $(document).ready(function() {
             tab = localStorage.getItem('nav-tabs_comercial')
+            console.log(tab);
             $('#v-tab a#' + tab).tab('show')
         })
 

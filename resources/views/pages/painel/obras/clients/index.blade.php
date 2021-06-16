@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <table data-toggle="table" id="table" data-table="clients">
+                <table data-toggle="table" id="table-api" data-table="clients">
                     <thead>
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>

@@ -246,8 +246,8 @@ class ComercialController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        if( $comercial->financeiro()->first() == null){
-            return response($comercial->update(['status' => false, 'message' => 'Atualize o financiero da obra']), 404);
+        if ($status == 'aprovada' && $comercial->financeiro()->first() == null) {
+            return response(['status' => false, 'message' => 'primeiro atualize o financiero da obra'], 404);
         }
 
         return response($comercial->update(['status' => $status]), 200);

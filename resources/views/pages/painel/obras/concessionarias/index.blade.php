@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <table data-toggle="table" id="table" data-table="concessionarias">
+                <table data-toggle="table" id="table-api" data-table="concessionarias">
                     <thead>
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>

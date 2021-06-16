@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <table data-toggle="table" id="table" data-table="comercial">
+                <table data-toggle="table" id="table-api" data-table="comercial">
                     <thead>
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>
@@ -88,9 +88,8 @@
                         status: status,
                     },
                     dataType: 'json',
-                    error: function(j) {
-                        console.log(j);
-                        toastr.error(j.message ?? 'error')
+                    error: function(jqXHR) {
+                        toastr.error(jqXHR.responseJSON.message ?? 'error')
                     },
                 });
             }
