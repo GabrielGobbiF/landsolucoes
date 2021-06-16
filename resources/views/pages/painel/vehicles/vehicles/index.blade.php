@@ -52,7 +52,7 @@
                                 </a>
                                 <a href="JavaScript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Desativar"
                                     data-href="{{ route('vehicles.destroy', [$vehicle->id, 'desactive' => true]) }}"
-                                    class="btn btn-xs btn-danger btn-delete"
+                                    class="btn btn-xs btn-danger btn-delete" onclick="btn_delete(this)"
                                     data-original-title="Desativar Carro">
                                     <i class="fa fa-times"></i>
                                 </a>
