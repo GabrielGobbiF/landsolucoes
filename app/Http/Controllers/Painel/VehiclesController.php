@@ -237,7 +237,7 @@ class VehiclesController extends Controller
 
     public function genereted_all_qrcode()
     {
-        $vehicles = $this->repository->all();
+        $vehicles = $this->repository->where('is_active', 'Y')->get();
 
         return view('pages.painel.vehicles.vehicles.all_qrcode', [
             'vehicles' => $vehicles
