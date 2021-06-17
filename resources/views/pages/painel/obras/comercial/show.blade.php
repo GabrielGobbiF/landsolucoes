@@ -111,7 +111,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 d-none">
                                                 <div class="form-group">
                                                     <label for="participantes">Participantes</label>
                                                     <input type="text" class="form-control @error('viabilizacao.participantes') is-invalid @enderror" name="viabilizacao[participantes]"
