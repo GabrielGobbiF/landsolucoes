@@ -7,6 +7,7 @@ use App\Http\Resources\EtapasResource;
 use App\Http\Resources\TipoResource;
 use App\Models\Concessionaria;
 use App\Models\Etapa;
+use App\Models\Obra;
 use App\Models\Service;
 use App\Models\Tipo;
 use Illuminate\Database\Eloquent\Builder;
@@ -94,5 +95,30 @@ class EtapasApiController extends Controller
         $tipo = Tipo::create($columns);
 
         return new TipoResource($tipo);
+    }
+
+    public function etapas_financeiro_store(Request $request, $comercial_id)
+    {
+        $columns = $request->all();
+
+        if (!$comercial = Obra::where('id', $comercial_id)->first()) {
+            return response()->json('Object comercial not found', 404);
+        }
+
+        if (!$etapa = $comercial->etapas()->where('id', $columns['etapa_id'])->first()) {
+            return response()->json('Object etapa not found', 404);
+        }
+
+        $valor_receber = str_replace(['R$', '&nbsp', chr(194) . chr(160)], '', $columns['valor_receber']);
+        $valor_receber = $valor_receber != '' ? number_format(str_replace(",", ".", str_replace(".", "", $valor_receber)), 2, '.', '') : '0.00';
+
+        return response()->json($comercial->etapas_financeiro()->create([
+            'obra_id' => $comercial->id,
+            'etapa_id' => $columns['etapa_id'],
+            'metodo_pagamento' => $columns['metodo_pagamento'],
+            'valor' => $columns['valor'],
+            'valor_receber' => $valor_receber,
+            'nome_etapa' => $etapa->nome,
+        ]), 200);
     }
 }

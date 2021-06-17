@@ -3,7 +3,7 @@ jQuery(function () {
     'use strict'
 
     var $table = $('#table-api');
-    var dataTable = $('#table').attr('data-table');
+    var dataTable = $('#table-api').attr('data-table');
 
     if ($table.length > 0) {
 

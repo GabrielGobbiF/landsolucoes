@@ -10,6 +10,7 @@ use App\Http\Resources\ServiceResource;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
+use App\Models\ObraEtapasFinanceiro;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -91,6 +92,14 @@ class TableApiController extends Controller
 
 
         return ComercialResource::collection($comercial);
+    }
+
+    public function etapas_financeiro($obra_id)
+    {
+        $etapasFinanceiro = ObraEtapasFinanceiro::where('obra_id', $obra_id)->get();
+
+        return response()->json($etapasFinanceiro);
+
     }
 
     /**

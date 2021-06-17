@@ -84,7 +84,6 @@ $(function () {
     })
 
 
-
     var setFiles = function (filesItems) {
         localStorage.setItem('files', JSON.stringify(filesItems));
         getDiv();

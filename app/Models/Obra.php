@@ -75,4 +75,9 @@ class Obra extends Model
     {
         return $this->hasMany(ObraEtapa::class, 'id_obra');
     }
+
+    public function etapas_financeiro()
+    {
+        return $this->hasMany(ObraEtapasFinanceiro::class, 'obra_id');
+    }
 }

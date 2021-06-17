@@ -28,6 +28,8 @@ Route::prefix('api/v1')->middleware('auth')->group(function () {
     Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
     Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
     Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');
+    Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
+    Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
 
     Route::get('concessionaria/{concessionaria_id}/services', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'servicesByConcessionariaId'])->name('concessionaria.service.all');
 });
@@ -174,13 +176,14 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('concessionarias/{concessionaria_id}/service/{service_id}/etapas/reorder', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'concessionaria_service_etapa_reorder'])->name('concessionaria.service.etapa.reorder');
 
             Route::post('etapas/tipo/store', [App\Http\Controllers\Api\EtapasApiController::class, 'store_tipo'])->name('etapas.tipo.store');
-
             /*
             |--------------------------------------------------------------------------
             | Etapas
             |--------------------------------------------------------------------------
             */
             Route::resource('etapas', App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class);
+
+            Route::delete('comercial/etapasFinanceiro/{etapa_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class, 'etapas_financeiro_destroy'])->name('comercial.etapas.financeiro.store');;
 
             /*
             |--------------------------------------------------------------------------

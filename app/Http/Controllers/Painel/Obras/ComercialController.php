@@ -12,6 +12,7 @@ use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\Service;
 use App\Models\Viabilization;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -138,16 +139,27 @@ class ComercialController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $etapasCompras = $comercial->etapas()->with('variables')->where('tipo_id', '4')->get();
+        $etapasFinanceiro = $comercial->etapas()->whereDoesntHave('financeiro')->get();
+
+        $etapasAll = $comercial->etapas()->with('variables')->get();
+        $etapasCompras = $etapasAll->where('tipo_id', '4');
 
         $financeiro = $comercial->financeiro()->first();
         $financeiro = $this->financeiroResource($financeiro);
         $financeiro = is_array($financeiro) ? false : $financeiro->toArray($financeiro);
 
+        if ($financeiro) {
+            $etapasFinaneiroSoma = $comercial->etapas_financeiro()->sum('valor_receber') ?? 0;
+            $totalFaturar = $financeiro['valor_negociado'] - $etapasFinaneiroSoma;
+        }
+
         return view('pages.painel.obras.comercial.show', [
             'comercial' => $comercial,
             'etapasCompras' => $etapasCompras,
-            'financeiro' => $financeiro
+            'financeiro' => $financeiro,
+            'etapasAll' => $etapasAll,
+            'totalFaturar' => $totalFaturar ??  0,
+            'etapasFinanceiro' => $etapasFinanceiro
         ]);
     }
 

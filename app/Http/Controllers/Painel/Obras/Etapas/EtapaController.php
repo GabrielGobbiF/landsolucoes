@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateEtapa;
 use App\Http\Resources\EtapasResource;
 use App\Models\Concessionaria;
 use App\Models\Etapa;
+use App\Models\ObraEtapasFinanceiro;
 use App\Models\Service;
 use App\Models\Variable;
 use Illuminate\Http\Request;
@@ -179,6 +180,27 @@ class EtapaController extends Controller
         }
 
         $department->delete();
+
+        return redirect()
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Etapas  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function etapas_financeiro_destroy($id)
+    {
+        if (!$etapa = ObraEtapasFinanceiro::where('id', $id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('error', 'Registro não encontrado!');
+        }
+
+        $etapa->delete();
 
         return redirect()
             ->back()

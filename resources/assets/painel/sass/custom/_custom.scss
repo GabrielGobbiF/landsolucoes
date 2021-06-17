@@ -84,3 +84,13 @@ table {
     background-color: #ececec;
     opacity: 1;
 }
+
+.form-check {
+    input {
+        cursor: pointer;
+    }
+
+    label {
+        cursor: pointer;
+    }
+}

@@ -4,35 +4,44 @@
 
 @section('content')
     <div class="box">
-        <div class='box-body pd-25'>
+        <div class='box-body pd-15'>
             @if ($financeiro)
-                <ul class="nav nav-pills" id="v-tab" role="tablist">
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link active" data-tab="comercial" id="v-dados-tab" data-toggle="tab" href="#v-dados" role="tab" aria-selected="true">
-                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                            <span class="d-none d-sm-block">Dados da Proposta</span>
-                        </a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" data-tab="comercial" id="v-dados-tab" data-toggle="tab" href="#v-financeiro" role="tab" aria-selected="false">
-                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                            <span class="d-none d-sm-block">Métodos de Pagamento</span>
-                        </a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" data-tab="comercial"  id="v-iso" data-toggle="tab" href="#iso" role="tab" aria-selected="false">
-                            <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                            <span class="d-none d-sm-block">ISO</span>
-                        </a>
-                    </li>
-                </ul>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <ul class="nav nav-pills" id="v-tab" role="tablist">
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link active" data-tab="comercial" id="v-dados-tab" data-toggle="tab" href="#v-dados" role="tab" aria-selected="true">
+                                <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                <span class="d-none d-sm-block">Dados da Proposta</span>
+                            </a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link" data-tab="comercial" id="v-financeiro-tab" data-toggle="tab" href="#v-financeiro" role="tab" aria-selected="false">
+                                <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                <span class="d-none d-sm-block">Métodos de Pagamento</span>
+                            </a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link" data-tab="comercial" id="v-iso-tab" data-toggle="tab" href="#v-iso" role="tab" aria-selected="false">
+                                <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                <span class="d-none d-sm-block">ISO</span>
+                            </a>
+                        </li>
+                    </ul>
 
-                <div class="tab-content pd-t-20">
-                    <div class="tab-pane show" id="v-dados" role="tabpanel" aria-labelledby="v-dados">
+                    <h3 class="box-title float-right">
+                        <a class="btn btn-outline-primary mt-1 mr-1" id="btn-listaCompra" data-toggle="collapse" href="#lista_compra" aria-expanded="true" aria-controls="lista_compra">
+                            Lista de Compra
+                        </a>
+                    </h3>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="v-dados" role="tabpanel" aria-labelledby="v-dados">
                         <form role="form-update-comercial" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('comercial.update', $comercial->id) }}"
                             method="POST">
                             @csrf
                             @method('PUT')
+                            <input type="hidden" id="comercial_id" value="{{ $comercial->id }}">
                             <div class="box box-default box-solid">
                                 <div class="col-md-12">
                                     <div class="box-header with-border">
@@ -61,8 +70,8 @@
                                                 <div class="form-group">
                                                     <label for="select--service" class="@error('service_id') is-invalid-label @enderror">Tipo de Obra/Serviço</label>
 
-                                                    <input type="text" name="concessionaria_id" class="form-control" readonly disabled id="input--concessionaria_id"
-                                                        value="{{ $comercial->concessionaria->name }}">
+                                                    <input type="text" name="service_id" class="form-control" readonly disabled id="input--service_id"
+                                                        value="{{ $comercial->service->name }}">
                                                 </div>
                                             </div>
 
@@ -78,7 +87,7 @@
                                     </div>
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label for="select--client" class="@error('client_id') is-invalid-label @enderror">Cliente</label>
                                                     <input type="text" name="client-id" class="form-control" readonly disabled id="input--client-id"
@@ -128,7 +137,8 @@
                     </div>
 
                     <div class="tab-pane" id="v-iso" role="tabpanel" aria-labelledby="v-iso">
-                        <form role="form-update-comercial-viabilizacao" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('comercial.update', $comercial->id) }}"
+                        <form id="form-update-comercial-viabilizacao" role="form" class="needs-validation" novalidate id="form-driver" autocomplete="off"
+                            action="{{ route('comercial.update', $comercial->id) }}"
                             method="POST">
                             @csrf
                             @method('PUT')
@@ -274,7 +284,7 @@
                     <form role="form-update-financeiro-comercial" action="{{ route('comercial.update.financeiro', $comercial->id) }}" method="POST">
                         @csrf
                         <div class="col-md-12">
-                            @include('pages.painel.obras.comercial.financeiro.index')
+                            @include('pages.painel.obras.comercial.financeiro.index', ['type' => 'cadastro'])
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                         </div>
                     </form>
@@ -282,11 +292,7 @@
             @endif
         </div>
     </div>
-
-    <script async>
-        $(document).ready(function() {
-            tab = localStorage.getItem('nav-tabs_comercial')
-            $('#v-tab a#' + tab).tab('show')
-        })
-    </script>
+@section('scripts')
+    <script src="{{ asset('panel/js/pages/comercial.js') }}"></script>
+@endsection
 @stop
