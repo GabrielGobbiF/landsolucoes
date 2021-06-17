@@ -62,9 +62,9 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id)
     {
-        if (!$client = $this->repository->where('uuid', $uuid)->with('departments')->first()) {
+        if (!$client = $this->repository->where('id', $id)->with('departments')->first()) {
 
             return redirect()
                 ->route('clients.index')

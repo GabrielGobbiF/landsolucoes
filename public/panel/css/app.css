@@ -3808,6 +3808,20 @@ th {
 * bootstrap TABLE
 */
 
+@media (max-width: 992px) {
+  .bootstrap-table .fixed-table-pagination > .pagination-detail,
+  .bootstrap-table .fixed-table-pagination > .pagination {
+    margin-left: 5px;
+  }
+
+  .bootstrap-table .fixed-table-toolbar .bs-bars,
+  .bootstrap-table .fixed-table-toolbar .search,
+  .bootstrap-table .fixed-table-toolbar .columns {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
 /**
 * fim
 */

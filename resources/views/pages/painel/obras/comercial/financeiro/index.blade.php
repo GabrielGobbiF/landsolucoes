@@ -177,7 +177,7 @@
             </div>
             <div class="box-body">
                 <div class="row">
-
+                    <input type="hidden" id="financeiro_id" value="{{ $financeiro ? $financeiro['id'] : '' }}">
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_custo">Valor de Custo</label>
@@ -202,7 +202,6 @@
                                 value="{{ $financeiro && $financeiro['valor_desconto_format'] ? $financeiro['valor_desconto_format'] : old('valor_desconto') }}">
                         </div>
                     </div>
-
 
                     <div class="col-md-2">
                         <div class="form-group">
@@ -253,6 +252,10 @@
     <script>
         $(document).ready(function() {
             let time = null;
+
+            if ($('#financeiro_id').val() == '') {
+                updateValorCusto();
+            }
 
             $('#input--valor_metodo_porcent').on('keyup change', function() {
                 var valorNegociado = $('.spanValorNegociado').attr('data-valor');

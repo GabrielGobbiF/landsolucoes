@@ -74,7 +74,7 @@
                     <h4 class="text-white mobile--hidden">@yield('title', config('app.name', 'Cena'))</h4>
                 </div>
                 <div class="d-flex">
-                    <div class="dropdown d-inline-block d-lg-none ml-2">
+                    <div class="dropdown d-none ml-2">
                         <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="ri-search-line"></i>

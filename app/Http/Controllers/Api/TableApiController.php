@@ -22,7 +22,7 @@ class TableApiController extends Controller
     public function __construct(Request $request)
     {
         $this->limit = $request->input('pageSize') ?? '10';
-        $this->order = $request->input('order') ?? 'desc';
+        $this->order = $request->input('order') ?? 'asc';
         $this->offset = $request->input('offset') ?? 0;
         $this->search = $request->input('search') ?? '';
         $this->sort = $request->input('sort') ?? 'id';

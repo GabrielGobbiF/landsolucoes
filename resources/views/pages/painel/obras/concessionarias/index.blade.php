@@ -22,12 +22,12 @@
                         </div>
                     </div>
                 </div>
-                <table data-toggle="table" id="table-api" data-table="concessionarias">
+                <table data-toggle="table" id="table-api" data-table="concessionarias" order="id">
                     <thead>
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>
                             <th data-field="name" data-width="80%" data-width-unit="%" >Razão Social</th>
-                            <th data-field="qnt_services" data-halign="center" data-align="center">Quantidade de Serviços</th>
+                            <th data-field="qnt_services" data-halign="center" data-align="center" class="mobile--hidden">Quantidade de Serviços</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

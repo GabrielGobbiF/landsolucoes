@@ -113,6 +113,8 @@ return [
         'Bifásico para Trifásico',
         'Caixas Separadoras e Bacias Coletoras',
         'Projeto Servidão de Passagem e Aprovação',
+        'REDE SUBTERRANEA 15KV E PADRÕES DE ENTRADA BT',
+        'REDE SUBTERRÂNEA 15 KV COM PADRÕES BT',
     ],
 
     'concessionarias' => [

@@ -1,10 +1,11 @@
 @csrf
-<div class="box box-default bd-t-0">
-    <div class="box-header with-border">
-        <h3 class="box-title">Dados</h3>
-    </div>
-    <div class="box-body">
-        <div class="row mg-0">
+<div class="box box-default box-solid">
+    <div class="col-md-12">
+        <div class="box-header with-border">
+            <h3 class="box-title">Dados</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="input--company_name">Razão Social</label>

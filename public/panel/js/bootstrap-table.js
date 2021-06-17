@@ -3,7 +3,8 @@ jQuery(function () {
     'use strict'
 
     var $table = $('#table-api');
-    var dataTable = $('#table-api').attr('data-table');
+    var dataTable = $table.attr('data-table');
+    var order = $table.attr('order');
 
     if ($table.length > 0) {
 
@@ -31,7 +32,7 @@ jQuery(function () {
             pageNumber: 1,
             queryParams: function (p) {
                 return {
-                    sort: p.sortName,
+                    sort: p.sortName ?? order,
                     order: p.sortOrder,
                     search: p.searchText,
                     page: p.pageNumber,
