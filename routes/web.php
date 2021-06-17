@@ -25,6 +25,7 @@ Route::group(['middleware' => ['CheckClient']], function () {
 
 Route::prefix('api/v1')->middleware('auth')->group(function () {
     Route::get('/clients', [App\Http\Controllers\Api\TableApiController::class, 'clients'])->name('clients.all');
+    Route::get('/users', [App\Http\Controllers\Api\TableApiController::class, 'users'])->name('users.all');
     Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
     Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
     Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');
@@ -135,7 +136,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Obras
             |--------------------------------------------------------------------------
             */
-            Route::resource('obras', App\Http\Controllers\Painel\ObrasController::class);
+            Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
 
             /*
             |--------------------------------------------------------------------------
@@ -144,6 +145,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             */
             Route::post('comercial/{comercial_id}/updateStatus', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateStatus'])->name('comercial.update.status');
             Route::post('comercial/{comercial_id}/updateFinanceiro', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateOrCreateFinanceiro'])->name('comercial.update.financeiro');
+            Route::post('comercial/approved', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'approved'])->name('comercial.approved');
             Route::resource('comercial', App\Http\Controllers\Painel\Obras\ComercialController::class);
 
             /*

@@ -150,9 +150,9 @@ jQuery(function () {
     $('[data-toggle="tooltip"]').tooltip()
 
     $('.btn-delete').on('click', function () {
-        var href  = $(this).attr('data-href');
+        var href = $(this).attr('data-href');
         var title = $(this).attr('data-title');
-        var text  = $(this).attr('data-original-title');
+        var text = $(this).attr('data-original-title');
         if (text != null && title != null) {
             $('.modal-title').html(title);
             $('#modal-confirm').html(text);
@@ -204,4 +204,5 @@ function resetDiv() {
     $('.table-mensal').addClass('d-none');
     $('.table-epi').addClass('d-none');
 }
+
 

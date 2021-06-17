@@ -70,7 +70,7 @@ class ObrasController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        return view('pages.obras.show', [
+        return view('pages.painel.obras.obras.show', [
             'obra' => $obra,
         ]);
     }

@@ -35,7 +35,7 @@
                                                     <tbody>
                                                         @foreach ($unreadNotifications as $unreadNotification)
                                                             <tr>
-                                                                <th class="text-reset notification-item-noti">
+                                                                <th class="text-reset notification-item-noti pd-10-f">
                                                                     <a href="{{ route('notifications.read', $unreadNotification->id) }}" class="">
                                                                         <div class="media">
                                                                             <div class="avatar-xs mr-3">
@@ -73,7 +73,7 @@
                                                     <tbody>
                                                         @foreach ($readNotifications as $readNotification)
                                                             <tr>
-                                                                <th class="text-reset notification-item-noti">
+                                                                <th class="text-reset notification-item-noti pd-10-f">
                                                                     <a href="{{ route('notifications.read', $readNotification->id) }}" class="">
                                                                         <div class="media">
                                                                             <div class="avatar-xs mr-3">
@@ -119,7 +119,7 @@
                                                     <tbody>
                                                         @foreach ($archiveds as $archivedNotification)
                                                             <tr>
-                                                                <th class="text-reset notification-item-noti">
+                                                                <th class="text-reset notification-item-noti pd-10-f">
                                                                     <a href="{{ route('notifications.read', $archivedNotification->id) }}" class="">
                                                                         <div class="media">
                                                                             <div class="avatar-xs mr-3">
@@ -163,7 +163,7 @@
                                                     <tbody>
                                                         @foreach ($trasheds as $trashedNotification)
                                                             <tr>
-                                                                <th class="text-reset notification-item-noti">
+                                                                <th class="text-reset notification-item-noti pd-10-f">
                                                                     <a href="{{ route('notifications.read', $trashedNotification->id) }}" class="">
 
                                                                         <div class="media">

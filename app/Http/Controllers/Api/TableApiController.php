@@ -7,11 +7,13 @@ use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
 use App\Http\Resources\ServiceResource;
+use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -94,12 +96,29 @@ class TableApiController extends Controller
         return ComercialResource::collection($comercial);
     }
 
+    public function users(Request $request)
+    {
+        $search = $request->input('q.term');
+
+        $user = User::where(function ($query) use ($search) {
+            if ($search != '') {
+                $query->orWhere('name', 'LIKE', '%' . $search . '%');
+                $query->orWhere('username', 'LIKE', '%' . $search . '%');
+                $query->orWhere('email', 'LIKE', '%' . $search . '%');
+            }
+        })->get();
+
+        return [
+            'results' => UserResource::collection($user)
+        ];
+
+    }
+
     public function etapas_financeiro($obra_id)
     {
         $etapasFinanceiro = ObraEtapasFinanceiro::where('obra_id', $obra_id)->get();
 
         return response()->json($etapasFinanceiro);
-
     }
 
     /**

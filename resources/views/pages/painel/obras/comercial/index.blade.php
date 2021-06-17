@@ -38,6 +38,32 @@
         </div>
     </div>
 
+    <div class="modal" data-backdrop="static" id="modal-approved-comercial" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="form-approved-comercial" role="form" class="needs-validation" action="{{ route('comercial.approved') }}" method="POST">
+                    <input type="hidden" name="comercial_id" id="comercial_id">
+                    @csrf
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title">Aprovação de Proposta</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="users">Mandar notificação para: </label>
+                                <select name="users[]" id="users" class="form-control select--users" multiple> </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Aprovar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @section('scripts')
     <script>
         function nameFormatter(value, row) {
@@ -67,16 +93,17 @@
             var value = $(v).attr('data-value');
             var status = $(v).val();
             if (status == 'aprovada') {
-                Swal.fire({
-                    title: 'Aprovação de Proposta',
-                    text: 'Fazer o cadastro da obra: ' + name,
-                    confirmButtonText: 'Aprovar',
-                    allowOutsideClick: () => $(v).val(value)
-                }).then((result) => {
-                    if (result.isConfirmed) {
 
-                    }
+                var $modal = $('#modal-approved-comercial');
+                $modal.find('.modal-title').html('Aprovar Proposta - "' + name + '"');
+                $modal.find('#comercial_id').val(id);
+                $modal.modal('show');
+
+                $modal.on('hidden.bs.modal', function(e) {
+                    $(v).val(value)
+                    $(".select--users").empty();
                 })
+
             } else {
                 $.ajax({
                     headers: {
@@ -93,7 +120,6 @@
                     },
                 });
             }
-
         }
 
     </script>

@@ -11,7 +11,9 @@ use App\Models\Concessionaria;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\Service;
+use App\Models\User;
 use App\Models\Viabilization;
+use App\Notifications\ObraCreatedNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -221,7 +223,6 @@ class ComercialController extends Controller
      */
     public function update(StoreUpdateComercial $request, $id)
     {
-
         $columnsViabilizacao = $request->only('viabilizacao');
 
         $columns = $request->except('viabilizacao');
@@ -239,6 +240,32 @@ class ComercialController extends Controller
         return redirect()
             ->back()
             ->with('message', 'Atualizado com sucesso');
+    }
+
+    public function approved(Request $request)
+    {
+        $comercial_id = $request->input('comercial_id');
+
+        $users = $request->input('users');
+
+        if (!$comercial = $this->repository->where('id', $comercial_id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $comercial->update(['status' => 'aprovada']);
+
+        if(!empty($users)){
+            foreach($users as $users => $value){
+                $userNotify = User::where('id', $value)->first();
+                $userNotify->notify(new ObraCreatedNotification($comercial));
+            }
+        }
+
+        return redirect()
+            ->route('obras.show', $comercial->id)
+            ->with('message', 'Sucesso');
     }
 
     /**
