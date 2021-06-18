@@ -134,7 +134,9 @@ class TableApiController extends Controller
                     $query->orWhere('last_note', 'LIKE', '%' . $filters['search'] . '%');
                     $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
                 }
-            })->paginate($this->limit);
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
 
         return ObraResource::collection($obras);
     }

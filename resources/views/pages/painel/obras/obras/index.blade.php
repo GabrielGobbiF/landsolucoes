@@ -67,9 +67,9 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                                    <th data-field="razao_social">Razão Social</th>
-                                    <th data-field="client.name">Cliente</th>
-                                    <th data-field="concessionaria.name">Concessionaria</th>
+                                    <th data-field="razao_social" data-sortable="true">Razão Social</th>
+                                    <th data-field="clients.username" data-sortable="true">Cliente</th>
+                                    <th data-field="concessionaria_name" data-sortable="true">Concessionaria</th>
                                     <th data-field="service.name">Serviço</th>
                                     <th data-field="concessionaria.service" data-visible="false">Concessionaria - Serviço</th>
                                     <th data-field="client.concessionaria.service" data-visible="false">Cliente - Concessionaria - Serviço</th>
