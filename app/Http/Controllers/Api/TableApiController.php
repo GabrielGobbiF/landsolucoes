@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
+use App\Http\Resources\ObraResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
 use App\Models\Client;
@@ -16,6 +17,7 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TableApiController extends Controller
 {
@@ -28,6 +30,7 @@ class TableApiController extends Controller
         $this->offset = $request->input('offset') ?? 0;
         $this->search = $request->input('search') ?? '';
         $this->sort = $request->input('sort') ?? 'id';
+        $this->filter = $request->input('filter') ?? [];
     }
 
     /**
@@ -96,6 +99,46 @@ class TableApiController extends Controller
         return ComercialResource::collection($comercial);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function obras()
+    {
+        $filters = $this->filter;
+        $filters['search'] =  $this->search;
+
+        $obras = DB::table('obras')
+            ->select('obras.*', 'services.name as service_name', 'concessionarias.name as concessionaria_name', 'clients.username')
+            ->join('clients', function ($join) use ($filters) {
+                $join->on('obras.client_id', '=', 'clients.id')
+                    ->where(function ($query) use ($filters) {
+                        if (isset($filters['client_id']) && $filters['client_id'] != '') {
+                            $query->where('clients.id',  $filters['client_id']);
+                        }
+                    });
+            })
+            ->join('concessionarias', function ($join) use ($filters) {
+                $join->on('obras.concessionaria_id', '=', 'concessionarias.id')
+                    ->where(function ($query) use ($filters) {
+                        if (isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '') {
+                            $query->where('concessionarias.id',  $filters['concessionaria_id']);
+                        }
+                    });
+            })
+            ->join('services', 'obras.service_id', '=', 'services.id')
+            ->where('obras.status', 'aprovada')
+            ->where(function ($query) use ($filters) {
+                if ($filters['search'] != '') {
+                    $query->orWhere('last_note', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
+                }
+            })->paginate($this->limit);
+
+        return ObraResource::collection($obras);
+    }
+
     public function users(Request $request)
     {
         $search = $request->input('q.term');
@@ -111,7 +154,6 @@ class TableApiController extends Controller
         return [
             'results' => UserResource::collection($user)
         ];
-
     }
 
     public function etapas_financeiro($obra_id)
@@ -167,4 +209,26 @@ class TableApiController extends Controller
     //        $q->orWhere('services.name', 'LIKE', '%' . $search . '%');
     //    }
     //}])
+    //$ranking = DB::table('ranking')
+    //            ->select(DB::raw('SUM(xp) AS total_xp, SUM(ap) AS total_ap, SUM(trophys_first_place) as total_trophys_first_place, SUM(trophys_second_place) as total_trophys_second_place, SUM(trophys_third_place) as total_trophys_third_place'), 'users.name', 'users.uuid as userUuid', 'users.avatar', 'users.username', 'users_social.twitter')
+    //            ->join('games', function ($join) use ($request) {
+    //                $join->on('ranking.game_id', '=', 'games.id')
+    //                    ->where(function ($query) use ($request) {
+    //                        if ($request->game_id) {
+    //                            $query->orWhere('games.id', '=', $request->game_id);
+    //                        }
+    //                    });
+    //            })
+    //            ->join('users', function ($join) use ($request) {
+    //                $join->on('ranking.user_id', '=', 'users.id')
+    //                    ->where(DB::raw('users.is_active'), 'Y');
+    //            })
+    //            ->leftJoin('users_social', function ($join) use ($request) {
+    //                $join->on('users_social.user_id', '=', 'users.id');
+    //            })
+    //            ->where('ranking.is_active', 'Y')
+    //            ->groupByRaw(DB::raw('ranking.user_id'))
+    //            ->orderby($order, 'DESC')
+    //            ->limit($request->limit)
+    //            ->get();
 }

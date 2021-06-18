@@ -2,9 +2,25 @@ jQuery(function () {
 
     'use strict'
 
+    initTable();
+});
+
+function initTable() {
     var $table = $('#table-api');
     var dataTable = $table.attr('data-table');
     var order = $table.attr('order');
+    //var filter = $('.search-input').get().map(function (el) {
+    //    return el.value;
+    //});
+    //var filter = localStorage.getItem($table.attr('data-table') + '_table_filter');
+    var filter ={};
+    $.each($('.search-input'), function () {
+        if($(this).attr('name') != undefined){
+            filter[$(this).attr('name')] = $(this).val() ?? '';
+        }
+    });
+
+    console.log(filter);
 
     if ($table.length > 0) {
 
@@ -36,7 +52,8 @@ jQuery(function () {
                     order: p.sortOrder,
                     search: p.searchText,
                     page: p.pageNumber,
-                    pageSize: p.pageSize
+                    pageSize: p.pageSize,
+                    filter: filter ?? {}
                 };
             },
             responseHandler: function (res) {
@@ -55,4 +72,5 @@ jQuery(function () {
 
 
     }
-});
+}
+

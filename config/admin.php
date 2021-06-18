@@ -33,7 +33,7 @@ return [
             [
                 'name' =>  'Obras',
                 'icon' =>  'ri-building-4-line',
-                'route' => 'obras',
+                'route' => 'obras.index',
             ],
             [
                 'name' =>  'Arquivos',

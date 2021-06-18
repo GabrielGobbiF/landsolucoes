@@ -25,13 +25,4 @@ class ComercialResource extends JsonResource
         ];
     }
 
-    public function buttonChangeStatus()
-    {
-        $html = `
-            <select name='' class='form-control select2'>
-                <option value='' selected>Todos</option>
-            </select>`;
-
-        return $html;
-    }
 }

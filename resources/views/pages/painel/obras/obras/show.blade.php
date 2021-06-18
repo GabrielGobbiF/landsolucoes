@@ -1,6 +1,6 @@
 @extends("app")
 
-@section('title', 'Obra - ' . ucfirst($obra->razao_social))
+@section('title', ucfirst($obra->razao_social))
 
 @section('content')
     <div class="container">

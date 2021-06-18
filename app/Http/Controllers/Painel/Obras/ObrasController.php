@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Painel\Obras;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Client;
+use App\Models\Concessionaria;
 use App\Models\Obra;
 
 class ObrasController extends Controller
@@ -24,9 +26,16 @@ class ObrasController extends Controller
      */
     public function index()
     {
-        #$obra = $this->repository->all();
+        $clients = Client::whereHas('obras', function($query){
+            $query->where('obras.status', 'aprovada');
+        })->get(['id', 'username']);
 
-        return view('pages.painel.obras.obras.index', []);
+        $concessionarias = Concessionaria::whereHas('obras')->get(['id', 'name']);
+
+        return view('pages.painel.obras.obras.index', [
+            'clients' => $clients,
+            'concessionarias' => $concessionarias
+        ]);
     }
 
     /**

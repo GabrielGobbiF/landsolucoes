@@ -468,6 +468,17 @@ table th {
   cursor: pointer;
 }
 
+.progress {
+  display: flex;
+  height: 1.3rem;
+  overflow: hidden;
+  line-height: 0.5;
+  font-size: 0.875rem;
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  border: 1px solid #c1c1c1;
+}
+
 /*--------------------------------------------------------------
 # Font Base
 --------------------------------------------------------------*/
@@ -2992,6 +3003,10 @@ th {
 .table-hover tbody tr:hover.bd-t-0-f {
   color: #44607a;
   background-color: transparent !important;
+}
+
+.table-responsive {
+  overflow: inherit;
 }
 
 /* =============

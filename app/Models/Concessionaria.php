@@ -33,4 +33,9 @@ class Concessionaria extends Model
     {
         return $this->belongsToMany(Etapa::class, 'con_service_etp', 'concessionaria_id')->where(['service_id' => $service_id])->withPivot(['order']);
     }
+
+    public function obras()
+    {
+        return $this->belongsTo(Obra::class, 'id', 'concessionaria_id');
+    }
 }

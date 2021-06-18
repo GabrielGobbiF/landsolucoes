@@ -29,6 +29,7 @@ Route::prefix('api/v1')->middleware('auth')->group(function () {
     Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
     Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
     Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');
+    Route::get('/obras', [App\Http\Controllers\Api\TableApiController::class, 'obras'])->name('obras.all');
     Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
     Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
 
