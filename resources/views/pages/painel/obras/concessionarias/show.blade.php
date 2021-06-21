@@ -64,12 +64,6 @@
                                 @if (count($Cservices) > 0)
                                     <div class="table-responsive" style="overflow-x: hidden;">
                                         <table class="table table-bordered table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nome do Serviço</th>
-
-                                                </tr>
-                                            </thead>
                                             <tbody>
                                                 @foreach ($Cservices as $service)
                                                     <tr>
