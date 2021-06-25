@@ -12,6 +12,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
+use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\Service;
 use App\Models\User;
@@ -195,6 +196,8 @@ class TableApiController extends Controller
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
     }
+
+
 
     //->with(["client" => function ($q) use ($search) {
     //    if ($search != '') {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
+use Illuminate\Support\Facades\Hash;
 
 class ObrasController extends Controller
 {
@@ -26,6 +27,7 @@ class ObrasController extends Controller
      */
     public function index()
     {
+
         $clients = Client::whereHas('obras', function($query){
             $query->where('obras.status', 'aprovada');
         })->get(['id', 'username']);
@@ -79,8 +81,11 @@ class ObrasController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
+        $etapas = $obra->etapas()->get();
+
         return view('pages.painel.obras.obras.show', [
             'obra' => $obra,
+            'etapas' => $etapas,
         ]);
     }
 

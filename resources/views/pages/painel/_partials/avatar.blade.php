@@ -8,7 +8,7 @@ $tx = $size == 'lg' ? 'tx-20' : '';
 @endphp
 
 @if ($avatar != '')
-    <img src="{{ asset('storage/' . $avatar) }}" alt="" class="rounded-circle avatar-{{ $size ?? 'lg' }}" width={{ $width ?? '' }}>
+    <img src="{{ asset('storage/' . $avatar) }}" alt="" class="rounded-circle avatar-{{ $size}}" width={{ $width ?? '' }}>
 @else
     <div class="{{ $class }} font-weight-bold d-inline-block">
         <span class="avatar-title rounded-circle bg-soft-purple {{ $tx }}">

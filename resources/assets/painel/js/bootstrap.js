@@ -8,6 +8,7 @@ try {
 
     require('jquery-mask-plugin/dist/jquery.mask.min.js');
     require('bootstrap');
+    require('bootstrap-editable');
     require('dropzone');
     require('bootstrap');
     require('bootstrap-table');
@@ -15,6 +16,8 @@ try {
     require('bootstrap-table/dist/extensions/export/bootstrap-table-export.min');
     require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie.min');
     require('bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js');
+
+    window.metisMenu = require('metismenu');
 
 } catch (e) { }
 

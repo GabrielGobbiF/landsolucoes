@@ -1,9 +1,10 @@
-
 jQuery(function () {
 
     console.log('init global functions');
 
     $('.select2').select2({ width: '100%' });
+
+
 
     $(document).on('select2:open', () => {
         document.querySelector('.select2-search__field').focus();

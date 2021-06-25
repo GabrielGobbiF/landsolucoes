@@ -23,13 +23,13 @@
 
     <link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 
+
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <script>
         const BASE_URL = `{{ env('APP_URL') }}`;
         const BASE_URL_API = `{{ env('APP_URL_API') }}`;
-
     </script>
 
 </head>
@@ -37,80 +37,87 @@
 <body data-sidebar="dark" data-topbar="dark" data-layout="{{ Config::get('admin.dataLayout') }}">
     <div id="layout-wrapper">
         <header id="page-topbar">
-            <div class="navbar-header">
-                <div class="d-flex">
-                    <div class="navbar-brand-box">
-                        <a href="{{ url('/') }}" class="logo logo-dark">
-                            <span class="logo-sm">
-                                <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
-                            </span>
-                            <span class="logo-lg">
-                                <img src="{{ asset('panel/images/logo.png') }}" alt="" height="20">
-                            </span>
-                        </a>
-                        <a href="{{ url('/') }}" class="logo logo-light">
-                            <span class="logo-sm">
-                                <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
-                            </span>
-                            <span class="logo-lg">
-                                <img src="{{ asset('panel/images/logo.png') }}" alt="" height="30">
-                            </span>
-                        </a>
-                    </div>
-                    <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item collapsed" data-toggle="collapse" data-target="#topnav-menu-content" aria-expanded="false">
-                        <i class="ri-menu-2-line align-middle"></i>
-                    </button>
-                    @if (Request::segment(3) != '')
-                        <a href="{{ route(Request::segment(2) . '.index') }}" class="btn btn-sm px-3 font-size-24 d-lg-none header-item d-flex align-items-center">
-                            <i class="ri-arrow-left-line align-middle align-self-center"></i>
-                        </a>
-                    @endif
-                </div>
-                <div>
-                    <h4 class="text-white mobile--hidden">@yield('title', config('app.name', 'Cena'))</h4>
-                </div>
-                <div class="d-flex">
-                    <div class="dropdown d-none ml-2">
-                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ri-search-line"></i>
+            <div class="container pd-0">
+                <!-- todoFazer  -->
+                <div class="navbar-header-mudar" style="display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 70px;">
+                    <div class="d-flex">
+                        <div class="navbar-brand-box">
+                            <a href="{{ url('/') }}" class="logo logo-dark">
+                                <span class="logo-sm">
+                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="20">
+                                </span>
+                            </a>
+                            <a href="{{ url('/') }}" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="30">
+                                </span>
+                            </a>
+                        </div>
+                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item collapsed" data-toggle="collapse" data-target="#topnav-menu-content" aria-expanded="false">
+                            <i class="ri-menu-2-line align-middle"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
-                            aria-labelledby="page-header-search-dropdown">
-                            <form class="p-3">
-                                <div class="form-group m-0">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar ...">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit"><i class="ri-search-line"></i></button>
+                        @if (Request::segment(3) != '')
+                            <a href="{{ route(Request::segment(2) . '.index') }}" class="btn btn-sm px-3 font-size-24 d-lg-none header-item d-flex align-items-center">
+                                <i class="ri-arrow-left-line align-middle align-self-center"></i>
+                            </a>
+                        @endif
+                    </div>
+                    <div>
+                        <h4 class="text-white mobile--hidden">@yield('title', config('app.name', 'Cena'))</h4>
+                    </div>
+                    <div class="d-flex">
+                        <div class="dropdown d-none ml-2">
+                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ri-search-line"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
+                                aria-labelledby="page-header-search-dropdown">
+                                <form class="p-3">
+                                    <div class="form-group m-0">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Buscar ...">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit"><i class="ri-search-line"></i></button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div>
 
-                    @include('pages.painel._partials.notifications')
+                        @include('pages.painel._partials.notifications')
 
-                    <div class="dropdown d-inline-block user-dropdown">
-                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @include('pages.painel._partials.avatar', [
-                            'avatar' => '',
-                            'name' => Auth::user()->name,
-                            ])
-                        </button>
-                        <div class="d-none dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle mr-1"></i> My Wallet</a>
-                            <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right mt-1">11</span><i class="ri-settings-2-line align-middle mr-1"></i> Settings</a>
-                            <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle mr-1"></i> Lock screen</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
+                        <div class="dropdown d-inline-block user-dropdown">
+                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @include('pages.painel._partials.avatar', [
+                                'avatar' => '',
+                                'name' => Auth::user()->name,
+                                ])
+                            </button>
+                            <div class="d-none dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Profile</a>
+                                <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle mr-1"></i> My Wallet</a>
+                                <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right mt-1">11</span><i class="ri-settings-2-line align-middle mr-1"></i> Settings</a>
+                                <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle mr-1"></i> Lock screen</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </header>
 
         <x-package-menus />
@@ -136,8 +143,8 @@
         </div>
     </div>
 
-    <script src="{{ asset('panel/js/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
+    <script src="{{ asset('panel/js/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
     <script src="{{ asset('panel/js/lib.js') }}"></script>
     <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
@@ -145,14 +152,11 @@
 
     <script>
         @include('pages.layouts.notification')
-
     </script>
 
     @include('pages.layouts.modal_delete')
 
     @yield('scripts')
-
-
 
     <script>
         $(document).ready(function() {
@@ -186,7 +190,6 @@
                 }
             });
         })
-
     </script>
 
 </body>

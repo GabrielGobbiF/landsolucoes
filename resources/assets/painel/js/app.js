@@ -166,14 +166,14 @@
     }
 
     function init() {
-        //initMetisMenu();
+        initMetisMenu();
         initLeftMenuCollapse();
         initActiveMenu();
         initMenuItem();
         initFullScreen();
         initRightSidebar();
         initDropdownMenu();
-        //initComponents();
+        initComponents();
         initSettings();
         initPreloader();
         //Waves.init();

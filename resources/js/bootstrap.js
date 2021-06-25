@@ -13,6 +13,7 @@ try {
     require('bootstrap4-duallistbox/dist/jquery.bootstrap-duallistbox.min.js');
     require('dropzone');
 
+
 } catch (e) { }
 
 jQuery(function () {

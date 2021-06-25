@@ -27,9 +27,11 @@ body {
     line-height: 1.42857143;
     color: #333;
     background-color: rgb(237, 237, 237);
+    //background-color: #ffffff;
     height: auto;
     min-height: 100%;
 }
+
 
 .wrapper {
     height: 100%;
@@ -47,6 +49,3 @@ body {
 .wrapper:after {
     clear: both;
 }
-
-
-

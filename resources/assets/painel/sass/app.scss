@@ -50,11 +50,11 @@
 //@import "custom/plugins/switch";
 //@import "custom/plugins/datepicker";
 //@import "custom/plugins/datatable";
-//@import "custom/plugins/form-editors";
+@import "custom/plugins/form-editors";
 //@import "custom/plugins/form-upload";
 //@import "custom/plugins/form-wizard";
 //@import "custom/plugins/responsive-table";
-//@import "custom/plugins/table-editable";
+@import "custom/plugins/table-editable";
 //@import "custom/plugins/apexcharts";
 //@import "custom/plugins/flot";
 //@import "custom/plugins/sparkline-chart";
@@ -64,13 +64,14 @@
 // Pages
 //@import "custom/pages/authentication";
 //@import "custom/pages/ecommerce";
-//@import "custom/pages/email";
 //@import "custom/pages/chat";
 //@import "custom/pages/kanbanboard";
 //@import "custom/pages/coming-soon";
 //@import "custom/pages/timeline";
 @import "custom/pages/home";
 @import "custom/pages/arquivos";
+@import "custom/pages/obra";
+@import "custom/pages/email";
 
 //Libs (Helpers)
 @import "custom/helpers/helpers";

@@ -40,7 +40,7 @@
     bottom: 0;
     display: none;
     z-index: 9998;
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 .right-bar-enabled {
@@ -54,6 +54,90 @@
 
 @include media-breakpoint-down(sm) {
     .right-bar {
+        overflow: auto;
+        .slimscroll-menu {
+            height: auto !important;
+        }
+    }
+}
+
+//
+// right-etp
+//
+$rightbar-etp-width: 46%;
+
+.right-bar-etp {
+    background-color: $card-bg;
+    display: block;
+    position: fixed;
+    transition: all 200ms ease-out;
+    width: $rightbar-etp-width;
+    z-index: 9999;
+    float: right !important;
+    right: -($rightbar-etp-width + 10%);
+    top: 125px;
+    bottom: 0;
+    overflow: auto;
+
+    border-left: 1px solid #b1b1b1;
+    border-top: 1px solid #b1b1b1;
+
+    .right-bar-toggle {
+        background-color: lighten($dark, 7%);
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+        color: $gray-200;
+        text-align: center;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: lighten($dark, 10%);
+        }
+    }
+
+    .editable {
+        cursor: pointer;
+    }
+
+    .editable-input {
+        width: 100%;
+
+        textarea {
+            width: 100% !important;
+        }
+    }
+
+    .control-group.form-group,
+    .form-inline.editableform {
+        display: block;
+    }
+}
+
+// Rightbar overlay
+.rightbar-overlay {
+    background-color: rgba($dark, 0.55);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    z-index: 9998;
+    transition: all 0.2s ease-out;
+}
+
+.right-bar-etp-enabled {
+    .right-bar-etp {
+        right: 0;
+    }
+    .rightbar-overlay {
+        display: block;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .right-bar-etp {
         overflow: auto;
         .slimscroll-menu {
             height: auto !important;
