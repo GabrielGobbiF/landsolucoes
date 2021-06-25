@@ -46,4 +46,9 @@ class ObraEtapa extends Model
     {
         return $this->hasMany(ObraEtapasFinanceiro::class, 'etapa_id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'etapa_id', 'id');
+    }
 }

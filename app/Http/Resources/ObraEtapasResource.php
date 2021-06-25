@@ -18,9 +18,8 @@ class ObraEtapasResource extends JsonResource
             "id" => $this->id,
             "name" => $this->nome,
             "observacao" => $this->observacao,
-            "n_nota" => $this->nota_numero,
-
-
+            "n_nota" => $this->nota_numero ?? 0,
+            "comments" => isset($this->comments) ? CommentsResource::collection($this->comments->sortByDesc('id')) : [],
 
         ];
     }

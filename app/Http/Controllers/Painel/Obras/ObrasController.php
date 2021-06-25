@@ -28,7 +28,7 @@ class ObrasController extends Controller
     public function index()
     {
 
-        $clients = Client::whereHas('obras', function($query){
+        $clients = Client::whereHas('obras', function ($query) {
             $query->where('obras.status', 'aprovada');
         })->get(['id', 'username']);
 
@@ -81,7 +81,7 @@ class ObrasController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $etapas = $obra->etapas()->get();
+        $etapas = $obra->etapas()->orderBy('tipo_id')->orderBy('ordem')->get();
 
         return view('pages.painel.obras.obras.show', [
             'obra' => $obra,

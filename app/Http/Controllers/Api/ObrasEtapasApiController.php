@@ -7,6 +7,7 @@ use App\Http\Resources\ObraEtapasResource;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ObrasEtapasApiController extends Controller
 {
@@ -28,7 +29,7 @@ class ObrasEtapasApiController extends Controller
             return response()->json('Object Obra not found', 404);
         }
 
-        $etapa = $obra->etapas()->where('id', $etapa_id)->first();
+        $etapa = $obra->etapas()->with('comments')->where('id', $etapa_id)->first();
 
         return new ObraEtapasResource($etapa);
     }
@@ -48,5 +49,36 @@ class ObrasEtapasApiController extends Controller
         $etapa->update([$coluna => $valor]);
 
         return  $valor;
+    }
+
+    public function commentStore(Request $request, $obra_id, $etapa_id)
+    {
+        $columns = $request->all();
+        $columns['user_id'] = Auth::id();
+
+        if (!$obra = $this->obra->where('id', $obra_id)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        $etapa = $obra->etapas()->where('id', $etapa_id)->first();
+
+        $etapa->comments()->create($columns);
+
+        return  $etapa;
+    }
+
+    public function updateStatus(Request $request, $obra_id, $etapa_id)
+    {
+        $check = $request->input('check');
+
+        if (!$obra = $this->obra->where('id', $obra_id)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        $etapa = $obra->etapas()->where('id', $etapa_id)->first();
+
+        $etapa->update(['check' => $check]);
+
+        return  $etapa;
     }
 }

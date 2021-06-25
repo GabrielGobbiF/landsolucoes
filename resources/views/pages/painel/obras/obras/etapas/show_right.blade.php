@@ -51,9 +51,14 @@
                             'name' => Auth::user()->name,
                             ])
                             <div class="media-body align-self-center ml-2">
-                                <input type="text" class="form-control js-new-comment " placeholder="Escreva um comentário...">
+                                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                                    <input type="text" name="obs_texto" class="form-control js-new-comment " placeholder="Escreva um comentário..." id="input-new-comment">
+                                    <button type="submit" class="btn btn-primary js-btn-new-comment" onclick="newComment()">Enviar</button>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="etapas-comments"></div>
                     </div>
                 </div>
 
@@ -63,7 +68,7 @@
                             <span class="user-status"></span>
                         </div>
                         <div class="media-body overflow-hidden">
-                            <h5 class="text-truncate font-size-14 mb-1">Frank Vickery</h5>
+                            <h5 class="text-truncate font-size-14 mb-1">Léo</h5>
                             <p class="text-truncate mb-0">Hey! there I'm available</p>
                         </div>
                         <div class="font-size-11">04 min</div>
