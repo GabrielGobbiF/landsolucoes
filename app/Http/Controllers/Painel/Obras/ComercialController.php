@@ -167,7 +167,7 @@ class ComercialController extends Controller
             'etapasAll' => $etapasAll,
             'totalFaturar' => $totalFaturar ??  0,
             'etapasFinanceiro' => $etapasFinanceiro,
-            'totalFaturado' => number_format($totalFaturado, 2, ',', ',')
+            'totalFaturado' => $totalFaturado ? number_format($totalFaturado, 2, ',', ',') : 0
         ]);
     }
 
