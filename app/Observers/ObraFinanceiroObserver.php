@@ -2,10 +2,8 @@
 
 namespace App\Observers;
 
-use Illuminate\Support\Str;
 use App\Models\ObraFinanceiro;
 use Carbon\Carbon;
-use \NumberFormatter;
 
 class ObraFinanceiroObserver
 {
@@ -40,7 +38,6 @@ class ObraFinanceiroObserver
      */
     public function updating(ObraFinanceiro $obraFinanceiro)
     {
-
         $valor_custo = str_replace(['R$', '&nbsp', chr(194) . chr(160)], '', $obraFinanceiro->valor_custo);
         $obraFinanceiro->valor_custo = $valor_custo != '' ? number_format(str_replace(",",".",str_replace(".","",$valor_custo)), 2, '.', '') : '0.00';
 

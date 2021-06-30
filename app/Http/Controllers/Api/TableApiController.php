@@ -161,7 +161,22 @@ class TableApiController extends Controller
 
     public function etapas_financeiro($obra_id)
     {
-        $etapasFinanceiro = ObraEtapasFinanceiro::where('obra_id', $obra_id)->get();
+        if (!$comercial = Obra::where('id', $obra_id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $financeiro = $comercial->financeiro()->first();
+
+        if ($financeiro) {
+            $etapasFinaneiroSoma = $comercial->etapas_financeiro()->sum('valor_receber') ?? 0;
+            $totalFaturar = $etapasFinaneiroSoma;
+        }
+
+        $etapasFinanceiro = $comercial->etapas_financeiro()->where('obra_id', $obra_id)->get();
+
+        $etapasFinanceiro['totalFaturar'] = number_format($totalFaturar, 2, ',', '') ?? 0;
 
         return response()->json($etapasFinanceiro);
     }

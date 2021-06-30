@@ -27,7 +27,7 @@
                                                         <div class="text-center">
                                                             <input type="number" min="0" name="etapa[{{ $etapa->id }}]" data-id="{{ $etapa->id }}" data-price="{{ $etapa->preco }}"
                                                                 value="{{ $etapa->quantidade }}"
-                                                                class="qntEtapa wd-70 text-center">
+                                                                class="js-qntEtapa wd-70 text-center">
                                                         </div>
                                                     </th>
                                                     <th>{{ $etapa->unidade }}</th>
@@ -94,8 +94,9 @@
             <div class="box-header with-border">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                     <h3 class="box-title">Método de Pagamento</h3>
-                    <span class="tx-15 spanValorNegociado"
-                        data-valor="{{ $totalFaturar }}" data-valor-antigo="{{ $totalFaturar }}">R$ {{ number_format($totalFaturar, 2, ',', '.') }}</span>
+                    <span class="tx-15 js-spanValorNegociado"
+                        data-valor="{{ $totalFaturar }}" data-valor-antigo="{{ $totalFaturar }}"> R$ {{ number_format($totalFaturar, 2, ',', '.') }}
+                    </span>
                 </div>
             </div>
             <div class="box-body">
@@ -114,11 +115,11 @@
                         <label>Método</label>
                         <div class="form-group mg-t-5">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input wd-15 ht-15 metd" name="metodo" type="radio" id="metodo_real" value="real" checked>
+                                <input class="form-check-input wd-15 ht-15 js-metodoType" name="metodo" type="radio" id="metodo_real" value="real" checked>
                                 <label class="form-check-label" for="metodo_real">R$</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input wd-15 ht-15 metd" name="metodo" type="radio" id="metodo_porcent" value="porcent">
+                                <input class="form-check-input wd-15 ht-15 js-metodoType" name="metodo" type="radio" id="metodo_porcent" value="porcent">
                                 <label class="form-check-label" for="metodo_porcent">%</label>
                             </div>
                         </div>
@@ -127,7 +128,7 @@
                     <div class="col-md-2 realPc">
                         <div class="form-group">
                             <label for="valor_metodo_porcent">Valor R$</label>
-                            <input type="number" min="1" class="form-control" name="valor" data-type="real" id="input--valor_metodo_porcent" value="">
+                            <input type="text" min="1" class="form-control js-valorMetodoPorcent" name="valor" data-type="real" id="input--valor_metodo_porcent" value="">
                         </div>
                     </div>
 
@@ -181,34 +182,43 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_custo">Valor de Custo</label>
-                            <input type="text" name="valor_custo" class="form-control @error('valor_custo') is-invalid @enderror" id="input--valor_custo"
-                                value="{{ $financeiro && $financeiro['valor_custo_format'] ? $financeiro['valor_custo_format'] : '0,00' }}">
+                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_custo" class="form-control"
+                                id="input--valor_custo"
+                                value="{{ $financeiro && $financeiro['valor_custo_format'] ? $financeiro['valor_custo_format'] : '0,00' }}"
+                                autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_proposta">Valor da Proposta</label>
-                            <input type="text" name="valor_proposta" class="form-control @error('valor_proposta') is-invalid @enderror" id="input--valor_proposta"
-                                value="{{ $financeiro && $financeiro['valor_proposta_format'] ? $financeiro['valor_proposta_format'] : old('valor_proposta') }}">
+                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_proposta" class="form-control"
+                                id="input--valor_proposta"
+                                value="{{ $financeiro && $financeiro['valor_proposta_format'] ? $financeiro['valor_proposta_format'] : old('valor_proposta') }}"
+                                autocomplete="off">
                         </div>
                     </div>
+
+                    <input type="hidden" id="totalFaturar" value="{{ $totalFaturado }}">
 
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_desconto">Valor de Desconto</label>
-                            <input type="text" name="valor_desconto" class="form-control @error('valor_desconto') is-invalid @enderror" id="input--valor_desconto"
-                                data-value-clear="{{ $financeiro && $financeiro['valor_desconto'] ?? old('valor_desconto') }}"
-                                value="{{ $financeiro && $financeiro['valor_desconto_format'] ? $financeiro['valor_desconto_format'] : old('valor_desconto') }}">
+                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_desconto" class="form-control"
+                                id="input--valor_desconto"
+                                value="{{ $financeiro && $financeiro['valor_desconto_format'] ? $financeiro['valor_desconto_format'] : old('valor_desconto') }}"
+                                autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_negociado">Valor Negociado</label>
-                            <input type="text" name="valor_negociado" class="form-control @error('valor_negociado') is-invalid @enderror" id="input--valor_negociado"
-                                data-valor="{{ $financeiro && $financeiro['valor_negociado'] ? $financeiro['valor_negociado'] : '0,00' }}"
-                                value="{{ $financeiro && $financeiro['valor_negociado_format'] ? $financeiro['valor_negociado_format'] : old('valor_negociado') }}">
+                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_negociado" class="form-control"
+                                id="input--valor_negociado"
+                                value="{{ $financeiro && $financeiro['valor_negociado_format'] ? $financeiro['valor_negociado_format'] : old('valor_negociado') }}"
+                                autocomplete="off"
+                                data-value="{{ $financeiro && $financeiro['valor_negociado'] ? $financeiro['valor_negociado'] : 0 }}">
                         </div>
                     </div>
 
@@ -250,55 +260,65 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            let time = null;
+        (function($) {
 
-            if ($('#financeiro_id').val() == '') {
-                updateValorCusto();
+            'use strict';
+
+            init();
+
+            function init() {
+                if ($('#financeiro_id').val() == '') {
+                    updateValorCusto();
+                }
             }
 
-            $('#input--valor_metodo_porcent').on('keyup change', function() {
-                var valorNegociado = $('.spanValorNegociado').attr('data-valor');
-                var valorCalcular = $(this).val();
-                var type = $(this).attr('data-type');
-                var resultado = type == 'real' ? (valorCalcular) : ((valorNegociado * valorCalcular) / 100)
-                $('.btn-add-etapa-financeiro').attr('disabled', true);
+            function updateValorCusto() {
+                var total = 0;
+                var totalFormat = 0;
 
-                if (valorCalcular == '' || valorCalcular == '0') {
-                    $('#input--valor_receber').val('R$ 0,00')
-                    $('.spanValorNegociado').html(number_format(valorNegociado));
-                    $('.spanValorNegociado').attr('data-valor', (valorNegociado));
-                    return;
-                }
+                $(".sub-total").each(function() {
+                    var subTotal = $(this).attr('data-value').replace(',', '.');
+                    if (!isNaN(subTotal)) {
+                        total = parseFloat(total) + parseFloat(subTotal);
+                    }
+                });
 
-                if (parseFloat(resultado) > parseFloat(valorNegociado) || resultado < 0) {
-                    toastr.error('Valor a receber não pode ser maior que negociado');
-                    $('#input--valor_receber').val('R$ 0,00')
-                    $('.spanValorNegociado').html(number_format(valorNegociado));
-                    $('.spanValorNegociado').attr('data-valor', (valorNegociado));
-                    $(this).val('');
-                    return;
-                }
+                totalFormat = number_format(total)
 
-                $('.spanValorNegociado').html(number_format(valorNegociado - resultado));
-                $('.spanValorNegociado').attr('data-valor-antigo', (valorNegociado - resultado));
-                $('#input--valor_receber').val(number_format(resultado))
-                $('.btn-add-etapa-financeiro').attr('disabled', false);
+                $('#input--valor_custo').val(totalFormat)
+                $('#input--valor_proposta').val(totalFormat)
+            }
+
+            $('#input--valor_proposta, #input--valor_desconto').on('keyup blur', function() {
+                updateValorNegociado();
             })
 
-            $('.metd').on('click', function() {
-                $('.btn-add-etapa-financeiro').attr('disabled', true);
-                var valorNegociado = $('.spanValorNegociado').attr('data-valor');
+            function updateValorNegociado() {
+                var total = 0;
+                var valorProposta = clearNumber($('#input--valor_proposta').val());
+                var valorDesconto = clearNumber($('#input--valor_desconto').val());
 
-                totalNegocioFormat = new Intl.NumberFormat('pt-BR', {
+                total = (parseFloat(valorProposta) - parseFloat(valorDesconto));
+
+                total = new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
-                    currency: 'BRL'
-                }).format(valorNegociado);
+                    currency: 'BRL',
+                }).format(total);
 
+                $('#input--valor_negociado').val(total);
+            }
+
+
+            $('.js-metodoType').on('click', function() {
+                resetValorNegociado();
+
+                var valorNegociado = $('#input--valor_negociado').attr('data-value');
+
+                /**
+                 * Limpar CAMPOS
+                 */
                 $('#input--valor_receber').val('')
                 $('#input--valor_metodo_porcent').val('')
-                $('.spanValorNegociado').html(number_format(valorNegociado));
-                $('.spanValorNegociado').attr('data-valor', (valorNegociado));
 
                 if ($(this).val() == 'real') {
                     $('.realPc').find('label').html('Valor R$');
@@ -307,9 +327,12 @@
                     $('.realPc').find('label').html('Porcentagem %');
                     $('.realPc').find('input').attr('data-type', 'porcent');
                 }
+
+                $('.btn-add-etapa-financeiro').attr('disabled', true);
+
             })
 
-            $('.qntEtapa').on('change keyup', function() {
+            $('.js-qntEtapa').on('change keyup', function() {
                 var $input = $(this);
                 var $idEtapa = $input.attr('data-id');
                 var $price = $input.attr('data-price');
@@ -326,72 +349,66 @@
                 }
             })
 
-            $('#input--valor_desconto').on('keyup', function() {
-                var totalFormat = $(this).val();
-                var total = $(this).attr('data-value-clear');
+            $('#input--valor_metodo_porcent').on('keyup change', function() {
 
-                $(this).val(totalFormat)
-                $(this).attr('data-value-clear', totalFormat)
-                updateValorNegociado();
-            })
+                $('.btn-add-etapa-financeiro').attr('disabled', true);
 
-            $('#input--valor_proposta').on('keyup', function() {
-                var totalFormat = $(this).val().replace(',', '.').replace('R$', '');
-                var total = $(this).attr('data-value-clear');
+                var valorNegociado = clearNumber($('#input--valor_negociado').attr('data-value'));
+                var valorCalcular = clearNumber($(this).val());
+                var type = $(this).attr('data-type');
 
-                $(this).val(totalFormat)
-                $(this).attr('data-value-clear', totalFormat)
-                updateValorNegociado();
-            })
+                var typeResultado = type == 'real' ? (valorCalcular) : ((valorNegociado * valorCalcular) / 100)
+                var totalFaturar = $('#totalFaturar').val();
+                var result = (valorNegociado - typeResultado) - clearNumber(totalFaturar);
 
-        })
+                var resultFormat = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                }).format(result);
 
-        function updateValorCusto() {
-            var total = 0;
-            $(".sub-total").each(function() {
-                var subTotal = $(this).attr('data-value').replace(',', '.');
-                if (!isNaN(subTotal)) {
-                    total = (parseFloat(total) + parseFloat(subTotal));
+                if (valorCalcular == '' || valorCalcular == '0') {
+                    $('#input--valor_receber').val('R$ 0,00')
+                    $('.js-spanValorNegociado').html(resultFormat);
+                    return;
                 }
-            });
-            totalFormat = new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(total);
-            $('#input--valor_custo').val(totalFormat)
-            $('#input--valor_custo').attr('data-value-clear', total)
-            $('#input--valor_proposta').val(totalFormat)
-            $('#input--valor_proposta').attr('data-value-clear', total)
 
-        }
+                if (parseFloat(typeResultado) > parseFloat(valorNegociado) || typeResultado < 0) {
+                    toastr.error('Valor a receber não pode ser maior que negociado');
+                    resetValorNegociado();
+                    $(this).val('');
+                    return;
+                }
 
-        function updateValorNegociado() {
-            var total = 0;
-            var desconto = $('#input--valor_desconto').attr('data-value-clear');
-            var proposta = $('#input--valor_proposta').attr('data-value-clear');
-            if (desconto == '' || desconto == undefined) {
-                desconto = 0;
-            }
-            total = (proposta - desconto);
+                $('#input--valor_receber').val('R$ ' + typeResultado.toString().replace('.', ','))
+                $('.js-spanValorNegociado').html(resultFormat);
+                $('.btn-add-etapa-financeiro').attr('disabled', false);
+            })
 
-            total = new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(total);
 
-            $('#input--valor_negociado').val(total)
-        }
+        })(jQuery)
 
-        function number_format($number) {
+        function number_format(number) {
+            number = clearNumber(number);
+            if (Number.isNaN(number) || !number) return 'R$ 0,00';
             return new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
-                currency: 'BRL'
-            }).format($number);
+                currency: 'BRL',
+            }).format(number);
         }
 
-        /**
-         * Método de Pagamento
-         * Script
-         */
+        function clearNumber(number) {
+            if (number) {
+                number = number.toString().replace('R$', '').replace('.', '').replace(/[^0-9,.]/g, '').replace(/[.]/g, '');
+                return parseFloat(number.replace(',', '.')).toFixed(2);
+            }
+            return 0;
+        }
 
+        function resetValorNegociado() {
+            $('.btn-add-etapa-financeiro').attr('disabled', true);
+            $('#input--valor_receber').val('R$ 0,00')
+            var totalFaturar = $('#totalFaturar').val();
+            var total = clearNumber($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
+            $('.js-spanValorNegociado').html('R$ ' + total.toFixed(2).toString().replace('.', ','));
+        }
     </script>

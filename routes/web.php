@@ -23,7 +23,7 @@ Route::group(['middleware' => ['CheckClient']], function () {
     });
 });
 
-Route::prefix('api/v1')->middleware('auth')->group(function () {
+Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::get('/clients', [App\Http\Controllers\Api\TableApiController::class, 'clients'])->name('clients.all');
     Route::get('/users', [App\Http\Controllers\Api\TableApiController::class, 'users'])->name('users.all');
     Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
@@ -32,10 +32,7 @@ Route::prefix('api/v1')->middleware('auth')->group(function () {
     Route::get('/obras', [App\Http\Controllers\Api\TableApiController::class, 'obras'])->name('obras.all');
     Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
     Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
-
     Route::get('concessionaria/{concessionaria_id}/services', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'servicesByConcessionariaId'])->name('concessionaria.service.all');
-
-
 
     /**
     * Etapas

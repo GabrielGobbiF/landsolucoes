@@ -51,6 +51,10 @@ class ComercialController extends Controller
         $services = Service::all();
         $concessionarias = Concessionaria::all();
 
+        //$users = User::whereDoesntHave('roles', static function ($query) {
+        //    return $query->where('slug', '<>', 'vehicles');
+        //})->get();
+
         return view('pages.painel.obras.comercial.create', [
             'clients' => $clients,
             'services' => $services,
@@ -153,6 +157,7 @@ class ComercialController extends Controller
         if ($financeiro) {
             $etapasFinaneiroSoma = $comercial->etapas_financeiro()->sum('valor_receber') ?? 0;
             $totalFaturar = $financeiro['valor_negociado'] - $etapasFinaneiroSoma;
+            $totalFaturado = $etapasFinaneiroSoma;
         }
 
         return view('pages.painel.obras.comercial.show', [
@@ -161,7 +166,8 @@ class ComercialController extends Controller
             'financeiro' => $financeiro,
             'etapasAll' => $etapasAll,
             'totalFaturar' => $totalFaturar ??  0,
-            'etapasFinanceiro' => $etapasFinanceiro
+            'etapasFinanceiro' => $etapasFinanceiro,
+            'totalFaturado' => number_format($totalFaturado, 2, ',', ',')
         ]);
     }
 
@@ -256,8 +262,8 @@ class ComercialController extends Controller
 
         $comercial->update(['status' => 'aprovada']);
 
-        if(!empty($users)){
-            foreach($users as $users => $value){
+        if (!empty($users)) {
+            foreach ($users as $users => $value) {
                 $userNotify = User::where('id', $value)->first();
                 $userNotify->notify(new ObraCreatedNotification($comercial));
             }

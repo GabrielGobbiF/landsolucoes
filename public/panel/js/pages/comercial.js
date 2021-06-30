@@ -57,7 +57,7 @@ $(function () {
             $('#input--valor_metodo_porcent').val('')
             $('#input--valor_receber').val('');
             $('.spanValorNegociado').attr('data-valor', valorAntigo);
-            if(valorAntigo == '0'){
+            if (valorAntigo == '0') {
                 $('.btn-add-etapa-financeiro').attr('disabled', true);
             }
             getHistorico();
@@ -73,18 +73,24 @@ $(function () {
             success: function (j) {
                 var options = '';
                 $.each(j, function (index, value) {
-                    options += '<tr>';
-                    options += '    <td>' + value.nome_etapa + '</td>';
-                    options += '    <td>' + value.metodo_pagamento + '</td>';
-                    options += '    <td>' + number_format(value.valor_receber) + '</td>';
-                    options += '    <td>';
-                    options += '        <a href="javascript:void(0)" data-href="' + BASE_URL + '/l/comercial/etapasFinanceiro/' + value.id + '/destroy"';
-                    options += '            class="btn btn-xs btn-danger btn-delete" onclick="btn_delete(this)">';
-                    options += '            <i class="fa fa-times"></i>';
-                    options += '        </a>';
-                    options += '    </td>';
-                    options += '</tr>';
+                    if (index != 'totalFaturar') {
+                        options += '<tr>';
+                        options += '    <td>' + value.nome_etapa + '</td>';
+                        options += '    <td>' + value.metodo_pagamento + ' ' + value.valor + '</td>';
+                        options += '    <td>R$ ' + value.valor_receber + '</td>';
+                        options += '    <td>';
+                        options += '        <a href="javascript:void(0)" data-href="' + BASE_URL + '/l/comercial/etapasFinanceiro/' + value.id + '/destroy"';
+                        options += '            class="btn btn-xs btn-danger btn-delete" onclick="btn_delete(this)">';
+                        options += '            <i class="fa fa-times"></i>';
+                        options += '        </a>';
+                        options += '    </td>';
+                        options += '</tr>';
+                    }
+
                 });
+                if (j.totalFaturar && j.totalFaturar != 0) {
+                    $('#totalFaturar').val(j.totalFaturar)
+                }
                 $('#row-table-historico').html(options);
             },
         });

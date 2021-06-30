@@ -14,11 +14,10 @@ class ComercialResource extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             "id" => $this->id,
             "razao_social" => $this->razao_social,
-            "client.name" => $this->client->company_name,
+            "client.name" => $this->client->company_name ?? '',
             "concessionaria.name" => $this->concessionaria->name,
             "service.name" => $this->service->name,
             "statusButton" => $this->status
