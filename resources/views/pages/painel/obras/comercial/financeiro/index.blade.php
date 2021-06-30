@@ -399,7 +399,7 @@
         function clearNumber(number) {
             if (number) {
                 number = number.toString().replace('R$', '').replace('.', '').replace(/[^0-9,.]/g, '').replace(/[.]/g, '');
-                return parseFloat(number.replace(',', '.')).toFixed(2);
+                return parseFloat(number.replace(',', '.'));
             }
             return 0;
         }
@@ -409,6 +409,6 @@
             $('#input--valor_receber').val('R$ 0,00')
             var totalFaturar = $('#totalFaturar').val();
             var total = clearNumber($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
-            $('.js-spanValorNegociado').html('R$ ' + total.toFixed(2).toString().replace('.', ','));
+            $('.js-spanValorNegociado').html('R$ ' + total.toString().replace('.', ','));
         }
     </script>
