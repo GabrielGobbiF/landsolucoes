@@ -408,7 +408,7 @@
             $('.btn-add-etapa-financeiro').attr('disabled', true);
             $('#input--valor_receber').val('R$ 0,00')
             var totalFaturar = $('#totalFaturar').val();
-            var total = clearNumber($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
+            var total = ($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
             $('.js-spanValorNegociado').html('R$ ' + total.toString().replace('.', ','));
         }
     </script>
