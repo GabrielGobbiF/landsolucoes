@@ -292,7 +292,6 @@
             @endif
         </div>
     </div>
-
 @section('scripts')
     <script src="{{ asset('panel/js/pages/comercial.js') }}"></script>
 
@@ -323,9 +322,7 @@
                 totalFormat = numberFormat(total)
 
                 $('#input--valor_custo').val(totalFormat)
-                if ($('#financeiro_id').val() == '') {
-                    $('#input--valor_proposta').val(totalFormat)
-                }
+                $('#input--valor_proposta').val(totalFormat)
             }
 
             $('#input--valor_proposta, #input--valor_desconto').on('keyup blur', function() {
@@ -426,9 +423,11 @@
 
         })(jQuery)
 
+
         function numberFormat(number) {
-            var number = clearNumber(number);
-            if (Number.isNaN(number) || !number) return 'R$ 0,00';
+            if (Number.isNaN(number) || !number || typeof number == 'string') {
+                var number = clearNumber(number);
+            }
             return new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
@@ -441,11 +440,11 @@
         }
 
         function resetValorNegociado() {
+
             $('.btn-add-etapa-financeiro').attr('disabled', true);
             $('#input--valor_receber').val('R$ 0,00')
             var totalFaturar = $('#totalFaturar').val();
-            var total = ($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
-
+            var total = clearNumber($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
             $('.js-spanValorNegociado').html(numberFormat(total));
         }
     </script>
