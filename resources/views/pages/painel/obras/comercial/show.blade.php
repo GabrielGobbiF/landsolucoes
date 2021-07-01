@@ -393,7 +393,13 @@
 
                 var typeResultado = type == 'real' ? (valorCalcular) : ((valorNegociado * valorCalcular) / 100)
                 var totalFaturar = $('#totalFaturar').val();
-                var result = (valorNegociado - clearNumber(typeResultado)) - clearNumber(totalFaturar);
+
+
+
+
+
+
+                var result = clearNumber((valorNegociado - clearNumber(typeResultado)) - clearNumber(totalFaturar));
 
                 var resultFormat = new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
