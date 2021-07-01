@@ -444,16 +444,9 @@
             $('.btn-add-etapa-financeiro').attr('disabled', true);
             $('#input--valor_receber').val('R$ 0,00')
             var totalFaturar = $('#totalFaturar').val();
-            var total = clearNumber($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
+            var total = ($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
 
-            console.log($('#input--valor_negociado').attr('data-value'));
-            console.log(clearNumber($('#input--valor_negociado').attr('data-value')));
-            console.log(clearNumber($('#totalFaturar').val()));
-
-            console.log(totalFaturar);
-            console.log(total);
-
-            $('.js-spanValorNegociado').html(total);
+            $('.js-spanValorNegociado').html(numberFormat(total));
         }
     </script>
 
