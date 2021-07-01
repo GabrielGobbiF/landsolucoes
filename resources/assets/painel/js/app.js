@@ -176,7 +176,7 @@
         initComponents();
         initSettings();
         initPreloader();
-        //Waves.init();
+        Waves.init();
     }
 
     init();

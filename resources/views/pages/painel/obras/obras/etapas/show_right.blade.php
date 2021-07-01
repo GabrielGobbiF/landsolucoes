@@ -1,4 +1,4 @@
-<div class="right-bar-etp d-flex" data-simplebar class="h-100">
+<div class="right-bar-etp d-flex" class="h-100">
     <input type="hidden" id="js-etapa-id">
     <div class="col-md-12 align-self-center" id="preloader-content-etp">
         <div class="text-center">

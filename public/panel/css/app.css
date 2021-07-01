@@ -896,10 +896,10 @@ body[data-layout=horizontal] .footer {
   display: block;
   position: fixed;
   transition: all 200ms ease-out;
-  width: 46%;
+  width: 50%;
   z-index: 9999;
   float: right !important;
-  right: -56%;
+  right: -60%;
   top: 125px;
   bottom: 0;
   overflow: auto;
@@ -1744,6 +1744,155 @@ body[data-layout=horizontal][data-layout-size=boxed] .footer {
 body[data-layout=horizontal][data-layout-size=boxed] .container-fluid,
 body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
   max-width: 1300px;
+}
+
+/*!
+ * Waves v0.7.6
+ * http://fian.my.id/Waves 
+ * 
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
+ * Released under the MIT license 
+ * https://github.com/fians/Waves/blob/master/LICENSE */
+
+.waves-effect {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.waves-effect .waves-ripple {
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.2);
+  background: radial-gradient(rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.5) 60%, rgba(255, 255, 255, 0) 70%);
+  transition: all 0.5s ease-out;
+  transition-property: transform, opacity;
+  transform: scale(0) translate(0, 0);
+  pointer-events: none;
+}
+
+.waves-effect.waves-light .waves-ripple {
+  background: rgba(255, 255, 255, 0.4);
+  background: radial-gradient(rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 70%);
+}
+
+.waves-effect.waves-classic .waves-ripple {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.waves-effect.waves-classic.waves-light .waves-ripple {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.waves-notransition {
+  transition: none !important;
+}
+
+.waves-button,
+.waves-circle {
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+}
+
+.waves-button,
+.waves-button:hover,
+.waves-button:visited,
+.waves-button-input {
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 1em;
+  line-height: 1em;
+  text-align: center;
+  text-decoration: none;
+  z-index: 1;
+}
+
+.waves-button {
+  padding: 0.85em 1.1em;
+  border-radius: 0.2em;
+}
+
+.waves-button-input {
+  margin: 0;
+  padding: 0.85em 1.1em;
+}
+
+.waves-input-wrapper {
+  border-radius: 0.2em;
+  vertical-align: bottom;
+}
+
+.waves-input-wrapper.waves-button {
+  padding: 0;
+}
+
+.waves-input-wrapper .waves-button-input {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.waves-circle {
+  text-align: center;
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  border-radius: 50%;
+}
+
+.waves-float {
+  -webkit-mask-image: none;
+  box-shadow: 0px 1px 1.5px 1px rgba(0, 0, 0, 0.12);
+  transition: all 300ms;
+}
+
+.waves-float:active {
+  box-shadow: 0px 8px 20px 1px rgba(0, 0, 0, 0.3);
+}
+
+.waves-block {
+  display: block;
+}
+
+.waves-effect.waves-light .waves-ripple {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.waves-effect.waves-primary .waves-ripple {
+  background-color: rgba(217, 36, 27, 0.4);
+}
+
+.waves-effect.waves-success .waves-ripple {
+  background-color: rgba(28, 187, 140, 0.4);
+}
+
+.waves-effect.waves-info .waves-ripple {
+  background-color: rgba(74, 163, 255, 0.4);
+}
+
+.waves-effect.waves-warning .waves-ripple {
+  background-color: rgba(252, 185, 44, 0.4);
+}
+
+.waves-effect.waves-danger .waves-ripple {
+  background-color: rgba(255, 61, 96, 0.4);
 }
 
 .card {
@@ -3083,6 +3232,229 @@ th {
 
 .table-responsive {
   overflow: inherit;
+}
+
+[data-simplebar] {
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.simplebar-wrapper {
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
+}
+
+.simplebar-mask {
+  direction: inherit;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: auto !important;
+  height: auto !important;
+  z-index: 0;
+}
+
+.simplebar-offset {
+  direction: inherit !important;
+  box-sizing: inherit !important;
+  resize: none !important;
+  position: absolute;
+  top: 0;
+  left: 0 !important;
+  bottom: 0;
+  right: 0 !important;
+  padding: 0;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.simplebar-content-wrapper {
+  direction: inherit;
+  box-sizing: border-box !important;
+  position: relative;
+  display: block;
+  height: 100%;
+  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
+  width: auto;
+  visibility: visible;
+  overflow: auto;
+  /* Scroll on this element otherwise element can't have a padding applied properly */
+  max-width: 100%;
+  /* Not required for horizontal scroll to trigger */
+  max-height: 100%;
+  /* Needed for vertical scroll to trigger */
+  scrollbar-width: none;
+  padding: 0px !important;
+}
+
+.simplebar-content-wrapper::-webkit-scrollbar,
+.simplebar-hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.simplebar-content:before,
+.simplebar-content:after {
+  content: " ";
+  display: table;
+}
+
+.simplebar-placeholder {
+  max-height: 100%;
+  max-width: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.simplebar-height-auto-observer-wrapper {
+  box-sizing: inherit !important;
+  height: 100%;
+  width: 100%;
+  max-width: 1px;
+  position: relative;
+  float: left;
+  max-height: 1px;
+  overflow: hidden;
+  z-index: -1;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+  flex-grow: inherit;
+  flex-shrink: 0;
+  flex-basis: 0;
+}
+
+.simplebar-height-auto-observer {
+  box-sizing: inherit;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1000%;
+  width: 1000%;
+  min-height: 1px;
+  min-width: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.simplebar-track {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+[data-simplebar].simplebar-dragging .simplebar-content {
+  pointer-events: none;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+}
+
+[data-simplebar].simplebar-dragging .simplebar-track {
+  pointer-events: all;
+}
+
+.simplebar-scrollbar {
+  position: absolute;
+  right: 2px;
+  width: 6px;
+  min-height: 10px;
+}
+
+.simplebar-scrollbar:before {
+  position: absolute;
+  content: "";
+  background: #a2adb7;
+  border-radius: 7px;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}
+
+.simplebar-scrollbar.simplebar-visible:before {
+  /* When hovered, remove all transitions from drag handle */
+  opacity: 0.5;
+  transition: opacity 0s linear;
+}
+
+.simplebar-track.simplebar-vertical {
+  top: 0;
+  width: 11px;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  top: 2px;
+  bottom: 2px;
+}
+
+.simplebar-track.simplebar-horizontal {
+  left: 0;
+  height: 11px;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+  height: 100%;
+  left: 2px;
+  right: 2px;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+  right: auto;
+  left: 0;
+  top: 2px;
+  height: 7px;
+  min-height: 0;
+  min-width: 10px;
+  width: auto;
+}
+
+/* Rtl support */
+
+[data-simplebar-direction=rtl] .simplebar-track.simplebar-vertical {
+  right: auto;
+  left: 0;
+}
+
+.hs-dummy-scrollbar-size {
+  direction: rtl;
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  height: 500px;
+  width: 500px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.simplebar-hide-scrollbar {
+  position: fixed;
+  left: 0;
+  visibility: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.custom-scroll {
+  height: 100%;
 }
 
 /* =============
@@ -4850,6 +5222,398 @@ th {
   justify-content: stretch;
 }
 
+.page--obra .metismenu {
+  margin: 0;
+}
+
+.page--obra .metismenu li {
+  display: block;
+  width: 100%;
+}
+
+.page--obra .metismenu .mm-collapse {
+  display: none;
+}
+
+.page--obra .metismenu .mm-collapse:not(.mm-show) {
+  display: none;
+}
+
+.page--obra .metismenu .mm-collapse.mm-show {
+  display: block;
+}
+
+.page--obra .metismenu .mm-collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition-timing-function: ease;
+  transition-duration: 0.35s;
+  transition-property: height, visibility;
+}
+
+.page--obra .vertical-menu-obr {
+  width: 25%;
+  z-index: 1001;
+  background: #ffffff;
+  bottom: 0;
+  margin-top: 0;
+  position: fixed;
+  left: 0px;
+  top: 125px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.page--obra .main-content {
+  margin-left: 240px;
+  overflow: hidden;
+}
+
+.page--obra .main-content .content {
+  padding: 0 15px 10px 15px;
+  margin-top: 70px;
+}
+
+.page--obra #sidebar-menu {
+  padding: 10px 0 30px 0;
+}
+
+.page--obra #sidebar-menu .mm-active > .has-arrow:after {
+  transform: rotate(-180deg);
+}
+
+.page--obra #sidebar-menu .has-arrow:after {
+  content: "\F0140";
+  font-family: "Material Design Icons";
+  display: block;
+  float: right;
+  transition: transform 0.2s;
+  font-size: 1rem;
+}
+
+.page--obra #sidebar-menu ul li a {
+  display: block;
+  padding: 0.625rem 1.5rem;
+  color: #74788d;
+  position: relative;
+  font-size: 13.3px;
+  transition: all 0.4s;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+.page--obra #sidebar-menu ul li a i {
+  display: inline-block;
+  min-width: 1.5rem;
+  padding-bottom: 0.125em;
+  font-size: 1.1rem;
+  line-height: 1.40625rem;
+  vertical-align: middle;
+  color: #505d69;
+  transition: all 0.4s;
+  opacity: 0.75;
+}
+
+.page--obra #sidebar-menu ul li a:hover {
+  color: #383c40;
+}
+
+.page--obra #sidebar-menu ul li a:hover i {
+  color: #383c40;
+}
+
+.page--obra #sidebar-menu ul li .badge {
+  margin-top: 4px;
+}
+
+.page--obra #sidebar-menu ul li ul.sub-menu {
+  padding: 0;
+}
+
+.page--obra #sidebar-menu ul li ul.sub-menu li a {
+  padding: 0.4rem 1.5rem 0.4rem 3.2rem;
+  font-size: 13px;
+  color: #7c8a96;
+}
+
+.page--obra #sidebar-menu ul li ul.sub-menu li ul.sub-menu {
+  padding: 0;
+}
+
+.page--obra #sidebar-menu ul li ul.sub-menu li ul.sub-menu li a {
+  padding: 0.4rem 1.5rem 0.4rem 4.2rem;
+  font-size: 13.5px;
+}
+
+.page--obra .menu-title {
+  padding: 12px 20px !important;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  cursor: default;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #505d69;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  opacity: 0.5;
+}
+
+.page--obra .mm-active {
+  color: #d9241b !important;
+}
+
+.page--obra .mm-active .active {
+  color: #d9241b !important;
+}
+
+.page--obra .mm-active .active i {
+  color: #d9241b !important;
+}
+
+.page--obra .mm-active > i {
+  color: #d9241b !important;
+}
+
+@media (max-width: 992px) {
+  .page--obra .vertical-menu {
+    display: none;
+  }
+
+  .page--obra .main-content {
+    margin-left: 0 !important;
+  }
+
+  .page--obra body.sidebar-enable .vertical-menu {
+    display: block;
+  }
+}
+
+.page--obra .vertical-collpsed .main-content {
+  margin-left: 70px;
+}
+
+.page--obra .vertical-collpsed .navbar-brand-box {
+  width: 70px !important;
+}
+
+.page--obra .vertical-collpsed .logo span.logo-lg {
+  display: none;
+}
+
+.page--obra .vertical-collpsed .logo span.logo-sm {
+  display: block;
+}
+
+.page--obra .vertical-collpsed .vertical-menu {
+  position: absolute;
+  width: 70px !important;
+  z-index: 5;
+}
+
+.page--obra .vertical-collpsed .vertical-menu .simplebar-mask,
+.page--obra .vertical-collpsed .vertical-menu .simplebar-content-wrapper {
+  overflow: visible !important;
+}
+
+.page--obra .vertical-collpsed .vertical-menu .simplebar-scrollbar {
+  display: none !important;
+}
+
+.page--obra .vertical-collpsed .vertical-menu .simplebar-offset {
+  bottom: 0 !important;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu .menu-title,
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu .badge,
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu .collapse.in {
+  display: none !important;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu .nav.collapse {
+  height: inherit !important;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu .has-arrow:after {
+  display: none;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li {
+  position: relative;
+  white-space: nowrap;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a {
+  padding: 15px 20px;
+  min-height: 55px;
+  transition: none;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a:hover,
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a:active,
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a:focus {
+  color: #383c40;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a i {
+  font-size: 20px;
+  margin-left: 4px;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a span {
+  display: none;
+  padding-left: 25px;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > a {
+  position: relative;
+  width: calc(190px + 70px);
+  color: #d9241b;
+  background-color: whitesmoke;
+  transition: none;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > a i {
+  color: #d9241b;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > a span {
+  display: inline;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > ul {
+  display: block;
+  left: 70px;
+  position: absolute;
+  width: 190px;
+  height: auto !important;
+  box-shadow: 3px 5px 12px -4px rgba(18, 19, 21, 0.1);
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > ul ul {
+  box-shadow: 3px 5px 12px -4px rgba(18, 19, 21, 0.1);
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > ul a {
+  box-shadow: none;
+  padding: 8px 20px;
+  position: relative;
+  width: 190px;
+  z-index: 6;
+  color: #7c8a96;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > ul a:hover {
+  color: #383c40;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul ul {
+  padding: 5px 0;
+  z-index: 9999;
+  display: none;
+  background-color: #ffffff;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul ul li:hover > ul {
+  display: block;
+  left: 190px;
+  height: auto !important;
+  margin-top: -36px;
+  position: absolute;
+  width: 190px;
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul ul li > a span.pull-right {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  transform: rotate(270deg);
+}
+
+.page--obra .vertical-collpsed .vertical-menu #sidebar-menu > ul ul li.active a {
+  color: #f8f9fa;
+}
+
+.page--obra body[data-sidebar=dark] .vertical-menu {
+  background: #0a0b0c;
+}
+
+.page--obra body[data-sidebar=dark] #sidebar-menu ul li a {
+  color: #8590a5;
+}
+
+.page--obra body[data-sidebar=dark] #sidebar-menu ul li a i {
+  color: #8590a5;
+}
+
+.page--obra body[data-sidebar=dark] #sidebar-menu ul li a:hover {
+  color: #d7e4ec;
+}
+
+.page--obra body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
+  color: #d7e4ec;
+}
+
+.page--obra body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a {
+  color: #8590a5;
+}
+
+.page--obra body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a:hover {
+  color: #d7e4ec;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed {
+  min-height: 1400px;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > a {
+  background: #0f1012;
+  color: #d7e4ec;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > a i {
+  color: #d7e4ec;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > ul a {
+  color: #8590a5;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul > li:hover > ul a:hover {
+  color: #383c40;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu > ul ul {
+  background-color: white;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active {
+  color: #d9241b !important;
+}
+
+.page--obra body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active i {
+  color: #d9241b !important;
+}
+
+.page--obra body[data-sidebar=dark] .mm-active {
+  color: #d9241b !important;
+}
+
+.page--obra body[data-sidebar=dark] .mm-active > i {
+  color: #d9241b !important;
+}
+
+.page--obra body[data-sidebar=dark] .mm-active .active {
+  color: #d9241b !important;
+}
+
+.page--obra body[data-sidebar=dark] .mm-active .active i {
+  color: #d9241b !important;
+}
+
+.page--obra body[data-sidebar=dark] .menu-title {
+  color: #8590a5;
+}
+
 .page--obra .filemgr-wrapper {
   position: absolute;
   top: 55px;
@@ -4865,24 +5629,6 @@ th {
   bottom: 0;
   left: -240px;
   width: 25%;
-  border-right: 1px solid rgba(72, 94, 144, 0.16);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-  overflow: overlay;
-}
-
-.page--obra .obr-menu .filemgr-sidebar::-webkit-scrollbar {
-  width: 0.3rem;
-}
-
-.page--obra .obr-menu .filemgr-sidebar::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.page--obra .obr-menu .filemgr-sidebar::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
 }
 
 @media (prefers-reduced-motion: reduce) {

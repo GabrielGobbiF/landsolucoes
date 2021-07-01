@@ -6,69 +6,91 @@
 
     <div class="page--obra">
 
-        <div class="obr-menu filemgr-wrapper">
-            <div class="filemgr-sidebar" data-simplebar="">
-                <div class="col-12">
-                    <div class="box-body">
-                        <dl class="row mb-0 mg-t-15">
+        <div class="vertical-menu-obr">
+            <div data-simplebar class="h-100">
+                <div id="sidebar-menu">
+                    <div class="col-12">
+                        <div class="box-body">
 
                             <input type="hidden" id="input--obra_id" value="{{ $obra->id }}">
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="input--razao_social">Obra</label>
-                                    <input type="text" name="razao_social" class="form-control @error('razao_social') is-invalid @enderror" id="input--razao_social"
-                                        value="{{ $obra->razao_social ?? old('razao_social') }}" autocomplete="off">
+                            <div class="row">
+                                <h4 class="col-12 mb-3">Obra <small class="text-muted js-input-obra-name editable">{{ $obra->razao_social ?? '' }}</small></h4>
+                                <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-community-line mr-2"></i> {{ $obra->concessionaria->name ?? '' }}</h6>
+                                <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-git-repository-private-fill mr-2"></i> {{ $obra->service->name ?? '' }}</h6>
+                                <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-calendar-event-line mr-2"></i> {{ return_format_date($obra->build_at, 'pt', '/') ?? '' }}</h6>
+
+                                <div class="col-12 mt-4">
+                                    <div class="form-group">
+                                        <label for="input--description">Descrição da Obra</label>
+                                        <textarea type="text" name="description" class="form-control">{{ $obra->description ?? '' }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="input--description">Informações Importantes</label>
+                                        <textarea type="text" name="description" class="form-control">{{ $obra->obr_informacoes ?? '' }}</textarea>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="input--concessionaria">Concessionaria</label>
-                                    <input type="text" name="concessionaria" class="form-control" readonly disabled id="input--concessionaria" value="{{ $obra->concessionaria->name }}">
+
+                            <div class="d-none">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="input--razao_social">Obra</label>
+                                        <input type="text" name="razao_social" class="form-control @error('razao_social') is-invalid @enderror" id="input--razao_social"
+                                            value="{{ $obra->razao_social ?? old('razao_social') }}" autocomplete="off">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="input--service">Tipo de Obra / Serviço</label>
-                                    <input type="text" name="service" class="form-control" readonly disabled id="input--service" value="{{ $obra->service->name }}">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="input--concessionaria">Concessionaria</label>
+                                        <input type="text" name="concessionaria" class="form-control" readonly disabled id="input--concessionaria" value="{{ $obra->concessionaria->name }}">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="input--build_at">Data</label>
-                                    <input type="text" name="build_at" class="form-control" id="input--build_at" value="{{ old('build_at') ?? $obra->build_at }}">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="input--service">Tipo de Obra / Serviço</label>
+                                        <input type="text" name="service" class="form-control" readonly disabled id="input--service" value="{{ $obra->service->name }}">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="input--description">Descrição</label>
-                                    <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" id="input--description"
-                                        value="{{ $obra->description ?? old('description') }}" autocomplete="off">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="input--build_at">Data</label>
+                                        <input type="text" name="build_at" class="form-control" id="input--build_at" value="{{ old('build_at') ?? $obra->build_at }}">
+                                    </div>
                                 </div>
-                            </div>
-                        </dl>
-                    </div>
-                </div>
 
-
-                <div class="col-12">
-                    <div class="box-body">
-
-                        <div class='card'>
-                            <div class='card-header'>
-                                <h4 class='card-title'></h4>
-                                <h4 class='card-title'></h4>
-                                <h4 class='card-title'></h4>
-                                <h4 class='card-title'></h4>
-                                <h4 class='card-title'></h4>
-                            </div>
-                            <div class='card-body'>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="input--description">Descrição</label>
+                                        <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" id="input--description"
+                                            value="{{ $obra->description ?? old('description') }}" autocomplete="off">
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
+                        <div class="box-body">
+                            <div class='card'>
+                                <div class='card-header'>
+                                    <h4 class='card-title'></h4>
+                                    <h4 class='card-title'></h4>
+                                    <h4 class='card-title'></h4>
+                                    <h4 class='card-title'></h4>
+                                    <h4 class='card-title'></h4>
+                                </div>
+                                <div class='card-body'>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
@@ -90,7 +112,8 @@
                                             <li>
                                                 <div class="col-mail col-mail-1">
                                                     <div class="checkbox-wrapper-mail">
-                                                        <input type="checkbox" class="js-btn-status" {{ $etapa->check == 'C' ? 'checked' : '' }} onclick="updateStatus(this)" id="chk{{ $etapa->id }}"
+                                                        <input type="checkbox" class="js-btn-status" {{ $etapa->check == 'C' ? 'checked' : '' }} onclick="updateStatus(this)"
+                                                            id="chk{{ $etapa->id }}"
                                                             data-id={{ $etapa->id }}>
                                                         <label for="chk{{ $etapa->id }}" class="toggle"></label>
                                                     </div>
@@ -137,14 +160,6 @@
                 showEtapa($(this).attr('data-id'))
             });
 
-            $(document).on('click', 'body', function(e) {
-                if ($(e.target).closest('.right-bar-etp-toggle, .right-bar-etp, .col-mail-1').length > 0) {
-                    return;
-                }
-
-                $('body').removeClass('right-bar-etp-enabled');
-                return;
-            });
         })
 
         function getEtapas() {
@@ -201,16 +216,12 @@
             });
 
             /* Configurações Mudar  */
-            $.fn.editable.defaults.mode = 'inline';
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+
             $('.js-input-etapa-n-nota').editable({
                 pk: 'nota_numero',
                 url: BASE_URL_API_OBRA_ETAPA,
             })
+
             $('.js-edit-description').click(function(e) {
                 e.stopPropagation();
 

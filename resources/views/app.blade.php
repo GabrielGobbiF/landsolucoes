@@ -143,8 +143,10 @@
         </div>
     </div>
 
+    <script src="{{ asset('panel/js/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('panel/js/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('panel/js/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
-    <script src="{{ asset('panel/js/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ asset('panel/js/functions.js') }}"></script>
     <script src="{{ asset('panel/js/lib.js') }}"></script>
     <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
@@ -157,64 +159,7 @@
 
     @include('pages.layouts.modal_delete')
 
-
-    <script>
-        $(document).ready(function() {
-            $(".select--users").select2({
-                multiple: true,
-                placeholder: "Buscar",
-                minimumInputLength: 3,
-                language: "pt-br",
-                formatNoMatches: function() {
-                    return "Pesquisa não encontrada";
-                },
-                inputTooShort: function() {
-                    return "Digite para Pesquisar";
-                },
-                ajax: {
-                    url: `{{ route('users.all') }}`,
-                    dataType: 'json',
-                    data: function(term, page) {
-                        return {
-                            q: term, //search term
-                        };
-                    },
-                    results: function(data, page) {
-                        return {
-                            results: data.data,
-                        };
-                    }
-                },
-                escapeMarkup: function(m) {
-                    return m;
-                }
-            });
-
-            numeral.register('locale', 'pt', {
-                delimiters: {
-                    thousands: '.',
-                    decimal: ','
-                },
-                abbreviations: {
-                    thousand: 'k',
-                    million: 'm',
-                    billion: 'b',
-                    trillion: 't'
-                },
-                ordinal: function(number) {
-                    return number === 1 ? 'er' : 'ème';
-                },
-                currency: {
-                    symbol: 'R$'
-                }
-            });
-
-            numeral.locale('pt');
-        })
-    </script>
-
-@yield('scripts')
-
+    @yield('scripts')
 
 </body>
 
