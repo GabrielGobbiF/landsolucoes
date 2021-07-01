@@ -4983,6 +4983,7 @@ th {
   right: 0;
   bottom: 0;
   background: #FFF;
+  height: 100rem;
 }
 
 .arquivos .dropdown-file {

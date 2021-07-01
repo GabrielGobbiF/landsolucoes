@@ -151,7 +151,7 @@
     <script src="{{ asset('panel/js/lib.js') }}"></script>
     <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     <script>
         @include('pages.layouts.notification')
