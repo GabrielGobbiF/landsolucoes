@@ -437,7 +437,7 @@
 
         function clearNumber(number) {
             number = number.toString().replace("R$", "").replace(" ", "");
-            return numeral(number).value();
+            return number != '' ? numeral(number).value() : 0;
         }
 
         function resetValorNegociado() {
