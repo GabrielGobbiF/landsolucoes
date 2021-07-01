@@ -388,18 +388,12 @@
                 $('.btn-add-etapa-financeiro').attr('disabled', true);
 
                 var valorNegociado = clearNumber($('#input--valor_negociado').val());
-                var valorCalcular = $(this).val();
+                var valorCalcular = clearNumber($(this).val());
                 var type = $(this).attr('data-type');
 
                 var typeResultado = type == 'real' ? (valorCalcular) : ((valorNegociado * valorCalcular) / 100)
                 var totalFaturar = $('#totalFaturar').val();
-
-
-
-
-
-
-                var result = clearNumber((valorNegociado - clearNumber(typeResultado)) - clearNumber(totalFaturar));
+                var result = (valorNegociado - typeResultado) - clearNumber(totalFaturar);
 
                 var resultFormat = new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
