@@ -182,7 +182,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_custo">Valor de Custo</label>
-                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_custo" class="form-control"
+                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_custo" class="form-control"
                                 id="input--valor_custo"
                                 value="{{ $financeiro && $financeiro['valor_custo_format'] ? $financeiro['valor_custo_format'] : '0,00' }}"
                                 autocomplete="off">
@@ -192,7 +192,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_proposta">Valor da Proposta</label>
-                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_proposta" class="form-control"
+                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_proposta" class="form-control"
                                 id="input--valor_proposta"
                                 value="{{ $financeiro && $financeiro['valor_proposta_format'] ? $financeiro['valor_proposta_format'] : old('valor_proposta') }}"
                                 autocomplete="off">
@@ -204,7 +204,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_desconto">Valor de Desconto</label>
-                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_desconto" class="form-control"
+                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_desconto" class="form-control"
                                 id="input--valor_desconto"
                                 value="{{ $financeiro && $financeiro['valor_desconto_format'] ? $financeiro['valor_desconto_format'] : old('valor_desconto') }}"
                                 autocomplete="off">
@@ -214,7 +214,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_negociado">Valor Negociado</label>
-                            <input type="text" onblur="this.value = number_format(this.value)" name="valor_negociado" class="form-control"
+                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_negociado" class="form-control"
                                 id="input--valor_negociado"
                                 value="{{ $financeiro && $financeiro['valor_negociado_format'] ? $financeiro['valor_negociado_format'] : old('valor_negociado') }}"
                                 autocomplete="off"
@@ -258,157 +258,3 @@
             </div>
         </div>
     </div>
-
-    <script>
-        (function($) {
-
-            'use strict';
-
-            init();
-
-            function init() {
-                if ($('#financeiro_id').val() == '') {
-                    updateValorCusto();
-                }
-            }
-
-            function updateValorCusto() {
-                var total = 0;
-                var totalFormat = 0;
-
-                $(".sub-total").each(function() {
-                    var subTotal = $(this).attr('data-value').replace(',', '.');
-                    if (!isNaN(subTotal)) {
-                        total = parseFloat(total) + parseFloat(subTotal);
-                    }
-                });
-
-                totalFormat = number_format(total)
-
-                $('#input--valor_custo').val(totalFormat)
-                $('#input--valor_proposta').val(totalFormat)
-            }
-
-            $('#input--valor_proposta, #input--valor_desconto').on('keyup blur', function() {
-                updateValorNegociado();
-            })
-
-            function updateValorNegociado() {
-                var total = 0;
-                var valorProposta = clearNumber($('#input--valor_proposta').val());
-                var valorDesconto = clearNumber($('#input--valor_desconto').val());
-
-                total = (parseFloat(valorProposta) - parseFloat(valorDesconto));
-
-                total = new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                }).format(total);
-
-                $('#input--valor_negociado').val(total);
-            }
-
-
-            $('.js-metodoType').on('click', function() {
-                resetValorNegociado();
-
-                var valorNegociado = $('#input--valor_negociado').attr('data-value');
-
-                /**
-                 * Limpar CAMPOS
-                 */
-                $('#input--valor_receber').val('')
-                $('#input--valor_metodo_porcent').val('')
-
-                if ($(this).val() == 'real') {
-                    $('.realPc').find('label').html('Valor R$');
-                    $('.realPc').find('input').attr('data-type', 'real');
-                } else {
-                    $('.realPc').find('label').html('Porcentagem %');
-                    $('.realPc').find('input').attr('data-type', 'porcent');
-                }
-
-                $('.btn-add-etapa-financeiro').attr('disabled', true);
-
-            })
-
-            $('.js-qntEtapa').on('change keyup', function() {
-                var $input = $(this);
-                var $idEtapa = $input.attr('data-id');
-                var $price = $input.attr('data-price');
-                var $tr = $('#' + $idEtapa);
-                var qnt = $input.val();
-                if (qnt < 0) {
-                    $input.val('1');
-                } else {
-                    var total = qnt * $price;
-                    $tr.find('.sub-total').html('R$ ' + total)
-                    $tr.find('.sub-total').attr('data-value', total)
-                    updateValorCusto();
-                    updateValorNegociado();
-                }
-            })
-
-            $('#input--valor_metodo_porcent').on('keyup change', function() {
-
-                $('.btn-add-etapa-financeiro').attr('disabled', true);
-
-                var valorNegociado = clearNumber($('#input--valor_negociado').attr('data-value'));
-                var valorCalcular = clearNumber($(this).val());
-                var type = $(this).attr('data-type');
-
-                var typeResultado = type == 'real' ? (valorCalcular) : ((valorNegociado * valorCalcular) / 100)
-                var totalFaturar = $('#totalFaturar').val();
-                var result = (valorNegociado - typeResultado) - clearNumber(totalFaturar);
-
-                var resultFormat = new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                }).format(result);
-
-                if (valorCalcular == '' || valorCalcular == '0') {
-                    $('#input--valor_receber').val('R$ 0,00')
-                    $('.js-spanValorNegociado').html(resultFormat);
-                    return;
-                }
-
-                if (parseFloat(typeResultado) > parseFloat(valorNegociado) || typeResultado < 0) {
-                    toastr.error('Valor a receber não pode ser maior que negociado');
-                    resetValorNegociado();
-                    $(this).val('');
-                    return;
-                }
-
-                $('#input--valor_receber').val('R$ ' + typeResultado.toString().replace('.', ','))
-                $('.js-spanValorNegociado').html(resultFormat);
-                $('.btn-add-etapa-financeiro').attr('disabled', false);
-            })
-
-
-        })(jQuery)
-
-        function number_format(number) {
-            number = clearNumber(number);
-            if (Number.isNaN(number) || !number) return 'R$ 0,00';
-            return new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-            }).format(number);
-        }
-
-        function clearNumber(number) {
-            if (number) {
-                number = number.toString().replace('R$', '').replace('.', '').replace(/[^0-9,.]/g, '').replace(/[.]/g, '');
-                return parseFloat(number.replace(',', '.'));
-            }
-            return 0;
-        }
-
-        function resetValorNegociado() {
-            $('.btn-add-etapa-financeiro').attr('disabled', true);
-            $('#input--valor_receber').val('R$ 0,00')
-            var totalFaturar = $('#totalFaturar').val();
-            var total = ($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
-            $('.js-spanValorNegociado').html('R$ ' + total.toString().replace('.', ','));
-        }
-    </script>

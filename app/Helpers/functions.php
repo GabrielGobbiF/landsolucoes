@@ -106,3 +106,19 @@ function dataLimpa($date)
 {
     return Carbon::parse($date)->format('d/m/Y');
 }
+
+function clearNumber($number = 0){
+
+    if(empty($number)){
+        return 0;
+    }
+
+    $number = str_replace(['R$', '&nbsp', chr(194) . chr(160)], '', $number);
+
+    $number = trim($number, "\xC2\xA0");
+
+    $number = number_format(str_replace(",", ".", str_replace(".", "", $number)), 2, '.', '');
+
+    return $number;
+
+}

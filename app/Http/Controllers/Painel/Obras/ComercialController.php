@@ -139,6 +139,7 @@ class ComercialController extends Controller
      */
     public function show($id)
     {
+
         if (!$comercial = $this->repository->where('id', $id)->with('service')->with('concessionaria')->with('viabilizacao')->first()) {
             return redirect()
                 ->route('comercial.index')

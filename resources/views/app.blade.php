@@ -149,6 +149,7 @@
     <script src="{{ asset('panel/js/lib.js') }}"></script>
     <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     <script>
         @include('pages.layouts.notification')
@@ -156,7 +157,6 @@
 
     @include('pages.layouts.modal_delete')
 
-    @yield('scripts')
 
     <script>
         $(document).ready(function() {
@@ -189,8 +189,32 @@
                     return m;
                 }
             });
+
+            numeral.register('locale', 'pt', {
+                delimiters: {
+                    thousands: '.',
+                    decimal: ','
+                },
+                abbreviations: {
+                    thousand: 'k',
+                    million: 'm',
+                    billion: 'b',
+                    trillion: 't'
+                },
+                ordinal: function(number) {
+                    return number === 1 ? 'er' : 'ème';
+                },
+                currency: {
+                    symbol: 'R$'
+                }
+            });
+
+            numeral.locale('pt');
         })
     </script>
+
+@yield('scripts')
+
 
 </body>
 
