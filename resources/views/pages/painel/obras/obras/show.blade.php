@@ -15,12 +15,13 @@
                             <input type="hidden" id="input--obra_id" value="{{ $obra->id }}">
 
                             <div class="row">
+
                                 <h4 class="col-12 mb-3">Obra <small class="text-muted js-input-obra-name editable">{{ $obra->razao_social ?? '' }}</small></h4>
                                 <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-community-line mr-2"></i> {{ $obra->concessionaria->name ?? '' }}</h6>
                                 <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-git-repository-private-fill mr-2"></i> {{ $obra->service->name ?? '' }}</h6>
                                 <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-calendar-event-line mr-2"></i> {{ return_format_date($obra->build_at, 'pt', '/') ?? '' }}</h6>
 
-                                <div class="col-12 mt-4">
+                                <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label for="input--description">Descrição da Obra</label>
                                         <textarea type="text" name="description" class="form-control">{{ $obra->description ?? '' }}</textarea>
@@ -34,7 +35,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="d-none">
                                 <div class="col-12">
@@ -232,13 +232,15 @@
                     pk: 'observacao',
                     url: BASE_URL_API_OBRA_ETAPA,
                     success: function(response, newValue) {
-                        $(this).html(newValue); //update backbone model
+                        if(newValue != ''){
+                            $('.js-textarea-description').html(newValue);
+                        }
                     }
                 }).editable('toggle');
 
                 $('.js-textarea-description').editable().on('hidden', function(e, params) {
-                    $('.js-textarea-description').editable('destroy');
                     if (params == "cancel") {
+                        $('.js-textarea-description').editable('destroy');
                         btnEdit.removeClass('d-none')
                     }
                     btnEdit.removeClass('d-none')
