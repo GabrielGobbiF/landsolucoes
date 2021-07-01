@@ -8,7 +8,7 @@
 
         <div class="filemgr-content">
             <div class="filemgr-content-body ps ps--active-y">
-                <nav aria-label="breadcrumb">
+                <nav aria-label="breadcrumb" class="mg-t-15">
                     <ol class="breadcrumb mg-b-0">
                         <li class="breadcrumb-item"><a href="{{ route('arquivos.index') }}">Arquivos</a></li>
                         @if ($pastaPai && $pastaPai->name != '')
@@ -56,6 +56,24 @@
 
     @include('pages.painel.obras._partials.modals.modal-add-pasta')
     @include('pages.painel.obras._partials.modals.modal-add-document')
+
+    <div class="pos-fixed b-10 r-10 z-index-200 d-none" id="files-downloading">
+        <div class='card'>
+            <form id='form-download-files' role='form' class='needs-validation' action='{{ route('arquivos.download') }}' method='POST'>
+                <input type="hidden" id="files--input" name="files">
+                @csrf
+                <div class='card-header bg-primary'>
+                    <h6 class="tx-white mg-b-0 mg-r-auto">Preparado para download</h6>
+                </div>
+                <div class='card-body pd-15' id="files-row">
+                </div>
+                <div class="card-footer">
+                    <button type='submit' class='btn btn-sm btn-primary btn-download'>Baixar</button>
+                    <button type='button' class='btn btn-sm btn-outline-info btn-submit'>Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 @section('scripts')
     <script src="{{ asset('panel/js/pages/arquivos.js') }}"></script>

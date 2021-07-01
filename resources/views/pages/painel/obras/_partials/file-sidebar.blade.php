@@ -1,4 +1,4 @@
-<div class="filemgr-sidebar" data-simplebar class="h-100">
+<div class="filemgr-sidebar" class="h-100">
     <div class="filemgr-sidebar-header">
         <div class="dropdown dropdown-icon flex-fill">
             <button class="btn btn-xs btn-block btn-outline-info" data-toggle="modal" data-target="#modal-add-pasta">Novo <i class="chevron-down"></i></button>
