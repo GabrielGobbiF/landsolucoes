@@ -37,12 +37,11 @@ class Client extends Authenticatable
 
     public function departments()
     {
-        return $this->hasMany(Department::class, 'client_id');
+        return $this->morphMany(Department::class, 'departments');
     }
 
     public function obras()
     {
         return $this->belongsTo(Obra::class, 'id', 'client_id');
     }
-
 }

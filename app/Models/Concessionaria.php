@@ -26,7 +26,7 @@ class Concessionaria extends Model
 
     public function departments()
     {
-        return $this->hasMany(Department::class, 'concessionaria_id');
+        return $this->morphMany(Department::class, 'departments');
     }
 
     public function etapas($service_id)

@@ -48,34 +48,28 @@ class DepartmentController extends Controller
 
         $typeValue = $request->input('typeValue');
 
-        $redirect = $type == 'concessionaria_id' ? 'concessionaria' : 'client';
+        $repository = $type == 'concessionaria_id' ? new Concessionaria() : new Client();
 
-        if ($redirect == 'concessionaria') {
-            if (!$concessionaria = $this->concessionaria->where('id', $typeValue)->first()) {
-                return redirect()
-                    ->route('concessionarias.index')
-                    ->with('message', 'Registro (Concessionaria) não encontrado!');
-            }
-            $typeValue = $concessionaria->id;
-        } else {
-            if (!$client = $this->client->where('uuid', $typeValue)->first()) {
-                return redirect()
-                    ->route('clients.index')
-                    ->with('message', 'Registro (Cliente) não encontrado!');
-            }
-            $typeValue = $client->id;
+        if (!$repository = $repository->where('id', $typeValue)->first()) {
+            return redirect()
+                ->back()
+                ->with('error', 'Registro não encontrado!');
         }
 
-        for ($q = 0; $q < count($columns['dep_responsavel']); $q++) {
-            if ($columns['dep_responsavel'][$q] != '') {
-                $this->repository->create([
-                    $type => $typeValue,
-                    "dep_responsavel" => $columns['dep_responsavel'][$q],
-                    "dep_telefone_celular" => $columns['dep_telefone_celular'][$q],
-                    "dep_telefone_fixo" => $columns['dep_telefone_fixo'][$q],
-                    "dep_email" => $columns['dep_email'][$q],
-                    "dep_funcao" => $columns['dep_funcao'][$q],
-                ]);
+        if (isset($columns['dep_responsavel'])) {
+            for ($q = 0; $q < count($columns['dep_responsavel']); $q++) {
+                if ($columns['dep_responsavel'][$q] != '') {
+
+                    $columnsStore = [
+                        "dep_responsavel" => $columns['dep_responsavel'][$q],
+                        "dep_telefone_celular" => $columns['dep_telefone_celular'][$q],
+                        "dep_telefone_fixo" => $columns['dep_telefone_fixo'][$q],
+                        "dep_email" => $columns['dep_email'][$q],
+                        "dep_funcao" => $columns['dep_funcao'][$q],
+                    ];
+
+                    $repository->departments()->create($columnsStore);
+                }
             }
         }
 

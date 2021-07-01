@@ -14,9 +14,9 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
+
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('client_id')->nullable();
-            $table->unsignedBigInteger('concessionaria_id')->nullable();
+            $table->morphs('departments');
             $table->string('dep_responsavel');
             $table->string('dep_telefone_celular')->nullable();
             $table->string('dep_telefone_fixo')->nullable();
@@ -24,15 +24,6 @@ class CreateDepartmentsTable extends Migration
             $table->string('dep_funcao')->nullable();
             $table->timestamps();
 
-            $table->foreign('client_id')
-                ->references('id')
-                ->on('clients')
-                ->onDelete('cascade');
-
-            $table->foreign('concessionaria_id')
-                ->references('id')
-                ->on('concessionarias')
-                ->onDelete('cascade');
         });
     }
 

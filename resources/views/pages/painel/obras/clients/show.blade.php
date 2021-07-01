@@ -15,7 +15,7 @@
         <div>
             @include("pages.painel._partials.forms.form_department", [
             $type = "client_id",
-            $idType = $client->uuid
+            $idType = $client->id
             ])
         </div>
 
