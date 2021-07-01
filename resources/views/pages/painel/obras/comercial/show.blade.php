@@ -442,7 +442,7 @@
         function resetValorNegociado() {
             $('.btn-add-etapa-financeiro').attr('disabled', true);
             $('#input--valor_receber').val('R$ 0,00');
-            var valorNegociado = numeral(clearNumber($('#input--valor_negociado').attr('data-value')));
+            var valorNegociado = numeral(($('#input--valor_negociado').attr('data-value')));
             var valorNegociado = valorNegociado.subtract(clearNumber($('#totalFaturar').val()));
 
             $('.js-spanValorNegociado').html(numberFormat(valorNegociado.value()));
