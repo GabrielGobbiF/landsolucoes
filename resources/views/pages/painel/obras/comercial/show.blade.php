@@ -348,8 +348,6 @@
             $('.js-metodoType').on('click', function() {
                 resetValorNegociado();
 
-                var valorNegociado = $('#input--valor_negociado').attr('data-value');
-
                 /**
                  * Limpar CAMPOS
                  */
@@ -389,7 +387,7 @@
 
                 $('.btn-add-etapa-financeiro').attr('disabled', true);
 
-                var valorNegociado = clearNumber($('#input--valor_negociado').attr('data-value'));
+                var valorNegociado = clearNumber($('#input--valor_negociado').val());
                 var valorCalcular = $(this).val();
                 var type = $(this).attr('data-type');
 
