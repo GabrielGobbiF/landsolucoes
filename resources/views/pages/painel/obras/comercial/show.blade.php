@@ -446,8 +446,9 @@
             var totalFaturar = $('#totalFaturar').val();
             var total = clearNumber($('#input--valor_negociado').attr('data-value')) - clearNumber($('#totalFaturar').val());
 
+            console.log($('#input--valor_negociado').attr('data-value'));
             console.log(clearNumber($('#input--valor_negociado').attr('data-value')));
-            console.log(clearNumber(clearNumber($('#totalFaturar').val())));
+            console.log(clearNumber($('#totalFaturar').val()));
 
             console.log(totalFaturar);
             console.log(total);
