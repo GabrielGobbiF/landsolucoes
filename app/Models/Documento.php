@@ -28,6 +28,7 @@ class Documento extends Model
     {
         return (bool) Favorite::where('user_id', Auth::id())
             ->where('favoritable_id', $this->id)
+            ->where('favoritable_type', 'App\Models\Documento')
             ->first();
     }
 }

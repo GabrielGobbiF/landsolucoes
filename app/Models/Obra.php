@@ -41,6 +41,11 @@ class Obra extends Model
         return $this->belongsTo(Department::class, 'client_id');
     }
 
+    public function UserFavorites()
+    {
+        return $this->morphToMany(User::class, 'favoritable');
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');

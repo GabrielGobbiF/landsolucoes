@@ -54,7 +54,12 @@ class User extends Authenticatable
 
     public function filesFavorites()
     {
-        return $this->morphToMany(Documento::class, 'favoritable', 'favoritables', 'user_id', 'favoritable_id');
+        return $this->morphedByMany(Documento::class, 'favoritable');
+    }
+
+    public function obrasFavorites()
+    {
+        return $this->morphedByMany(Obra::class, 'favoritable');
     }
 
     /**

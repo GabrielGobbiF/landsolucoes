@@ -128,14 +128,30 @@ class TableApiController extends Controller
                         }
                     });
             })
+            ->when($filters, function ($query, $filters) {
+                if (isset($filters['fav'])) {
+                    return $query->join('favoritables', 'obras.id', '=', 'favoritables.favoritable_id')
+                        ->where(function ($query) {
+                            $query->where('favoritables.user_id', auth()->user()->id);
+                            $query->where('favoritables.favoritable_type', 'App\Models\Obra');
+                        });
+                }
+            })
             ->join('services', 'obras.service_id', '=', 'services.id')
+            ->where(function ($query) use ($filters) {
+                if (isset($filters['urgence'])) {
+                    $query->where('obras.obr_urgence', 'Y');
+                }
+            })
             ->where('obras.status', 'aprovada')
+            ->where('obras.deleted_at', NULL)
             ->where(function ($query) use ($filters) {
                 if ($filters['search'] != '') {
                     $query->orWhere('last_note', 'LIKE', '%' . $filters['search'] . '%');
                     $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
                 }
             })
+            ->groupBy('obras.id')
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
 

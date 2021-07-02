@@ -27,7 +27,6 @@ class ObrasController extends Controller
      */
     public function index()
     {
-
         $clients = Client::whereHas('obras', function ($query) {
             $query->where('obras.status', 'aprovada');
         })->get(['id', 'username']);

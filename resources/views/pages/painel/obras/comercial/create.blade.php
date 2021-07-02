@@ -68,7 +68,7 @@
                                                     <option
                                                         {{ isset($comercial) && $comercial->client_id == $client->id ? 'selected' : '' }}
                                                         {{ old('client_id') == $client->id ? 'selected' : '' }}
-                                                        value="{{ $client->id }}"> {{ $client->company_name }}
+                                                        value="{{ $client->id }}"> {{ $client->username }}
                                                     </option>
                                                 @endforeach
                                             </select>

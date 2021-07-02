@@ -53,11 +53,11 @@
                             <div class="form-inline" role="form">
                                 <div class="form-group mg-t-5">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input wd-15 ht-15 metd" name="urgence" type="checkbox" id="metodo_real" value="real">
+                                        <input class="form-check-input wd-15 ht-15" name="urgence" type="checkbox" value="urgence">
                                         <label class="form-check-label" for="metodo_real">Com Urgência</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input wd-15 ht-15 metd" name="fav" type="checkbox" id="metodo_porcent" value="porcent">
+                                        <input class="form-check-input wd-15 ht-15" name="fav" type="checkbox" value="favorites">
                                         <label class="form-check-label" for="metodo_porcent">Meus Favoritos</label>
                                     </div>
                                 </div>
@@ -97,6 +97,14 @@
                 });
             })
 
+            $('.form-check-input').on('click', function() {
+                $(this).is(':checked') ?
+                    $(this).addClass('search-input') :
+                    $(this).removeClass('search-input');
+
+                initTable();
+            })
+
             //$.each($('.search-input'), function() {
             //    var value = localStorage.getItem($(this).attr('id'))
             //    if (value != null) {
@@ -116,7 +124,6 @@
         function progressFormatter(value, row) {
             return value;
         }
-
     </script>
 @endsection
 @endsection

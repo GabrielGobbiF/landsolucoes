@@ -7,36 +7,6 @@ $(document).ready(function () {
         }
     });
 
-    $(".select--users").select2({
-        multiple: true,
-        placeholder: "Buscar",
-        minimumInputLength: 3,
-        language: "pt-br",
-        formatNoMatches: function () {
-            return "Pesquisa não encontrada";
-        },
-        inputTooShort: function () {
-            return "Digite para Pesquisar";
-        },
-        ajax: {
-            url: `{{ route('users.all') }}`,
-            dataType: 'json',
-            data: function (term, page) {
-                return {
-                    q: term, //search term
-                };
-            },
-            results: function (data, page) {
-                return {
-                    results: data.data,
-                };
-            }
-        },
-        escapeMarkup: function (m) {
-            return m;
-        }
-    });
-
     numeral.register('locale', 'pt', {
         delimiters: {
             thousands: '.',
