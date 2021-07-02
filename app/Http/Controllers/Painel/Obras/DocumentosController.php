@@ -60,7 +60,7 @@ class DocumentosController extends Controller
      */
     public function favorites(Request $request)
     {
-        $documentos = $request->user()->files()->where(function ($query) use ($request) {
+        $documentos = auth()->user()->filesFavorites()->where(function ($query) use ($request) {
             if ($request->search) {
                 $query->orWhere('name', 'like', '%' . $request->search . '%');
                 $query->orWhere('ext', 'like', '%' . $request->search . '%');
@@ -144,13 +144,13 @@ class DocumentosController extends Controller
 
     public function favorite(Request $request)
     {
-        $request->user()->files()->attach($request->file_id);
+        auth()->user()->filesFavorites()->attach($request->file_id);
         return response(['fav'], 200);
     }
 
     public function unfavorite(Request $request)
     {
-        $request->user()->files()->detach($request->file_id);
+        auth()->user()->filesFavorites()->detach($request->file_id);
         return response(['unfav'], 200);
     }
 

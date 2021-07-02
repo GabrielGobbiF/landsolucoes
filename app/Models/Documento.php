@@ -27,7 +27,7 @@ class Documento extends Model
     public function favorited(): bool
     {
         return (bool) Favorite::where('user_id', Auth::id())
-            ->where('file_id', $this->id)
+            ->where('favoritable_id', $this->id)
             ->first();
     }
 }

@@ -15,8 +15,6 @@ class Department extends Model
      * @var array
      */
     protected $fillable = [
-        'client_id',
-        'concessionaria_id',
         'dep_responsavel',
         'dep_telefone_celular',
         'dep_telefone_fixo',
@@ -33,8 +31,4 @@ class Department extends Model
         'id',
     ];
 
-    public function client()
-    {
-        return $this->belongsTo(Client::class, 'client_id');
-    }
 }

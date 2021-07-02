@@ -51,8 +51,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function files()
+
+    public function filesFavorites()
     {
-        return $this->belongsToMany(Documento::class, 'users_files_favorites', 'user_id', 'file_id')->withTimeStamps();
+        return $this->morphToMany(Documento::class, 'favoritable', 'favoritables', 'user_id', 'favoritable_id');
+    }
+
+    /**
+     * Favorite the current reply.
+     *
+     * @return Model
+     */
+    public function favorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->create($attributes);
+        }
     }
 }

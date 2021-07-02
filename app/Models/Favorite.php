@@ -9,5 +9,5 @@ class Favorite extends Model
 {
     use HasFactory;
 
-    protected $table = 'users_files_favorites';
+    protected $table = 'favoritables';
 }

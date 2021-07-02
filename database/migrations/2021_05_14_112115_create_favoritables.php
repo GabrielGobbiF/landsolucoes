@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersFilesFavorites extends Migration
+class CreateFavoritables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateUsersFilesFavorites extends Migration
      */
     public function up()
     {
-        Schema::create('users_files_favorites', function (Blueprint $table) {
-
+        Schema::create('favoritables', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('file_id');
+            $table->morphs('favoritable');
 
-            //FOREIGN KEY CONSTRAINTS
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('file_id')->references('id')->on('documentos')->onDelete('cascade');
-
-            //SETTING THE PRIMARY KEYS
-            $table->primary(['user_id', 'file_id']);
 
             $table->timestamps();
         });
@@ -36,6 +31,6 @@ class CreateUsersFilesFavorites extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_files_favorites');
+        Schema::dropIfExists('favoritables');
     }
 }
