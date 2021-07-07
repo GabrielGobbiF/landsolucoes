@@ -20,8 +20,6 @@ function initTable() {
         }
     });
 
-    console.log(filter);
-
     if ($table.length > 0) {
 
         $table.bootstrapTable('refreshOptions', {
