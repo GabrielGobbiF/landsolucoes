@@ -21,6 +21,28 @@ class TasksResource extends JsonResource
             "status" => $this->tar_status == 'concluido' ? true : false,
             "prioridade" => $this->prioridade,
             "lembrete" => $this->data != '' ? $this->data : false,
+            "badge" => $this->getBadge($this->prioridade),
+            "dateFormatHuman" => $this->data != '' ? dateTournamentForHumans($this->data) : '',
         ];
+    }
+
+    public function getBadge($prioridade)
+    {
+        switch ($prioridade) {
+            case 'alta':
+                $badge = 'danger';
+                break;
+            case 'baixa':
+                $badge = 'info';
+                break;
+            case 'media':
+                $badge = 'warning';
+                break;
+            default:
+                $badge = 'primary';
+                break;
+        }
+
+        return $badge;
     }
 }

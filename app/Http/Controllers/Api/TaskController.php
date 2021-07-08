@@ -38,7 +38,7 @@ class TaskController extends Controller
             $filter == 'true'
                 ? $query->where('tar_status', 'concluido')
                 : $query->where('tar_status', 'em_andamento');
-        })->get();
+        })->orderByRaw("FIELD(prioridade, 'alta', 'media', 'baixa') ASC")->orderBy('data')->get();
 
         return TasksResource::collection($tasks);
     }

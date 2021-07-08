@@ -197,12 +197,16 @@
                         $.each(tasks, function(index, value) {
                             var check = value.status ? 'checked' : null;
                             options += `<li id="task_${value.id}">`;
-                            options += `    <div class="col-mail-1">`;
+                            options += `    <div class="col-mail col-mail-1">`;
                             options += `        <div class="checkbox-wrapper-mail">`;
                             options += `            <input type="checkbox" ${check} onclick="status(this)" class="js-btn-status" data-id="${value.id}" id="chk${value.id}">`;
                             options += `            <label for="chk${value.id}" class="toggle"></label>`;
                             options += `        </div>`;
                             options += `        <a href="javascript:void(0)" data-id="${value.id}" class="title task-show">${value.tar_titulo}</a>`;
+                            options += `    </div>`;
+                            options += `    <div class="col-mail col-mail-2">`;
+                            options += `        <span class="badge-${value.badge} badge mr-2">${value.prioridade}</span>`;
+                            options += `        <span class="teaser">${value.dateFormatHuman}</span>`;
                             options += `    </div>`;
                             options += `</li>`;
                         });
