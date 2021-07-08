@@ -313,6 +313,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
 Route::get('/cron', function () {
     Artisan::call("command:carReview");
+    Artisan::call("command:notifyLembrete");
 });
 
 Route::get('/obras', function () {

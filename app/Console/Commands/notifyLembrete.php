@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Task;
 use App\Models\User;
-use App\Notifications\SendNotification;
+use App\Notifications\SendNotificationTask;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -48,7 +48,7 @@ class notifyLembrete extends Command
             $title = $task->tar_titulo;
 
             $user = User::where('id', $task->user_id)->first();
-            $user->notify(new SendNotification("Lembrete da sua tarefa $title", 'fas fa-tasks', route('obras.index')));
+            $user->notify(new SendNotificationTask("Lembrete da sua tarefa $title", 'fas fa-tasks', route('obras.index')));
 
             $taskU = Task::find($task->id);
             $taskU->alert = 'Y';
