@@ -34,7 +34,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-
         $users = $this->repository->get();
 
         return view('pages.painel.administrador.users.index', compact('users'));

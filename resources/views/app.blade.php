@@ -28,8 +28,8 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <script>
-        const BASE_URL = `{{ env('APP_URL') }}`;
-        const BASE_URL_API = `{{ env('APP_URL_API') }}`;
+        var BASE_URL = `{{ env('APP_URL') }}`;
+        var BASE_URL_API = `{{ env('APP_URL_API') }}`;
     </script>
 
 </head>
@@ -141,6 +141,7 @@
                 @endif
             </div>
         </div>
+
     </div>
 
     <script src="{{ asset('panel/js/metismenu/metisMenu.min.js') }}"></script>

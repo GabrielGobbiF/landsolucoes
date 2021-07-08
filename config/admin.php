@@ -92,6 +92,13 @@ return [
                 'icon' =>  'ri-notification-2-line',
                 'route' => 'notification',
             ],
+        ],
+        'tasks' => [
+            [
+                'name' =>  'Todas',
+                'icon' =>  'ri-notification-2-line',
+                'route' => 'tasks.index',
+            ],
         ]
     ]
 ];

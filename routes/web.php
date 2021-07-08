@@ -41,6 +41,15 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::post('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'update'])->name('obra.etapa.update');
     Route::post('obra/{obra_id}/etapa/{etapa_id}/status', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateStatus'])->name('obra.etapa.update.status');
     Route::post('obra/{obra_id}/etapa/{etapa_id}/comment/store', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentStore'])->name('obra.etapa.comment.store');
+
+    /**
+    * Tasks
+    */
+    Route::get('tasks', [App\Http\Controllers\Api\TaskController::class, 'all'])->name('tasks.all');
+    Route::post('tasks', [App\Http\Controllers\Api\TaskController::class, 'store'])->name('task.store');
+    Route::get('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'show'])->name('task.show');
+    Route::post('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'update'])->name('task.update');
+    Route::post('tasks/{task_id}/status', [App\Http\Controllers\Api\TaskController::class, 'updateStatus'])->name('obra.etapa.update.status');
 });
 
 Route::group(['middleware' => ['CheckPassword']], function () {
@@ -278,12 +287,17 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification');
     Route::get('/notify/sendTest', [App\Http\Controllers\NotificationController::class, 'notifyUsersTest'])->name('notifications.send.test');
-
     Route::get('/notifications/{uuid}/read', [App\Http\Controllers\NotificationController::class, 'read'])->name('notifications.read');
     Route::get('/notifications/{uuid}/archived', [App\Http\Controllers\NotificationController::class, 'archived'])->name('notifications.archived');
     Route::get('/notifications/{uuid}/deleted', [App\Http\Controllers\NotificationController::class, 'deleted'])->name('notifications.deleted');
     Route::get('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'readAll'])->name('notifications.read.all');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Task
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('tasks', App\Http\Controllers\Api\TaskController::class);
 
 
     Route::group(['middleware' => 'role:desenvolvedor'], function () {

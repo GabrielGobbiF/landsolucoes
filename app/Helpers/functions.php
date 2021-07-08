@@ -107,9 +107,35 @@ function dataLimpa($date)
     return Carbon::parse($date)->format('d/m/Y');
 }
 
-function clearNumber($number = 0){
+function somarData($soma, $type, $date, $formatReturn = 'Y-m-d H:i:s')
+{
 
-    if(empty($number)){
+    $date = $date != '' ? Carbon::parse($date) : Carbon::parse(date('Y-m-d H:i:s'));
+
+    switch ($type) {
+        case 'days':
+            $date->addDays($soma);
+            break;
+
+        case 'hours':
+            $date->addHours($soma);
+            break;
+
+        case 'minutes':
+            $date->addMinutes($soma);
+            break;
+
+        default:
+            # code...
+            break;
+    }
+    return Carbon::parse($date)->format($formatReturn);
+}
+
+function clearNumber($number = 0)
+{
+
+    if (empty($number)) {
         return 0;
     }
 
@@ -120,5 +146,9 @@ function clearNumber($number = 0){
     $number = number_format(str_replace(",", ".", str_replace(".", "", $number)), 2, '.', '');
 
     return $number;
+}
 
+function slack($message = [], $channel = 'sistema')
+{
+    \Slack::to('#' . $channel)->send(json_encode($message));
 }

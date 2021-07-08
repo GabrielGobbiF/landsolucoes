@@ -16,6 +16,7 @@
 @import "custom/structure/page-head";
 @import "custom/structure/footer";
 @import "custom/structure/right-sidebar";
+@import "custom/structure/right-sidebar-tasks";
 @import "custom/structure/vertical";
 @import "custom/structure/horizontal-nav";
 @import "custom/structure/layouts";
@@ -72,6 +73,7 @@
 @import "custom/pages/arquivos";
 @import "custom/pages/obra";
 @import "custom/pages/email";
+@import "custom/pages/tasks";
 
 //Libs (Helpers)
 @import "custom/helpers/helpers";

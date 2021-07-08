@@ -132,9 +132,8 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
-            'challenger_amout' => 'Aposta do desafio'
         ],
-        'challenger_amout' => 'Aposta do desafio',
+        'tar_titulo' => 'custom-message',
     ],
 
     /*
@@ -188,7 +187,8 @@ return [
         'team_id' => 'Time',
         'accept_check' => 'Termos',
         'email_user' => 'Email',
-        'qnt_arenapoints' => 'Quantidade Retirada'
+        'tar_titulo' => 'Titulo',
+        'tar_description' => 'Descrição',
 
     ],
 

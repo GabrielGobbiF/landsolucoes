@@ -45,6 +45,8 @@
                             @endif
                         @endforeach
                         <input type="hidden" id="url" value="{{Request::getRequestUri()}}">
+                        <input type="hidden" id="base_url" value="{{ env('APP_URL') }}">
+                        <input type="hidden" id="base_url_api" value="{{ env('BASE_URL_API') }}">
                     </ul>
                 </div>
             </nav>

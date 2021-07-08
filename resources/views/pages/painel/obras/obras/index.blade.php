@@ -2,7 +2,7 @@
 
 @section('title', 'Obras')
 
-@section('content')
+@section('content-max-fluid')
     <div class="row">
         <div class="col">
             <div class="card">
@@ -37,7 +37,6 @@
                             <button class="btn btn-dark btn-empty-search">Limpar </button>
                         </div>
 
-
                     </div>
                 </div>
 
@@ -63,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table data-toggle="table" id="table-api" data-table="obras" data-search-text="nº nota, razão social">
+                        <table data-toggle="table4" id="table-api4" data-table="obras4" data-search-text="nº nota, razão social">
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true" data-visible="false">#</th>

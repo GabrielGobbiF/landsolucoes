@@ -1,100 +1,304 @@
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-none">
-
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab">Notificação</a></li>
-            <li><a href="#tab_2" data-toggle="tab">Minha Lista <small style="position: relative;top: 3px;left: 5px;" class="label pull-right bg-red" id="qntListUser">114</small></a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
-                <ul class="todo-list ui-sortable" id="toDoDiv">
-                    <li> <label class="popver_urgencia" data-target=""> <a href="http://www2.cena.com.br/obras/edit/229?visto=true&amp;notId=3227?visto=true&amp;notId=3227"> <input type="checkbox"
-                                    id="checkToDo3227" onclick="checkToDo(3227,60,0)" class="checkbox_desgn" undefined="" name="timeline-photo" value=""> <span style="    display: initial"> <span
-                                        class="icon unchecked"> <span class="mdi mdi-check"></span> </span> </span> </a> </label> <a
-                            href="http://www2.cena.com.br/obras/edit/229?visto=true&amp;notId=3227"><span class="text"> Nova Obra </span></a> <small> FGV - Privisória - 9 de Julho criado por
-                            marcos </small> </li>
-                    <li> <label class="popver_urgencia" data-target=""> <a href="http://www2.cena.com.br/obras/edit/225?visto=true&amp;notId=3276?visto=true&amp;notId=3276"> <input type="checkbox"
-                                    id="checkToDo3276" onclick="checkToDo(3276,60,0)" class="checkbox_desgn" undefined="" name="timeline-photo" value=""> <span style="    display: initial"> <span
-                                        class="icon unchecked"> <span class="mdi mdi-check"></span> </span> </span> </a> </label> <a
-                            href="http://www2.cena.com.br/obras/edit/225?visto=true&amp;notId=3276"><span class="text"> Nova Obra </span></a> <small> Voetour - Parametrização criado por marc
-                        </small> </li>
-                    <li> <label class="popver_urgencia" data-target=""> <a href="http://www2.cena.com.br/obras/edit/230?visto=true&amp;notId=3301?visto=true&amp;notId=3301"> <input type="checkbox"
-                                    id="checkToDo3301" onclick="checkToDo(3301,60,0)" class="checkbox_desgn" undefined="" name="timeline-photo" value=""> <span style="    display: initial"> <span
-                                        class="icon unchecked"> <span class="mdi mdi-check"></span> </span> </span> </a> </label> <a
-                            href="http://www2.cena.com.br/obras/edit/230?visto=true&amp;notId=3301"><span class="text"> Nova Obra </span></a> <small> Trimais - Obra Elétrica criado por marc
-                        </small> </li>
-                    <li> <label class="popver_urgencia" data-target=""> <a href="http://www2.cena.com.br/obras/edit/233?visto=true&amp;notId=3648?visto=true&amp;notId=3648"> <input type="checkbox"
-                                    id="checkToDo3648" onclick="checkToDo(3648,60,0)" class="checkbox_desgn" undefined="" name="timeline-photo" value=""> <span style="    display: initial"> <span
-                                        class="icon unchecked"> <span class="mdi mdi-check"></span> </span> </span> </a> </label> <a
-                            href="http://www2.cena.com.br/obras/edit/233?visto=true&amp;notId=3648"><span class="text"> Nova Obra </span></a> <small> CLD - Ramal Alimentador Interno criado
-                        </small> </li>
-                    <li> <label class="popver_urgencia" data-target=""> <a href="http://www2.cena.com.br/obras/edit/236?visto=true&amp;notId=3814?visto=true&amp;notId=3814"> <input type="checkbox"
-                                    id="checkToDo3814" onclick="checkToDo(3814,60,0)" class="checkbox_desgn" undefined="" name="timeline-photo" value=""> <span style="    display: initial"> <span
-                                        class="icon unchecked"> <span class="mdi mdi-check"></span> </span> </span> </a> </label> <a
-                            href="http://www2.cena.com.br/obras/edit/236?visto=true&amp;notId=3814"><span class="text"> Nova Obra </span></a> <small> Vitacon 51 - Baiuca criado por marcos </small>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-pane" id="tab_2">
-
-                <div id="lista">
-                    <ul class="todo-list ui-sortable" id="toDoDivListaUser">
-                        <li> <label class="popver_urgencia" data-target=""> <input type="checkbox" id="checkToDo5136" onclick="checkToDo(5136,60,0)" class="checkbox_desgn" undefined=""
-                                    name="timeline-photo" value=""> <span style="    display: initial"> <span class="icon unchecked"> <span class="mdi mdi-check"></span> </span> </span> </label>
-                            <a href="javascript:void(0)" onclick="editTarefa(416)"><span class="text"> teste </span> </a> <small> teste </small> <small class="label label-danger"> ALTA</small>
-                        </li>
-                    </ul>
+<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+    <div id="page--tasks" style="height:100vh">
+        <div class="box box-default box-solid tasks-box">
+            <div class="col-md-12">
+                <div class="card-body d-flex align-items-center justify-content-between" style="padding: 14px !important;">
+                    <h3 class="box-title align-self-center">Tarefas</h3>
+                    <div class="task-buttons">
+                        <button class="btn btn-sm btn-outline-info js-add-task"><i class="fas fa-plus mr-1"></i> Nova tarefa</button>
+                        <button class="btn btn-sm btn-outline-primary js-show-done-task"><i class="fas fa-plus mr-1"></i> Mostrar Concluidos</button>
+                        <button class="btn btn-sm btn-outline-primary js-hide-done-task d-none"><i class="fas fa-plus mr-1"></i> Esconder Concluidos</button>
+                        <input type="hidden" id="listDone" value="false">
+                    </div>
                 </div>
-                <input type="hidden" class="form-control" id="input-concluidos" name="input-concluidos" value="false">
 
-                <div id="add" style="display: none">
-                    <form id="formTodo" action="http://www2.cena.com.br/notificacao/add" method="POST">
-                        <input type="hidden" class="form-control" id="id_tarefa" name="id_tarefa">
-
-                        <div class="form-group">
-                            <label for="">Titulo</label>
-                            <input type="text" class="form-control" id="tar_titulo" name="tar_titulo" placeholder="Lembrar de pagar conta">
-                        </div>
-                        <div class="form-group">
-                            <label for="tar_descricao">Descrição</label>
-                            <textarea type="text" style="height: 93px;" class="form-control" id="tar_descricao" name="tar_descricao" placeholder="Preciso, lembrar de pagar..."> </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Prioridade</label>
-                            <select class="form-control" name="tar_prioridade" id="tar_prioridade">
-                                <option value="ALTA">ALTA</option>
-                                <option value="BAIXA">BAIXA</option>
-                                <option value="MÉDIA">MÉDIA</option>
-                            </select>
-                        </div>
-                        <label>Lembrete</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+                <div class="tasks-container__list">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="message-list" id="tasks-list" style="padding: 5px 0px 0px 1px;"></ul>
                             </div>
-                            <input type="text" class="form-control" name="tar_prazo" id="tar_prazo" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                         </div>
-                        <input type="hidden" name="tar_tipo" id="tar_tipo" class="form-control pull-right" value="userlista">
-
-                        <div class="box-footer">
-                            <div type="" class="btn btn-primary pull-right" id="buttonForm">Salvar</div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-                <div class="box-footer clearfix no-border" style="position: static;">
-                    <button type="button" id="addListUser" class="btn btn-default pull-right buttonSaved"><i class="fa fa-plus"></i> Add</button>
-                    <!--<button type="button" id="updateListUser" class="btn btn-default pull-right buttonSaved" style="display:none;margin-left:5px"><i class="fa fa-edit"></i> Salvar</button>-->
-                    <button type="button" id="concluidos" class="btn btn-default pull-left buttonSaved"> Mostrar Concluidos</button>
-                    <button type="button" id="notconcluidos" style="display:none" class="btn btn-default pull-left buttonSaved"> Esconder Concluidos</button>
-                    <button class="btn btn-danger pull-right" style="display:none;margin-left:5px" data-toggle="popover" title="" id="deleteLista" data-placement="top"
-                        data-content="<a href='javascript:void(0)' onclick='deleteLista()' class='btn btn-danger'>Sim</a> <button type='button' class='btn btn-default pop-hide'>Não</button>"
-                        data-original-title="Remover?">
-                        <i class="fa fa-fw fa-trash"></i>
-                    </button>
-                    <button type="button" style="display:none" id="backList" class="btn btn-danger pull-right buttonSaved"> Voltar</button>
 
+                <div class="tasks-container__new d-none">
+                    <div class="box-body">
+                        <form id="form-store-update-task" role="form" class="needs-validation" action="{{ route('task.store') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12 my-2 mb-4">
+                                    <button type="submit" class="btn btn-info btn-submit float-right">Salvar</button>
+                                    <button type="button" class="btn btn-danger float-left js-add-cancel-task"><i class="fas fa-arrow-left"></i> Voltar</button>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="tar_titulo">Titulo</label>
+                                        <input type="text" class="form-control" name="tar_titulo" id="input--tar_titulo" autocomplete="off" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="tar_descricao">Descrição</label>
+                                        <textarea type="text" class="form-control" name="tar_descricao" id="input--tar_descricao" autocomplete="off" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="prioridade">Prioridade</label>
+                                    <div class="form-group">
+                                        <select class="form-control select2" name="prioridade" id="select--prioridade">
+                                            <option value="baixa" selected>Baixa</option>
+                                            <option value="alta">Alta</option>
+                                            <option value="media">Média</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label mr-2">Lembrar-me</label>
+                                            <input class="form-check-input wd-15 ht-15" id="lembrete" type="checkbox">
+                                        </div>
+                                        <input class="form-control d-none" disabled readonly type="datetime-local" value="{{ somarData('1', 'hours', '', 'Y-m-d\TH:i') }}" id="dateTime" name="data">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script>
+        $(function() {
+            all(false);
+        })
+
+        /* Contents  */
+        var $taskBox = $(".tasks-box");
+        var $taskList = $(".tasks-container__list");
+        var $taskContainerNew = $(".tasks-container__new");
+
+        /* Buttons  */
+        var $btnShowDone = $(".js-show-done-task");
+        var $btnHideDone = $(".js-hide-done-task");
+        var $btnNewTask = $(".js-add-task");
+        var $btnCancelAdd = $(".js-add-cancel-task");
+
+        /* Routes  */
+        var $routeTask = `${BASE_URL_API}tasks`;
+
+        $btnShowDone.on("click", function() {
+            $taskBox.find('.box-title').html('Concluidos');
+            $btnNewTask.addClass('d-none');
+            $btnShowDone.addClass('d-none');
+            $btnHideDone.removeClass('d-none');
+            $('#listDone').val(true);
+            all(true);
+        })
+
+        $btnHideDone.on("click", function() {
+            $taskBox.find('.box-title').html('Tarefas');
+            $btnNewTask.removeClass('d-none');
+            $btnShowDone.removeClass('d-none');
+            $btnHideDone.addClass('d-none');
+            $('#listDone').val(false);
+            all(false);
+        })
+
+        $btnNewTask.on("click", function() {
+            $taskBox.find('#form-store-update-task').attr('action', `${$routeTask}`);
+            $taskBox.find('.box-title').html('Nova Tarefa');
+            $taskList.addClass('d-none');
+            $taskContainerNew.removeClass('d-none');
+
+            $('.task-buttons').addClass('d-none');
+
+            $btnCancelAdd.on("click", function() {
+                $('.task-buttons').removeClass('d-none');
+                $taskBox.find('.box-title').html('Tarefas');
+                $taskList.removeClass('d-none');
+                $taskContainerNew.addClass('d-none');
+            })
+            $('#form-store-update-task')[0].reset();
+            $('#select--prioridade').val('baixa').trigger('change');
+            clearForm();
+        })
+
+        $('#lembrete').on('click', function() {
+            if ($(this).is(':checked')) {
+                $inputDateTime = $('#dateTime');
+                $inputDateTime.attr('disabled', false).attr('readonly', false);
+                $inputDateTime.removeClass('d-none')
+            } else {
+                $inputDateTime = $('#dateTime');
+                $inputDateTime.attr('disabled', true).attr('readonly', true);
+                $inputDateTime.addClass('d-none')
+            }
+        })
+
+        $("#form-store-update-task").submit(function(event) {
+            event.preventDefault();
+            var post_url = $(this).attr("action");
+            var request_method = $(this).attr("method");
+            var form_data = new FormData($("#form-store-update-task")[0]);
+
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data,
+                processData: false,
+                cache: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(r) {
+                    $('#form-store-update-task').find('.btn-submit').attr('disabled', false).html('Salvar');
+                    $taskBox.find('.box-title').html('Tarefas');
+                    $('.task-buttons').removeClass('d-none');
+                    $taskBox.find('.box-title').html('Tarefas');
+                    $taskList.removeClass('d-none');
+                    $taskContainerNew.addClass('d-none');
+                    all(false);
+                    clearForm();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    $.each(XMLHttpRequest.responseJSON.errors, function(index, value) {
+                        $(`#input--${index}`).addClass('is-invalid');
+                        toastr.error(value[0]);
+                    });
+                    $('#form-store-update-task').find('.btn-submit').attr('disabled', false).html('Salvar');
+                }
+            });
+        });
+
+        function all(done = false) {
+            $.ajax({
+                url: `{{ route('tasks.all') }}`,
+                type: "GET",
+                ajax: true,
+                dataType: "JSON",
+                data: {
+                    done: done
+                },
+                beforeSend: (jqXHR, settings) => {
+                    $('#tasks-list').html(preload());
+                },
+                success: function(j) {
+                    var options = '';
+                    tasks = j.data;
+                    if (tasks.length > 0) {
+                        $.each(tasks, function(index, value) {
+                            var check = value.status ? 'checked' : null;
+                            options += `<li id="task_${value.id}">`;
+                            options += `    <div class="col-mail-1">`;
+                            options += `        <div class="checkbox-wrapper-mail">`;
+                            options += `            <input type="checkbox" ${check} onclick="status(this)" class="js-btn-status" data-id="${value.id}" id="chk${value.id}">`;
+                            options += `            <label for="chk${value.id}" class="toggle"></label>`;
+                            options += `        </div>`;
+                            options += `        <a href="javascript:void(0)" data-id="${value.id}" class="title task-show">${value.tar_titulo}</a>`;
+                            options += `    </div>`;
+                            options += `</li>`;
+                        });
+                    } else {
+                        options = '<h6 class="text-center my-4">Sem tarefas</h6>';
+                    }
+                    $('#tasks-list').html(options);
+
+                    $('.task-show').on('click', function(e) {
+                        if ($(e.target).closest('.checkbox-wrapper-mail, .js-btn-status').length > 0) {
+                            return;
+                        }
+                        show($(this).attr('data-id'))
+                    });
+                },
+                complete: function() {},
+            });
+        }
+
+        function show(task_id) {
+            $.ajax({
+                url: `${$routeTask}/${task_id}`,
+                type: "GET",
+                ajax: true,
+                dataType: "JSON",
+                beforeSend: (jqXHR, settings) => {},
+                success: function(j) {
+                    task = j.data;
+                    $taskBox.find('.box-title').html(`${task.tar_titulo}`);
+                    $taskBox.find('#form-store-update-task').attr('action', `${$routeTask}/${task_id}`);
+
+                    $('#input--tar_descricao').val(task.tar_descricao);
+                    $('#input--tar_titulo').val(task.tar_titulo);
+                    $('#select--prioridade').val(`${task.prioridade}`).trigger('change');
+
+                    if (task.lembrete) {
+                        $('#lembrete').attr('checked', true);
+                        $inputDateTime = $('#dateTime');
+                        $inputDateTime.attr('disabled', false).attr('readonly', false);
+                        $inputDateTime.removeClass('d-none')
+                        $inputDateTime.val(task.lembrete);
+                    }
+
+                    $('.task-buttons').addClass('d-none');
+                    $taskList.addClass('d-none');
+                    $taskContainerNew.removeClass('d-none');
+                    $btnCancelAdd.on("click", function() {
+                        $('.task-buttons').removeClass('d-none');
+                        $taskBox.find('.box-title').html('Tarefas');
+                        $taskList.removeClass('d-none');
+                        $taskContainerNew.addClass('d-none');
+                    })
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    toastr.error(errorThrown);
+                },
+                complete: function() {},
+            });
+        }
+
+        function status(v) {
+            var task_id = $(v).attr('data-id');
+            var check = $(v).is(":checked") ? 'concluido' : 'em_andamento';
+            $.ajax({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: `${$routeTask}/${task_id}/status`,
+                type: 'POST',
+                ajax: true,
+                dataType: "JSON",
+                data: {
+                    check: check
+                }
+            }).done(function(response) {
+                $(`#task_${task_id}`).remove();
+            });
+        }
+
+        function clearForm() {
+            $.each($('#form-store-update-task').find('.is-invalid'), function() {
+                $(this).removeClass('is-invalid');
+            });
+            $inputDateTime = $('#dateTime');
+            $inputDateTime.attr('disabled', true).attr('readonly', true);
+            $inputDateTime.addClass('d-none')
+        }
+
+        function preload() {
+            var preload = ''
+            preload += `<div class="text-center" id="preloader-content-tasks">`;
+            preload += `    <div class="spinner-border text-primary m-1 align-self-center" role="status">`;
+            preload += `        <span class="sr-only"></span>`;
+            preload += `    </div>`;
+            preload += `</div>`;
+            return preload;
+        }
+    </script>
+@endsection

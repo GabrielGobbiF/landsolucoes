@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->morphedByMany(Obra::class, 'favoritable');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'user_id', 'id');
+    }
+
     /**
      * Favorite the current reply.
      *

@@ -18,10 +18,9 @@ class DataBaseChannel extends IlluminateDatabaseChannel
     {
         return $notifiable->routeNotificationFor('database')->create([
             'id'      => $notification->id,
-            'byAdmin' => $this->byAdmin ?? null,
+            //'byAdmin' => $this->byAdmin ?? null,
             'data'    => $this->getData($notifiable, $notification),
             'read_at' => null,
-            'byAdmin' => $notification->byAdmin
         ]);
     }
 }
