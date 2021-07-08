@@ -75,7 +75,7 @@
     </div>
 </div>
 
-@section('scripts')
+@section('scripts_task')
     <script>
         $(function() {
             all(false);

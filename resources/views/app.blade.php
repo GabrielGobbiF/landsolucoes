@@ -158,7 +158,7 @@
         @include('pages.layouts.notification')
     </script>
 
-    <script class="">
+    <script>
         $(document).ready(function() {
             $(".select--users").select2({
                 multiple: true,

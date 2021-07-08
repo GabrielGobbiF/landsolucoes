@@ -82,7 +82,6 @@
                 </div>
             </div>
         </div>
-
         @include('components.myToDo')
     </div>
 
@@ -121,8 +120,12 @@
         })
 
         function progressFormatter(value, row) {
+            console.log(value);
             return value;
         }
     </script>
 @endsection
+
+@yield('scripts_task')
+
 @endsection
