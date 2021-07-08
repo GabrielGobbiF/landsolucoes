@@ -150,5 +150,5 @@ function clearNumber($number = 0)
 
 function slack($message = [], $channel = 'sistema')
 {
-    \Slack::to('#' . $channel)->send(json_encode($message));
+    \Slack::to('#' . $channel)->send($message);
 }
