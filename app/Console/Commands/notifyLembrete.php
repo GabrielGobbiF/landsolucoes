@@ -55,7 +55,7 @@ class notifyLembrete extends Command
             $taskU->update();
             $taskU->save();
 
-            slack("Lembrete de sua tarefa $title");
+            slack("Lembrete de sua tarefa $title, veja aqui " . route('obras.index'));
         }
     }
 }
