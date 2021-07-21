@@ -130,6 +130,10 @@
 <script>
     @include('pages.layouts.notification')
 
+    $('.btn-delete').on('click',function(){
+        alert('oi');
+    })
+
     function btn_delete(v) {
         var href = $(v).attr('data-href');
         var title = $(v).attr('data-title');

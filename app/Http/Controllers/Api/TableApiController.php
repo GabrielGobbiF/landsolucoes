@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
+use App\Http\Resources\DriversResource;
 use App\Http\Resources\ObraResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
@@ -32,6 +33,23 @@ class TableApiController extends Controller
         $this->search = $request->input('search') ?? '';
         $this->sort = $request->input('sort') ?? 'id';
         $this->filter = $request->input('filter') ?? [];
+    }
+
+    public function drivers()
+    {
+        $search = $this->search;
+
+        $drivers = User::whereHas('roles', function ($query) {
+            return $query->where('slug', 'driver');
+        })->where(function ($query) use ($search) {
+            if ($search != '') {
+                $query->orWhere('name', 'LIKE', '%' . $search . '%');
+                $query->orWhere('username', 'LIKE', '%' . $search . '%');
+                $query->orWhere('email', 'LIKE', '%' . $search . '%');
+            }
+        })->paginate($this->limit);
+
+        return DriversResource::collection($drivers);
     }
 
     /**

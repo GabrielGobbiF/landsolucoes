@@ -266,6 +266,7 @@
                 complete: function() {},
             });
         }
+        
 
         function status(v) {
             var task_id = $(v).attr('data-id');

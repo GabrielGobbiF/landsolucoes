@@ -3,3 +3,15 @@
 
 @import '~bootstrap4-duallistbox/dist/bootstrap-duallistbox.min.css';
 
+@media (max-width: 767px) {
+    .table-responsive {
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+}
+@media (min-width: 767px) {
+    .table-responsive {
+        overflow: inherit !important; /* Sometimes needs !important */
+    }
+}
+

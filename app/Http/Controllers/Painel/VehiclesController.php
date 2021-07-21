@@ -246,13 +246,7 @@ class VehiclesController extends Controller
 
     public function drivers()
     {
-        $drivers = User::whereHas('roles', function ($query) {
-            return $query->where('slug', 'driver');
-        })->get();
-
-        return view('pages.painel.vehicles.vehicles.drivers.index', [
-            'drivers' => $drivers
-        ]);
+        return view('pages.painel.vehicles.vehicles.drivers.index', []);
     }
 
     public function drivers_create()
