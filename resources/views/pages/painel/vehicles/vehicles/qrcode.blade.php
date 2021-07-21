@@ -15,7 +15,6 @@
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
-
     </script>
 
     <script src="{{ asset('mobile/js/app.js') }}"></script>
@@ -49,11 +48,16 @@
                         </div>
                     @endif
 
+                    @if ($vehicle->document_attach != '')
+                        <a target="_blank" href="{{ asset('storage/' . $vehicle->document_attach) }}">Visualizar documento</a>
+                    @endif
                 </div>
                 <div class="text-center">
                     <h4 class="cover-heading ">{{ $vehicle->name }}</h4>
                     <span>{{ $vehicle->board }}</span>
                 </div>
+
+
             </header>
 
             <main role="main">
@@ -467,7 +471,6 @@
             preview.src = "";
         }
     }
-
 </script>
 
 </html>

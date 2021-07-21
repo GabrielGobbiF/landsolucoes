@@ -245,6 +245,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         |--------------------------------------------------------------------------
         */
         Route::get('vehicles/qrcode/all-qrcode', [App\Http\Controllers\Painel\VehiclesController::class, 'genereted_all_qrcode'])->name('vehicles.all.qrcode');
+        Route::delete('vehicles/{id}/document/destroy', [App\Http\Controllers\Painel\VehiclesController::class, 'document_destroy'])->name('vehicles.document.destroy');
         Route::resource('vehicles', App\Http\Controllers\Painel\VehiclesController::class);
 
         /*

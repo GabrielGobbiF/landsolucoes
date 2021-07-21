@@ -36,6 +36,7 @@ class CreateVehiclesTable extends Migration
 
             $table->string('tracker_company')->nullable();
             $table->string('rented_company')->nullable();
+            $table->text('document_attach');
 
             $table->string('qrcode')->nullable();
             $table->string('mtr')->nullable();

@@ -43,7 +43,7 @@
                     <div class="tab-pane fade show active" id="v-pills-dados" role="tabpanel" aria-labelledby="v-pills-dados-tab">
                         <div class="card">
                             <form role="form" class="needs-validation" novalidate id="form" autocomplete="off"
-                                action="{{ route('vehicles.update', $vehicle->id) }}" method="POST">
+                                action="{{ route('vehicles.update', $vehicle->id) }}" method="POST" enctype="multipart/form-data">
                                 @method('PUT')
                                 @include('pages.painel.vehicles._partials.form_vehicle')
                             </form>

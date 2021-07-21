@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class VehicleActivitiesController extends Controller

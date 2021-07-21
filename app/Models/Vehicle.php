@@ -30,6 +30,7 @@ class Vehicle extends Model
         'mtr',
         'chassi',
         'renavam',
+        'document_attach'
     ];
 
     protected static $logAttributes = [
@@ -52,13 +53,13 @@ class Vehicle extends Model
         'mtr',
         'chassi',
         'renavam',
+        'document_attach'
     ];
 
     protected static $logName = 'Vehicles';
 
-    public function activitys(){
-
+    public function activitys()
+    {
         return $this->hasMany(VehicleActivities::class, 'vehicle_id', 'id');
-
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -141,6 +142,10 @@ class VehiclesController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
+        if ($request->hasFile('document_attach') && $request->document_attach->isValid()) {
+            $columns['document_attach'] = $request->document_attach->store("vehicles/" . Str::slug($vehicle->name, '-') . "/documento");
+        }
+
         $columns['secure'] = isset($columns['secure']) ? '1' : '0';
         $columns['tracker'] = isset($columns['tracker']) ? '1' : '0';
         $columns['rented'] = isset($columns['rented']) ? '1' : '0';
@@ -198,6 +203,33 @@ class VehiclesController extends Controller
             ->paginate();
 
         return view('pages.painel.vehicles.vehicles.index', compact('vehicles', 'filters'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\vehicles  $vehicles
+     * @return \Illuminate\Http\Response
+     */
+    public function document_destroy($id)
+    {
+        if (!$vehicle = Vehicle::where('id', $id)->first()) {
+            return redirect()
+                ->route('vehicles.index')
+                ->with('message', 'Registro Veiiculo não encontrado!');
+        }
+
+        if (Storage::exists($vehicle->document_attach)) {
+            Storage::delete($vehicle->document_attach);
+        }
+
+        $vehicle->document_attach = null;
+        $vehicle->update();
+        $vehicle->save();
+
+        return redirect()
+            ->route('vehicles.show', $id)
+            ->with('message', 'Deletado com sucesso!');
     }
 
     /**

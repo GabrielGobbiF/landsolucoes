@@ -47,14 +47,38 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--renavam">Renavam</label>
-                <input type="text" name="renavam" class="form-control @error('renavam') is-invalid @enderror" id="input--renavam" value="{{ $vehicle->renavam ?? old('renavam') }}" autocomplete="off">
+                <input type="text" name="renavam" class="form-control @error('renavam') is-invalid @enderror" id="input--renavam" value="{{ $vehicle->renavam ?? old('renavam') }}"
+                    autocomplete="off">
             </div>
         </div>
+
+
+        @if ($vehicle->document_attach != '')
+            <div class="col-md-5 my-3">
+                <div class="form-group d-grid">
+                    <a target="_blank" href="{{ asset('storage/' . $vehicle->document_attach) }}">Visualizar documento</a>
+                    <a href='JavaScript:void(0)' onclick='btn_delete(this)' data-toggle='tooltip' data-placement='top' data-title='Deletar'
+                        data-href='{{ route('vehicles.document.destroy', $vehicle->id) }}'
+                        class='btn btn-sm btn-danger btn-delete'
+                        data-original-title='Deletar Documento'>
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+        @else
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="input--renavam">Documento</label>
+                    <input type="file" name="document_attach" id="file_document" required="">
+                </div>
+            </div>
+        @endif
 
         <div class="col-md-12 row mt-3 mb-4">
             <div class="col-md-2">
                 <div class="custom-control custom-switch">
-                    <input {{ isset($vehicle->secure) && $vehicle->secure == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input companySwitch" name="secure" id="secureSwitch" data-label="secure">
+                    <input {{ isset($vehicle->secure) && $vehicle->secure == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input companySwitch" name="secure" id="secureSwitch"
+                        data-label="secure">
                     <label class="custom-control-label" for="secureSwitch">
                         <a class="" data-toggle="collapse" href="#collapseSecure" aria-expanded="true" aria-controls="collapseSecure">
                             Seguro
@@ -65,7 +89,8 @@
 
             <div class="col-md-2">
                 <div class="custom-control custom-switch">
-                    <input {{ isset($vehicle->tracker) && $vehicle->tracker == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input companySwitch" name="tracker" id="trackerSwitch" data-label="tracker">
+                    <input {{ isset($vehicle->tracker) && $vehicle->tracker == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input companySwitch" name="tracker" id="trackerSwitch"
+                        data-label="tracker">
                     <label class="custom-control-label" for="trackerSwitch">
                         <a class="" data-toggle="collapse" href="#collapseTracker" aria-expanded="true" aria-controls="collapseTracker">
                             Rastreador
@@ -76,7 +101,8 @@
 
             <div class="col-md-2">
                 <div class="custom-control custom-switch">
-                    <input {{ isset($vehicle->rented) && $vehicle->rented == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input companySwitch" name="rented" id="rentedSwitch" data-label="rented">
+                    <input {{ isset($vehicle->rented) && $vehicle->rented == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input companySwitch" name="rented" id="rentedSwitch"
+                        data-label="rented">
                     <label class="custom-control-label" for="rentedSwitch">
                         <a class="" data-toggle="collapse" href="#collapseRented" aria-expanded="true" aria-controls="collapseRented">
                             Alugado
@@ -87,7 +113,8 @@
 
             <div class="col-md-3">
                 <div class="custom-control custom-switch">
-                    <input {{ isset($vehicle->external_camera) && $vehicle->external_camera == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input" name="external_camera" id="cameraExternalSwtich">
+                    <input {{ isset($vehicle->external_camera) && $vehicle->external_camera == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input" name="external_camera"
+                        id="cameraExternalSwtich">
                     <label class="custom-control-label" for="cameraExternalSwtich">
                         Câmera Externa
                     </label>
@@ -96,7 +123,8 @@
 
             <div class="col-md-3">
                 <div class="custom-control custom-switch">
-                    <input {{ isset($vehicle->internal_camera) && $vehicle->internal_camera == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input" name="internal_camera" id="cameraInternalSwitch">
+                    <input {{ isset($vehicle->internal_camera) && $vehicle->internal_camera == '1' ? 'checked' : '' }} type="checkbox" class="custom-control-input" name="internal_camera"
+                        id="cameraInternalSwitch">
                     <label class="custom-control-label" for="cameraInternalSwitch">
                         Câmera Interna
                     </label>
