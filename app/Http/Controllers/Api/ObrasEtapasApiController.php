@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentsResource;
 use App\Http\Resources\ObraEtapasResource;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
@@ -29,14 +30,13 @@ class ObrasEtapasApiController extends Controller
             return response()->json('Object Obra not found', 404);
         }
 
-        $etapa = $obra->etapas()->with('comments')->where('id', $etapa_id)->first();
+        $etapa = $obra->etapas()->where('id', $etapa_id)->first();
 
         return new ObraEtapasResource($etapa);
     }
 
     public function update(Request $request, $obra_id, $etapa_id)
     {
-
         $coluna = $request->input('pk');
         $valor = $request->input('value');
 
@@ -51,6 +51,17 @@ class ObrasEtapasApiController extends Controller
         return  $valor;
     }
 
+    public function getComments($etapa_id)
+    {
+        if (!$etapa = $this->repository->where('id', $etapa_id)->first()) {
+            return response()->json('Object Etapa not found', 404);
+        }
+
+        $comments = $etapa->comments()->get();
+
+        return CommentsResource::collection($comments->sortByDesc('id'));
+    }
+
     public function commentStore(Request $request, $obra_id, $etapa_id)
     {
         $columns = $request->all();
@@ -62,9 +73,11 @@ class ObrasEtapasApiController extends Controller
 
         $etapa = $obra->etapas()->where('id', $etapa_id)->first();
 
-        $etapa->comments()->create($columns);
+        if ($etapa) {
+            $etapa->comments()->create($columns);
 
-        return  $etapa;
+            return  $etapa;
+        }
     }
 
     public function updateStatus(Request $request, $obra_id, $etapa_id)

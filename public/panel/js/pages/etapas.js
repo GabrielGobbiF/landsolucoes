@@ -19,10 +19,6 @@ $(function () {
     //    modal.find('#input--tipo_id').val($tipo_id);
     //})
 
-
-
-
-
 });
 
 

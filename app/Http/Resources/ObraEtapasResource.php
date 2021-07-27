@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ObraEtapasResource extends JsonResource
@@ -19,6 +20,9 @@ class ObraEtapasResource extends JsonResource
             "name" => $this->nome,
             "observacao" => $this->observacao,
             "n_nota" => $this->nota_numero ?? 0,
+            "meta_etapa" => $this->meta_etapa != '' ? Carbon::parse($this->meta_etapa)->format('d/m/Y') : NULL,
+            "data_abertura" => $this->meta_etapa != '' ? Carbon::parse($this->data_abertura)->format('d/m/Y') : NULL,
+            "prazo_atendimento" => $this->prazo_atendimento,
             "comments" => isset($this->comments) ? CommentsResource::collection($this->comments->sortByDesc('id')) : [],
 
         ];

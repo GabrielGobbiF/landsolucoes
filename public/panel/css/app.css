@@ -896,10 +896,10 @@ body[data-layout=horizontal] .footer {
   display: block;
   position: fixed;
   transition: all 200ms ease-out;
-  width: 50%;
+  width: 55%;
   z-index: 9999;
   float: right !important;
-  right: -60%;
+  right: -65%;
   top: 125px;
   bottom: 0;
   overflow: auto;

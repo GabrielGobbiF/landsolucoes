@@ -205,4 +205,14 @@ function resetDiv() {
     $('.table-epi').addClass('d-none');
 }
 
+const txHeight = 50;
+const tx = document.getElementsByTagName("textarea");
+for (let i = 0; i < tx.length; i++) {
+    if (tx[i].value == '') {
+        tx[i].setAttribute("style", "height:" + txHeight + "px;overflow-y:hidden;");
+    } else {
+        tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+    }
+}
+
 

@@ -3,7 +3,16 @@
 @section('title', ucfirst($obra->razao_social) . ' - ' . $obra->last_note)
 
 @section('content-max-fluid')
+    <style class="">
+        textarea {
+            border: 0 none white;
+            overflow: hidden;
+            padding: 0;
+            outline: none;
+            background-color: #D0D0D0;
+        }
 
+    </style>
     <div class="page--obra">
 
         <div class="vertical-menu-obr">
@@ -31,7 +40,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="input--description">Informações Importantes</label>
-                                        <textarea type="text" name="description" class="form-control">{{ $obra->obr_informacoes ?? '' }}</textarea>
+                                        <textarea style="height:1em;" type="text" name="description" class="form-control">{{ $obra->obr_informacoes ?? '' }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +106,7 @@
             </div>
         </div>
 
-        <div class="container-fluid" style="max-width: 49% !important;">
+        <div class="container-fluid" style="max-width: 50% !important;">
             <div class="obr-etapa">
                 <div class="box box-default box-solid">
                     <div class="col-md-12">
@@ -117,7 +126,7 @@
                                                             data-id={{ $etapa->id }}>
                                                         <label for="chk{{ $etapa->id }}" class="toggle"></label>
                                                     </div>
-                                                    <a href="javascript:void(0)" data-id="{{ $etapa->id }}" class="title right-bar-etp-toggle">{{ $etapa->nome }}</a>
+                                                    <a href="javascript:void(0)" data-id="{{ $etapa->id }}" class="title js-btn-etapa-show right-bar-etp-toggle">{{ $etapa->nome }}</a>
                                                 </div>
                                                 <div class="col-mail col-mail-2" style="    ">
                                                     <span class="badge-warning badge mr-2"></span>
@@ -150,146 +159,9 @@
 
 
 @section('scripts')
-    <script>
-        var obra_id = $('#input--obra_id').val();
-        const BASE_URL_API_OBRA = BASE_URL_API + 'obra/' + obra_id + '/'
 
-        $(document).ready(function() {
+    <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
 
-            $('.right-bar-etp-toggle').on('click', function(e) {
-                showEtapa($(this).attr('data-id'))
-            });
-
-        })
-
-        function getEtapas() {
-
-        }
-
-        function showEtapa(etp_id) {
-            const BASE_URL_API_OBRA_ETAPA = BASE_URL_API + 'obra/' + obra_id + '/etapa/' + etp_id
-
-            $('body').addClass('right-bar-etp-enabled');
-            $('#preloader-content-etp').removeClass('d-none');
-            $('.etp').addClass('d-none');
-
-            $.ajax({
-                url: BASE_URL_API_OBRA + "etapa/" + etp_id,
-                type: 'GET',
-                ajax: true,
-                dataType: "JSON",
-                success: function(j) {
-                    var data = j.data;
-                    var $modal = $('.right-bar-etp');
-
-                    $modal.find('#js-etapa-id').val(etp_id)
-                    $modal.find('.box-title').html(data.name);
-                    $modal.find('#preloader-content-etp').addClass('d-none');
-                    $modal.find('.etp').removeClass('d-none');
-
-                    $modal.find('.js-textarea-description').html(data.observacao)
-                    $modal.find('.js-input-etapa-n-nota').html(data.n_nota)
-
-                    $modal.find('.etapas-comments').html('');
-
-                    if (data.comments.length > 0) {
-                        var options = '';
-                        $.each(data.comments, function(index, value) {
-                            options += '<div class="media mt-4">';
-                            options += '<div class="avatar-sm font-weight-bold d-inline-block">'
-                            options += '    <span class="avatar-title rounded-circle bg-soft-purple tx-14">'
-                            options += value.user
-                            options += '    </span>'
-                            options += '</div>'
-                            options += '    <div class="media-body overflow-hidden ml-2">';
-                            options += '        <h5 class="text-truncate mb-1 tx-14 ">' + value.user_name + '</h5>';
-                            options += '        <p class="text-truncate mb-0 text-wrap-content">' + value.text + '</p>';
-                            options += '    </div>';
-                            options += '    <div class="font-size-11">' + value.date + '</div>';
-                            options += '</div>';
-                        });
-
-                        $modal.find('.etapas-comments').html(options);
-                    }
-
-                },
-            });
-
-            /* Configurações Mudar  */
-
-            $('.js-input-etapa-n-nota').editable({
-                pk: 'nota_numero',
-                url: BASE_URL_API_OBRA_ETAPA,
-            })
-
-            $('.js-edit-description').click(function(e) {
-                e.stopPropagation();
-
-                var btnEdit = $(this);
-                btnEdit.addClass('d-none')
-
-                $('.js-textarea-description', this.$e).editable({
-                    pk: 'observacao',
-                    url: BASE_URL_API_OBRA_ETAPA,
-                    success: function(response, newValue) {
-                        if(newValue != ''){
-                            $('.js-textarea-description').html(newValue);
-                        }
-                    }
-                }).editable('toggle');
-
-                $('.js-textarea-description').editable().on('hidden', function(e, params) {
-                    if (params == "cancel") {
-                        $('.js-textarea-description').editable('destroy');
-                        btnEdit.removeClass('d-none')
-                    }
-                    btnEdit.removeClass('d-none')
-                });
-            })
-            /* Configurações Mudar  */
-
-        }
-
-        function newComment() {
-            var input = $('#input-new-comment').val();
-            var obra_id = $('#input--obra_id').val();
-            var etp_id = $('#js-etapa-id').val();
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: BASE_URL_API + 'obra/' + obra_id + '/etapa/' + etp_id + '/comment/store ',
-                type: 'POST',
-                ajax: true,
-                dataType: "JSON",
-                data: {
-                    obs_texto: input
-                }
-            }).done(function(response) {
-                $('#input-new-comment').val('')
-                showEtapa(etp_id);
-            });
-        }
-
-        function updateStatus(v) {
-            var obra_id = $('#input--obra_id').val();
-            var etp_id = $(v).attr('data-id');
-            var value = $(v).is(":checked") ? 'C' : 'EM';
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: BASE_URL_API + 'obra/' + obra_id + '/etapa/' + etp_id + '/status',
-                type: 'POST',
-                ajax: true,
-                dataType: "JSON",
-                data: {
-                    check: value
-                }
-            })
-
-        }
-    </script>
 @endsection
 
 @stop

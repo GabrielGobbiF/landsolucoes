@@ -49,7 +49,7 @@
                     @endif
 
                     @if ($vehicle->document_attach != '')
-                        <a target="_blank" href="{{ asset('storage/' . $vehicle->document_attach) }}">Visualizar documento</a>
+                        <a target="_blank" href="{{ asset('storage/' . $vehicle->document_attach) }}">DOCUMENTO DIGITAL</a>
                     @endif
                 </div>
                 <div class="text-center">

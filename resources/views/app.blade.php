@@ -7,6 +7,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="js-base_url" content="{{ env('APP_URL') }}">
+    <meta name="js-base_url_api" content="{{ env('APP_URL_API') }}">
+    <meta name="url" content="{{ Request::getRequestUri() }}">
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 

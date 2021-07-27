@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->text('obs_texto')->nullable();
             $table->timestamps();
 
-            $table->foreign('etapa_id')
+            $table->foreign('id')
                 ->references('id')
                 ->on('obras_etapas')
                 ->onDelete('cascade');
