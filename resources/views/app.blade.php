@@ -19,8 +19,6 @@
     <link href="{{ asset('panel/css/app.css') }}" rel="stylesheet" id="app-style">
     <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
 
-
-
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
 
     <!-- todoFazer  -->
@@ -38,7 +36,7 @@
                         <div class="navbar-brand-box d-none">
                             <a href="{{ url('/') }}" class="logo">
                                 <span class="logo">
-                                    <img src="{{ asset('panel/images/logo.png') }}" alt="img-logo" height="40">
+                                    <img src="{{ asset('panel/images/logo.png') }}" alt="img-logo" height="35">
                                 </span>
                             </a>
                         </div>
@@ -139,6 +137,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 
+    <script>
+        $(document).ready(function() {
+
+            $(".select--users").select2({
+                multiple: true,
+                placeholder: "Buscar",
+                minimumInputLength: 3,
+                language: "pt-br",
+                formatNoMatches: function() {
+                    return "Pesquisa não encontrada";
+                },
+                inputTooShort: function() {
+                    return "Digite para Pesquisar";
+                },
+                ajax: {
+                    url: `{{ route('users.all') }}`,
+                    dataType: 'json',
+                    data: function(term, page) {
+                        return {
+                            q: term, //search term
+                        };
+                    },
+                    results: function(data, page) {
+                        return {
+                            results: data.data,
+                        };
+                    }
+                },
+                escapeMarkup: function(m) {
+                    return m;
+                }
+            });
+        })
+    </script>
     @yield("scripts")
 
     <script>

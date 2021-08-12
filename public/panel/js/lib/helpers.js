@@ -5,6 +5,8 @@
 
     console.log('init helpers');
 
+    let BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
+
     Dropzone.autoDiscover = false;
 
     //$('.js-btn-delete').on('click', function () {
@@ -19,6 +21,7 @@
     //    $modal.find('#form-delete').attr('action', href)
     //    $modal.modal('show');
     //});
+
 
     $('.js-btn-delete').on('click', function () {
         var token = $('meta[name="csrf-token"]').attr('content');

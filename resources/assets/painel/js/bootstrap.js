@@ -20,6 +20,8 @@ try {
     require('tableexport.jquery.plugin');
     require('dropzone');
 
+    require('bootstrap-editable');
+
 } catch (e) { }
 
 /**

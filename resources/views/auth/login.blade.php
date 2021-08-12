@@ -19,7 +19,7 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input id="email" type="email" class="form-control" name="email_or_username" value="{{ old('email') }}" required autocomplete="email"
+                            <input id="email" type="text" class="form-control" name="email_or_username" value="{{ old('email') }}" required autocomplete="email"
                                 autofocus>
                         </div>
 

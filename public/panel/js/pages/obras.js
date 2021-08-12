@@ -5,6 +5,7 @@ $(document).ready(function () {
 })
 
 let obraId = $('#input--obra_id').val();
+let BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
 let BASE_URL_API_OBRA = `${BASE_URL_API}obra/${obraId}/`;
 var $modal = $('.right-bar-etp');
 
