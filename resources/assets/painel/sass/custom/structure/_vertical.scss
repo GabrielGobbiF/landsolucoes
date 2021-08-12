@@ -39,7 +39,7 @@
     bottom: 0;
     margin-top: 0;
     position: fixed;
-    top: $header-height;
+    top: 0px;
     box-shadow: $box-shadow;
 }
 
@@ -64,6 +64,17 @@
         }
     }
 
+    .navbar-vertical-box {
+        span.logo-lg {
+            display: flex;
+            justify-content: center;
+        }
+        span.logo-sm {
+            position: relative;
+            top: -10px;
+        }
+    }
+
     .has-arrow {
         &:after {
             content: "\F0140";
@@ -79,17 +90,19 @@
         li {
             a {
                 display: block;
-                padding: 0.625rem 1.5rem;
+                padding: 0.725rem 1.0em;
                 color: $sidebar-menu-item-color;
                 position: relative;
-                font-size: 13.3px;
+                font-size: 0.9rem;
                 transition: all 0.4s;
-                font-family: $font-family-secondary;
-                font-weight: 500;
+                font-weight: 600;
+                font-family: "Hind Siliguri";
+                letter-spacing: 0.7px;
+                text-transform: capitalize;
 
                 i {
                     display: inline-block;
-                    min-width: 1.5rem;
+                    min-width: 2rem;
                     padding-bottom: 0.125em;
                     font-size: 1.1rem;
                     line-height: 1.40625rem;
@@ -151,17 +164,19 @@
     opacity: 0.5;
 }
 
-.mm-active {
-    color: $sidebar-menu-item-active-color !important;
-    .active {
+.simplebar-wrapper {
+    .mm-active {
         color: $sidebar-menu-item-active-color !important;
+        .active {
+            color: $sidebar-menu-item-active-color !important;
 
-        i {
+            i {
+                color: $sidebar-menu-item-active-color !important;
+            }
+        }
+        > i {
             color: $sidebar-menu-item-active-color !important;
         }
-    }
-    > i {
-        color: $sidebar-menu-item-active-color !important;
     }
 }
 
@@ -193,7 +208,7 @@
 
     .logo {
         span.logo-lg {
-            display: none;
+            display: none !important;
         }
 
         span.logo-sm {
@@ -244,7 +259,7 @@
                     white-space: nowrap;
 
                     > a {
-                        padding: 15px 20px;
+                        //padding: 15px 20px;
                         min-height: 55px;
                         transition: none;
 
@@ -257,6 +272,7 @@
                         i {
                             font-size: 20px;
                             margin-left: 4px;
+                            text-align-last: center;
                         }
 
                         span {
@@ -362,6 +378,7 @@ body[data-sidebar="dark"] {
 
                     i {
                         color: $sidebar-dark-menu-item-icon-color;
+                        text-align-last: center;
                     }
 
                     &:hover {
@@ -436,15 +453,17 @@ body[data-sidebar="dark"] {
         }
     }
     .mm-active {
-        color: $sidebar-dark-menu-item-active-color !important;
-        > i {
+        .simplebar-wrapper {
             color: $sidebar-dark-menu-item-active-color !important;
-        }
-        .active {
-            color: $sidebar-dark-menu-item-active-color !important;
-
-            i {
+            > i {
                 color: $sidebar-dark-menu-item-active-color !important;
+            }
+            .active {
+                color: $sidebar-dark-menu-item-active-color !important;
+
+                i {
+                    color: $sidebar-dark-menu-item-active-color !important;
+                }
             }
         }
     }
@@ -462,6 +481,11 @@ body[data-layout="horizontal"] {
         display: none;
     }
     #vertical-menu-btn {
+        display: none;
+    }
+}
+body[data-layout="vertical"] {
+    .btn-topnav {
         display: none;
     }
 }

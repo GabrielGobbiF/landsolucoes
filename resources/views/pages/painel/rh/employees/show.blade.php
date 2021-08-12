@@ -1,4 +1,4 @@
-@extends('pages.painel.rh.app')
+@extends('app')
 
 @section('title', 'Editar Funcionário')
 
@@ -14,7 +14,8 @@
                 @if (Auth::user()->can('view_employee_document_auditory'))
                     <li class="nav-item">
                         <a class="nav-link nav-link_employee" id="documentos-tab" data-toggle="tab" href="#documentos" role="tab"
-                            aria-controls="documentos" aria-selected="false">Auditoria</a>
+                            aria-controls="documentos" aria-selected="false">Auditoria
+                        </a>
                     </li>
                 @endif
             </ul>
@@ -24,7 +25,7 @@
                     <form role="form" class="needs-validation" novalidate id="form" autocomplete="off"
                         action="{{ route('employees.update', $employee->uuid) }}" method="POST">
                         @method('PUT')
-                        @include('pages.painel.rh._partials.form_employee')
+                        @include('pages.painel._partials.forms.form-employees')
                     </form>
                 </div>
                 @if (Auth::user()->can('view_employee_document_auditory'))
@@ -36,4 +37,7 @@
         </div>
     </div>
 @stop
- 
+
+@section('scripts')
+    <script src="{{ asset('panel/js/pages/auditory.js') }}"></script>
+@endsection

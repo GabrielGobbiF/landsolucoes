@@ -6,20 +6,20 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="input--name">Nome</label>
-                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="input--name" value="{{ $vehicle->name ?? old('name') }}" autocomplete="off">
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="input--name" value="{{ $vehicle->name ?? old('name') }}" autocomplete="off" required>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--board">Placa</label>
-                <input type="text" name="board" class="form-control @error('board') is-invalid @enderror" id="input--board" value="{{ $vehicle->board ?? old('board') }}" autocomplete="off">
+                <input type="text" name="board" class="form-control @error('board') is-invalid @enderror" id="input--board" value="{{ $vehicle->board ?? old('board') }}" autocomplete="off" required>
 
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
                 <label for="input--year">Ano Fabricação</label>
-                <input type="text" name="year" class="form-control @error('year') is-invalid @enderror" id="input--year" value="{{ $vehicle->year ?? old('year') }}" autocomplete="off">
+                <input type="text" name="year" class="form-control @error('year') is-invalid @enderror" id="input--year" value="{{ $vehicle->year ?? old('year') }}" autocomplete="off" required>
             </div>
         </div>
 
@@ -52,8 +52,7 @@
             </div>
         </div>
 
-
-        @if ($vehicle->document_attach != '')
+        @if (isset($vehicle) && $vehicle->document_attach != '')
             <div class="col-md-5 my-3">
                 <div class="form-group d-grid">
                     <a target="_blank" href="{{ asset('storage/' . $vehicle->document_attach) }}">Visualizar documento</a>
@@ -69,7 +68,7 @@
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="input--renavam">Documento</label>
-                    <input type="file" name="document_attach" id="file_document" required="">
+                    <input type="file" name="document_attach" id="file_document">
                 </div>
             </div>
         @endif
@@ -165,62 +164,9 @@
             </div>
         </div>
 
-        <!-- <div class="col-md-12">
-            <div class="form-group">
-                <label for="input--observation">Observação</label>
-                <textarea type="text" name="observation" class="form-control @error('observation') is-invalid @enderror" id="input--observation"
-                    autocomplete="off">{{ $vehicle->observation ?? old('observation') }}</textarea>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="input--name_company_secure">Empresa de Seguros</label>
-                <input type="text" name="name_company_secure" class="form-control @error('name_company_secure') is-invalid @enderror" id="input--name_company_secure"
-                    value="{{ $vehicle->name_company_secure ?? old('name_company_secure') }}" autocomplete="off">
-
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="input--number_policy">Nº Apolice</label>
-                <input type="text" name="number_policy" class="form-control @error('number_policy') is-invalid @enderror" id="input--number_policy"
-                    value="{{ $vehicle->number_policy ?? old('number_policy') }}" autocomplete="off">
-
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="input--vigency_secure">Vigência</label>
-                <input type="text" name="vigency_secure" class="form-control @error('vigency_secure') is-invalid @enderror" id="input--vigency_secure"
-                    value="{{ $vehicle->vigency_secure ?? old('vigency_secure') }}" autocomplete="off">
-            </div>
-        </div>
-
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="input--tracker_company">Empresa Rastreador</label>
-                <input type="text" name="tracker_company" class="form-control @error('tracker_company') is-invalid @enderror" id="input--tracker_company"
-                    value="{{ $vehicle->tracker_company ?? old('tracker_company') }}" autocomplete="off">
-
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="input--rented_company">Empresa Alugado</label>
-                <input type="text" name="rented_company" class="form-control @error('rented_company') is-invalid @enderror" id="input--rented_company"
-                    value="{{ $vehicle->rented_company ?? old('rented_company') }}" autocomplete="off">
-
-            </div>
-        </div>-->
-
-
     </div>
 </div>
 
 <div class="card-footer">
-    <input type="submit" class="btn btn-primary"
-        onclick="this.disabled = true; this.value = 'Salvando…'; this.form.submit();" value="Salvar">
+    <button type="button" class="btn btn-primary btn-submit">Salvar</button>
 </div>

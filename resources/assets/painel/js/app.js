@@ -25,7 +25,10 @@
                 $("body").removeClass("sidebar-enable");
             }
         });
+
     }
+
+    function initSideBarCollpsed() { }
 
     function initActiveMenu() {
         // === following js will activate the menu in left side bar based on url ====
@@ -138,6 +141,9 @@
     function initSettings() {
         if (window.sessionStorage) {
             var alreadyVisited = localStorage.getItem("is_visited");
+            var layoutMode = localStorage.getItem("layout_mode");
+            var collapseMode = localStorage.getItem("collapse_mode");
+
             if (!alreadyVisited) {
                 localStorage.setItem("is_visited", "light-mode-switch");
             } else {
@@ -145,28 +151,88 @@
                 $("#" + alreadyVisited).prop('checked', true);
                 updateThemeSetting(alreadyVisited);
             }
+
+            if (!layoutMode) {
+                localStorage.setItem("layout_mode", "horizontal-mode-switch");
+            } else {
+                $(".right-bar .theme-layout-choice input:checkbox").prop('checked', false);
+                $("#" + layoutMode).prop('checked', true);
+                updateThemeSetting(layoutMode);
+            }
+
+            if (!collapseMode) {
+                localStorage.setItem("collapse_mode", "");
+            } else {
+                $('body').toggleClass('sidebar-enable vertical-collpsed');
+                updateThemeSetting(collapseMode);
+            }
         }
+
         $("#light-mode-switch, #dark-mode-switch").on("change", function (e) {
             updateThemeSetting(e.target.id);
+        });
+
+        $("#vertical-menu-btn").on("click", function (e) {
+            var mode = $('body').hasClass('vertical-collpsed') ? 'vertical-collpsed' : '';
+            updateThemeSetting(mode);
+        });
+
+        $("#vertical-mode-switch, #horizontal-mode-switch").on("change", function (e) {
+            var layout = e.target.id === "horizontal-mode-switch" ? 'horizontal' : 'vertical'
+            updateThemeSetting(e.target.id);
+            updateSettingsUser(layout);
         });
     }
 
     function updateThemeSetting(id) {
+        var base_url = $('meta[name="js-base_url"]').attr('content');
+
         if ($("#light-mode-switch").prop("checked") == true && id === "light-mode-switch") {
             $("#dark-mode-switch").prop("checked", false);
-            $("#bootstrap-style").attr('href', BASE_URL + '/panel/css/bootstrap.css');
-            $("#app-style").attr('href', BASE_URL + '/panel/css/app.css');
+            $("#bootstrap-style").attr('href', `${base_url}/panel/css/bootstrap.css`);
+            $("#app-style").attr('href', `${base_url}/panel/css/app.css`);
             localStorage.setItem("is_visited", "light-mode-switch");
         } else if ($("#dark-mode-switch").prop("checked") == true && id === "dark-mode-switch") {
             $("#light-mode-switch").prop("checked", false);
-            $("#bootstrap-style").attr('href', BASE_URL + '/panel/css/bootstrap-dark.css');
-            $("#app-style").attr('href', BASE_URL + '/panel/css/app-dark.css');
+            $("#bootstrap-style").attr('href', `${base_url}/panel/css/bootstrap-dark.css`);
+            $("#app-style").attr('href', `${base_url}/panel/css/app-dark.css`);
             localStorage.setItem("is_visited", "dark-mode-switch");
+        }
+
+        if ($("#horizontal-mode-switch").prop("checked") == true && id === "horizontal-mode-switch") {
+            $("#vertical-mode-switch").prop("checked", false);
+            localStorage.setItem("layout_mode", "horizontal-mode-switch");
+        } else if ($("#vertical-mode-switch").prop("checked") == true && id === "vertical-mode-switch") {
+            $("#horizontal-mode-switch").prop("checked", false);
+            localStorage.setItem("layout_mode", "vertical-mode-switch");
+        }
+
+        if (id === "vertical-collpsed") {
+            $('body').addClass('vertical-collpsed');
+            $('body').addClass('sidebar-enable');
+            localStorage.setItem("collapse_mode", "vertical-collpsed");
+        } else {
+            $('body').removeClass('sidebar-enable');
+            $('body').removeClass('vertical-collpsed');
+            localStorage.setItem("collapse_mode", "");
         }
     }
 
+    function updateSettingsUser(id) {
+        var base_url_api = $('meta[name="js-base_url_api"]').attr('content');
+        axios({
+            method: 'POST',
+            url: `${base_url_api}users/settings`,
+            data: {
+                layout: id,
+            }
+        }).then(response => {
+            location.reload();
+        })
+    }
+
     function init() {
-        initMetisMenu();
+        //initMetisMenu();
         initLeftMenuCollapse();
         initActiveMenu();
         initMenuItem();
@@ -176,7 +242,8 @@
         initComponents();
         initSettings();
         initPreloader();
-        Waves.init();
+
+        //Waves.init()
     }
 
     init();

@@ -104,7 +104,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label for="service">Adicionar novo Serviço</label>
-                                            <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2" multiple>
+                                            <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2Multiple" multiple>
                                                 @foreach ($servicesNotConces as $service)
                                                     <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                 @endforeach

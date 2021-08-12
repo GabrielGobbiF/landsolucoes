@@ -5,7 +5,6 @@ return [
 
     'menus' => [
         'l' => [
-
             [
                 'name' =>  'Clientes',
                 'atc' =>  'clients',
@@ -98,6 +97,57 @@ return [
                 'name' =>  'Todas',
                 'icon' =>  'ri-notification-2-line',
                 'route' => 'tasks.index',
+            ],
+        ],
+        'users' => [
+            [
+                'name' =>  'Usuários',
+                'icon' =>  'fas fa-users',
+                'route' => 'users.index',
+            ],
+            [
+                'name' =>  'Funções',
+                'icon' =>  'fas fa-user-tag',
+                'route' => 'roles.index',
+            ],
+            [
+                'name' =>  'Clientes',
+                'icon' =>  'fas fa-user-tie',
+                'route' => 'clients.index',
+            ],
+        ],
+        'roles' => [
+            [
+                'name' =>  'Usuários',
+                'icon' =>  'fas fa-users',
+                'route' => 'users.index',
+            ],
+            [
+                'name' =>  'Funções',
+                'icon' =>  'fas fa-user-tag',
+                'route' => 'roles.index',
+            ],
+            [
+                'name' =>  'Clientes',
+                'icon' =>  'fas fa-user-tie',
+                'route' => 'clients.index',
+            ],
+        ],
+        'rh' => [
+            [
+                'name' =>  'Funcionários',
+                'icon' =>  'fas fa-user-edit',
+                'route' => 'employees.index',
+            ],
+            [
+                'name' =>  'Auditoria da Empresa',
+                'icon' =>  'fas fa-window-restore',
+                'route' => 'auditory.company',
+            ],
+            [
+                'name' =>  'Relátorio',
+                'icon' =>  'fas fa-bookmark',
+                'route' => 'relatorios.employees',
             ],
         ]
     ]

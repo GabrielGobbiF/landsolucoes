@@ -18,8 +18,8 @@
         <div class="pd-b-10 pd-x-10">
             <label class="tx-sans tx-uppercase tx-medium tx-10 tx-spacing-1 tx-color-03 pd-l-10">Arquivos</label>
             <nav class="nav nav-sidebar tx-13">
-                <a href="{{ route('arquivos.index') }}" class="nav-link active"><i data-feather="folder"></i> <span>Todos os Arquivos</span></a>
-                <a href="{{ route('arquivos.my.favorites') }}" class="nav-link"><i data-feather="info"></i> <span>Favoritos</span></a>
+                <a href="{{ route('arquivos.index') }}" class="nav-link active"><i class="fa fa-archive"></i> <span>Todos os Arquivos</span></a>
+                <a href="{{ route('arquivos.my.favorites') }}" class="nav-link"><i class="fa fa-heart"></i> <span>Favoritos</span></a>
             </nav>
         </div>
     </div>

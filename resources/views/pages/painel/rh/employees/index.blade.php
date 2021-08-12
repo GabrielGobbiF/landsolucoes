@@ -1,62 +1,50 @@
-@extends('pages.painel.rh.app')
+@extends('app')
 
 @section('title', 'Funcionários')
 
+@section('sidebar')
+    <div class="d-flex justify-content-between">
+        <div>
+            <h3> @yield("title", "") </h3>
+            <ol class="breadcrumb">
+                <a href="{{ route('home') }}" class="breadcrumb-item">
+                    <li class="tx-15">Home</li>
+                </a>
+                <li class="breadcrumb-item active tx-15">Funcionários</li>
+            </ol>
+        </div>
+        <div class="page-button-box">
+            <a href="{{ route('employees.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-outline-primary"><i class="fas fa-user-plus"></i>
+                Adicionar Funcionário
+            </a>
+        </div>
+    </div>
+@stop
+
 @section('content')
 
-    <div class="container">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-            <h1 class="h2">Funcionários</h1>
-            <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right"></div>
-        </div>
-
-        <div id="toolbar">
-            <div class="form-inline" role="form">
-                <div class="btn-group mr-2">
-                    <a href="{{ route('employees.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-dark"><i class="fas fa-user-plus"></i>
-                        Novo</a>
+    <div class="card">
+        <div class="card-body">
+            <div class="table table-api">
+                <div class="table-responsive d-none">
+                    <table data-toggle="table" id="table-api" data-table="employees">
+                        <thead class="thead-light">
+                            <tr>
+                                <th data-field="id" data-width="10%" data-width-unit="%" data-sortable="true" data-visible="false">#</th>
+                                <th data-field="name" data-sortable="true">Nome</th>
+                                <th data-field="rg" data-visible="false">RG</th>
+                                <th data-field="email">Email</th>
+                                <th data-field="endereco">Endereço</th>
+                                <th data-field="cargo" data-visible="false">Cargo</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
-        <table data-toggle="table" id="table" class="table table-hover table-striped" data-search="true"  data-show-fullscreen="true"
-            data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true"
-            data-pagination="true" data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-            data-cookie-id-table="employee" data-toolbar="#toolbar" data-click-to-select="true" data-buttons-class="dark">
-            <thead>
-                <tr class="text-center">
-                    <th data-field="state" data-checkbox="true"></th>
-                    <th data-align="left">Nome</th>
-                    <th class="mobile--hidden">RG</th>
-                    <th class="mobile--hidden">Email</th>
-
-                    <th class="mobile--hidden" data-visible="false">Endereco</th>
-                    <th class="mobile--hidden" data-visible="false">Cargo</th>
-                    <th class="mobile--hidden" data-visible="false">Ctps</th>
-
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            @foreach ($employees as $employees)
-                <tr class="text-center">
-                    <td></td>
-                    <td style="text-align:left">{{ $employees->name }}</td>
-                    <td class="mobile--hidden">{{ $employees->rg }}</td>
-                    <td class="mobile--hidden">{{ $employees->email }}</td>
-
-                    <td class="mobile--hidden">{{ $employees->endereco }}</td>
-                    <td class="mobile--hidden">{{ $employees->cargo }}</td>
-                    <td class="mobile--hidden">{{ $employees->ctps }}</td>
-                    <td>
-                        <a href="{{ route('employees.show', $employees->uuid) }}" data-toggle="tooltip" data-placement="top" title="Visualizar" class="btn btn-xs btn-dark ">
-                            <i class="fa fa-edit"></i>
-                        </a>
-
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
     </div>
 
-@endsection
+    @include('pages.painel._partials.modals.modal-add', ['redirect'=>'client.index', 'type' => 'employees', 'modalSize' => 'modal-lg'])
+
+@stop

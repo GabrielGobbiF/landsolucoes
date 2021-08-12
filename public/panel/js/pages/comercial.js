@@ -2,6 +2,9 @@ $(function () {
     'use strict'
 
     const comercial_id = $('#comercial_id').val();
+    const BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
+    const BASE_URL = $('meta[name="js-base_url"]').attr('content');
+    const URL = $('meta[name="url"]').attr('content');
 
     var tab = localStorage.getItem('nav-tabs_comercial')
     $('#v-tab a#' + tab).tab('show')

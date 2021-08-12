@@ -28,8 +28,27 @@
     }
 }
 
+body[data-layout="vertical"] {
+    #page-topbar {
+        margin-left: 240px;
+    }
+
+}
+
+body[data-layout="horizontal"] {
+    .navbar-brand-box {
+        display: block !important;
+    }
+}
+
+body[data-layout="vertical"].vertical-collpsed {
+    #page-topbar {
+        margin-left: 70px;
+    }
+}
+
 .navbar-brand-box {
-    //padding: 0 1.5rem;
+    padding: 0 1rem;
     width: $navbar-brand-box-width;
 }
 
@@ -73,10 +92,10 @@
 // Mega menu
 
 .megamenu-list {
-    li{
+    li {
         position: relative;
         padding: 5px 0px;
-        a{
+        a {
             color: $dropdown-color;
         }
     }
@@ -88,7 +107,6 @@
     }
 
     .logo {
-
         span.logo-lg {
             display: none;
         }
@@ -100,7 +118,8 @@
 }
 
 .page-content {
-    padding: calc(#{$header-height} + #{$grid-gutter-width}) calc(#{$grid-gutter-width} / 2) $footer-height calc(#{$grid-gutter-width} / 2);
+    padding: calc(#{$header-height} + #{$grid-gutter-width}) calc(#{$grid-gutter-width} / 2) $footer-height
+        calc(#{$grid-gutter-width} / 2);
 }
 
 .header-item {
@@ -113,8 +132,6 @@
     &:hover {
         color: $header-item-color;
     }
-
-
 }
 
 .header-profile-user {
@@ -124,9 +141,9 @@
     padding: 3px;
 }
 
-.user-dropdown{
-    .dropdown-item{
-        i{
+.user-dropdown {
+    .dropdown-item {
+        i {
             display: inline-block;
         }
     }
@@ -138,7 +155,7 @@
         color: $header-item-color;
     }
 
-    .noti-dot{
+    .noti-dot {
         position: absolute;
         display: inline-block;
         height: 6px;
@@ -239,14 +256,13 @@ body[data-topbar="dark"] {
     }
 
     .app-search {
-
         .form-control {
-            background-color: rgba($topbar-search-bg,0.07);
+            background-color: rgba($topbar-search-bg, 0.07);
             color: $white;
         }
         span,
         input.form-control::-webkit-input-placeholder {
-            color: rgba($white,0.5);
+            color: rgba($white, 0.5);
         }
     }
 }
@@ -284,13 +300,25 @@ body[data-sidebar="dark"] {
     }
 }
 
+@media (max-width: 993px) {
+    body[data-layout="vertical"] {
+        #page-topbar {
+            margin-left: 0px !important;
+        }
+        .navbar-vertical-box {
+            display: none !important;
+        }
+    }
+}
+
 body[data-layout="horizontal"] {
     .navbar-brand-box {
         width: auto;
     }
     .page-content {
         margin-top: $header-height;
-        padding: calc(55px + #{$grid-gutter-width}) calc(#{$grid-gutter-width} / 2) $footer-height calc(#{$grid-gutter-width} / 2);
+        padding: calc(55px + #{$grid-gutter-width}) calc(#{$grid-gutter-width} / 2) $footer-height
+            calc(#{$grid-gutter-width} / 2);
     }
 }
 

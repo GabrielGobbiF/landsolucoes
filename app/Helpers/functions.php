@@ -152,3 +152,19 @@ function slack($message = [], $channel = 'sistema')
 {
     \Slack::to('#' . $channel)->send($message);
 }
+
+function plural($tx, $pl = true)
+{
+    return $pl ? Str::plural($tx) : Str::pluralStudly($tx, 2);
+}
+
+function singular($tx)
+{
+    return Str::singular($tx);
+}
+
+function clear($v){
+
+    return str_replace(['(', ')', '-', ' '], '', $v);
+
+}

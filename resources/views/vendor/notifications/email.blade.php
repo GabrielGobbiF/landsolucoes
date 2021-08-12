@@ -6,29 +6,20 @@
 @if ($level === 'error')
 # @lang('Whoops!')
 @else
-# @lang('Olá!')
+# @lang('Olá'),
 @endif
 @endif
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
-{{ $line }}
+{!! $line !!}
 
 @endforeach
 
 {{-- Action Button --}}
 @isset($actionText)
-<?php
-    switch ($level) {
-        case 'success':
-        case 'error':
-            $color = $level;
-            break;
-        default:
-            $color = 'primary';
-    }
-?>
-@component('mail::button', ['url' => $actionUrl, 'color' => $color])
+
+@component('mail::button', ['url' => $actionUrl, 'color' => $color ?? 'primary'])
 {{ $actionText }}
 @endcomponent
 @endisset
@@ -43,24 +34,21 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@if(1==2)
-@lang('Regards'),<br>
+Atenciosamente,<br>
 {{ config('app.name') }}
-@endif
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')
-@if(1==2)
 @lang(
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    "Se você estiver tendo problemas para clicar no  \":actionText\" botão, copie e cole o URL abaixo :\n".
+    'em seu navegador:',
     [
         'actionText' => $actionText,
     ]
 ) <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
-@endif
 @endslot
 @endisset
+Os links neste e-mail começarão com “https://” e conterão “{{ config('app.name') }}”. Seu navegador também exibirá um ícone de cadeado para avisar que o site é seguro.
 @endcomponent

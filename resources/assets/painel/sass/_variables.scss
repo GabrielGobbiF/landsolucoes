@@ -2,7 +2,7 @@
 
 //
 // custom-variables
-$body-bg: rgb(236 236 236);
+$body-bg: #f8fafc;
 
 $white: #fff;
 
@@ -34,6 +34,8 @@ $width-sidebar: 240px;
 
 $marker-icon-size: 16px;
 
+$primary: #E61B52;
+
 /*--------------------------------------------------------------
 # Font Base
 --------------------------------------------------------------*/
@@ -64,19 +66,19 @@ $sidebar-bg: #ffffff;
 $sidebar-menu-item-color: #74788d;
 $sidebar-menu-sub-item-color: #7c8a96;
 $sidebar-menu-item-icon-color: #505d69;
-$sidebar-menu-item-hover-color: #383c40;
-$sidebar-menu-item-active-color: $primary;
+$sidebar-menu-item-hover-color: #d7e4ec;
+$sidebar-menu-item-active-color: #d7e4ec;
 $sidebar-width:  240px;
 $sidebar-collapsed-width:  70px;
 $sidebar-width-sm:  160px;
 
 // Vertical Sidebar - Dark
-$sidebar-dark-bg: #0a0b0c; //252b3b
+$sidebar-dark-bg: #171a22; //252b3b
 $sidebar-dark-menu-item-color: #8590a5;
 $sidebar-dark-menu-sub-item-color: #8590a5;
 $sidebar-dark-menu-item-icon-color: #8590a5;
 $sidebar-dark-menu-item-hover-color: #d7e4ec;
-$sidebar-dark-menu-item-active-color: $primary;
+$sidebar-dark-menu-item-active-color: #d7e4ec;
 
 // Topbar - Deafult Light
 $header-height: 70px;
@@ -84,7 +86,7 @@ $header-bg: #ffffff;
 $header-item-color: #636e75;
 
 // Topbar - Dark
-$header-dark-bg: #0a0b0c;
+$header-dark-bg: #171a22;
 $header-dark-item-color: #e9ecef;
 
 // Topbar Search
@@ -291,7 +293,7 @@ $sizes: map-merge(
 // Settings for the `<body>` element.
 
 $body-bg:                   #f1f5f7;
-$body-color:                $gray-700;
+$body-color:                $black;
 
 
 // Links
@@ -404,7 +406,7 @@ $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberati
 $font-family-base:            $font-family-sans-serif;
 // stylelint-enable value-keyword-case
 
-$font-size-base:              0.8rem;
+$font-size-base:              0.9rem;
 $font-size-lg:                $font-size-base * 1.25;
 $font-size-sm:                $font-size-base * .875;
 
@@ -473,7 +475,7 @@ $hr-margin-y:                 $spacer;
 //
 // Customizes the `.table` component with basic values, each used across all table variations.
 
-$table-cell-padding:          .0.5rem;
+$table-cell-padding:          .75rem;
 $table-cell-padding-sm:       .3rem;
 
 $table-color:                 $body-color;
@@ -554,7 +556,7 @@ $btn-line-height-lg:          $input-btn-line-height-lg;
 
 $btn-border-width:            $input-btn-border-width;
 
-$btn-font-weight:             $font-weight-normal;
+$btn-font-weight:             $font-weight-light;
 $btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075);
 $btn-focus-width:             $input-btn-focus-width;
 $btn-focus-box-shadow:        $input-btn-focus-box-shadow;
@@ -896,7 +898,7 @@ $dropdown-link-hover-color:         darken($gray-900, 5%);
 $dropdown-link-hover-bg:            $gray-100;
 
 $dropdown-link-active-color:        darken($gray-900, 5%);
-$dropdown-link-active-bg:           $gray-100;
+$dropdown-link-active-bg:           dropdown-link-active-bg;
 
 $dropdown-link-disabled-color:      $gray-600;
 

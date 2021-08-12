@@ -133,7 +133,6 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'tar_titulo' => 'custom-message',
     ],
 
     /*
@@ -157,7 +156,7 @@ return [
         'date'      => 'data',
         'day'       => 'dia',
         'excerpt'   => 'resumo',
-        'first_name' => 'primeiro nome',
+        'first_name'=> 'primeiro nome',
         'gender'    => 'gênero',
         'hour'      => 'hora',
         'last_name' => 'sobrenome',
@@ -182,14 +181,7 @@ return [
         'year'      => 'ano',
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
-        'type' => 'tipo',
-        'challenger_amout' => 'Aposta do desafio',
-        'team_id' => 'Time',
-        'accept_check' => 'Termos',
-        'email_user' => 'Email',
-        'tar_titulo' => 'Titulo',
-        'tar_description' => 'Descrição',
-
+        'type' => 'tipo'
     ],
 
 ];

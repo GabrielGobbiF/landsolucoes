@@ -36,27 +36,8 @@ class PortariaController extends Controller
      */
     public function index()
     {
-        $portarias = $this->repository->orderby('id', 'DESC')->get();
-
-        foreach ($portarias as $portaria) {
-
-            $images = explode(', ', $portaria->files);
-
-            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->where('is_active', 'Y')->first() ?? [];
-
-            if ($veiculo) {
-                $veiculoName = $veiculo->name . ' ' . $veiculo->board;
-
-                $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
-                $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
-                $portaria['veiculo'] = $veiculoName;
-                $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s');
-                $portaria['images'] = $images;
-            }
-        }
-
         return view('pages.painel.vehicles.portaria.index', [
-            'portarias' => $portarias
+            #'portarias' => $portarias
         ]);
     }
 
@@ -67,35 +48,33 @@ class PortariaController extends Controller
      */
     public function create()
     {
+        $portariasByNow = [];
+
         $drivers = User::whereHas('roles', function ($query) {
             return $query->where('slug', 'driver');
         })->orderby('users.name')->get();
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 
-        $portarias = $this->repository->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->get();
+        $portarias = $this->repository->with('veiculo')->with('motorista')->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->limit(20)->get();
 
         foreach ($portarias as $portaria) {
-
-            $images = explode(', ', $portaria->files);
-
-            $veiculo = Vehicle::where('id', $portaria->vehicle_id)->where('is_active', 'Y')->first() ?? [];
-            if ($veiculo) {
-
-                $veiculoName = $veiculo->name . ' ' . $veiculo->board;
-
-                $portaria['porteiro'] = User::where('id', $portaria->user_id)->first()->name ?? '';
-                $portaria['motorista'] = User::where('id', $portaria->motorista_id)->first()->name ?? '';
-                $portaria['veiculo'] = $veiculoName;
-                $portaria['data'] = Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s');
-                $portaria['images'] = $images;
+            if ($portaria->veiculo) {
+                $portariasByNow[] = [
+                    "id" => $portaria->id,
+                    "motorista" => isset($portaria->motorista) ? $portaria->motorista->name : null,
+                    "veiculo" => $portaria->veiculo ? $portaria->veiculo->name . ' - ' . $portaria->veiculo->board : null,
+                    "data" => Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s'),
+                    "observacoes" => $portaria->observacoes,
+                    "type" => $portaria->type,
+                ];
             }
         }
 
         return view('pages.painel.vehicles.portaria.register', [
             'drivers' => $drivers,
             'vehicles' => $vehicles,
-            'portarias' => $portarias
+            'portarias' => collect($portariasByNow)
         ]);
     }
 

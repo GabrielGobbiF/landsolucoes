@@ -96,5 +96,6 @@
     </div>
 </div>
 @include('pages.painel.rh.employees._partials.modals.dispense_modal')
-@include('pages.layouts.modal_change')
+
+@include('pages.painel._partials.modals.modal-change')
 

@@ -1,4 +1,4 @@
-@extends('pages.painel.rh.app')
+@extends('app')
 
 @section('title', 'Relátorio')
 

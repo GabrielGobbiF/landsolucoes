@@ -1,4 +1,4 @@
-@extends('pages.painel.rh.app')
+@extends('app')
 
 @section('title', 'Cadastrar Funcionário')
 
@@ -7,7 +7,7 @@
         <h1 class="text-center">Novo Funcionário</h1>
         <div class="card mt-3">
             <form role="form" class="needs-validation" novalidate id="form" autocomplete="off" novalidate="novalidate" action="{{ route('employees.store') }}" method="POST">
-                @include('pages.painel.rh._partials.form_employee')
+                @include('pages.painel._partials.forms.form-employees')
             </form>
         </div>
     </div>

@@ -6,32 +6,29 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="text-center" id="preloader-content">
-                <div class="spinner-border text-primary m-1 align-self-center" role="status">
-                    <span class="sr-only"></span>
-                </div>
-            </div>
-            <div class="table table-responsive d-none">
-                <div id="toolbar">
-                    <div class="form-inline" role="form">
-                        <div class="btn-group mr-2">
-                            <button type="button" data-toggle="modal" data-target="#modal-add-client" class="btn btn-dark waves-effect waves-light">
-                                <i class="ri-add-circle-line align-middle mr-2"></i> Novo
-                            </button>
+            <div class="table table-api">
+                <div class="table-responsive d-none">
+                    <div id="toolbar">
+                        <div class="form-inline" role="form">
+                            <div class="btn-group mr-2">
+                                <button type="button" data-toggle="modal" data-target="#modal-add-client" class="btn btn-dark waves-effect waves-light">
+                                    <i class="ri-add-circle-line align-middle mr-2"></i> Novo
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <table data-toggle="table" id="table-api" data-table="clients">
+                        <thead class="thead-light">
+                            <tr>
+                                <th data-field="id" data-sortable="true" data-visible="false">#</th>
+                                <th data-field="company_name" data-sortable="true">Razão Social</th>
+                                <th data-field="username" data-sortable="true">Apelido</th>
+                                <th data-field="cnpj" data-visible="false">CNPJ</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
-                <table data-toggle="table" id="table-api" data-table="clients" order="company_name">
-                    <thead>
-                        <tr>
-                            <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                            <th data-field="company_name" data-sortable="true">Razão Social</th>
-                            <th data-field="username" data-sortable="true">Apelido</th>
-                            <th data-field="cnpj" data-visible="false">CNPJ</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
             </div>
         </div>
     </div>
@@ -47,7 +44,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="form-add-client" role="form" class="needs-validation" action="{{ route('clients.store') }}" method="POST">
-                        @include("pages.painel._partials.forms.form_client")
+                        @include("pages.painel._partials.forms.form-clients")
                     </form>
                 </div>
             </div>
@@ -60,7 +57,6 @@
             $(document).ready(function() {
                 $("#modal-add-client").modal("show");
             })
-
         </script>
     @endif
 @endsection

@@ -33,7 +33,7 @@ class Menus extends Component
         $segment = $base == 'l' ? Request::segment(2) : Request::segment(1);
 
         return view('components.menus', [
-            'menus' => $menus,
+            'menus' => $menus ?? [],
             'dataLayout' => $dataLayout,
             'segment' => $segment
         ]);

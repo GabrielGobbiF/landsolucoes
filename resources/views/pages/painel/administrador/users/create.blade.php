@@ -1,4 +1,4 @@
-@extends('pages.painel.administrador.app')
+@extends('app')
 
 @section('title', 'Cadastrar Usuário')
 

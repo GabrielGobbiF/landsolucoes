@@ -7,8 +7,8 @@
                     <i class="fas fa-long-arrow-alt-left"></i>
                     Voltar
                 </button>
-                <div class="ml-2 d-none removeCourse" >
-                    <form role='form' class='needs-validation form-remove-course-employee' action='{{route('auditorys.remove.course', [1,2])}}' method='POST'>
+                <div class="ml-2 d-none removeCourse">
+                    <form role='form' class='needs-validation form-remove-course-employee' action='{{ route('auditorys.remove.course', [1, 2]) }}' method='POST'>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Retirar</button>
@@ -58,6 +58,8 @@
 </div>
 
 <script>
+    const BASE = $('meta[name="js-base_url"]').attr('content');
+
     function newEpi() {
 
         $('.new_epi').prop('disabled', true);
@@ -228,5 +230,4 @@
             $('#option_nao_' + id).prop('checked', true);
         })
     }
-
 </script>

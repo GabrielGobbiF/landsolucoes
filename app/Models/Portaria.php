@@ -47,4 +47,19 @@ class Portaria extends Model
     protected $hidden = [
         'id',
     ];
+
+    public function veiculo()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
+    }
+
+    public function motorista()
+    {
+        return $this->belongsTo(User::class, 'motorista_id', 'id');
+    }
+
+    public function porteiro()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

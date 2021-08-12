@@ -78,7 +78,7 @@ class UsersController extends Controller
      */
     public function show($uuid)
     {
-        if (!$user = $this->repository->where('uuid', $uuid)->first()) {
+        if (!$user = $this->repository->where('uuid', $uuid)->orWhere('id', $uuid)->first()) {
             return redirect()
                 ->route('users.index')
                 ->with('message', 'Registro não encontrado!');
@@ -126,9 +126,9 @@ class UsersController extends Controller
                 unset($columns['password']);
             }
 
-            if (!isset($request->is_active)) {
-                $columns['is_active'] = '1';
-            }
+            //if (!isset($request->is_active)) {
+            //    $columns['is_active'] = '1';
+            //}
 
             if (!empty($roles)) {
                 $users->roles()->sync($roles);

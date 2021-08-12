@@ -36,9 +36,9 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        $vehicles = $this->repository->where('is_active', 'Y')->get();
+        #$vehicles = $this->repository->where('is_active', 'Y')->get();
 
-        return view('pages.painel.vehicles.vehicles.index', compact('vehicles'));
+        return view('pages.painel.vehicles.vehicles.index');
     }
 
     /**

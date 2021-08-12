@@ -11,7 +11,7 @@
 
     <title>Veiculos Land</title>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('mobile/css/app.css') }}" rel="stylesheet">
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
@@ -146,10 +146,10 @@
                         <tbody>
                             @foreach ($portarias as $portaria)
                                 <tr>
-                                    <td>{{ $portaria->motorista }}</td>
-                                    <td>{{ $portaria->veiculo }}</td>
-                                    <td>{{ $portaria->data }}</td>
-                                    <td>{{ $portaria->type }}</td>
+                                    <td>{{ $portaria['motorista'] }}</td>
+                                    <td>{{ $portaria['veiculo'] }}</td>
+                                    <td>{{ $portaria['data'] }}</td>
+                                    <td>{{ $portaria['type'] }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

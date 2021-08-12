@@ -7,16 +7,22 @@ use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
 use App\Http\Resources\DriversResource;
+use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\ObraResource;
+use App\Http\Resources\PortariaResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\VehiclesResource;
 use App\Models\Client;
 use App\Models\Concessionaria;
+use App\Models\Employee;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
+use App\Models\Portaria;
 use App\Models\Service;
 use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +56,86 @@ class TableApiController extends Controller
         })->paginate($this->limit);
 
         return DriversResource::collection($drivers);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function portarias()
+    {
+        $filters = $this->filter;
+
+        $filters['search'] =  $this->search;
+
+        $portaria = DB::table('portarias')
+            ->select('portarias.*', 'users.name as userName', 'vehicles.name as vehicleName', 'vehicles.board as vehicleBoard')
+            ->join('vehicles', function ($join) use ($filters) {
+                $join->on('portarias.vehicle_id', '=', 'vehicles.id')
+                    ->orWhere(function ($query) use ($filters) {
+                        if (isset($filters['search']) && $filters['search'] != '') {
+                            $query->orWhere('vehicles.name', 'LIKE', '%' . $filters['search'] . '%');
+                            $query->orWhere('vehicles.board', 'LIKE', '%' . $filters['search'] . '%');
+                        }
+                    });
+            })
+            ->join('users', function ($join) use ($filters) {
+                $join->on('portarias.motorista_id', '=', 'users.id')
+                    ->orWhere(function ($query) use ($filters) {
+                        if (isset($filters['search']) && $filters['search'] != '') {
+                            $query->orWhere('users.name', 'LIKE', '%' . $filters['search'] . '%');
+                            $query->orWhere('users.username', 'LIKE', '%' . $filters['search'] . '%');
+                            $query->orWhere('users.email', 'LIKE', '%' . $filters['search'] . '%');
+                        }
+                    });
+            })
+            #->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return PortariaResource::collection($portaria);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function vehicles()
+    {
+        $vehicles = new Vehicle();
+
+        $searchColumns = ['board', 'year', 'id', 'name', 'renavam'];
+
+        $vehicles = $vehicles
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->where('is_active', 'Y')
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+
+        return VehiclesResource::collection($vehicles);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function employees()
+    {
+        $employees = new Employee();
+
+        $employees = $this->get($employees, ['id', 'uuid', 'name', 'rg', 'ctps', 'endereco', 'cargo', 'cnh_number', 'equipe', 'salario', 'cnh', 'email']);
+
+        return EmployeeResource::collection($employees);
     }
 
     /**
@@ -188,9 +274,7 @@ class TableApiController extends Controller
             }
         })->get();
 
-        return [
-            'results' => UserResource::collection($user)
-        ];
+        return UserResource::collection($user);
     }
 
     public function etapas_financeiro($obra_id)
@@ -225,14 +309,6 @@ class TableApiController extends Controller
     public function get($model, array $searchColumns, array $withCount = [])
     {
         return $model
-            ->where(function ($query) use ($searchColumns) {
-                $search = $this->search;
-                if ($search != '' && !is_null($searchColumns)) {
-                    foreach ($searchColumns as $searchColumn) {
-                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
-                    }
-                }
-            })
             ->where(function ($query) use ($searchColumns) {
                 $search = $this->search;
                 if ($search != '' && !is_null($searchColumns)) {

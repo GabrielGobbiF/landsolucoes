@@ -24,9 +24,6 @@ class EmployeesController extends Controller
         $this->middleware('auth');
 
         $this->repository = $employees;
-
-        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        date_default_timezone_set('America/Sao_Paulo');
     }
     /**
      * Display a listing of the resource.
@@ -35,9 +32,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = $this->repository->all();
-
-        return view('pages.painel.rh.employees.index', compact('employees'));
+        return view('pages.painel.rh.employees.index');
     }
 
     /**
@@ -138,7 +133,7 @@ class EmployeesController extends Controller
      */
     public function show($uuid)
     {
-        $employee = $this->repository->where('uuid', $uuid)->first();
+        $employee = $this->repository->where('uuid', $uuid)->orWhere('id', $uuid)->first();
 
         if (!$employee) {
             return redirect()

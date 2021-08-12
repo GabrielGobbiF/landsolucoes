@@ -1,4 +1,4 @@
-@extends('pages.painel.administrador.app')
+@extends('app')
 
 @section('title', 'Editar Usuário')
 
@@ -25,8 +25,7 @@
                         @include('pages.painel.administrador._partials.form_users')
                     </form>
                 </div>
-                <div class="tab-pane tab-pane_user fade" id="documentos" role="tabpanel" aria-labelledby="documentos-tab">
-                </div>
+                <div class="tab-pane tab-pane_user fade" id="documentos" role="tabpanel" aria-labelledby="documentos-tab"></div>
             </div>
         </div>
     </div>

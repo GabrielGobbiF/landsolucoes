@@ -11,74 +11,51 @@
     <meta name="js-base_url_api" content="{{ env('APP_URL_API') }}">
     <meta name="url" content="{{ Request::getRequestUri() }}">
 
-    <title>@yield('title', config('app.name', 'Laravel'))</title>
+    <title>@yield("title", config("app.name", "Laravel"))</title>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <link href="{{ asset('panel/css/bootstrap.css') }}" rel="stylesheet" id="bootstrap-style">
     <link href="{{ asset('panel/css/app.css') }}" rel="stylesheet" id="app-style">
     <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('panel/icons/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+
+
 
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
+
+    <!-- todoFazer  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
-
-
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-    <script>
-        var BASE_URL = `{{ env('APP_URL') }}`;
-        var BASE_URL_API = `{{ env('APP_URL_API') }}`;
-    </script>
 
 </head>
 
-<body data-sidebar="dark" data-topbar="dark" data-layout="{{ Config::get('admin.dataLayout') }}">
+<body data-topbar="dark" data-layout="horizontal">
     <div id="layout-wrapper">
         <header id="page-topbar">
             <div class="container pd-0">
-                <!-- todoFazer  -->
-                <div class="navbar-header-mudar" style="display: flex;
-                justify-content: space-between;
-                align-items: center;
-                height: 70px;">
+                <div class="navbar-header">
                     <div class="d-flex">
-                        <div class="navbar-brand-box">
-                            <a href="{{ url('/') }}" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="20">
-                                </span>
-                            </a>
-                            <a href="{{ url('/') }}" class="logo logo-light">
-                                <span class="logo-sm">
-                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="{{ asset('panel/images/logo.png') }}" alt="" height="30">
+                        <div class="navbar-brand-box d-none">
+                            <a href="{{ url('/') }}" class="logo">
+                                <span class="logo">
+                                    <img src="{{ asset('panel/images/logo.png') }}" alt="img-logo" height="40">
                                 </span>
                             </a>
                         </div>
-                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item collapsed" data-toggle="collapse" data-target="#topnav-menu-content" aria-expanded="false">
+
+                        <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect btn-sidebar" id="vertical-menu-btn">
                             <i class="ri-menu-2-line align-middle"></i>
                         </button>
-                        @if (Request::segment(3) != '')
-                            <a href="{{ route(Request::segment(2) . '.index') }}" class="btn btn-sm px-3 font-size-24 d-lg-none header-item d-flex align-items-center">
-                                <i class="ri-arrow-left-line align-middle align-self-center"></i>
-                            </a>
-                        @endif
                     </div>
-                    <div>
-                        <h4 class="text-white mobile--hidden">@yield('title', config('app.name', 'Cena'))</h4>
-                    </div>
+
                     <div class="d-flex">
-                        <div class="dropdown d-none ml-2">
+                        <div>
+                            <h4 class="text-white mobile--hidden">@yield("title", "")</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="dropdown d-inline-block d-lg-none ml-2">
                             <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-search-line"></i>
@@ -98,32 +75,40 @@
                             </div>
                         </div>
 
-                        @include('pages.painel._partials.notifications')
+                        @if (1 == 2)
+                            <x-notification />
+                        @endif
 
-                        <div class="dropdown d-inline-block user-dropdown">
-                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @include('pages.painel._partials.avatar', [
-                                'avatar' => '',
-                                'name' => Auth::user()->name,
-                                ])
-                            </button>
-                            <div class="d-none dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle mr-1"></i> My Wallet</a>
-                                <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right mt-1">11</span><i class="ri-settings-2-line align-middle mr-1"></i> Settings</a>
-                                <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle mr-1"></i> Lock screen</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
+                        @if (auth()->check())
+                            <div class="dropdown d-inline-block user-dropdown">
+                                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @include("pages.painel._partials.avatar", [
+                                    "avatar" => auth()->user()->avatar,
+                                    "name" => auth()->user()->name,
+                                    ])
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-user mr-1"></i> Perfil</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Sair
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
-
         </header>
 
-        <x-package-menus />
+        <x-menus />
 
         <!-- ============================================================== -->
         <!-- Start Content -->
@@ -144,60 +129,21 @@
                 @endif
             </div>
         </div>
-
     </div>
 
-    <script src="{{ asset('panel/js/metismenu/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('panel/js/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('panel/js/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('panel/js/all.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
-    <script src="{{ asset('panel/js/functions.js') }}"></script>
-    <script src="{{ asset('panel/js/lib.js') }}"></script>
-    <script src="{{ asset('panel/js/bootstrap-table.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+    <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
+
+    <!-- todoFazer  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
-    <script>
-        @include('pages.layouts.notification')
-    </script>
+
+    @yield("scripts")
 
     <script>
-        $(document).ready(function() {
-            $(".select--users").select2({
-                multiple: true,
-                placeholder: "Buscar",
-                minimumInputLength: 3,
-                language: "pt-br",
-                formatNoMatches: function() {
-                    return "Pesquisa não encontrada";
-                },
-                inputTooShort: function() {
-                    return "Digite para Pesquisar";
-                },
-                ajax: {
-                    url: `{{ route('users.all') }}`,
-                    dataType: 'json',
-                    data: function(term, page) {
-                        return {
-                            q: term, //search term
-                        };
-                    },
-                    results: function(data, page) {
-                        return {
-                            results: data.data,
-                        };
-                    }
-                },
-                escapeMarkup: function(m) {
-                    return m;
-                }
-            });
-        })
+        @include("components.toastr")
     </script>
-
-    @include('pages.layouts.modal_delete')
-
-    @yield('scripts')
 
 </body>
 
