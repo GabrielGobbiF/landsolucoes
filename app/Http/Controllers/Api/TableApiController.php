@@ -91,6 +91,7 @@ class TableApiController extends Controller
                     });
             })
             #->orderBy($this->sort, $this->order)
+            ->orderBy('portarias.created_at')
             ->paginate($this->limit);
 
         return PortariaResource::collection($portaria);
