@@ -71,27 +71,18 @@ class TableApiController extends Controller
 
         $portaria = DB::table('portarias')
             ->select('portarias.*', 'users.name as userName', 'vehicles.name as vehicleName', 'vehicles.board as vehicleBoard')
-            ->join('vehicles', function ($join) use ($filters) {
-                $join->on('portarias.vehicle_id', '=', 'vehicles.id')
-                    ->orWhere(function ($query) use ($filters) {
-                        if (isset($filters['search']) && $filters['search'] != '') {
-                            $query->orWhere('vehicles.name', 'LIKE', '%' . $filters['search'] . '%');
-                            $query->orWhere('vehicles.board', 'LIKE', '%' . $filters['search'] . '%');
-                        }
-                    });
+            ->join('vehicles', 'portarias.vehicle_id', '=', 'vehicles.id')
+            ->join('users', 'portarias.motorista_id', '=', 'users.id')
+            ->where(function ($query) use ($filters) {
+                if (isset($filters['search']) && $filters['search'] != '') {
+                    $query->orWhere('vehicles.name', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('vehicles.board', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('users.name', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('users.username', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('users.email', 'LIKE', '%' . $filters['search'] . '%');
+                }
             })
-            ->join('users', function ($join) use ($filters) {
-                $join->on('portarias.motorista_id', '=', 'users.id')
-                    ->orWhere(function ($query) use ($filters) {
-                        if (isset($filters['search']) && $filters['search'] != '') {
-                            $query->orWhere('users.name', 'LIKE', '%' . $filters['search'] . '%');
-                            $query->orWhere('users.username', 'LIKE', '%' . $filters['search'] . '%');
-                            $query->orWhere('users.email', 'LIKE', '%' . $filters['search'] . '%');
-                        }
-                    });
-            })
-            #->orderBy($this->sort, $this->order)
-            ->orderBy('portarias.created_at')
+            ->orderBy('portarias.created_at', 'desc')
             ->paginate($this->limit);
 
         return PortariaResource::collection($portaria);
