@@ -2,6 +2,10 @@ $(document).ready(function () {
     $('.js-btn-etapa-show').on('click', function (e) {
         showEtapa($(this).attr('data-id'))
     });
+
+    $('.close-right-bar').on('click', function () {
+        $('body').removeClass('right-bar-etp-enabled');
+    })
 })
 
 let obraId = $('#input--obra_id').val();
@@ -38,12 +42,12 @@ function showEtapa(etpId) {
                 $modal.find(`#input--${index}`).val(value)
             });
 
-            $('.js-input-etapa-n-nota').editable({
-                pk: 'nota_numero',
-                url: `${BASE_URL_API_OBRA}etapa/${etpId}`,
-            })
+            //$('.js-input-etapa-n-nota').editable({
+            //    pk: 'nota_numero',
+            //    url: `${BASE_URL_API_OBRA}etapa/${etpId}`,
+            //})
 
-            $('.js-edit-description').click(function (e) {
+            $('.js-edit-description').on('click', function (e) {
                 e.stopPropagation();
 
                 var btnEdit = $(this);
@@ -72,7 +76,7 @@ function showEtapa(etpId) {
 
             const txHeight = 200;
             const tx = document.querySelector(".js-textarea-description");
-            if(tx){
+            if (tx) {
                 for (let i = 0; i < tx.length; i++) {
                     if (tx[i].value == '') {
                         tx[i].setAttribute("style", "height:" + txHeight + "rem;overflow-y:hidden;");
@@ -92,6 +96,51 @@ function showEtapa(etpId) {
     });
 
 }
+
+//updateEtapa
+$("#form-update-etapa").on('submit', function (event) {
+    event.preventDefault();
+
+    var post_url = $(this).attr("action");
+    var request_method = $(this).attr("method");
+    var form_data = new FormData($("#form-update-etapa")[0]);
+    var etpId = $('#js-etapa-id').val();
+    var btnl = $('.js-btn-save');
+    var btnh = btnl.html();
+
+    $.ajax({
+        url: `${BASE_URL_API_OBRA}etapa/${etpId}`,
+        type: request_method,
+        data: form_data,
+        processData: false,
+        cache: false,
+        contentType: false,
+        dataType: 'json',
+        beforeSend: function () {
+            btnl.html('Salvando..')
+            btnl.prop('disabled', true)
+        },
+        success: function () {
+            showEtapa(etpId);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var errors = XMLHttpRequest.responseJSON.errors;
+
+            if (errors) {
+                $.each(errors, function (index, value) {
+                    $(`#input--${index}`).addClass('is-invalid');
+                    toastr.error(value);
+                });
+            } else {
+                toastr.error(errorThrown);
+            }
+        },
+        complete: function () {
+            btnl.html(btnh)
+            btnl.prop('disabled', false)
+        },
+    });
+});
 
 function getCommentsEtp(etpId) {
 

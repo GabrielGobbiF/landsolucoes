@@ -179,23 +179,61 @@
             <div class="box-body">
                 <div class="row">
                     <input type="hidden" id="financeiro_id" value="{{ $financeiro ? $financeiro['id'] : '' }}">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="input--valor_custo">Valor de Custo</label>
-                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_custo" class="form-control"
-                                id="input--valor_custo"
-                                value="{{ $financeiro && $financeiro['valor_custo_format'] ? $financeiro['valor_custo_format'] : '0,00' }}"
-                                autocomplete="off">
+
+
+                    <style>
+                        .form-group-money input {
+                            border-top: 1px solid #ced4da;
+                            border-bottom: 1px solid #ced4da;
+                            border-right: 1px solid #ced4da;
+                            border-left: none;
+                        }
+
+                        .input-group-text-cifr {
+                            padding: 0.5rem 0.47rem 0px 0.5rem;
+                            color: #505d69;
+                            border-top: 1px solid #ced4da;
+                            border-bottom: 1px solid #ced4da;
+                            border-left: 1px solid #ced4da;
+                            border-right: none;
+                            border-radius: 0.25rem 0 0 0.25rem;
+                        }
+
+                        .form-control-money {
+                            padding: 0px !important;
+                        }
+
+                    </style>
+
+                    <div class="col-2">
+                        <div class="form-group form-group-money">
+                            <label for="input--price">Valor Custo</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text-cifr">R$</span>
+                                </div>
+                                <input type="text"
+                                    name="valor_custo"
+                                    class="form-control form-control-money money"
+                                    id="input--valor_custo"
+                                    value="{{ $financeiro && $financeiro['valor_custo_format'] ? $financeiro['valor_custo_format'] : '0,00' }}"
+                                    autocomplete="off">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="input--valor_proposta">Valor da Proposta</label>
-                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_proposta" class="form-control"
-                                id="input--valor_proposta"
-                                value="{{ $financeiro && $financeiro['valor_proposta_format'] ? $financeiro['valor_proposta_format'] : old('valor_proposta') }}"
-                                autocomplete="off">
+                    <div class="col-2">
+                        <div class="form-group form-group-money">
+                            <label for="input--price">Valor Proposta</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text-cifr">R$</span>
+                                </div>
+                                <input type="text" name="valor_proposta" class="form-control money"
+                                    id="input--valor_proposta"
+                                    value="{{ $financeiro && $financeiro['valor_proposta_format'] ? $financeiro['valor_proposta_format'] : old('valor_proposta') }}"
+                                    autocomplete="off">
+                            </div>
                         </div>
                     </div>
 
@@ -204,21 +242,25 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="input--valor_desconto">Valor de Desconto</label>
-                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_desconto" class="form-control"
+                            <input type="text" name="valor_desconto" class="form-control money"
                                 id="input--valor_desconto"
                                 value="{{ $financeiro && $financeiro['valor_desconto_format'] ? $financeiro['valor_desconto_format'] : old('valor_desconto') }}"
                                 autocomplete="off">
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="input--valor_negociado">Valor Negociado</label>
-                            <input type="text" onblur="this.value = numberFormat(this.value)" name="valor_negociado" class="form-control"
-                                id="input--valor_negociado"
-                                value="{{ $financeiro && $financeiro['valor_negociado_format'] ? $financeiro['valor_negociado_format'] : old('valor_negociado') }}"
-                                autocomplete="off"
-                                data-value="{{ $financeiro && $financeiro['valor_negociado'] ? $financeiro['valor_negociado'] : 0 }}">
+                    <div class="col-2">
+                        <div class="form-group form-group-money">
+                            <label for="input--price">Valor Negociado</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text-cifr">R$</span>
+                                </div>
+                                <input type="text" name="valor_negociado" class="form-control money"
+                                    id="input--valor_negociado"
+                                    value="{{ $financeiro && $financeiro['valor_negociado_format'] ? $financeiro['valor_negociado_format'] : old('valor_negociado') }}"
+                                    autocomplete="off">
+                            </div>
                         </div>
                     </div>
 

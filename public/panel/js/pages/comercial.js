@@ -1,103 +1,143 @@
-$(function () {
-    'use strict'
 
-    const comercial_id = $('#comercial_id').val();
-    const BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
-    const BASE_URL = $('meta[name="js-base_url"]').attr('content');
-    const URL = $('meta[name="url"]').attr('content');
+(function ($) {
+    'use strict';
 
-    var tab = localStorage.getItem('nav-tabs_comercial')
-    $('#v-tab a#' + tab).tab('show')
+    const vC = $('#input--valor_custo');
+    const vP = $('#input--valor_proposta');
+    const vN = $('#input--valor_negociado');
+    const vD = $('#input--valor_desconto');
 
-    $('#btn-listaCompra').on('click', function () {
+    init();
 
-        $('#v-tab a#v-financeiro-tab').tab('show')
-        $('.mt-pag').hasClass('d-none') ?
-            $('.mt-pag').removeClass('d-none') + $(this).html('Lista de Compra') :
-            $('.mt-pag').addClass('d-none') + $(this).html('Método Pagamento');
-    })
-
-    getHistorico();
-
-    $('.btn-add-etapa-financeiro').on('click', function (e) {
-
-        var metodo_pagamento = $('#metodo_real').is(':checked') ? 'R$' : '%';
-        var valor = $('#input--valor_metodo_porcent').val();
-        var valor_receber = $('#input--valor_receber').val();
-        var etapa_id = $('#select--etapa').val() ?? '';
-
-        if (etapa_id == '') {
-            e.preventDefault();
-            $('.select-etapa').addClass('is-invalid-label');
-            toastr.error('Selecione um Etapa');
-            return;
+    function init() {
+        if ($('#financeiro_id').val() == '') {
+            updateValorCusto();
         }
-
-        if (valor == '') {
-            e.preventDefault();
-            $('#input--valor_metodo_porcent').addClass('is-invalid');
-            toastr.error('Digite um valor');
-            return;
-        }
-
-        $.ajax({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: BASE_URL_API + "comercial/" + comercial_id + "/etapasFinanceiro/store",
-            type: 'POST',
-            ajax: true,
-            dataType: "JSON",
-            data: {
-                metodo_pagamento: metodo_pagamento,
-                valor: valor,
-                valor_receber: valor_receber,
-                etapa_id: etapa_id,
-            }
-        }).done(function () {
-            var valorAntigo = $('.spanValorNegociado').attr('data-valor-antigo');
-            $("#select--etapa option[value='" + etapa_id + "']").remove();
-            $('#input--valor_metodo_porcent').val('')
-            $('#input--valor_receber').val('');
-            $('.spanValorNegociado').attr('data-valor', valorAntigo);
-            if (valorAntigo == '0') {
-                $('.btn-add-etapa-financeiro').attr('disabled', true);
-            }
-            getHistorico();
-        });
-    })
-
-    function getHistorico() {
-        $.ajax({
-            url: BASE_URL_API + "comercial/" + comercial_id + "/etapasFinanceiro",
-            type: 'GET',
-            ajax: true,
-            dataType: "JSON",
-            success: function (j) {
-                var options = '';
-                $.each(j, function (index, value) {
-                    if (index != 'totalFaturar') {
-                        options += '<tr>';
-                        options += '    <td>' + value.nome_etapa + '</td>';
-                        options += '    <td>' + value.metodo_pagamento + ' ' + value.valor + '</td>';
-                        options += '    <td>R$ ' + value.valor_receber + '</td>';
-                        options += '    <td>';
-                        options += '        <a href="javascript:void(0)" data-href="' + BASE_URL + '/l/comercial/etapasFinanceiro/' + value.id + '/destroy"';
-                        options += '            class="btn btn-xs btn-danger btn-delete" onclick="btn_delete(this)">';
-                        options += '            <i class="fa fa-times"></i>';
-                        options += '        </a>';
-                        options += '    </td>';
-                        options += '</tr>';
-                    }
-
-                });
-                if (j.totalFaturar && j.totalFaturar != 0) {
-                    $('#totalFaturar').val(j.totalFaturar)
-                }
-                $('#row-table-historico').html(options);
-            },
-        });
     }
 
-});
+    function updateValorCusto() {
+        var total = 0;
+
+        $(".sub-total").each(function () {
+            var subTotal = $(this).attr('data-value').replace(',', '.');
+            if (!isNaN(subTotal)) {
+                total = parseFloat(total) + parseFloat(subTotal);
+            }
+        });
+
+        vC.val(numberFormat(total));
+        vP.val(numberFormat(total));
+    }
+
+    function updateValorNegociado() {
+        var total = 0;
+        var valorProposta = clearNumber(vP.val());
+        var valorDesconto = clearNumber(vD.val());
+
+        total = (parseFloat(valorProposta) - parseFloat(valorDesconto));
+
+        vN.val(numberFormat(total));
+    }
+
+    $('.js-qntEtapa').on('change keyup', function () {
+        var $input = $(this);
+        var idEtapa = $input.attr('data-id');
+        var $price = $input.attr('data-price');
+        var $tr = $(`#${idEtapa}`);
+        var qnt = $input.val();
+        if (qnt < 0) {
+            $input.val('1');
+        } else {
+            var total = qnt * $price;
+            $tr.find('.sub-total').html('R$ ' + total)
+            $tr.find('.sub-total').attr('data-value', total)
+            updateValorCusto();
+            updateValorNegociado();
+        }
+    })
+
+    $('#input--valor_proposta, #input--valor_desconto').on('keyup blur', function () {
+        updateValorNegociado();
+    })
+
+    $('.js-metodoType').on('click', function () {
+        resetValorNegociado();
+
+        /**
+         * Limpar CAMPOS
+         */
+        $('#input--valor_receber').val('')
+        $('#input--valor_metodo_porcent').val('')
+
+        if ($(this).val() == 'real') {
+            $('.realPc').find('label').html('Valor R$');
+            $('.realPc').find('input').attr('data-type', 'real');
+        } else {
+            $('.realPc').find('label').html('Porcentagem %');
+            $('.realPc').find('input').attr('data-type', 'porcent');
+        }
+
+        $('.btn-add-etapa-financeiro').attr('disabled', true);
+
+    })
+
+    $('#input--valor_metodo_porcent').on('keyup change', function () {
+
+        $('.btn-add-etapa-financeiro').attr('disabled', true);
+
+        var valorNegociado = clearNumber($('#input--valor_negociado').val());
+        var valorCalcular = clearNumber($(this).val());
+        var type = $(this).attr('data-type');
+
+        var typeResultado = type == 'real' ? (valorCalcular) : ((valorNegociado * valorCalcular) / 100)
+        var totalFaturar = $('#totalFaturar').val();
+        var result = (valorNegociado - typeResultado) - clearNumber(totalFaturar);
+
+        var resultFormat = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        }).format(result);
+
+        if (valorCalcular == '' || valorCalcular == '0') {
+            $('#input--valor_receber').val('R$ 0,00')
+            $('.js-spanValorNegociado').html(resultFormat);
+            return;
+        }
+
+        if (parseFloat(typeResultado) > parseFloat(valorNegociado) || typeResultado < 0) {
+            toastr.error('Valor a receber não pode ser maior que negociado');
+            resetValorNegociado();
+            $(this).val('');
+            return;
+        }
+
+        $('#input--valor_receber').val(numberFormat(typeResultado))
+        $('.js-spanValorNegociado').html(resultFormat);
+        $('.btn-add-etapa-financeiro').attr('disabled', false);
+    })
+
+    function resetValorNegociado() {
+        $('.btn-add-etapa-financeiro').attr('disabled', true);
+        $('#input--valor_receber').val('R$ 0,00');
+        var valorNegociado = numeral(clearNumber($('#input--valor_negociado').val()));
+        var valorNegociado = valorNegociado.subtract(clearNumber($('#totalFaturar').val()));
+
+        $('.js-spanValorNegociado').html(numberFormat(valorNegociado.value()));
+    }
+
+    function numberFormat(number) {
+        return number.toLocaleString('pt-br', { minimumFractionDigits: 2 })
+        //return new Intl.NumberFormat('pt-BR', {
+        //    //style: 'currency',
+        //    currency: 'BRL',
+        //}).format(number);
+    }
+
+    function clearNumber(number) {
+        number = number.toString().replace("R$", "").replace(".", "");
+        number = number.replace(",", ".");
+        return number != '' ? numeral(number).value() : 0;
+    }
+
+})(jQuery)
 

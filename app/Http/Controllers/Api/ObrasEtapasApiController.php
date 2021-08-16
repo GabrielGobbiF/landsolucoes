@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateEtapaObra;
 use App\Http\Resources\CommentsResource;
 use App\Http\Resources\ObraEtapasResource;
 use App\Models\Obra;
@@ -35,10 +36,12 @@ class ObrasEtapasApiController extends Controller
         return new ObraEtapasResource($etapa);
     }
 
-    public function update(Request $request, $obra_id, $etapa_id)
+    public function update(StoreUpdateEtapaObra $request, $obra_id, $etapa_id)
     {
-        $coluna = $request->input('pk');
-        $valor = $request->input('value');
+        $columns = $request->all();
+
+        //$coluna = $request->input('pk');
+        //$valor = $request->input('value');
 
         if (!$obra = $this->obra->where('id', $obra_id)->first()) {
             return response()->json('Object Obra not found', 404);
@@ -46,9 +49,11 @@ class ObrasEtapasApiController extends Controller
 
         $etapa = $obra->etapas()->where('id', $etapa_id)->first();
 
-        $etapa->update([$coluna => $valor]);
+        //$etapa->update([$coluna => $valor]);
 
-        return  $valor;
+        $etapa = $etapa->update($columns);
+
+        return $etapa_id;
     }
 
     public function getComments($etapa_id)

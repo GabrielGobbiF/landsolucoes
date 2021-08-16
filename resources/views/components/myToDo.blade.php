@@ -28,7 +28,7 @@
                             @csrf
                             <div class="row">
                                 <div class="col-12 my-2 mb-4">
-                                    <button type="submit" class="btn btn-info btn-submit float-right">Salvar</button>
+                                    <button type="submit" class="btn btn-info  float-right">Salvar</button>
                                     <button type="button" class="btn btn-danger float-left js-add-cancel-task"><i class="fas fa-arrow-left"></i> Voltar</button>
                                 </div>
 
@@ -93,7 +93,7 @@
         var $btnCancelAdd = $(".js-add-cancel-task");
 
         /* Routes  */
-        var $routeTask = `${BASE_URL_API}tasks`;
+        var $routeTask = `${window.base_url_api}tasks`;
 
         $btnShowDone.on("click", function() {
             $taskBox.find('.box-title').html('Concluidos');

@@ -38,3 +38,7 @@ axios.defaults.headers.common = {
     //'Authorization': 'Bearer ' + window.Laravel.apiToken,
 };
 
+window.base_url_api = $('meta[name="js-base_url_api"]').attr('content');
+
+
+

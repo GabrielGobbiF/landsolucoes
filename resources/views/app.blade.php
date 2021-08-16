@@ -24,7 +24,6 @@
     <!-- todoFazer  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
 </head>
 
 <body data-topbar="dark" data-layout="horizontal">
@@ -136,41 +135,6 @@
     <!-- todoFazer  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
-
-    <script>
-        $(document).ready(function() {
-
-            $(".select--users").select2({
-                multiple: true,
-                placeholder: "Buscar",
-                minimumInputLength: 3,
-                language: "pt-br",
-                formatNoMatches: function() {
-                    return "Pesquisa não encontrada";
-                },
-                inputTooShort: function() {
-                    return "Digite para Pesquisar";
-                },
-                ajax: {
-                    url: `{{ route('users.all') }}`,
-                    dataType: 'json',
-                    data: function(term, page) {
-                        return {
-                            q: term, //search term
-                        };
-                    },
-                    results: function(data, page) {
-                        return {
-                            results: data.data,
-                        };
-                    }
-                },
-                escapeMarkup: function(m) {
-                    return m;
-                }
-            });
-        })
-    </script>
     @yield("scripts")
 
     <script>

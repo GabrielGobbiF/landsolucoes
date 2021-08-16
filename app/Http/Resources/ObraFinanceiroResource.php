@@ -24,10 +24,10 @@ class ObraFinanceiroResource extends JsonResource
             'metodo_pagamento' => $this->metodo_pagamento,
             'envio_at' => $this->envio_at,
 
-            'valor_proposta_format' => 'R$ ' . number_format($this->valor_proposta, 2, ',', '.'),
-            'valor_negociado_format' => 'R$ ' . number_format($this->valor_negociado, 2, ',', '.'),
-            'valor_desconto_format' => 'R$ ' . number_format($this->valor_desconto, 2, ',', '.'),
-            'valor_custo_format' => 'R$ ' . number_format($this->valor_custo, 2, ',', '.'),
+            'valor_proposta_format' =>  number_format($this->valor_proposta, 2, ',', '.'),
+            'valor_negociado_format' =>  number_format($this->valor_negociado, 2, ',', '.'),
+            'valor_desconto_format' =>  number_format($this->valor_desconto, 2, ',', '.'),
+            'valor_custo_format' => number_format($this->valor_custo, 2, '.', ','),
         ];
     }
 }

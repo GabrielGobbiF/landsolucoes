@@ -266,6 +266,7 @@ class TableApiController extends Controller
     {
         $search = $request->input('q.term');
 
+
         $user = User::where(function ($query) use ($search) {
             if ($search != '') {
                 $query->orWhere('name', 'LIKE', '%' . $search . '%');
