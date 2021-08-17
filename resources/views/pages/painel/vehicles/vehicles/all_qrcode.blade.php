@@ -11,7 +11,7 @@
 
     <title>Veiculos Land</title>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('mobile/css/app.css') }}" rel="stylesheet">
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
