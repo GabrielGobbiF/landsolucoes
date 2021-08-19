@@ -30,7 +30,8 @@ class Vehicle extends Model
         'mtr',
         'chassi',
         'renavam',
-        'document_attach'
+        'document_attach',
+        'type',
     ];
 
     protected static $logAttributes = [
@@ -53,7 +54,8 @@ class Vehicle extends Model
         'mtr',
         'chassi',
         'renavam',
-        'document_attach'
+        'document_attach',
+        'type',
     ];
 
     protected static $logName = 'Vehicles';

@@ -52,6 +52,22 @@
             </div>
         </div>
 
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="input--renavam">Tipo</label>
+                <select name='type' class='form-control select2' required>
+                    <option value='' selected>Selecione</option>
+                    @foreach (Config::get('constants.tipo_vehicle') as $type)
+                        <option
+                            {{ isset($vehicle->type) && $vehicle->type == $type ? 'selected' : '' }}
+                            value='{{ $type }}'>
+                            {{ ucfirst($type) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
         @if (isset($vehicle) && $vehicle->document_attach != '')
             <div class="col-md-5 my-3">
                 <div class="form-group d-grid">

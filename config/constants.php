@@ -19,6 +19,12 @@ return [
         'Dispensa sem justa causa', 'Pedido de demissão', 'Dispensa por justa causa', 'Morte do empregado'
     ],
 
+    'tipo_vehicle' => [
+        'frotas',
+        'locado',
+        'proprio',
+    ],
+
     'Dispensa sem justa causa' => [
         'Agendamento exame demissional',
         'Atestado demissional',
