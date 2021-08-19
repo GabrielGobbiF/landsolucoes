@@ -22,6 +22,8 @@ try {
 
     require('bootstrap-editable');
 
+
+
 } catch (e) { }
 
 /**

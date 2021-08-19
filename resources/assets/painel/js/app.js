@@ -243,6 +243,9 @@
         initSettings();
         initPreloader();
 
+        const feather = require('feather-icons');
+        feather.replace()
+
         //Waves.init()
     }
 
