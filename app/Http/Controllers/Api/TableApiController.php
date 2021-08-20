@@ -97,7 +97,7 @@ class TableApiController extends Controller
     {
         $vehicles = new Vehicle();
 
-        $searchColumns = ['board', 'year', 'id', 'name', 'renavam'];
+        $searchColumns = ['board', 'year', 'id', 'name', 'renavam', 'type'];
 
         $vehicles = $vehicles
             ->where(function ($query) use ($searchColumns) {

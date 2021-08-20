@@ -28,6 +28,7 @@
 
                                 <th data-field="renavam" class="mobile--hidden" data-visible="false">Renavam</th>
                                 <th data-field="tracker" class="mobile--hidden" data-visible="false">Seguro</th>
+                                <th data-field="type" class="mobile--hidden" data-visible="false">Tipo</th>
 
                                 <th data-field="statusButton" data-halign="center" data-align="center">Ação</th>
                             </tr>

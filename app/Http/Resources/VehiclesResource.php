@@ -21,6 +21,7 @@ class VehiclesResource extends JsonResource
             "board" => $this->board,
             "renavam" => $this->renavam,
             "chassi" => $this->chassi,
+            "type" => $this->type ?? '',
             "statusButton" => $this->getButtons(),
             "tracker" => $this->tracker == 1
                 ? '<span class="badge badge-soft-success font-size-12">Seguro</span>'

@@ -21,8 +21,26 @@ class ObrasEtapasApiController extends Controller
         $this->obra = $obra;
     }
 
-    public function all($obra_id)
+    public function all(Request $request, $obra_id)
     {
+        $filters = $request->only(['term', 'type']);
+
+        if (!$obra = $this->obra->where('id', $obra_id)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        $etapas = $obra->etapas()
+            ->where(function ($query) use ($filters) {
+                if ($filters['type'] != '') {
+                    $query->orWhere('tipo_id', $filters['type']);
+                }
+                if ($filters['term'] != '') {
+                    $query->orWhere('nome', 'LIKE', '%' . $filters['term'] . '%');
+                }
+            })
+            ->orderBy('tipo_id')->orderBy('ordem')->get();
+
+        return ObraEtapasResource::collection($etapas);
     }
 
     public function get($obra_id, $etapa_id)
@@ -51,7 +69,13 @@ class ObrasEtapasApiController extends Controller
 
         //$etapa->update([$coluna => $valor]);
 
-        $etapa = $etapa->update($columns);
+        $etapa->update($columns);
+
+        if (isset($columns['check_nota'])) {
+            $obra->last_note = $columns['nota_numero'];
+            $obra->update();
+            $obra->save();
+        }
 
         return $etapa_id;
     }
@@ -95,8 +119,8 @@ class ObrasEtapasApiController extends Controller
 
         $etapa = $obra->etapas()->where('id', $etapa_id)->first();
 
-        $etapa->update(['check' => $check]);
+        $etapa = $etapa->update(['check' => $check]);
 
-        return  $etapa;
+        return $etapa;
     }
 }

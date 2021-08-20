@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
+use App\Models\Tipo;
 use Illuminate\Support\Facades\Hash;
 
 class ObrasController extends Controller
@@ -80,11 +81,11 @@ class ObrasController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $etapas = $obra->etapas()->orderBy('tipo_id')->orderBy('ordem')->get();
+        $tipos  = Tipo::all();
 
         return view('pages.painel.obras.obras.show', [
             'obra' => $obra,
-            'etapas' => $etapas,
+            'tipos' => $tipos,
         ]);
     }
 

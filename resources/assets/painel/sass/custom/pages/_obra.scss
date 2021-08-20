@@ -1,5 +1,149 @@
 .page--obra {
-    //font-size: 1.2rem !important;
+    .offcanvas.show {
+        -webkit-transform: none;
+        transform: none;
+        visibility: visible;
+        overflow: auto;
+    }
+
+    .offcanvas-end {
+        top: 0;
+        right: 0;
+        width: 400px;
+        border-left: 1px solid #f1f5f7;
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+
+    .offcanvas {
+        position: fixed;
+        bottom: 0;
+        top: 126px;
+        z-index: 1050;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        max-width: 100%;
+        width: 57%;
+        visibility: hidden;
+        background-color: #fff;
+        background-clip: padding-box;
+        outline: 0;
+        -webkit-transition: -webkit-transform 0.3s ease-in-out;
+        transition: -webkit-transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    }
+
+    .offcanvas::-webkit-scrollbar {
+        width: 3px;
+        min-height: 10px;
+    }
+
+    .offcanvas::-webkit-scrollbar-track {
+        background-color: #f4f4f4;
+        height: 8px;
+        background-clip: padding-box;
+        border-right: 10px solid rgba(0, 0, 0, 0);
+        border-top: 10px solid rgba(0, 0, 0, 0);
+        border-bottom: 10px solid rgba(0, 0, 0, 0);
+    }
+
+    .offcanvas::-webkit-scrollbar-thumb {
+        position: absolute;
+        content: "";
+        background: #a2adb7;
+        border-radius: 7px;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        transition: opacity 0.2s linear;
+    }
+
+    .offcanvas::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    .sidenav::-webkit-scrollbar {
+        width: 3px;
+        min-height: 10px;
+    }
+
+    .sidenav::-webkit-scrollbar-track {
+        background-color: #f4f4f4;
+        height: 8px;
+        background-clip: padding-box;
+        border-right: 10px solid rgba(0, 0, 0, 0);
+        border-top: 10px solid rgba(0, 0, 0, 0);
+        border-bottom: 10px solid rgba(0, 0, 0, 0);
+    }
+
+    .sidenav::-webkit-scrollbar-thumb {
+        position: absolute;
+        content: "";
+        background: #a2adb7;
+        border-radius: 7px;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        transition: opacity 0.2s linear;
+    }
+
+    .sidenav::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    .sidenav {
+        overflow-x: auto;
+        background: #fff;
+        bottom: 0;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
+        left: 0;
+        margin-top: 0;
+        position: fixed;
+        top: 125px;
+        width: 26%;
+        z-index: 1001;
+    }
+
+    .main {
+        margin-left: 26%;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
+}
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     .metismenu {
         margin: 0;
@@ -535,3 +679,4 @@
     }
 
 }
+*/

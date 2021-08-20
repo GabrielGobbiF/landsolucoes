@@ -1,7 +1,7 @@
-<div class="etp-show right-bar-etp d-flex" class="h-100">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" aria-modal="true" role="dialog">
     <input type="hidden" id="js-etapa-id">
 
-    <div class="col-md-12 etp">
+    <div class="col-md-12 etp" id="div--etp">
         <div class="box-header with-border mg-t-10">
             <h3 class="box-title"></h3>
             <div class="float-right">
@@ -13,36 +13,47 @@
             </div>
         </div>
         <div class="box-body mt-3">
-            <form id='form-update-etapa' role='form' class='needs-validation' action='' method='POST'>
+            <form id='form-update-etapa' role='form' class='needs-validation' action='1' method='POST'>
                 @csrf
                 <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" class="form-control" name="nome" id="input--name" value="" autocomplete="off">
+                        </div>
+                    </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <label class="tx-green" for="text1">Data Meta</label>
-                            <input type="text" class="form-control date" name="meta_etapa" id="input--meta_etapa" value="" autocomplete="off">
+                            <label class="tx-green">Data Meta</label>
+                            <input type="text" class="form-control date" name="meta_etapa" id="input--meta_etapa" value="" autocomplete="off" required>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-12 col-md-3">
                         <div class="form-group">
-                            <label for="text1">Nº Nota</label>
+                            <label>Nº Nota</label>
                             <input type="text" class="form-control" name="nota_numero" id="input--n_nota" value="" autocomplete="off">
                         </div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-12 col-md-3">
                         <div class="form-group">
-                            <label for="text1">Data de Abertura</label>
+                            <label>Data de Abertura</label>
                             <input type="text" class="form-control date" name="data_abertura" id="input--data_abertura" value="" autocomplete="off">
                         </div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-12 col-md-3">
                         <div class="form-group">
-                            <label for="text1">Prazo de Atendimento</label>
-                            <input type="text" class="form-control" name="prazo_atendimento" id="input--prazo_atendimento" value="33" autocomplete="off">
+                            <label>Prazo de Atendimento</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="prazo_atendimento" id="input--prazo_atendimento" value="" autocomplete="off">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Dias</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,4 +98,6 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>

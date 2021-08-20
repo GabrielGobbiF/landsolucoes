@@ -24,7 +24,7 @@ class StoreUpdateEtapaObra extends FormRequest
     public function rules()
     {
         $rules = [
-            'meta_etapa' => "nullable|after:today",
+            'meta_etapa' => "nullable|after:today|date_format:d/m/Y",
             'prazo_atendimento' => "nullable|numeric",
             'data_abertura' => "nullable|date_format:d/m/Y",
             'nota_numero' => "nullable|numeric",
