@@ -5,7 +5,7 @@
 @section("content")
     <div class="box">
         <div class="box-body">
-            <form role="form" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route("clients.update", $client->uuid) }}" method="POST">
+            <form role="form" class="needs-validation" novalidate id="form-clients" autocomplete="off" action="{{ route("clients.update", $client->uuid) }}" method="POST">
                 @csrf
                 @method("put")
                 @include("pages.painel._partials.forms.form-clients")

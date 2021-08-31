@@ -15,57 +15,130 @@
         <div class="box-body mt-3">
             <form id='form-update-etapa' role='form' class='needs-validation' action='1' method='POST'>
                 @csrf
+
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
                             <label>Nome</label>
-                            <input type="text" class="form-control" name="nome" id="input--name" value="" autocomplete="off">
+                            <input type="text" class="form-control" name="nome" id="input--name" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label class="tx-green">Data Meta</label>
-                            <input type="text" class="form-control date" name="meta_etapa" id="input--meta_etapa" value="" autocomplete="off" required>
+                            <input type="text" class="form-control date" name="meta_etapa" id="input--meta_etapa" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Responsável</label>
+                            <input type="text" class="form-control" name="responsavel" id="input--responsavel" autocomplete="off">
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-12 col-md-3">
-                        <div class="form-group">
-                            <label>Nº Nota</label>
-                            <input type="text" class="form-control" name="nota_numero" id="input--n_nota" value="" autocomplete="off">
+                <div class="type concessionaria">
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <label>Nº Nota</label>
+                                <input type="text" class="form-control" name="nota_numero" id="input--n_nota" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 col-md-3">
-                        <div class="form-group">
-                            <label>Data de Abertura</label>
-                            <input type="text" class="form-control date" name="data_abertura" id="input--data_abertura" value="" autocomplete="off">
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <label>Data de Abertura</label>
+                                <input type="text" class="form-control date" name="data_abertura" id="input--data_abertura" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 col-md-3">
-                        <div class="form-group">
-                            <label>Prazo de Atendimento</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="prazo_atendimento" id="input--prazo_atendimento" value="" autocomplete="off">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Dias</span>
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <label>Prazo de Atendimento</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="prazo_atendimento" id="input--prazo_atendimento" autocomplete="off">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Dias</span>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 align-self-center">
+                            <div class="form-check form-check-inline align-self-center mg-0">
+                                <input class="form-check-input wd-15 ht-15" name="check_nota" type="checkbox" value="true">
+                                <label class="form-check-label" style="font-size:13px" for="metodo_real">Salvar como ultima nota</label>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-12 align-self-center">
-                        <div class="form-check form-check-inline align-self-center mg-0">
-                            <input class="form-check-input wd-15 ht-15" name="check_nota" type="checkbox" value="true">
-                            <label class="form-check-label" style="font-size:13px" for="metodo_real">Salvar como ultima nota</label>
+                <div class="type administrativa row">
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Data do Pedido</label>
+                            <input type="text" class="form-control date" name="data_pedido" id="input--data_pedido" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Cliente Responsável</label>
+                            <input type="text" class="form-control" name="cliente_responsavel" id="input--cliente_responsavel" autocomplete="off">
                         </div>
                     </div>
                 </div>
+
+                <div class="type obra row">
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Data Programada</label>
+                            <input type="text" class="form-control date" name="data_programada" id="input--data_programada" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Data Iniciada</label>
+                            <input type="text" class="form-control date" name="data_iniciada" id="input--data_iniciada" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Tempo de atividade</label>
+                            <input type="text" class="form-control" name="tempo_atividade" id="input--tempo_atividade" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="type compra row">
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Quantidade</label>
+                            <input type="text" class="form-control" name="quantidade" id="input--quantidade" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Preço</label>
+                            <input type="text" class="form-control money" name="preco" id="input--preco" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <input type="text" class="form-control" name="unidade" id="input--unidade" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="row">
                     <div class="col-auto align-self-center mg-t-9">
@@ -98,6 +171,4 @@
             </div>
         </div>
     </div>
-</div>
-
 </div>

@@ -3,7 +3,7 @@ const BASE_URL_API = document.querySelector('meta[name=js-base_url_api]').getAtt
 const BASE_URL_API_OBRA = `${BASE_URL_API}obra/${obraId}/`
 const modal = $('#div--etp');
 const divEtpList = $('#etapas-list');
-
+const modalUpdateObra = $('#modal-update-obra');
 
 let timeSearchEtapas = null;
 
@@ -101,6 +101,11 @@ function getEtapas() {
             if (list && list.length > 0) {
                 $.each(list, function (index, value) {
                     var checked = value.check == 'C' ? 'checked' : '';
+                    var comments = value.comments;
+
+                    if (comments[0]) {
+                        var textComment = comments[0].text_limit
+                    }
 
                     html += ` <li>
                             <div class="col-mail col-mail-1">
@@ -113,12 +118,15 @@ function getEtapas() {
                                 <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name}</a>
                             </div>
                             <div class="col-mail col-mail-2">
-                                <span class="badge-warning badge mr-2"></span>
-                                <span class="teaser"></span>
+                                <span class="teaser">${textComment ?? ''}</span>
+                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''}</span>
                             </div>
                         </li>`;
                 });
+            } else {
+                html = 'Sem Resultados';
             }
+
             divEtpList.html(html);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -148,6 +156,7 @@ function showEtapa(etpId) {
         dataType: "JSON",
         beforeSend: () => {
             divEtp.insertAdjacentHTML('beforebegin', preload());
+            $('.type').addClass('d-none');
         },
         success: function (j) {
             let data = j.data;
@@ -161,6 +170,8 @@ function showEtapa(etpId) {
             $.each(data, function (index, value) {
                 modal.find(`#input--${index}`).val(value)
             });
+
+            $(`.${data.tipo}`).removeClass('d-none');
 
             getCommentsEtapa(etpId);
 
@@ -276,6 +287,37 @@ function getCommentsEtp(etpId) {
             modal.find('#preload-comments').remove();
         },
     });
+}
+
+$('#select--department_id').on('change', function () {
+    var departmenId = $(this).val();
+    if(departmenId != ''){
+        getDepartmentById(departmenId);
+    }
+})
+
+function getDepartmentById(departmenId) {
+    $.ajax({
+        url: `${BASE_URL_API}departments/${departmenId}`,
+        type: "GET",
+        ajax: true,
+        dataType: "JSON",
+        beforeSend: (jqXHR, settings) => {
+            modalUpdateObra.find(`.departments`).val('')
+        },
+        success: function (j) {
+            var data = j.data;
+            $.each(data, function (index, value) {
+                modalUpdateObra.find(`#input--${index}`).val(value)
+            });
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            toastr.error('erro ao carregar o departmento');
+        },
+        complete: function () {
+        },
+    });
+
 }
 
 function preload(typ = 'preloader-content-etp') {

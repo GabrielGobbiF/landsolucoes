@@ -22,6 +22,7 @@ class CommentsResource extends JsonResource
         return [
             "id" => $this->id,
             "text" => $this->obs_texto,
+            "text_limit" => mb_strimwidth($this->obs_texto, 0, 38),
             "user" => $name,
             "user_name" => $this->user->name,
             "date" => dateTournamentForHumans($this->created_at)

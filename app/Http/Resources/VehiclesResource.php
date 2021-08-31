@@ -32,12 +32,18 @@ class VehiclesResource extends JsonResource
     private function getButtons()
     {
         $routeDelete = route('vehicles.destroy', [$this->id, 'desactive' => true]);
+        $routeView = route('vehicles.show', [$this->id]);
 
-        return "<a href='JavaScript:void(0)' data-toggle='tooltip' data-placement='top' data-text='Desativar'
+        return "
+        <a href='$routeView'
+                class='btn btn-xs btn-info mr-1'>
+                <i class='fa fa-edit'></i>
+            </a><a href='JavaScript:void(0)' data-toggle='tooltip' data-placement='top' data-text='Desativar'
                 data-href='$routeDelete'
                 class='btn btn-xs btn-danger btn-delete' onclick='btn_delete(this)'
                 data-original-title='Desativar Carro'>
                 <i class='fa fa-times'></i>
-            </a>";
+            </a>
+            ";
     }
 }

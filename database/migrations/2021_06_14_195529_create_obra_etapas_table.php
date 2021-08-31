@@ -44,6 +44,7 @@ class CreateObraEtapasTable extends Migration
             $table->timestamp('data_iniciada')->nullable();
             $table->timestamp('data_prazo_total')->nullable();
             $table->timestamp('meta_etapa')->nullable();
+            $table->timestamp('data_pedido')->nullable();
 
             $table->timestamps();
 

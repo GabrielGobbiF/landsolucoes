@@ -13,6 +13,9 @@
                     <input type="hidden" id="input--obra_id" value="{{ $obra->id }}">
 
                     <div class="row">
+                        <div class="col-md-12 mb-2 my-4">
+                            <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modal-update-obra'>Editar Obra</button>
+                        </div>
                         <h4 class="col-12 mb-3">Obra <small class="text-muted js-input-obra-name editable">{{ $obra->razao_social ?? '' }}</small></h4>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-community-line mr-2"></i> {{ $obra->concessionaria->name ?? '' }}</h6>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-git-repository-private-fill mr-2"></i> {{ $obra->service->name ?? '' }}</h6>
@@ -108,6 +111,7 @@
         </div>
 
         @include('pages.painel.obras.obras.etapas.show_right')
+        @include('pages.painel.obras._partials.modals.modal-update-obra')
     </div>
 
 

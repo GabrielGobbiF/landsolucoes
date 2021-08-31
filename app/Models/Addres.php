@@ -16,7 +16,6 @@ class Addres extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'street',
         'number',
         'district',

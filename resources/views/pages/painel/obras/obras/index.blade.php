@@ -120,7 +120,6 @@
         })
 
         function progressFormatter(value, row) {
-            console.log(value);
             return value;
         }
     </script>

@@ -18,7 +18,7 @@ class ComercialResource extends JsonResource
             "id" => $this->id,
             "razao_social" => $this->razao_social,
             "client.name" => $this->client->company_name ?? '',
-            "concessionaria.name" => $this->concessionaria->name,
+            "concessionaria.name" => $this->concessionaria ? $this->concessionaria->name : '',
             "service.name" => $this->service->name,
             "statusButton" => $this->status
         ];

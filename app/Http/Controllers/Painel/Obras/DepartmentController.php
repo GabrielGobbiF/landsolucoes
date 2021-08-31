@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateDepartment;
+use App\Http\Resources\DepartmentResource;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Department;
@@ -84,15 +85,15 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        if (!$department = $this->repository->where('slug', $slug)->first()) {
-            return redirect()
-                ->route('testes.index')
-                ->with('error', 'Registro não encontrado!');
+        if (!$department = $this->repository->where('id', $id)->first()) {
+            return response()->json('Object Obra not found', 404);
         }
 
-        return view('page.show', []);
+        return new DepartmentResource($department);
+
+        #return view('page.show', []);
     }
 
     /**

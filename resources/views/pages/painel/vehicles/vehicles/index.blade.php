@@ -18,7 +18,7 @@
                             </div>
                         </div>
                     </div>
-                    <table data-toggle="table" id="table-api" data-table="vehicles">
+                    <table data-toggle="table" id="table-api" data-table="vehicles" data-click="false">
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
@@ -26,9 +26,10 @@
                                 <th data-field="board" class="mobile--hidden">Placa</th>
                                 <th data-field="year" class="mobile--hidden">Ano</th>
 
-                                <th data-field="renavam" class="mobile--hidden" data-visible="false">Renavam</th>
-                                <th data-field="tracker" class="mobile--hidden" data-visible="false">Seguro</th>
-                                <th data-field="type" class="mobile--hidden" data-visible="false">Tipo</th>
+                                <th data-field="renavam"  data-visible="false">Renavam</th>
+                                <th data-field="tracker"  data-visible="false">Seguro</th>
+                                <th data-field="type" class="" data-visible="false">Tipo</th>
+                                <th data-field="chassi" class="" data-visible="false">Chassi</th>
 
                                 <th data-field="statusButton" data-halign="center" data-align="center">Ação</th>
                             </tr>

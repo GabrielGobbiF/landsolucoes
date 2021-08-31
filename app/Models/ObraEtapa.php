@@ -33,9 +33,15 @@ class ObraEtapa extends Model
         'data_iniciada',
         'data_prazo_total',
         'meta_etapa',
+        'data_pedido'
     ];
 
     protected $table = 'obras_etapas';
+
+    public function tipo()
+    {
+        return $this->belongsTo(Tipo::class, 'tipo_id');
+    }
 
     public function variables()
     {

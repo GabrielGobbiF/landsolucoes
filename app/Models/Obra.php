@@ -61,9 +61,9 @@ class Obra extends Model
         return $this->belongsTo(Service::class, 'service_id');
     }
 
-    public function andress()
+    public function address()
     {
-        return $this->belongsTo(Andress::class, 'address_id');
+        return $this->hasOne(Addres::class, 'id', 'address_id');
     }
 
     public function viabilizacao()

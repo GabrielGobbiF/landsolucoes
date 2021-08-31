@@ -3,7 +3,9 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Symfony\Component\Console\Helper\Helper;
 
 class ObraEtapasResource extends JsonResource
 {
@@ -15,18 +17,72 @@ class ObraEtapasResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $prazo = null;
+        if ($this->check != 'C') {
+            if ($this->data_abertura != null && $this->prazo_atendimento != '') {
+                $prazo = $this->checkPrazo();
+            }
+        }
+
+        $data = [
             "id" => $this->id,
             "name" => $this->nome,
             "observacao" => $this->observacao,
             "n_nota" => $this->nota_numero ?? 0,
             "meta_etapa" => $this->meta_etapa != '' ? Carbon::parse($this->meta_etapa)->format('d/m/Y') : NULL,
             "data_abertura" => $this->data_abertura != '' ? Carbon::parse($this->data_abertura)->format('d/m/Y') : NULL,
+            "data_programada" => $this->data_programada != '' ? Carbon::parse($this->data_programada)->format('d/m/Y') : NULL,
+            "data_iniciada" => $this->data_iniciada != '' ? Carbon::parse($this->data_iniciada)->format('d/m/Y') : NULL,
+            "data_prazo_total" => $this->data_prazo_total != '' ? Carbon::parse($this->data_prazo_total)->format('d/m/Y') : NULL,
+            "data_pedido" => $this->data_pedido != '' ? Carbon::parse($this->data_pedido)->format('d/m/Y') : NULL,
             "prazo_atendimento" => $this->prazo_atendimento,
             "check" => $this->check,
+            "responsavel" => $this->responsavel,
+            "cliente_responsavel" => $this->cliente_responsavel,
+            "preco" => $this->preco,
+            "quantidade" => $this->quantidade,
+            "unidade" => $this->unidade,
+            "prazo_atendimento" => $this->prazo_atendimento,
+            "tempo_atividade" => $this->tempo_atividade,
+            "tipo" => $this->tipo ? $this->tipo->slug : null,
+            "prazo" => isset($prazo) ? $prazo : '',
             "comments" => isset($this->comments) ? CommentsResource::collection($this->comments->sortByDesc('id')) : [],
-
         ];
+
+        return $data;
+    }
+
+    public function checkPrazo()
+    {
+
+        $msg = 'Concluido';
+        $check = 'success';
+        $atraso = 'success';
+
+        $prazoTotal = somarData($this->prazo_atendimento, 'days', $this->data_abertura);
+        $date = Carbon::parse($prazoTotal);
+        $now = Carbon::now();
+
+        $msg = $date->diffForHumans($now, [
+            'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+            'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
+        ]);
+
+        if ($now > $date) {
+            $check = 'danger';
+            $atraso = 'danger';
+        } elseif ($now == $date) {
+            $check = 'warning';
+        } elseif ($now < $date) {
+            $check = 'success';
+        }
+
+        return [
+            'msg' => $msg,
+            'check' => $check,
+            'atraso' => $atraso
+        ];
+
     }
 
     public function buttons()

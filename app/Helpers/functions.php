@@ -107,7 +107,7 @@ function dataLimpa($date)
     return Carbon::parse($date)->format('d/m/Y');
 }
 
-function somarData($soma, $type, $date, $formatReturn = 'Y-m-d H:i:s')
+function somarData($soma, $type = 'days', $date, $formatReturn = 'Y-m-d H:i:s')
 {
 
     $date = $date != '' ? Carbon::parse($date) : Carbon::parse(date('Y-m-d H:i:s'));

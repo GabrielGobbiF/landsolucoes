@@ -32,12 +32,13 @@ class ObrasEtapasApiController extends Controller
         $etapas = $obra->etapas()
             ->where(function ($query) use ($filters) {
                 if ($filters['type'] != '') {
-                    $query->orWhere('tipo_id', $filters['type']);
+                    $query->where('tipo_id', $filters['type']);
                 }
                 if ($filters['term'] != '') {
-                    $query->orWhere('nome', 'LIKE', '%' . $filters['term'] . '%');
+                    $query->where('nome', 'LIKE', '%' . $filters['term'] . '%');
                 }
             })
+            ->with('tipo')
             ->orderBy('tipo_id')->orderBy('ordem')->get();
 
         return ObraEtapasResource::collection($etapas);
