@@ -19,7 +19,7 @@
         position: fixed;
         bottom: 0;
         top: 126px;
-        z-index: 1050;
+        z-index: 999;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -107,7 +107,7 @@
         position: fixed;
         top: 125px;
         width: 26%;
-        z-index: 1001;
+        z-index: 999;
     }
 
     .main {
