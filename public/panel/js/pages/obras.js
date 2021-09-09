@@ -6,6 +6,7 @@ const divEtpList = $('#etapas-list');
 const modalUpdateObra = $('#modal-update-obra');
 
 let timeSearchEtapas = null;
+let timeUpdateObra = null;
 
 $('.search-input').on('keyup', function () {
     clearTimeout(timeSearchEtapas);
@@ -102,6 +103,7 @@ function getEtapas() {
                 $.each(list, function (index, value) {
                     var checked = value.check == 'C' ? 'checked' : '';
                     var comments = value.comments;
+                    let date_abertura = value.data_abertura != null ? '<i data-toggle="tooltip" title="" data-original-title="informações" style="color:#002bff" class="fa fa-fw fa-info"></i>' : null
 
                     if (comments[0]) {
                         var textComment = comments[0].text_limit
@@ -115,7 +117,7 @@ function getEtapas() {
                                         data-id="${value.id}">
                                     <label for="chk${value.id}" class="toggle"></label>
                                 </div>
-                                <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name}</a>
+                                <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name} ${date_abertura} </a>
                             </div>
                             <div class="col-mail col-mail-2">
                                 <span class="teaser">${textComment ?? ''}</span>
@@ -291,7 +293,7 @@ function getCommentsEtp(etpId) {
 
 $('#select--department_id').on('change', function () {
     var departmenId = $(this).val();
-    if(departmenId != ''){
+    if (departmenId != '') {
         getDepartmentById(departmenId);
     }
 })
@@ -341,9 +343,10 @@ function autosize() {
     var el = this;
     setTimeout(function () {
         el.style.cssText = 'height:auto; padding:0';
+        let scroll = parseFloat(40) + el.scrollHeight;
         // for box-sizing other than "content-box" use:
         // el.style.cssText = '-moz-box-sizing:content-box';
-        el.style.cssText = 'height:' + el.scrollHeight + 'px';
+        el.style.cssText = 'height:' + scroll + 'px';
     }, 0);
 }
 
@@ -366,7 +369,39 @@ function updateStatus(v) {
             toastr.error('Não foi possivel atualizar a etapa, tente de novo');
         },
     });
+}
 
+
+$('.input-update-obra').on('keyup', function () {
+    let collumn = $(this).attr('name');
+    let value = $(this).val();
+    $(`.${collumn}-span-save`).html('Salvando...')
+    clearTimeout(timeUpdateObra);
+    timeUpdateObra = setTimeout(function () {
+        updateObra(collumn, value);
+    }, 900);
+});
+
+function updateObra(collumn, value) {
+    $.ajax({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: `${BASE_URL_API_OBRA}update`,
+        type: "POST",
+        ajax: true,
+        dataType: "JSON",
+        data: {
+            collumn: collumn,
+            value: value,
+        },
+        complete: function () {
+            $(`.${collumn}-span-save`).html('Salvo')
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            toastr.error('Não foi possivel atualizar a etapa, tente de novo');
+        },
+    });
 }
 
 

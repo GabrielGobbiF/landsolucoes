@@ -23,7 +23,7 @@ class ObraResource extends JsonResource
             "id" => $this->id,
             "razao_social" => $this->razao_social,
             "clients.username" => $this->username,
-            "client.concessionaria.service" => Str::of($this->username)->append(' - ' .$this->concessionaria_name)->append(' - ' .$this->service_name),
+            "client.concessionaria.service" => Str::of($this->username)->append(' - ' . $this->concessionaria_name)->append(' - ' . $this->service_name),
             "concessionaria_name" => $this->concessionaria_name,
             "concessionaria.service" => Str::of($this->concessionaria_name)->append(' - ' . $this->service_name),
             "service.name" => $this->service_name,

@@ -41,8 +41,12 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::get('concessionaria/{concessionaria_id}/services', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'servicesByConcessionariaId'])->name('concessionaria.service.all');
 
     /**
-    * Etapas
-    */
+     * Etapas
+     */
+
+    Route::post('obra/{obra_id}/update', [App\Http\Controllers\Api\ObraApiController::class, 'update'])->name('api.obra.update');
+
+
     Route::get('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'all'])->name('obra.etapa.all');
     Route::get('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'get'])->name('obra.etapa.show');
     Route::get('etapa/{etapa_id}/comments', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'getComments'])->name('obra.etapa.comments');
@@ -51,8 +55,8 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::post('obra/{obra_id}/etapa/{etapa_id}/comment/store', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentStore'])->name('obra.etapa.comment.store');
 
     /**
-    * Tasks
-    */
+     * Tasks
+     */
     Route::get('tasks', [App\Http\Controllers\Api\TaskController::class, 'all'])->name('tasks.all');
     Route::post('tasks', [App\Http\Controllers\Api\TaskController::class, 'store'])->name('task.store');
     Route::get('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'show'])->name('task.show');
@@ -60,8 +64,8 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::post('tasks/{task_id}/status', [App\Http\Controllers\Api\TaskController::class, 'updateStatus'])->name('obra.etapa.update.status');
 
     /**
-    * Departamento
-    */
+     * Departamento
+     */
     Route::get('departments/{departmentId}', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'show'])->name('departments.show');
 });
 
@@ -226,7 +230,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::delete('variables/{variable_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\VariableController::class, 'destroy'])->name('variable.destroy');
             Route::get('api/etapas', [App\Http\Controllers\Api\EtapasApiController::class, 'all'])->name('etapas.all');
             Route::get('api/concessionarias/{concessionaria_id}/service/{service_id}/etapas/all', [App\Http\Controllers\Api\EtapasApiController::class, 'etapasInConSev'])->name('concessionaria.service.destroy.etapas.all');
-
         });
     });
 

@@ -140,6 +140,8 @@
                 </div>
 
 
+
+
                 <div class="row">
                     <div class="col-auto align-self-center mg-t-9">
                         <button type="submit" class="btn btn-form form-control btn-primary js-btn-save"> Salvar</button>
@@ -149,26 +151,60 @@
 
             <hr class="my-5">
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2">
-                        <h5 class="mt-0 font-size-14">Observações do Sistema</h5>
-                    </div>
-                    <div class="media mb-4">
-                        @include('pages.painel._partials.avatar', [
-                        'avatar' => '',
-                        'name' => Auth::user()->name,
-                        ])
-                        <div class="media-body align-self-center ml-2">
-                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                                <input type="text" name="obs_texto" class="form-control js-new-comment " placeholder="Escreva um comentário..." id="input-new-comment">
-                                <button type="submit" class="btn btn-primary js-btn-new-comment" onclick="newComment()">Enviar</button>
+
+            <div class="col-12">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Observações do Sistema</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pendências</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="media mb-4">
+                                    @include('pages.painel._partials.avatar', [
+                                    'avatar' => '',
+                                    'name' => Auth::user()->name,
+                                    ])
+                                    <div class="media-body align-self-center ml-2">
+                                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                                            <input type="text" name="obs_texto" class="form-control js-new-comment " placeholder="Escreva um comentário..." id="input-new-comment">
+                                            <button type="submit" class="btn btn-primary js-btn-new-comment" onclick="newComment()">Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="etapas-comments" style="height: 100vh;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="etapas-comments" style="height: 100vh;"></div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="row mt-4">
+                                <h6 class="">Desenvolvendo</h6>
+                                <div class=" col-12 d-none">
+                                    <div class="media mb-4">
+                                        @include('pages.painel._partials.avatar', [
+                                        'avatar' => '',
+                                        'name' => Auth::user()->name,
+                                        ])
+                                        <div class="media-body align-self-center ml-2">
+                                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                                                <input type="text" name="obs_texto" class="form-control js-new-comment " placeholder="Escreva um comentário..." id="input-new-comment">
+                                                <button type="submit" class="btn btn-primary js-btn-new-comment" onclick="newComment()">Enviar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="etapas-pendencias" style="height: 100vh;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

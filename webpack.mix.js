@@ -21,6 +21,7 @@ mix
         //'resources/assets/lib/js/functions/sidebar/waves.js',
         'public/panel/js/lib/bootstrap-table.js',
         'public/panel/js/lib/helpers.js',
+        'public/panel/js/lib/cep.js',
     ], 'public/panel/js/all.js')
 
     //Painel

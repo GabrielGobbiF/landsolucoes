@@ -60591,7 +60591,7 @@ select.select2.is-valid + .select2.select2-container.select2-container--default 
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  width: 57%;
+  width: 74%;
   visibility: hidden;
   background-color: #fff;
   background-clip: padding-box;

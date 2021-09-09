@@ -11,7 +11,7 @@
         </div>
         <div class="form-group col-md-7">
             <label for="inputrua">Rua</label>
-            <input type="text" class="form-control" id="input_rua" name="endereco[rua]" value="">
+            <input type="text" class="form-control" id="input--street" name="endereco[rua]" value="">
         </div>
         <div class="form-group col-md-2">
             <label for="inputnumero">Nº </label>
@@ -23,16 +23,16 @@
         </div>
         <div class="form-group col-md-3">
             <label for="inputbairro">Bairro</label>
-            <input type="text" class="form-control" id="input_bairro" name="endereco[bairro]" value="">
+            <input type="text" class="form-control" id="input--district" name="endereco[bairro]" value="">
         </div>
         <div class="form-group col-md-3">
             <label for="inputcidade">Cidade</label>
-            <input type="text" class="form-control" id="input_cidade" name="endereco[cidade]" value="">
+            <input type="text" class="form-control" id="input--city" name="endereco[cidade]" value="">
         </div>
 
         <div class="form-group col-md-2">
             <label for="inputestado">Estado</label>
-            <input type="text" class="form-control" id="input_estado" name="endereco[estado]" value="">
+            <input type="text" class="form-control" id="input--state" name="endereco[estado]" value="">
         </div>
 
     </div>
@@ -42,20 +42,19 @@
 
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
-    document.getElementById('input_rua').value = ('');
-    document.getElementById('input_rua').value = ('');
-    document.getElementById('input_bairro').value = ('');
-    document.getElementById('input_cidade').value = ('');
-    document.getElementById('input_estado').value = ('');
+    document.getElementById('input--street').value = ('');
+    document.getElementById('input--district').value = ('');
+    document.getElementById('input--city').value = ('');
+    document.getElementById('input--state').value = ('');
 }
 
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         //Atualiza os campos com os valores.
-        document.getElementById('input_rua').value = (conteudo.logradouro);
-        document.getElementById('input_bairro').value = (conteudo.bairro);
-        document.getElementById('input_cidade').value = (conteudo.localidade);
-        document.getElementById('input_estado').value = (conteudo.uf);
+        document.getElementById('input--street').value = (conteudo.logradouro);
+        document.getElementById('input--district').value = (conteudo.bairro);
+        document.getElementById('input--city').value = (conteudo.localidade);
+        document.getElementById('input--state').value = (conteudo.uf);
 
     } //end if.
     else {
@@ -79,7 +78,7 @@ function pesquisacep(valor) {
         if (validacep.test(cep)) {
 
             //Preenche os campos com "..." enquanto consulta webservice.
-            document.getElementById('input_rua').value = "consultando";
+            document.getElementById('input--street').value = "consultando";
 
             //Cria um elemento javascript.
             var script = document.createElement('script');

@@ -12,26 +12,24 @@
 
                     <input type="hidden" id="input--obra_id" value="{{ $obra->id }}">
 
-                    <div class="row">
-                        <div class="col-md-12 mb-2 my-4">
-                            <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modal-update-obra'>Editar Obra</button>
-                        </div>
+                    <div class="row mt-4">
                         <h4 class="col-12 mb-3">Obra <small class="text-muted js-input-obra-name editable">{{ $obra->razao_social ?? '' }}</small></h4>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-community-line mr-2"></i> {{ $obra->concessionaria->name ?? '' }}</h6>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-git-repository-private-fill mr-2"></i> {{ $obra->service->name ?? '' }}</h6>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-calendar-event-line mr-2"></i> {{ return_format_date($obra->build_at, 'pt', '/') ?? '' }}</h6>
+                        <h6 class="col-12 mb-3 d-flex tx-18"> <i class="fas fa-map-marked mr-2"></i> {{ $obra->AddressComplete }}</h6>
 
                         <div class="col-12 mt-3">
                             <div class="form-group">
-                                <label for="input--description">Descrição da Obra</label>
-                                <textarea type="text" name="description" class="form-control">{{ $obra->description ?? '' }}</textarea>
+                                <label style="width:100%" for="input--description">Descrição da Obra <span class="description-span-save float-right"><span> </label>
+                                <textarea type="text" name="description" class="form-control input-update-obra">{{ $obra->description ?? '' }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="input--description">Informações Importantes</label>
-                                <textarea type="text" name="description" class="form-control">{{ $obra->obr_informacoes ?? '' }}</textarea>
+                                <label style="width:100%" for="input--description">Informações Importantes <span class="obr_informacoes-span-save float-right"><span></label>
+                                <textarea type="text" name="obr_informacoes" class="form-control input-update-obra">{{ $obra->obr_informacoes ?? '' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -79,18 +77,38 @@
         </div>
 
         <div class="main">
+
+            <div class="col-12 col-md-8">
+                <div class="box box-default box-solid">
+                    <div class="box-body mg-0 pd-0">
+                        <div class="mail-content-header d-flex">
+                            <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modal-update-obra'>Editar Obra</button>
+                            <nav class="nav nav-icon-only mg-l-auto">
+                                <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-none d-sm-block">
+                                    <i data-feather="archive"></i>
+                                </a>
+                                <a href="" rel="tooltip" title="Excluir Obra" class="nav-link d-none d-sm-block" data-original-title="Archive">
+                                    <i data-feather="trash"></i>
+                                </a>
+                                <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 col-md-8">
                 <div class="obr-etapa">
                     <div class="box box-default box-solid">
                         <div class="col-md-12">
                             <div class="box-header with-border">
-                                <h3 class="box-title text-center mb-2">Etapas</h3>
+                                <h3 class="box-title text-center my-2">Etapas</h3>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <select name="type" id="select--type" class="form-control select2 search-input">
                                             <option value="" selected>Todos</option>
                                             @foreach ($tipos as $tipo)
-                                                <option value="{{ $tipo->id }}">{{$tipo->name}}</option>
+                                                <option value="{{ $tipo->id }}">{{ $tipo->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -113,10 +131,7 @@
         @include('pages.painel.obras.obras.etapas.show_right')
         @include('pages.painel.obras._partials.modals.modal-update-obra')
     </div>
-
-
+@stop
 @section('scripts')
     <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
 @endsection
-
-@stop

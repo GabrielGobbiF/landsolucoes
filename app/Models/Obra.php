@@ -36,6 +36,20 @@ class Obra extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['AddressComplete'];
+
+    public function getAddressCompleteAttribute()
+    {
+        if ($this->address != '') {
+            $street = $this->address->street;
+            $number = $this->address->number;
+            $complement = $this->address->complement != '' ?  ", " . $this->address->complement : null;
+            return $street . ", Nº " . $number . $complement;
+        }
+
+        return 'Endereço não informado';
+    }
+
     public function departments()
     {
         return $this->belongsTo(Department::class, 'client_id');
