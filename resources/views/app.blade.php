@@ -21,8 +21,38 @@
 
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
 
+    <script>
+        const base_url = $('meta[name="js-base_url"]').attr('content');
+        const base_url_api = $('meta[name="js-base_url_api"]').attr('content');
+        const url = $('meta[name="url"]').attr('content');
+    </script>
+
     <!-- todoFazer  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+        .form-group-money input {
+            border-top: 1px solid #ced4da;
+            border-bottom: 1px solid #ced4da;
+            border-right: 1px solid #ced4da;
+            border-left: none;
+        }
+
+        .input-group-text-cifr {
+            padding: 0.5rem 0.47rem 0px 0.5rem;
+            color: #505d69;
+            border-top: 1px solid #ced4da;
+            border-bottom: 1px solid #ced4da;
+            border-left: 1px solid #ced4da;
+            border-right: none;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+
+        .form-control-money {
+            padding: 0px !important;
+        }
+
+    </style>
 
 </head>
 

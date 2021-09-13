@@ -61383,6 +61383,11 @@ select.select2.is-valid + .select2.select2-container.select2-container--default 
   border-radius: 5px;
   background: #3498db;
 }
+.message-list .checkbox-wrapper-mail input.danger:checked ~ label {
+  opacity: 1;
+  border-radius: 5px;
+  background: #db3434;
+}
 .message-list .checkbox-wrapper-mail label {
   position: absolute;
   height: 20px;

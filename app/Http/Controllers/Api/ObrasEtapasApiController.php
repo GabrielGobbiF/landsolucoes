@@ -119,9 +119,62 @@ class ObrasEtapasApiController extends Controller
         }
 
         $etapa = $obra->etapas()->where('id', $etapa_id)->first();
+        $etapaNome = $etapa->nome;
+        $obraNome = $obra->razao_social;
+
+        $etapaFinanceiro = $obra->etapas_financeiro()->where('etapa_id', $etapa->id)->first();
 
         $etapa = $etapa->update(['check' => $check]);
 
+        if ($etapaFinanceiro && $check == 'C') {
+            /* todoFazer  */
+            #slack("Obra: $obraNome \n Etapa: $etapaNome Liberado para faturamento veja " . route('obras.finance', $obra->id));
+        }
+
         return $etapa;
+    }
+
+    public function deleteSelected(Request $request, $obraId)
+    {
+        $etapas = $request->input('id_etapa');
+
+        if (!$obra = $this->obra->where('id', $obraId)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        if ($etapas && count($etapas) > 0) {
+            foreach ($etapas as $etp) {
+                $etapa = $obra->etapas()->where('id', $etp)->first();
+                if ($etapa) {
+                    $etapa->delete();
+                }
+            }
+        }
+
+        return response()->json('Deletado com sucesso', 200);
+    }
+
+    public function updateSelecteds(Request $request, $obraId)
+    {
+        $columns = $request->only(['meta_etapa', 'responsavel']);
+        $etapas = $request->input('etapas');
+        $etapas = explode(',', $etapas);
+
+        if (!$obra = $this->obra->where('id', $obraId)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        if ($etapas && count($etapas) > 0) {
+            foreach ($etapas as $etp) {
+                $etapa = $obra->etapas()->where('id', $etp)->first();
+                if ($etapa) {
+                    $etapa->update($columns);
+                }
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->with('Atualizado com sucesso');
     }
 }

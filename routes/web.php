@@ -44,9 +44,9 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
      * Etapas
      */
 
+    Route::delete('obra/{obra_id}/etapa/deleteSelected', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'deleteSelected'])->name('obra.etapa.destroy.selected');
     Route::post('obra/{obra_id}/update', [App\Http\Controllers\Api\ObraApiController::class, 'update'])->name('api.obra.update');
-
-
+    Route::post('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateSelecteds'])->name('obra.etapa.update.selecteds');
     Route::get('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'all'])->name('obra.etapa.all');
     Route::get('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'get'])->name('obra.etapa.show');
     Route::get('etapa/{etapa_id}/comments', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'getComments'])->name('obra.etapa.comments');
@@ -67,6 +67,13 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
      * Departamento
      */
     Route::get('departments/{departmentId}', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'show'])->name('departments.show');
+
+    /*
+      |--------------------------------------------------------------------------
+      | Etapas X Faturamento
+      |--------------------------------------------------------------------------
+    */
+    Route::get('obras/{obraId}/finance/{faturamentoId}', [App\Http\Controllers\Api\FinanceiroApiController::class, 'show'])->name('etapas.faturamento.show');
 });
 
 Route::group(['middleware' => ['CheckPassword']], function () {
@@ -170,7 +177,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Obras
             |--------------------------------------------------------------------------
             */
+            Route::get('obras/{obraId}/finance', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'index'])->name('obras.finance');
             Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
+
+            Route::put('obras/{obraId}/finance/{faturamentoId}/update', [App\Http\Controllers\Api\FinanceiroApiController::class, 'update'])->name('etapas.faturamento.update');
 
             /*
             |--------------------------------------------------------------------------
@@ -218,8 +228,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::resource('etapas', App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class);
-
             Route::delete('comercial/etapasFinanceiro/{etapa_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class, 'etapas_financeiro_destroy'])->name('comercial.etapas.financeiro.store');;
+
+
 
             /*
             |--------------------------------------------------------------------------

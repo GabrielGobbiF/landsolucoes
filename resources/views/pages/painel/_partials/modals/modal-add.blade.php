@@ -1,7 +1,7 @@
 <div class="modal" id="modal-add-{{ $type }}" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered {{ isset($modalSize) ? $modalSize : null }}" role="document">
         <div class="modal-content">
-            <form id="form-add-client" autocomplete="off" role="form" class="needs-validation" action="{{ route("$type.store", ['redirect' => $redirect]) }}" method="POST">
+            <form id="form-add-{{ $type }}" autocomplete="off" role="form" class="needs-validation" action="{{ route("$type.store", ['redirect' => $redirect ?? '']) }}" method="POST">
                 <input type="hidden" name="redirect" value="{{ $redirect ?? null }}">
                 <div class="modal-header">
                     <h5 class="modal-title">Adicionar novo(a) {{ __('text.' . singular($type, false)) }} </h5>

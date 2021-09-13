@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Financial;
+use App\Models\EtapasFaturamento;
 use Illuminate\Http\Request;
 
-class FinancialController extends Controller
+class EtapasFaturamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class FinancialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Financial  $Financial
+     * @param  \App\Models\EtapasFaturamento  $etapasFaturamento
      * @return \Illuminate\Http\Response
      */
-    public function show(Financial $Financial)
+    public function show(EtapasFaturamento $etapasFaturamento)
     {
         //
     }
@@ -52,10 +52,10 @@ class FinancialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Financial  $Financial
+     * @param  \App\Models\EtapasFaturamento  $etapasFaturamento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Financial $Financial)
+    public function edit(EtapasFaturamento $etapasFaturamento)
     {
         //
     }
@@ -64,10 +64,10 @@ class FinancialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Financial  $Financial
+     * @param  \App\Models\EtapasFaturamento  $etapasFaturamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Financial $Financial)
+    public function update(Request $request, EtapasFaturamento $etapasFaturamento)
     {
         //
     }
@@ -75,10 +75,10 @@ class FinancialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Financial  $Financial
+     * @param  \App\Models\EtapasFaturamento  $etapasFaturamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Financial $Financial)
+    public function destroy(EtapasFaturamento $etapasFaturamento)
     {
         //
     }

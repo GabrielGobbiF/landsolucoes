@@ -2,12 +2,19 @@
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Illuminate\Support\Str;
 
 function formatDateAndTime($value, $format = 'd/m/Y')
 {
     // Utiliza a classe de Carbon para converter ao formato de data ou hora desejado
     return Carbon::parse($value)->format($format);
 }
+
+function maskPrice($number = 0)
+{
+    return number_format($number, 2, '.', ',');
+}
+
 
 function getIconByExtDoc($extensao)
 {
@@ -163,8 +170,27 @@ function singular($tx)
     return Str::singular($tx);
 }
 
-function clear($v){
+function clear($v)
+{
 
     return str_replace(['(', ')', '-', ' '], '', $v);
+}
 
+/**
+ * Makes translation fall back to specified value if definition does not exist
+ *
+ * @param string $key
+ * @param null|string $fallback
+ * @param null|string $locale
+ * @param array|null $replace
+ *
+ * @return array|\Illuminate\Contracts\Translation\Translator|null|string
+ */
+function __trans(string $key, ?string $fallback = null, ?string $locale = null, ?array $replace = [])
+{
+    if (\Illuminate\Support\Facades\Lang::has($key, $locale)) {
+        return trans($key, $replace, $locale);
+    }
+
+    return $fallback;
 }

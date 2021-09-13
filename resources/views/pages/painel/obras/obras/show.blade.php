@@ -83,6 +83,8 @@
                     <div class="box-body mg-0 pd-0">
                         <div class="mail-content-header d-flex">
                             <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modal-update-obra'>Editar Obra</button>
+                            <a href="{{ route('obras.finance', $obra->id) }}" class='btn btn-outline-primary ml-2'>Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
+                            <a href="{{ route('comercial.show', $obra->id) }}" class='btn btn-outline-primary ml-2'>Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
                             <nav class="nav nav-icon-only mg-l-auto">
                                 <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-none d-sm-block">
                                     <i data-feather="archive"></i>
@@ -103,7 +105,11 @@
                         <div class="col-md-12">
                             <div class="box-header with-border">
                                 <h3 class="box-title text-center my-2">Etapas</h3>
-                                <div class="row">
+                                <button type="button" data-type="active" class="btn btn-box-tool mode-edition"><i class="fa fa-plus-circle"></i> Modo Edição</button>
+                                <button type="button" data-type="exit" class="btn btn-box-tool mode-edition d-none"><i class="fa fa-plus-circle"></i> Sair modo Edição</button>
+                                <button type="button" id="deleteSelectionEtapa" data-type="deleteall" class="btn btn-box-tool mode d-none"><i class="fa fa-trash"></i> Deletar Selecionados</button>
+                                <button type="button" id="updateSelectionEtapa" data-type="updateall" class="btn btn-box-tool mode d-none"><i class="fa fa-edit"></i> Atualizar Selecionados</button>
+                                <div class="row mt-3">
                                     <div class="col-md-6">
                                         <select name="type" id="select--type" class="form-control select2 search-input">
                                             <option value="" selected>Todos</option>
@@ -130,6 +136,7 @@
 
         @include('pages.painel.obras.obras.etapas.show_right')
         @include('pages.painel.obras._partials.modals.modal-update-obra')
+        @include('pages.painel.obras._partials.modals.modal-update-etapa-all')
     </div>
 @stop
 @section('scripts')

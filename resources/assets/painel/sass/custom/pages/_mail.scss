@@ -175,6 +175,11 @@
             border-radius: 5px;
             background: #3498db;
         }
+        input.danger:checked ~ label {
+            opacity: 1;
+            border-radius: 5px;
+            background: #db3434;
+        }
 
         label {
             position: absolute;

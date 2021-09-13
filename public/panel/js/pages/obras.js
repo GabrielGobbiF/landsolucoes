@@ -103,7 +103,7 @@ function getEtapas() {
                 $.each(list, function (index, value) {
                     var checked = value.check == 'C' ? 'checked' : '';
                     var comments = value.comments;
-                    let date_abertura = value.data_abertura != null ? '<i data-toggle="tooltip" title="" data-original-title="informações" style="color:#002bff" class="fa fa-fw fa-info"></i>' : null
+                    let date_abertura = value.data_abertura != null ? '<i data-toggle="tooltip" title="" data-original-title="informações" style="color:#002bff" class="fa fa-fw fa-info"></i>' : ''
 
                     if (comments[0]) {
                         var textComment = comments[0].text_limit
@@ -117,6 +117,14 @@ function getEtapas() {
                                         data-id="${value.id}">
                                     <label for="chk${value.id}" class="toggle"></label>
                                 </div>
+
+                                <div class="checkbox-wrapper-mail d-none">
+                                    <input type="checkbox" class="js-btn-mode-input danger"
+                                        id="chk_danger${value.id}"
+                                        value="${value.id}">
+                                    <label for="chk_danger${value.id}" class="toggle"></label>
+                                </div>
+
                                 <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name} ${date_abertura} </a>
                             </div>
                             <div class="col-mail col-mail-2">
@@ -403,6 +411,66 @@ function updateObra(collumn, value) {
         },
     });
 }
+
+$('.mode-edition').on('click', function () {
+    $('.mode-edition').removeClass('d-none');
+    $(this).toggleClass('d-none');
+    $('.checkbox-wrapper-mail').toggleClass('d-none');
+    let type = $(this).attr('data-type');
+    type == 'active' ? modoActive() : modoExit();
+})
+
+function modoActive() {
+    toastr.warning('modo edição ativado')
+    $('.mode').removeClass('d-none')
+}
+
+function modoExit() {
+    $('.mode').toggleClass('d-none');
+    $('.mode-edition').toggleClass('d-none');
+}
+
+$("#deleteSelectionEtapa").on("click", function () {
+    let arr = [];
+    $(".js-btn-mode-input:checked").each(function () {
+        arr.push($(this).val());
+    });
+
+    if (arr != '') {
+        axios({
+            method: 'DELETE',
+            url: `${BASE_URL_API_OBRA}etapa/deleteSelected`,
+            data: {
+                id_etapa: arr,
+            },
+        }).then(response => {
+            modoExit();
+            getEtapas();
+            toastr.success(response.data);
+        }).catch(e => {
+            toastr.error('Erro contate o administrador');
+        })
+    } else {
+        toastr.error('selecione alguma etapa')
+    }
+});
+
+$('#updateSelectionEtapa').on('click', function () {
+    const modalEtp = $('#modal-update-etapa-selecteds')
+    let arr = [];
+    $(".js-btn-mode-input:checked").each(function () {
+        arr.push($(this).val());
+    });
+
+    console.log(arr);
+    modalEtp.find('#input--etapas').val(arr)
+    modalEtp.modal('show');
+})
+
+
+
+
+
 
 
 

@@ -150,5 +150,12 @@ return [
                 'route' => 'relatorios.employees',
             ],
         ]
+        ],
+
+    'colunas_faturamento' => [
+        'Land Admin',
+        'Land MO',
+        'Materiais',
+        'Terceiros',
     ]
 ];
