@@ -17,7 +17,7 @@
     <div class="col-12 col-md-2">
         <div class="form-group">
             <label for="input--nf_n">NF Nº</label>
-            <input type="text" name="nf_n" class="form-control @error('nf_n') is-invalid @enderror" id="input--nf_n" value="{{ old('nf_n') }}" autocomplete="off">
+            <input type="text" name="nf_n" class="form-control @error('nf_n') is-invalid @enderror" id="input--nf_n" value="{{ old('nf_n') ?? '' }}" autocomplete="off">
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <div class="form-group">
             <label for="input--data_emissao">Data Emissão</label>
             <input type="text" name="data_emissao" class="form-control date @error('data_emissao') is-invalid @enderror" id="input--data_emissao"
-                value="{{ old('data_emissao') ?? date('Y-m-d') }}" autocomplete="off" required>
+                value="{{ old('data_emissao') ?? date('d/m/Y') }}" autocomplete="off" required>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <div class="form-group">
             <label for="input--data_vencimento">Data Vencimento</label>
             <input type="text" name="data_vencimento" class="form-control date @error('data_vencimento') is-invalid @enderror" id="input--data_vencimento"
-                value="{{ old('data_vencimento') }}" autocomplete="off" required>
+                value="{{ old('data_vencimento') ?? '' }}" autocomplete="off" required>
         </div>
     </div>
 
@@ -44,9 +44,14 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text-cifr">R$</span>
                 </div>
-                <input type="text" name="valor" class="form-control @error('valor') is-invalid @enderror money" id="input--valor" value="{{ old('valor') }}" autocomplete="off" required>
+                <input type="text" name="valor" class="form-control @error('valor') is-invalid @enderror money" id="input--valor" value="{{ old('valor') ?? '' }}" autocomplete="off" required>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-12" style="text-align: end;">
+        <button type="button" class="btn btn-primary btn-submit"> <i class="fas fa-edit"></i> Adicionar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
     </div>
 
 </div>

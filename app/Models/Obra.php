@@ -40,7 +40,7 @@ class Obra extends Model
 
     public function getAddressCompleteAttribute()
     {
-        if ($this->address != '') {
+        if (isset($this->address) && $this->address->street != '') {
             $street = $this->address->street;
             $number = $this->address->number;
             $complement = $this->address->complement != '' ?  ", " . $this->address->complement : null;

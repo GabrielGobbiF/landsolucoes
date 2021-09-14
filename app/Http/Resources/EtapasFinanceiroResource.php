@@ -17,21 +17,35 @@ class EtapasFinanceiroResource extends JsonResource
      */
     public function toArray($request)
     {
+        $history = null;
+
         $data = [
             "id" => $this->id,
             "nome_etapa" => $this->nome_etapa,
+            "name_max" => ucfirst(mb_strtolower(mb_strimwidth($this->nome_etapa, 0, 38, "..."), 'utf-8')),
         ];
 
-        if ($request->input('history'))
-            $data['history'] = $this->faturamento()->get();
+        $data['history'] = [];
+
+        if ($request->input('history')) {
+            $history = $this->getEtapasFaturamento();
+            $data['history'] = EtapasFaturamento::collection($history['history']);
+        }
+
+        $data['faturado'] = $history['faturado'] ?? 0;
+        $data['aReceber'] = $this->valor_receber -  $data['faturado'];
 
         return $data;
     }
 
-    public function buttons()
+    private function getEtapasFaturamento()
     {
-        '<a type="button" class="btn btn-info" onclick="edit_etapa(591)"><i class="fas fa-edit"></i></a>
-         <a class="btn btn-danger"> <i class="fas fa-trash"></i> </a>
-        ';
+        $faturamento = $this->faturamento()->get();
+        $faturado = $faturamento->sum('valor') ?? 0;
+
+        return [
+            'history' => EtapasFaturamento::collection($faturamento),
+            'faturado' => $faturado,
+        ];
     }
 }

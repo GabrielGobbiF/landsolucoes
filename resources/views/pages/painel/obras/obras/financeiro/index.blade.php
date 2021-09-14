@@ -18,8 +18,8 @@
                     <dt class="col-sm-3">CNPJ: </dt>
                     <dd class="col-sm-9">{{ $obra->cnpj }}</dd>
 
-                    <dt class="col-sm-3 mt-2">Ultima Nota: </dt>
-                    <dd class="col-sm-9 mt-2">{{ $obra->last_note }}</dd>
+                    <dt class="col-sm-3 my-1">Ultima Nota: </dt>
+                    <dd class="col-sm-9 my-1">{{ $obra->last_note }}</dd>
 
                     <dt class="col-sm-3">Endereço: </dt>
                     <dd class="col-sm-9">{{ $obra->AddressComplete }}</dd>
@@ -66,13 +66,11 @@
                                     <th>R$ {{ maskPrice($etapaFaturado) }}</th>
                                     <th>R$ {{ maskPrice($etapaValor - $etapaFaturado) }}</th>
                                     <th>
-                                        @if ($status['text'] == 'C')
-                                            <a href="javascript:void(0)" class="btn-faturamento" data-id="{{ $etapa->id }}">
-                                                <div class="badge badge-soft-{{ $status['label'] }}">
-                                                    {{ __('etapa.status.' . $status['text']) }}
-                                                </div>
-                                            </a>
-                                        @endif
+                                        <a href="javascript:void(0)" class="{{ $status['text'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa->id }}">
+                                            <div class="badge badge-soft-{{ $status['label'] }}">
+                                                {{ __('etapa.status.' . $status['text']) }}
+                                            </div>
+                                        </a>
                                     </th>
                                 </tr>
                             @endforeach
@@ -82,8 +80,6 @@
                 <hr class="my-5">
                 <div class="row">
                     <div class="col-6">
-                        <p class="lead">Observações do Sistema:</p>
-                        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
                     </div>
                     <div class="col-6">
                         <div class="table-responsive">

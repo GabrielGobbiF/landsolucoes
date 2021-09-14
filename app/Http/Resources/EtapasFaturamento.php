@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Carbon\Carbon;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
+
+class EtapasFaturamento extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            "identifyFaturamento" => $this->id,
+            "faturamento" => $this->coluna_faturamento,
+            "nfN" => $this->nf_n,
+            "emissao" => $this->data_emissao,
+            "vencimento" => $this->data_vencimento != '' ? Carbon::parse($this->data_vencimento)->format('d/m/Y H:i') : NULL,
+            "emissao" => $this->data_emissao != '' ? Carbon::parse($this->data_emissao)->format('d/m/Y H:i') : NULL,
+            "valor" => maskPrice($this->valor),
+            "recebido" => $this->recebido_status,
+        ];
+    }
+
+    public function getLabelRecebido()
+    {
+    }
+}

@@ -399,6 +399,28 @@ function preload() {
 
     });
 
+    $('.js-btn-confirm').on('click', function (e) {
+        e.preventDefault();
+        const btn = $(this);
+        click++;
+
+        btn.html('<i class="fa fa-exclamation-circle"></i>');
+        btn.addClass("js-click-to-confirm");
+
+        if (click == 2) {
+            var form = btn.closest("form");
+            console.log(form);
+            form.submit();
+        }
+
+        clearTimeout(timeButtonConfirm);
+        timeButtonConfirm = setTimeout(function () {
+            btn.html('<i class="fa fa-trash"></i>');
+            btn.removeClass("js-click-to-confirm");
+            click = 0;
+        }, 1900);
+    });
+
 })(jQuery)
 
 function resetDiv() {
