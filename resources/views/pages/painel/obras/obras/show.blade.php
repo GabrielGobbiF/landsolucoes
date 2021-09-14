@@ -86,10 +86,11 @@
                             <a href="{{ route('obras.finance', $obra->id) }}" class='btn btn-outline-primary ml-2'>Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
                             <a href="{{ route('comercial.show', $obra->id) }}" class='btn btn-outline-primary ml-2'>Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
                             <nav class="nav nav-icon-only mg-l-auto">
-                                <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-none d-sm-block">
+                                <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra" class="nav-link d-none d-sm-block js-btn-delete">
                                     <i data-feather="archive"></i>
                                 </a>
-                                <a href="" rel="tooltip" title="Excluir Obra" class="nav-link d-none d-sm-block" data-original-title="Archive">
+                                <a href="javascript:void(0)" data-text="Deletar" data-href="{{ route('obras.destroy', $obra->id) }}" rel="tooltip" title="Excluir Obra" class="nav-link d-none d-sm-block js-btn-delete"
+                                    data-original-title="Archive">
                                     <i data-feather="trash"></i>
                                 </a>
                                 <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>

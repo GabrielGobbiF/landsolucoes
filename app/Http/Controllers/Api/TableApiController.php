@@ -240,6 +240,7 @@ class TableApiController extends Controller
                 }
             })
             ->where('obras.status', 'aprovada')
+            ->whereNull('obras.deleted_at')
             ->where('obras.deleted_at', NULL)
             ->where(function ($query) use ($filters) {
                 if ($filters['search'] != '') {

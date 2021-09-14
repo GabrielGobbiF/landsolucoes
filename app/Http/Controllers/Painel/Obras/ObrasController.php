@@ -65,7 +65,7 @@ class ObrasController extends Controller
         $this->repository->create($columns);
 
         return redirect()
-            ->route('obra')
+            ->route('obras.index')
             ->with('message', 'Criado com sucesso');
     }
 
@@ -79,7 +79,7 @@ class ObrasController extends Controller
     {
         if (!$obra = $this->repository->with('address')->with('client')->find($id)) {
             return redirect()
-                ->route('obras')
+                ->route('obras.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -145,15 +145,38 @@ class ObrasController extends Controller
     {
         if (!$obra = $this->repository->find($id)) {
             return redirect()
-                ->route('obras')
+                ->route('obras.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
         $obra->delete();
 
         return redirect()
-            ->route('obras')
+            ->route('obras.index')
             ->with('message', 'Deletado com sucesso!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\obra  $obra
+     * @return \Illuminate\Http\Response
+     */
+    public function concluir($id)
+    {
+        if (!$obra = $this->repository->find($id)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $obra->status = 'concluida';
+        $obra->update();
+        $obra->save();
+
+        return redirect()
+            ->route('obras.index')
+            ->with('message', 'Concluida com sucesso!');
     }
 
     /**
@@ -178,19 +201,4 @@ class ObrasController extends Controller
         return view('pages.obra.index', compact('obra', 'filters'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $identify
-     * @return \Illuminate\Http\Response
-     */
-    public function address(array $columns, int $identify)
-    {
-        $columns = $request->all();
-
-
-
-        return $address;
-    }
 }

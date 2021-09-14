@@ -4,6 +4,12 @@
 
 @section('content')
     <section class="invoice">
+
+        <div class="d-flex justify-content-between">
+            <a href="{{route('comercial.show', $obra->id)}}" class="btn btn-box-tool tx-20-f btn-lg"> <i class="fa fa-long-arrow-alt-left"></i> Comercial </a>
+            <a href="{{route('obras.show', $obra->id)}}" class="btn btn-box-tool tx-20-f btn-lg">  Obra <i class="fa fa-long-arrow-alt-right"></i>  </a>
+        </div>
+
         <div class="box box-solid">
             <div class="box-header with-border">
                 <i class="fab fa-cc-apple-pay tx-20 mx-2"></i>
@@ -45,6 +51,8 @@
                                 $totalFaturado = 0;
                                 $totalRecebido = 0;
                                 $totalAReceber = 0;
+                                $etapaFaturado = 0;
+                                $etapaValor = 0;
                             @endphp
                             @foreach ($etapas as $etapa)
                                 @php
