@@ -50,14 +50,16 @@
                                 @php
                                     $status = $etapa->StatusEtapa;
 
-                                    $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
-                                    $etapaFaturado = $etapa->faturado();
-                                    $etapaRecebido = $etapa->recebido();
+                                    if ($status) {
+                                        $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
+                                        $etapaFaturado = $etapa->faturado();
+                                        $etapaRecebido = $etapa->recebido();
 
-                                    $totalFaturado += $etapaFaturado;
-                                    $saldoAFaturar += $etapaValor - $etapaFaturado;
-                                    $totalRecebido += $etapaRecebido;
-                                    $totalAReceber += $etapaFaturado - $etapaRecebido;
+                                        $totalFaturado += $etapaFaturado;
+                                        $saldoAFaturar += $etapaValor - $etapaFaturado;
+                                        $totalRecebido += $etapaRecebido;
+                                        $totalAReceber += $etapaFaturado - $etapaRecebido;
+                                    }
 
                                 @endphp
                                 <tr>
