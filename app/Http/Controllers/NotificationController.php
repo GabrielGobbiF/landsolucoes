@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\VehicleActivities;
-use App\Notifications\SendNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class NotificationController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +50,7 @@ class NotificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function read(Request $request, $uid)
+    public function show($uid)
     {
         $user = Auth::user();
 
@@ -62,14 +58,10 @@ class NotificationController extends Controller
 
         $notification->markAsRead();
 
-        if ($request->input('type') == 'json') {
-            return response([], 200);
-        }
-
         if ($notification->data['link'] != '') {
             return redirect($notification->data['link']);
         } else {
-            return redirect()->route('notification');
+            return redirect()->route('notifications.index');
         }
     }
 
@@ -87,7 +79,7 @@ class NotificationController extends Controller
             $notification->markAsRead();
         });
 
-        return redirect()->back();
+        return redirect()->route('notifications.index');
     }
 
     /**
@@ -102,7 +94,7 @@ class NotificationController extends Controller
 
         if (!$notification = $user->notifications()->find($uid)) {
             return redirect()
-                ->route('notification')
+                ->route('notifications.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -111,7 +103,7 @@ class NotificationController extends Controller
         $notification->update();
 
         return redirect()
-            ->route('notification')
+            ->route('notifications.index')
             ->with('message', 'Arquivada com sucesso!');
     }
 
@@ -127,7 +119,7 @@ class NotificationController extends Controller
 
         if (!$notification = $user->notifications()->find($uid)) {
             return redirect()
-                ->route('notification')
+                ->route('notifications.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -137,19 +129,7 @@ class NotificationController extends Controller
         $notification->update();
 
         return redirect()
-            ->route('notification')
+            ->route('notifications.index')
             ->with('message', 'Deletada com sucesso!');
-    }
-
-    public function notifyUsersTest()
-    {
-        $text = 'oi';
-        $user = Auth::user();
-        $user->notify(new SendNotification($text));
-    }
-
-    private function notifyUsers($players, $text)
-    {
-        $players->each->notify(new SendNotification($text));
     }
 }

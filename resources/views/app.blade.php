@@ -102,9 +102,7 @@
                             </div>
                         </div>
 
-                        @if (1 == 2)
-                            <x-notification />
-                        @endif
+                        <x-notification />
 
                         @if (auth()->check())
                             <div class="dropdown d-inline-block user-dropdown">

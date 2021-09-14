@@ -3,7 +3,7 @@
         <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
-                    @if (isset($menus['back']) && $menus['back'])
+                    @if (isset($menus[0]['back']) && $menus[0]['back'])
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url()->previous() }}">
                                 <i class="fas fa-arrow-left mr-2"></i>

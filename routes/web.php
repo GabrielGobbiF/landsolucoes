@@ -76,14 +76,19 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::get('obras/{obraId}/finance/{etapaId}', [App\Http\Controllers\Api\FinanceiroApiController::class, 'show'])->name('etapas.faturamento.show');
     Route::delete('obras/{obraId}/finance/{etapaId}/{faturamentoId}/destroy', [App\Http\Controllers\Api\FinanceiroApiController::class, 'destroy'])->name('etapas.faturamento.destroy');
     Route::put('obras/{obraId}/finance/{etapaId}/{faturamentoId}/updateStatus', [App\Http\Controllers\Api\FinanceiroApiController::class, 'updateStatus'])->name('etapas.faturamento.update.status');
-
 });
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
+    Route::get('/notifications/{uuid}/archived', [App\Http\Controllers\NotificationController::class, 'archived'])->name('notifications.archived');
+    Route::get('/notifications/{uuid}/deleted', [App\Http\Controllers\NotificationController::class, 'deleted'])->name('notifications.deleted');
+    Route::get('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'readAll'])->name('notifications.read.all');
+    Route::resource('notifications', App\Http\Controllers\NotificationController::class);
+
     Route::get('/', function () {
         return view('welcome');
     })->name('home')->middleware('auth');
+
 
     Route::group(['middleware' => 'role:rh'], function () {
         /*
@@ -318,12 +323,12 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     | Notifications
     |--------------------------------------------------------------------------
     */
-    Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification');
-    Route::get('/notify/sendTest', [App\Http\Controllers\NotificationController::class, 'notifyUsersTest'])->name('notifications.send.test');
-    Route::get('/notifications/{uuid}/read', [App\Http\Controllers\NotificationController::class, 'read'])->name('notifications.read');
-    Route::get('/notifications/{uuid}/archived', [App\Http\Controllers\NotificationController::class, 'archived'])->name('notifications.archived');
-    Route::get('/notifications/{uuid}/deleted', [App\Http\Controllers\NotificationController::class, 'deleted'])->name('notifications.deleted');
-    Route::get('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'readAll'])->name('notifications.read.all');
+    //Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification');
+    //Route::get('/notify/sendTest', [App\Http\Controllers\NotificationController::class, 'notifyUsersTest'])->name('notifications.send.test');
+    //Route::get('/notifications/{uuid}/read', [App\Http\Controllers\NotificationController::class, 'read'])->name('notifications.read');
+    //Route::get('/notifications/{uuid}/archived', [App\Http\Controllers\NotificationController::class, 'archived'])->name('notifications.archived');
+    //Route::get('/notifications/{uuid}/deleted', [App\Http\Controllers\NotificationController::class, 'deleted'])->name('notifications.deleted');
+    //Route::get('/notifications/read-all', [App\Http\Controllers\NotificationController::class, 'readAll'])->name('notifications.read.all');
 
     /*
     |--------------------------------------------------------------------------

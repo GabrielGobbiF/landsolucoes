@@ -40,8 +40,6 @@ return [
                 'icon' =>  'ri-file-list-3-line',
                 'route' => 'arquivos.index',
             ],
-
-
         ],
         'dev' => [
             [
@@ -85,11 +83,11 @@ return [
             ],
         ],
         'notifications' => [
-            'back' => true,
             [
+                'back' => true,
                 'name' =>  'Todas',
                 'icon' =>  'ri-notification-2-line',
-                'route' => 'notification',
+                'route' => 'notifications.index',
             ],
         ],
         'tasks' => [
@@ -150,7 +148,7 @@ return [
                 'route' => 'relatorios.employees',
             ],
         ]
-        ],
+    ],
 
     'colunas_faturamento' => [
         'Land Admin',
