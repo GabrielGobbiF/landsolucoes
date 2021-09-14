@@ -86,13 +86,32 @@
                             <a href="{{ route('obras.finance', $obra->id) }}" class='btn btn-outline-primary ml-2'>Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
                             <a href="{{ route('comercial.show', $obra->id) }}" class='btn btn-outline-primary ml-2'>Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
                             <nav class="nav nav-icon-only mg-l-auto">
-                                <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra" class="nav-link d-none d-sm-block js-btn-delete">
+                                <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra"
+                                    class="nav-link d-none d-sm-block js-btn-delete">
                                     <i data-feather="archive"></i>
                                 </a>
-                                <a href="javascript:void(0)" data-text="Deletar" data-href="{{ route('obras.destroy', $obra->id) }}" rel="tooltip" title="Excluir Obra" class="nav-link d-none d-sm-block js-btn-delete"
+                                <a href="javascript:void(0)" data-text="Deletar" data-href="{{ route('obras.destroy', $obra->id) }}" rel="tooltip" title="Excluir Obra"
+                                    class="nav-link d-none d-sm-block js-btn-delete"
                                     data-original-title="Archive">
                                     <i data-feather="trash"></i>
                                 </a>
+
+                                @if ($obra->favorited())
+                                    <form id='form-unfavorite' role='form' class='needs-validation' action='{{ route('obras.unfavorite', $obra->id) }}' method='POST'>
+                                        @csrf
+                                        <a href="javascript:void(0)" onclick="event.preventDefault();
+                                            document.getElementById('form-unfavorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip" title="Des Favoritar"
+                                            data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
+                                    </form>
+                                @else
+                                    <form id='form-favorite' role='form' class='needs-validation' action='{{ route('obras.favorite', $obra->id) }}' method='POST'>
+                                        @csrf
+                                        <a href="javascript:void(0)" onclick="event.preventDefault();
+                                            document.getElementById('form-favorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip" title="Favoritar"
+                                            data-original-title="Favoritar"> <i data-feather="heart"></i></a>
+                                    </form>
+                                @endif
+
                                 <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>
                             </nav>
                         </div>

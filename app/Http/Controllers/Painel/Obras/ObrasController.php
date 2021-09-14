@@ -179,6 +179,36 @@ class ObrasController extends Controller
             ->with('message', 'Concluida com sucesso!');
     }
 
+    public function favorite(Request $request, $obraId)
+    {
+        if (!$obra = $this->repository->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        auth()->user()->obrasFavorites()->attach($obraId);
+
+        return redirect()
+            ->route('obras.show', $obraId)
+            ->with('message', 'Favoritado!');
+    }
+
+    public function unfavorite(Request $request, $obraId)
+    {
+        if (!$obra = $this->repository->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        auth()->user()->obrasFavorites()->detach($obraId);
+
+        return redirect()
+            ->route('obras.show', $obraId)
+            ->with('message', 'Des Favoritado!');
+    }
+
     /**
      * Search results
      *
@@ -200,5 +230,4 @@ class ObrasController extends Controller
 
         return view('pages.obra.index', compact('obra', 'filters'));
     }
-
 }

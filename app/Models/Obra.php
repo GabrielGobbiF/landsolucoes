@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Obra extends Model
 {
@@ -98,5 +99,13 @@ class Obra extends Model
     public function etapas_financeiro()
     {
         return $this->hasMany(ObraEtapasFinanceiro::class, 'obra_id');
+    }
+
+    public function favorited(): bool
+    {
+        return (bool) Favorite::where('user_id', Auth::id())
+            ->where('favoritable_id', $this->id)
+            ->where('favoritable_type', 'App\Models\Obra')
+            ->first();
     }
 }
