@@ -414,7 +414,7 @@ function updateObra(collumn, value) {
 
 $('.mode-edition').on('click', function () {
     $('.mode-edition').removeClass('d-none');
-    $(this).toggleClass('d-none');
+    $(this).addClass('d-none');
     $('.checkbox-wrapper-mail').toggleClass('d-none');
     let type = $(this).attr('data-type');
     type == 'active' ? modoActive() : modoExit();
@@ -427,7 +427,6 @@ function modoActive() {
 
 function modoExit() {
     $('.mode').toggleClass('d-none');
-    $('.mode-edition').toggleClass('d-none');
 }
 
 $("#deleteSelectionEtapa").on("click", function () {

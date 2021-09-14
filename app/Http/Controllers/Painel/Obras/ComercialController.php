@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
+use App\Models\Pasta;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Viabilization;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ComercialController extends Controller
 {
@@ -269,6 +271,13 @@ class ComercialController extends Controller
                 $userNotify->notify(new ObraCreatedNotification($comercial));
             }
         }
+
+        $url = '00tR9vps6D';
+        $folder =  Pasta::create([
+            'name' => $comercial->razao_social,
+            'type' => 'obra'
+        ]);
+        Storage::makeDirectory($url . '/' . $folder->uuid);
 
         return redirect()
             ->route('obras.show', $comercial->id)

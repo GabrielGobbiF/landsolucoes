@@ -16,7 +16,7 @@ class PastaObserver
     public function creating(Pasta $pasta)
     {
         $pasta->uuid = uniqid(((date('s') / 12) * 24) + mt_rand(800, 9999));
-        $pasta->name = ucfirst($pasta->name);
+        $pasta->name = titleCase(mb_strtolower($pasta->name, 'UTF-8'));
         $pasta->slug = Str::slug(mb_strtolower($pasta->name, 'UTF-8'), '_');
         $pasta->url =  $pasta->url . '/' . $pasta->uuid;
     }
@@ -30,7 +30,7 @@ class PastaObserver
     public function updating(Pasta $pasta)
     {
         $pasta->slug = Str::slug(mb_strtolower($pasta->name, 'UTF-8'), '_');
-        $pasta->name = ucfirst($pasta->name);
+        $pasta->name = titleCase(mb_strtolower($pasta->name, 'UTF-8'));
         $pasta->url =  $pasta->url . '/' . $pasta->uuid;
     }
 }

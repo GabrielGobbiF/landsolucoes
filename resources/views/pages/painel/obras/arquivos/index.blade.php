@@ -45,7 +45,7 @@
                                     <div class="media media-folder">
                                         <i data-feather="folder"></i>
                                         <div class="media-body">
-                                            <h6><a href="{{ route('folder.show', $directory->uuid) }}" class="link-02">{{ $directory->name }}</a></h6>
+                                            <h6><a href="{{ route('folder.show', $directory->uuid) }}" class="link-02">{{ ucfirst(mb_strtolower(mb_strimwidth($directory->name, 0, 35, "..."), 'utf-8'))  }}</a></h6>
                                             <span>{{ $directory->documentos_count }} files</span>
                                         </div>
                                         <div class="dropdown-file">
@@ -63,6 +63,35 @@
                             @endforeach
                         </div>
                     @endif
+
+                    @if (count($obrasPastas) > 0)
+                        <hr class="mg-y-40 bd-0">
+                        <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Obras</label>
+                        <div class="row row-xs">
+                            @foreach ($obrasPastas as $obrasPasta)
+                                <div class="col-3 mg-t-5">
+                                    <div class="media media-folder">
+                                        <i data-feather="folder"></i>
+                                        <div class="media-body">
+                                            <h6><a href="{{ route('folder.show', $obrasPasta->uuid) }}" class="link-02">{{ ucfirst(mb_strtolower(mb_strimwidth($obrasPasta->name, 0, 35, "..."), 'utf-8'))  }}</a></h6>
+                                            <span>{{ $obrasPasta->documentos_count }} files</span>
+                                        </div>
+                                        <div class="dropdown-file">
+                                            <a href="{{ route('folder.show', $obrasPasta->uuid) }}" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <form id="form-delete-{{ $obrasPasta->id }}" role="form" class="needs-validation" action="{{ route('pastas.destroy', $obrasPasta->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" id="modal-confirm" data-btn-text="Deletando" class="dropdown-item delete"><i data-feather="trash"></i>Deletar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>

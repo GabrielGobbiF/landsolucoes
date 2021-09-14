@@ -26,7 +26,7 @@
                                     <div class="media media-folder">
                                         <i data-feather="folder"></i>
                                         <div class="media-body">
-                                            <h6><a href="{{ route('folder.show', $directory->uuid) }}" class="link-02">{{ $directory->name }}</a></h6>
+                                            <h6><a href="{{ route('folder.show', $directory->uuid) }}" class="link-02">{{ ucfirst(mb_strtolower(mb_strimwidth($directory->name, 0, 38, "..."), 'utf-8')) }}</a></h6>
                                             <span>{{ $directory->documentos_count }} files</span>
                                         </div>
                                         <div class="dropdown-file">

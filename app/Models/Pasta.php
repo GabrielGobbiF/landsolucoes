@@ -11,6 +11,7 @@ class Pasta extends Model
 
     protected $fillable = [
         'name',
+        'type',
         'url',
         'folder_childer'
     ];
