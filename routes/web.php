@@ -187,9 +187,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             */
             Route::post('obras/{obraId}/favorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'favorite'])->name('obras.favorite');
             Route::post('obras/{obraId}//unfavorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'unfavorite'])->name('obras.unfavorite');
-            Route::get('obras/{obraId}/finance', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'index'])->name('obras.finance');
+            Route::get('obras/{obraId}/finance', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'show'])->name('obras.finance');
             Route::delete('obras/{obraId}/concluir', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'concluir'])->name('obras.concluir');
             Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
+            Route::get('finances', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'index'])->name('finances.index');
 
             Route::put('obras/{obraId}/finance/{etapa_id}/storeFaturamento', [App\Http\Controllers\Api\FinanceiroApiController::class, 'storeFaturamento'])->name('etapas.faturamento.store');
 

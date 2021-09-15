@@ -35,6 +35,12 @@ return [
                 'route' => 'obras.index',
             ],
             [
+                'name' =>  'Financeiro',
+                'atc' =>  'arquivos',
+                'icon' =>  'ri-file-list-3-line',
+                'route' => 'finances.index',
+            ],
+            [
                 'name' =>  'Arquivos',
                 'atc' =>  'arquivos',
                 'icon' =>  'ri-file-list-3-line',

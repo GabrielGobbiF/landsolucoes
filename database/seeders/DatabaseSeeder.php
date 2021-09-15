@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Service;
 use App\Models\Tipo;
@@ -59,5 +60,20 @@ class DatabaseSeeder extends Seeder
                 'name' => ucfirst($name),
             ]);
         }
+
+        $url = file_get_contents(asset('storage/00tR9vps6D/jsons/clients.json'));
+        $url = json_decode($url, true);
+
+        foreach ($url as $client) {
+            Client::create($client);
+        }
+
+        $url = file_get_contents(asset('storage/00tR9vps6D/jsons/etp_servico_concessionaria.json'));
+        $url = json_decode($url, true);
+
+        foreach ($url as $client) {
+            Client::create($client);
+        }
+
     }
 }
