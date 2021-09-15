@@ -6,8 +6,8 @@
     <section class="invoice">
 
         <div class="d-flex justify-content-between">
-            <a href="{{route('comercial.show', $obra->id)}}" class="btn btn-box-tool tx-20-f btn-lg"> <i class="fa fa-long-arrow-alt-left"></i> Comercial </a>
-            <a href="{{route('obras.show', $obra->id)}}" class="btn btn-box-tool tx-20-f btn-lg">  Obra <i class="fa fa-long-arrow-alt-right"></i>  </a>
+            <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-box-tool tx-20-f btn-lg"> <i class="fa fa-long-arrow-alt-left"></i> Comercial </a>
+            <a href="{{ route('obras.show', $obra->id) }}" class="btn btn-box-tool tx-20-f btn-lg"> Obra <i class="fa fa-long-arrow-alt-right"></i> </a>
         </div>
 
         <div class="box box-solid">
@@ -41,6 +41,7 @@
                                 <th>Etapa de faturamento</th>
                                 <th>Valor Total Etapa</th>
                                 <th>Total Faturado</th>
+                                <th>Vencidas / Vencimento</th>
                                 <th>Saldo à Faturar</th>
                                 <th>Status</th>
                             </tr>
@@ -53,6 +54,8 @@
                                 $totalAReceber = 0;
                                 $etapaFaturado = 0;
                                 $etapaValor = 0;
+                                $qntVencidas = 0;
+                                $dataVencimento = '';
                             @endphp
                             @foreach ($etapas as $etapa)
                                 @php
@@ -63,17 +66,25 @@
                                         $etapaFaturado = $etapa->faturado();
                                         $etapaRecebido = $etapa->recebido();
 
+                                        $r = $etapa->aReceber()[0] ?? false;
+
                                         $totalFaturado += $etapaFaturado;
                                         $saldoAFaturar += $etapaValor - $etapaFaturado;
                                         $totalRecebido += $etapaRecebido;
-                                        $totalAReceber += $etapaFaturado - $etapaRecebido;
+
+                                        if ($r) {
+                                            $totalAReceber = $r->sum;
+                                            $qntVencidas = $r->qnt;
+                                            $dataVencimento = $r->data_vencimento;
+                                        }
                                     }
 
                                 @endphp
                                 <tr>
                                     <th>{{ mb_strimwidth($etapa->nome_etapa, 0, 38, '...') }}</th>
                                     <th>R$ {{ maskPrice($etapa->valor_receber) }}</th>
-                                    <th>R$ {{ maskPrice($etapaFaturado) }}</th>
+                                    <th>R$ {{ maskPrice($etapa->valor_receber) }}</th>
+                                    <th>{{ $qntVencidas != 0 ? $qntVencidas . ' - ' . dateTournamentForHumans($dataVencimento) : ''}}</th>
                                     <th>R$ {{ maskPrice($etapaValor - $etapaFaturado) }}</th>
                                     <th>
                                         <a href="javascript:void(0)" class="{{ $status['text'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa->id }}">

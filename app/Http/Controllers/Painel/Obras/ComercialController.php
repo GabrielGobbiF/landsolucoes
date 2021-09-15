@@ -275,7 +275,7 @@ class ComercialController extends Controller
         $url = '00tR9vps6D';
         $folder =  Pasta::create([
             'name' => $comercial->razao_social,
-            'type' => 'obra'
+            'type' => 'obras'
         ]);
         Storage::makeDirectory($url . '/' . $folder->uuid);
 

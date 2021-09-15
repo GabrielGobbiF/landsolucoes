@@ -23,6 +23,7 @@ function show(etapaId) {
         modal.find('.etapa-nome').html(data.nome_etapa)
         $.each(history, function (index, value) {
             let check = value.recebido == 'Y' ? 'checked' : '';
+            let danger = value.vencimentoBool ? 'class="tx-danger"' : '';
             table += `<tr>
                 <td>
                 <form id='form-destroy-faturamento' role='form' onsubmit="return confirm('Certeza que quer deletar?');" class='needs-validation' action='${routeEtapa}${etapaId}/${value.identifyFaturamento}/destroy' method='POST'>
@@ -35,7 +36,7 @@ function show(etapaId) {
                 <td>${value.faturamento}</td>
                 <td>${value.nfN}</td>
                 <td>${value.emissao}</td>
-                <td>${value.vencimento}</td>
+                <td ${danger}>${value.vencimento}</td>
                 <td>R$ ${value.valor}</td>
                 <td>
                     <div class="checkbox-wrapper-mail">

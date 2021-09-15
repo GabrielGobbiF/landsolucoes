@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Obra;
+use App\Models\ObraEtapasFinanceiro;
 use Illuminate\Support\Facades\DB;
 
 class FinanceiroController extends Controller
@@ -41,38 +42,55 @@ class FinanceiroController extends Controller
         $etapaFaturado = 0;
         $etapaValor = 0;
         $totalReceber = 0;
+        $qntVencidas = 0;
+        $dataVencimento = '';
         $finances = [];
+        $d = [];
 
         foreach ($obras as $obra) {
+
+            if (!$obra->financeiro) {
+                continue;
+            }
 
             $valorNegociadoObra = $obra->financeiro ? $obra->financeiro->valor_negociado : 0;
             $etapas = $obra->etapas_financeiro()->get();
 
             if ($etapas) {
+                $r = DB::select("select sum(valor) as sum, COUNT(id) as qnt, data_vencimento from etapas_faturamentos WHERE obra_id = ? AND data_vencimento <= DATE(NOW())", [$obra->id]);
+                $r = $r ? $r[0] : false;
                 foreach ($etapas as $etapa) {
 
                     $status = $etapa->StatusEtapa;
                     $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
                     $etapaFaturado = $etapa->faturado();
                     $etapaRecebido = $etapa->recebido();
-                    $receber = $etapa->aReceber();
+
 
                     $totalFaturado += $etapaFaturado;
                     $saldoAFaturar += $etapaValor - $etapaFaturado;
                     $totalRecebido += $etapaRecebido;
-                    $totalAReceber += isset($receber[0]) ? $receber[0]->sum : 0;
                     $totalReceber  += $etapaValor;
+                }
+
+                if ($r) {
+                    $d[$obra->id]['totalAReceber'] = $r->sum;
+                    $d[$obra->id]['qntVencidas'] = $r->qnt;
+                    $d[$obra->id]['dataVencimento'] = $r->data_vencimento;
                 }
             }
 
             $finances[] = (object)[
                 'name' => $obra->razao_social,
+                'obraId' => $obra->id,
                 'faturado' => $etapaFaturado,
                 'recebido' => $totalRecebido,
                 'receber' => $totalReceber,
                 'aFaturar' => $saldoAFaturar,
                 'negociado' => $valorNegociadoObra,
-                'totalReceber' => $totalAReceber,
+                'totalReceber' => $d[$obra->id]['totalAReceber'],
+                'qntVencidas' => $d[$obra->id]['qntVencidas'],
+                'dataVencimento' => $d[$obra->id]['dataVencimento'] != '' ? formatDateAndTime($dataVencimento) : '',
                 'saldo' => $valorNegociadoObra - $totalFaturado - $totalRecebido,
             ];
         }
@@ -102,6 +120,12 @@ class FinanceiroController extends Controller
             return redirect()
                 ->route('obras')
                 ->with('message', 'Registro não encontrado!');
+        }
+
+        if (!$obra->financeiro) {
+            return redirect()
+                ->route('comercial.show', $obraId)
+                ->with('message', 'Atualize o financeiro primeiro!');
         }
 
         $etapas = $obra->etapas_financeiro()->with('etapa')->with('faturamento')->get();

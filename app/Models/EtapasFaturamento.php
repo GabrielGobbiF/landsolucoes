@@ -18,6 +18,7 @@ class EtapasFaturamento extends Model
         'valor',
         'recebido_status',
         'status',
+        'obra_id'
     ];
 
     protected $casts = [

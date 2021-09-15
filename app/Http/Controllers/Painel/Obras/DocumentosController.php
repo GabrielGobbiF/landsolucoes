@@ -38,7 +38,7 @@ class DocumentosController extends Controller
             } else {
                 $query->whereNull('folder_childer');
             }
-        })->whereNull('type')->withCount('documentos')->orderBy('name', 'ASC')->get(); #Storage::disk('local')->directories('00tR9vps6D');
+        })->whereNull('type')->withCount('documentos')->orderBy('name', 'ASC')->paginate(30, ['*'], 'pastas'); #Storage::disk('local')->directories('00tR9vps6D');
 
         $obrasPastas = Pasta::where(function ($query) use ($request) {
             if ($request->search) {
@@ -46,7 +46,7 @@ class DocumentosController extends Controller
             } else {
                 $query->whereNull('folder_childer');
             }
-        })->where('type', 'obras')->withCount('documentos')->orderBy('name', 'ASC')->get();
+        })->where('type', 'obras')->withCount('documentos')->orderBy('name', 'ASC')->paginate(30, ['*'], 'obras');
 
         $documentos = Documento::where(function ($query) use ($request) {
             if ($request->search) {

@@ -16,6 +16,9 @@ class EtapasFaturamento extends JsonResource
      */
     public function toArray($request)
     {
+        $dataNow = date('d');
+        $dataVencimento = Carbon::parse($this->data_vencimento)->format('d');
+
         return [
             "identifyFaturamento" => $this->id,
             "faturamento" => $this->coluna_faturamento,
@@ -25,10 +28,7 @@ class EtapasFaturamento extends JsonResource
             "emissao" => $this->data_emissao != '' ? Carbon::parse($this->data_emissao)->format('d/m/Y H:i') : NULL,
             "valor" => maskPrice($this->valor),
             "recebido" => $this->recebido_status,
+            "vencimentoBool" => Carbon::parse($this->data_vencimento)->format('d') <= date('d') ? true : false,
         ];
-    }
-
-    public function getLabelRecebido()
-    {
     }
 }

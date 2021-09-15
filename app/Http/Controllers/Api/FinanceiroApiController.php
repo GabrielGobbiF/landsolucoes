@@ -41,7 +41,7 @@ class FinanceiroApiController extends Controller
         if (!$etapa = $obra->etapas_financeiro()->where('id', $etapa_id)->first()) {
             return response()->json('Object Etapa not found', 404);
         }
-
+        $columns['obra_id'] = $obra_id;
         $columns['user_id'] = auth()->user()->id;
 
         $faturamento = $etapa->faturamento()->get();

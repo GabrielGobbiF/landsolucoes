@@ -465,8 +465,9 @@ function getUsers(term) {
     }).then(response => {
         const data = response.data.data;
         let html = ``
-        if (!document.querySelector('#result-users')) {
-            if (data.length > 0) {
+
+        if (data.length > 0) {
+            if (!document.querySelector('#result-users')) {
                 $.each(data, function (index, value) {
                     html += `<div style="width: 94%; height: 120px; background: transparent" id="result-users">
                 <div class="d-flex my-2">
@@ -481,10 +482,10 @@ function getUsers(term) {
                     </div>
                 </div>`;
                 });
-            } else {
-                document.querySelector('#result-users').remove();
             }
             document.querySelector('#comment-div').insertAdjacentHTML('afterend', html);
+        } else {
+            document.querySelector('#result-users').remove();
         }
     })
 }

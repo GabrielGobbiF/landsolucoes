@@ -4,27 +4,7 @@
 
 @section('content')
     <div class="card">
-
         <div class="card-body">
-
-            <div class="media" style="margin-bottom: 10rem">
-                <div class="avatar-sm font-weight-bold d-inline-block">
-                    <span class="avatar-title rounded-circle bg-soft-purple ">
-                        GA
-                    </span>
-                </div>
-                <div class="media-body align-self-center ml-2">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="comment-input">
-                        <div class="wd-100p">
-                            <p contenteditable="true" style="height: auto !important;" class="form-control js-new-comment">
-                                <a href="#" data-id="1" >@Gabriel_Gobbi</a>
-                            </p>
-                        </div>
-                        <button type="submit" class="btn btn-primary js-btn-new-comment align-self-start" onclick="newComment()">Enviar</button>
-                    </div>
-                </div>
-            </div>
-
             <form id='form-search-finance' role='form' class='needs-validation' action='{{ route('finances.index') }}' method='get'>
                 <div class="row">
                     <div class="col-6 col-md-4">
@@ -52,39 +32,41 @@
                     <div class="col-4 col-md-3 align-self-center">
                         <button type="submit" class='btn btn-primary'>Buscar</button>
                     </div>
+                </div>
             </form>
         </div>
-    </div>
 
-    <div class="card-body">
-        <div class="table table-responsive">
-            <table class='table table-hover table-centered table-condensed'>
-                <thead class='thead-light'>
-                    <tr>
-                        <th>Nome da Obra</th>
-                        <th>Valor Negociado</th>
-                        <th>Valor a Receber</th>
-                        <th>Valor Recebido</th>
-                        <th>Liberado Faturar</th>
-                        <th>Saldo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($finances as $finance)
+        <div class="card-body">
+            <div class="table table-responsive">
+                <table class='table table-hover table-centered table-condensed'>
+                    <thead class='thead-light'>
                         <tr>
-                            <th> {{ $finance->name }}</th>
-                            <th> R$ {{ maskPrice($finance->negociado) }}</th>
-                            <th> R$ {{ maskPrice($finance->totalReceber) }}</th>
-                            <th> R$ {{ maskPrice($finance->recebido) }}</th>
-                            <th> R$ {{ maskPrice($finance->aFaturar) }}</th>
-                            <th> R$ {{ maskPrice($finance->saldo) }}</th>
+                            <th>Nome da Obra</th>
+                            <th>Valor Negociado</th>
+                            <th>Valor a Receber</th>
+                            <th>Valor Recebido</th>
+                            <th>Liberado Faturar</th>
+                            <th>Vencidas / Data de vencimento</th>
+                            <th>Saldo</th>
                         </tr>
-                    @endforeach
+                    </thead>
+                    <tbody>
+                        @foreach ($finances as $finance)
+                            <tr>
+                                <th> <a target="_blank" href="{{route('obras.finance', $finance->obraId)}}" class="">{{ $finance->name }}</a></th>
+                                <th> R$ {{ maskPrice($finance->negociado) }}</th>
+                                <th> R$ {{ maskPrice($finance->totalReceber) }}</th>
+                                <th> R$ {{ maskPrice($finance->recebido) }}</th>
+                                <th> R$ {{ maskPrice($finance->aFaturar) }}</th>
+                                <th> {{ $finance->qntVencidas != 0 ? $finance->qntVencidas . ' - ' . $finance->dataVencimento : '' }}</th>
+                                <th> R$ {{ maskPrice($finance->saldo) }}</th>
+                            </tr>
+                        @endforeach
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
     </div>
 @stop
 
