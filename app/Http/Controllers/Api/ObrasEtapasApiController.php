@@ -8,8 +8,11 @@ use App\Http\Resources\CommentsResource;
 use App\Http\Resources\ObraEtapasResource;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
+use App\Models\User;
+use App\Notifications\EtapaMencionUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ObrasEtapasApiController extends Controller
 {
@@ -97,11 +100,37 @@ class ObrasEtapasApiController extends Controller
         $columns = $request->all();
         $columns['user_id'] = Auth::id();
 
+        #dd($contains = Str::contains($columns['obs_texto'], ['data-id']));
+
+        #dd(Str::of($columns['obs_texto'])->explode('data-id="'));
+
+        #dd(substr_count($columns['obs_texto'], 'data-id="'));
+
+        #$string = dd(removeParseContentBar($columns['obs_texto']));
+
+        #region$texto = $columns['obs_texto'];
+        #region$texto = explode('data-id="', $texto);
+        #region$texto = dd($texto);
+
         if (!$obra = $this->obra->where('id', $obra_id)->first()) {
             return response()->json('Object Obra not found', 404);
         }
 
         $etapa = $obra->etapas()->where('id', $etapa_id)->first();
+
+        $string = $columns['obs_texto'];
+        $patt = '/"[^"]*"/';
+
+        preg_match_all($patt, $string, $resultado);
+        foreach ($resultado as $user) {
+            $user = intval($user);
+            if ($user != 0) {
+                $user = User::where('id', $user)->first();
+                if ($user) {
+                    $user->notify(new EtapaMencionUser($etapa));
+                }
+            }
+        }
 
         if ($etapa) {
             $etapa->comments()->create($columns);
@@ -132,6 +161,29 @@ class ObrasEtapasApiController extends Controller
         }
 
         return $etapa;
+    }
+
+    public function commentDestroy(int $obraId, int $etapaId, int $commentId)
+    {
+
+        if (!$obra = $this->obra->where('id', $obraId)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        if (!$etapa = $this->repository->where('id', $etapaId)->first()) {
+            return response()->json('Object Etapa not found', 404);
+        }
+
+        if (!$comment = $etapa->comments()->where('id', $commentId)->first()) {
+            return response()->json('Object Comentario not found', 404);
+        }
+
+        if (auth()->user()->id == $comment->user->id) {
+            $comment->delete();
+            return response()->json('Deletado com sucesso', 200);
+        }
+
+        return response()->json('Não foi possivel Deletar', 404);
     }
 
     public function deleteSelected(Request $request, $obraId)

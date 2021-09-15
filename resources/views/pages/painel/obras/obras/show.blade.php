@@ -161,4 +161,10 @@
 @stop
 @section('scripts')
     <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
+
+    @if ($input = Request::input('etp'))
+    <script>
+        showEtapa(`{{ $input }}`)
+    </script>
+@endif
 @endsection

@@ -128,7 +128,7 @@ function getEtapas() {
                                 <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name} ${date_abertura} </a>
                             </div>
                             <div class="col-mail col-mail-2">
-                                <span class="teaser">${textComment ?? ''}</span>
+                                <span class="teaser"></span>
                                 <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''}</span>
                             </div>
                         </li>`;
@@ -198,7 +198,6 @@ function showEtapa(etpId) {
 }
 
 function getCommentsEtapa(etpId) {
-
     $.ajax({
         url: `${BASE_URL_API}etapa/${etpId}/comments`,
         type: "GET",
@@ -212,6 +211,7 @@ function getCommentsEtapa(etpId) {
             if (data.length > 0) {
                 var options = '';
                 $.each(data, function (index, value) {
+                    const deletePermisson = value.deletu == true ? `<a href="javascript:void(0)" onclick="deleteComment(${value.id},${etpId} )"<i class="fas fa-trash ml-3"></i> </a>` : false;
                     options += '<div class="media mt-4">';
                     options += '<div class="avatar-sm font-weight-bold d-inline-block">'
                     options += '    <span class="avatar-title rounded-circle bg-soft-purple tx-14">'
@@ -220,9 +220,9 @@ function getCommentsEtapa(etpId) {
                     options += '</div>'
                     options += '    <div class="media-body overflow-hidden ml-2">';
                     options += '        <h5 class="tx-black text-truncate mb-1 tx-14 ">' + value.user_name + '</h5>';
-                    options += `        <div class="direct-chat-text"><span style="word-break: break-all;">  ${value.text}  </span></div>`
+                    options += `        <div class="direct-chat-text"><span style="word-break: break-all; white-space: pre-line">  ${value.text}  </span></div>`
                     options += '    </div>';
-                    options += '    <div class="font-size-11">' + value.date + '</div>';
+                    options += `    <div class="font-size-11">${value.date} ${deletePermisson}</div>`;
                     options += '</div>';
                 });
                 modal.find('.etapas-comments').html(options);
@@ -234,6 +234,24 @@ function getCommentsEtapa(etpId) {
         complete: function () {
             modal.find('#preload-comments').remove();
         },
+    });
+}
+
+function deleteComment(commentId, etpId) {
+    $.ajax({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: `${BASE_URL_API_OBRA}etapa/${etpId}/comment/${commentId}/delete`,
+        type: 'DELETE',
+        ajax: true,
+        dataType: "JSON",
+        success: function (j) {
+            getCommentsEtapa(etpId)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            toastr.error('Não foi possivel Deletar');
+        }
     });
 }
 
@@ -255,49 +273,11 @@ function newComment() {
     }).done(function (response) {
         $('#input-new-comment').val('').focus();
         $('.js-btn-new-comment').attr('disabled', false);
-        getCommentsEtp(etp_id)
+        $('.js-new-comment').html('');
+        getCommentsEtapa(etp_id)
     });
 }
 
-function getCommentsEtp(etpId) {
-
-    $.ajax({
-        url: `${BASE_URL_API}etapa/${etpId}/comments`,
-        type: "GET",
-        ajax: true,
-        dataType: "JSON",
-        beforeSend: (jqXHR, settings) => {
-            modal.find('.etapas-comments').html(preload('preload-comments'));
-        },
-        success: function (j) {
-            var data = j.data;
-            if (data.length > 0) {
-                var options = '';
-                $.each(data, function (index, value) {
-                    options += '<div class="media mt-4">';
-                    options += '<div class="avatar-sm font-weight-bold d-inline-block">'
-                    options += '    <span class="avatar-title rounded-circle bg-soft-purple tx-14">'
-                    options += value.user
-                    options += '    </span>'
-                    options += '</div>'
-                    options += '    <div class="media-body overflow-hidden ml-2">';
-                    options += '        <h5 class="tx-black text-truncate mb-1 tx-14 ">' + value.user_name + '</h5>';
-                    options += `        <div class="direct-chat-text"><span style="word-break: break-all;">  ${value.text}  </span></div>`
-                    options += '    </div>';
-                    options += '    <div class="font-size-11">' + value.date + '</div>';
-                    options += '</div>';
-                });
-                modal.find('.etapas-comments').html(options);
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error('erro ao carregar os comentários');
-        },
-        complete: function () {
-            modal.find('#preload-comments').remove();
-        },
-    });
-}
 
 $('#select--department_id').on('change', function () {
     var departmenId = $(this).val();
@@ -466,7 +446,64 @@ $('#updateSelectionEtapa').on('click', function () {
     modalEtp.modal('show');
 })
 
+$('.js-new-comment').on('keyup', function () {
+    let value = $(this).html();
+    $('#input-new-comment').val(value);
+    if (value.includes('@')) {
+        getUsers(value);
+    } else {
+        document.querySelector('#result-users').remove()
+    }
+})
 
+function getUsers(term) {
+    var re = /\s*@\s*/;
+    term = term.split(re);
+    axios({
+        method: 'GET',
+        url: `${BASE_URL_API}users?q%5Bterm%5D=${term[1] ?? ''}`,
+    }).then(response => {
+        const data = response.data.data;
+        let html = ``
+        if (!document.querySelector('#result-users')) {
+            if (data.length > 0) {
+                $.each(data, function (index, value) {
+                    html += `<div style="width: 94%; height: 120px; background: transparent" id="result-users">
+                <div class="d-flex my-2">
+                    <div style="height: 1.5rem;width: 1.5rem;font-size: 10px;" class="font-weight-bold d-inline-block">
+                            <span class="avatar-title rounded-circle bg-soft-purple ">
+                                ${value.singleName}
+                            </span>
+                        </div>
+                        <div class="flex-1">
+                            <a href="javascript:void(0)" class="" onclick="userSelected(${value.id})"><h6 class=" mb-1" style="margin-left: 6px;margin-top: 3px;">${value.name}</h6></a>
+                        </div>
+                    </div>
+                </div>`;
+                });
+            } else {
+                document.querySelector('#result-users').remove();
+            }
+            document.querySelector('#comment-div').insertAdjacentHTML('afterend', html);
+        }
+    })
+}
+
+function userSelected(userId) {
+    let text = $('.js-new-comment').html();
+    let html = `<a href="#" data-id="1">Gabriel_Gobbi</a>`;
+    let prep = $('.js-new-comment').html();
+
+    var re = /\s*@\s*/;
+    prep = prep.split(re);
+    text = text.replace(prep[1], "");
+    text = text.replace('@', "");
+
+    $('.js-new-comment').html('');
+    $('.js-new-comment').append(`${text}${html}`);
+    $('#input-new-comment').val(`${text}${html}`);
+    document.querySelector('#result-users').remove();
+}
 
 
 

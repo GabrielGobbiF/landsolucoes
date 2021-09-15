@@ -25,7 +25,8 @@ class CommentsResource extends JsonResource
             "text_limit" => mb_strimwidth($this->obs_texto, 0, 38),
             "user" => $name,
             "user_name" => $this->user->name,
-            "date" => dateTournamentForHumans($this->created_at)
+            "date" => dateTournamentForHumans($this->created_at),
+            "deletu" => auth()->user()->id == $this->user->id ? true : false
         ];
     }
 }

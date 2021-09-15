@@ -53,6 +53,7 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::post('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'update'])->name('obra.etapa.update');
     Route::post('obra/{obra_id}/etapa/{etapa_id}/status', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateStatus'])->name('obra.etapa.update.status');
     Route::post('obra/{obra_id}/etapa/{etapa_id}/comment/store', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentStore'])->name('obra.etapa.comment.store');
+    Route::delete('obra/{obra_id}/etapa/{etapa_id}/comment/{commentId}/delete', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentDestroy'])->name('obra.etapa.comment.destroy');
 
     /**
      * Tasks

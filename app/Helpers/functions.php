@@ -15,6 +15,27 @@ function maskPrice($number = 0)
     return number_format($number, 2, '.', ',');
 }
 
+function removeParseContentBar($string, $charSe = 'data-id=')
+{
+    $arr = str_split($string);
+    $i = 0;
+    foreach ($arr as $k => $char) {
+        if ($char == $charSe) {
+          /* abre a tag na primeira barra e
+             fecha o elemento em tag quando
+             achar a segunda barra */
+          $arr[$k] = ($i % 2 == 0) ? '<' : '/>';
+        } else {
+          $arr[$k] = $char;
+          $i++;
+        }
+        $i++;
+    }
+    $content = implode('', $arr);
+    //remove a tag
+    return $arr;
+}
+
 function titleCase($string, $delimiters = array(" ", "-", "O'"), $exceptions = array("to", "a", "the", "of", "by", "and", "with", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"))
 {
     foreach ($delimiters as $delimiter) {

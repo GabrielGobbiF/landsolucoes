@@ -6,6 +6,25 @@
     <div class="card">
 
         <div class="card-body">
+
+            <div class="media" style="margin-bottom: 10rem">
+                <div class="avatar-sm font-weight-bold d-inline-block">
+                    <span class="avatar-title rounded-circle bg-soft-purple ">
+                        GA
+                    </span>
+                </div>
+                <div class="media-body align-self-center ml-2">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="comment-input">
+                        <div class="wd-100p">
+                            <p contenteditable="true" style="height: auto !important;" class="form-control js-new-comment">
+                                <a href="#" data-id="1" >@Gabriel_Gobbi</a>
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary js-btn-new-comment align-self-start" onclick="newComment()">Enviar</button>
+                    </div>
+                </div>
+            </div>
+
             <form id='form-search-finance' role='form' class='needs-validation' action='{{ route('finances.index') }}' method='get'>
                 <div class="row">
                     <div class="col-6 col-md-4">
@@ -70,5 +89,6 @@
 @stop
 
 @section('scripts')
+
 
 @endsection

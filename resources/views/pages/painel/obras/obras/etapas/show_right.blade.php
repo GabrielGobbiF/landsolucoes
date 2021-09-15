@@ -170,9 +170,12 @@
                                     'name' => Auth::user()->name,
                                     ])
                                     <div class="media-body align-self-center ml-2">
-                                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                                            <input type="text" name="obs_texto" class="form-control js-new-comment " placeholder="Escreva um comentário..." id="input-new-comment">
-                                            <button type="submit" class="btn btn-primary js-btn-new-comment" onclick="newComment()">Enviar</button>
+                                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="comment-div">
+                                            <input type="hidden" name="obs_texto" id="input-new-comment">
+                                            <div class="wd-100p">
+                                                <p contenteditable="true" style="height: auto !important;" class="form-control js-new-comment"></p>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary js-btn-new-comment align-self-start" onclick="newComment()">Enviar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -184,20 +187,6 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="row mt-4">
                                 <h6 class="">Desenvolvendo</h6>
-                                <div class=" col-12 d-none">
-                                    <div class="media mb-4">
-                                        @include('pages.painel._partials.avatar', [
-                                        'avatar' => '',
-                                        'name' => Auth::user()->name,
-                                        ])
-                                        <div class="media-body align-self-center ml-2">
-                                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                                                <input type="text" name="obs_texto" class="form-control js-new-comment " placeholder="Escreva um comentário..." id="input-new-comment">
-                                                <button type="submit" class="btn btn-primary js-btn-new-comment" onclick="newComment()">Enviar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="etapas-pendencias" style="height: 100vh;"></div>
                             </div>
                         </div>
                     </div>
