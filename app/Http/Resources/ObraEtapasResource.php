@@ -29,7 +29,7 @@ class ObraEtapasResource extends JsonResource
             "name" => $this->nome,
             "observacao" => $this->observacao,
             "n_nota" => $this->nota_numero ?? 0,
-            "meta_etapa" => $this->meta_etapa != '' ? Carbon::parse($this->meta_etapa)->format('d/m/Y') : NULL,
+            "meta_etapa" => $this->meta_etapa != '' ? Carbon::parse($this->meta_etapa)->format('d/m/Y') : '',
             "data_abertura" => $this->data_abertura != '' ? Carbon::parse($this->data_abertura)->format('d/m/Y') : NULL,
             "data_programada" => $this->data_programada != '' ? Carbon::parse($this->data_programada)->format('d/m/Y') : NULL,
             "data_iniciada" => $this->data_iniciada != '' ? Carbon::parse($this->data_iniciada)->format('d/m/Y') : NULL,

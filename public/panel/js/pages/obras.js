@@ -104,7 +104,7 @@ function getEtapas() {
                     var checked = value.check == 'C' ? 'checked' : '';
                     var comments = value.comments;
                     let date_abertura = value.data_abertura != null ? '<i data-toggle="tooltip" title="" data-original-title="informações" style="color:#002bff" class="fa fa-fw fa-info"></i>' : ''
-
+                    let meta = value.meta_etapa != '' ? `Meta: ${value.meta_etapa}` : ''
                     if (comments[0]) {
                         var textComment = comments[0].text_limit
                     }
@@ -128,7 +128,7 @@ function getEtapas() {
                                 <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name} ${date_abertura} </a>
                             </div>
                             <div class="col-mail col-mail-2">
-                                <span class="teaser"></span>
+                                <span class="teaser badge-success badge">${meta}</span>
                                 <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''}</span>
                             </div>
                         </li>`;
