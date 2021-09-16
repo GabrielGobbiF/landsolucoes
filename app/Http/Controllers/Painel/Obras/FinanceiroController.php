@@ -104,6 +104,10 @@ class FinanceiroController extends Controller
             $finances = $finances->where('receber', '<>', 0);
         }
 
+        if (isset($filter['vencimento'])) {
+            $finances = $finances->where('qntVencidas', '<>', 0);
+        }
+
         return view('pages.painel.obras.finances.index', [
             'finances' => $finances,
         ]);

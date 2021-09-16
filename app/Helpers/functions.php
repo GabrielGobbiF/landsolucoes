@@ -21,13 +21,13 @@ function removeParseContentBar($string, $charSe = 'data-id=')
     $i = 0;
     foreach ($arr as $k => $char) {
         if ($char == $charSe) {
-          /* abre a tag na primeira barra e
+            /* abre a tag na primeira barra e
              fecha o elemento em tag quando
              achar a segunda barra */
-          $arr[$k] = ($i % 2 == 0) ? '<' : '/>';
+            $arr[$k] = ($i % 2 == 0) ? '<' : '/>';
         } else {
-          $arr[$k] = $char;
-          $i++;
+            $arr[$k] = $char;
+            $i++;
         }
         $i++;
     }
@@ -56,6 +56,10 @@ function titleCase($string, $delimiters = array(" ", "-", "O'"), $exceptions = a
     return $string;
 }
 
+function limit($string, $limit = 30)
+{
+    return Str::limit($string, $limit, '...');
+}
 
 function getIconByExtDoc($extensao)
 {

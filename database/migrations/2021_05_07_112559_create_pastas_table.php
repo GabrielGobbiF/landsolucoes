@@ -19,6 +19,7 @@ class CreatePastasTable extends Migration
             $table->string('slug')->nullable();
             $table->string('name')->nullable();
             $table->string('type')->nullable();
+            $table->integer('type_id')->nullable();
             $table->string('url');
             $table->uuid('folder_childer')->nullable();
 

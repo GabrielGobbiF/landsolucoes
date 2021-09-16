@@ -69,7 +69,7 @@
                             </ul>
                         </div>
                     @endif
-<hr class="my-5">
+                    <hr class="my-5">
                     @if (count($obrasPastas) > 0)
                         <hr class="mg-y-40 bd-0">
                         <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Obras</label>

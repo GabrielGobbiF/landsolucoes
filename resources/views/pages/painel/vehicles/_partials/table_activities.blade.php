@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <table data-toggle="table" id="table" class="table table-hover" data-search="true"
                     data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-cookie="true"
-                    data-cookie-id-table="vehicles" data-buttons-class="dark" data-toolbar="#toolbar-activitys">
+                    data-cookie-id-table="vehicles_activitys" data-buttons-class="dark" data-toolbar="#toolbar-activitys">
                     <thead>
                         <tr>
                             <th colspan="4" data-halign="center">Saida</th>

@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="main">
+        <div class="main row">
 
             <div class="col-12 col-md-8">
                 <div class="box box-default box-solid">
@@ -100,14 +100,16 @@
                                     <form id='form-unfavorite' role='form' class='needs-validation' action='{{ route('obras.unfavorite', $obra->id) }}' method='POST'>
                                         @csrf
                                         <a href="javascript:void(0)" onclick="event.preventDefault();
-                                            document.getElementById('form-unfavorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip" title="Des Favoritar"
+                                                                                            document.getElementById('form-unfavorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip"
+                                            title="Des Favoritar"
                                             data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
                                     </form>
                                 @else
                                     <form id='form-favorite' role='form' class='needs-validation' action='{{ route('obras.favorite', $obra->id) }}' method='POST'>
                                         @csrf
                                         <a href="javascript:void(0)" onclick="event.preventDefault();
-                                            document.getElementById('form-favorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip" title="Favoritar"
+                                                                                            document.getElementById('form-favorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip"
+                                            title="Favoritar"
                                             data-original-title="Favoritar"> <i data-feather="heart"></i></a>
                                     </form>
                                 @endif
@@ -152,6 +154,7 @@
                     </div>
                 </div>
             </div>
+            @include('pages.painel.obras.obras.documentos.index')
         </div>
 
         @include('pages.painel.obras.obras.etapas.show_right')
@@ -163,8 +166,8 @@
     <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
 
     @if ($input = Request::input('etp'))
-    <script>
-        showEtapa(`{{ $input }}`)
-    </script>
-@endif
+        <script>
+            showEtapa(`{{ $input }}`)
+        </script>
+    @endif
 @endsection

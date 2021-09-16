@@ -93,12 +93,17 @@ class ObrasController extends Controller
             $obraDepartamentoCliente = $clientsDepartaments->where('id', $department_id)->first();
         }
 
+        $pasta = $obra->pasta()->first() ?? false;
+
+        $pasta = $pasta ? $pasta->childrens() : [];
+
         return view('pages.painel.obras.obras.show', [
             'obra' => $obra,
             'clientsDepartaments' => $clientsDepartaments,
             'obraDepartamentoCliente' => $obraDepartamentoCliente,
             'tipos' => $tipos,
-            'address' => $address
+            'address' => $address,
+            'pasta' => $pasta
         ]);
     }
 

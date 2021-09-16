@@ -29,6 +29,15 @@
                             </label>
                         </div>
                     </div>
+
+                    <div class="col-4 col-md-auto align-self-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formCheckVencimento" {{ Request::input('vencimento') == 'true' ? 'checked' : '' }} name="vencimento" value="true">
+                            <label class="form-check-label" for="formCheckVencimento">
+                                Somente Faturamento Vencido
+                            </label>
+                        </div>
+                    </div>
                     <div class="col-4 col-md-3 align-self-center">
                         <button type="submit" class='btn btn-primary'>Buscar</button>
                     </div>

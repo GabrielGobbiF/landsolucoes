@@ -13,7 +13,8 @@ class Pasta extends Model
         'name',
         'type',
         'url',
-        'folder_childer'
+        'folder_childer',
+        'type_id'
     ];
 
     public function documentos()
@@ -21,4 +22,10 @@ class Pasta extends Model
         return $this->hasMany(Documento::class, 'folder', 'uuid');
     }
 
+    public function childrens()
+    {
+        return Pasta::where('folder_childer', $this->uuid)
+            ->orderBy('name', 'ASC')
+            ->get();
+    }
 }
