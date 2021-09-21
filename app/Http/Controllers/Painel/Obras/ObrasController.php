@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Department;
 use App\Models\Obra;
+use App\Models\Pasta;
 use App\Models\Tipo;
 use Illuminate\Support\Facades\Hash;
 
@@ -93,9 +94,7 @@ class ObrasController extends Controller
             $obraDepartamentoCliente = $clientsDepartaments->where('id', $department_id)->first();
         }
 
-        $pasta = $obra->pasta()->first() ?? false;
-
-        $pasta = $pasta ? $pasta->childrens() : [];
+        $pastas = Pasta::where('type_id', $obra->id)->where('type', 'obras')->get();
 
         return view('pages.painel.obras.obras.show', [
             'obra' => $obra,
@@ -103,7 +102,7 @@ class ObrasController extends Controller
             'obraDepartamentoCliente' => $obraDepartamentoCliente,
             'tipos' => $tipos,
             'address' => $address,
-            'pasta' => $pasta
+            'pastas' => $pastas
         ]);
     }
 

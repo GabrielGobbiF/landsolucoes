@@ -15,7 +15,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 80%;
+        max-width: 72%;
     }
 
 </style>
@@ -28,41 +28,30 @@
     {!! $exibir !!}
 </div>
 
-<div class="col-md-4">
-    <div class="box box-default box-solid pd-2">
-        <div class="box-header with-border">
-            <h3 class="box-title text-center my-2">Documentos</h3>
-        </div>
-        <div class="box-body pd-0 mg-0">
-            <div id="accordion">
-                <ul class="nav nav-pills flex-column tree">
-                    @foreach ($pasta as $root_folder)
-                        @php
-                            $childrens = $root_folder->childrens();
-                            $docs = $root_folder->documentos()->get();
-                        @endphp
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-type="0" data-toggle="collapse" data-target="#collapse{{ $root_folder->slug }}" aria-expanded="true"
-                                aria-controls="collapse{{ $root_folder->slug }}" data-path="{{ $root_folder->url }}">
-                                @if (count($childrens) > 0 || count($docs) > 0)
-                                    <i class="fas fa-angle-down"></i>
-                                @endif
-                                <i class="fa fa-folder fa-fw"></i> {{ $root_folder->name }}
-                            </a>
-                            <div id="collapse{{ $root_folder->slug }}" class="collapse" aria-labelledby="heading{{ $root_folder->slug }}" data-parent="#accordion">
-                                <div class="tree" style="margin-left: 30px;">
-                                    @if ($childrens)
-                                        @include('pages.painel.obras.obras.documentos.childrens')
-                                    @endif
-                                    @if ($docs)
-                                        @include('pages.painel.obras.obras.documentos.documents')
-                                    @endif
-                                </div>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
+<ul class="nav nav-pills flex-column tree">
+    @foreach ($pasta as $root_folder)
+        @php
+            $childrens = $root_folder->childrens();
+            $docs = $root_folder->documentos()->get();
+        @endphp
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-type="0" data-toggle="collapse" data-target="#collapse{{ $root_folder->slug }}" aria-expanded="true"
+                aria-controls="collapse{{ $root_folder->slug }}" data-path="{{ $root_folder->url }}">
+                @if (count($childrens) > 0 || count($docs) > 0)
+                    <i class="fas fa-angle-down"></i>
+                @endif
+                <i class="fa fa-folder fa-fw"></i> {{ $root_folder->name }}
+            </a>
+            <div id="collapse{{ $root_folder->slug }}" class="collapse" aria-labelledby="heading{{ $root_folder->slug }}" data-parent="#accordion">
+                <div class="tree" style="margin-left: 30px;">
+                    @if ($childrens)
+                        @include('pages.painel.obras.obras.documentos.childrens')
+                    @endif
+                    @if ($docs)
+                        @include('pages.painel.obras.obras.documentos.documents')
+                    @endif
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+        </li>
+    @endforeach
+</ul>

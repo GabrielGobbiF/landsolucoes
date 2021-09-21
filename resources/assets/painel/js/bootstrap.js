@@ -5,6 +5,7 @@ try {
     window.Popper = require('popper.js').default;
     window.toastr = require('toastr');
 
+
     require('bootstrap');
     require('jquery-mask-plugin');
     require('select2');
@@ -21,7 +22,6 @@ try {
     require('dropzone');
 
     require('bootstrap-editable');
-
 
 
 } catch (e) { }
@@ -41,6 +41,7 @@ axios.defaults.headers.common = {
 };
 
 window.base_url_api = $('meta[name="js-base_url_api"]').attr('content');
+
 
 
 

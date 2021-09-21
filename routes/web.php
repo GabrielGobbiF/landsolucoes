@@ -77,6 +77,15 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::get('obras/{obraId}/finance/{etapaId}', [App\Http\Controllers\Api\FinanceiroApiController::class, 'show'])->name('etapas.faturamento.show');
     Route::delete('obras/{obraId}/finance/{etapaId}/{faturamentoId}/destroy', [App\Http\Controllers\Api\FinanceiroApiController::class, 'destroy'])->name('etapas.faturamento.destroy');
     Route::put('obras/{obraId}/finance/{etapaId}/{faturamentoId}/updateStatus', [App\Http\Controllers\Api\FinanceiroApiController::class, 'updateStatus'])->name('etapas.faturamento.update.status');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Documentos
+    |--------------------------------------------------------------------------
+    */
+    Route::get('obra/{obraId}/documents', [App\Http\Controllers\Api\ObraApiController::class, 'documents'])->name('obras.documents.all');
+
 });
 
 Route::group(['middleware' => ['CheckPassword']], function () {

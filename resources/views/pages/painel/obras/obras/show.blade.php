@@ -77,7 +77,6 @@
         </div>
 
         <div class="main row">
-
             <div class="col-12 col-md-8">
                 <div class="box box-default box-solid">
                     <div class="box-body mg-0 pd-0">
@@ -100,7 +99,9 @@
                                     <form id='form-unfavorite' role='form' class='needs-validation' action='{{ route('obras.unfavorite', $obra->id) }}' method='POST'>
                                         @csrf
                                         <a href="javascript:void(0)" onclick="event.preventDefault();
-                                                                                            document.getElementById('form-unfavorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip"
+                                                                                                                        document.getElementById('form-unfavorite').submit();"
+                                            class='nav-link d-none d-sm-block'
+                                            rel="tooltip"
                                             title="Des Favoritar"
                                             data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
                                     </form>
@@ -108,12 +109,13 @@
                                     <form id='form-favorite' role='form' class='needs-validation' action='{{ route('obras.favorite', $obra->id) }}' method='POST'>
                                         @csrf
                                         <a href="javascript:void(0)" onclick="event.preventDefault();
-                                                                                            document.getElementById('form-favorite').submit();" class='nav-link d-none d-sm-block' rel="tooltip"
+                                                                                                                        document.getElementById('form-favorite').submit();"
+                                            class='nav-link d-none d-sm-block'
+                                            rel="tooltip"
                                             title="Favoritar"
                                             data-original-title="Favoritar"> <i data-feather="heart"></i></a>
                                     </form>
                                 @endif
-
                                 <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>
                             </nav>
                         </div>
@@ -154,16 +156,70 @@
                     </div>
                 </div>
             </div>
-            @include('pages.painel.obras.obras.documentos.index')
-        </div>
+            <div class="col-md-4">
+                <div class="box box-default box-solid pd-2" style="    overflow: auto;">
+                    <div class="box-header with-border ">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="box-title text-center my-2">Documentos</h3>
+                            <button class='btn btn-sm btn-primary' data-toggle='modal' data-target='#modal-add-documento'><i class="fas fa-upload"></i></button>
+                        </div>
+                        <div class="box-body pd-0 mg-0">
+                            <div id="accordion">
+                                <div id="documents__list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        @include('pages.painel.obras.obras.etapas.show_right')
-        @include('pages.painel.obras._partials.modals.modal-update-obra')
-        @include('pages.painel.obras._partials.modals.modal-update-etapa-all')
+            <div class="modal" id="modal-add-documento" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Adicionar Documento </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class='form-group'>
+                                        <label>Selecione a Pasta</label>
+                                        <select class='form-control select2' id="select__pasta">
+                                            @foreach ($pastas as $pasta)
+                                                <option value='{{ $pasta->uuid }}'> {{ $pasta->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <form id="form-add-documento" role="form" class="needs-validation custom-validation dropzone" enctype="multipart/form-data" action="{{ route('arquivos.store') }}"
+                                        method="POST">
+                                        <input type="hidden" name="folder_childer" id="folder_childer" value="">
+                                        @csrf
+                                        <div id="docs"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @include('pages.painel.obras.obras.etapas.show_right')
+            @include('pages.painel.obras._partials.modals.modal-update-obra')
+            @include('pages.painel.obras._partials.modals.modal-update-etapa-all')
+        </div>
     </div>
 @stop
 @section('scripts')
     <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
+    <script src="{{ asset('panel/js/pages/obras/document.js') }}"></script>
 
     @if ($input = Request::input('etp'))
         <script>

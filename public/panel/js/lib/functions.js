@@ -47,6 +47,5 @@ function btn_delete(v) {
     $modal.on('hidden.bs.modal', function() {
         $modal.remove();
     })
-
 }
 

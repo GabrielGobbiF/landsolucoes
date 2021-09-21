@@ -473,6 +473,10 @@ for (var i = 0; i < elements.length; i++) {
     elements[i].addEventListener('click', formSubmit, false);
 }
 
+function axiosCath(){
+    return '<div class="text-center"><a onclick="location.reload()" class="btn btn-sm btn-danger"><i class="fas fa-redo-alt"></i> ERROR - Recarregar</a> </div>';
+}
+
 
 
 

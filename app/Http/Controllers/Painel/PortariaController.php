@@ -56,7 +56,7 @@ class PortariaController extends Controller
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 
-        $portarias = $this->repository->with('veiculo')->with('motorista')->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->limit(20)->get();
+        $portarias = $this->repository->with('veiculo')->with('motorista')->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->paginate(40);
 
         foreach ($portarias as $portaria) {
             if ($portaria->veiculo) {

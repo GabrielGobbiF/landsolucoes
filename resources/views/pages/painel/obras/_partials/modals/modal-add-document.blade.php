@@ -1,7 +1,6 @@
 @php
 $redirect = $redirect ?? null;
 @endphp
-<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <div class="modal" id="modal-add-documento" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

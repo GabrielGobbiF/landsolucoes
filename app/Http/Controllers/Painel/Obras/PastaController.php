@@ -62,13 +62,16 @@ class PastaController extends Controller
         if (isset($pastaPai)) {
             $url = $pastaPai->url;
             $idType = $pastaPai->type_id ?? null;
+            $type = $pastaPai->type ?? null;
         } else {
             $url = '00tR9vps6D';
         }
         $idType = $idType ?? null;
+        $type = $type ?? null;
         if ($columns['name'] != '') {
             $columns['url'] = $url;
             $columns['type_id'] = $idType;
+            $columns['type'] = $type;
             $folder =  $this->repository->create($columns);
             Storage::makeDirectory($url . '/' . $folder->uuid);
         }
