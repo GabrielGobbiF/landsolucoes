@@ -129,6 +129,74 @@ class DocumentosController extends Controller
     }
 
     /**
+     * Update the specified resource from storage.
+     *
+     * @param  \App\Models\teste  $pasta
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $columns = $request->all();
+
+        if (!$documento = $this->repository->where('uuid', $id)->first()) {
+            return redirect()
+                ->route('arquivos.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $documento->update($columns);
+
+        return redirect()
+            ->back()
+            ->with('message', 'Alterado com sucesso!');
+    }
+
+    /**
+     * Move the specified resource from storage.
+     *
+     * @param  \App\Models\teste  $pasta
+     * @return \Illuminate\Http\Response
+     */
+    public function move(Request $request, $id)
+    {
+        $folder = $request->input('folder_move');
+
+        if ($folder) {
+
+            if (!$documento = $this->repository->where('uuid', $id)->first()) {
+                return redirect()
+                    ->back()
+                    ->with('message', 'Registro não encontrado!');
+            }
+
+            if (!$folder = Pasta::where('uuid', $folder)->first()) {
+                return redirect()
+                    ->back()
+                    ->with('message', 'Registro não encontrado!');
+            }
+
+            $url = explode('storage/', $documento->url);
+            $url = $url[1] ?? $url[0];
+
+            if (Storage::exists(($url))) {
+                Storage::move($url, $folder->url . '/' . $documento->uuid . '.' . $documento->ext);
+                $documento->url =  'storage/' . $folder->url . '/' . $documento->uuid . '.' . $documento->ext;
+                $documento->folder = $folder->uuid;
+                $documento->save();
+                $documento->update();
+            }
+
+            return redirect()
+                ->back()
+                ->with('message', 'Movido com sucesso!');
+        }
+
+        return redirect()
+            ->back()
+            ->with('error', 'Não Autorizado');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\teste  $pasta
@@ -136,9 +204,9 @@ class DocumentosController extends Controller
      */
     public function destroy($id)
     {
-        if (!$documento = $this->repository->find($id)) {
+        if (!$documento = $this->repository->where('uuid', $id)->first()) {
             return redirect()
-                ->route('testes')
+                ->back()
                 ->with('message', 'Registro não encontrado!');
         }
 

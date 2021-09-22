@@ -1,6 +1,11 @@
 $(document).ready(function () {
     $('#folder_childer').val($('#select__pasta').val());
     init();
+
+    $('.file__change-name').on('click', function () {
+
+    })
+
 })
 
 Dropzone.autoDiscover = false;
@@ -30,13 +35,16 @@ function init() {
         uploadMultiple: true,
         parallelUploads: 100,
         maxFiles: 100,
-        maxFilesize: 10, // MB
+        addRemoveLinks: true,
+        maxFilesize: 500, // MB
         url: 'http://www2.app.landsolucoes.com.br/l/arquivos',
-        complete: function (file, response) {
+        success: function () {
             this.removeAllFiles();
             $('#modal-add-documento').modal('hide');
             list()
-        }
+        }, error: function (file, message) {
+            toastr.error(message);
+        },
     });
 
     $('.btn-submit-document').on('click', function (e) {
@@ -60,4 +68,26 @@ $('#select__pasta').on('change', function () {
 function addDocument() {
 
 }
+
+function fileUpdate(v){
+    let modal = $('#modal-file');
+    let docId = $(v).attr('data-id');
+    let docName = $(v).attr('data-name');
+    let form = modal.find('#form-update-file');
+    form.attr('action', `${base_url}/l/arquivos/${docId}`)
+    modal.find('#input__fileId').val(docId);
+    modal.find('#input--doc_name').val(docName)
+    modal.modal('show');
+}
+
+function fileMove(v){
+    let modal = $('#modal-file-move');
+    let docId = $(v).attr('data-id');
+    let docName = $(v).attr('data-name');
+    let form = modal.find('#form-move-file');
+    form.attr('action', `${base_url}/l/arquivos/${docId}/move`)
+    modal.find('.modal-title').html(`Mover Documento: ${docName}`);
+    modal.modal('show');
+}
+
 

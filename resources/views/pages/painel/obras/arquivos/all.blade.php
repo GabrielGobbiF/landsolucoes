@@ -25,8 +25,8 @@
                             <a href="#modalCopy" data-toggle="modal" class="dropdown-item copy d-none"><i data-feather="copy"></i>Copy to</a>
                             <a href="#modalMove" data-toggle="modal" class="dropdown-item move  d-none"><i data-feather="folder"></i>Move to</a>
                             <a href="#" class="dropdown-item rename d-none"><i data-feather="edit"></i>Rename</a>
-                            <form id="form-delete-{{ $documento->id }}" role="form" class="needs-validation" onSubmit="if(!confirm('Tem certeza que deseja excluir?')){return false;}"
-                                action="{{ route('arquivos.destroy', $documento->id) }}" method="POST">
+                            <form id="form-delete-{{ $documento->uuid }}" role="form" class="needs-validation" onSubmit="if(!confirm('Tem certeza que deseja excluir?')){return false;}"
+                                action="{{ route('arquivos.destroy', $documento->uuid) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" data-btn-text="Deletando" class="dropdown-item delete"><i data-feather="trash"></i>Deletar</button>

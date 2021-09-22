@@ -179,6 +179,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('arquivos/favorite', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'favorite'])->name('arquivos.favorite');
             Route::post('arquivos/unfavorite', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'unfavorite'])->name('arquivos.unfavorite');
             Route::post('arquivos/downloading', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'download'])->name('arquivos.download');
+            Route::post('arquivos/{fileId}/move', [App\Http\Controllers\Painel\Obras\DocumentosController::class, 'move'])->name('arquivos.move');
 
             Route::resource('pastas', App\Http\Controllers\Painel\Obras\PastaController::class);
             Route::resource('arquivos', App\Http\Controllers\Painel\Obras\DocumentosController::class);

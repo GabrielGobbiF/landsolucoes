@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEtapaObra;
 use App\Models\Obra;
+use App\Models\Pasta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ObraApiController extends Controller
 {
@@ -39,10 +41,24 @@ class ObraApiController extends Controller
 
         $pasta = $obra->pasta()->first() ?? false;
 
+        if ($pasta) {
+            $docsPasta = $pasta->documentos()->get();
+        } else {
+            $url = '00tR9vps6D';
+            $folder =  Pasta::create([
+                'name' => $obra->razao_social,
+                'type' => 'obras',
+                'url' => '00tR9vps6D',
+                'type_id' => $obra->id
+            ]);
+            Storage::makeDirectory($url . '/' . $folder->uuid);
+        }
+
         $pasta = $pasta ? $pasta->childrens() : [];
 
         $returnHTML = view('pages.painel.obras.obras.documentos.index')
             ->with('pasta', $pasta)
+            ->with('docsPasta', $docsPasta??[])
             ->render();
 
         return response()->json($returnHTML  ?? [], 200);

@@ -18,6 +18,10 @@
         max-width: 72%;
     }
 
+    .tree>li>a.nav-link {
+        padding: 0.5rem 0px
+    }
+
 </style>
 
 <div class="col-md-4 d-none">
@@ -48,10 +52,13 @@
                         @include('pages.painel.obras.obras.documentos.childrens')
                     @endif
                     @if ($docs)
-                        @include('pages.painel.obras.obras.documentos.documents')
+                        @include('pages.painel.obras.obras.documentos.documents', ['docs'=>$docs])
                     @endif
                 </div>
             </div>
         </li>
     @endforeach
+    @if ($docsPasta)
+        @include('pages.painel.obras.obras.documentos.documents', ['docs'=>$docsPasta])
+    @endif
 </ul>

@@ -10,9 +10,12 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" style="">
                     <a target="_blank" href="{{ asset($doc->url) }}" class="dropdown-item">Visualizar</a>
-                    <a href="javascript:void(0);" data-id="{{ $doc->id }}" data-name="{{ $doc->name }}" class="dropdown-item">Mudar Nome</a>
-                    <a href="javascript:void(0);" data-id="{{ $doc->id }}" data-name="{{ $doc->name }}" class="dropdown-item">Mover</a>
-                    <a href="javascript:void(0);" data-id="{{ $doc->id }}" data-name="{{ $doc->name }}" class="dropdown-item"><i class="tx-danger fas fa-trash"></i> Excluir</a>
+                    <a href="javascript:void(0);" onclick="fileUpdate(this)" data-id="{{ $doc->uuid }}" data-name="{{ $doc->name }}" class="dropdown-item file__change-name">Mudar Nome</a>
+                    <a href="javascript:void(0);" onclick="fileMove(this)" data-id="{{ $doc->uuid }}" data-name="{{ $doc->name }}" class="dropdown-item">Mover</a>
+
+                    <a href="javascript:void(0);" data-text="Deletar" data-href="{{ route('arquivos.destroy', $doc->uuid) }}" onclick="btn_delete(this)" class="dropdown-item"><i class="tx-danger fas fa-trash"></i>
+                        Excluir
+                    </a>
                 </div>
             </div>
         </li>

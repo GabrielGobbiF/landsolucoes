@@ -31,7 +31,7 @@ var formUpdateEtapa = document.getElementById("form-update-etapa");
 //    });
 //})
 
-document.querySelector('.close').addEventListener('click', () => {
+document.querySelector('.close-right-bar').addEventListener('click', () => {
     document.getElementById('offcanvasRight').classList.remove('show');
 })
 

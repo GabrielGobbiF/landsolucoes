@@ -17,6 +17,8 @@ class DocumentoObserver
     {
         $documento->uuid = uniqid(((date('s') / 12) * 24) + mt_rand(800, 9999));
 
+        $documento->name = mb_strtolower($documento->name, 'UTF-8');
+
     }
 
     /**
@@ -27,6 +29,7 @@ class DocumentoObserver
      */
     public function updating(Documento $documento)
     {
+        $documento->name = mb_strtolower($documento->name, 'UTF-8');
 
     }
 }

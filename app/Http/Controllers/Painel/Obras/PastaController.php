@@ -66,8 +66,10 @@ class PastaController extends Controller
         } else {
             $url = '00tR9vps6D';
         }
+
         $idType = $idType ?? null;
         $type = $type ?? null;
+
         if ($columns['name'] != '') {
             $columns['url'] = $url;
             $columns['type_id'] = $idType;
@@ -75,6 +77,7 @@ class PastaController extends Controller
             $folder =  $this->repository->create($columns);
             Storage::makeDirectory($url . '/' . $folder->uuid);
         }
+
         return redirect()
             ->back()
             ->with('message', 'Criado com sucesso');
