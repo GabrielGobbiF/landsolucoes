@@ -160,7 +160,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class='card' style="height:100%">
+                <div class='card' style="height:100%;max-height: 400px; " >
                     <div class='card-body' style="overflow: auto;height: auto;">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class='card-title'>Documentos</h4>
@@ -197,7 +197,7 @@
                                         <label>Selecione a Pasta</label>
                                         <select class='form-control select2' id="select__pasta">
                                             @foreach ($pastas as $pasta)
-                                                <option value='{{ $pasta->uuid }}'> {{ $pasta->name == ucfirst($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
+                                                <option value='{{ $pasta->uuid }}'> {{ mb_strtolower($pasta->name)== mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -237,7 +237,7 @@
                                             <label>Adicionar Pasta em</label>
                                             <select name="folder_childer" class='form-control select2'>
                                                 @foreach ($pastas as $pasta)
-                                                    <option value='{{ $pasta->uuid }}'> {{ $pasta->name == ucfirst($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
+                                                    <option value='{{ $pasta->uuid }}'> {{ mb_strtolower($pasta->name)== mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -310,7 +310,7 @@
                                             <label>Selecione a Pasta para onde deseja mover</label>
                                             <select name="folder_move" class='form-control select2'>
                                                 @foreach ($pastas as $pasta)
-                                                    <option value='{{ $pasta->uuid }}'> {{ $pasta->name == ucfirst($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
+                                                    <option value='{{ $pasta->uuid }}'> {{ mb_strtolower($pasta->name)== mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
