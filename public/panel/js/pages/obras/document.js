@@ -37,7 +37,7 @@ function init() {
         maxFiles: 100,
         addRemoveLinks: true,
         maxFilesize: 500, // MB
-        url: 'http://www2.app.landsolucoes.com.br/l/arquivos',
+        url: `${base_url}/l/arquivos`,
         success: function () {
             this.removeAllFiles();
             $('#modal-add-documento').modal('hide');
@@ -69,7 +69,7 @@ function addDocument() {
 
 }
 
-function fileUpdate(v){
+function fileUpdate(v) {
     let modal = $('#modal-file');
     let docId = $(v).attr('data-id');
     let docName = $(v).attr('data-name');
@@ -80,7 +80,7 @@ function fileUpdate(v){
     modal.modal('show');
 }
 
-function fileMove(v){
+function fileMove(v) {
     let modal = $('#modal-file-move');
     let docId = $(v).attr('data-id');
     let docName = $(v).attr('data-name');
