@@ -100,7 +100,7 @@
                                         @csrf
                                         <a href="javascript:void(0)"
                                             onclick="event.preventDefault();
-                                                                                                                                                                        document.getElementById('form-unfavorite').submit();"
+                                                                                                                                                                            document.getElementById('form-unfavorite').submit();"
                                             class='nav-link d-none d-sm-block'
                                             rel="tooltip"
                                             title="Des Favoritar"
@@ -111,7 +111,7 @@
                                         @csrf
                                         <a href="javascript:void(0)"
                                             onclick="event.preventDefault();
-                                                                                                                                                                        document.getElementById('form-favorite').submit();"
+                                                                                                                                                                            document.getElementById('form-favorite').submit();"
                                             class='nav-link d-none d-sm-block'
                                             rel="tooltip"
                                             title="Favoritar"
@@ -160,8 +160,8 @@
             </div>
 
             <div class="col-md-4">
-                <div class='card'>
-                    <div class='card-body' style="overflow: auto;">
+                <div class='card' style="height:100%">
+                    <div class='card-body' style="overflow: auto;height: auto;">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class='card-title'>Documentos</h4>
                             <div class="btn-group dropleft">
