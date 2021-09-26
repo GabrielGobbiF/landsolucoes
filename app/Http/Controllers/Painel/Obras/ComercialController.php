@@ -244,6 +244,11 @@ class ComercialController extends Controller
 
         $comercial->update($columns);
 
+        $columnsViabilizacao['viabilizacao']['elaboracao'] = !isset($columnsViabilizacao['viabilizacao']['elaboracao']) ? NULL : $columnsViabilizacao['viabilizacao']['elaboracao'];
+        $columnsViabilizacao['viabilizacao']['qualidade'] = !isset($columnsViabilizacao['viabilizacao']['qualidade']) ? NULL : $columnsViabilizacao['viabilizacao']['qualidade'];
+        $columnsViabilizacao['viabilizacao']['ambiental'] = !isset($columnsViabilizacao['viabilizacao']['ambiental']) ? NULL : $columnsViabilizacao['viabilizacao']['ambiental'];
+        $columnsViabilizacao['viabilizacao']['seguranca_via'] = !isset($columnsViabilizacao['viabilizacao']['seguranca_via']) ? NULL : $columnsViabilizacao['viabilizacao']['seguranca_via'];
+
         $comercial->viabilizacao()->update($columnsViabilizacao['viabilizacao']);
 
         return redirect()

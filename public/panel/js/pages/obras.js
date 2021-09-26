@@ -105,9 +105,7 @@ function getEtapas() {
                     var comments = value.comments;
                     let date_abertura = value.data_abertura != null ? '<i data-toggle="tooltip" title="" data-original-title="informações" style="color:#002bff" class="fa fa-fw fa-info"></i>' : ''
                     let meta = value.meta_etapa != '' ? `Meta: ${value.meta_etapa}` : ''
-                    if (comments[0]) {
-                        var textComment = comments[0].text_limit
-                    }
+
 
                     html += ` <li>
                             <div class="col-mail col-mail-1">
@@ -129,7 +127,7 @@ function getEtapas() {
                             </div>
                             <div class="col-mail col-mail-2">
                                 <span class="teaser badge-success badge">${meta}</span>
-                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''}</span>
+                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''} </span><span> ${comments??''}</span>
                             </div>
                         </li>`;
                 });
@@ -211,7 +209,7 @@ function getCommentsEtapa(etpId) {
             if (data.length > 0) {
                 var options = '';
                 $.each(data, function (index, value) {
-                    const deletePermisson = value.deletu == true ? `<a href="javascript:void(0)" onclick="deleteComment(${value.id},${etpId} )"<i class="fas fa-trash ml-3"></i> </a>` : false;
+                    const deletePermisson = value.deletu == true ? `<a href="javascript:void(0)" onclick="deleteComment(${value.id},${etpId} )"<i class="fas fa-trash ml-3"></i> </a>` : '';
                     options += '<div class="media mt-4">';
                     options += '<div class="avatar-sm font-weight-bold d-inline-block">'
                     options += '    <span class="avatar-title rounded-circle bg-soft-purple tx-14">'

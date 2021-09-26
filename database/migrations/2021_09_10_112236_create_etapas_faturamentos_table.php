@@ -17,6 +17,7 @@ class CreateEtapasFaturamentosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('obr_etp_financerio_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('obra_id')->nullable();
 
             $table->string('coluna_faturamento');
             $table->string('nf_n');
@@ -28,6 +29,11 @@ class CreateEtapasFaturamentosTable extends Migration
             $table->string('status')->default('0');
 
             $table->timestamps();
+
+            $table->foreign('obra_id')
+                ->references('id')
+                ->on('obras')
+                ->onDelete('cascade');
 
             $table->foreign('obr_etp_financerio_id')
                 ->references('id')

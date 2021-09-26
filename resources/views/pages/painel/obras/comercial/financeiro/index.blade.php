@@ -32,7 +32,8 @@
                                                     </th>
                                                     <th>{{ $etapa->unidade }}</th>
                                                     <th>R$ {{ $etapa->preco }}</th>
-                                                    <th class="sub-total" data-value="{{ $etapa->quantidade * $etapa->preco }}"> R$ {{ $etapa->quantidade * $etapa->preco }}</th>
+                                                    <th class="sub-total" data-value="{{ $etapa->quantidade * ($etapa->preco != '' ? $etapa->preco : 0) }}"> R$
+                                                        {{ $etapa->quantidade * ($etapa->preco != '' ? $etapa->preco : 0) }}</th>
                                                 </tr>
                                             @else
                                                 <tr class="bd-t-0-f">
@@ -59,7 +60,7 @@
                                                                                 <div class="text-center">
                                                                                     <input type="number" name="variable[{{ $variable->id }}]" min="0" data-id="{{ $variable->id }}"
                                                                                         data-price="{{ $variable->preco }}"
-                                                                                        value="{{ $variable->quantidade }}" class="qntEtapa wd-70 text-center">
+                                                                                        value="{{ $variable->quantidade }}" class="js-qntEtapa wd-70 text-center">
                                                                                 </div>
                                                                             </th>
                                                                             <th style="width: 20%;">{{ $etapa->unidade }}</th>

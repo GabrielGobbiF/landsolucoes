@@ -101,7 +101,8 @@ class Obra extends Model
         return $this->hasMany(ObraEtapasFinanceiro::class, 'obra_id');
     }
 
-    public function pasta(){
+    public function pasta()
+    {
         return $this->hasOne(Pasta::class, 'type_id', 'id');
     }
 

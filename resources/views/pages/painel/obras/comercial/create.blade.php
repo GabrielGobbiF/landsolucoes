@@ -96,7 +96,7 @@
                                             <label for="participantes">Participantes</label>
                                             <input type="text" class="form-control @error('viabilizacao.participantes') is-invalid @enderror" name="viabilizacao[participantes]"
                                                 id="input--participantes"
-                                                value="{{ isset($comercial) && $comercial->viabilizacao->participantes ? $comercial->viabilizacao->participantes : old('viabilizacao.participantes') }}">
+                                                value="{{ isset($comercial)&& isset($comercial->viabilizacao) && $comercial->viabilizacao->participantes ? $comercial->viabilizacao->participantes : old('viabilizacao.participantes') }}">
                                         </div>
                                     </div>
 
@@ -118,7 +118,7 @@
                                             <label>Possui Todas as informações necessárias para Elaboração da Proposta?</label>
                                             <div class="custom-control custom-checkbox mb-3">
                                                 <input type="checkbox" class="custom-control-input" value="sim" name="viabilizacao[elaboracao]" id="elaboracao"
-                                                    {{ isset($comercial) && $comercial->viabilizacao->elaboracao == 'sim' ? 'checked' : '' }}
+                                                    {{ isset($comercial)&& isset($comercial->viabilizacao) && $comercial->viabilizacao->elaboracao == 'sim' ? 'checked' : '' }}
                                                     {{ !isset($comercial) ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="elaboracao">Sim</label>
                                             </div>
@@ -129,7 +129,7 @@
                                         <div class="form-group">
                                             <label>Comentarios</label>
                                             <input type="text" class="form-control" name="viabilizacao[elaboracao_comentario]" id="elaboracao_comentario"
-                                                value="{{ isset($comercial) ? $comercial->viabilizacao->elaboracao_comentario : old('viabilizacao.elaboracao_comentario.') }}">
+                                                value="{{ isset($comercial) && isset($comercial->viabilizacao)? $comercial->viabilizacao->elaboracao_comentario : old('viabilizacao.elaboracao_comentario.') }}">
                                         </div>
                                     </div>
 
@@ -138,7 +138,7 @@
                                             <label>Atende os requisitos do sitema de Gestão de Qualidade?</label>
                                             <div class="custom-control custom-checkbox mb-3">
                                                 <input type="checkbox" class="custom-control-input" value="sim" name="viabilizacao[qualidade]" id="qualidade"
-                                                    {{ isset($comercial) && $comercial->viabilizacao->qualidade == 'sim' ? 'checked' : '' }}
+                                                    {{ isset($comercial)&& isset($comercial->viabilizacao) && $comercial->viabilizacao->qualidade == 'sim' ? 'checked' : '' }}
                                                     {{ !isset($comercial) ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="qualidade">Sim</label>
                                             </div>
@@ -158,7 +158,7 @@
                                             <label>Atende os requisitos do sitema de Gestão de Ambiental?</label>
                                             <div class="custom-control custom-checkbox mb-3">
                                                 <input type="checkbox" class="custom-control-input" value="sim" name="viabilizacao[ambiental]" id="ambiental"
-                                                    {{ isset($comercial) && $comercial->viabilizacao->ambiental == 'sim' ? 'checked' : '' }}
+                                                    {{ isset($comercial)&& isset($comercial->viabilizacao) && $comercial->viabilizacao->ambiental == 'sim' ? 'checked' : '' }}
                                                     {{ !isset($comercial) ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="ambiental">Sim</label>
                                             </div>
@@ -169,7 +169,7 @@
                                         <div class="form-group">
                                             <label>Comentarios</label>
                                             <input type="text" class="form-control" name="viabilizacao[ambiental_comentario]" id="ambiental_comentario"
-                                                value="{{ isset($comercial) ? $comercial->viabilizacao->ambiental_comentario : old('viabilizacao.ambiental_comentario') }}">
+                                                value="{{ isset($comercial)&& isset($comercial->viabilizacao) ? $comercial->viabilizacao->ambiental_comentario : old('viabilizacao.ambiental_comentario') }}">
                                         </div>
                                     </div>
 
@@ -178,7 +178,7 @@
                                             <label>Atende os requisitos de Saúde e Segurança?</label>
                                             <div class="custom-control custom-checkbox mb-3">
                                                 <input type="checkbox" class="custom-control-input" value="sim" name="viabilizacao[seguranca_via]" id="seguranca_via"
-                                                    {{ isset($comercial) && $comercial->viabilizacao->seguranca_via == 'sim' ? 'checked' : '' }}
+                                                    {{ isset($comercial)&& isset($comercial->viabilizacao) && $comercial->viabilizacao->seguranca_via == 'sim' ? 'checked' : '' }}
                                                     {{ !isset($comercial) ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="seguranca_via">Sim</label>
                                             </div>
@@ -189,7 +189,7 @@
                                         <div class="form-group">
                                             <label>Comentarios</label>
                                             <input type="text" class="form-control" name="viabilizacao[seguranca_comentario]" id="seguranca_comentario"
-                                                value="{{ isset($comercial) ? $comercial->viabilizacao->seguranca_comentario : '' }}">
+                                                value="{{ isset($comercial)&& isset($comercial->viabilizacao) ? $comercial->viabilizacao->seguranca_comentario : '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
                                         <div class="form-group">
                                             <label>Responsável</label>
                                             <input type="text" class="form-control" name="viabilizacao[responsavel]" id="responsavel"
-                                                value="{{ isset($comercial) ? $comercial->viabilizacao->responsavel : old('viabilizacao.responsavel') }}">
+                                                value="{{ isset($comercial)&& isset($comercial->viabilizacao) ? $comercial->viabilizacao->responsavel : old('viabilizacao.responsavel') }}">
                                         </div>
                                     </div>
 
@@ -216,7 +216,7 @@
                                         @foreach (Config::get('constants.status_final_comercial') as $status)
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="viabilizacao[viavel]" id="{{ $status['id'] }}" value="{{ $status['id'] }}"
-                                                    {{ isset($comercial) && $comercial->viabilizacao->viavel == $status['id'] ? 'checked' : '' }}
+                                                    {{ isset($comercial)&& isset($comercial->viabilizacao) && $comercial->viabilizacao->viavel == $status['id'] ? 'checked' : '' }}
                                                     {{ !isset($comercial) && $status['id'] == 'viavel' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="{{ $status['id'] }}">{{ $status['name'] }}</label>
                                             </div>
@@ -227,7 +227,7 @@
                                         <div class="form-group">
                                             <label>Observações</label>
                                             <textarea type="text" class="form-control" name="viabilizacao[observacoes]"
-                                                id="observacoes">{{ isset($comercial) ? $comercial->viabilizacao->observacoes : old('viabilizacao.observacoes') }}</textarea>
+                                                id="observacoes">{{ isset($comercial)&& isset($comercial->viabilizacao) ? $comercial->viabilizacao->observacoes : old('viabilizacao.observacoes') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

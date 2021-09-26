@@ -41,8 +41,7 @@ class ObrasEtapasApiController extends Controller
                     $query->where('nome', 'LIKE', '%' . $filters['term'] . '%');
                 }
             })
-            ->with('tipo')
-            ->orderBy('tipo_id')->orderBy('ordem')->get();
+            ->with('tipo')->orderBy('tipo_id')->orderBy('ordem')->get();
 
         return ObraEtapasResource::collection($etapas);
     }

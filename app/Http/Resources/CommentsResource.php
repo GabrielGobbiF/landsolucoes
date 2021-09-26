@@ -16,7 +16,7 @@ class CommentsResource extends JsonResource
     public function toArray($request)
     {
 
-        $name = Str::title($this->user->name);
+        $name = isset($this->user) ? Str::title($this->user->name) : 'N';
         $name = substr(mb_strtoupper($name, 'UTF-8'), 0, 2);
 
         return [
@@ -24,9 +24,9 @@ class CommentsResource extends JsonResource
             "text" => $this->obs_texto,
             "text_limit" => mb_strimwidth($this->obs_texto, 0, 38),
             "user" => $name,
-            "user_name" => $this->user->name,
-            "date" => dateTournamentForHumans($this->created_at),
-            "deletu" => auth()->user()->id == $this->user->id ? true : false
+            "user_name" => isset($this->user) ? $this->user->name : '',
+            "date" => $this->created_at ? dateTournamentForHumans($this->created_at) : '',
+            "deletu" => isset($this->user) && auth()->user()->id == $this->user->id ? true : false
         ];
     }
 }

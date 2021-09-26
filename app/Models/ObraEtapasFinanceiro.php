@@ -11,6 +11,7 @@ class ObraEtapasFinanceiro extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'etapa_id',
         'obra_id',
         'metodo_pagamento',
@@ -25,10 +26,15 @@ class ObraEtapasFinanceiro extends Model
 
     public function getStatusEtapaAttribute()
     {
-        $status = $this->etapa;
+        $status = DB::select('select * from obras_etapas where id_etapa = ? AND id_obra = ? ', [
+            $this->etapa_id,
+            $this->obra_id,
+        ]);
+        $status = $status[0] ?? [];
 
         if ($status) {
             return [
+                'nome' => $status->nome,
                 'text'  => $status->check,
                 'label' => $this->getStatusLabelAttribute($status->check),
             ];
@@ -52,7 +58,7 @@ class ObraEtapasFinanceiro extends Model
     public function aReceber()
     {
         $dia_atual = date("d");
-        return DB::select("select sum(valor) as sum, COUNT(id) as qnt, data_vencimento from etapas_faturamentos WHERE obr_etp_financerio_id = ? AND data_vencimento <= DATE(NOW())", [$this->id]);
+        return DB::select("select sum(valor) as sum, COUNT(id) as qnt, data_vencimento from etapas_faturamentos WHERE obr_etp_financerio_id = ? AND data_vencimento <= DATE(NOW()) AND recebido_status = 'N'", [$this->id]);
         #return dd($this->faturamento->where(DB::raw('data_vencimento < DATE_ADD(DATE_ADD(LAST_DAY(CURRENT_DATE), INTERVAL 1 DAY), INTERVAL 1 MONTH)'))->sum('valor'));
     }
 
@@ -80,7 +86,6 @@ class ObraEtapasFinanceiro extends Model
                 $label = 'info';
                 break;
         }
-
         return $label;
     }
 }

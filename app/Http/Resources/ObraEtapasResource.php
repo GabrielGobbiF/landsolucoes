@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Comment;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -46,15 +47,20 @@ class ObraEtapasResource extends JsonResource
             "tempo_atividade" => $this->tempo_atividade,
             "tipo" => $this->tipo ? $this->tipo->slug : null,
             "prazo" => isset($prazo) ? $prazo : '',
-            "comments" => isset($this->comments) ? CommentsResource::collection($this->comments->sortByDesc('id')) : [],
+            "comments" => $this->getComments(),
         ];
 
         return $data;
     }
 
+    public function getComments()
+    {
+        $comment = Comment::where('etapa_id', $this->id)->limit(1)->first(['obs_texto']);
+        return $comment ? limit($comment->obs_texto, 30) : '';
+    }
+
     public function checkPrazo()
     {
-
         $msg = 'Concluido';
         $check = 'success';
         $atraso = 'success';
@@ -82,7 +88,6 @@ class ObraEtapasResource extends JsonResource
             'check' => $check,
             'atraso' => $atraso
         ];
-
     }
 
     public function buttons()

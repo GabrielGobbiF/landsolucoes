@@ -12,21 +12,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-7">
                             <div class="form-group">
                                 <label for="input--razao_social">Razão Social</label>
                                 <input type="text" name="razao_social" class="form-control @error('razao_social') is-invalid @enderror" id="input--razao_social"
                                     value="{{ $obra->razao_social ?? old('razao_social') }}" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="input--description">Descrição</label>
-                                <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" id="input--description"
-                                    value="{{ $obra->description ?? old('description') }}" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-3">
                             <div class="form-group">
                                 <label for="input--build_at">Data Criação</label>
                                 <input type="text" name="build_at" class="form-control date" id="input--build_at" value="{{ return_format_date($obra->build_at, 'pt', '/') ?? old('build_at') }}">
@@ -38,14 +31,14 @@
                                 <input type="text" class="form-control" disabled readonly id="input--id" value="{{ $obra->id }}">
                             </div>
                         </div>
-                        <div class="col-12 col-md-5">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="input--concessionaria_id">Concessionaria</label>
                                 <input type="text" name="concessionaria_id" class="form-control" readonly disabled id="input--concessionaria_id"
                                     value="{{ $obra->concessionaria->name }}">
                             </div>
                         </div>
-                        <div class="col-12 col-md-5">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="input--service_id">Tipo de Obra/Serviço</label>
                                 <input type="text" name="service_id" class="form-control" disabled readonly id="input--service_id" placeholder="Tipo de Obra/Serviço"

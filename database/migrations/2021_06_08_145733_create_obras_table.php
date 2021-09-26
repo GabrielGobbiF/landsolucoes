@@ -20,7 +20,7 @@ class CreateObrasTable extends Migration
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('concessionaria_id');
-            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('address_id')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('viabilization_id')->nullable();
 
@@ -30,7 +30,7 @@ class CreateObrasTable extends Migration
             $table->string('cnpj')->nullable();
             $table->string('razao_social_obra_cliente')->nullable();
             $table->longText('obr_informacoes')->nullable();
-            $table->enum('status', ['elaboração', 'enviada', 'aprovada', 'recusada'])->default('elaboração');
+            $table->enum('status', ['elaboração', 'enviada', 'aprovada', 'recusada', 'concluida'])->default('elaboração');
             $table->enum('obr_urgence', ['Y', 'N'])->default('N');
 
             $table->timestamp('build_at')->nullable();  //usado como data de criação

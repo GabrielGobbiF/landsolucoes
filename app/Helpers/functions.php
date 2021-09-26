@@ -4,6 +4,22 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Str;
 
+function token($size = 10, $charsAlphabetic = true)
+{
+    $chars = "0123456789";
+    if ($charsAlphabetic) {
+        $chars .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuwxyz';
+        $chars .= date("Y-m-d H:i:s");
+    } else {
+        $chars .= date("H:i:s");
+    }
+    $randomString = '';
+    for ($i = 0; $i < $size; $i = $i + 1) {
+        $randomString .= $chars[mt_rand(0, strlen($chars) - 5)];
+    }
+    return substr(uniqid(limpar($randomString)), 0, $size);
+}
+
 function formatDateAndTime($value, $format = 'd/m/Y')
 {
     // Utiliza a classe de Carbon para converter ao formato de data ou hora desejado
@@ -130,32 +146,46 @@ function limpar($variavel, $traco = '-')
 
 function return_format_date($date, $type = 'pt', $gDate = '-')
 {
-    if ($date != '') {
+    if ($date != '' && strlen($date) > 4) {
 
         $date = ltrim($date);
 
         $date = str_replace("/", "-", $date);
+        $date = str_replace("--", "-", $date);
 
-        $date = new DateTime($date);
+        $array = explode('-', $date);
 
-        $format = $gDate == '-' ? '-' : '/';
+        //garante que o array possue tres elementos (dia, mes e ano)
+        if (count($array) == 3) {
+            $dia = (int)$array[0];
+            $mes = (int)$array[1];
+            $ano = (int)$array[2];
 
-        switch ($type) {
-            case 'pt':
-                return $date->format('d' . $format . 'm' . $format . 'Y');
-                break;
-            case 'en':
-                return $date->format('Y' . $format . 'm' . $format . 'd');
-                break;
-            default:
-                return $date->format('d' . $format . 'm' . $format . 'Y');
-                break;
+            //testa se a data é válida
+            if (checkdate($mes, $dia, $ano)) {
+                $date = Carbon::parse($date);
+
+                switch ($type) {
+                    case 'pt':
+                        return Carbon::parse($date)->format("d/m/Y");
+                        break;
+                    case 'en':
+                        return Carbon::parse($date)->format('Y-m-d');
+                        break;
+                    default:
+                        return Carbon::parse($date)->format('Y-m-d');
+                        break;
+                }
+            }
         }
     }
+    return NULL;
 }
 
 function dataLimpa($date)
 {
+    $date = str_replace("/", "-", $date);
+
     return Carbon::parse($date)->format('d/m/Y');
 }
 
@@ -238,4 +268,14 @@ function __trans(string $key, ?string $fallback = null, ?string $locale = null, 
     }
 
     return $fallback;
+}
+
+function minusculo($value)
+{
+    return mb_strtolower($value, 'utf-8');
+}
+
+function maiusculo($value)
+{
+    return mb_strtoupper($value, 'utf-8');
 }

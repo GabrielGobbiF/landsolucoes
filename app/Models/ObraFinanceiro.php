@@ -10,6 +10,7 @@ class ObraFinanceiro extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'id_obra',
         'valor_proposta',
         'valor_negociado',

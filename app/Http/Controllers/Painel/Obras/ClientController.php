@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateClient;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
@@ -64,6 +65,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
+
         if (!$client = $this->repository->where('id', $id)->with('departments')->first()) {
 
             return redirect()

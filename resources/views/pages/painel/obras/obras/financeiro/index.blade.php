@@ -77,17 +77,21 @@
                                             $qntVencidas = $r->qnt;
                                             $dataVencimento = $r->data_vencimento;
                                         }
+                                    } else {
+                                        $status['text'] = '';
+                                        $status['label'] = '';
+                                        $status['nome'] = '';
                                     }
 
                                 @endphp
                                 <tr>
-                                    <th>{{ mb_strimwidth($etapa->nome_etapa, 0, 38, '...') }}</th>
+                                    <th>{{ mb_strimwidth( $status['nome'], 0, 38, '...') }}</th>
                                     <th>R$ {{ maskPrice($etapa->valor_receber) }}</th>
-                                    <th>R$ {{ maskPrice($etapa->valor_receber) }}</th>
-                                    <th>{{ $qntVencidas != 0 ? $qntVencidas . ' - ' . dateTournamentForHumans($dataVencimento) : ''}}</th>
+                                    <th>R$ {{ maskPrice($etapaFaturado) }}</th>
+                                    <th>{{ $qntVencidas != 0 ? $qntVencidas . ' - ' . dateTournamentForHumans($dataVencimento) : '' }}</th>
                                     <th>R$ {{ maskPrice($etapaValor - $etapaFaturado) }}</th>
                                     <th>
-                                        <a href="javascript:void(0)" class="{{ $status['text'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa->id }}">
+                                        <a href="javascript:void(0)" class="{{ isset($status) && $status['text'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa->id }}">
                                             <div class="badge badge-soft-{{ $status['label'] }}">
                                                 {{ __('etapa.status.' . $status['text']) }}
                                             </div>
@@ -124,7 +128,7 @@
                                     </tr>
                                     <tr>
                                         <th>Saldo: </th>
-                                        <td>R$ {{ maskPrice($obra->financeiro->valor_negociado - $totalFaturado - $totalRecebido) }}</td>
+                                        <td>R$ {{ maskPrice($obra->financeiro->valor_negociado - ($totalFaturado )) }}</td>
                                     </tr>
                                 </tbody>
                             </table>

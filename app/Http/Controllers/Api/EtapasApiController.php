@@ -114,7 +114,7 @@ class EtapasApiController extends Controller
 
         return response()->json($comercial->etapas_financeiro()->create([
             'obra_id' => $comercial->id,
-            'etapa_id' => $columns['etapa_id'],
+            'etapa_id' => $etapa->id_etapa,
             'metodo_pagamento' => $columns['metodo_pagamento'],
             'valor' => $columns['valor'],
             'valor_receber' => $valor_receber,
