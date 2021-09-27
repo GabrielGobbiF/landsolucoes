@@ -85,11 +85,11 @@
 
                                 @endphp
                                 <tr>
-                                    <th>{{ mb_strimwidth( $status['nome'], 0, 38, '...') }}</th>
+                                    <th>{{ mb_strimwidth($status['nome'], 0, 38, '...') }}</th>
                                     <th>R$ {{ maskPrice($etapa->valor_receber) }}</th>
                                     <th>R$ {{ maskPrice($etapaFaturado) }}</th>
                                     <th>{{ $qntVencidas != 0 ? $qntVencidas . ' - ' . dateTournamentForHumans($dataVencimento) : '' }}</th>
-                                    <th>R$ {{ maskPrice($etapaValor - $etapaFaturado) }}</th>
+                                    <th>R$ {{ $etapaValor != '0' ? maskPrice($etapaValor - $etapaFaturado) : '0' }}</th>
                                     <th>
                                         <a href="javascript:void(0)" class="{{ isset($status) && $status['text'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa->id }}">
                                             <div class="badge badge-soft-{{ $status['label'] }}">
@@ -128,7 +128,7 @@
                                     </tr>
                                     <tr>
                                         <th>Saldo: </th>
-                                        <td>R$ {{ maskPrice($obra->financeiro->valor_negociado - ($totalFaturado )) }}</td>
+                                        <td>R$ {{ maskPrice($obra->financeiro->valor_negociado - $totalFaturado) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
