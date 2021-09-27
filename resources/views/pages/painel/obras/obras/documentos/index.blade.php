@@ -24,15 +24,7 @@
 
 </style>
 
-<div class="col-md-12">
-    @php
-        $cliente = $obra->client_id;
-        $obraId = $obra->id;
-        $url = file_get_contents("http://www.landsolucoes.com.br/autorizationsAjax/getPreview/$obraId/$cliente");
-        $exibir = $url;
-    @endphp
-    {!! $exibir !!}
-</div>
+
 
 <ul class="nav nav-pills flex-column tree">
     @foreach ($pasta as $root_folder)
@@ -64,3 +56,17 @@
         @include('pages.painel.obras.obras.documentos.documents', ['docs'=>$docsPasta])
     @endif
 </ul>
+
+<div class="col-md-12">
+
+    <div class="mt-4 mb-3">
+        <span class="">Documentos</span>
+    </div>
+    @php
+        $cliente = $obra->client_id;
+        $obraId = $obra->id;
+        $url = file_get_contents("http://www.landsolucoes.com.br/autorizationsAjax/getPreview/$obraId/$cliente");
+        $exibir = $url;
+    @endphp
+    {!! $exibir !!}
+</div>

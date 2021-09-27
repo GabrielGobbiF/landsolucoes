@@ -69,7 +69,7 @@ class FinanceiroController extends Controller
                     }
 
                     $totalFaturado += $etapaFaturado;
-                    $saldoAFaturar += $etapaValor - $etapaFaturado;
+                    $saldoAFaturar += $etapaValor != '0' ? $etapaValor - $etapaFaturado : '0';
                     $totalRecebido += $etapaRecebido;
                     $totalReceber  += $aReceber;
                 }
