@@ -51,6 +51,9 @@ class FinanceiroController extends Controller
 
                 foreach ($etapas as $etapa) {
                     $status = $etapa->StatusEtapa;
+                    if (!$status) {
+                        $status['text'] = '';
+                    }
                     $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
                     $etapaFaturado = $etapa->faturado();
                     $etapaRecebido = $etapa->recebido();
