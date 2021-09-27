@@ -42,9 +42,9 @@ class DatabaseSeeder extends Seeder
         #$this->obras_etapas(15000);
         #$this->obras_etapas(20000);
         #$this->obras_etapas(25000);
-        $this->obras_etapas(90000);
+        #$this->obras_etapas(90000);
 
-        #$this->obras_etapas_financeiro_faturamento();
+        $this->obras_etapas_financeiro_faturamento();
 
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/etapas.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/variables.sql')));

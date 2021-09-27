@@ -24,9 +24,11 @@
 
 </style>
 
-<div class="col-md-4 d-none">
+<div class="col-md-4">
     @php
-        $url = ''; #file_get_contents('http://www2.cena.com.br/autorizationsAjax/getPreview/302/81');
+        $cliente = $obra->client_id;
+        $obraId = $obra->id;
+        $url = file_get_contents("http://www2.cena.com.br/autorizationsAjax/getPreview/$obraId/$cliente");
         $exibir = $url;
     @endphp
     {!! $exibir !!}
