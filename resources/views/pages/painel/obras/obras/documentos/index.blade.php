@@ -28,7 +28,7 @@
     @php
         $cliente = $obra->client_id;
         $obraId = $obra->id;
-        $url = file_get_contents("http://www2.cena.com.br/autorizationsAjax/getPreview/$obraId/$cliente");
+        $url = file_get_contents("http://www.landsolucoes.com.br/autorizationsAjax/getPreview/$obraId/$cliente");
         $exibir = $url;
     @endphp
     {!! $exibir !!}
