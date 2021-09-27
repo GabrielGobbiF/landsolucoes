@@ -59,6 +59,7 @@ class ObraApiController extends Controller
         $returnHTML = view('pages.painel.obras.obras.documentos.index')
             ->with('pasta', $pasta)
             ->with('docsPasta', $docsPasta??[])
+            ->with('obra', $obra)
             ->render();
 
         return response()->json($returnHTML  ?? [], 200);
