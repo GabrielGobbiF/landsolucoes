@@ -2,7 +2,7 @@
 
 @section('title', 'Financeiro')
 
-@section('content')
+@section('content-max-fluid')
     <div class="card">
         <div class="card-body">
             <form id='form-search-finance' role='form' class='needs-validation' action='{{ route('finances.index') }}' method='get'>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="card-body">
-            <div class="table table-responsive">
+            <div class="table table-responsive" style="font-size: 13px;">
                 <table class='table table-hover table-centered table-condensed'>
                     <thead class='thead-light'>
                         <tr>
@@ -62,13 +62,12 @@
                     <tbody>
                         @foreach ($finances as $finance)
                             <tr>
-                                <th> <a target="_blank" href="{{route('obras.finance', $finance->obraId)}}" class="">{{ $finance->name }}</a></th>
-                                <th> R$ {{ maskPrice($finance->negociado) }}</th>
-                                <th> R$ {{ maskPrice($finance->totalReceber) }}</th>
-                                <th> R$ {{ maskPrice($finance->recebido) }}</th>
-                                <th> R$ {{ maskPrice($finance->aFaturar) }}</th>
-                                <th> {{ $finance->qntVencidas != 0 ? $finance->qntVencidas . ' - ' . $finance->dataVencimento : '' }}</th>
-                                <th> R$ {{ maskPrice($finance->saldo) }}</th>
+                                <th> <a target="_blank" href="{{route('obras.finance', $finance['obraId'])}}" class="">{{ $finance['nome_obra'] }}</a></th>
+                                <th> R$ {{ maskPrice($finance['valor_negociado']) }}</th>
+                                <th> R$ {{ maskPrice($finance['total_receber']) }}</th>
+                                <th> R$ {{ maskPrice($finance['total_recebido']) }}</th>
+                                <th> R$ {{ maskPrice($finance['tota_a_faturar']) }}</th>
+                                <th> R$ {{ maskPrice($finance['saldo']) }}</th>
                             </tr>
                         @endforeach
 

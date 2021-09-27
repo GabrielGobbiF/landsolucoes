@@ -27,75 +27,46 @@ class FinanceiroController extends Controller
     {
         $filter = $request->all();
 
+        $finances = [];
+
         $obras = $this->repository->where(function ($query) use ($filter) {
             if (isset($filter['obr_name']) && $filter['obr_name'] != '') {
                 return $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
             }
-        })->with('financeiro')->get(['razao_social', 'id']);
-
-        $etapaFaturado = 0;
-        $etapaRecebido = 0;
-        $saldoAFaturar = 0;
-        $totalFaturado = 0;
-        $totalRecebido = 0;
-        $totalAReceber = 0;
-        $etapaFaturado = 0;
-        $etapaValor = 0;
-        $totalReceber = 0;
-        $qntVencidas = 0;
-        $dataVencimento = '';
-        $finances = [];
-        $d = [];
+        })->where('status', 'aprovada')->with('financeiro')->limit(2)->get(['razao_social', 'id']);
 
         foreach ($obras as $obra) {
-
-            if (!$obra->financeiro) {
-                continue;
-            }
-
+            $totalFaturado = 0;
+            $saldoAFaturar = 0;
+            $totalRecebido = 0;
+            $totalReceber = 0;
             $valorNegociadoObra = $obra->financeiro ? $obra->financeiro->valor_negociado : 0;
-            $etapas = $obra->etapas_financeiro()->get();
+
+            $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
 
             if ($etapas) {
-                $r = DB::select("select sum(valor) as sum, COUNT(id) as qnt, data_vencimento from etapas_faturamentos WHERE obra_id = ? AND data_vencimento <= DATE(NOW())", [$obra->id]);
-                $r = $r ? $r[0] : false;
-                foreach ($etapas as $etapa) {
 
+                foreach ($etapas as $etapa) {
                     $status = $etapa->StatusEtapa;
-                    if (!$status) {
-                        $status['text'] = '';
-                    }
                     $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
                     $etapaFaturado = $etapa->faturado();
                     $etapaRecebido = $etapa->recebido();
 
-
                     $totalFaturado += $etapaFaturado;
-                    $saldoAFaturar = $etapaValor - $etapaFaturado;
+                    $saldoAFaturar += $etapaValor - $etapaFaturado;
                     $totalRecebido += $etapaRecebido;
                     $totalReceber  += $etapaValor;
                 }
-
-                if ($r) {
-                    $d[$obra->id]['totalAReceber'] = $r->sum;
-                    $d[$obra->id]['qntVencidas'] = $r->qnt;
-                    $d[$obra->id]['dataVencimento'] = $r->data_vencimento;
-                }
             }
 
-            $finances[] = (object)[
-                'name' => $obra->razao_social,
-                'obraId' => $obra->id,
-                'faturado' => $etapaFaturado,
-                'recebido' => $totalRecebido,
-                'receber' => $totalReceber,
-                'aFaturar' => $saldoAFaturar,
-                'negociado' => $valorNegociadoObra,
-                'totalReceber' => $d[$obra->id]['totalAReceber'],
-                'qntVencidas' => $d[$obra->id]['qntVencidas'],
-                'dataVencimento' => $d[$obra->id]['dataVencimento'] != '' ? formatDateAndTime($dataVencimento) : '',
-                'saldo' => $valorNegociadoObra - $totalFaturado - $totalRecebido,
-            ];
+            $finances[$obra->id]['valor_negociado'] = $valorNegociadoObra;
+            $finances[$obra->id]['obraId'] = $obra->id;
+            $finances[$obra->id]['nome_obra'] = $obra->razao_social;
+            $finances[$obra->id]['tota_faturado'] = $totalFaturado;
+            $finances[$obra->id]['tota_a_faturar'] = $saldoAFaturar;
+            $finances[$obra->id]['total_recebido'] = $totalRecebido;
+            $finances[$obra->id]['total_receber'] = $totalReceber;
+            $finances[$obra->id]['saldo'] = $valorNegociadoObra - $totalFaturado;
         }
 
         $finances =  collect($finances);
