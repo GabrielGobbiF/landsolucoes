@@ -36,6 +36,9 @@ class FinanceiroController extends Controller
         })->where('status', 'aprovada')->with('financeiro')->get(['razao_social', 'id']);
 
         foreach ($obras as $obra) {
+            if (!$obra->financeiro) {
+                continue;
+            }
             $totalFaturado = 0;
             $saldoAFaturar = 0;
             $totalRecebido = 0;
