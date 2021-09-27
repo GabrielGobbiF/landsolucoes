@@ -43,6 +43,9 @@ class FinanceiroController extends Controller
             $saldoAFaturar = 0;
             $totalRecebido = 0;
             $totalReceber = 0;
+            $aReceber = 0;
+            $vencidas = 0;
+            $data_vencimento = '';
             $valorNegociadoObra = $obra->financeiro ? $obra->financeiro->valor_negociado : 0;
 
             $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
@@ -57,31 +60,40 @@ class FinanceiroController extends Controller
                     $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
                     $etapaFaturado = $etapa->faturado();
                     $etapaRecebido = $etapa->recebido();
+                    $etapaAReceber = $etapa->aReceber();
+
+                    if ($etapaAReceber) {
+                        $aReceber = $etapaAReceber->sum;
+                        $vencidas = $etapaAReceber->qnt;
+                        $data_vencimento = $etapaAReceber->data_vencimento;
+                    }
 
                     $totalFaturado += $etapaFaturado;
                     $saldoAFaturar += $etapaValor - $etapaFaturado;
                     $totalRecebido += $etapaRecebido;
-                    $totalReceber  += $etapaValor;
+                    $totalReceber  += $aReceber;
                 }
             }
 
             $finances[$obra->id]['valor_negociado'] = $valorNegociadoObra;
             $finances[$obra->id]['obraId'] = $obra->id;
             $finances[$obra->id]['nome_obra'] = $obra->razao_social;
-            $finances[$obra->id]['tota_faturado'] = $totalFaturado;
-            $finances[$obra->id]['tota_a_faturar'] = $saldoAFaturar;
+            $finances[$obra->id]['total_faturado'] = $totalFaturado;
+            $finances[$obra->id]['total_a_faturar'] = $saldoAFaturar;
             $finances[$obra->id]['total_recebido'] = $totalRecebido;
             $finances[$obra->id]['total_receber'] = $totalReceber;
             $finances[$obra->id]['saldo'] = $valorNegociadoObra - $totalFaturado;
+            $finances[$obra->id]['vencidas'] = $vencidas;
+            $finances[$obra->id]['data_vencimento'] = $data_vencimento;
         }
 
         $finances =  collect($finances);
         if (isset($filter['faturar'])) {
-            $finances = $finances->where('aFaturar', '<>', 0);
+            $finances = $finances->where('total_a_faturar', '<>', 0);
         }
 
         if (isset($filter['receber'])) {
-            $finances = $finances->where('receber', '<>', 0);
+            $finances = $finances->where('total_receber', '<>', 0);
         }
 
         if (isset($filter['vencimento'])) {

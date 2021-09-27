@@ -156,27 +156,19 @@ function return_format_date($date, $type = 'pt', $gDate = '-')
         $array = explode('-', $date);
 
         //garante que o array possue tres elementos (dia, mes e ano)
-        if (count($array) == 3) {
-            $dia = (int)$array[0];
-            $mes = (int)$array[1];
-            $ano = (int)$array[2];
 
-            //testa se a data é válida
-            if (checkdate($mes, $dia, $ano)) {
-                $date = Carbon::parse($date);
+        $date = Carbon::parse($date);
 
-                switch ($type) {
-                    case 'pt':
-                        return Carbon::parse($date)->format("d/m/Y");
-                        break;
-                    case 'en':
-                        return Carbon::parse($date)->format('Y-m-d');
-                        break;
-                    default:
-                        return Carbon::parse($date)->format('Y-m-d');
-                        break;
-                }
-            }
+        switch ($type) {
+            case 'pt':
+                return Carbon::parse($date)->format("d/m/Y");
+                break;
+            case 'en':
+                return Carbon::parse($date)->format('Y-m-d');
+                break;
+            default:
+                return Carbon::parse($date)->format('Y-m-d');
+                break;
         }
     }
     return NULL;

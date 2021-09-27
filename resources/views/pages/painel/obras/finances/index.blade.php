@@ -60,17 +60,42 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $total_negociado = 0;
+                            $total_receber = 0;
+                            $total_recebido = 0;
+                            $total_a_faturar = 0;
+                            $total_saldo = 0;
+                        @endphp
                         @foreach ($finances as $finance)
+                            @php
+                                $total_negociado += $finance['valor_negociado'];
+                                $total_receber += $finance['total_receber'];
+                                $total_recebido += $finance['total_recebido'];
+                                $total_a_faturar += $finance['total_a_faturar'];
+                                $total_saldo += $finance['saldo'];
+                            @endphp
+
                             <tr>
-                                <th> <a target="_blank" href="{{route('obras.finance', $finance['obraId'])}}" class="">{{ $finance['nome_obra'] }}</a></th>
+                                <th> <a target="_blank" href="{{ route('obras.finance', $finance['obraId']) }}"
+                                        class="">{{ $finance['nome_obra'] }}</a></th>
                                 <th> R$ {{ maskPrice($finance['valor_negociado']) }}</th>
                                 <th> R$ {{ maskPrice($finance['total_receber']) }}</th>
                                 <th> R$ {{ maskPrice($finance['total_recebido']) }}</th>
-                                <th> R$ {{ maskPrice($finance['tota_a_faturar']) }}</th>
+                                <th> R$ {{ maskPrice($finance['total_a_faturar']) }}</th>
+                                <th> {{ $finance['vencidas'] . ' ' . return_format_date($finance['data_vencimento']) }}</th>
                                 <th> R$ {{ maskPrice($finance['saldo']) }}</th>
                             </tr>
                         @endforeach
-
+                        <tr>
+                            <th> Total: </th>
+                            <th> R$ {{ maskPrice($total_negociado) }}</th>
+                            <th> R$ {{ maskPrice($total_receber) }}</th>
+                            <th> R$ {{ maskPrice($total_recebido) }}</th>
+                            <th> R$ {{ maskPrice($total_a_faturar) }}</th>
+                            <th> </th>
+                            <th> R$ {{ maskPrice($total_saldo) }}</th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
