@@ -112,6 +112,8 @@ class FinanceiroController extends Controller
      */
     public function show(int $obraId)
     {
+        $faturamento = [];
+
         if (!$obra = $this->repository->with('address')->with('client')->with('financeiro')->find($obraId)) {
             return redirect()
                 ->route('obras')
@@ -124,11 +126,40 @@ class FinanceiroController extends Controller
                 ->with('message', 'Atualize o financeiro primeiro!');
         }
 
-        $etapas = $obra->etapas_financeiro()->with('etapa')->with('faturamento')->get();
+        $etapas_faturamento = $obra->etapas_financeiro()->with('faturamento')->get();
+
+
+        foreach ($etapas_faturamento as $etapa_faturamento) {
+            $r = $etapa_faturamento->aReceber();
+
+            $etapa = $etapa_faturamento->StatusEtapa;
+
+            $valor_etapa = $etapa['text'] != 'EM' ? $etapa_faturamento->valor_receber : 0;
+
+            $etapaFaturado = $etapa_faturamento->faturado();
+            $etapaRecebido = $etapa_faturamento->recebido();
+            $qntVencidas = $r->qnt;
+            $dataVencimento = $r->data_vencimento;
+            $totalAReceber = $r->sum;
+
+            $faturamento[] = [
+                'id' => $etapa_faturamento->id,
+                'nome_etapa' => $etapa['nome'],
+                'valor_etapa' => $valor_etapa,
+                'total_faturado' => $etapaFaturado,
+                'total_a_faturar' => $valor_etapa != '0' ? maskPrice($valor_etapa - $etapaFaturado) : '0',
+                'qnt_vencidas' => $qntVencidas,
+                'dataVencimento' => $dataVencimento,
+                'total_receber' => $totalAReceber,
+                'status' => $etapa['text'],
+                'label' => $etapa['label'],
+                'recebido' => $etapaRecebido,
+            ];
+        }
 
         return view('pages.painel.obras.obras.financeiro.index', [
             'obra' => $obra,
-            'etapas' => $etapas
+            'faturamento' => $faturamento
         ]);
     }
 }

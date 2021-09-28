@@ -2,7 +2,7 @@
 
 @section('title', 'Financeiro')
 
-@section('content-max-fluid')
+@section('content')
     <div class="card">
         <div class="card-body">
             <form id='form-search-finance' role='form' class='needs-validation' action='{{ route('finances.index') }}' method='get'>
@@ -77,8 +77,10 @@
                             @endphp
 
                             <tr>
-                                <th> <a target="_blank" href="{{ route('obras.finance', $finance['obraId']) }}"
-                                        class="">{{ $finance['nome_obra'] }}</a></th>
+                                <th>
+                                    <a target="_blank" href="{{ route('obras.finance', $finance['obraId']) }}">{{ limit($finance['nome_obra']) }}
+                                    </a>
+                                </th>
                                 <th> R$ {{ maskPrice($finance['valor_negociado']) }}</th>
                                 <th> R$ {{ maskPrice($finance['total_receber']) }}</th>
                                 <th> R$ {{ maskPrice($finance['total_recebido']) }}</th>

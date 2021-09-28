@@ -51,54 +51,47 @@
                                 $saldoAFaturar = 0;
                                 $totalFaturado = 0;
                                 $totalRecebido = 0;
-                                $totalAReceber = 0;
-                                $etapaFaturado = 0;
-                                $etapaValor = 0;
-                                $qntVencidas = 0;
-                                $dataVencimento = '';
                             @endphp
-                            @foreach ($etapas as $etapa)
+
+                            @foreach ($faturamento as $etapa)
                                 @php
-                                    $status = $etapa->StatusEtapa;
-
-                                    if ($status) {
-                                        $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
-                                        $etapaFaturado = $etapa->faturado();
-                                        $etapaRecebido = $etapa->recebido();
-
-                                        $r = $etapa->aReceber()[0] ?? false;
-
-                                        $totalFaturado += $etapaFaturado;
-                                        $saldoAFaturar += $etapaValor - $etapaFaturado;
-                                        $totalRecebido += $etapaRecebido;
-
-                                        if ($r) {
-                                            $totalAReceber = $r->sum;
-                                            $qntVencidas = $r->qnt;
-                                            $dataVencimento = $r->data_vencimento;
-                                        }
-                                    } else {
-                                        $status['text'] = '';
-                                        $status['label'] = '';
-                                        $status['nome'] = '';
-                                    }
-
+                                    $totalFaturado += $etapa['total_faturado'];
+                                    $saldoAFaturar += $etapa['valor_etapa'] - $etapa['total_faturado'];
+                                    $totalRecebido += $etapa['recebido'];
                                 @endphp
                                 <tr>
-                                    <th>{{ mb_strimwidth($status['nome'], 0, 38, '...') }}</th>
-                                    <th>R$ {{ maskPrice($etapa->valor_receber) }}</th>
-                                    <th>R$ {{ maskPrice($etapaFaturado) }}</th>
-                                    <th>{{ $qntVencidas != 0 ? $qntVencidas . ' - ' . dateTournamentForHumans($dataVencimento) : '' }}</th>
-                                    <th>R$ {{ $etapaValor != '0' ? maskPrice($etapaValor - $etapaFaturado) : '0' }}</th>
+                                    <th>{{ mb_strimwidth($etapa['nome_etapa'], 0, 38, '...') }}</th>
+                                    <th>R$ {{ maskPrice($etapa['valor_etapa']) }}</th>
+                                    <th>R$ {{ maskPrice($etapa['total_faturado']) }}</th>
+                                    <th>{{ $etapa['qnt_vencidas'] }} vencida(s) / {{ dateTournamentForHumans($etapa['dataVencimento']) }}</th>
+                                    <th>R$ {{ $etapa['valor_etapa'] != '0' ? maskPrice($etapa['valor_etapa'] - $etapa['total_faturado']) : '0' }}</th>
+
                                     <th>
-                                        <a href="javascript:void(0)" class="{{ isset($status) && $status['text'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa->id }}">
-                                            <div class="badge badge-soft-{{ $status['label'] }}">
-                                                {{ __('etapa.status.' . $status['text']) }}
-                                            </div>
-                                        </a>
+                                        @if ($etapa['total_faturado'] != '0' && $etapa['total_faturado'] == $etapa['valor_etapa'])
+                                            @if ($etapa['total_receber'] != 0)
+                                                <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
+                                                    <div class="badge badge-soft-info">
+                                                        Receber
+                                                    </div>
+                                                </a>
+                                            @else
+                                                <a href="javascript:void(0)" class="btn-faturamento" data-id="{{ $etapa['id'] }}">
+                                                    <div class="badge badge-soft-success">
+                                                        Recebido
+                                                    </div>
+                                                </a>
+                                            @endif
+                                        @else
+                                            <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
+                                                <div class="badge badge-soft-{{ $etapa['label'] }}">
+                                                    {{ __('etapa.status.' . $etapa['status']) }}
+                                                </div>
+                                            </a>
+                                        @endif
                                     </th>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>

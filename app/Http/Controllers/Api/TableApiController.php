@@ -187,6 +187,7 @@ class TableApiController extends Controller
             }
         })
             ->where('status', '<>', 'aprovada')
+            ->where('status', '<>', 'concluida')
             ->with('concessionaria')
             ->with('service')
             ->with('client')

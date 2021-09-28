@@ -30,6 +30,7 @@ class ObraEtapasFinanceiro extends Model
             $this->etapa_id,
             $this->obra_id,
         ]);
+
         $status = $status[0] ?? [];
 
         if ($status) {
@@ -38,12 +39,13 @@ class ObraEtapasFinanceiro extends Model
                 'text'  => $status->check,
                 'label' => $this->getStatusLabelAttribute($status->check),
             ];
+        } else {
+            return [
+                'nome' => '',
+                'text'  => '',
+                'label' => '',
+            ];
         }
-    }
-
-    public function etapa()
-    {
-        return $this->belongsTo(ObraEtapa::class, 'etapa_id', 'id');
     }
 
     public function faturamento()
