@@ -23,7 +23,7 @@ function show(etapaId) {
         modal.find('.etapa-nome').html(data.nome_etapa)
         $.each(history, function (index, value) {
             let check = value.recebido == 'Y' ? 'checked' : '';
-            let danger = value.vencimentoBool ? 'class="tx-danger"' : '';
+            let danger = value.vencimentoBool && value.recebido == 'N' ? 'class="tx-danger"' : '';
             table += `<tr>
                 <td>
                 <form id='form-destroy-faturamento' role='form' onsubmit="return confirm('Certeza que quer deletar?');" class='needs-validation' action='${routeEtapa}${etapaId}/${value.identifyFaturamento}/destroy' method='POST'>
