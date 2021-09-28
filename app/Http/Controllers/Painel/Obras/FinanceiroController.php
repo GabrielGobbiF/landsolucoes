@@ -64,7 +64,7 @@ class FinanceiroController extends Controller
 
                     if ($etapaAReceber) {
                         $aReceber = $etapaAReceber->sum;
-                        $vencidas = $etapaAReceber->qnt;
+                        $vencidas += $etapaAReceber->qnt;
                         $data_vencimento = $etapaAReceber->data_vencimento;
                     }
 
@@ -97,7 +97,7 @@ class FinanceiroController extends Controller
         }
 
         if (isset($filter['vencimento'])) {
-            $finances = $finances->where('qntVencidas', '<>', 0);
+            $finances = $finances->where('vencidas', '<>', 0);
         }
 
         return view('pages.painel.obras.finances.index', [

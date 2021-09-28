@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 use App\Http\Resources\EtapasFaturamento;
+use App\Models\Comment;
 use App\Models\Etapa;
 use App\Models\EtapasFaturamento as ModelsEtapasFaturamento;
 use App\Models\Obra;
@@ -65,6 +66,18 @@ class BaseController extends Controller
         $search = $request->input('search');
 
         if ($search) {
+
+            $comentario = new Comment();
+            $comentarios = $this->getBuilder($comentario, $search, ['obs_texto', 'etapa_id', 'id']);
+
+            foreach ($comentarios as $comentario) {
+                $etapa = ObraEtapa::where('id', $comentario->etapa_id)->first();
+                $obra = Obra::where('id', $etapa->id_obra)->first();
+                $response['comentarios'][] = [
+                    'descricao' => limit(Str::of($comentario->obs_texto), 70),
+                    'route' => route('obras.show', [$etapa->id_obra, 'etp=' . $etapa->id])
+                ];
+            }
 
             $obra = new Obra();
             $obras = $this->getBuilder($obra, $search, ['razao_social', 'last_note', 'id']);
