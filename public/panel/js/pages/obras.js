@@ -448,7 +448,7 @@ $('.js-new-comment').on('keyup', function () {
     let value = $(this).html();
     $('#input-new-comment').val(value);
     if (value.includes('@')) {
-        getUsers(value);
+        //getUsers(value);
     } else {
         document.querySelector('#result-users').remove()
     }
