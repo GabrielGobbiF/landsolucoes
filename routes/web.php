@@ -372,6 +372,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
 Route::get('/cron', function () {
     //Artisan::call("command:carReview");
+    Log::emergency("oi");
     Artisan::call("schedule:run");
 });
 
