@@ -77,7 +77,7 @@
                                             @else
                                                 <a href="javascript:void(0)" class="btn-faturamento" data-id="{{ $etapa['id'] }}">
                                                     <div class="badge badge-soft-success">
-                                                        Faturada
+                                                        Faturado
                                                     </div>
                                                 </a>
                                             @endif

@@ -99,9 +99,7 @@
                                     <form id="form-unfavorite" role="form" class="needs-validation" action="{{ route('obras.unfavorite', $obra->id) }}" method="POST">
                                         @csrf
                                         <a href="javascript:void(0)"
-                                            onclick="event.preventDefault();
-                                                                                                                                                                                            document.getElementById("
-                                            form-unfavorite").submit();"
+                                            onclick="event.preventDefault(); document.getElementById('form-unfavorite').submit();"
                                             class="nav-link d-none d-sm-block"
                                             rel="tooltip"
                                             title="Des Favoritar"
@@ -111,9 +109,7 @@
                                     <form id="form-favorite" role="form" class="needs-validation" action="{{ route('obras.favorite', $obra->id) }}" method="POST">
                                         @csrf
                                         <a href="javascript:void(0)"
-                                            onclick="event.preventDefault();
-                                                                                                                                                                                            document.getElementById("
-                                            form-favorite").submit();"
+                                            onclick="event.preventDefault(); document.getElementById('form-favorite').submit();"
                                             class="nav-link d-none d-sm-block"
                                             rel="tooltip"
                                             title="Favoritar"
