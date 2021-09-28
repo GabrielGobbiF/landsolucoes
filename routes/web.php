@@ -27,6 +27,7 @@ Route::group(['middleware' => ['CheckClient']], function () {
 Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::get('/clients', [App\Http\Controllers\Api\TableApiController::class, 'clients'])->name('clients.all');
     Route::get('/users', [App\Http\Controllers\Api\TableApiController::class, 'users'])->name('users.all');
+    Route::get('/users_table', [App\Http\Controllers\Api\TableApiController::class, 'users_table'])->name('users.table.all');
     Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
     Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
     Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');

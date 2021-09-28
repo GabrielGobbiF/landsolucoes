@@ -257,6 +257,14 @@ class TableApiController extends Controller
         return ObraResource::collection($obras);
     }
 
+    public function users_table(Request $request)
+    {
+        $users = new User();
+
+        $users = $this->get($users, ['name']);
+
+        return UserResource::collection($users);
+    }
     public function users(Request $request)
     {
         $search = $request->input('q.term');

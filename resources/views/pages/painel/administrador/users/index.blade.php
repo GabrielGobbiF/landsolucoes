@@ -22,7 +22,7 @@
         <div class="card-body">
             <div class="table table-api">
                 <div class="table-responsive d-none">
-                    <table data-toggle="table" id="table-api" data-table="users">
+                    <table data-toggle="table" id="table-api" data-table="users_table">
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="id" data-width="10%" data-width-unit="%" data-sortable="true" data-visible="false">#</th>
