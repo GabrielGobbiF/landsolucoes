@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div class="table table-responsive d-none">
+            <div class="table table-responsive d-none"  style="font-size: 13px;">
                 <div class="row mb-3">
                     <div class="col-5">
                         <label for="fl_art_nome">Status</label>

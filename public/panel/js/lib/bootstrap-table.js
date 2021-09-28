@@ -79,7 +79,7 @@ function initTable() {
             },
             onLoadSuccess: function () {
                 $('#preloader-content').remove();
-                $('.table-responsive').removeClass('d-none');
+                $('.table').removeClass('d-none');
             },
         });
     }
