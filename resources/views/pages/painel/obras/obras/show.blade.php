@@ -81,9 +81,9 @@
                 <div class="box box-default box-solid">
                     <div class="box-body mg-0 pd-0">
                         <div class="mail-content-header d-flex">
-                            <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modal-update-obra'>Editar Obra</button>
-                            <a href="{{ route('obras.finance', $obra->id) }}" class='btn btn-outline-primary ml-2'>Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
-                            <a href="{{ route('comercial.show', $obra->id) }}" class='btn btn-outline-primary ml-2'>Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-update-obra">Editar Obra</button>
+                            <a href="{{ route('obras.finance', $obra->id) }}" class="btn btn-outline-primary ml-2">Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
+                            <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-outline-primary ml-2">Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
                             <nav class="nav nav-icon-only mg-l-auto">
                                 <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra"
                                     class="nav-link d-none d-sm-block js-btn-delete">
@@ -96,23 +96,25 @@
                                 </a>
 
                                 @if ($obra->favorited())
-                                    <form id='form-unfavorite' role='form' class='needs-validation' action='{{ route('obras.unfavorite', $obra->id) }}' method='POST'>
+                                    <form id="form-unfavorite" role="form" class="needs-validation" action="{{ route('obras.unfavorite', $obra->id) }}" method="POST">
                                         @csrf
                                         <a href="javascript:void(0)"
                                             onclick="event.preventDefault();
-                                                                                                                                                                            document.getElementById('form-unfavorite').submit();"
-                                            class='nav-link d-none d-sm-block'
+                                                                                                                                                                                            document.getElementById("
+                                            form-unfavorite").submit();"
+                                            class="nav-link d-none d-sm-block"
                                             rel="tooltip"
                                             title="Des Favoritar"
                                             data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
                                     </form>
                                 @else
-                                    <form id='form-favorite' role='form' class='needs-validation' action='{{ route('obras.favorite', $obra->id) }}' method='POST'>
+                                    <form id="form-favorite" role="form" class="needs-validation" action="{{ route('obras.favorite', $obra->id) }}" method="POST">
                                         @csrf
                                         <a href="javascript:void(0)"
                                             onclick="event.preventDefault();
-                                                                                                                                                                            document.getElementById('form-favorite').submit();"
-                                            class='nav-link d-none d-sm-block'
+                                                                                                                                                                                            document.getElementById("
+                                            form-favorite").submit();"
+                                            class="nav-link d-none d-sm-block"
                                             rel="tooltip"
                                             title="Favoritar"
                                             data-original-title="Favoritar"> <i data-feather="heart"></i></a>
@@ -160,17 +162,17 @@
             </div>
 
             <div class="col-md-4">
-                <div class='card' style="height:100%;max-height: 400px; " >
-                    <div class='card-body' style="overflow: auto;height: auto;">
+                <div class="card" style="height:100%;max-height: 400px; ">
+                    <div class="card-body" style="overflow: auto;height: auto;">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class='card-title'>Documentos</h4>
+                            <h4 class="card-title">Documentos</h4>
                             <div class="btn-group dropleft">
                                 <a type="button" class="dropdown-toggle arrow-none card-drop dropleft" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="mdi mdi-dots-vertical"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
-                                    <a href="javascript:void(0);" data-toggle='modal' data-target='#add__folder' class="dropdown-item"><i class="fas fa-folder"></i> Nova Pasta</a>
-                                    <a href="javascript:void(0);" data-toggle='modal' data-target='#modal-add-documento' class="dropdown-item"><i class="fas fa-file-download"></i> Novo Documento</a>
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#add__folder" class="dropdown-item"><i class="fas fa-folder"></i> Nova Pasta</a>
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-add-documento" class="dropdown-item"><i class="fas fa-file-download"></i> Novo Documento</a>
                                 </div>
                             </div>
                         </div>
@@ -193,11 +195,12 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class='form-group'>
+                                    <div class="form-group">
                                         <label>Selecione a Pasta</label>
-                                        <select class='form-control select2' id="select__pasta">
+                                        <select class="form-control select2" id="select__pasta">
                                             @foreach ($pastas as $pasta)
-                                                <option value='{{ $pasta->uuid }}'> {{ mb_strtolower($pasta->name)== mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
+                                                <option value="{{ $pasta->uuid }}"> {{ mb_strtolower($pasta->name) == mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -219,116 +222,129 @@
                 </div>
             </div>
 
-            <div class='modal' id='add__folder' tabindex='-1' role='dialog'>
-                <div class='modal-dialog modal-dialog-centered' role='document'>
-                    <div class='modal-content'>
-                        <form id='form-add-folder' role='form' class='needs-validation' action='{{ route('pastas.store') }}' method='POST'>
-                            <div class='modal-header'>
-                                <h5 class='modal-title'>Adicionar Pasta</h5>
-                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
+            <div class="modal" id="add__folder" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form id="form-add-folder" role="form" class="needs-validation" action="{{ route('pastas.store') }}" method="POST">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Adicionar Pasta</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class='modal-body'>
+                            <div class="modal-body">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class='form-group'>
+                                        <div class="form-group">
                                             <label>Adicionar Pasta em</label>
-                                            <select name="folder_childer" class='form-control select2'>
+                                            <select name="folder_childer" class="form-control select2">
                                                 @foreach ($pastas as $pasta)
-                                                    <option value='{{ $pasta->uuid }}'> {{ mb_strtolower($pasta->name)== mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
+                                                    <option value="{{ $pasta->uuid }}"> {{ mb_strtolower($pasta->name) == mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class='form-group'>
-                                            <label for='name'>Nome da pasta</label>
-                                            <input type='text' class='form-control' name='name' id='input--name' required>
+                                        <div class="form-group">
+                                            <label for="name">Nome da pasta</label>
+                                            <input type="text" class="form-control" name="name" id="input--name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-center my-3">ou selecione pastas já cadastrada</div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name">Pasta Padrão Cadastradas</label>
+                                            <select name="name_padrao[]" class="form-control select2Multiple" multiple>
+                                                @foreach ($pastaPadrao as $pastP)
+                                                    <option value="{{ $pastP['nome_pasta'] }}">{{ $pastP['nome_pasta'] }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-primary btn-submit'>Adicionar</button>
-                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-submit">Adicionar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class='modal' id='modal-file' tabindex='-1' role='dialog'>
-                <div class='modal-dialog modal-dialog-centered' role='document'>
-                    <div class='modal-content'>
-                        <form id='form-update-file' role='form' class='needs-validation' action='' method='POST'>
-                            <div class='modal-header'>
-                                <h5 class='modal-title'>Alterar Nome</h5>
-                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
+            <div class="modal" id="modal-file" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form id="form-update-file" role="form" class="needs-validation" action="" method="POST">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Alterar Nome</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class='modal-body'>
+                            <div class="modal-body">
                                 @csrf
-                                @method('put')
+                                @method("put")
                                 <input type="hidden" name="fileId" id="input__fileId">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class='form-group'>
-                                            <label for='name'>Nome do Arquivo</label>
-                                            <input type='text' class='form-control' name='name' id='input--doc_name' required>
+                                        <div class="form-group">
+                                            <label for="name">Nome do Arquivo</label>
+                                            <input type="text" class="form-control" name="name" id="input--doc_name" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-primary btn-submit'>Alterar</button>
-                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-submit">Alterar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class='modal' id='modal-file-move' tabindex='-1' role='dialog'>
-                <div class='modal-dialog modal-dialog-centered' role='document'>
-                    <div class='modal-content'>
-                        <form id='form-move-file' role='form' class='needs-validation' action='' method='POST'>
-                            <div class='modal-header'>
-                                <h5 class='modal-title'></h5>
-                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
+            <div class="modal" id="modal-file-move" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form id="form-move-file" role="form" class="needs-validation" action="" method="POST">
+                            <div class="modal-header">
+                                <h5 class="modal-title"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class='modal-body'>
+                            <div class="modal-body">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class='form-group'>
+                                        <div class="form-group">
                                             <label>Selecione a Pasta para onde deseja mover</label>
-                                            <select name="folder_move" class='form-control select2'>
+                                            <select name="folder_move" class="form-control select2">
                                                 @foreach ($pastas as $pasta)
-                                                    <option value='{{ $pasta->uuid }}'> {{ mb_strtolower($pasta->name)== mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}</option>
+                                                    <option value="{{ $pasta->uuid }}"> {{ mb_strtolower($pasta->name) == mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-primary btn-submit'>Mover</button>
-                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-submit">Mover</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            @include('pages.painel.obras.obras.etapas.show_right')
-            @include('pages.painel.obras._partials.modals.modal-update-obra')
-            @include('pages.painel.obras._partials.modals.modal-update-etapa-all')
+            @include("pages.painel.obras.obras.etapas.show_right")
+            @include("pages.painel.obras._partials.modals.modal-update-obra")
+            @include("pages.painel.obras._partials.modals.modal-update-etapa-all")
         </div>
     </div>
 @stop

@@ -74,8 +74,20 @@ class PastaController extends Controller
             $columns['url'] = $url;
             $columns['type_id'] = $idType;
             $columns['type'] = $type;
+
             $folder =  $this->repository->create($columns);
             Storage::makeDirectory($url . '/' . $folder->uuid);
+        }
+
+        if ($request->input('name_padrao')) {
+            $columns['url'] = $url;
+            $columns['type_id'] = $idType;
+            $columns['type'] = $type;
+            foreach ($request->input('name_padrao') as $pastaPadrao) {
+                $columns['name'] = $pastaPadrao;
+                $folder =  $this->repository->create($columns);
+                Storage::makeDirectory($url . '/' . $folder->uuid);
+            }
         }
 
         return redirect()
