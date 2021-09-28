@@ -28,6 +28,11 @@ class EtapasFaturamento extends Model
 
     protected $dateFormat = 'Y-m-d H:i:s';
 
+    public function obra()
+    {
+        return $this->belongsTo(Obra::class, 'obra_id');
+    }
+
     public function setDataVencimentoAttribute($value)
     {
         $this->attributes['data_vencimento'] = Carbon::parse(str_replace('/', '-', $value))->format('Y-m-d H:i:s');

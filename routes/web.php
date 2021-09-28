@@ -92,7 +92,8 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     | Pesquisa Global
     |--------------------------------------------------------------------------
     */
-    Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('pesquisa.global');
+    Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
+    Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
 });
 
 Route::group(['middleware' => ['CheckPassword']], function () {

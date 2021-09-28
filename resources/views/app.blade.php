@@ -160,6 +160,8 @@
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
 
+    @include('pages.painel._partials.modals.modal-search-global')
+
     <!-- todoFazer  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
@@ -167,6 +169,31 @@
 
     <script>
         @include("components.toastr")
+
+
+        $(document).ready(function() {
+            let countClique = 0;
+
+            function clicou() {
+                countClique = 0
+            }
+            $(document).on('keyup', function(e) {
+                e.preventDefault();
+                if (e.wich == 17 || e.keyCode == 17) {
+                    countClique++
+                }
+                if (countClique == 4) {
+                    countClique = 0;
+                    $('#modal-pesquisa__global').modal('show');
+                }
+            })
+            setInterval(function() {
+                clicou()
+            }, 2000);
+            setInterval(function() {
+                countClique = 0
+            }, 5000);
+        })
     </script>
 
 </body>
