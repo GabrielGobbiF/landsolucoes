@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -371,6 +372,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
 Route::get('/cron', function () {
     //Artisan::call("command:carReview");
+    Log::emergency("oi");
     Artisan::call("schedule:run");
 });
 
