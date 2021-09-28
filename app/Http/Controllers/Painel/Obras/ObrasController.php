@@ -100,16 +100,12 @@ class ObrasController extends Controller
         $pastaPadrao = file_get_contents(asset('storage/00tR9vps6D/jsons/pastas.json'));
         $pastaPadrao = json_decode($pastaPadrao, true);
 
-
         for ($i = 0; $i < count($pastaPadrao); $i++) {
             foreach ($pastas as $p) {
                 if (isset($pastaPadrao[$i]) && minusculo($pastaPadrao[$i]['nome_pasta']) == minusculo($p->name)) {
                     unset($pastaPadrao[$i]);
                 }
             }
-        }
-
-        foreach ($pastaPadrao as $pastaP) {
         }
 
         return view('pages.painel.obras.obras.show', [

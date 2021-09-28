@@ -57,16 +57,47 @@
     @endif
 </ul>
 
-<div class="col-md-12">
-
-    <div class="mt-4 mb-3">
-        <span class="">Documentos</span>
-    </div>
+<div class="mt-3">
     @php
         $cliente = $obra->client_id;
         $obraId = $obra->id;
-        $url = file_get_contents("http://www.landsolucoes.com.br/autorizationsAjax/getPreview/$obraId/$cliente");
-        $exibir = $url;
+        $url = file_get_contents("http://landsolucoes.com.br/autorizationsAjax/getPreview/$obraId/$cliente") ?? null;
+        if ($url) {
+            $docAntigo = json_decode($url, true);
+        }
     @endphp
-    {!! $exibir !!}
+
+    @if (isset($docAntigo))
+        <ul class="nav nav-pills flex-column tree">
+            @foreach ($docAntigo as $pasta => $documentos)
+                @php
+                    $slug = limpar($pasta);
+                @endphp
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-type="0" data-toggle="collapse" data-target="#collapse_docs_antigos_{{ $slug }}" aria-expanded="true"
+                        aria-controls="collapse_docs_antigos_{{ $slug }}">
+                        <i class="fa fa-folder fa-fw"></i> {{ $pasta }}
+                    </a>
+                    <div id="collapse_docs_antigos_{{ $slug }}" class="collapse" aria-labelledby="heading{{ $pasta }}" data-parent="#accordion">
+                        <div class="tree" style="margin-left: 30px;">
+                            @if (isset($documentos['documentos']))
+                                @foreach ($documentos['documentos'] as $docs)
+                                    <ul class="nav nav-pills flex-column tree">
+                                        <li class="nav-item sub-item">
+                                            <div class="dropdown">
+                                                <a href="http://www.landsolucoes.com.br/{{ $docs['docs_link'] }}/{{ $docs['docs_nome'] }}" target="_blank" class="nav-link" >
+                                                    {{ $docs['docs_nome'] }}
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
 </div>
