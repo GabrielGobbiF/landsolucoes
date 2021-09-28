@@ -179,20 +179,23 @@ class TableApiController extends Controller
      */
     public function comercial()
     {
-        $search = $this->search;
+        $filters = $this->filter;
+        $filters['search'] =  $this->search;
 
-        $comercial = Obra::where(function ($query) use ($search) {
-            if ($search != '') {
-                $query->orWhere('razao_social', 'LIKE', '%' . $search . '%');
+        $comercial = Obra::where(function ($query) use ($filters) {
+            if ($filters['search'] != '') {
+                $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
             }
-        })
-            ->where('status', '<>', 'aprovada')
-            ->where('status', '<>', 'concluida')
-            ->with('concessionaria')
+        })->where(function ($query) use ($filters) {
+            if (isset($filters['status']) && $filters['status'] != '') {
+                $query->whereIn('status', $filters['status']);
+            } else {
+                $query->where('status', '<>', 'concluida');
+            }
+        })->with('concessionaria')
             ->with('service')
             ->with('client')
             ->paginate($this->limit);
-
 
         return ComercialResource::collection($comercial);
     }
