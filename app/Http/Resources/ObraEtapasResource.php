@@ -55,7 +55,7 @@ class ObraEtapasResource extends JsonResource
 
     public function getComments()
     {
-        $comment = Comment::where('etapa_id', $this->id)->limit(1)->first(['obs_texto']);
+        $comment = Comment::where('etapa_id', $this->id)->orderby('id', 'DESC')->limit(1)->first(['obs_texto']);
         return $comment ? limit($comment->obs_texto, 30) : '';
     }
 
