@@ -60,6 +60,19 @@
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
 
+/**
+ * @preserve tableExport.jquery.plugin
+ *
+ * Version 1.20.0
+ *
+ * Copyright (c) 2015-2021 hhurz,
+ *   https://github.com/hhurz/tableExport.jquery.plugin
+ *
+ * Based on https://github.com/kayalshri/tableExport.jquery.plugin
+ *
+ * Licensed under the MIT License
+ **/
+
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
  * @version 1.16.1

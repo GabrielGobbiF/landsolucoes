@@ -11,6 +11,7 @@ use App\Models\Obra;
 use App\Models\Pasta;
 use App\Models\Tipo;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ObrasController extends Controller
 {
