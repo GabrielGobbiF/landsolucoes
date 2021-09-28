@@ -148,7 +148,11 @@ function getEtapas() {
 }
 
 function showEtapa(etpId) {
+
     const divEtp = document.getElementById('div--etp');
+
+    divEtp.insertAdjacentHTML('beforebegin', preload());
+    $('.type').addClass('d-none');
 
     document.getElementById('js-etapa-id').value = '';
     document.getElementById("form-update-etapa").reset();
@@ -163,8 +167,7 @@ function showEtapa(etpId) {
         ajax: true,
         dataType: "JSON",
         beforeSend: () => {
-            divEtp.insertAdjacentHTML('beforebegin', preload());
-            $('.type').addClass('d-none');
+
         },
         success: function (j) {
             let data = j.data;
@@ -183,14 +186,17 @@ function showEtapa(etpId) {
 
             getCommentsEtapa(etpId);
 
+            document.getElementById('offcanvasRight').classList.add('show');
+            document.getElementById('preloader-content-etp').remove();
+            $('#preloader-content-etp').remove();
+
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             toastr.error(errorThrown);
             document.getElementById('offcanvasRight').classList.remove('show');
         },
         complete: function () {
-            document.getElementById('offcanvasRight').classList.add('show');
-            document.getElementById('preloader-content-etp').remove();
+
         },
     });
 }
