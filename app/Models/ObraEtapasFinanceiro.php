@@ -62,7 +62,7 @@ class ObraEtapasFinanceiro extends Model
         return EtapasFaturamento::select(DB::raw('sum(valor) as sum, COUNT(id) as qnt, data_vencimento'))
             ->where('obr_etp_financerio_id', $this->id)
             ->where('recebido_status', 'N')
-            ->whereDay('data_vencimento', '<=', date('d'))->first();
+            ->whereDate('data_vencimento', '<=', date('Y-m-d'))->first();
 
         #DB::select("select sum(valor) as sum, COUNT(id) as qnt, data_vencimento from etapas_faturamentos WHERE obr_etp_financerio_id = ? AND data_vencimento <= DATE(NOW()) AND recebido_status = 'N'", [$this->id]);
         #return dd($this->faturamento->where(DB::raw('data_vencimento < DATE_ADD(DATE_ADD(LAST_DAY(CURRENT_DATE), INTERVAL 1 DAY), INTERVAL 1 MONTH)'))->sum('valor'));
