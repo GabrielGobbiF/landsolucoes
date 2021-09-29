@@ -65,7 +65,7 @@ class ObraEtapasResource extends JsonResource
         $check = 'success';
         $atraso = 'success';
 
-        $prazoTotal = somarData($this->prazo_atendimento, 'days', $this->data_abertura);
+        $prazoTotal = somarData($this->prazo_atendimento + 1, 'days', $this->data_abertura);
         $date = Carbon::parse($prazoTotal);
         $now = Carbon::now();
 
