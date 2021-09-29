@@ -173,7 +173,7 @@
 
         $(document).ready(function() {
 
-            $('select').on('select2:open', () => {
+            $('select').on('select2:open', (event) => {
                 if (!event.target.multiple) {
                     $('.select2-container--open .select2-search--dropdown .select2-search__field').last()[0].focus()
                 }
