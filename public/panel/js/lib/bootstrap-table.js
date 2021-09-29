@@ -53,6 +53,8 @@ function initTable() {
             pagination: paginate,
             sidePagination: "server",
             pageNumber: 1,
+            cookiesEnabled: "['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']",
+            mobileResponsive: true,
             queryParams: function (p) {
                 return {
                     sort: p.sortName ?? order,
@@ -70,7 +72,7 @@ function initTable() {
                 };
             },
             onClickCell: function (field, value, row, $element) {
-                if(click == 'false'){
+                if (click == 'false') {
                     return;
                 }
                 if (field != 'statusButton') {
