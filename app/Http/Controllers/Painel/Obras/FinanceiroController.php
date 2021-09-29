@@ -44,13 +44,13 @@ class FinanceiroController extends Controller
             $totalRecebido = 0;
             $totalReceber = 0;
             $aReceber = 0;
-            $vencidas = 0;
             $data_vencimento = '';
             $valorNegociadoObra = $obra->financeiro ? $obra->financeiro->valor_negociado : 0;
 
             $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
 
             if ($etapas) {
+                $vencidas = 0;
 
                 foreach ($etapas as $etapa) {
                     $status = $etapa->StatusEtapa;
@@ -61,10 +61,11 @@ class FinanceiroController extends Controller
                     $etapaFaturado = $etapa->faturado();
                     $etapaRecebido = $etapa->recebido();
                     $etapaAReceber = $etapa->aReceber();
+                    $etapaVencidas = $etapa->vencidas();
 
                     if ($etapaAReceber) {
                         $aReceber = $etapaAReceber->sum;
-                        $vencidas += $etapaAReceber->qnt;
+                        $vencidas += $etapaVencidas->qnt;
                         $data_vencimento = $etapaAReceber->data_vencimento;
                     }
 
@@ -131,6 +132,7 @@ class FinanceiroController extends Controller
 
         foreach ($etapas_faturamento as $etapa_faturamento) {
             $r = $etapa_faturamento->aReceber();
+            $d = $etapa_faturamento->vencidas();
 
             $etapa = $etapa_faturamento->StatusEtapa;
 
@@ -138,7 +140,7 @@ class FinanceiroController extends Controller
 
             $etapaFaturado = $etapa_faturamento->faturado();
             $etapaRecebido = $etapa_faturamento->recebido();
-            $qntVencidas = $r->qnt;
+            $qntVencidas = $d->qnt;
             $dataVencimento = $r->data_vencimento;
             $totalAReceber = $r->sum;
 

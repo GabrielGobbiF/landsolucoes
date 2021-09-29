@@ -69,15 +69,23 @@
                                     <th>
                                         @if ($etapa['total_faturado'] != '0' && $etapa['total_faturado'] == $etapa['valor_etapa'])
                                             @if ($etapa['total_receber'] != 0)
-                                                <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
-                                                    <div class="badge badge-soft-info">
-                                                        Receber
-                                                    </div>
-                                                </a>
+                                                @if ($etapa['dataVencimento'] <= date('Y-m-d'))
+                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
+                                                        <div class="badge badge-soft-info">
+                                                            Receber
+                                                        </div>
+                                                    </a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
+                                                        <div class="badge badge-soft-success">
+                                                            Faturado
+                                                        </div>
+                                                    </a>
+                                                @endif
                                             @else
                                                 <a href="javascript:void(0)" class="btn-faturamento" data-id="{{ $etapa['id'] }}">
                                                     <div class="badge badge-soft-success">
-                                                        Faturado
+                                                        Recebido
                                                     </div>
                                                 </a>
                                             @endif
