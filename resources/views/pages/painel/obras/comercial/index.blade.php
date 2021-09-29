@@ -10,22 +10,23 @@
                     <span class="sr-only"></span>
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-12 col-md-5">
+                    <label for="fl_art_nome">Status</label>
+                    <select name="status" id="select--status" multiple class="form-control select2Multiple search-input">
+                        @foreach (config('constants.status_build') as $status)
+                            <option value="{{ $status }}"> {{ ucfirst($status) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-auto justify-content-end align-self-center mg-t-25">
+                    <button class="btn btn-dark btn-empty-search">Limpar </button>
+                </div>
+            </div>
 
             <div class="table table-responsive d-none"  style="font-size: 13px;">
-                <div class="row mb-3">
-                    <div class="col-12 col-md-5">
-                        <label for="fl_art_nome">Status</label>
-                        <select name="status" id="select--status" multiple class="form-control select2Multiple search-input">
-                            @foreach (config('constants.status_build') as $status)
-                                <option value="{{ $status }}"> {{ ucfirst($status) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
 
-                    <div class="col-auto justify-content-end align-self-center mg-t-25">
-                        <button class="btn btn-dark btn-empty-search">Limpar </button>
-                    </div>
-                </div>
                 <div id="toolbar">
                     <div class="form-inline" role="form">
                         <div class="btn-group mr-2">
