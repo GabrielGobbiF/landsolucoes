@@ -68,6 +68,8 @@
     @endphp
 
     @if (isset($docAntigo))
+    <hr class="my-2">
+    <h6 class="mt-4">Sistema Antigo</h6>
         <ul class="nav nav-pills flex-column tree">
             @foreach ($docAntigo as $pasta => $documentos)
                 @php

@@ -57,6 +57,7 @@ document.getElementById('form-update-etapa').addEventListener("submit", (e) => {
         },
         success: function () {
             showEtapa(etpId);
+            getEtapas();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             var errors = XMLHttpRequest.responseJSON.errors;
@@ -279,6 +280,7 @@ function newComment() {
         $('.js-btn-new-comment').attr('disabled', false);
         $('.js-new-comment').html('');
         getCommentsEtapa(etp_id)
+        getEtapas();
     });
 }
 
