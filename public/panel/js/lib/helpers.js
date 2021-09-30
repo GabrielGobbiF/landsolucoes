@@ -87,6 +87,7 @@
     $('.money').mask('000.000.000.000.000,00', { reverse: true });
 
     $('.rg').mask('00000000-0');
+    $('.cnpj').mask('00.000.000/0000-00');
 
     $('[data-toggle="tooltip"]').tooltip()
 

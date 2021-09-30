@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-
+@endsection
 @section('scripts')
     <script>
         $(document).ready(function() {
@@ -198,5 +198,4 @@
             }
         }
     </script>
-@endsection
 @endsection

@@ -46,6 +46,7 @@
                             </div>
                         </div>
                     </div>
+
                     <hr class="my-2">
                     <div class="box box-default box-solid">
                         <div class="box-header">
@@ -102,6 +103,30 @@
 
                         <div class="box-body">
                             @include('pages.painel._partials.forms.form_address')
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="input--cnpj">Razão Social</label>
+                                        <input type="text" name="razao_social_obra_cliente" class="form-control" id="input--razao_social_obra_cliente" placeholder="Razão Social C"
+                                            value="{{ $obra->razao_social_obra_cliente }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label for="input--cnpj">CNPJ</label>
+                                        <input type="text" name="cnpj" class="form-control cnpj" id="input--cnpj" placeholder="CNPJ"
+                                            value="{{ $obra->cnpj }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label for="input--cno">CNO</label>
+                                        <input type="text" name="cno" class="form-control" id="input--cno" value="{{ $obra->cno }}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

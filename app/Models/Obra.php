@@ -33,6 +33,7 @@ class Obra extends Model
         'status',
         'obr_urgence',
         'build_at',
+        'cno'
     ];
 
     protected $dates = ['deleted_at'];
