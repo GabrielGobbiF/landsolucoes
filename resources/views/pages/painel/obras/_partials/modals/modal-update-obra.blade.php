@@ -106,7 +106,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="input--cnpj">Razão Social</label>
+                                        <label for="input--cnpj">Razão Social da Obra</label>
                                         <input type="text" name="razao_social_obra_cliente" class="form-control" id="input--razao_social_obra_cliente" placeholder="Razão Social C"
                                             value="{{ $obra->razao_social_obra_cliente }}">
                                     </div>
@@ -120,12 +120,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-md-3">
-                                    <div class="form-group">
-                                        <label for="input--cno">CNO</label>
-                                        <input type="text" name="cno" class="form-control" id="input--cno" value="{{ $obra->cno }}">
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

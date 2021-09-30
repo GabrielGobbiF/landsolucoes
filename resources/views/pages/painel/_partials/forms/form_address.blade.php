@@ -13,8 +13,7 @@
     <div class="col-12 col-md-7">
         <div class="form-group">
             <label for="input--street">Rua</label>
-            <input type="text" name="address[street]" class="form-control @error('street') is-invalid @enderror" id="input--street" value="{{ $address->street ?? old('street') }}" autocomplete="off"
-            >
+            <input type="text" name="address[street]" class="form-control @error('street') is-invalid @enderror" id="input--street" value="{{ $address->street ?? old('street') }}" autocomplete="off">
         </div>
     </div>
 
@@ -54,6 +53,13 @@
             <input type="text" name="address[complement]" class="form-control @error('complement') is-invalid @enderror" id="input--complement"
                 value="{{ $address->complement ?? old('complement') }}"
                 autocomplete="off">
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="form-group">
+            <label for="input--cno">CNO</label>
+            <input type="text" name="address[inscEstado]" class="form-control" id="input--cno" value="{{ $address->inscEstado ?? old('complement') }}">
         </div>
     </div>
 </div>
