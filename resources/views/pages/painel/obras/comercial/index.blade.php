@@ -185,7 +185,7 @@
                     headers: {
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: BASE_URL + '/l/comercial/' + id + '/updateStatus',
+                    url: `${base_url}/l/comercial/${id}/updateStatus`,
                     type: 'POST',
                     data: {
                         status: status,
