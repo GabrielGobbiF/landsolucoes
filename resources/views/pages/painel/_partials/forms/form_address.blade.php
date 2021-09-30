@@ -55,11 +55,4 @@
                 autocomplete="off">
         </div>
     </div>
-
-    <div class="col-12 col-md-3">
-        <div class="form-group">
-            <label for="input--cno">CNO</label>
-            <input type="text" name="address[inscEstado]" class="form-control" id="input--cno" value="{{ $address->inscEstado ?? old('complement') }}">
-        </div>
-    </div>
 </div>

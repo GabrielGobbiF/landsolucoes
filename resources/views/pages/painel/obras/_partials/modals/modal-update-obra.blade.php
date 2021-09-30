@@ -120,7 +120,12 @@
                                     </div>
                                 </div>
 
-
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label for="input--cno">CNO</label>
+                                        <input type="text" name="cno" class="form-control" id="input--cno" value="{{ $obra->cno != '' ? $obra->cno : $address->inscEstado }}">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
