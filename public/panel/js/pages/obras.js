@@ -108,7 +108,7 @@ function getEtapas() {
                     let meta = value.meta_etapa != '' ? `Meta: ${value.meta_etapa}` : ''
 
 
-                    html += ` <li>
+                    html += `<li>
                             <div class="col-mail col-mail-1">
                                 <div class="checkbox-wrapper-mail">
                                     <input type="checkbox" class="js-btn-status" ${checked} onclick="updateStatus(this)"
