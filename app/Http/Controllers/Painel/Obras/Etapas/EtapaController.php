@@ -200,6 +200,14 @@ class EtapaController extends Controller
                 ->with('error', 'Registro não encontrado!');
         }
 
+        $financeiro = $etapa->faturamento()->count();
+
+        if ($financeiro) {
+            return redirect()
+                ->back()
+                ->with('error', 'Existe Faturamento nessa etapa, não é possivel excluir');
+        }
+
         $etapa->delete();
 
         return redirect()
