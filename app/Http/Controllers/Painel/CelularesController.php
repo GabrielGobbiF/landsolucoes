@@ -94,13 +94,13 @@ class CelularesController extends Controller
         if (!$celular = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('celulares.index')
-                ->with('message', 'Registro não encontrado!');
+                ->with('message', 'Registro C não encontrado!');
         }
 
         $celular->delete();
 
         return redirect()
-            ->back()
+            ->route('celulares.index')
             ->with('message', 'Deletado com sucesso');
     }
 }
