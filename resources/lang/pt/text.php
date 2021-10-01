@@ -23,6 +23,9 @@ return [
     'password' => 'Senha',
     'forgot_your_password?' => 'Esqueci minha senha',
 
+    'celulare' => 'Celular',
+    'celulares?' => 'Celulares',
+
 
 
 ];

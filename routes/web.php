@@ -36,6 +36,7 @@ Route::prefix('/v1/api')->middleware('auth')->group(function () {
     Route::get('/employees', [App\Http\Controllers\Api\TableApiController::class, 'employees'])->name('employees.all');
     Route::get('/portarias', [App\Http\Controllers\Api\TableApiController::class, 'portarias'])->name('portarias.all');
     Route::get('/vehicles', [App\Http\Controllers\Api\TableApiController::class, 'vehicles'])->name('vehicles.all');
+    Route::get('/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
 
 
     Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
@@ -263,7 +264,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::delete('comercial/etapasFinanceiro/{etapa_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class, 'etapas_financeiro_destroy'])->name('comercial.etapas.financeiro.store');;
 
 
-
             /*
             |--------------------------------------------------------------------------
             | Variaveis
@@ -340,6 +340,13 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     |--------------------------------------------------------------------------
     */
     Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Celulares
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('celulares', App\Http\Controllers\Painel\CelularesController::class);
 
     /*
     |--------------------------------------------------------------------------

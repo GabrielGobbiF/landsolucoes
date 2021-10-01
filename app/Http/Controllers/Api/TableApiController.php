@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CelularesResource;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
@@ -13,6 +14,7 @@ use App\Http\Resources\PortariaResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiclesResource;
+use App\Models\Celular;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Employee;
@@ -128,6 +130,20 @@ class TableApiController extends Controller
         $employees = $this->get($employees, ['id', 'uuid', 'name', 'rg', 'ctps', 'endereco', 'cargo', 'cnh_number', 'equipe', 'salario', 'cnh', 'email']);
 
         return EmployeeResource::collection($employees);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function celulares()
+    {
+        $celulares = new Celular();
+
+        $celulares = $this->get($celulares, ['id', 'linha', 'usuario', 'equipe', 'responsavel']);
+
+        return CelularesResource::collection($celulares);
     }
 
     /**

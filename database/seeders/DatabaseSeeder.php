@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Celular;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Department;
@@ -43,13 +44,22 @@ class DatabaseSeeder extends Seeder
         #$this->obras_etapas(20000);
         #$this->obras_etapas(25000);
         #$this->obras_etapas(90000);
-
-        $this->obras_etapas_financeiro_faturamento();
-
+        #$this->obras_etapas_financeiro_faturamento();
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/etapas.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/variables.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
+
+        $this->celulares();
+    }
+
+    private function celulares()
+    {
+        foreach (config('admin.celulares') as $celular) {
+            Celular::create([
+                'linha' => $celular,
+            ]);
+        }
     }
 
     private function obras_etapas_financeiro_faturamento()
