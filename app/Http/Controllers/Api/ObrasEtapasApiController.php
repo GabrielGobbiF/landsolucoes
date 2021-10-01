@@ -139,7 +139,9 @@ class ObrasEtapasApiController extends Controller
         //}
 
         if ($etapa) {
-            $etapa->comments()->create($columns);
+            if($columns['obs_texto'] != ''){
+                $etapa->comments()->create($columns);
+            }
 
             return  $etapa;
         }
