@@ -124,19 +124,19 @@ class ObrasEtapasApiController extends Controller
 
         $etapa = $obra->etapas()->where('id', $etapa_id)->first();
 
-        $string = $columns['obs_texto'];
-        $patt = '/"[^"]*"/';
-
-        preg_match_all($patt, $string, $resultado);
-        foreach ($resultado as $user) {
-            $user = intval($user);
-            if ($user != 0) {
-                $user = User::where('id', $user)->first();
-                if ($user) {
-                    $user->notify(new EtapaMencionUser($etapa));
-                }
-            }
-        }
+        //$string = $columns['obs_texto'];
+        //$patt = '/"[^"]*"/';
+//
+        //preg_match_all($patt, $string, $resultado);
+        //foreach ($resultado as $user) {
+        //    $user = intval($user);
+        //    if ($user != 0) {
+        //        $user = User::where('id', $user)->first();
+        //        if ($user) {
+        //            $user->notify(new EtapaMencionUser($etapa));
+        //        }
+        //    }
+        //}
 
         if ($etapa) {
             $etapa->comments()->create($columns);
