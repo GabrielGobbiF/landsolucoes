@@ -198,20 +198,48 @@ class TableApiController extends Controller
         $filters = $this->filter;
         $filters['search'] =  $this->search;
 
-        $comercial = Obra::where(function ($query) use ($filters) {
-            if ($filters['search'] != '') {
-                $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
-            }
-        })->where(function ($query) use ($filters) {
-            if (isset($filters['status']) && $filters['status'] != '') {
-                $query->whereIn('status', $filters['status']);
-            } else {
-                $query->where('status', '<>', 'concluida');
-            }
-        })->with('concessionaria')
-            ->with('service')
-            ->with('client')
+        $comercial = DB::table('obras')
+            ->select('obras.*', 'services.name as service_name', 'concessionarias.name as concessionaria_name', 'clients.company_name')
+            ->where(function ($query) use ($filters) {
+                if (isset($filters['status']) && $filters['status'] != '') {
+                    $query->whereIn('status', $filters['status']);
+                } else {
+                    $query->where('status', '<>', 'concluida');
+                }
+            })
+            ->join('clients', function ($join) use ($filters) {
+                $join->on('obras.client_id', '=', 'clients.id')
+                    ->where(function ($query) use ($filters) {
+                        if (isset($filters['client_id']) && $filters['client_id'] != '') {
+                            $query->where('clients.id',  $filters['client_id']);
+                        }
+                    });
+            })
+            ->join('concessionarias', function ($join) use ($filters) {
+                $join->on('obras.concessionaria_id', '=', 'concessionarias.id')
+                    ->where(function ($query) use ($filters) {
+                        if (isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '') {
+                            $query->where('concessionarias.id',  $filters['concessionaria_id']);
+                        }
+                    });
+            })
+            ->join('services', 'obras.service_id', '=', 'services.id')
+            ->where(function ($query) use ($filters) {
+                if (isset($filters['urgence'])) {
+                    $query->where('obras.obr_urgence', 'Y');
+                }
+            })
+            ->whereNull('obras.deleted_at')
+            ->where(function ($query) use ($filters) {
+                if ($filters['search'] != '') {
+                    $query->orWhere('last_note', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
+                }
+            })
+            ->groupBy('obras.id')
+            ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
+
 
         return ComercialResource::collection($comercial);
     }

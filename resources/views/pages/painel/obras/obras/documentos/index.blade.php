@@ -67,9 +67,9 @@
         }
     @endphp
 
-    @if (isset($docAntigo))
-    <hr class="my-2">
-    <h6 class="mt-4">Sistema Antigo</h6>
+    @if (isset($docAntigo) && count($docAntigo['Todos']['documentos']) > 0)
+        <hr class="my-2">
+        <h6 class="mt-4">Sistema Antigo</h6>
         <ul class="nav nav-pills flex-column tree">
             @foreach ($docAntigo as $pasta => $documentos)
                 @php
@@ -87,7 +87,7 @@
                                     <ul class="nav nav-pills flex-column tree">
                                         <li class="nav-item sub-item">
                                             <div class="dropdown">
-                                                <a href="http://www.landsolucoes.com.br/{{ $docs['docs_link'] }}/{{ $docs['docs_nome'] }}" target="_blank" class="nav-link" >
+                                                <a href="http://www.landsolucoes.com.br/{{ $docs['docs_link'] }}/{{ $docs['docs_nome'] }}" target="_blank" class="nav-link">
                                                     {{ $docs['docs_nome'] }}
                                                 </a>
                                             </div>

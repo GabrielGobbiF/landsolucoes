@@ -39,7 +39,16 @@ class ComercialController extends Controller
      */
     public function index()
     {
-        return view('pages.painel.obras.comercial.index');
+        $clients = Client::whereHas('obras', function ($query) {
+            $query->where('obras.status', 'aprovada');
+        })->get(['id', 'username']);
+
+        $concessionarias = Concessionaria::whereHas('obras')->get(['id', 'name']);
+
+        return view('pages.painel.obras.comercial.index', [
+            'clients' => $clients,
+            'concessionarias' => $concessionarias,
+        ]);
     }
 
     /**
@@ -95,6 +104,15 @@ class ComercialController extends Controller
         $etapas = $concessionaria->etapas($service_id)->get();
 
         $this->storeEtapasComercial($etapas, $comercial->id);
+
+        $url = '00tR9vps6D';
+        $folder =  Pasta::create([
+            'name' => $comercial->razao_social,
+            'type' => 'obras',
+            'url' => '00tR9vps6D',
+            'type_id' => $comercial->id
+        ]);
+        Storage::makeDirectory($url . '/' . $folder->uuid);
 
         return redirect()
             ->route('comercial.show', $comercial->id)

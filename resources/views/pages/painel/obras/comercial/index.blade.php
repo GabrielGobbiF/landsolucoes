@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-12 col-md-5">
+                <div class="col-12 col-md-4">
                     <label for="fl_art_nome">Status</label>
                     <select name="status" id="select--status" multiple class="form-control select2Multiple search-input">
                         @foreach (config('constants.status_build') as $status)
@@ -20,12 +20,33 @@
                     </select>
                 </div>
 
+                <div class="col-md-3">
+                    <label for="fl_art_nome">Cliente</label>
+                    <select name="client_id" id="select--client_id" class="form-control select2 search-input">
+                        <option value="" selected>Selecione</option>
+                        @foreach ($clients as $client)
+                            <option value="{{ $client->id }}"> {{ $client->username }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="fl_art_nome">Concessionarias</label>
+                    <select name="concessionaria_id" id="select--concessionaria_id" class="form-control select2 search-input">
+                        <option value="" selected>Selecione</option>
+                        @foreach ($concessionarias as $concessionaria)
+                            <option value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
                 <div class="col-auto justify-content-end align-self-center mg-t-25">
                     <button class="btn btn-dark btn-empty-search">Limpar </button>
                 </div>
             </div>
 
-            <div class="table table-responsive d-none"  style="font-size: 13px;">
+            <div class="table table-responsive d-none" style="font-size: 13px;">
 
                 <div id="toolbar">
                     <div class="form-inline" role="form">
@@ -40,10 +61,10 @@
                     <thead>
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                            <th data-field="razao_social">Razão Social</th>
-                            <th data-field="client.name">Cliente</th>
-                            <th data-field="concessionaria.name">Concessionaria</th>
-                            <th data-field="service.name">Serviço</th>
+                            <th data-sortable="true" data-field="razao_social">Razão Social</th>
+                            <th data-sortable="true" data-field="clients.company_name">Cliente</th>
+                            <th data-sortable="true" data-field="concessionaria_name">Concessionaria</th>
+                            <th data-sortable="true" data-field="service_name">Serviço</th>
                             <th data-field="statusButton" data-align="center" data-formatter="nameFormatter">Status</th>
                         </tr>
                     </thead>
@@ -86,8 +107,14 @@
             if (localStorage.getItem('select--status')) {
                 $('#select--status').val(JSON.parse(localStorage.getItem('select--status'))).trigger('change');
             }
+            if (localStorage.getItem('select--concessionaria_id')) {
+                $('#select--concessionaria_id').val(JSON.parse(localStorage.getItem('select--concessionaria_id'))).trigger('change');
+            }
+            if (localStorage.getItem('select--client_id')) {
+                $('#select--client_id').val(JSON.parse(localStorage.getItem('select--client_id'))).trigger('change');
+            }
 
-            if($('#select--status').val != ''){
+            if ($('#select--status').val != '') {
                 initTable();
             }
 
