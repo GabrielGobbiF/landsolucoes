@@ -10,8 +10,8 @@
                     <span class="sr-only"></span>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-12 col-md-4">
+            <div class="row mb-4">
+                <div class="col-12 col-md-5">
                     <label for="fl_art_nome">Status</label>
                     <select name="status" id="select--status" multiple class="form-control select2Multiple search-input">
                         @foreach (config('constants.status_build') as $status)
@@ -40,8 +40,7 @@
                     </select>
                 </div>
 
-
-                <div class="col-auto justify-content-end align-self-center mg-t-25">
+                <div class="col-1 justify-content-end align-self-center mg-t-25">
                     <button class="btn btn-dark btn-empty-search">Limpar </button>
                 </div>
             </div>
