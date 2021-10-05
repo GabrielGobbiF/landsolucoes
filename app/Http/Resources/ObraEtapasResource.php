@@ -85,6 +85,7 @@ class ObraEtapasResource extends JsonResource
             $msg = 'Vencida: ' . $msg;
         } elseif ($now == $dateP) {
             $check = 'warning';
+            $atraso = 'warning';
             $msg = 'Vence Hoje';
         } elseif ($now < $date) {
             $check = 'success';
