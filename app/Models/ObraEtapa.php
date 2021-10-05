@@ -57,4 +57,6 @@ class ObraEtapa extends Model
     {
         return $this->hasMany(Comment::class, 'etapa_id', 'id');
     }
+
+
 }

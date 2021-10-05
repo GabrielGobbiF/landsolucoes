@@ -13,12 +13,15 @@ class Comment extends Model
         'etapa_id',
         'user_id',
         'obs_texto',
+        'type',
     ];
 
     protected $table = 'comments';
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->type == 'usuario'
+            ? $this->belongsTo(User::class, 'user_id')
+            : $this->belongsTo(Client::class, 'user_id');
     }
 }

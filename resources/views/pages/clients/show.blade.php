@@ -1,4 +1,4 @@
-@extends("app")
+@extends("pages.clients.app")
 
 @section('title', ucfirst($obra->razao_social) . ' - ' . $obra->last_note)
 
@@ -22,14 +22,14 @@
                         <div class="col-12 mt-3">
                             <div class="form-group">
                                 <label style="width:100%" for="input--description">Descrição da Obra <span class="description-span-save float-right"><span> </label>
-                                <textarea type="text" name="description" class="form-control input-update-obra">{{ $obra->description ?? '' }}</textarea>
+                                <textarea type="text" name="description" class="form-control">{{ $obra->description ?? '' }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-group">
                                 <label style="width:100%" for="input--description">Informações Importantes <span class="obr_informacoes-span-save float-right"><span></label>
-                                <textarea type="text" name="obr_informacoes" class="form-control input-update-obra">{{ $obra->obr_informacoes ?? '' }}</textarea>
+                                <textarea type="text" name="obr_informacoes" class="form-control">{{ $obra->obr_informacoes ?? '' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -77,51 +77,6 @@
         </div>
 
         <div class="main row">
-            <div class="col-12 col-md-8">
-                    <div class="box box-default box-solid">
-                        <div class="box-body mg-0 pd-0">
-                            <div class="mail-content-header d-flex">
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-update-obra">Editar Obra</button>
-                                <a href="{{ route('obras.finance', $obra->id) }}" class="btn btn-outline-primary ml-2">Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
-                                <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-outline-primary ml-2">Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
-                                <nav class="nav nav-icon-only mg-l-auto">
-                                    <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra"
-                                        class="nav-link d-none d-sm-block js-btn-delete">
-                                        <i data-feather="archive"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" data-text="Deletar" data-href="{{ route('obras.destroy', $obra->id) }}" rel="tooltip" title="Excluir Obra"
-                                        class="nav-link d-none d-sm-block js-btn-delete"
-                                        data-original-title="Archive">
-                                        <i data-feather="trash"></i>
-                                    </a>
-
-                                    @if ($obra->favorited())
-                                        <form id="form-unfavorite" role="form" class="needs-validation" action="{{ route('obras.unfavorite', $obra->id) }}" method="POST">
-                                            @csrf
-                                            <a href="javascript:void(0)"
-                                                onclick="event.preventDefault(); document.getElementById('form-unfavorite').submit();"
-                                                class="nav-link d-none d-sm-block"
-                                                rel="tooltip"
-                                                title="Des Favoritar"
-                                                data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
-                                        </form>
-                                    @else
-                                        <form id="form-favorite" role="form" class="needs-validation" action="{{ route('obras.favorite', $obra->id) }}" method="POST">
-                                            @csrf
-                                            <a href="javascript:void(0)"
-                                                onclick="event.preventDefault(); document.getElementById('form-favorite').submit();"
-                                                class="nav-link d-none d-sm-block"
-                                                rel="tooltip"
-                                                title="Favoritar"
-                                                data-original-title="Favoritar"> <i data-feather="heart"></i></a>
-                                        </form>
-                                    @endif
-                                    <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-            </div>
 
             <div class="col-12 col-md-8">
                 <div class="obr-etapa">
@@ -129,10 +84,6 @@
                         <div class="col-md-12">
                             <div class="box-header with-border">
                                 <h3 class="box-title text-center my-2">Etapas</h3>
-                                <button type="button" data-type="active" class="btn btn-box-tool mode-edition"><i class="fa fa-plus-circle"></i> Modo Edição</button>
-                                <button type="button" data-type="exit" class="btn btn-box-tool mode-edition d-none"><i class="fa fa-plus-circle"></i> Sair modo Edição</button>
-                                <button type="button" id="deleteSelectionEtapa" data-type="deleteall" class="btn btn-box-tool mode d-none"><i class="fa fa-trash"></i> Deletar Selecionados</button>
-                                <button type="button" id="updateSelectionEtapa" data-type="updateall" class="btn btn-box-tool mode d-none"><i class="fa fa-edit"></i> Atualizar Selecionados</button>
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         <select name="type" id="select--type" class="form-control select2 search-input">
@@ -163,9 +114,6 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Documentos</h4>
                             <div class="btn-group dropleft">
-                                <a type="button" class="dropdown-toggle arrow-none card-drop dropleft" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="mdi mdi-dots-vertical"></i>
-                                </a>
                                 <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#add__folder" class="dropdown-item"><i class="fas fa-folder"></i> Nova Pasta</a>
                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-add-documento" class="dropdown-item"><i class="fas fa-file-download"></i> Novo Documento</a>

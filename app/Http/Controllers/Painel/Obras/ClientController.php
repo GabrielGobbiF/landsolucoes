@@ -65,7 +65,6 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-
         if (!$client = $this->repository->where('id', $id)->with('departments')->first()) {
 
             return redirect()

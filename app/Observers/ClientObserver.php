@@ -23,14 +23,14 @@ class ClientObserver
 
         $client->username = titleCase(minusculo($client->username));
 
-        $client->password = Hash::make("cena_" . limpar($client->username));
+        $client->password = Hash::make("cena_" . limpar($client->username, ''));
 
         $client->company_name = maiusculo($client->company_name);
 
         if (Storage::exists('senhas_clientes.txt')) {
-            Storage::append('senhas_clientes.txt', 'nome:' . $client->company_name . 'senha: ' . $client->password);
+            Storage::append('senhas_clientes.txt', 'nome:' . $client->username . '   senha: ' . "cena_" . limpar($client->username, ''));
         } else {
-            Storage::put('senhas_clientes.txt', 'nome:' . $client->company_name . 'senha: ' . $client->password);
+            Storage::put('senhas_clientes.txt', 'nome:' . $client->username . '      senha: ' . "cena_" . limpar($client->username, ''));
         }
     }
 

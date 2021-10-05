@@ -18,16 +18,12 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('etapa_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->text('obs_texto')->nullable();
+            $table->string('type')->default('usuario');
             $table->timestamps();
 
             $table->foreign('etapa_id')
                 ->references('id')
                 ->on('obras_etapas')
-                ->onDelete('cascade');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
                 ->onDelete('cascade');
         });
     }

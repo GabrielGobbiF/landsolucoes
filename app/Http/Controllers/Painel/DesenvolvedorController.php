@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DesenvolvedorController extends Controller
@@ -98,5 +101,25 @@ class DesenvolvedorController extends Controller
         } else {
             return redirect()->back()->with('error', 'Não salvo');
         }
+    }
+
+    public function clientsAlterPassword(){
+
+        $clients = Client::all();
+
+        foreach ($clients as $client){
+
+            $client->password = Hash::make("cena_" . limpar($client->username, ''));
+            $client->save();
+            $client->update();
+
+            if (Storage::disk('local')->exists('senhas_clientes.txt')) {
+                Storage::disk('local')->append('senhas_clientes.txt', 'nome:' . $client->username . '   senha: ' . "cena_" . limpar($client->username, ''));
+            } else {
+                Storage::disk('local')->put('senhas_clientes.txt', 'nome:' . $client->username . '      senha: ' . "cena_" . limpar($client->username, ''));
+            }
+        }
+
+        echo 'ok';
     }
 }

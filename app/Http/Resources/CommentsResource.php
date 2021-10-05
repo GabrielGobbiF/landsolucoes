@@ -15,18 +15,28 @@ class CommentsResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->type != 'cliente') {
+            $name = isset($this->user) ? Str::title($this->user->name) : 'N';
+            $name = substr(mb_strtoupper($name, 'UTF-8'), 0, 2);
+            $username = isset($this->user) ? $this->user->name : '';
+            $delete =  isset($this->user) && auth()->check() && auth()->user()->id == $this->user->id ? true : false;
+        }
 
-        $name = isset($this->user) ? Str::title($this->user->name) : 'N';
-        $name = substr(mb_strtoupper($name, 'UTF-8'), 0, 2);
+        if ($this->type == 'cliente') {
+            $name = isset($this->user) ? Str::title($this->user->username) : 'N';
+            $name = substr(mb_strtoupper($name, 'UTF-8'), 0, 2);
+            $username = isset($this->user) ? $this->user->username : '';
+            $delete =  isset($this->user) && auth()->guard('clients')->check() && auth()->guard('clients')->user()->id == $this->user->id ? true : false;
+        }
 
         return [
             "id" => $this->id,
             "text" => $this->obs_texto,
             "text_limit" => mb_strimwidth($this->obs_texto, 0, 38),
             "user" => $name,
-            "user_name" => isset($this->user) ? $this->user->name : '',
+            "user_name" => $username,
             "date" => $this->created_at ? return_format_date($this->created_at) : '',
-            "deletu" => isset($this->user) && auth()->user()->id == $this->user->id ? true : false
+            "deletu" => $delete
         ];
     }
 }

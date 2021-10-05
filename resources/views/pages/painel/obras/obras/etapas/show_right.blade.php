@@ -139,13 +139,12 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="row">
-                    <div class="col-auto align-self-center mg-t-9">
-                        <button type="submit" class="btn btn-form form-control btn-primary js-btn-save"> Salvar</button>
-                    </div>
+                    @if (!auth()->guard('clients')->check())
+                        <div class="col-auto align-self-center mg-t-9">
+                            <button type="submit" class="btn btn-form form-control btn-primary js-btn-save"> Salvar</button>
+                        </div>
+                    @endif
                 </div>
             </form>
 
@@ -156,9 +155,11 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Observações do Sistema</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pendências</a>
-                    </li>
+                    @if (!auth()->guard('clients')->check())
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pendências</a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -167,7 +168,7 @@
                                 <div class="media mb-4">
                                     @include('pages.painel._partials.avatar', [
                                     'avatar' => '',
-                                    'name' => Auth::user()->name,
+                                    'name' => Auth::user()->name ?? auth()->guard('clients')->user()->username,
                                     ])
                                     <div class="media-body align-self-center ml-2">
                                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="comment-div">
@@ -183,16 +184,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            <div class="row mt-4">
-                                <h6 class="">Desenvolvendo</h6>
+                    @if (!auth()->guard('clients')->check())
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="row mt-4">
+                                    <h6 class="">Desenvolvendo</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

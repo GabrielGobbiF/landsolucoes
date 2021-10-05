@@ -104,7 +104,15 @@ class ObrasEtapasApiController extends Controller
     public function commentStore(Request $request, $obra_id, $etapa_id)
     {
         $columns = $request->all();
-        $columns['user_id'] = Auth::id();
+
+        if (!auth()->check()) {
+            if (auth()->guard('clients')->check()) {
+                $columns['user_id'] = auth()->guard('clients')->user()->id;
+                $columns['type'] = 'cliente';
+            }
+        } else {
+            $columns['user_id'] = Auth::id();
+        }
 
         #dd($contains = Str::contains($columns['obs_texto'], ['data-id']));
 
@@ -126,7 +134,7 @@ class ObrasEtapasApiController extends Controller
 
         //$string = $columns['obs_texto'];
         //$patt = '/"[^"]*"/';
-//
+        //
         //preg_match_all($patt, $string, $resultado);
         //foreach ($resultado as $user) {
         //    $user = intval($user);
@@ -139,7 +147,7 @@ class ObrasEtapasApiController extends Controller
         //}
 
         if ($etapa) {
-            if($columns['obs_texto'] != ''){
+            if ($columns['obs_texto'] != '') {
                 $etapa->comments()->create($columns);
             }
 
@@ -186,7 +194,12 @@ class ObrasEtapasApiController extends Controller
             return response()->json('Object Comentario not found', 404);
         }
 
-        if (auth()->user()->id == $comment->user->id) {
+        if ($comment->type == 'usuario' && auth()->user()->id == $comment->user->id) {
+            $comment->delete();
+            return response()->json('Deletado com sucesso', 200);
+        }
+
+        if ($comment->type == 'cliente' && auth()->guard('clients')->user()->id == $comment->user->id) {
             $comment->delete();
             return response()->json('Deletado com sucesso', 200);
         }
