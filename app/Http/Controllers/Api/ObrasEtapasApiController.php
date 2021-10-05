@@ -32,6 +32,8 @@ class ObrasEtapasApiController extends Controller
             return response()->json('Object Obra not found', 404);
         }
 
+        $etapasAll = [];
+
         $etapas = $obra->etapas()
             ->where(function ($query) use ($filters) {
                 if ($filters['type'] != '') {
@@ -41,16 +43,14 @@ class ObrasEtapasApiController extends Controller
                     $query->where('nome', 'LIKE', '%' . $filters['term'] . '%');
                 }
             })
-            ->with('tipo')->orderBy('ordem')->orderBy('tipo_id')->get();
-
-        //$etapas = $etapas->groupBy('tipo_id');
-        //foreach ($etapas as $e) {
-        //    $e = ObraEtapasResource::collection($etapas);
-        //
-        //    dd($e);
-        //}
-
-        return  ObraEtapasResource::collection($etapas);
+            ->with('tipo')->orderBy('ordem')->get();
+        $etapas = $etapas->groupBy('tipo_id')->all();
+        ksort($etapas);
+        foreach ($etapas as $e => $value) {
+            $value = $value->all();
+            $etapasAll += $value;
+        }
+        return ObraEtapasResource::collection($etapasAll);
     }
 
     public function get($obra_id, $etapa_id)
