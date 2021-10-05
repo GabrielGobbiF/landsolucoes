@@ -65,20 +65,27 @@ class ObraEtapasResource extends JsonResource
         $check = 'success';
         $atraso = 'success';
 
-        $prazoTotal = somarData($this->prazo_atendimento + 1, 'days', $this->data_abertura);
+        $prazoTotal = somarData($this->prazo_atendimento, 'days', $this->data_abertura);
         $date = Carbon::parse($prazoTotal);
-        $now = Carbon::now();
+        $dateP = Carbon::parse($prazoTotal)->format('Y-m-d');
+        $now = Carbon::now()->format('Y-m-d');
 
         $msg = $date->diffForHumans($now, [
             'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
             'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
         ]);
 
+       #if($this->nome == 'Pedido do Custo de rede e Corrente de Curto Circuito'){
+       #    dd($now);
+       #}
+
         if ($now > $date) {
             $check = 'danger';
             $atraso = 'danger';
-        } elseif ($now == $date) {
+            $msg = 'Vencida: ' . $msg;
+        } elseif ($now == $dateP) {
             $check = 'warning';
+            $msg = 'Vence Hoje';
         } elseif ($now < $date) {
             $check = 'success';
         }
