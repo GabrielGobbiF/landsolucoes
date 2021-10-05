@@ -69,7 +69,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard($this->guard)->attempt($request->only($login_type, 'password'))) {
-            return redirect()->intended($this->redirectPath());
+            return redirect('/clientes/obras');
         }
 
         if (Auth::guard($this->guard)->check()) {
