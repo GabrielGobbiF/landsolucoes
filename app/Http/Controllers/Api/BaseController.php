@@ -72,11 +72,14 @@ class BaseController extends Controller
 
             foreach ($comentarios as $comentario) {
                 $etapa = ObraEtapa::where('id', $comentario->etapa_id)->first();
-                $obra = Obra::where('id', $etapa->id_obra)->first();
-                $response['comentarios'][] = [
-                    'descricao' => limit(Str::of($comentario->obs_texto), 70),
-                    'route' => route('obras.show', [$etapa->id_obra, 'etp=' . $etapa->id])
-                ];
+                if($etapa){
+                    $obra = Obra::where('id', $etapa->id_obra)->first();
+                    $response['comentarios'][] = [
+                        'descricao' => limit(Str::of($comentario->obs_texto), 70),
+                        'route' => route('obras.show', [$etapa->id_obra, 'etp=' . $etapa->id])
+                    ];
+
+                }
             }
 
             $obra = new Obra();
