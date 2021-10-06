@@ -13,6 +13,7 @@ use App\Notifications\EtapaMencionUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class ObrasEtapasApiController extends Controller
 {
@@ -44,12 +45,13 @@ class ObrasEtapasApiController extends Controller
                 }
             })
             ->with('tipo')->orderBy('ordem')->get();
-        $etapas = $etapas->groupBy('tipo_id')->all();
-        ksort($etapas);
-        foreach ($etapas as $e => $value) {
-            $value = $value->all();
-            $etapasAll += $value;
+
+        if ($etapas) {
+            $etapas = $etapas->groupBy('tipo_id')->all();
+            ksort($etapas);
+            $etapasAll = Arr::collapse($etapas);
         }
+
         return ObraEtapasResource::collection($etapasAll);
     }
 
