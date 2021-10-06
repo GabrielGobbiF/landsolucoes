@@ -172,10 +172,10 @@
                                     ])
                                     <div class="media-body align-self-center ml-2">
                                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="comment-div">
-                                            <input type="hidden" name="obs_texto" id="input-new-comment">
-                                            <div class="wd-100p">
+                                            <div class="wd-100p d-none">
                                                 <p contenteditable="true" style="height: auto !important;" class="form-control js-new-comment"></p>
                                             </div>
+                                            <input type="text" class="form-control" name="obs_texto" id="input-new-comment">
                                             <button type="submit" class="btn btn-primary js-btn-new-comment align-self-start" onclick="newComment()">Enviar</button>
                                         </div>
                                     </div>
