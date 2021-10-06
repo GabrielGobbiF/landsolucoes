@@ -27,7 +27,7 @@ class ObraEtapasResource extends JsonResource
 
         $data = [
             "id" => $this->id,
-            "name" => $this->nome,
+            "name" => limit($this->nome, 50),
             "observacao" => $this->observacao,
             "n_nota" => $this->nota_numero ?? 0,
             "meta_etapa" => $this->meta_etapa != '' ? Carbon::parse($this->meta_etapa)->format('d/m/Y') : '',
