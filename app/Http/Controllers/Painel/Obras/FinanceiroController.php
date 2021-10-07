@@ -15,6 +15,7 @@ class FinanceiroController extends Controller
 
     public function __construct(Obra $obra)
     {
+        $this->middleware('role:finance');
         $this->repository = $obra;
     }
 
