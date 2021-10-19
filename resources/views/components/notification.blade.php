@@ -3,7 +3,7 @@
         id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         <i class="fas fa-bell"></i>
-        <span class="{{ $notifications->count() > 0 ? 'noti-dot' : '' }}"></span>
+        <span class="{{ isset($notifications) && $notifications->count() > 0 ? 'noti-dot' : '' }}"></span>
     </button>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
         aria-labelledby="page-header-notifications-dropdown">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-auto">
                     @if ($notifications->count() > 0)
-                        <a href="{{route('notifications.read.all')}}" class="small"> {{ __('Marcar todas como lida') }}</a>
+                        <a href="{{ route('notifications.read.all') }}" class="small"> {{ __('Marcar todas como lida') }}</a>
                     @endif
                 </div>
             </div>
