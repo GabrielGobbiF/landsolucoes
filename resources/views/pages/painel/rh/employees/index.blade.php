@@ -13,11 +13,7 @@
                 <li class="breadcrumb-item active tx-15">Funcionários</li>
             </ol>
         </div>
-        <div class="page-button-box">
-            <a href="{{ route('employees.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-outline-primary"><i class="fas fa-user-plus"></i>
-                Adicionar Funcionário
-            </a>
-        </div>
+
     </div>
 @stop
 
@@ -25,6 +21,11 @@
 
     <div class="card">
         <div class="card-body">
+            <div class="page-button-box">
+                <a href="{{ route('employees.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-outline-primary"><i class="fas fa-user-plus"></i>
+                    Adicionar Funcionário
+                </a>
+            </div>
             <div class="table table-api">
                 <div class="table-responsive d-none">
                     <table data-toggle="table" id="table-api" data-table="employees">
