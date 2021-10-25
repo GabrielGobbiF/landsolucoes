@@ -47,6 +47,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/portarias', [App\Http\Controllers\Api\TableApiController::class, 'portarias'])->name('portarias.all');
         Route::get('/vehicles', [App\Http\Controllers\Api\TableApiController::class, 'vehicles'])->name('vehicles.all');
         Route::get('/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
+        Route::get('/fornecedores', [App\Http\Controllers\Api\TableApiController::class, 'fornecedores'])->name('fornecedores.all');
 
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
@@ -94,6 +95,10 @@ Route::prefix('/v1/api')->group(function () {
         */
         Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
         Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
+
+        Route::post('linha_atuacao', [App\Http\Controllers\Api\BaseController::class, 'linhaAtuacaoStore'])->name('api.atuacao.store');
+
+
     });
 });
 
@@ -108,6 +113,11 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         return view('welcome');
     })->name('home')->middleware('auth');
 
+    Route::group(['middleware' => 'role:compras'], function () {
+        Route::prefix('compras')->group(function () {
+            Route::resource('fornecedores', App\Http\Controllers\Painel\Compras\FornecedoresController::class);
+        });
+    });
 
     Route::group(['middleware' => 'role:rh'], function () {
         /*

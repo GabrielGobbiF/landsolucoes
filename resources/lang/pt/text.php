@@ -15,17 +15,17 @@ return [
     'login' => 'Entrar',
     'logout' => 'Sair',
 
-
     'e_mail_address' => 'Endereço de Email',
     'remember_me' => 'Lembrar',
-
 
     'password' => 'Senha',
     'forgot_your_password?' => 'Esqueci minha senha',
 
     'celulare' => 'Celular',
-    'celulares?' => 'Celulares',
+    'celulares' => 'Celulares',
 
-
+    'fornecedore' => 'Fornecedor',
+    'fornecedores' => 'Fornecedores',
+    'fornecedor' => 'Fornecedor',
 
 ];

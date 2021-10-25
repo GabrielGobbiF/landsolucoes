@@ -22,6 +22,7 @@
         </div>
     </div>
 </div>
+
 @section('scripts')
 
     @if ($errors->any())
@@ -34,19 +35,9 @@
 
     <script>
         $(document).ready(function() {
-            $('#input--musical_genre').select2({
-                dropdownParent: $('#modal-add-{{ $type }}  .modal-content'),
-                width: '100%',
-            });
-
-            $('#input--user_id').select2({
-                dropdownParent: $('#modal-add-{{ $type }}  .modal-content'),
-                width: '100%',
-            });
-
             $("#modal-add-{{ $type }}").on("hidden.bs.modal", function() {
                 $("#form-add-{{ $type }}")[0].reset();
             })
         })
     </script>
-@endsection
+@append

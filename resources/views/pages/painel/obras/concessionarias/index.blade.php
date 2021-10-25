@@ -54,6 +54,7 @@
         </div>
     </div>
 
+@endsection
 
 @section('scripts')
     @if ($errors->isNotEmpty())
@@ -63,5 +64,4 @@
             })
         </script>
     @endif
-@endsection
 @endsection

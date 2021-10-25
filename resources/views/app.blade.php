@@ -52,6 +52,13 @@
             padding: 0px !important;
         }
 
+        @media screen and (max-width: 600px) {
+            .mobile--hidden {
+                visibility: hidden;
+                display: none;
+            }
+        }
+
     </style>
 
 </head>
@@ -70,12 +77,12 @@
                             </a>
                         </div>
 
-                        <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect btn-sidebar" id="vertical-menu-btn">
+                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav" data-toggle="collapse" data-target="#topnav-menu-content">
                             <i class="ri-menu-2-line align-middle"></i>
                         </button>
                     </div>
 
-                    <div class="d-flex">
+                    <div class="d-flex mobile--hidden">
                         <div>
                             <h4 class="text-white mobile--hidden">@yield("title", "")</h4>
                         </div>

@@ -9,6 +9,7 @@ use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
 use App\Http\Resources\DriversResource;
 use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\ObraResource;
 use App\Http\Resources\PortariaResource;
 use App\Http\Resources\ServiceResource;
@@ -16,6 +17,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiclesResource;
 use App\Models\Celular;
 use App\Models\Client;
+use App\Models\Compras\Fornecedor;
 use App\Models\Concessionaria;
 use App\Models\Employee;
 use App\Models\Obra;
@@ -158,6 +160,20 @@ class TableApiController extends Controller
         $clients = $this->get($clients, ['company_name', 'username', 'cnpj']);
 
         return ClientResource::collection($clients);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fornecedores()
+    {
+        $fornecedores = new Fornecedor();
+
+        $fornecedores = $this->get($fornecedores, []);
+
+        return FornecedoresResource::collection($fornecedores);
     }
 
     /**

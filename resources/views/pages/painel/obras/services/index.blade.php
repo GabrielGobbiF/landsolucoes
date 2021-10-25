@@ -56,14 +56,14 @@
         </div>
     </div>
 
+@endsection
+
 @section('scripts')
     @if ($errors->isNotEmpty())
         <script>
             $(document).ready(function() {
                 $("#modal-add-service").modal("show");
             })
-
         </script>
     @endif
-@endsection
 @endsection

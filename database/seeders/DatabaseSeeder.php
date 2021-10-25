@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Celular;
 use App\Models\Client;
+use App\Models\Compras\Atuacao;
 use App\Models\Concessionaria;
 use App\Models\Department;
 use App\Models\Etapa;
@@ -50,7 +51,21 @@ class DatabaseSeeder extends Seeder
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
 
-        $this->celulares();
+        #$this->celulares();
+        $this->atuacao();
+    }
+
+    private function atuacao(){
+
+        foreach (config('admin.atuacao') as $atuacao) {
+
+            $slug = Str::slug(mb_strtolower($atuacao, 'UTF-8'), '_');
+
+            Atuacao::create([
+                'nome' => titleCase($atuacao),
+                'slug' => $slug,
+            ]);
+        }
     }
 
     private function celulares()
