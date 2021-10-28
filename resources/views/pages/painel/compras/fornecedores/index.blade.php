@@ -12,7 +12,7 @@
                     <div id="toolbar">
                         <div class="form-inline" role="form">
                             <div class="btn-group mr-2">
-                                <a  href="{{ route('fornecedores.create') }}" class="btn btn-dark waves-effect waves-light">
+                                <a  href="{{ route('fornecedor.create') }}" class="btn btn-dark waves-effect waves-light">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Novo
                                 </a>
                             </div>

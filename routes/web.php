@@ -95,9 +95,7 @@ Route::prefix('/v1/api')->group(function () {
         */
         Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
         Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
-
         Route::post('linha_atuacao', [App\Http\Controllers\Api\BaseController::class, 'linhaAtuacaoStore'])->name('api.atuacao.store');
-
 
     });
 });
@@ -115,7 +113,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::group(['middleware' => 'role:compras'], function () {
         Route::prefix('compras')->group(function () {
-            Route::resource('fornecedores', App\Http\Controllers\Painel\Compras\FornecedoresController::class);
+            Route::resource('fornecedor', App\Http\Controllers\Painel\Compras\FornecedoresController::class);
+            Route::delete('/fornecedor/{fornecedorId}/contato/{contato_id}', [App\Http\Controllers\Painel\Compras\FornecedoresController::class, 'contato_destroy'])->name('fornecedor.contato.destroy');
         });
     });
 

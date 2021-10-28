@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form role="form-create-fornecedor" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('fornecedores.store') }}" method="POST">
+            <form role="form-create-fornecedor" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('fornecedor.store') }}" method="POST">
                 @csrf
 
                 <div class="col-md-12">

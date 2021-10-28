@@ -61,7 +61,7 @@ class FornecedoresController extends Controller
         }
 
         return redirect()
-            ->route('fornecedores.show', $fornecedor->id)
+            ->route('fornecedor.show', $fornecedor->id)
             ->with('message', 'Criado com sucesso');
     }
 
@@ -76,7 +76,7 @@ class FornecedoresController extends Controller
         if (!$fornecedor = $this->repository->where('id', $id)->first()) {
 
             return redirect()
-                ->route('fornecedores.index')
+                ->route('fornecedor.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -111,7 +111,7 @@ class FornecedoresController extends Controller
 
         if (!$fornecedor = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('fornecedores.index')
+                ->route('fornecedor.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -154,18 +154,45 @@ class FornecedoresController extends Controller
      * @param  \App\Models\Fornecedores  $uuid
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uuid)
+    public function destroy($id)
     {
-        if (!$client = $this->repository->where('uuid', $uuid)->first()) {
+        if (!$client = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('fornecedores.index')
+                ->route('fornecedor.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
         $client->delete();
 
         return redirect()
-            ->route('fornecedores.index')
-            ->with('message', 'Excluir com sucesso!');
+            ->route('fornecedor.index')
+            ->with('message', 'Excluido com sucesso!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Fornecedores  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function contato_destroy($fornecedorId, $contatoId)
+    {
+        if (!$fornecedor = $this->repository->where('id', $fornecedorId)->first()) {
+            return redirect()
+                ->route('fornecedor.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        if (!$contato = $fornecedor->contatos()->where('id', $contatoId)->first()) {
+            return redirect()
+                ->route('fornecedor.index')
+                ->with('message', 'Registro (Contato) não encontrado!');
+        }
+
+        $contato->delete();
+
+        return redirect()
+            ->route('fornecedor.show', $fornecedorId)
+            ->with('message', 'Contato Excluido com sucesso!');
     }
 }

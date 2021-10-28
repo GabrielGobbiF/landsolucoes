@@ -171,7 +171,7 @@ return [
             [
                 'name' =>  'Fornecedores',
                 'icon' =>  'fas fa-user-edit',
-                'route' => 'fornecedores.index',
+                'route' => 'fornecedor.index',
             ],
             //[
             //    'name' =>  'Linha de Atuação',

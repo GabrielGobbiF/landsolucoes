@@ -3,7 +3,7 @@
 @section('title', 'Fornecedor - ' . ucfirst($fornecedor->razao_social))
 
 @section('content')
-    <form role="form-update-fornecedor" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('fornecedores.update', $fornecedor->id) }}" method="POST">
+    <form role="form-update-fornecedor" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('fornecedor.update', $fornecedor->id) }}" method="POST">
 
         <div class="card">
             <div class="card-body">
@@ -28,6 +28,7 @@
 
                 <div class="col-md-12">
                     <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
+                    <button type="button" class="btn btn-primary js-btn-delete float-left" data-text="Excluir Fornecedor" data-href="{{ route('fornecedor.destroy', $fornecedor->id) }}"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>
