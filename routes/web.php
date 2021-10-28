@@ -115,6 +115,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         Route::prefix('compras')->group(function () {
             Route::resource('fornecedor', App\Http\Controllers\Painel\Compras\FornecedoresController::class);
             Route::delete('/fornecedor/{fornecedorId}/contato/{contato_id}', [App\Http\Controllers\Painel\Compras\FornecedoresController::class, 'contato_destroy'])->name('fornecedor.contato.destroy');
+
+
+            Route::resource('produto', App\Http\Controllers\Painel\Compras\ProdutosController::class);
         });
     });
 

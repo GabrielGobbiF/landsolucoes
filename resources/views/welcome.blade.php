@@ -508,7 +508,7 @@
                     <div class="p-6">
                         <div class="flex items-center">
                             <i class="fas fa-wallet"></i>
-                            <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ route('fornecedores.index') }}"
+                            <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ route('fornecedor.index') }}"
                                     class="underline text-gray-900 dark:text-white">Compras</a></div>
                         </div>
                     </div>

@@ -173,6 +173,11 @@ return [
                 'icon' =>  'fas fa-user-edit',
                 'route' => 'fornecedor.index',
             ],
+            [
+                'name' =>  'Produtos',
+                'icon' =>  'fas fa-user-edit',
+                'route' => 'produtos.index',
+            ],
             //[
             //    'name' =>  'Linha de Atuação',
             //    'icon' =>  'fas fa-window-restore',
