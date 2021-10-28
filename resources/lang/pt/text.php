@@ -24,6 +24,9 @@ return [
     'celulare' => 'Celular',
     'celulares' => 'Celulares',
 
+    'produto' => 'Produto',
+    'produtos' => 'Produtos',
+
     'fornecedore' => 'Fornecedor',
     'fornecedores' => 'Fornecedores',
     'fornecedor' => 'Fornecedor',

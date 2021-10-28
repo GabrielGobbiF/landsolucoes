@@ -12,12 +12,14 @@ use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\ObraResource;
 use App\Http\Resources\PortariaResource;
+use App\Http\Resources\ProdutosResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiclesResource;
 use App\Models\Celular;
 use App\Models\Client;
 use App\Models\Compras\Fornecedor;
+use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
 use App\Models\Employee;
 use App\Models\Obra;
@@ -118,6 +120,20 @@ class TableApiController extends Controller
 
 
         return VehiclesResource::collection($vehicles);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function produtos()
+    {
+        $produtos = new Produto();
+
+        $produtos = $this->get($produtos, ['id', 'nome', 'slug', 'unidade']);
+
+        return ProdutosResource::collection($produtos);
     }
 
     /**

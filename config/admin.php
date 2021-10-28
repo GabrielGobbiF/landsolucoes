@@ -200,7 +200,6 @@ return [
 
     'celulares' => [
         '119130-95689',
-
     ],
 
     'atuacao' => [
@@ -209,5 +208,14 @@ return [
         'Pré Moldado',
         'Conectores',
         'Barramento Blindado',
+    ],
+
+    'produtos' => [
+        'categorias' => [
+            'Elétrica',
+            'Civil',
+            'Locação',
+            'Serviços',
+        ]
     ]
 ];

@@ -1,6 +1,6 @@
 @extends("app")
 
-@section('title', 'Novo Fornecedor')
+@section('title', 'Novo Produto')
 
 @section('content')
     <div class="card">
@@ -9,20 +9,7 @@
                 @csrf
 
                 <div class="col-md-12">
-                    @include("pages.painel._partials.forms.form-fornecedores")
-                </div>
-
-                <div class="col-md-12">
-
-                    <div class='form-group'>
-                        <label>Linha de Atuação</label>
-                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" data-create="{{ route('api.atuacao.store') }}">
-                            @foreach ($atuacao as $linha_atuacao)
-                                <option value='{{ $linha_atuacao->id }}'> {{ $linha_atuacao->nome }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
+                    @include("pages.painel._partials.forms.form-produtos")
                 </div>
 
                 <div class="col-md-12">

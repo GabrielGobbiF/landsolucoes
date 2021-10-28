@@ -48,6 +48,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/vehicles', [App\Http\Controllers\Api\TableApiController::class, 'vehicles'])->name('vehicles.all');
         Route::get('/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
         Route::get('/fornecedores', [App\Http\Controllers\Api\TableApiController::class, 'fornecedores'])->name('fornecedores.all');
+        Route::get('/produtos', [App\Http\Controllers\Api\TableApiController::class, 'produtos'])->name('produtos.all');
 
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
@@ -117,7 +118,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::delete('/fornecedor/{fornecedorId}/contato/{contato_id}', [App\Http\Controllers\Painel\Compras\FornecedoresController::class, 'contato_destroy'])->name('fornecedor.contato.destroy');
 
 
-            Route::resource('produto', App\Http\Controllers\Painel\Compras\ProdutosController::class);
+            Route::resource('produtos', App\Http\Controllers\Painel\Compras\ProdutosController::class);
         });
     });
 

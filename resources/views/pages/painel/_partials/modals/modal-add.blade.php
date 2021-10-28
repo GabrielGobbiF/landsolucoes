@@ -25,6 +25,14 @@
 
 @section('scripts')
 
+    @if (request()->has('create'))
+        <script>
+            $(document).ready(function() {
+                $("#modal-add-{{ $type }}").modal('show')
+            })
+        </script>
+    @endif
+
     @if ($errors->any())
         <script>
             $(document).ready(function() {
