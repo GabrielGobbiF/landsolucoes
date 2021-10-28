@@ -10,7 +10,7 @@
                 <div class="table-responsive d-none">
                     <div id="toolbar">
                         <div class="page-button-box">
-                            <x-button class="btn-outline-primary" icon="fas fa-plus" name="Adicionar Produto" dataToggle="modal" dataTarget="#modal-add-produtos"></x-button>
+                            <button class="btn btn-outline-primary" data-target="#modal-add-produtos" data-toggle="modal"><i class="fas fa-plus"></i> Adicionar Produto</button>
                         </div>
                     </div>
                     <table data-toggle="table" id="table-api" data-table="produtos">
