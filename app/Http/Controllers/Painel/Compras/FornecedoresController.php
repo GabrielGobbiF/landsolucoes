@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateFornecedores;
 use App\Models\Compras\Atuacao;
 use App\Models\Compras\Fornecedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class FornecedoresController extends Controller
 {
@@ -60,7 +61,7 @@ class FornecedoresController extends Controller
         }
 
         return redirect()
-            ->route('fornecedores.index')
+            ->route('fornecedores.show', $fornecedor->id)
             ->with('message', 'Criado com sucesso');
     }
 
@@ -79,7 +80,7 @@ class FornecedoresController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $fornecedorAtuacao = $fornecedor->atuacao()->get(['nome'])->toArray() ?? [];
+        $fornecedorAtuacao = $fornecedor->atuacao()->get(['nome']) ?? [];
 
         foreach ($fornecedorAtuacao as $fornA) {
             $fornecedorAtuacaoa[] = $fornA['nome'];
@@ -87,9 +88,12 @@ class FornecedoresController extends Controller
 
         $atuacaoAll = Atuacao::all()->toArray();
 
+        $contatos = $fornecedor->contatos()->get();
+
         return view('pages.painel.compras.fornecedores.show', [
             'fornecedor' => $fornecedor,
-            'fornecedorAtuacao' => $fornecedorAtuacaoa,
+            'contatos' => $contatos,
+            'fornecedorAtuacaoa' => $fornecedorAtuacaoa ?? [],
             'atuacaoAll' => $atuacaoAll,
         ]);
     }
@@ -101,17 +105,43 @@ class FornecedoresController extends Controller
      * @param  \App\Models\Test  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateFornecedores $request, $uuid)
+    public function update(Request $request, $id)
     {
         $columns = $request->all();
 
-        if (!$client = $this->repository->where('uuid', $uuid)->first()) {
+        if (!$fornecedor = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('fornecedores.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $client->update($columns);
+        $fornecedor->update($columns);
+
+        if ($columns['atuacao']) {
+            $fornecedor->atuacao()->sync($columns['atuacao']);
+        }
+
+        if (isset($columns['contato'])) {
+            for ($q = 0; $q < count($columns['contato']['nome']); $q++) {
+                if ($columns['contato']['nome'][$q] != '') {
+
+                    $columnsStore = [
+                        'nome' => $columns['contato']['nome'][$q],
+                        'email' => $columns['contato']['email'][$q],
+                        'telefone' => $columns['contato']['telefone'][$q],
+                        'celular' => $columns['contato']['celular'][$q],
+                    ];
+
+                    $id = isset($columns['contato']['id'][$q]) ? $columns['contato']['id'][$q] :  null;
+                    $fornecedor->contatos()->updateOrCreate(
+                        ['id' =>  $id],
+                        $columnsStore
+                    );
+                }
+
+                #$fornecedor->contatos()->create($columnsStore);
+            }
+        }
 
         return redirect()
             ->back()

@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link href="{{ asset('css/icons/icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/icons/typicons.css') }}" rel="stylesheet">
 
 
@@ -186,7 +186,11 @@
         }
 
         .p-6 {
-            padding: 1.5rem
+            padding: 1.5rem;
+            display: flex;
+            justify-content: flex;
+            align-items: center;
+            align-self: center;
         }
 
         .py-4 {
@@ -286,6 +290,12 @@
 
         .w-auto {
             width: auto
+        }
+
+        i {
+            font-size: 1.87rem;
+            color: #e2e8f0;
+
         }
 
         .grid-cols-1 {
@@ -404,7 +414,7 @@
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 @auth
                     <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();">
+                                                                        document.getElementById('logout-form').submit();">
                         {{ __('Sair') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -425,47 +435,47 @@
                     <div class="p-6">
                         <div class="flex items-center">
 
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-width="35" height="35" viewBox="0 0 792 792" style=" fill:#000000;"
- xml:space="preserve">
-<g fill="#ffffff">
-	<path d="M521.806,792c0,0,71.889,0,71.889-71.997V71.997C593.694,0,521.806,0,521.806,0H270.194c0,0-71.889,0-71.889,71.997
-		v648.006C198.306,792,270.194,792,270.194,792H521.806z M396,762.022c-19.841,0-35.944-16.104-35.944-35.944
-		c0-19.842,16.103-35.944,35.944-35.944c19.842,0,35.944,16.103,35.944,35.944C431.944,745.919,415.842,762.022,396,762.022z
-		 M342.083,43.888c0-4.457,2.121-7.944,4.78-7.944h98.272c2.624,0,4.781,3.559,4.781,7.944v2.121c0,4.457-2.157,7.944-4.781,7.944
-		h-98.272c-2.624,0-4.78-3.559-4.78-7.944V43.888z M234.25,89.861h323.5v575.111h-323.5V89.861z"/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-</svg>
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                width="35" height="35" viewBox="0 0 792 792" style=" fill:#000000;"
+                                xml:space="preserve">
+                                <g fill="#ffffff">
+                                    <path d="M521.806,792c0,0,71.889,0,71.889-71.997V71.997C593.694,0,521.806,0,521.806,0H270.194c0,0-71.889,0-71.889,71.997
+      v648.006C198.306,792,270.194,792,270.194,792H521.806z M396,762.022c-19.841,0-35.944-16.104-35.944-35.944
+      c0-19.842,16.103-35.944,35.944-35.944c19.842,0,35.944,16.103,35.944,35.944C431.944,745.919,415.842,762.022,396,762.022z
+      M342.083,43.888c0-4.457,2.121-7.944,4.78-7.944h98.272c2.624,0,4.781,3.559,4.781,7.944v2.121c0,4.457-2.157,7.944-4.781,7.944
+      h-98.272c-2.624,0-4.78-3.559-4.78-7.944V43.888z M234.25,89.861h323.5v575.111h-323.5V89.861z" />
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                            </svg>
 
                             <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ route('celulares.index') }}"
                                     class="underline text-gray-900 dark:text-white">Celulares</a></div>
@@ -494,6 +504,14 @@ width="35" height="35" viewBox="0 0 792 792" style=" fill:#000000;"
                             </div>
                         </div>
                     @endif
+
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-wallet"></i>
+                            <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ route('fornecedores.index') }}"
+                                    class="underline text-gray-900 dark:text-white">Compras</a></div>
+                        </div>
+                    </div>
 
                     @if (Auth::user()->hasRole('builds') || Auth::user()->hasRole('admin'))
                         <div class="p-6">

@@ -29,4 +29,9 @@ class Fornecedor extends Model
     {
         return $this->belongsToMany(Atuacao::class, self::RELATIONSHIP_PAGES_LINK);
     }
+
+    public function contatos()
+    {
+        return $this->morphMany(Contato::class, 'item');
+    }
 }

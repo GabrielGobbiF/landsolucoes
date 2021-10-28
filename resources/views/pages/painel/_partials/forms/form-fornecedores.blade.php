@@ -5,7 +5,7 @@
         <div class="form-group">
             <label for="input--razao_social">Razão Social</label>
             <input type="text" name="razao_social" class="form-control @error('razao_social') is-invalid @enderror" id="input--razao_social"
-                value="{{ $fornecedor->razao_social ?? old('razao_social') }}" autocomplete="off">
+                value="{{ $fornecedor->razao_social ?? old('razao_social') }}" autocomplete="off" required>
         </div>
     </div>
 
@@ -22,4 +22,5 @@
             <textarea type="text" name="endereco" class="form-control @error('endereco') is-invalid @enderror" id="input--endereco" cols="30" rows="4">{{ $fornecedor->endereco ?? old('endereco') }}</textarea>
         </div>
     </div>
+
 </div>

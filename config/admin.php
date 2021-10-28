@@ -173,16 +173,16 @@ return [
                 'icon' =>  'fas fa-user-edit',
                 'route' => 'fornecedores.index',
             ],
-            [
-                'name' =>  'Linha de Atuação',
-                'icon' =>  'fas fa-window-restore',
-                'route' => 'auditory.company',
-            ],
-            [
-                'name' =>  'Contatos',
-                'icon' =>  'fas fa-bookmark',
-                'route' => 'relatorios.employees',
-            ],
+            //[
+            //    'name' =>  'Linha de Atuação',
+            //    'icon' =>  'fas fa-window-restore',
+            //    'route' => 'auditory.company',
+            //],
+            //[
+            //    'name' =>  'Contatos',
+            //    'icon' =>  'fas fa-bookmark',
+            //    'route' => 'relatorios.employees',
+            //],
         ]
     ],
 

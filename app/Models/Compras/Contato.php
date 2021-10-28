@@ -22,4 +22,14 @@ class Contato extends Model
         'celular',
         'email',
     ];
+
+    public function setTelefoneAttribute($value)
+    {
+        $this->attributes['telefone'] = clear($value);
+    }
+
+    public function setCelularAttribute($value)
+    {
+        $this->attributes['celular'] = clear($value);
+    }
 }
