@@ -170,12 +170,12 @@ return [
         'compras' => [
             [
                 'name' =>  'Fornecedores',
-                'icon' =>  'fas fa-user-edit',
+                'icon' =>  'fas fa-truck',
                 'route' => 'fornecedor.index',
             ],
             [
                 'name' =>  'Produtos',
-                'icon' =>  'fas fa-user-edit',
+                'icon' =>  'fas fa-truck-loading',
                 'route' => 'produtos.index',
             ],
             //[

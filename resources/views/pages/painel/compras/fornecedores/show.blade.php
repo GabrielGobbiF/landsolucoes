@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                     <div class='form-group'>
                         <label>Linha de Atuação</label>
-                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" multiple='multiple' data-create="{{ route('api.atuacao.store') }}">
+                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" multiple='multiple' data-create="{{ route('api.atuacao.store') }}" required>
                             @foreach ($atuacaoAll as $linha_atuacao)
                                 <option {{ isset($fornecedorAtuacaoa) && in_array($linha_atuacao['nome'], $fornecedorAtuacaoa) ? 'selected' : '' }} value='{{ $linha_atuacao['id'] }}'>
                                     {{ $linha_atuacao['nome'] }}</option>

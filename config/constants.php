@@ -145,6 +145,7 @@ return [
         'ENVIADA' => 'enviada',
         'APROVADA' => 'aprovada',
         'RECUSADA' => 'recusada',
+        'CONCLUIDA' => 'concluida',
     ],
 
     'status_payment_build' => [
