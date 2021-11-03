@@ -176,6 +176,7 @@
                 'enviada',
                 'aprovada',
                 'recusada',
+                'concluida',
             ];
 
             html += '<select class="form-control select2" onchange="updateStatus(this)" data-value="' + row.statusButton + '" data-name="' + row.razao_social + '" data-id="' + row.id + '" >';
