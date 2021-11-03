@@ -40,7 +40,7 @@ class ComercialController extends Controller
     public function index()
     {
         $clients = Client::whereHas('obras', function ($query) {
-            $query->where('obras.status', 'aprovada');
+           // $query->where('obras.status', 'aprovada');
         })->get(['id', 'username']);
 
         $concessionarias = Concessionaria::whereHas('obras')->get(['id', 'name']);
