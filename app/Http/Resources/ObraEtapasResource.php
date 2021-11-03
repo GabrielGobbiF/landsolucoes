@@ -20,7 +20,7 @@ class ObraEtapasResource extends JsonResource
     {
         $prazo = null;
         if ($this->check != 'C') {
-            if ($this->data_abertura != null && $this->prazo_atendimento != '') {
+            if (($this->data_abertura != '' || $this->data_programada != '') && ($this->prazo_atendimento != '' || $this->tempo_atividade)) {
                 $prazo = $this->checkPrazo();
             }
         }
@@ -65,7 +65,10 @@ class ObraEtapasResource extends JsonResource
         $check = 'success';
         $atraso = 'success';
 
-        $prazoTotal = somarData($this->prazo_atendimento, 'days', $this->data_abertura);
+        $in = $this->data_abertura != '' ? $this->data_abertura : $this->data_programada;
+        $out = $this->prazo_atendimento != '' ? $this->prazo_atendimento : $this->tempo_atividade;
+
+        $prazoTotal = somarData($this->prazo_atendimento, 'days', $in);
         $date = Carbon::parse($prazoTotal);
         $dateP = Carbon::parse($prazoTotal)->format('Y-m-d');
         $now = Carbon::now()->format('Y-m-d');
@@ -75,9 +78,9 @@ class ObraEtapasResource extends JsonResource
             'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
         ]);
 
-       #if($this->nome == 'Pedido do Custo de rede e Corrente de Curto Circuito'){
-       #    dd($now);
-       #}
+        #if($this->nome == 'Pedido do Custo de rede e Corrente de Curto Circuito'){
+        #    dd($now);
+        #}
 
         if ($now > $date) {
             $check = 'danger';
