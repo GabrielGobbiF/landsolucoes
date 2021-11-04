@@ -20,7 +20,7 @@ class ObraEtapasResource extends JsonResource
     {
         $prazo = null;
         if ($this->check != 'C') {
-            if (($this->data_abertura != '' || $this->data_programada != '') && ($this->prazo_atendimento != '' || $this->tempo_atividade)) {
+            if (($this->data_abertura != '' || $this->data_iniciada != '') && ($this->prazo_atendimento != '' || $this->tempo_atividade)) {
                 $prazo = $this->checkPrazo();
             }
         }
@@ -65,7 +65,7 @@ class ObraEtapasResource extends JsonResource
         $check = 'success';
         $atraso = 'success';
 
-        $in = $this->data_abertura != '' ? $this->data_abertura : $this->data_programada;
+        $in = $this->data_abertura != '' ? $this->data_abertura : $this->data_iniciada;
         $out = $this->prazo_atendimento != '' ? $this->prazo_atendimento : $this->tempo_atividade;
 
         $prazoTotal = somarData($out, 'days', $in);
