@@ -36,7 +36,7 @@ function initTable() {
             url: `${BASE_URL_API}${dataTable}`,
             dataType: 'json',
             classes: 'table table-hover table-striped',
-            pageList: "[10, 25, 50, 100]",
+            pageList: "[10, 25, 50, 100, all]",
             cookie: true,
             cache: true,
             search: true,
