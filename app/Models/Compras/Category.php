@@ -3,13 +3,14 @@
 namespace App\Models\Compras;
 
 use App\Traits\SlugTrait;
+use App\Traits\TitleCaseTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
-    use HasFactory, SlugTrait;
+    use HasFactory, SlugTrait, TitleCaseTrait;
 
     protected $fillable = [
         'name',

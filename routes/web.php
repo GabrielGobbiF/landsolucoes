@@ -122,6 +122,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::resource('produtos', App\Http\Controllers\Painel\Compras\ProdutosController::class);
             Route::resource('orcamento', App\Http\Controllers\Painel\Compras\OrcamentoController::class);
             Route::resource('categories', App\Http\Controllers\Painel\Compras\CategoryController::class);
+            Route::resource('sub-categories', App\Http\Controllers\Painel\Compras\SubCategoryController::class);
         });
     });
 

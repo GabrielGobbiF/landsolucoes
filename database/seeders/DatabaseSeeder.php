@@ -56,8 +56,8 @@ class DatabaseSeeder extends Seeder
         #$this->celulares();
         #$this->atuacao();
 
-        #$this->categories();
-        #$this->Subcategories();
+        $this->categories();
+        $this->Subcategories();
     }
 
     private function Subcategories()

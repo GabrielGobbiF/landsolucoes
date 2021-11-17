@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Painel\Compras;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateCategory;
+use App\Http\Requests\StoreUpdateSubCategory;
 use App\Models\Compras\Atuacao;
-use App\Models\Compras\Category;
 use App\Models\Compras\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     protected $repository;
 
-    public function __construct(Category $categories)
+    public function __construct(SubCategory $subCategories)
     {
-        $this->repository = $categories;
+        $this->repository = $subCategories;
 
-        //$this->middleware(['can:view-categories']);
+        //$this->middleware(['can:view-subCategories']);
     }
 
     /**
@@ -28,13 +28,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('subCategories')->get();
-        $subCategoriesAll = SubCategory::all();
-
-        return view('pages.painel.compras.categories.index', [
-            'categories' => $categories,
-            'subCategoriesAll' => $subCategoriesAll,
-        ]);
     }
 
     /**
@@ -44,7 +37,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.painel.compras.categories.create', []);
     }
 
     /**
@@ -53,34 +45,34 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateCategory $request)
+    public function store(StoreUpdateSubCategory $request)
     {
         $columns = $request->all();
 
         $category = $this->repository->create($columns);
 
         return redirect()
-            ->route('categories.index', ['category' => $category->name])
+            ->back()
             ->with('message', 'Criado com sucesso');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $id
+     * @param  \App\Models\SubCategory  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (!$categories = $this->repository->where('id', $id)->first()) {
+        if (!$subCategory = $this->repository->where('id', $id)->first()) {
 
             return redirect()
                 ->route('categories.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        return view('pages.painel.compras.categories.show', [
-            'categories' => $categories,
+        return view('pages.painel.compras.subCategory.show', [
+            'subCategory' => $subCategory,
         ]);
     }
 
@@ -91,42 +83,38 @@ class CategoryController extends Controller
      * @param  \App\Models\Test  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateCategory $request, $id)
+    public function update(StoreUpdateSubCategory $request, $id)
     {
         $columns = $request->all();
 
-        if (!$category = $this->repository->where('id', $id)->first()) {
+        if (!$subCategorie = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('categories.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $category->update($columns);
-
-        if (isset($columns['sub_categories'])) {
-            $category->subCategories()->sync($columns['sub_categories']);
-        }
+        $subCategorie->update($columns);
 
         return redirect()
-            ->route('categories.index', ['category' => $category->name])
+            ->back()
             ->with('message', 'Atualizado com sucesso');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $uuid
+     * @param  \App\Models\SubCategory  $uuid
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (!$categorie = $this->repository->where('id', $id)->first()) {
+        if (!$subCategorie = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('categories.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $categorie->delete();
+        $subCategorie->delete();
 
         return redirect()
             ->route('categories.index')
