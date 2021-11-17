@@ -6,6 +6,7 @@ use App\Models\Celular;
 use App\Models\Client;
 use App\Models\Compras\Atuacao;
 use App\Models\Compras\Category;
+use App\Models\Compras\SubCategory;
 use App\Models\Concessionaria;
 use App\Models\Department;
 use App\Models\Etapa;
@@ -55,7 +56,21 @@ class DatabaseSeeder extends Seeder
         #$this->celulares();
         #$this->atuacao();
 
-        $this->categories();
+        #$this->categories();
+        #$this->Subcategories();
+    }
+
+    private function Subcategories()
+    {
+        foreach (config('admin.produtos.sub_categorias') as $categorie) {
+
+            $slug = Str::slug(mb_strtolower($categorie, 'UTF-8'), '_');
+
+            SubCategory::create([
+                'name' => titleCase($categorie),
+                'slug' => $slug,
+            ]);
+        }
     }
 
     private function categories()

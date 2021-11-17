@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateCategory;
 use App\Models\Compras\Atuacao;
 use App\Models\Compras\Category;
+use App\Models\Compras\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -27,10 +28,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with('subCategories')->get();
+        $subCategoriesAll = SubCategory::all();
 
         return view('pages.painel.compras.categories.index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'subCategoriesAll' => $subCategoriesAll,
         ]);
     }
 
@@ -125,5 +128,4 @@ class CategoryController extends Controller
             ->route('categories.index')
             ->with('message', 'Excluido com sucesso!');
     }
-
 }

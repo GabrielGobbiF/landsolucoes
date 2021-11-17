@@ -1,9 +1,8 @@
 @extends('app')
 
-@section('title', 'Cadastrar Veiculo')
+@section('title', 'Editar Motorista')
 
 @section('content')
-    <h1 class="text-center">Editar Motorista</h1>
     <div class="card mt-3">
         <form role="form" class="needs-validation" novalidate id="form-driver" autocomplete="off" action="{{ route('vehicles.drivers.update', $user->id) }}" method="POST">
             @csrf
@@ -42,8 +41,7 @@
                             <label for="input--cnh">CNH</label>
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="cnh_check" name="cnh" value="1"
-                                        {{ isset($user->cnh) && $user->cnh == 1 ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" id="cnh_check" name="cnh" value="1" checked>
                                     <label class="form-check-label" for="cnh_check">
                                         Sim
                                     </label>
@@ -51,21 +49,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 {{ isset($user->cnh) && $user->cnh != 0 ? '' : 'd-none' }} div--cnh_number">
+                    <div class="col-md-3  div--cnh_number">
                         <div class="form-group">
                             <label for="input--cnh_number">CNH Nº</label>
                             <input type="text" name="cnh_number" class="form-control @error('cnh_number') is-invalid @enderror"
                                 id="input--cnh_number" value="{{ $user->cnh_number ?? old('cnh_number') }}">
                         </div>
                     </div>
-                    <div class="col-md-3 {{ isset($user->cnh) && $user->cnh != 0 ? '' : 'd-none' }} div--cnh_validity">
+                    <div class="col-md-3  div--cnh_validity">
                         <div class="form-group">
                             <label for="input--cnh_validity">CNH Validade</label>
                             <input type="text" name="cnh_validity" class="form-control date @error('cnh_validity') is-invalid @enderror"
                                 id="input--cnh_validity" value="{{ $user->cnh_validity ?? old('cnh_validity') }}">
                         </div>
                     </div>
-                    <div class="col-md-3 {{ isset($user->cnh) && $user->cnh != 0 ? '' : 'd-none' }} div--cnh_validity">
+                    <div class="col-md-3  div--cnh_validity">
                         <div class="form-group">
                             <label for="input--cnh_category">Categoria</label>
                             <input type="text" max="3" name="cnh_category" class="form-control @error('cnh_category') is-invalid @enderror"

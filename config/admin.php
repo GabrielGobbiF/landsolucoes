@@ -226,6 +226,13 @@ return [
             'Civil',
             'Locação',
             'Serviços',
+        ],
+        'sub_categorias' => [
+            'Cabos',
+            'Cimento',
+            'Pré Moldado',
+            'Conectores',
+            'Barramento Blindado',
         ]
     ]
 ];

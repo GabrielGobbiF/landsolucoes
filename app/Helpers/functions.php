@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 function token($size = 10, $charsAlphabetic = true)
@@ -269,4 +270,14 @@ function minusculo($value)
 function maiusculo($value)
 {
     return mb_strtoupper($value, 'utf-8');
+}
+
+function in_array_column($text, $column, $array)
+{
+    if (!empty($array) && is_array($array)) {
+        for ($i = 0; $i < count($array); $i++) {
+            if ($array[$i][$column] == $text || strcmp($array[$i][$column], $text) == 0) return true;
+        }
+    }
+    return false;
 }
