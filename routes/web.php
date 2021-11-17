@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Compras\Category;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -114,11 +115,13 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
     Route::group(['middleware' => 'role:compras'], function () {
         Route::prefix('compras')->group(function () {
+
             Route::resource('fornecedor', App\Http\Controllers\Painel\Compras\FornecedoresController::class);
             Route::delete('/fornecedor/{fornecedorId}/contato/{contato_id}', [App\Http\Controllers\Painel\Compras\FornecedoresController::class, 'contato_destroy'])->name('fornecedor.contato.destroy');
 
-
             Route::resource('produtos', App\Http\Controllers\Painel\Compras\ProdutosController::class);
+            Route::resource('orcamento', App\Http\Controllers\Painel\Compras\OrcamentoController::class);
+            Route::resource('categories', App\Http\Controllers\Painel\Compras\CategoryController::class);
         });
     });
 

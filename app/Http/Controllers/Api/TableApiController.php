@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\CelularesResource;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
@@ -18,6 +19,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiclesResource;
 use App\Models\Celular;
 use App\Models\Client;
+use App\Models\Compras\Category;
 use App\Models\Compras\Fornecedor;
 use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
@@ -120,6 +122,20 @@ class TableApiController extends Controller
 
 
         return VehiclesResource::collection($vehicles);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function categories()
+    {
+        $categories = new Category();
+
+        $categories = $this->get($categories, ['id', 'name', 'slug']);
+
+        return CategoriesResource::collection($categories);
     }
 
     /**

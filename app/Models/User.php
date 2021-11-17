@@ -25,6 +25,10 @@ class User extends Authenticatable
         'telefone_celular',
         'uuid',
         'is_active',
+        'cnh',
+        'cnh_validity',
+        'cnh_number',
+        'cnh_category',
         'username',
         'password_verified'
     ];

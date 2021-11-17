@@ -177,7 +177,6 @@
     <script>
         @include("components.toastr")
 
-
         $(document).ready(function() {
 
             $('select').on('select2:open', (event) => {

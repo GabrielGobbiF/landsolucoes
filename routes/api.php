@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    dd('oi');
+Route::prefix('v1')->middleware('auth:web')->group(function () {
+    Route::get('home', function () {
+        return response()->json(['oi'], 200);
+    });
 });
-
 

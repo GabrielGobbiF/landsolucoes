@@ -1,0 +1,129 @@
+<?php
+
+namespace App\Http\Controllers\Painel\Compras;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateCategory;
+use App\Models\Compras\Atuacao;
+use App\Models\Compras\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+
+class CategoryController extends Controller
+{
+    protected $repository;
+
+    public function __construct(Category $categories)
+    {
+        $this->repository = $categories;
+
+        //$this->middleware(['can:view-categories']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $categories = Category::all();
+
+        return view('pages.painel.compras.categories.index', [
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('pages.painel.compras.categories.create', []);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $columns = $request->all();
+
+        $categories = $this->repository->create($columns);
+
+        return redirect()
+            ->route('categories.show', $categories->id)
+            ->with('message', 'Criado com sucesso');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Category  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        if (!$categories = $this->repository->where('id', $id)->first()) {
+
+            return redirect()
+                ->route('categories.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        return view('pages.painel.compras.categories.show', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Test  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $columns = $request->all();
+
+        if (!$categories = $this->repository->where('id', $id)->first()) {
+            return redirect()
+                ->route('categories.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $categories->update($columns);
+
+        return redirect()
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Category  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        if (!$categorie = $this->repository->where('id', $id)->first()) {
+            return redirect()
+                ->route('categories.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $categorie->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('message', 'Excluido com sucesso!');
+    }
+
+}

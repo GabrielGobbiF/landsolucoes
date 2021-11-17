@@ -178,6 +178,16 @@ return [
                 'icon' =>  'fas fa-truck-loading',
                 'route' => 'produtos.index',
             ],
+            [
+                'name' =>  'Orçamentos',
+                'icon' =>  'fas fa-clipboard',
+                'route' => 'orcamento.index',
+            ],
+            [
+                'name' =>  'Categorias',
+                'icon' =>  'fas fa-cog',
+                'route' => 'categories.index',
+            ],
             //[
             //    'name' =>  'Linha de Atuação',
             //    'icon' =>  'fas fa-window-restore',

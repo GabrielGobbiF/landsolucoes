@@ -17,7 +17,6 @@ class Fornecedor extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'razao_social',
         'cnpj',
         'endereco',
