@@ -217,6 +217,8 @@ function clearNumber($number = 0)
 
     $number = trim($number, "\xC2\xA0");
 
+    #return strpos($number,'.')!==false ? rtrim(rtrim($number,'0'),'.') : $number;
+
     $number = number_format(str_replace(",", ".", str_replace(".", "", $number)), 2, '.', '');
 
     return $number;

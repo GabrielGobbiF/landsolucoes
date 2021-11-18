@@ -45,6 +45,24 @@
                     autocomplete="off">
             </div>
         </div>
+
+        <div class="col-12 col-md-3">
+            <div class="form-group">
+                <label for="input--categoria">Categoria</label>
+                <select name='categoria' class='form-control select2' id="select--categoria" required>
+                    @foreach (config('admin.produtos.categorias') as $categoria)
+                        <option {{ isset($produto) && $produto->categoria == $categoria ? 'selected' : '' }} value='{{ $categoria }}'>{{ $categoria }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <div class="form-group">
+                <label for="input--sub_categoria">Sub Categoria</label>
+                <select name='sub_categoria' class='form-control' id="select--sub_categoria"></select>
+            </div>
+        </div>
     </div>
 
     <div class="box box-primary mt-3 mb-3">

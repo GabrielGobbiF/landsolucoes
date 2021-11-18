@@ -147,7 +147,7 @@ class TableApiController extends Controller
     {
         $produtos = new Produto();
 
-        $produtos = $this->get($produtos, ['id', 'nome', 'slug', 'unidade']);
+        $produtos = $this->get($produtos, ['id', 'name', 'slug', 'unidade', 'categoria', 'sub_categoria']);
 
         return ProdutosResource::collection($produtos);
     }

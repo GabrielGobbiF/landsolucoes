@@ -19,6 +19,8 @@ class EtapasResource extends JsonResource
             "name" => $this->name,
             "quantidade" => $this->quantidade,
             "descricao" => $this->descricao,
+            "categoria" => $this->categoria,
+            "sub_categoria" => $this->sub_categoria,
             "preco" => number_format($this->preco, 2, ',', ','),
             "unidade" => $this->unidade,
             "name_max" => ucfirst(mb_strtolower(mb_strimwidth($this->name, 0, 48, "..."), 'utf-8')),

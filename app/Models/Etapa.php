@@ -26,6 +26,11 @@ class Etapa extends Model
         return $this->belongsTo(Tipo::class, 'tipo_id');
     }
 
+    public function setPrecoAttribute($value)
+    {
+        $this->attributes['preco'] = clearNumber($value);
+    }
+
     public function concessionaria()
     {
         return $this->belongsToMany(Concessionaria::class, 'con_service_etp', 'etapa_id');

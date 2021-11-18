@@ -20,8 +20,8 @@
                                 <th data-field="nome" data-sortable="true">Nome</th>
                                 <th data-field="unidade" data-sortable="true">Unidade</th>
                                 <th data-field="valor" data-sortable="true">Valor</th>
-                                <th data-field="categoria">Categoria</th>
-                                <th data-field="sub_categoria">Sub Categoria</th>
+                                <th data-field="categoria" data-sortable="true">Categoria</th>
+                                <th data-field="sub_categoria" data-sortable="true">Sub Categoria</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

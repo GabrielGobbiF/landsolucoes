@@ -16,7 +16,7 @@ class EtapaObserver
     public function creating(Etapa $etapa)
     {
         $etapa->slug = Str::slug(mb_strtolower($etapa->name, 'UTF-8'), '_');
-        $etapa->preco = str_replace(['.', ',', '/', '-'], '', $etapa->preco);
+        #$etapa->preco = str_replace(['.', ',', '/', '-'], '', $etapa->preco);
     }
 
     /**
@@ -28,6 +28,6 @@ class EtapaObserver
     public function updating(Etapa $etapa)
     {
         $etapa->slug = Str::slug(mb_strtolower($etapa->name, 'UTF-8'), '_');
-        $etapa->preco = str_replace(['.', ',', '/', '-'], '', $etapa->preco);
+        # $etapa->preco = str_replace(['.', ',', '/', '-'], '', $etapa->preco);
     }
 }

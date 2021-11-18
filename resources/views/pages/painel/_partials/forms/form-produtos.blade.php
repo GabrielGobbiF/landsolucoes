@@ -42,7 +42,6 @@
             <select name='sub_categoria' class='form-control' id="select--sub_categoria"></select>
         </div>
     </div>
-
 </div>
 
 <div class="row">
@@ -77,7 +76,6 @@
                     dataType: "JSON",
                     success: function(j) {
                         let platform = `{{ isset($produto) ? $produto->sub_categoria : '' }}`;
-                        console.log(platform);
 
                         selectSubCategoria.empty()
                         selectSubCategoria.prepend('<option selected>Selecione</option>').select2({
