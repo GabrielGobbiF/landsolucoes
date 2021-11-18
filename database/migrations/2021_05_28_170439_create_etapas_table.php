@@ -22,6 +22,8 @@ class CreateEtapasTable extends Migration
             $table->integer('quantidade')->nullable();
             $table->float('preco', 10, 2)->nullable();
             $table->string('unidade')->nullable();
+            $table->string('categoria')->nullable();
+            $table->string('sub_categoria')->nullable();
 
             $table->foreign('tipo_id')
                 ->references('id')

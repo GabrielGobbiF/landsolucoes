@@ -25,6 +25,8 @@ class Produto extends Model
         'quantidade',
         'preco',
         'unidade',
+        'categoria',
+        'sub_categoria',
     ];
 
     public function variables()

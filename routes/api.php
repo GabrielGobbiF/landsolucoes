@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->middleware('auth:web')->group(function () {
-    Route::get('home', function () {
-        return response()->json(['oi'], 200);
-    });
+
+    Route::get('categories/{category_name}', [App\Http\Controllers\Api\CategoriesApiController::class, 'show'])->name('api.categorie.show');
+
+
 });
 

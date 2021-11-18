@@ -10,7 +10,7 @@ class EmployeeApiController extends Controller
 {
     protected $repository;
 
-    public function __construct(Employees $employees)
+    public function __construct(Employee $employees)
     {
         $this->middleware('auth');
 

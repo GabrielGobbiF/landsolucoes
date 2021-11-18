@@ -19,6 +19,8 @@ class ProdutosResource extends JsonResource
             "nome" => $this->name,
             "valor" => 'R$ ' . maskPrice($this->preco),
             "unidade" => $this->unidade,
+            "categoria" => $this->categoria,
+            "sub_categoria" => $this->sub_categoria,
         ];
     }
 }

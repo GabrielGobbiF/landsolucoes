@@ -17,6 +17,8 @@ class Etapa extends Model
         'quantidade',
         'preco',
         'unidade',
+        'categoria',
+        'sub_categoria',
     ];
 
     public function tipo()
@@ -33,5 +35,4 @@ class Etapa extends Model
     {
         return $this->hasMany(Variable::class, 'etapa_id');
     }
-
 }
