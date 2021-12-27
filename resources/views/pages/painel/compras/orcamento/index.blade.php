@@ -1,6 +1,6 @@
 @extends("app")
 
-@section('title', 'Produtos')
+@section('title', 'Orçamentos')
 
 @section('content')
 
@@ -10,16 +10,14 @@
                 <div class="table-responsive d-none">
                     <div id="toolbar">
                         <div class="page-button-box">
-                            <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#exampleModal'>Novo Orçamento </button>
+                            <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#store-orcamento'>Novo Orçamento </button>
                         </div>
                     </div>
-                    <table data-toggle="table" id="table-api" data-table="produtos">
+                    <table data-toggle="table" id="table-api" data-table="orcamentos">
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                                <th data-field="nome">Nome</th>
-                                <th data-field="unidade">Unidade</th>
-                                <th data-field="valor">Valor</th>
+                                <th data-field="obra_name">Nome</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -29,7 +27,7 @@
         </div>
     </div>
 
-    <div class='modal' id='exampleModal' tabindex='-1' role='dialog'>
+    <div class='modal' id='store-orcamento' tabindex='-1' role='dialog'>
         <div class='modal-dialog modal-dialog-centered' role='document'>
             <div class='modal-content'>
                 <form id='form-create-orcamento' role='form' class='needs-validation' action='{{ route('orcamento.store') }}' method='POST'>
@@ -44,7 +42,7 @@
 
                         <div class='form-group'>
                             <label>Selecione a Obra</label>
-                            <select name='obra_id' class='form-control select2' required>
+                            <select name='obra_id' class='form-control' id="orcamento--select-obra-id" required>
                                 @foreach ($obras as $obra)
                                     <option value='{{ $obra->id }}'>{{ $obra->razao_social }}</option>
                                 @endforeach
@@ -53,10 +51,10 @@
 
                         <div class='form-group'>
                             <label>Selecione a categoria</label>
-                            <select name='categoria' class='form-control select2' required>
-                                @foreach (config('admin.atuacao') as $atuacao)
-                                    <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao ? 'selected' : '' }} value='{{ $atuacao }}'>
-                                        {{ $atuacao }}
+                            <select name='categoria' class='form-control' id="orcamento--select-categoria" required>
+                                @foreach ($categorias as $atuacao)
+                                    <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao->name ? 'selected' : '' }} value='{{ $atuacao->name }}'>
+                                        {{ $atuacao->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -72,3 +70,11 @@
     </div>
 
 @stop
+
+@section('scripts')
+    <script>
+        $('#orcamento--select-obra-id, #orcamento--select-categoria').select2({
+            dropdownParent: $('#store-orcamento')
+        });
+    </script>
+@append

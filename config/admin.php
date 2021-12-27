@@ -229,6 +229,7 @@ return [
         ],
         'sub_categorias' => [
             'Cabos',
+            'Capacitores',
             'Cimento',
             'Pré Moldado',
             'Conectores',

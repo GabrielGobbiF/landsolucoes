@@ -78,8 +78,8 @@
                         let platform = `{{ isset($produto) ? $produto->sub_categoria : '' }}`;
 
                         selectSubCategoria.empty()
-                        selectSubCategoria.prepend('<option selected>Selecione</option>').select2({
-                            placeholder: "Carregando"
+                        selectSubCategoria.prepend('<option selected value="">Selecione</option>').select2({
+                            placeholder: "Selecione"
                         });
 
                         $.each(j.data.sub_categories, function(k, field) {

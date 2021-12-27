@@ -97,6 +97,26 @@ class ProdutosController extends Controller
 
         $produto->update($columns);
 
+        if (isset($columns['variable'])) {
+            for ($q = 0; $q < count($columns['variable']['name']); $q++) {
+                if ($columns['variable']['name'][$q] != '') {
+
+                    $columnsStore = [
+                        'name' => $columns['variable']['name'][$q],
+                        'price' => $columns['variable']['price'][$q],
+                    ];
+
+                    $id = isset($columns['variable']['id'][$q]) ? $columns['variable']['id'][$q] :  null;
+                    $produto->variables()->updateOrCreate(
+                        ['id' =>  $id],
+                        $columnsStore
+                    );
+                }
+
+                #$fornecedor->contatos()->create($columnsStore);
+            }
+        }
+
         return redirect()
             ->back()
             ->with('message', 'Atualizado com sucesso');
@@ -121,5 +141,32 @@ class ProdutosController extends Controller
         return redirect()
             ->route('produtos.index')
             ->with('message', 'Excluido com sucesso!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Fornecedores  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function variable_destroy($produtoId, $variable)
+    {
+        if (!$produto = $this->repository->where('id', $produtoId)->first()) {
+            return redirect()
+                ->route('produtos.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        if (!$variavel = $produto->variables()->where('id', $variable)->first()) {
+            return redirect()
+                ->route('produtos.index')
+                ->with('message', 'Registro (Variavel) não encontrado!');
+        }
+
+        $variavel->delete();
+
+        return redirect()
+            ->route('produtos.show', $produtoId)
+            ->with('message', 'Variabel Excluido com sucesso!');
     }
 }

@@ -17,6 +17,7 @@ class CreateOrcamentosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('obra_id')->nullable();
             $table->string('status')->default('Criado');
+            $table->string('categoria');
 
             $table->timestamps();
         });

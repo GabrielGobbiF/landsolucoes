@@ -43,6 +43,11 @@ class ObraEtapa extends Model
         return $this->belongsTo(Tipo::class, 'tipo_id');
     }
 
+    public function etapa()
+    {
+        return $this->belongsTo(Etapa::class, 'id_etapa');
+    }
+
     public function variables()
     {
         return $this->hasMany(ObraEtapasVariables::class, 'etapa_id', 'id');

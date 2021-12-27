@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel\Compras;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateFornecedores;
 use App\Models\Compras\Atuacao;
+use App\Models\Compras\Category;
 use App\Models\Compras\Fornecedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -37,7 +38,7 @@ class FornecedoresController extends Controller
      */
     public function create()
     {
-        $atuacao = Atuacao::all();
+        $atuacao = Category::all();
 
         return view('pages.painel.compras.fornecedores.create', [
             'atuacao' => $atuacao
@@ -80,13 +81,13 @@ class FornecedoresController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $fornecedorAtuacao = $fornecedor->atuacao()->get(['nome']) ?? [];
+        $fornecedorAtuacao = $fornecedor->atuacao()->get(['name']) ?? [];
 
         foreach ($fornecedorAtuacao as $fornA) {
-            $fornecedorAtuacaoa[] = $fornA['nome'];
+            $fornecedorAtuacaoa[] = $fornA['name'];
         }
 
-        $atuacaoAll = Atuacao::all()->toArray();
+        $atuacaoAll = Category::all()->toArray();
 
         $contatos = $fornecedor->contatos()->get();
 

@@ -14,11 +14,15 @@ class FornecedoresResource extends JsonResource
      */
     public function toArray($request)
     {
+        $categorias = $this->atuacao ? $this->atuacao : $this->atuacao()->get();
+
+        $output = $categorias ? $categorias->implode('name', ', ') : null;
+
         return [
             "id" => $this->id,
             "razao_social" => $this->razao_social,
             "cnpj" => $this->cnpj,
+            "categorias" => $output
         ];
     }
-
 }

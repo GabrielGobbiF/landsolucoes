@@ -33,4 +33,10 @@ class Variable extends Model
     {
         return $this->belongsTo(Etapa::class, 'etapa_id');
     }
+
+    public function setPriceAttribute($value)
+    {
+        #$value = str_replace('.', ',', $value);
+        $this->attributes['price'] = clearNumber($value);
+    }
 }

@@ -12,6 +12,7 @@ use App\Http\Resources\DriversResource;
 use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\ObraResource;
+use App\Http\Resources\OrcamentoResource;
 use App\Http\Resources\PortariaResource;
 use App\Http\Resources\ProdutosResource;
 use App\Http\Resources\ServiceResource;
@@ -21,6 +22,7 @@ use App\Models\Celular;
 use App\Models\Client;
 use App\Models\Compras\Category;
 use App\Models\Compras\Fornecedor;
+use App\Models\Compras\Orcamento;
 use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
 use App\Models\Employee;
@@ -65,6 +67,7 @@ class TableApiController extends Controller
 
         return DriversResource::collection($drivers);
     }
+
 
     /**
      * Display a listing of the resource.
@@ -136,6 +139,20 @@ class TableApiController extends Controller
         $categories = $this->get($categories, ['id', 'name', 'slug']);
 
         return CategoriesResource::collection($categories);
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function orcamentos()
+    {
+        $orcamentos = new Orcamento();
+
+        $orcamentos = $this->get($orcamentos, ['id']);
+
+        return OrcamentoResource::collection($orcamentos);
     }
 
     /**

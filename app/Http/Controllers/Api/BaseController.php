@@ -150,14 +150,4 @@ class BaseController extends Controller
         return  $model->get($get);
     }
 
-    public function linhaAtuacaoStore(Request $request)
-    {
-        $name = $request->only('collumn');
-
-        $add = Atuacao::create([
-            'nome' => $name['collumn'],
-        ]);
-
-        return response()->json($add['id'], 200);
-    }
 }

@@ -24,6 +24,7 @@
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="razao_social" data-sortable="true">Razão Social</th>
                                 <th data-field="cnpj">CNPJ</th>
+                                <th data-field="categorias">Atuação</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

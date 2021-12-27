@@ -9,6 +9,7 @@ use App\Models\Compras\Produto;
 use App\Models\Etapa;
 use App\Models\Obra;
 use App\Models\Compras\Orcamento;
+use App\Models\Compras\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -32,8 +33,11 @@ class OrcamentoController extends Controller
     {
         $obras = Obra::get();
 
+        $categorias = Category::all();
+
         return view('pages.painel.compras.orcamento.index', [
-            'obras' => $obras
+            'obras' => $obras,
+            'categorias' => $categorias
         ]);
     }
 
@@ -48,7 +52,7 @@ class OrcamentoController extends Controller
 
         $fornecedores = Fornecedor::whereHas('atuacao', static function ($query) use ($categoria) {
             if ($categoria) {
-                return $query->where('nome', '=', $categoria);
+                return $query->where('name', '=', $categoria);
             }
         })->get();
 
@@ -56,11 +60,14 @@ class OrcamentoController extends Controller
 
         $unidades = $itens->groupBy('unidade');
 
+        $categorias = Category::all();
+
         return view('pages.painel.compras.orcamento.create', [
             'categoria' => $categoria,
             'fornecedores' => $fornecedores,
             'itens' => $itens,
             'unidades' => $unidades,
+            'categorias' => $categorias
         ]);
     }
 
@@ -99,20 +106,27 @@ class OrcamentoController extends Controller
 
         $fornecedores = Fornecedor::whereHas('atuacao', static function ($query) use ($categoria) {
             if ($categoria) {
-                return $query->where('nome', '=', $categoria);
+                return $query->where('name', '=', $categoria);
             }
         })->get();
 
-        $itens = Produto::where('categoria', $categoria)->with('variables')->get();
+
+        $obra = $orcamento->obra()->first();
+        $itens = $obra->compras()->with('variables')->with('etapa')->get();
+
+        //$itens = Produto::where('categoria', $categoria)->with('variables')->get();
         $unidades = $itens->groupBy('unidade');
+
+        $categorias = Category::all();
 
         #dd($fornecedores);
 
         return view('pages.painel.compras.orcamento.show', [
             'fornecedores' => $fornecedores,
-            'itens' => $itens,
-            'unidades' => $unidades,
+            'itens' => $itens ?? [],
+            'unidades' => $unidades ?? [],
             'orcamento' => $orcamento,
+            'categorias' => $categorias
         ])->with('categoria', $categoria);
     }
 

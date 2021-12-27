@@ -50,6 +50,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
         Route::get('/fornecedores', [App\Http\Controllers\Api\TableApiController::class, 'fornecedores'])->name('fornecedores.all');
         Route::get('/produtos', [App\Http\Controllers\Api\TableApiController::class, 'produtos'])->name('produtos.all');
+        Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
 
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
@@ -97,7 +98,6 @@ Route::prefix('/v1/api')->group(function () {
         */
         Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
         Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
-        Route::post('linha_atuacao', [App\Http\Controllers\Api\BaseController::class, 'linhaAtuacaoStore'])->name('api.atuacao.store');
 
     });
 });
@@ -120,6 +120,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::delete('/fornecedor/{fornecedorId}/contato/{contato_id}', [App\Http\Controllers\Painel\Compras\FornecedoresController::class, 'contato_destroy'])->name('fornecedor.contato.destroy');
 
             Route::resource('produtos', App\Http\Controllers\Painel\Compras\ProdutosController::class);
+            Route::delete('/produtos/{produtoId}/variable/{variableId}', [App\Http\Controllers\Painel\Compras\ProdutosController::class, 'variable_destroy'])->name('produto.variable.destroy');
+
             Route::resource('orcamento', App\Http\Controllers\Painel\Compras\OrcamentoController::class);
             Route::resource('categories', App\Http\Controllers\Painel\Compras\CategoryController::class);
             Route::resource('sub-categories', App\Http\Controllers\Painel\Compras\SubCategoryController::class);

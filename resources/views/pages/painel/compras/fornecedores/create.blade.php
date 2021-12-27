@@ -16,9 +16,9 @@
 
                     <div class='form-group'>
                         <label>Linha de Atuação</label>
-                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" data-create="{{ route('api.atuacao.store') }}">
+                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" data-create="{{ route('api.categories.store') }}" required>
                             @foreach ($atuacao as $linha_atuacao)
-                                <option value='{{ $linha_atuacao->id }}'> {{ $linha_atuacao->nome }}</option>
+                                <option value='{{ $linha_atuacao->id }}'> {{ $linha_atuacao->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -40,7 +40,6 @@
             let collumn = v.parent().find('.select2-search__field').val();
             let url = v.attr('data-create');
 
-            console.log(collumn);
             $.ajax({
                 headers: {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -48,7 +47,7 @@
                 url: url,
                 type: 'POST',
                 data: {
-                    collumn: collumn
+                    name: collumn
                 },
                 dataType: 'json',
                 success: function(j) {

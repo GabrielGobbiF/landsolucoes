@@ -2,6 +2,7 @@
 
 namespace App\Models\Compras;
 
+use App\Models\Obra;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,10 @@ class Orcamento extends Model
     public function itens()
     {
         #return $this->hasMany(Produto::class, 'id_obra');
+    }
+
+    public function obra()
+    {
+        return $this->belongsTo(Obra::class, 'obra_id');
     }
 }

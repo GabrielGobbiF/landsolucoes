@@ -9,45 +9,74 @@
             border: 1px solid green;
         }
 
+        table thead tr th {
+
+            width: 2% !important;
+        }
+
     </style>
 
     <div class="row">
+
         @if (count($fornecedores) > 0)
-            <div class="col-8">
+            <div class="col-10">
                 <div class="card">
                     <div class="card-body">
+
+                        <div class="col-12 col-md-12">
+                            @if (__trans('compras.orcamento.status.messages.' . $orcamento->status))
+                                <div class="row mb-2 align-items-center">
+                                    <div class="col-12 col-md-12">
+                                        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                                            <i class="mdi mdi-grease-pencil me-2"></i>
+                                            {!! __('compras.orcamento.status.messages.' . $orcamento->status) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="col-md-12">
-                            <div class="search-table-outter wrapper scrollbox" style="overflow: auto;">
-                                <table class='table table-hover'>
+                            <div class="search-table-outter wrapper scrollbox table-responsive" style="overflow: auto;">
+                                <div class="float-right">
+                                    <a href="javascript:void(0)" class="" data-toggle='modal' data-target='#exampleModal'>Editar fornecedores</a>
+
+
+                                </div>
+                                <table class='table table-hover' style="font-size: 0.8rem;
+                                                                                            font-weight: 200 !important;
+                                                                                            font-family: system-ui;
+                                                                                            width: 100%">
                                     <thead class='thead-light'>
                                         <tr>
                                             <th>Descrição</th>
                                             <th>Uni</th>
-                                            <th>Qnt</th>
+                                            <th>Quantidade</th>
                                             @foreach ($fornecedores as $fornecedor)
-                                                <th style="width: 12%;">{{ $fornecedor->razao_social }}</th>
+                                                <th class="tr__fornecedor-{{ $fornecedor->id }}">{{ limit($fornecedor->razao_social, 12) }}</th>
                                             @endforeach
-                                            <th style="width: 12%;text-align: center;">Valor Total</th>
+                                            <th style="text-align: center;">Valor Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @foreach ($itens as $item)
                                             <tr id="{{ $item->id }}">
                                                 @if ($item->variables->count() > 0)
                                                     <th colspan="{{ count($fornecedores) + 4 }}">
-                                                        <a href="javascript:void(0)" data-id="{{ $item->id }}" class="js-openClose__variable">{{ limit($item->name, 30) }}</a>
+                                                        <a href="javascript:void(0)" data-id="{{ $item->id }}" class="js-openClose__variable">{{ limit($item->nome, 30) }}</a>
                                                     </th>
                                                 @else
-                                                    <th>{{ limit($item->name, 40) }}</th>
+                                                    <th>{{ limit($item->nome, 40) }}</th>
                                                     <th>{{ $item->unidade }}</th>
-                                                    <th style="width: 12%">
-                                                        <input type="number" data-unidade="{{ $item->unidade }}" class="form-control qnt reset" min="1" name="qnt" required value="0"
-                                                            data-tr="{{ $item->id }}">
+                                                    <th>
+                                                        <input type="number" data-unidade="{{ $item->unidade }}" class="form-control qnt reset" min="1" name="qnt" required
+                                                            value="0"
+                                                            data-tr="{{ $item->id }}" value="{{ $item->quantidade }}">
                                                     </th>
                                                     @foreach ($fornecedores as $fornecedor)
-                                                        <th style="width: 12%">
-                                                            <input type="text" class="form-control money price reset" name="price" id="{{ $fornecedor->id }}" data-tr="{{ $item->id }}" required
+                                                        <th class="tr__fornecedor-{{ $fornecedor->id }}">
+                                                            <input type="text" style="max-width: 100%;" class="form-control money price reset" name="price" id="{{ $fornecedor->id }}"
+                                                                data-tr="{{ $item->id }}" required
                                                                 value="0">
                                                         </th>
                                                     @endforeach
@@ -63,15 +92,15 @@
                                                                 <a href="javascript:void(0)" class="row-delete" data-tr="{{ $item->id . $variable->id }}">
                                                                     <i class="fas fa-trash tx-danger mr-3"></i>
                                                                 </a>
-                                                                {{ $variable->name }}
+                                                                {{ $variable->nome }}
                                                             </th>
                                                             <th>{{ $item->unidade }}</th>
-                                                            <th style="width: 12%">
+                                                            <th>
                                                                 <input type="number" data-unidade='{{ $item->unidade }}' class="form-control qnt reset" min="1" name="qnt"
-                                                                    data-tr="{{ $item->id . $variable->id }}" required value="0">
+                                                                    data-tr="{{ $item->id . $variable->id }}" required value="{{ $variable->quantidade ?? 0 }}">
                                                             </th>
                                                             @foreach ($fornecedores as $fornecedor)
-                                                                <th style="width: 12%">
+                                                                <th class="tr__fornecedor-{{ $fornecedor->id }}">
                                                                     <input type="text" class="form-control money price reset" name="price" id="{{ $fornecedor->id }}"
                                                                         data-tr="{{ $item->id . $variable->id }}" required value="0">
                                                                 </th>
@@ -97,8 +126,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-2 d-none">
+
                 <div class='card'>
+                    <div class='card-body'>
+                        <button class="btn btn-primary"><i class="fas fa-edit"></i> Pedir Aprovação</button>
+                        <button class="btn btn-warning"><i class="fas fa-edit"></i> Relátorio</button>
+                    </div>
+                </div>
+
+
+                <div class='card  d-none'>
                     <div class='card-body'>
                         <h4>Preencher</h4>
                         @foreach ($unidades as $unidade => $produtos)
@@ -143,9 +181,9 @@
                             <div class="col-3">
                                 <label>Selecione a categoria</label>
                                 <select name='categoria' id="select__categoria" class='form-control select2' required>
-                                    @foreach (config('admin.atuacao') as $atuacao)
-                                        <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao ? 'selected' : '' }} value='{{ $atuacao }}'>
-                                            {{ $atuacao }}
+                                    @foreach ($categorias as $atuacao)
+                                        <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao->name ? 'selected' : '' }} value='{{ $atuacao->name }}'>
+                                            {{ $atuacao->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -155,6 +193,38 @@
                 </div>
             </div>
         @endif
+    </div>
+
+    <div class='modal' id='exampleModal' tabindex='-1' role='dialog'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title'>Fornecedores</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <ul class="message-list">
+                        @foreach ($fornecedores as $fornecedor)
+                            <li class="">
+                                <div class="col-mail col-mail-1">
+                                    <div class="checkbox-wrapper-mail">
+                                        <input type="checkbox" id="chk{{ $fornecedor->id }}" data-id="{{ $fornecedor->id }}" class="select--fornecedor" checked>
+                                        <label class="form-label" for="chk{{ $fornecedor->id }}"></label>
+                                    </div>
+                                    <a href="#" class="title"> {{ $fornecedor->razao_social }}</a>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary btn-submit'>Salvar</button>
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 
@@ -310,7 +380,6 @@
 
 
 
-
             //Produtos
             initTableEtapas()
 
@@ -377,6 +446,20 @@
                     }
                 });
             }
+
+            $('.select--fornecedor').on('click', function() {
+
+                let fornecedorId = $(this).attr('data-id');
+
+                if ($(this).is(':checked')) {
+                    $(`.tr__fornecedor-${fornecedorId}`).removeClass('d-none')
+                } else {
+                    $(`.tr__fornecedor-${fornecedorId}`).addClass('d-none')
+                }
+
+            })
+
+
 
         })
     </script>

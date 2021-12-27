@@ -143,9 +143,9 @@
                             <div class="col-3">
                                 <label>Selecione a categoria</label>
                                 <select name='categoria' id="select__categoria" class='form-control select2' required>
-                                    @foreach (config('admin.atuacao') as $atuacao)
-                                        <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao ? 'selected' : '' }} value='{{ $atuacao }}'>
-                                            {{ $atuacao }}
+                                    @foreach ($categorias as $atuacao)
+                                        <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao->name ? 'selected' : '' }} value='{{ $atuacao->name }}'>
+                                            {{ $atuacao->name }}
                                         </option>
                                     @endforeach
                                 </select>

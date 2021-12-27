@@ -17,10 +17,10 @@
                 <div class="col-md-12">
                     <div class='form-group'>
                         <label>Linha de Atuação</label>
-                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" multiple='multiple' data-create="{{ route('api.atuacao.store') }}" required>
+                        <select name='atuacao[]' class='form-control' id="select--linha_atuacao" multiple='multiple' data-create="{{ route('api.categories.store') }}" required>
                             @foreach ($atuacaoAll as $linha_atuacao)
-                                <option {{ isset($fornecedorAtuacaoa) && in_array($linha_atuacao['nome'], $fornecedorAtuacaoa) ? 'selected' : '' }} value='{{ $linha_atuacao['id'] }}'>
-                                    {{ $linha_atuacao['nome'] }}</option>
+                                <option {{ isset($fornecedorAtuacaoa) && in_array($linha_atuacao['name'], $fornecedorAtuacaoa) ? 'selected' : '' }} value='{{ $linha_atuacao['id'] }}'>
+                                    {{ $linha_atuacao['name'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -50,7 +50,6 @@
                 @foreach ($contatos as $contato)
                     @include("pages.painel._partials.forms.form-contato")
                 @endforeach
-
             </div>
         </div>
 
@@ -103,7 +102,6 @@
             let collumn = v.parent().find('.select2-search__field').val();
             let url = v.attr('data-create');
 
-            console.log(collumn);
             $.ajax({
                 headers: {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -111,7 +109,7 @@
                 url: url,
                 type: 'POST',
                 data: {
-                    collumn: collumn
+                    name: collumn
                 },
                 dataType: 'json',
                 success: function(j) {

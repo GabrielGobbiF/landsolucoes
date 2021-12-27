@@ -5,7 +5,7 @@ $(function () {
 
     $('#search-etapa').on('keyup', function () {
         clearTimeout(time_etapas);
-        time_matchs = setTimeout(function () {
+        time_etapas = setTimeout(function () {
             initTableEtapas();
         }, 1200);
     });

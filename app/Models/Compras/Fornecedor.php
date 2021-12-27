@@ -22,11 +22,11 @@ class Fornecedor extends Model
         'endereco',
     ];
 
-    public const RELATIONSHIP_PAGES_LINK = 'fornecedores_atuacao';
+    public const RELATIONSHIP_FORNECEDOR_ATUACAO = 'fornecedores_atuacao';
 
     public function atuacao()
     {
-        return $this->belongsToMany(Atuacao::class, self::RELATIONSHIP_PAGES_LINK);
+        return $this->belongsToMany(Category::class, self::RELATIONSHIP_FORNECEDOR_ATUACAO);
     }
 
     public function contatos()
