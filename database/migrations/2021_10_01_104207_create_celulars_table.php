@@ -21,6 +21,7 @@ class CreateCelularsTable extends Migration
             $table->string('equipe')->nullable();
             $table->string('responsavel')->nullable();
             $table->string('departamento')->nullable();
+            $table->string('centro_custo')->nullable();
 
             $table->timestamps();
 

@@ -110,11 +110,12 @@ class DatabaseSeeder extends Seeder
 
         foreach ($url as $ceulares) {
 
+
             $columns = [
                 'linha' => limparTelefone($ceulares['LINHA']),
                 'usuario' => $ceulares['USUARIO'],
                 'responsavel' => $ceulares['RESPONSAVEL'],
-                'departamento' => isset($configs[$ceulares['DEPARTAMENTO']]) ? $configs[$ceulares['DEPARTAMENTO']] : '',
+                'departamento' => $ceulares['DEPARTAMENTO'],
             ];
 
             Celular::create($columns);
