@@ -4,10 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Celular extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    protected static $logName = 'Celulares';
+
+    protected static $logAttributes = [
+        'usuario',
+        'responsavel',
+        'equipe',
+        'linha',
+        'departamento',
+        'centro_custo',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -30,4 +42,13 @@ class Celular extends Model
         $this->attributes['linha'] = limpar($value, '');
     }
 
+    public function setUsuarioAttribute($value)
+    {
+        $this->attributes['usuario'] = maiusculo($value, '');
+    }
+
+    public function setResponsavelAttribute($value)
+    {
+        $this->attributes['responsavel'] = maiusculo($value, '');
+    }
 }
