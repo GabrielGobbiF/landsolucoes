@@ -102,7 +102,6 @@ class DatabaseSeeder extends Seeder
 
     private function celulares()
     {
-        Celular::query()->delete();
         $url = file_get_contents(config_path('jsons/celulares.json'));
         $url = json_decode($url, true, 512, JSON_UNESCAPED_UNICODE);
         $columns = [];

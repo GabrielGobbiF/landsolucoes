@@ -235,13 +235,16 @@ return [
 
     'celulares' => [
         'departamento' => [
-            'Obras Land',
+            'ADM',
+            'Cena Obras',
+            'DIRETORIA',
+            'ETD',
+            'Nasai',
             'RDSC',
             'RDSE',
+            'RH/DP',
+            'Tec Segurança',
             'TMA',
-            'ETD',
-            'DIRETORIA',
-            'Cena',
         ]
 
     ]
