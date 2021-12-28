@@ -41,6 +41,7 @@
                                 <th data-field="responsavel" data-sortable="true">Responsavel</th>
                                 <th data-field="usuario" data-sortable="true">Usuario</th>
                                 <th data-field="equipe" data-sortable="true">Equipe</th>
+                                <th data-field="departamento" data-sortable="true">Departamento</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

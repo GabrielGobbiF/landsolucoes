@@ -283,3 +283,8 @@ function in_array_column($text, $column, $array)
     }
     return false;
 }
+
+function limparTelefone($v)
+{
+    return str_replace(['+55', '(', ')', '-', '-', ' '], '', $v);
+}

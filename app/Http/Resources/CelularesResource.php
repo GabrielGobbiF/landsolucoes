@@ -20,6 +20,7 @@ class CelularesResource extends JsonResource
             "linha" => $this->linha,
             "usuario" => $this->usuario,
             "equipe" => $this->equipe,
+            "departamento" => $this->departamento,
         ];
     }
 

@@ -208,10 +208,6 @@ return [
         'Terceiros',
     ],
 
-    'celulares' => [
-        '119130-95689',
-    ],
-
     'atuacao' => [
         'Cabos',
         'Cimento',
@@ -235,5 +231,18 @@ return [
             'Conectores',
             'Barramento Blindado',
         ]
+    ],
+
+    'celulares' => [
+        'departamento' => [
+            'Obras Land',
+            'RDSC',
+            'RDSE',
+            'TMA',
+            'ETD',
+            'DIRETORIA',
+            'Cena',
+        ]
+
     ]
 ];

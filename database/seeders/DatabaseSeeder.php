@@ -42,22 +42,22 @@ class DatabaseSeeder extends Seeder
         #$this->obras();
         #$this->obras_financeiro();
         #$this->obras_etapas(5000);
-        #$this->obras_etapas(10000);
-        #$this->obras_etapas(15000);
-        #$this->obras_etapas(20000);
-        #$this->obras_etapas(25000);
-        #$this->obras_etapas(90000);
+        ##$this->obras_etapas(10000);
+        ##$this->obras_etapas(15000);
+        ##$this->obras_etapas(20000);
+        ##$this->obras_etapas(25000);
+        ##$this->obras_etapas(90000);
         #$this->obras_etapas_financeiro_faturamento();
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/etapas.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/variables.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
-
-        #$this->celulares();
+        #
+        $this->celulares();
         #$this->atuacao();
-
-        $this->categories();
-        $this->Subcategories();
+        #
+        #$this->categories();
+        #$this->Subcategories();
     }
 
     private function Subcategories()
@@ -102,10 +102,22 @@ class DatabaseSeeder extends Seeder
 
     private function celulares()
     {
-        foreach (config('admin.celulares') as $celular) {
-            Celular::create([
-                'linha' => $celular,
-            ]);
+        Celular::query()->delete();
+        $url = file_get_contents(config_path('jsons/celulares.json'));
+        $url = json_decode($url, true, 512, JSON_UNESCAPED_UNICODE);
+        $columns = [];
+        $configs = config('admin.celulares.departamento');
+
+        foreach ($url as $ceulares) {
+
+            $columns = [
+                'linha' => limparTelefone($ceulares['LINHA']),
+                'usuario' => $ceulares['USUARIO'],
+                'responsavel' => $ceulares['RESPONSAVEL'],
+                'departamento' => isset($configs[$ceulares['DEPARTAMENTO']]) ? $configs[$ceulares['DEPARTAMENTO']] : '',
+            ];
+
+            Celular::create($columns);
         }
     }
 

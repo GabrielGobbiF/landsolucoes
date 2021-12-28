@@ -1,0 +1,541 @@
+[
+  {
+    "ID": 1,
+    "LINHA": "11 9-1309-5689",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 2,
+    "LINHA": "11 9-1309-5705",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 3,
+    "LINHA": "11 9-1309-5716",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 4,
+    "LINHA": "11 9-1309-5807",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 5,
+    "LINHA": "11 9-1309-5826",
+    "USUARIO": "Silvio Sino",
+    "DEPARTAMENTO": "Cena Obras",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 6,
+    "LINHA": "11 9-1309-5877",
+    "USUARIO": "Wagner Pereira",
+    "DEPARTAMENTO": "RDSE",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 7,
+    "LINHA": "11 9-1309-5910",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 8,
+    "LINHA": "11 9-1309-5977",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 9,
+    "LINHA": "11 9-1309-6030",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 10,
+    "LINHA": "11 9-1309-6045",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 11,
+    "LINHA": "11 9-1309-6056",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 12,
+    "LINHA": "11 9-1309-6068",
+    "USUARIO": "Policarpo",
+    "DEPARTAMENTO": "RDSE",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 13,
+    "LINHA": "11 9-1309-6143",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 14,
+    "LINHA": "11 9-1309-6154",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 15,
+    "LINHA": "11 9-4014-2994",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 16,
+    "LINHA": "11 9-4077-3809",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 17,
+    "LINHA": "11 9-4077-3865",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 18,
+    "LINHA": "11 9-4077-3959",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 19,
+    "LINHA": "11 9-4077-3997",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 20,
+    "LINHA": "11 9-4077-4034",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 21,
+    "LINHA": "11 9-4077-4133",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 22,
+    "LINHA": "11 9-4077-5712",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 23,
+    "LINHA": "11 9-4077-5725",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 24,
+    "LINHA": "11 9-4077-5869",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 25,
+    "LINHA": "11 9-4077-5919",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 26,
+    "LINHA": "11 9-4711-6273",
+    "USUARIO": "Carlos Pinto",
+    "DEPARTAMENTO": "RDSC",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 27,
+    "LINHA": "11 9-4712-0542",
+    "USUARIO": "LEOCENE",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 28,
+    "LINHA": "11 9-4712-5507",
+    "USUARIO": "José Marcus Bezerra / Civil",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 29,
+    "LINHA": "11 9-4787-2882",
+    "USUARIO": "Whatsap Nasai",
+    "DEPARTAMENTO": "Nasai",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 30,
+    "LINHA": "11 9-4789-0057",
+    "USUARIO": "CLEITON / LIMPEZA",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 31,
+    "LINHA": "11 9-6383-5632",
+    "USUARIO": "LUANA VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 32,
+    "LINHA": "11 9-6457-0458",
+    "USUARIO": "JANETE ROSSI",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 33,
+    "LINHA": "11 9-6597-7475",
+    "USUARIO": "Alexandre Pena",
+    "DEPARTAMENTO": "Cena Obras",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 34,
+    "LINHA": "11 9-6597-8933",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 35,
+    "LINHA": "11 9-6928-6907",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 36,
+    "LINHA": "11 9-7085-1002",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 37,
+    "LINHA": "11 9-7617-9624",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 38,
+    "LINHA": "11 9-7661-3734",
+    "USUARIO": "Edevaldo / Roçada",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 39,
+    "LINHA": "11 9-7661-3941",
+    "USUARIO": "Etervanio / Elétrica",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 40,
+    "LINHA": "11 9-7661-4006",
+    "USUARIO": "Josuel",
+    "DEPARTAMENTO": "RDSC",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 41,
+    "LINHA": "11 9-7663-7285",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 42,
+    "LINHA": "11 9-7663-7439",
+    "USUARIO": "Paulo Ananias / Civil",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 43,
+    "LINHA": "11 9-7663-8127",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 44,
+    "LINHA": "11 9-7663-8623",
+    "USUARIO": "Eliaquim / Civil",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 45,
+    "LINHA": "11 9-7663-9148",
+    "USUARIO": "Ramos",
+    "DEPARTAMENTO": "TMA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 46,
+    "LINHA": "11 9-7663-9657",
+    "USUARIO": "Geovanne /Civil",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 47,
+    "LINHA": "11 9-7665-3277",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 48,
+    "LINHA": "11 9-7665-3496",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 49,
+    "LINHA": "11 9-7665-3543",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 50,
+    "LINHA": "11 9-7666-9880",
+    "USUARIO": "Marcos Pereira",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 51,
+    "LINHA": "11 9-7667-1561",
+    "USUARIO": "José Carlos Medeiros / Limpeza",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 52,
+    "LINHA": "11 9-7667-2799",
+    "USUARIO": "Glaucio",
+    "DEPARTAMENTO": "Cena Obras",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 53,
+    "LINHA": "11 9-7667-3436",
+    "USUARIO": "Rener / Civil",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 54,
+    "LINHA": "11 9-7667-4490",
+    "USUARIO": "Pedro Luiz",
+    "DEPARTAMENTO": "Tec Segurança",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 55,
+    "LINHA": "11 9-7667-6272",
+    "USUARIO": "Valdeir",
+    "DEPARTAMENTO": "TMA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 56,
+    "LINHA": "11 9-7667-7770",
+    "USUARIO": "Camila",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 57,
+    "LINHA": "11 9-7667-7799",
+    "USUARIO": "VANESSA/MARCIA",
+    "DEPARTAMENTO": "RH/DP",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 58,
+    "LINHA": "11 9-7667-9469",
+    "USUARIO": "Felipe Gomes",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 59,
+    "LINHA": "11 9-7667-9867",
+    "USUARIO": "Paulo Ricardo",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 60,
+    "LINHA": "11 9-7667-9981",
+    "USUARIO": "Zé Candido / Serralheria",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 61,
+    "LINHA": "11 9-7671-1194",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 62,
+    "LINHA": "11 9-7683-0449",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 63,
+    "LINHA": "11 9-8376-9000",
+    "USUARIO": "MARCOS VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 64,
+    "LINHA": "11 9-8430-8000",
+    "USUARIO": "TIAGO VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 65,
+    "LINHA": "11 9-8688-7777",
+    "USUARIO": "NELLY VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 66,
+    "LINHA": "11 9-8802-8701",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 67,
+    "LINHA": "11 9-8878-1985",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 68,
+    "LINHA": "11 9-8883-3966",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 69,
+    "LINHA": "11 9-8895-2181",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 70,
+    "LINHA": "11 9-8901-5316",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 71,
+    "LINHA": "11 9-8915-5306",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 72,
+    "LINHA": "11 9-8969-1063",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 73,
+    "LINHA": "11 9-8994-3035",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 74,
+    "LINHA": "11 9-9026-6584",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 75,
+    "LINHA": "11 9-9190-5204",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 76,
+    "LINHA": "11 9-9426-1284",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "ID": 77,
+    "LINHA": "11 9-9431-2234",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  }
+]

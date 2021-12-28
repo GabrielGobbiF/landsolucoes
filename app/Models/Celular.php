@@ -19,6 +19,8 @@ class Celular extends Model
         'responsavel',
         'equipe',
         'linha',
+        'departamento',
+        'centro_custo',
     ];
 
     protected $table = 'celulares';

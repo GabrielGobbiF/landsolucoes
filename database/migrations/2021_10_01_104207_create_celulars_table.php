@@ -20,6 +20,7 @@ class CreateCelularsTable extends Migration
             $table->string('usuario')->nullable();
             $table->string('equipe')->nullable();
             $table->string('responsavel')->nullable();
+            $table->string('departamento')->nullable();
 
             $table->timestamps();
 

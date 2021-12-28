@@ -46,6 +46,12 @@
             $("#modal-add-{{ $type }}").on("hidden.bs.modal", function() {
                 $("#form-add-{{ $type }}")[0].reset();
             })
+
+            $('.select2').select2({
+                width: '100%',
+                dropdownParent: $("#modal-add-{{ $type }}")
+            });
+
         })
     </script>
 @append
