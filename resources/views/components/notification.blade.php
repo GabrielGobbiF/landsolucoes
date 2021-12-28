@@ -13,14 +13,14 @@
                     <h6 class="m-0"> {{ __('Notificações') }} </h6>
                 </div>
                 <div class="col-auto">
-                    @if ($notifications->count() > 0)
+                    @if (isset($notifications) && $notifications->count() > 0)
                         <a href="{{ route('notifications.read.all') }}" class="small"> {{ __('Marcar todas como lida') }}</a>
                     @endif
                 </div>
             </div>
         </div>
         <div data-simplebar style="max-height: 230px;" class="card-maximum-height">
-            @if ($notifications && $notifications->count() > 0)
+            @if (isset($notifications) && $notifications->count() > 0)
                 @foreach ($notifications as $unreadNotification)
                     <a href="{{ route('notifications.show', $unreadNotification->id) }}" class="text-reset notification-item notification-item-header"
                         data-id="{{ $unreadNotification->id }}">
