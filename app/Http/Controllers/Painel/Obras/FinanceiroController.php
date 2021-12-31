@@ -79,6 +79,7 @@ class FinanceiroController extends Controller
 
             $finances[$obra->id]['valor_negociado'] = $valorNegociadoObra;
             $finances[$obra->id]['obraId'] = $obra->id;
+            $finances[$obra->id]['n_nota'] = $obra->last_note;
             $finances[$obra->id]['nome_obra'] = $obra->razao_social;
             $finances[$obra->id]['total_faturado'] = $totalFaturado;
             $finances[$obra->id]['total_a_faturar'] = $saldoAFaturar;

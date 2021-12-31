@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         #$this->departamento_concessionaria();
         #$this->obras();
         #$this->obras_financeiro();
-        #$this->obras_etapas(5000);
+       # $this->obras_etapas(5000);
         ##$this->obras_etapas(10000);
         ##$this->obras_etapas(15000);
         ##$this->obras_etapas(20000);
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
         #
-        $this->celulares();
+        #$this->celulares();
         #$this->atuacao();
         #
         #$this->categories();

@@ -55,7 +55,9 @@
                             <th>Valor a Receber</th>
                             <th>Valor Recebido</th>
                             <th>Liberado Faturar</th>
+                            <th>Nº Nota</th>
                             <th>Vencidas</th>
+                            <th>Data Vencimento</th>
                             <th>Saldo</th>
                         </tr>
                     </thead>
@@ -85,7 +87,9 @@
                                 <th> R$ {{ maskPrice($finance['total_receber']) }}</th>
                                 <th> R$ {{ maskPrice($finance['total_recebido']) }}</th>
                                 <th> R$ {{ maskPrice($finance['total_a_faturar']) }}</th>
-                                <th> {{ $finance['vencidas']}}</th>
+                                <th> {{ $finance['n_nota'] }}</th>
+                                <th> {{ $finance['vencidas'] }}</th>
+                                <th> {{ $finance['data_vencimento'] != '' ? formatDateAndTime($finance['data_vencimento']) : null }}</th>
                                 <th> R$ {{ maskPrice($finance['saldo']) }}</th>
                             </tr>
                         @endforeach
@@ -95,6 +99,8 @@
                             <th> R$ {{ maskPrice($total_receber) }}</th>
                             <th> R$ {{ maskPrice($total_recebido) }}</th>
                             <th> R$ {{ maskPrice($total_a_faturar) }}</th>
+                            <th> </th>
+                            <th> </th>
                             <th> </th>
                             <th> R$ {{ maskPrice($total_saldo) }}</th>
                         </tr>

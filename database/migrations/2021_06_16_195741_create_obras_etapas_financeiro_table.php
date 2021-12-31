@@ -25,10 +25,10 @@ class CreateObrasEtapasFinanceiroTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('etapa_id')
-                ->references('id')
-                ->on('obras_etapas')
-                ->onDelete('cascade');
+            //$table->foreign('etapa_id')
+            //    ->references('id')
+            //    ->on('obras_etapas')
+            //    ->onDelete('cascade');
 
             $table->foreign('obra_id')
                 ->references('id')
