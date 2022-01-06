@@ -91,6 +91,10 @@ class CelularesController extends Controller
      */
     public function destroy($id)
     {
+        $this->middleware('auth');
+
+        $this->middleware('role:admin');
+
         if (!$celular = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('celulares.index')

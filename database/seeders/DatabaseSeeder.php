@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
         #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
         #
-        #$this->celulares();
+        $this->celulares();
         #$this->atuacao();
         #
         #$this->categories();
