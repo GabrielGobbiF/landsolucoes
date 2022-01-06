@@ -3,7 +3,7 @@
         id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         <i class="fas fa-bell"></i>
-        <span class="{{ isset($notifications) && $notifications->count() > 0 ? 'noti-dot' : '' }}"></span>
+        <span class="{{ isset($notifications) && count($notifications) > 0  ? 'noti-dot' : '' }}"></span>
     </button>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
         aria-labelledby="page-header-notifications-dropdown">
@@ -13,14 +13,14 @@
                     <h6 class="m-0"> {{ __('Notificações') }} </h6>
                 </div>
                 <div class="col-auto">
-                    @if (isset($notifications) && $notifications->count() > 0)
+                    @if (isset($notifications) && count($notifications) > 0 )
                         <a href="{{ route('notifications.read.all') }}" class="small"> {{ __('Marcar todas como lida') }}</a>
                     @endif
                 </div>
             </div>
         </div>
         <div data-simplebar style="max-height: 230px;" class="card-maximum-height">
-            @if (isset($notifications) && $notifications->count() > 0)
+            @if (isset($notifications) && count($notifications) > 0 )
                 @foreach ($notifications as $unreadNotification)
                     <a href="{{ route('notifications.show', $unreadNotification->id) }}" class="text-reset notification-item notification-item-header"
                         data-id="{{ $unreadNotification->id }}">
