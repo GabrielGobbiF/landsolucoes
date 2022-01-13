@@ -34,7 +34,7 @@ class FinanceiroController extends Controller
             if (isset($filter['obr_name']) && $filter['obr_name'] != '') {
                 return $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
             }
-        })->where('status', 'aprovada')->where('status', 'concluida')->with('financeiro')->get(['razao_social', 'id', 'last_note']);
+        })->where('status', 'aprovada')->orWhere('status', 'concluida')->with('financeiro')->get(['razao_social', 'id', 'last_note']);
 
         foreach ($obras as $obra) {
             if (!$obra->financeiro) {
