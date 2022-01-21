@@ -67,7 +67,7 @@ class FinanceiroController extends Controller
                     if ($etapaAReceber) {
                         $aReceber = $etapaAReceber->sum;
                         $vencidas += $etapaVencidas->qnt;
-                        $data_vencimento = $etapaAReceber->data_vencimento != '' ? $etapaAReceber->data_vencimento : 'sem data';
+                        $data_vencimento = $etapaVencidas->data_vencimento != '' ? $etapaVencidas->data_vencimento : null;
                     }
 
                     $totalFaturado += $etapaFaturado;
