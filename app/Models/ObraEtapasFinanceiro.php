@@ -70,7 +70,7 @@ class ObraEtapasFinanceiro extends Model
 
     public function vencidas()
     {
-        return EtapasFaturamento::select(DB::raw('sum(valor) as sum, COUNT(id) as qnt, data_vencimento'))
+        return EtapasFaturamento::select(DB::raw('id as id, sum(valor) as sum, COUNT(id) as qnt, data_vencimento'))
             ->where('obr_etp_financerio_id', $this->id)
             ->where('recebido_status', 'N')
             ->whereDate('data_vencimento', '<=', date('Y-m-d'))->first();
