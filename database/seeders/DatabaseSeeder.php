@@ -33,10 +33,10 @@ class DatabaseSeeder extends Seeder
     {
         #$faker = Faker::create();
 
-        #$this->clientes();
-        #$this->servicos();
-        #$this->concessionaria();
-        #$this->tipos();
+        $this->clientes();
+        $this->servicos();
+        $this->concessionaria();
+        $this->tipos();
         #$this->departamento_cliente();
         #$this->departamento_concessionaria();
         #$this->obras();
@@ -48,12 +48,12 @@ class DatabaseSeeder extends Seeder
         ##$this->obras_etapas(25000);
         ##$this->obras_etapas(90000);
         #$this->obras_etapas_financeiro_faturamento();
-        #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/etapas.sql')));
-        #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/variables.sql')));
-        #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
-        #DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
+        DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/etapas.sql')));
+        DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/variables.sql')));
+        DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/concessionaria_service.sql')));
+        DB::unprepared(file_get_contents(asset('storage/00tR9vps6D/jsons/con_service_etp.sql')));
         #
-        $this->celulares();
+        #$this->celulares();
         #$this->atuacao();
         #
         #$this->categories();
@@ -110,7 +110,6 @@ class DatabaseSeeder extends Seeder
         $configs = config('admin.celulares.departamento');
 
         foreach ($url as $ceulares) {
-
 
             $columns = [
                 'linha' => limparTelefone($ceulares['LINHA']),
