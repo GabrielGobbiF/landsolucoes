@@ -80,6 +80,16 @@ class FinanceiroController extends Controller
                 }
             }
 
+            if($valorNegociadoObra - $totalFaturado == 0
+                && $totalReceber == 0
+            ){
+                continue;
+            }
+
+            if($totalReceber == 0 && $obra->status == 'concluida'){
+                continue;
+            }
+
             $finances[$obra->id]['valor_negociado'] = $valorNegociadoObra;
             $finances[$obra->id]['obraId'] = $obra->id;
             $finances[$obra->id]['n_nota'] = $obra->last_note;
@@ -94,6 +104,7 @@ class FinanceiroController extends Controller
         }
 
         $finances =  collect($finances);
+
         if (isset($filter['faturar'])) {
             $finances = $finances->where('total_a_faturar', '<>', 0);
         }
