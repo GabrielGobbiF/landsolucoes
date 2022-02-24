@@ -32,8 +32,12 @@
                                                     </th>
                                                     <th>{{ $etapa->unidade }}</th>
                                                     <th>R$ {{ $etapa->preco }}</th>
-                                                    <th class="sub-total" data-value="{{ $etapa->quantidade * ($etapa->preco != '' ? $etapa->preco : 0) }}"> R$
-                                                        {{ $etapa->quantidade * ($etapa->preco != '' ? $etapa->preco : 0) }}</th>
+                                                    <th class="sub-total" data-value="{{ 
+                                                    $etapa->quantidade * 
+                                                    ($etapa->preco != '' ? $etapa->preco : 0) }}
+                                                    "> R$
+                                                        {{ $etapa->quantidade * ($etapa->preco != '' ? $etapa->preco : 0) }}
+                                                    </th>
                                                 </tr>
                                             @else
                                                 <tr class="bd-t-0-f">
