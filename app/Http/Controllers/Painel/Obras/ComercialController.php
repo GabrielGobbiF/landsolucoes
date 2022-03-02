@@ -130,7 +130,7 @@ class ComercialController extends Controller
                 'ordem' => $etapa->pivot->order,
                 'preco' => $etapa->preco,
                 'unidade' => $etapa->unidade,
-                'quantidade' => $etapa->quantidade,
+                'quantidade' => $etapa->quantidade ?? 0,
             ])->id;
             $variables = $etapa->variables()->get();
 
