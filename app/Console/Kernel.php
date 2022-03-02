@@ -24,8 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:carReview')->everyFourHours();
+        #$schedule->command('command:carReview')->everyFourHours();
+
         $schedule->command('command:notifyLembrete')->everyMinute();
+
+        $schedule->command('telescope:prune --hours=48')->daily();
+
     }
 
     /**

@@ -40,7 +40,7 @@ class ComercialController extends Controller
     public function index()
     {
         $clients = Client::whereHas('obras', function ($query) {
-           // $query->where('obras.status', 'aprovada');
+            // $query->where('obras.status', 'aprovada');
         })->get(['id', 'username']);
 
         $concessionarias = Concessionaria::whereHas('obras')->get(['id', 'name']);
@@ -333,24 +333,53 @@ class ComercialController extends Controller
         return response($comercial->update(['status' => $status]), 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Comercial  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($uuid)
+
+    public function duplicate(Request $request, $id)
     {
-        if (!$client = $this->repository->where('uuid', $uuid)->first()) {
+        $name = $request->input('name');
+
+        if (!$comercial = $this->repository->where('id', $id)->first()) {
             return redirect()
                 ->route('comercial.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $client->delete();
+        //copy attributes from original model
+        $newRecord = $comercial->replicate();
 
-        return redirect()
-            ->route('comercial.index')
-            ->with('message', 'Excluir com sucesso!');
+        // Reset any fields needed to connect to another parent, etc
+        $newRecord->id = Obra::orderBy('id', 'DESC')->first()->id + 1;
+        //save model before you recreate relations (so it has an id)
+        $newRecord->push();
+
+        $newRecord->save();
+        $newRecord->update();
+        //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
+        $comercial->relations = [];
+        //load relations on EXISTING MODEL
+        $comercial->load('financeiro', 'etapas', 'etapas_financeiro');
+        //re-sync the child relationships
+        $relations = $comercial->getRelations();
+
+        foreach ($relations as $relation) {
+            foreach ($relation as $relationRecord) {
+
+                if(!is_bool ($relationRecord)){
+                    $newRelationship = $relationRecord->replicate();
+                    $newRelationship->id = $newRecord->id;
+                    $newRelationship->push();
+                }
+            }
+        }
+
+        $newRecord->razao_social = $name;
+        $newRecord->save();
+        $newRecord->update();
+
+        #dd($comercial->load('financeiro')->load('etapas')->load('etapas_financeiro'));
+
+        #$financeiro = $comercial->financeiro()->get();
+        #$etapas = $comercial->etapas()->get();
+        #$etapas_financeiro = $comercial->etapas_financeiro()->get();
     }
 }

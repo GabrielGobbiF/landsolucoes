@@ -98,6 +98,11 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
         Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
 
+
+
+
+
+
     });
 });
 
