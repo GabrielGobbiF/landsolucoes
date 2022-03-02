@@ -13,6 +13,22 @@
                             <input type='text' class='form-control' name='obr_name' id='input--obr_name' value='{{ Request::input('obr_name') ?? old('obr_name') }}'>
                         </div>
                     </div>
+
+                    <div class="col-6 col-md-4">
+                        <div class='form-group'>
+                            <label for=''>Cliente</label>
+                            <select name='clients' class='form-control select2'>
+                                <option value='' selected>Todos</option>
+                                @foreach ($clients as $client)
+                                    <option {{ request()->filled('clients') && request()->input('clients') == $client->id ? 'selected' : '' }} value='{{ $client->id }}'>
+                                        {{ $client->company_name . ' - ' . $client->username }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-4 col-md-auto align-self-center">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="formCheckFaturar" name="faturar" {{ Request::input('faturar') == 'true' ? 'checked' : '' }} value="true">

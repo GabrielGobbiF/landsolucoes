@@ -26,6 +26,8 @@ class FinanceiroController extends Controller
      */
     public function index(Request $request)
     {
+        $clients = Client::all();
+
         $filter = $request->all();
 
         $finances = [];
@@ -34,7 +36,15 @@ class FinanceiroController extends Controller
             if (isset($filter['obr_name']) && $filter['obr_name'] != '') {
                 return $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
             }
-        })->where('status', 'aprovada')->orWhere('status', 'concluida')->with('financeiro')->get(['razao_social', 'id', 'last_note', 'status']);
+        })->whereHas('client', static function ($query) use ($filter) {
+            if (!empty($filter['clients'])) {
+                $query->where('clients.id', $filter['clients']);
+            }
+        })
+            ->where('status', 'aprovada')
+            ->orWhere('status', 'concluida')
+            ->with('financeiro')
+            ->get(['razao_social', 'id', 'last_note', 'status']);
 
         foreach ($obras as $obra) {
             if (!$obra->financeiro) {
@@ -81,13 +91,14 @@ class FinanceiroController extends Controller
             }
 
 
-            if($valorNegociadoObra - $totalFaturado == 0
+            if (
+                $valorNegociadoObra - $totalFaturado == 0
                 && $totalReceber == 0
-            ){
+            ) {
                 continue;
             }
 
-            if($totalReceber == 0 && $obra->status == 'concluida'){
+            if ($totalReceber == 0 && $obra->status == 'concluida') {
                 continue;
             }
 
@@ -120,6 +131,7 @@ class FinanceiroController extends Controller
 
         return view('pages.painel.obras.finances.index', [
             'finances' => $finances,
+            'clients' => $clients,
         ]);
     }
 

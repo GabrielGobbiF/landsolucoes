@@ -14,6 +14,7 @@
 
                     <div class="row mt-4">
                         <h4 class="col-12 mb-3">Obra <small class="text-muted js-input-obra-name editable">{{ $obra->razao_social ?? '' }}</small></h4>
+                        <h4 class="col-12 mb-3">Cliente <small class="text-muted js-input-obra-name editable">{{ $obra->client->username ?? '' }}</small></h4>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-community-line mr-2"></i> {{ $obra->concessionaria->name ?? '' }}</h6>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-git-repository-private-fill mr-2"></i> {{ $obra->service->name ?? '' }}</h6>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-calendar-event-line mr-2"></i> {{ return_format_date($obra->build_at, 'pt', '/') ?? '' }}</h6>
@@ -135,7 +136,7 @@
                                 <button type="button" id="updateSelectionEtapa" data-type="updateall" class="btn btn-box-tool mode d-none"><i class="fa fa-edit"></i> Atualizar Selecionados</button>
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        <select name="type" id="select--type" class="form-control select2 search-input">
+                                        <select name="type" id="select--type" class="form-control select2 search-input search-input__sales">
                                             <option value="" selected>Todos</option>
                                             @foreach ($tipos as $tipo)
                                                 <option value="{{ $tipo->id }}">{{ $tipo->name }}</option>
@@ -353,4 +354,21 @@
             showEtapa(`{{ $input }}`)
         </script>
     @endif
-@endsection
+
+    
+    <script>
+        $(document).ready(function() {
+
+            $('.search-input__sales').each(function() {
+                const id = $(this).attr('id');
+                $(`#${id}`).val(JSON.parse(localStorage.getItem(id))).trigger('change');
+            })
+
+            $('.search-input__sales').on('change keyup', function() {
+                const value = $(this).val();
+                const id = $(this).attr('id');
+                localStorage.setItem(id, JSON.stringify(value));
+            });
+        })
+    </script>
+@append
