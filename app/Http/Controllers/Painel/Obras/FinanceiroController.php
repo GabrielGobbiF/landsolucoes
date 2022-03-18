@@ -165,7 +165,7 @@ class FinanceiroController extends Controller
 
             $etapa = $etapa_faturamento->StatusEtapa;
 
-            $valor_etapa = $etapa['text'] != 'EM' ? $etapa_faturamento->valor_receber : 0;
+            $valor_etapa = $etapa_faturamento->valor_receber;
 
             $etapaFaturado = $etapa_faturamento->faturado();
             $etapaRecebido = $etapa_faturamento->recebido();
