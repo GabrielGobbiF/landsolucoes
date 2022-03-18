@@ -421,8 +421,7 @@
 
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             @auth
-                <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                                            document.getElementById('logout-form').submit();">
+                <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     {{ __('Sair') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -484,7 +483,8 @@
                         </div>
                     @endif
 
-                    @if (auth()->user()->hasRole('rh') || auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('rh') ||
+    auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('employees.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-file-signature mr-2"></i>
@@ -493,14 +493,15 @@
                         </div>
                     @endif
 
-                        <div class="grid_itens">
-                            <a href="{{ route('celulares.index') }}" class="underline text-gray-900 dark:text-white">
-                                <i class="fas fa-mobile-alt mr-2"></i>
-                                Celulares
-                            </a>
-                        </div>
+                    <div class="grid_itens">
+                        <a href="{{ route('celulares.index') }}" class="underline text-gray-900 dark:text-white">
+                            <i class="fas fa-mobile-alt mr-2"></i>
+                            Celulares
+                        </a>
+                    </div>
 
-                    @if (auth()->user()->hasRole('rh') || auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('rh') ||
+    auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('fornecedor.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-wallet mr-2"></i>

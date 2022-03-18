@@ -13,7 +13,7 @@
         <div class="box box-solid">
             <div class="box-header with-border">
                 <i class="fab fa-cc-apple-pay tx-20 mx-2"></i>
-                <h3 class="card-title">{{ucfirst($obra->razao_social)}}</h3>
+                <h3 class="card-title">{{ ucfirst($obra->razao_social) }}</h3>
             </div>
             <div class="card-body">
                 <h4 class="card-title">Descrição</h4>
@@ -64,7 +64,7 @@
                                     <th>R$ {{ maskPrice($etapa['valor_etapa']) }}</th>
                                     <th>R$ {{ maskPrice($etapa['total_faturado']) }}</th>
                                     <th>{{ $etapa['qnt_vencidas'] }} vencida(s) </th>
-                                    <th>R$ {{ $etapa['valor_etapa'] != '0' ? maskPrice($etapa['valor_etapa'] - $etapa['total_faturado']) : '0' }}</th>
+                                    <th>R$ {{ $etapa['valor_etapa'] != '0' && $etapa['status'] == 'C'? maskPrice($etapa['valor_etapa'] - $etapa['total_faturado']): '0' }}</th>
 
                                     <th>
                                         @if ($etapa['total_faturado'] != '0' && $etapa['total_faturado'] == $etapa['valor_etapa'])
