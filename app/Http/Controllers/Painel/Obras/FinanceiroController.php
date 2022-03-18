@@ -158,13 +158,14 @@ class FinanceiroController extends Controller
 
         $etapas_faturamento = $obra->etapas_financeiro()->with('faturamento')->get();
 
+
         foreach ($etapas_faturamento as $etapa_faturamento) {
             $r = $etapa_faturamento->aReceber();
             $d = $etapa_faturamento->vencidas();
 
             $etapa = $etapa_faturamento->StatusEtapa;
 
-            $valor_etapa = $etapa_faturamento->valor_receber;
+            $valor_etapa = $etapa['text'] != 'EM' ? $etapa_faturamento->valor_receber : 0;
 
             $etapaFaturado = $etapa_faturamento->faturado();
             $etapaRecebido = $etapa_faturamento->recebido();
