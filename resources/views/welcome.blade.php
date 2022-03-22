@@ -467,7 +467,7 @@
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('vehicles.index') }}" class="underline text-gray-900 dark:text-white">
-                                <i class="fas fa-mobile mr-2"></i>
+                                <i class="fas fa-truck mr-2"></i>
                                 Veiculos
                             </a>
                         </div>
@@ -477,7 +477,7 @@
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('finances.index') }}" class="underline text-gray-900 dark:text-white">
-                                <i class="fas fa-mobile mr-2"></i>
+                                <i class="fas fa-wallet mr-2"></i>
                                 Financeiro
                             </a>
                         </div>
