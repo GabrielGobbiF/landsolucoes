@@ -39,7 +39,7 @@ class ObraApiController extends Controller
             return response()->json('Object Obra not found', 404);
         }
 
-        $pasta = $obra->pasta()->first() ?? false;
+        $pasta = $obra->pasta()->orderBy('id', 'ASC')->first() ?? false;
 
         if ($pasta) {
             $docsPasta = $pasta->documentos()->get();
