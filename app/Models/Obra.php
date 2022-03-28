@@ -109,7 +109,7 @@ class Obra extends Model
 
     public function pasta()
     {
-        return $this->hasOne(Pasta::class, 'type_id', 'id');
+        return $this->hasOne(Pasta::class, 'type_id', 'id')->orderBy('id', 'asc');
     }
 
     public function favorited(): bool
