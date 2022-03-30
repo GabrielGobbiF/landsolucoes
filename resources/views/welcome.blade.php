@@ -37,7 +37,12 @@
 
         html {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-            line-height: 1.5
+            line-height: 1.5;
+            color: #fff;
+        }
+
+        a {
+            text-decoration: none;
         }
 
         *,
@@ -45,11 +50,6 @@
         :before {
             box-sizing: border-box;
             border: 0 solid #e2e8f0
-        }
-
-        a {
-            color: inherit;
-            text-decoration: inherit
         }
 
         svg,
@@ -68,8 +68,6 @@
             margin: 2.5rem;
             text-align: initial;
         }
-
-
 
         .bg-white {
             --bg-opacity: 1;
