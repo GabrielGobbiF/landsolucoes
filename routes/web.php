@@ -50,6 +50,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/fornecedores', [App\Http\Controllers\Api\TableApiController::class, 'fornecedores'])->name('fornecedores.all');
         Route::get('/produtos', [App\Http\Controllers\Api\TableApiController::class, 'produtos'])->name('produtos.all');
         Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
+        Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
 
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
@@ -97,12 +98,6 @@ Route::prefix('/v1/api')->group(function () {
         */
         Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
         Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
-
-
-
-
-
-
     });
 });
 
@@ -389,6 +384,17 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::resource('tasks', App\Http\Controllers\Api\TaskController::class);
 
+    /*
+    |--------------------------------------------------------------------------
+    | RDSE
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::prefix('rdse')->group(function () {
+            Route::get('rdse', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'index'])->name('rdse.index');
+            Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
+        });
+    });
 
     Route::group(['middleware' => 'role:desenvolvedor'], function () {
         Route::prefix('dev')->group(function () {
@@ -408,4 +414,3 @@ Route::get('/cron', function () {
 });
 
 Route::get('v1/api/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
-

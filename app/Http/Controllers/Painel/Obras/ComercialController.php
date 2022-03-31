@@ -364,7 +364,7 @@ class ComercialController extends Controller
         foreach ($relations as $relation) {
             foreach ($relation as $relationRecord) {
 
-                if(!is_bool ($relationRecord)){
+                if (!is_bool($relationRecord)) {
                     $newRelationship = $relationRecord->replicate();
                     $newRelationship->id = $newRecord->id;
                     $newRelationship->push();

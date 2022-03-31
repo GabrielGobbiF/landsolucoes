@@ -29,7 +29,7 @@ function formatDateAndTime($value, $format = 'd/m/Y')
 
 function maskPrice($number = 0)
 {
-    return number_format($number, 2, '.', ',');
+    return number_format($number, 2, ',', '.');
 }
 
 function removeParseContentBar($string, $charSe = 'data-id=')
@@ -215,12 +215,25 @@ function clearNumber($number = 0)
 
     $number = str_replace(['R$', '&nbsp', chr(194) . chr(160)], '', $number);
 
-    $number = trim($number, "\xC2\xA0");
+    $number = ltrim($number, "\xC2\xA0");
 
-    #return strpos($number,'.')!==false ? rtrim(rtrim($number,'0'),'.') : $number;
-
-    $number = number_format(str_replace(",", ".", str_replace(".", "", $number)), 2, '.', '');
-
+    if (!is_numeric($number)) {
+        $number = str_replace(',', '.',  $number);
+        if (substr_count($number, '.') > 1) {
+            $e = explode('.', $number);
+            $string = '';
+            for ($i = 0; $i < count($e); $i++) {
+                if ($i == count($e) - 1) {
+                    $string .= ',' . $e[$i];
+                } else {
+                    $string .= $e[$i];
+                }
+            }
+            $number = $string;
+            $number = str_replace(',', '.',  $number);
+        }
+    }
+    $number = number_format($number, 2, '.', '');
     return $number;
 }
 

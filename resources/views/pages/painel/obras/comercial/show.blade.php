@@ -381,7 +381,7 @@
                             if (index != 'totalFaturar') {
                                 options += '<tr>';
                                 options += '    <td>' + value.nome_etapa + '</td>';
-                                options += '    <td>' + value.metodo_pagamento + ' ' + value.valor + '</td>';
+                                options += '    <td>' + value.metodo_pagamento + '</td>';
                                 options += '    <td>R$ ' + value.valor_receber + '</td>';
                                 options += '    <td>';
                                 options += '        <a href="javascript:void(0)" data-href="' + BASE_URL + '/l/comercial/etapasFinanceiro/' + value.id + '/destroy"';

@@ -64,7 +64,7 @@
         }
 
         .grid_itens {
-            font-size: 1.3rem;
+            font-size: 1rem;
             margin: 2.5rem;
             text-align: initial;
         }
@@ -366,7 +366,7 @@
             }
 
             .md\:grid-cols-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr))
+                grid-template-columns: repeat(3, minmax(0, 1fr))
             }
         }
 
@@ -498,12 +498,21 @@
                         </a>
                     </div>
 
-                    @if (auth()->user()->hasRole('rh') ||
+                    {{-- @if (auth()->user()->hasRole('rh') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('fornecedor.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-wallet mr-2"></i>
                                 Compras
+                            </a>
+                        </div>
+                    @endif --}}
+
+                    @if (auth()->user()->hasRole('admin'))
+                        <div class="grid_itens">
+                            <a href="{{ route('rdse.index') }}" class="underline text-gray-900 dark:text-white">
+                                <i class="fas fa-file-invoice mr-2"></i>
+                                RDSE
                             </a>
                         </div>
                     @endif

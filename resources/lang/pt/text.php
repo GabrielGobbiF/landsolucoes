@@ -31,4 +31,6 @@ return [
     'fornecedores' => 'Fornecedores',
     'fornecedor' => 'Fornecedor',
 
+    'handswork' => 'Mão de Obra',
+
 ];

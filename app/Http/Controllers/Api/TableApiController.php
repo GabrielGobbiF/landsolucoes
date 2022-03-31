@@ -11,6 +11,7 @@ use App\Http\Resources\ConcessionariaResource;
 use App\Http\Resources\DriversResource;
 use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\FornecedoresResource;
+use App\Http\Resources\HandsworksResource;
 use App\Http\Resources\ObraResource;
 use App\Http\Resources\OrcamentoResource;
 use App\Http\Resources\PortariaResource;
@@ -30,6 +31,7 @@ use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\Portaria;
+use App\Models\RSDE\Handswork;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -43,7 +45,7 @@ class TableApiController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->limit = $request->input('pageSize') ?? '10';
+        $this->limit = $request->input('pageSize') ?? '20';
         $this->order = $request->input('order') ?? 'asc';
         $this->offset = $request->input('offset') ?? 0;
         $this->search = $request->input('search') ?? '';
@@ -141,7 +143,28 @@ class TableApiController extends Controller
         return CategoriesResource::collection($categories);
     }
 
-     /**
+    public function handswork()
+    {
+        $handsworks = new Handswork();
+
+        $searchColumns = ['id', 'description', 'price', 'price_ups'];
+
+        $handsworks = $handsworks
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return HandsworksResource::collection($handsworks);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -408,6 +431,13 @@ class TableApiController extends Controller
         }
 
         $etapasFinanceiro = $comercial->etapas_financeiro()->where('obra_id', $obra_id)->get();
+
+        $etapasFinanceiro->map(function ($etp) {
+            if (isset($etp['valor_receber']) && !empty($etp['valor_receber'])) {
+                $etp['valor_receber'] =  number_format($etp['valor_receber'], 2, ',', '');
+            }
+            return $etp;
+        });
 
         $etapasFinanceiro['totalFaturar'] = number_format($totalFaturar, 2, ',', '') ?? 0;
 

@@ -198,6 +198,18 @@ return [
             //    'icon' =>  'fas fa-bookmark',
             //    'route' => 'relatorios.employees',
             //],
+        ],
+        'rdse' => [
+            [
+                'name' =>  'RDSE',
+                'icon' =>  'fas fa-file-invoice',
+                'route' => 'rdse.index',
+            ],
+            [
+                'name' =>  'Mãos de Obra',
+                'icon' =>  'fas fa-pallet',
+                'route' => 'handswork.index',
+            ],
         ]
     ],
 

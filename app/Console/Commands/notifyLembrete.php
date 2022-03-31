@@ -41,7 +41,7 @@ class notifyLembrete extends Command
      */
     public function handle()
     {
-        $db = DB::select("SELECT * from tasks where alert = 'N' AND `data` <> '' AND (`data` > DATE_SUB(NOW(), INTERVAL 1 MINUTE) OR `data` < NOW())");
+        $db = DB::select("SELECT * from tasks where alert = 'N' AND tar_status <> 'tar_status' AND `data` <> '' AND (`data` > DATE_SUB(NOW(), INTERVAL 1 MINUTE) OR `data` < NOW())");
 
         foreach ($db as $task) {
 
