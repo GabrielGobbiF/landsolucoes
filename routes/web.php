@@ -51,7 +51,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/produtos', [App\Http\Controllers\Api\TableApiController::class, 'produtos'])->name('produtos.all');
         Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
         Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
-
+        Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
         Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
@@ -391,7 +391,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:admin'], function () {
         Route::prefix('rdse')->group(function () {
-            Route::get('rdse', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'index'])->name('rdse.index');
+            Route::resource('rdse', App\Http\Controllers\Painel\RDSE\RdseController::class);
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
         });
     });

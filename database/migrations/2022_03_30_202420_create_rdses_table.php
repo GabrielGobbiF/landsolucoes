@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateRdsesTable extends Migration
@@ -15,6 +16,15 @@ class CreateRdsesTable extends Migration
     {
         Schema::create('rdses', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->longtext('description')->nullable();                  // Descrição
+            $table->string('n_order')->nullable();            // Nº de ordem
+            $table->string('equipe')->nullable();             // Descrição
+            $table->string('solicitante')->nullable();        // Descrição
+            $table->date('at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));                               // Data
+            $table->string('type');                           // Emergencia, LDS, Manutenção, Futurabilit, Civil
+            $table->string('status')->default('draft');       // draft, finished
+
             $table->timestamps();
         });
     }

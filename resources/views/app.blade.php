@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="js-base_url" content="{{ env('APP_URL') }}">
     <meta name="js-base_url_api" content="{{ env('APP_URL_API') }}">
-    <meta name="url" content="{{str_replace([Request::getQueryString(), '?'], '', Request::getPathInfo()) }}">
+    <meta name="url" content="{{ str_replace([Request::getQueryString(), '?'], '', Request::getPathInfo()) }}">
 
     <title>@yield("title", config("app.name", "Laravel"))</title>
 
@@ -29,7 +29,11 @@
 
     <!-- todoFazer  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <script src="https://unpkg.com/jquery-datetimepicker"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
     <style>
         .form-group-money input {
             border-top: 1px solid #ced4da;
@@ -115,9 +119,9 @@
                             <div class="dropdown d-inline-block user-dropdown">
                                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @include("pages.painel._partials.avatar", [
-                                    "avatar" => auth()->user()->avatar,
-                                    "name" => auth()->user()->name,
+                                    @include('pages.painel._partials.avatar', [
+                                        'avatar' => auth()->user()->avatar,
+                                        'name' => auth()->user()->name,
                                     ])
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -167,6 +171,7 @@
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
 
+
     @include('pages.painel._partials.modals.modal-search-global')
 
     <!-- todoFazer  -->
@@ -175,7 +180,7 @@
     @yield("scripts")
 
     <script>
-        @include("components.toastr")
+        @include('components.toastr')
 
         $(document).ready(function() {
 

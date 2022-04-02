@@ -42,7 +42,7 @@ class RdseController extends Controller
         $this->repository->create($columns);
 
         return redirect()
-            ->route('rdses.index')
+            ->route('rdse.index')
             ->with('message', 'Criado com sucesso');
     }
 
@@ -56,11 +56,11 @@ class RdseController extends Controller
     {
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
-                ->route('rdses.index')
+                ->route('rdse.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
-        return view('admin.rdses.show', [
+        return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
         ]);
     }
@@ -78,7 +78,7 @@ class RdseController extends Controller
 
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
-                ->route('rdses.index')
+                ->route('rdse.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -99,14 +99,14 @@ class RdseController extends Controller
     {
         if (!$rdse = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('rdses.index')
+                ->route('rdse.index')
                 ->with('message', 'Registro (Rdsee) não encontrado!');
         }
 
         $rdse->delete();
 
         return redirect()
-            ->route('rdses.index')
+            ->route('rdse.index')
             ->with('message', 'Deletado com sucesso');
     }
 }

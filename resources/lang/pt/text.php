@@ -32,5 +32,6 @@ return [
     'fornecedor' => 'Fornecedor',
 
     'handswork' => 'Mão de Obra',
+    'rdse' => 'RDSE',
 
 ];

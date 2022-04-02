@@ -16,6 +16,7 @@ use App\Http\Resources\ObraResource;
 use App\Http\Resources\OrcamentoResource;
 use App\Http\Resources\PortariaResource;
 use App\Http\Resources\ProdutosResource;
+use App\Http\Resources\RdseResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiclesResource;
@@ -32,6 +33,7 @@ use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\Portaria;
 use App\Models\RSDE\Handswork;
+use App\Models\RSDE\Rdse;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -162,6 +164,27 @@ class TableApiController extends Controller
             ->paginate($this->limit);
 
         return HandsworksResource::collection($handsworks);
+    }
+
+    public function rdses()
+    {
+        $rdses = new Rdse();
+
+        $searchColumns = ['id', 'description', 'n_order', 'equipe', 'solicitante', 'at', 'type', 'status'];
+
+        $rdses = $rdses
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return RdseResource::collection($rdses);
     }
 
     /**

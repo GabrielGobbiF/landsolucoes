@@ -259,5 +259,9 @@ return [
             'TMA',
         ]
 
+    ],
+
+    'rdse' => [
+        'type' => ['Emergencial', 'LDS', 'Manutenção', 'Futurabilit', 'Civil']
     ]
 ];

@@ -14,5 +14,49 @@ class Rdse extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'description',
+        'n_order',
+        'equipe',
+        'solicitante',
+        'at',
+        'type',
+        'status',
+    ];
+
+    protected $appends = ['StatusLabel'];
+
+    public function getStatusLabelAttribute()
+    {
+        switch ($this->status) {
+            case 'finished':
+                $label = 'warning';
+                break;
+            default:
+                $label = 'info';
+                break;
+        }
+
+        return $label;
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = maiusculo($value);
+    }
+
+    public function setEquipeAttribute($value)
+    {
+        $this->attributes['equipe'] = maiusculo($value);
+    }
+
+    public function setSolicitanteAttribute($value)
+    {
+        $this->attributes['solicitante'] = ucfirst($value);
+    }
+
+    public function setAtAttribute($value)
+    {
+        $this->attributes['at'] = return_format_date($value, 'en');
+    }
 }
