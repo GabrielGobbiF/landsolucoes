@@ -27,10 +27,6 @@
             background-color: #1a202c;
         }
 
-        a {
-            background-color: transparent
-        }
-
         [hidden] {
             display: none
         }
@@ -43,6 +39,7 @@
 
         a {
             text-decoration: none;
+            color: #fff;
         }
 
         *,
