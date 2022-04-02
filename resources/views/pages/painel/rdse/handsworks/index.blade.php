@@ -3,6 +3,7 @@
 @section('title', 'Mãos de Obra')
 
 @section('content')
+
     <div class="card">
         <div class="card-body">
             <div class="table table-api">
