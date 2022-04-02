@@ -21,7 +21,7 @@ class CreateRdsesTable extends Migration
             $table->string('n_order')->nullable();            // Nº de ordem
             $table->string('equipe')->nullable();             // Descrição
             $table->string('solicitante')->nullable();        // Descrição
-            $table->date('at')->default('');                               // Data
+            $table->date('at')->default('0');                               // Data
             $table->string('type');                           // Emergencia, LDS, Manutenção, Futurabilit, Civil
             $table->string('status')->default('draft');       // draft, finished
 
