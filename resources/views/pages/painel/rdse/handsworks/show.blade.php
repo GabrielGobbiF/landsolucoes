@@ -3,6 +3,7 @@
 @section('title', 'Editar - ' . ucfirst($handswork->description))
 
 @section('content')
+
     <div class='card'>
         <div class='card-body'>
             <form role="form" class="needs-validation" novalidate id="form-handsworkes" autocomplete="off" action="{{ route('handswork.update', $handswork->id) }}" method="POST">
