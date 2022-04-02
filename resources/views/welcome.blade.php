@@ -39,7 +39,7 @@
 
         a {
             text-decoration: none;
-            color: #fff;
+            color: #fff !important;
         }
 
         *,
