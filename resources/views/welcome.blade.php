@@ -276,7 +276,7 @@
 
         .text-gray-900 {
             --text-opacity: 1;
-            color: #1a202c;
+            color: #fff;
             color: rgba(26, 32, 44, var(--text-opacity))
         }
 
@@ -434,7 +434,7 @@
 
                     @if (auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('users.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('users.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-users mr-2"></i>
                                 Usuários
                             </a>
@@ -444,7 +444,7 @@
                     @if (auth()->user()->hasRole('builds') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('obras.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('obras.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-city mr-2"></i>
                                 Obras
                             </a>
@@ -454,7 +454,7 @@
                     @if (auth()->user()->hasRole('portaria') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('vehicles.portaria.register') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('vehicles.portaria.register') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-door-open mr-2"></i>
                                 Controle de Acesso
                             </a>
@@ -464,7 +464,7 @@
                     @if (auth()->user()->hasRole('vehicles') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('vehicles.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('vehicles.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-truck mr-2"></i>
                                 Veiculos
                             </a>
@@ -474,7 +474,7 @@
                     @if (auth()->user()->hasRole('financer') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('finances.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('finances.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-wallet mr-2"></i>
                                 Financeiro
                             </a>
@@ -484,7 +484,7 @@
                     @if (auth()->user()->hasRole('rh') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('employees.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('employees.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-file-signature mr-2"></i>
                                 RH
                             </a>
@@ -492,7 +492,7 @@
                     @endif
 
                     <div class="grid_itens">
-                        <a href="{{ route('celulares.index') }}" class="underline text-gray-900 ">
+                        <a href="{{ route('celulares.index') }}" class="underline text-gray-900 dark:text-white">
                             <i class="fas fa-mobile-alt mr-2"></i>
                             Celulares
                         </a>
@@ -501,7 +501,7 @@
                     {{-- @if (auth()->user()->hasRole('rh') ||
     auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('fornecedor.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('fornecedor.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-wallet mr-2"></i>
                                 Compras
                             </a>
@@ -510,7 +510,7 @@
 
                     @if (auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('rdse.index') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('rdse.index') }}" class="underline text-gray-900 dark:text-white">
                                 <i class="fas fa-file-invoice mr-2"></i>
                                 RDSE
                             </a>
@@ -518,14 +518,14 @@
                     @endif
 
                     <div class="grid_itens">
-                        <a href="#" class="underline text-gray-900 ">
+                        <a href="#" class="underline text-gray-900 dark:text-white">
                             <i class="fas fa-user-lock mr-2"></i>
                             Segurança do Trabalho
                         </a>
                     </div>
 
                     <div class="grid_itens">
-                        <a href="#" class="underline text-gray-900 ">
+                        <a href="#" class="underline text-gray-900 dark:text-white">
                             <i class="fas fa-recycle mr-2"></i>
                             Meio Ambiente
                         </a>
