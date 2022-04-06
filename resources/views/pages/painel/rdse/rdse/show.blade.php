@@ -49,6 +49,7 @@
                             <table class="table table-hover">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th class="d-none"></th>
                                         <th style="width: 13%">Chegada</th>
                                         <th style="width: 10%">Qnt Minutos</th>
                                         <th style="width: 10%">Saida</th>
@@ -61,10 +62,11 @@
                                     </tr>
                                 </thead>
                                 <tbody id="services-row">
-
                                     @foreach ($rdseServices as $service)
-                                        <input type="hidden" name="serviceId[]" value="{{ $service->id }}">
                                         <tr class="service-row" data-id="{{ $service->id }}" id="services_{{ $service->id }}">
+                                            <th class="d-none">
+                                                <input type="hidden" name="serviceId[]" value="{{ $service->id }}">
+                                            </th>
                                             <th>
                                                 <div class="form-group ">
                                                     <input type="time" class="form-control chegada_obra"
@@ -177,7 +179,7 @@
 
             if (e.which === 9) {
 
-                axios.get('http://app.landsolucoes.com.br/api/v1/rdse/lastServiceId').then(function(response) {
+                axios.get(`${base_url}/api/v1/rdse/lastServiceId`).then(function(response) {
                     let count = response.data;
                     let line = parseInt(count) + 1;
 
@@ -310,7 +312,7 @@
 
             $(".service-row").each(function() {
                 let id = $(this).attr("data-id");
-                let line = parseInt(id) + 1
+                let line = $(this).next('.service-row').attr('data-id');
 
                 let saida_obra = $(this).find(`.saida_obra`);
                 let chegada_obra = $(this).find(`.chegada_obra`).val();
@@ -337,7 +339,7 @@
         function updateAjax() {
             var form_data = new FormData($("#form-update-services-rdse")[0]);
             let id = $('#rdse_id').val();
-            axios.post(`http://app.landsolucoes.com.br/api/v1/rdse/${id}/services`, form_data)
+            axios.post(`${base_url}/api/v1/rdse/${id}/services`, form_data)
                 .then(function(response) {})
                 .catch(function(error) {
                     toastr.error(error);
@@ -517,7 +519,7 @@
 
         function deleteService(serviceId) {
             let rdseId = $('#rdse_id').val();
-            axios.delete(`http://app.landsolucoes.com.br/api/v1/rdse/${rdseId}/services/${serviceId}`)
+            axios.delete(`${base_url}/api/v1/rdse/${rdseId}/services/${serviceId}`)
                 .then(() => {
                     $(`#services_${serviceId}`).remove();
                     att_lines();
