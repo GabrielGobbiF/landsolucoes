@@ -24,7 +24,7 @@
                                 <th data-field="code" data-sortable="true">Código</th>
                                 <th data-field="description" data-sortable="true">Descrição</th>
                                 <th data-field="price_ups">Preço UPS</th>
-                                <th data-field="price" data-sortable="true">Preço</th>
+                                <th data-field="price_format" data-sortable="true">Preço</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

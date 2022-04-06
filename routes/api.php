@@ -20,5 +20,15 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     Route::post('categories/store', [App\Http\Controllers\Api\CategoriesApiController::class, 'store'])->name('api.categories.store');
 
 
-});
 
+    /**
+     * Mão De obra
+     */
+    Route::get('handswork', [App\Http\Controllers\Painel\RDSE\Api\HandsworkApiController::class, 'index'])->name('api.handswork.all');
+
+
+    /**
+     * RDSE
+     */
+    Route::post('rdse/{rdseId}/services', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'storeService'])->name('api.rdse.service.store');
+});
