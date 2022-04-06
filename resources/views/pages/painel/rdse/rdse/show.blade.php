@@ -177,7 +177,7 @@
 
             if (e.which === 9) {
 
-                axios.get('http://www2.app.landsolucoes.com.br/api/v1/rdse/lastServiceId').then(function(response) {
+                axios.get('http://app.landsolucoes.com.br/api/v1/rdse/lastServiceId').then(function(response) {
                     let count = response.data;
                     let line = parseInt(count) + 1;
 
@@ -337,7 +337,7 @@
         function updateAjax() {
             var form_data = new FormData($("#form-update-services-rdse")[0]);
             let id = $('#rdse_id').val();
-            axios.post(`http://www2.app.landsolucoes.com.br/api/v1/rdse/${id}/services`, form_data)
+            axios.post(`http://app.landsolucoes.com.br/api/v1/rdse/${id}/services`, form_data)
                 .then(function(response) {})
                 .catch(function(error) {
                     toastr.error(error);
@@ -517,7 +517,7 @@
 
         function deleteService(serviceId) {
             let rdseId = $('#rdse_id').val();
-            axios.delete(`http://www2.app.landsolucoes.com.br/api/v1/rdse/${rdseId}/services/${serviceId}`)
+            axios.delete(`http://app.landsolucoes.com.br/api/v1/rdse/${rdseId}/services/${serviceId}`)
                 .then(() => {
                     $(`#services_${serviceId}`).remove();
                     att_lines();
