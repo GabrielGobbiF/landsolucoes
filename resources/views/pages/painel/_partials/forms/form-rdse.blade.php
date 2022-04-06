@@ -1,5 +1,6 @@
 @csrf
 <div class="row">
+    <input type="hidden" value="{{ $rdse->id ?? '' }}" id="rdse_id">
 
     <div class="col-12 col-md-12">
         <div class="form-group">

@@ -20,4 +20,9 @@ class Handswork extends Model
         'price_ups',
         'price'
     ];
+
+    public function getPriceUpsAttribute($value)
+    {
+        return str_replace(',', '.', $value);
+    }
 }

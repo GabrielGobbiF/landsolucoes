@@ -26,6 +26,11 @@ class Rdse extends Model
 
     protected $appends = ['StatusLabel'];
 
+    public function services()
+    {
+        return $this->hasMany(RdseServices::class, 'rdse_id', 'id');
+    }
+
     public function getStatusLabelAttribute()
     {
         switch ($this->status) {

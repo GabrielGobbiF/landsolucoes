@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\RDSE;
 
 use App\Models\RSDE\Rdse;
 use App\Http\Controllers\Controller;
+use App\Models\RSDE\RdseServices;
 use Illuminate\Http\Request;
 
 class RdseController extends Controller
@@ -39,7 +40,12 @@ class RdseController extends Controller
     {
         $columns = $request->all();
 
-        $this->repository->create($columns);
+        $rdse = $this->repository->create($columns);
+
+        /* TODO  */
+        $rdseService = new RdseServices();
+        $rdseService->rdse_id = $rdse->id;
+        $rdseService->save();
 
         return redirect()
             ->route('rdse.index')
@@ -60,8 +66,11 @@ class RdseController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
+        $rdseServices = $rdse->services()->with('handswork')->get();
+
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
+            'rdseServices' => $rdseServices,
         ]);
     }
 

@@ -61,56 +61,93 @@
                                     </tr>
                                 </thead>
                                 <tbody id="services-row">
-                                    <tr class="service-row" data-id="1" id="services_1">
-                                        <th>
-                                            <div class="form-group ">
-                                                <input type="time" class="form-control chegada_obra"
-                                                    onchange="att_lines()"
-                                                    onkeyup="att_lines()" id="chegada_obra_1" name="chegada_obra[]" data-id="1" />
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="form-group ">
-                                                <input type="number" class="form-control qnt_minutos"
-                                                    onchange="att_lines()"
-                                                    onkeyup="att_lines()" id="qnt_minutos_1" name="qnt_minutos[]" data-id="1" value="0" />
-                                            </div>
-                                        </th>
 
-                                        <th>
-                                            <div class="form-group ">
-                                                <input class="form-control saida_obra" name="saida_obra[]" required readonly tabindex="-1" />
-                                            </div>
-                                        </th>
+                                    @foreach ($rdseServices as $service)
+                                        <input type="hidden" name="serviceId[]" value="{{ $service->id }}">
+                                        <tr class="service-row" data-id="{{ $service->id }}" id="services_{{ $service->id }}">
+                                            <th>
+                                                <div class="form-group ">
+                                                    <input type="time" class="form-control chegada_obra"
+                                                        onchange="att_lines()"
+                                                        onkeyup="att_lines()" id="chegada_obra_{{ $service->id }}"
+                                                        name="chegada[]"
+                                                        data-id="{{ $service->id }}"
+                                                        value="{{ $service->chegada }}" />
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="form-group ">
+                                                    <input type="number" class="form-control qnt_minutos"
+                                                        onchange="att_lines()"
+                                                        onkeyup="att_lines()" id="qnt_minutos_{{ $service->id }}"
+                                                        name="minutos[]"
+                                                        data-id="{{ $service->id }}"
+                                                        value="{{ $service->minutos }}" />
+                                                </div>
+                                            </th>
 
-                                        <th>
-                                            <input class="form-control hours" name="hours[]" id="hours_1" readonly data-id="1" tabindex="-1" />
-                                        </th>
+                                            <th>
+                                                <div class="form-group ">
+                                                    <input class="form-control saida_obra"
+                                                        name="saida[]"
+                                                        required readonly tabindex="-1"
+                                                        value="{{ !empty($service->saida) ? $service->saida : '' }}" />
+                                                </div>
+                                            </th>
 
-                                        <th>
-                                            <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" data-id="1"></select>
-                                        </th>
+                                            <th>
+                                                <input class="form-control hours"
+                                                    name="horas[]"
+                                                    id="hours_{{ $service->id }}" readonly
+                                                    data-id="{{ $service->id }}"
+                                                    value="{{ !empty($service->horas) ? $service->horas : '' }}"
+                                                    tabindex="-1" />
+                                            </th>
 
-                                        <th>
-                                            <input class="form-control description_sap" name="description_sap[]" id="description_sap_1" />
-                                        </th>
+                                            <th>
+                                                <select name="codigo_sap[]" class="form-control select2 codigo_sap"
+                                                    placeholder="Código SAP"
+                                                    data-id="{{ $service->id }}">
+                                                    @if (!empty($service->codigo_sap))
+                                                        <option value="{{ $service->codigo_sap }}">
+                                                            {{ !empty($service->handswork) ? $service->handswork->code : '' }}
+                                                        </option>
+                                                    @endif
+                                                </select>
+                                            </th>
 
-                                        <th>
-                                            <input type="hidden" id="price_ups_1">
-                                            <input class="form-control conversion"
-                                                onchange="updatePriceByQntAtv(1)"
-                                                onkeyup="updatePriceByQntAtv(1)" name="conversion[]" id="conversion_1"
-                                                readonly />
-                                        </th>
-                                        <th>
-                                            <input class="form-control price_total_hours money" name="price_total_hours[]" id="price_total_hours_1" />
-                                        </th>
-                                        <th>
-                                            <a type="button" href="#" class="" tabindex="-1">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </th>
-                                    </tr>
+                                            <th>
+                                                <input class="form-control description_sap"
+                                                    name="description[]"
+                                                    id="description_sap_{{ $service->id }}"
+                                                    value="{{ !empty($service->description)? $service->description: (!empty($service->handswork)? $service->handswork->description: '') }}" />
+                                            </th>
+
+                                            <th>
+                                                <input type="hidden" id="price_ups_{{ $service->id }}" value="{{ !empty($service->handswork) ? $service->handswork->price_ups : '0' }}">
+                                                <input class="form-control conversion"
+                                                    onchange="updatePriceByQntAtv({{ $service->id }})"
+                                                    onkeyup="updatePriceByQntAtv({{ $service->id }})"
+                                                    name="qnt_atividade[]" id="conversion_{{ $service->id }}"
+                                                    value="{{ !empty($service->qnt_atividade) ? $service->qnt_atividade : '0' }}" />
+                                            </th>
+                                            <th>
+                                                <input class="form-control price_total_hours money"
+                                                    name="preco[]"
+                                                    id="price_total_hours_{{ $service->id }}"
+                                                    value="{{ !empty($service->preco) ? $service->preco : '' }}" />
+                                            </th>
+
+                                            @if (!$loop->first && !$loop->last)
+                                                <th class="d-none">
+                                                    <a type="button" href="#" onclick="deleteService(`{{ $service->id }}`)" class=" " tabindex="-1">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </th>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -124,9 +161,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('#chegada_obra_1').focus();
             initSelect2();
             clickQntMinutes();
+            att_lines();
         })
 
         $('body').on('keydown', function(e) {
@@ -139,34 +176,37 @@
             // }
 
             if (e.which === 9) {
-                let count = document.getElementsByClassName("service-row").length;
-                let line = parseInt(count) + 1;
 
-                let html = `
-                        <tr class="service-row" data-id="${line}" id="services_${line}">
+                axios.get('http://www2.app.landsolucoes.com.br/api/v1/rdse/lastServiceId').then(function(response) {
+                    let count = response.data;
+                    let line = parseInt(count) + 1;
+
+                    let html = `
+                        <tr class="service-row" data-id="${line}" id="services_${line}" tabindex="-1">
+                         <input type="hidden" name="serviceId[]" value="${line}" />
                             <th>
                                 <div class="form-group ">
                                     <input type="time" class="form-control chegada_obra"
                                         onchange="att_lines()"
-                                        onkeyup="att_lines()" id="chegada_obra_${line}" name="chegada_obra[]" data-id="${line}" readonly tabindex="-1"/>
+                                        onkeyup="att_lines()" id="chegada_obra_${line}" name="chegada[]" data-id="${line}" readonly tabindex="-1"/>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group ">
                                     <input type="number" class="form-control qnt_minutos"
                                         onchange="att_lines()"
-                                        onkeyup="att_lines()" id="qnt_minutos_${line}" name="qnt_minutos[]" data-id="${line}" value="0" />
+                                        onkeyup="att_lines()" id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
                                 </div>
                             </th>
 
                             <th>
                                 <div class="form-group ">
-                                    <input class="form-control saida_obra" name="saida_obra[]" required readonly tabindex="-1"/>
+                                    <input class="form-control saida_obra" name="saida[]" required readonly tabindex="-1"/>
                                 </div>
                             </th>
 
                             <th>
-                                <input class="form-control hours" name="hours[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
+                                <input class="form-control hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
                             </th>
 
                             <th>
@@ -174,80 +214,100 @@
                             </th>
 
                             <th>
-                                <input class="form-control description_sap" name="description_sap[]" id="description_sap_${line}" />
+                                <input class="form-control description_sap" name="description[]" id="description_sap_${line}" />
                             </th>
 
                             <th>
                                 <input type="hidden" id="price_ups_${line}">
                                 <input class="form-control conversion" 
                                 onchange="updatePriceByQntAtv(${line})" 
-                                onkeyup="updatePriceByQntAtv(${line})" name="conversion[]" id="conversion_${line}" 
+                                onkeyup="updatePriceByQntAtv(${line})" name="qnt_atividade[]" id="conversion_${line}" 
                                 readonly tabindex="-1" />
                             </th>
 
                             <th>
-                                <input class="form-control price_total_hours money" name="price_total_hours[]" id="price_total_hours_${line}" />
-                            </th
-                     </tr>
+                                <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}" />
+                            </th>
+
+                            <th class="d-none">
+                                <a type="button" href="#" onclick="deleteService(${line})" class=" " tabindex="-1">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </th>
+                        </tr>
 
 
                 `;
 
-                //let html =
-                //    `<div class="row row-xs service-row no-gutters" data-id="${line}" id="services_${line}">
-            //        <div class="form-group col-1" style="min-width:125px">
-            //            <label>Chegada na obra</label>
-            //            <input type="time" class="form-control chegada_obra" onchange="att_lines()" onkeyup="att_lines()" id="chegada_obra_${line}" name="chegada_obra[]" data-id="${line}" disabled />
-            //        </div>
-            //
-            //        <div class="form-group col-1">
-            //            <label>Qnt Minutos</label>
-            //            <input type="number" class="form-control qnt_minutos" onchange="att_lines()" onkeyup="att_lines()" id="qnt_minutos_${line}" name="qnt_minutos[]" data-id="${line}"
-            //                value="0" />
-            //        </div>
-            //
-            //        <div class="form-group col-1" style="min-width:125px">
-            //            <label>Saida da obra</label>
-            //            <input class="form-control saida_obra" name="saida_obra[]" id="saida_obra_${line}" required disabled />
-            //        </div>
-            //
-            //        <div class="form-group col-1" style="min-width:125px">
-            //            <label>Horas</label>
-            //            <input class="form-control hours" name="hours"  disabled data-id="${line}" />
-            //        </div>
-            //
-            //        <div class="form-group col-1" style="min-width:150px">
-            //            <label>SAP</label>
-            //            <select name="" class="form-control select2 codigo_sap" data-id="${line}" placeholder="Código SAP"></select>
-            //        </div>
-            //
-            //        <div class="form-group col-3" style="min-width:220px">
-            //            <label>Descrição</label>
-            //            <input class="form-control description_sap" name="description_sap" id="description_sap_${line}"  />
-            //        </div>
-            //    </div>
-            //    `
 
-                let option = true;
-                $('.qnt_minutos').each(function() {
-                    if ($(this).val() == '0') {
-                        option = false;
+                    //let html =
+                    //    `<div class="row row-xs service-row no-gutters" data-id="${line}" id="services_${line}">
+                //        <div class="form-group col-1" style="min-width:125px">
+                //            <label>Chegada na obra</label>
+                //            <input type="time" class="form-control chegada_obra" onchange="att_lines()" onkeyup="att_lines()" id="chegada_obra_${line}" name="chegada_obra[]" data-id="${line}" disabled />
+                //        </div>
+                //
+                //        <div class="form-group col-1">
+                //            <label>Qnt Minutos</label>
+                //            <input type="number" class="form-control qnt_minutos" onchange="att_lines()" onkeyup="att_lines()" id="qnt_minutos_${line}" name="qnt_minutos[]" data-id="${line}"
+                //                value="0" />
+                //        </div>
+                //
+                //        <div class="form-group col-1" style="min-width:125px">
+                //            <label>Saida da obra</label>
+                //            <input class="form-control saida_obra" name="saida_obra[]" id="saida_obra_${line}" required disabled />
+                //        </div>
+                //
+                //        <div class="form-group col-1" style="min-width:125px">
+                //            <label>Horas</label>
+                //            <input class="form-control hours" name="hours"  disabled data-id="${line}" />
+                //        </div>
+                //
+                //        <div class="form-group col-1" style="min-width:150px">
+                //            <label>SAP</label>
+                //            <select name="" class="form-control select2 codigo_sap" data-id="${line}" placeholder="Código SAP"></select>
+                //        </div>
+                //
+                //        <div class="form-group col-3" style="min-width:220px">
+                //            <label>Descrição</label>
+                //            <input class="form-control description_sap" name="description_sap" id="description_sap_${line}"  />
+                //        </div>
+                //    </div>
+                //    `
+
+                    let option = true;
+                    $('.qnt_minutos').each(function() {
+                        if ($(this).val() == '0') {
+                            option = false;
+                        }
+                    })
+
+                    if (option) {
+                        $('#services-row').append(html)
+                        initSelect2();
                     }
-                })
 
-                if (option) {
-                    $('#services-row').append(html)
-                    initSelect2();
-                }
-
-                clickQntMinutes();
-                att_lines();
-
+                    clickQntMinutes();
+                    att_lines();
+                });
 
             }
         });
 
+        function debounce(fn, delay) {
+            var timer = null;
+            return function() {
+                var context = this,
+                    args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    fn.apply(context, args);
+                }, delay);
+            };
+        }
+
         function att_lines() {
+
             $(".service-row").each(function() {
                 let id = $(this).attr("data-id");
                 let line = parseInt(id) + 1
@@ -270,32 +330,18 @@
 
                 hours.val(moment.utc(moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"))).format("HH:mm:ss"));
                 updateHorasEspera(id);
-
-                $('input').on('keyup change', function() {
-                    var elem = $(this);
-                    clearTimeout($(this).data('timer'));
-                    $(this).data('timer', setTimeout(function() {
-                        updateAjax()
-                    }, 900));
-                });
             })
 
         }
 
         function updateAjax() {
             var form_data = new FormData($("#form-update-services-rdse")[0]);
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: `http://www2.app.landsolucoes.com.br/api/v1/rdse/1/services`,
-                type: 'POST',
-                data: form_data,
-                processData: false,
-                cache: false,
-                contentType: false,
-                dataType: 'json',
-            }).done(function(response) {});
+            let id = $('#rdse_id').val();
+            axios.post(`http://www2.app.landsolucoes.com.br/api/v1/rdse/${id}/services`, form_data)
+                .then(function(response) {})
+                .catch(function(error) {
+                    toastr.error(error);
+                });
         }
 
         function initSelect2() {
@@ -366,6 +412,11 @@
                     document.querySelector('.select2-search__field').focus();
                 }
             });
+
+            $('input, select').on('keyup change', debounce(function(event) {
+                updateAjax();
+            }, 1200));
+
         }
 
         function addInputEspera(id, price_ups) {
@@ -443,6 +494,7 @@
             const div = $(`#services_${id}`)
             let qntAtv = $(`#conversion_${id}`).val()
 
+
             if (qntAtv != 0) {
                 let priceTotal = numberFormat(($(`#price_ups_${id}`).val() * 299.97) * qntAtv);
                 div.find(`#price_total_hours_${id}`).val(`${priceTotal}`)
@@ -461,6 +513,18 @@
             }).on('focusout', function() {
                 $(this).val() == '' ? $(this).val('0') : ''
             })
+        }
+
+        function deleteService(serviceId) {
+            let rdseId = $('#rdse_id').val();
+            axios.delete(`http://www2.app.landsolucoes.com.br/api/v1/rdse/${rdseId}/services/${serviceId}`)
+                .then(() => {
+                    $(`#services_${serviceId}`).remove();
+                    att_lines();
+                })
+                .catch((response) => {
+                    toastr.error(response)
+                })
         }
     </script>
 @append

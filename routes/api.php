@@ -30,5 +30,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     /**
      * RDSE
      */
+    Route::get('rdse/lastServiceId', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'getLastId'])->name('api.rdse.service.lastId');
     Route::post('rdse/{rdseId}/services', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'storeService'])->name('api.rdse.service.store');
+    Route::delete('rdse/{rdseId}/services/{serviceId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'deleteService'])->name('api.rdse.service.store');
 });
