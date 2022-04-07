@@ -677,12 +677,14 @@
 
         function deleteService(serviceId) {
             let rdseId = $('#rdse_id').val();
-            axios.delete(`${base_url}/api/v1/rdse/${rdseId}/services/${serviceId}`)
-                .then(() => {
+            axios.post(`${base_url}/api/v1/rdse/${rdseId}/services/${serviceId}`, {
+                    _method: 'DELETE'
+                })
+                .then(response => {
                     $(`#services_${serviceId}`).remove();
                     att_lines();
                 })
-                .catch((response) => {
+                .catch(error => {
                     toastr.error(response)
                 })
         }
