@@ -17,13 +17,13 @@ class CreateRdsesTable extends Migration
         Schema::create('rdses', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->longtext('description')->nullable();                  // Descrição
-            $table->string('n_order')->nullable();            // Nº de ordem
-            $table->string('equipe')->nullable();             // Descrição
-            $table->string('solicitante')->nullable();        // Descrição
-            $table->date('at')->nullable();                               // Data
-            $table->string('type');                           // Emergencia, LDS, Manutenção, Futurabilit, Civil
-            $table->string('status')->default('draft');       // draft, finished
+            $table->longtext('description')->nullable();        // Descrição
+            $table->string('n_order')->nullable();              // Nº de ordem
+            $table->string('equipe')->nullable();               // Descrição
+            $table->string('solicitante')->nullable();          // Descrição
+            $table->date('at')->nullable();                     // Data
+            $table->string('type');                             // Emergencia, LDS, Manutenção, Futurabilit, Civil
+            $table->string('status')->default('pending');       // pending, review, approved
 
             $table->timestamps();
         });

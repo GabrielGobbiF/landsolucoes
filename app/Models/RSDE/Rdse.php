@@ -34,8 +34,11 @@ class Rdse extends Model
     public function getStatusLabelAttribute()
     {
         switch ($this->status) {
-            case 'finished':
+            case 'pending':
                 $label = 'warning';
+                break;
+            case 'approved':
+                $label = 'success';
                 break;
             default:
                 $label = 'info';

@@ -37,6 +37,7 @@ class RdseApiController extends Controller
         if (!empty($columns['chegada']) && is_array($columns['chegada'])) {
             for ($i = 0; $i < count($columns['chegada']); $i++) {
 
+                /* TODO  */
                 $serviceId = !empty($columns['serviceId'][$i]) ? $columns['serviceId'][$i] : false;
 
                 $chegada = !empty($columns['chegada'][$i]) ? $columns['chegada'][$i] : '';
@@ -47,7 +48,6 @@ class RdseApiController extends Controller
                 $description = !empty($columns['description'][$i]) ? $columns['description'][$i] : '';
                 $qnt_atividade = !empty($columns['qnt_atividade'][$i]) ? $columns['qnt_atividade'][$i] : '';
                 $preco = !empty($columns['preco'][$i]) ? $columns['preco'][$i] : '';
-
 
                 if ($serviceId) {
 
@@ -60,7 +60,7 @@ class RdseApiController extends Controller
                             'saida' => $saida,
                             'minutos' => $minutos,
                             'horas' => $horas,
-                            'description' => $description,
+                            'description' => maiusculo($description),
                             'qnt_atividade' => $qnt_atividade,
                             'preco' => clearNumber($preco),
                         ]);
@@ -71,7 +71,7 @@ class RdseApiController extends Controller
                             'saida' => $saida,
                             'minutos' => $minutos,
                             'horas' => $horas,
-                            'description' => $description,
+                            'description' => maiusculo($description),
                             'qnt_atividade' => $qnt_atividade,
                             'preco' => clearNumber($preco),
                         ]);
@@ -99,6 +99,10 @@ class RdseApiController extends Controller
             return response()->json('Object Service  not found in scope', 404);
         }
 
-        return response()->json($service->delete(), 200);
+        if ($rdse->services()->count() != 1) {
+            $service->delete();
+        }
+
+        return response()->json(true, 200);
     }
 }

@@ -13,6 +13,10 @@
             vertical-align: -webkit-baseline-middle
         }
 
+        table * input.description_sap {
+            text-transform: uppercase;
+        }
+
     </style>
 
     <div class='card'>
@@ -140,13 +144,11 @@
                                                     value="{{ !empty($service->preco) ? $service->preco : '' }}" />
                                             </th>
 
-                                            @if (!$loop->first && !$loop->last)
-                                                <th class="d-none">
-                                                    <a type="button" href="#" onclick="deleteService(`{{ $service->id }}`)" class=" " tabindex="-1">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </th>
-                                            @endif
+                                            <th>
+                                                <a type="button" href="#" onclick="deleteService(`{{ $service->id }}`)" class=" " tabindex="-1">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </th>
                                         </tr>
                                     @endforeach
 
@@ -163,9 +165,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            initSelect2();
             clickQntMinutes();
             att_lines();
+            initSelect2();
         })
 
         $('body').on('keydown', function(e) {
@@ -231,7 +233,7 @@
                                 <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}" />
                             </th>
 
-                            <th class="d-none">
+                            <th>
                                 <a type="button" href="#" onclick="deleteService(${line})" class=" " tabindex="-1">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -285,14 +287,13 @@
                     })
 
                     if (option) {
-                        $('#services-row').append(html)
+                        $('#services-row').append(html);
+                        clickQntMinutes();
                         initSelect2();
+                        att_lines();
                     }
 
-                    clickQntMinutes();
-                    att_lines();
                 });
-
             }
         });
 
@@ -415,7 +416,7 @@
                 }
             });
 
-            $('input, select').on('keyup change', debounce(function(event) {
+            $('input, select').on('change', debounce(function(event) {
                 updateAjax();
             }, 1200));
 

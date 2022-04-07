@@ -31,6 +31,11 @@ class RdseServices extends Model
         $this->attributes['preco'] = clearNumber($value);
     }
 
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = maiusculo($value);
+    }
+
     public function handswork()
     {
         return $this->belongsTo(Handswork::class, 'codigo_sap', 'id');
