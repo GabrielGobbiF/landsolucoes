@@ -118,6 +118,8 @@
                                                         <option value="{{ $service->codigo_sap }}">
                                                             {{ !empty($service->handswork) ? $service->handswork->code : '' }}
                                                         </option>
+                                                    @else
+                                                        <option value="" selected> Selecione </option>
                                                     @endif
                                                 </select>
                                             </th>
@@ -141,17 +143,69 @@
                                                 <input class="form-control price_total_hours money"
                                                     name="preco[]"
                                                     id="price_total_hours_{{ $service->id }}"
-                                                    value="{{ !empty($service->preco) ? $service->preco : '' }}" />
+                                                    value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
                                             </th>
 
                                             <th>
-                                                <a type="button" href="#" onclick="deleteService(`{{ $service->id }}`)" class=" " tabindex="-1">
+                                                <a type="button" href="javascript:void(0)" onclick="deleteService(`{{ $service->id }}`)" class=" " tabindex="-1">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </th>
                                         </tr>
                                     @endforeach
 
+                                </tbody>
+                                <tbody>
+                                    <tr class="text-end">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th scope="row">
+                                            Total Espera :
+                                        </th>
+                                        <td class="total_espera" colspan="2"></td>
+                                    </tr>
+                                    <tr class="text-end">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th scope="row">
+                                            Total Serviços :
+                                        </th>
+                                        <td class="total_servico" colspan="2"></td>
+                                    </tr>
+
+                                    <tr class="text-end">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th scope="row">
+                                            Total R$ :
+                                        </th>
+                                        <td class="total" colspan="2"></td>
+                                    </tr>
+
+                                    <tr class="text-end">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th scope="row">
+                                            Total UPS :
+                                        </th>
+                                        <td class="total_ups" colspan="2"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -168,20 +222,33 @@
             clickQntMinutes();
             att_lines();
             initSelect2();
+
+            setInterval("updateAjax()", 20000);
         })
 
-        $('body').on('keydown', function(e) {
-            // if (e.which === 9) {
-            //     let focus = $('#onfocus').val();
-            //     let nextFocus = parseInt(focus) + 1;
-            //     document.getElementById(`saida_obra_1`).focus({
-            //         preventScroll: true
-            //     });
-            // }
+        $('.price_total_hours, .conversion').on('keyup change', function() {
+            att_total();
+        })
 
+        $('body').on('keydown', debounceAddRow(function(e) {
             if (e.which === 9) {
+                e.preventDefault();
+                e.stopPropagation();
+                add_row();
+            }
+        }, 250));
 
-                axios.get(`${base_url}/api/v1/rdse/lastServiceId`).then(function(response) {
+        const add_row = async () => {
+            let option = true;
+            $('.qnt_minutos').each(function() {
+                console.log($(this).val())
+                if ($(this).val() == '0' || $(this).val() == '') {
+                    option = false;
+                }
+            })
+            if (option) {
+
+                await axios.get(`${base_url}/api/v1/rdse/lastServiceId`).then(function(response) {
                     let count = response.data;
                     let line = parseInt(count) + 1;
 
@@ -214,7 +281,9 @@
                             </th>
 
                             <th>
-                                <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" data-id="${line}"></select>
+                                <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
+                                    <option value="" selected> Selecione  </option>  
+                                </select>
                             </th>
 
                             <th>
@@ -226,15 +295,15 @@
                                 <input class="form-control conversion" 
                                 onchange="updatePriceByQntAtv(${line})" 
                                 onkeyup="updatePriceByQntAtv(${line})" name="qnt_atividade[]" id="conversion_${line}" 
-                                readonly tabindex="-1" />
+                                 tabindex="-1" value="0" />
                             </th>
 
                             <th>
-                                <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}" />
+                                <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
                             </th>
 
                             <th>
-                                <a type="button" href="#" onclick="deleteService(${line})" class=" " tabindex="-1">
+                                <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </th>
@@ -279,23 +348,93 @@
                 //    </div>
                 //    `
 
-                    let option = true;
-                    $('.qnt_minutos').each(function() {
-                        if ($(this).val() == '0') {
-                            option = false;
-                        }
-                    })
+                    $('#services-row').append(html);
 
-                    if (option) {
-                        $('#services-row').append(html);
-                        clickQntMinutes();
-                        initSelect2();
-                        att_lines();
-                    }
+                    clickQntMinutes();
+                    // initSelect2();
+
+                    $(`#codigo_sap_${line}`).select2({
+                        multiple: false,
+                        minimumInputLength: 3,
+                        language: "pt-br",
+                        selectOnClose: true,
+                        formatNoMatches: function() {
+                            return "Pesquisa não encontrada";
+                        },
+                        inputTooShort: function() {
+                            return "Digite para Pesquisar";
+                        },
+                        ajax: {
+                            url: `{{ route('api.handswork.all') }}`,
+                            dataType: 'json',
+                            data: function(term, page) {
+                                return {
+                                    search: term, //search term
+                                };
+                            },
+                            processResults: function(data, page) {
+                                var myResults = [];
+                                $.each(data.data, function(index, item) {
+                                    myResults.push({
+                                        'id': item.id,
+                                        'text': `${item.code}`,
+                                        'description': item.description,
+                                        'price_ups': item.price_ups,
+                                    });
+                                });
+                                return {
+                                    results: myResults
+                                };
+                            }
+                        },
+                        escapeMarkup: function(m) {
+                            return m;
+                        }
+                    });
+
+                    $(document).on('focus', '.select2-selection.select2-selection--single', function(e) {
+                        $(`#codigo_sap_${line}`).closest(".select2-container").siblings('select:enabled').select2('open');
+                    });
+
+                    // steal focus during close - only capture once and stop propogation
+                    $(`#codigo_sap_${line}`).on('select2:closing', function(e) {
+                        $(e.target).data("select2").$selection.one('focus focusin', function(e) {
+                            e.stopPropagation();
+                        });
+                    });
+
+                    $('select').on('select2:open', (event) => {
+                        if (!event.target.multiple) {
+                            document.querySelector('.select2-search__field').focus();
+                        }
+                    });
+
+                    $('.select2').on('select2:select', function(e) {
+                        let id = $(this).attr('data-id');
+                        let price_ups = e.params.data.price_ups
+                        $(`#description_sap_${id}`).val(e.params.data.description);
+
+                        if (e.params.data.id == 212) {
+                            addInputEspera(id, price_ups);
+                        } else {
+                            addInputQntAtividade(id, price_ups)
+                        }
+
+                    });
+
+                    $('html, body').animate({
+                        scrollTop: $(document).height()
+                    }, 1500);
 
                 });
+
+                $('input, select').on('change', debounce(function(event) {
+                    updateAjax();
+                }, 1200));
+
+                att_lines();
             }
-        });
+        }
 
         function debounce(fn, delay) {
             var timer = null;
@@ -309,8 +448,19 @@
             };
         }
 
-        function att_lines() {
+        function debounceAddRow(fn, delay) {
+            var timer2 = null;
+            return function() {
+                var context = this,
+                    args = arguments;
+                clearTimeout(timer2);
+                timer2 = setTimeout(function() {
+                    fn.apply(context, args);
+                }, delay);
+            };
+        }
 
+        function att_lines() {
             $(".service-row").each(function() {
                 let id = $(this).attr("data-id");
                 let line = $(this).next('.service-row').attr('data-id');
@@ -334,6 +484,32 @@
                 hours.val(moment.utc(moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"))).format("HH:mm:ss"));
                 updateHorasEspera(id);
             })
+            att_total();
+        }
+
+        function att_total() {
+            let total_espera = 0;
+            let total_servico = 0;
+            let total = 0;
+            let total_ups = 0;
+            $(".service-row").each(function() {
+                const selectSap = $(this).find(`select.codigo_sap`).select2('data');
+                if (selectSap.length > 0 && selectSap[0].id == '212') {
+                    total_espera += clearNumber($(this).find(`.price_total_hours `).val());
+                }
+                total += clearNumber($(this).find(`.price_total_hours `).val());
+            })
+
+            total_ups = numberFormat(total / 299.97);
+            total_servico = numberFormat(total - total_espera);
+
+            total = numberFormat(total);
+            total_espera = numberFormat(total_espera);
+
+            $('.total_espera').html(`R$ ${total_espera}`)
+            $('.total').html(`R$ ${total}`)
+            $('.total_servico').html(`R$ ${total_servico}`)
+            $('.total_ups').html(`R$ ${total_ups}`)
 
         }
 
@@ -386,40 +562,20 @@
                     return m;
                 }
             });
-
             $(document).on('focus', '.select2-selection.select2-selection--single', function(e) {
                 $(this).closest(".select2-container").siblings('select:enabled').select2('open');
             });
 
             // steal focus during close - only capture once and stop propogation
-            $('.select2').on('select2:closing', function(e) {
+            $('select.select2').on('select2:closing', function(e) {
                 $(e.target).data("select2").$selection.one('focus focusin', function(e) {
                     e.stopPropagation();
                 });
             });
 
-            $('.select2').on('select2:select', function(e) {
-                let id = $(this).attr('data-id');
-                let price_ups = e.params.data.price_ups
-                $(`#description_sap_${id}`).val(e.params.data.description);
-
-                if (e.params.data.id == 212) {
-                    addInputEspera(id, price_ups);
-                } else {
-                    addInputQntAtividade(id, price_ups)
-                }
-            });
-
-            $('select').on('select2:open', (event) => {
-                if (!event.target.multiple) {
-                    document.querySelector('.select2-search__field').focus();
-                }
-            });
-
             $('input, select').on('change', debounce(function(event) {
                 updateAjax();
             }, 1200));
-
         }
 
         function addInputEspera(id, price_ups) {
@@ -528,6 +684,15 @@
                 .catch((response) => {
                     toastr.error(response)
                 })
+        }
+
+        function clearNumber(number) {
+            if (number == '' || number == null) {
+                return 0;
+            }
+            number = number.toString().replace("R$", "").replace(".", "").replace(".", "");
+            number = number.replace(",", ".");
+            return number != '' ? numeral(number).value() : 0;
         }
     </script>
 @append

@@ -209,6 +209,9 @@ function somarData($soma, $type = 'days', $date, $formatReturn = 'Y-m-d H:i:s')
 
 function clearNumber($number = 0)
 {
+    if ($number === 'NaN') {
+        return 0;
+    }
     if (empty($number)) {
         return 0;
     }

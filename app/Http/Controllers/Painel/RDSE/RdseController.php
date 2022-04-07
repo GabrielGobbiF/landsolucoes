@@ -68,6 +68,10 @@ class RdseController extends Controller
 
         $rdseServices = $rdse->services()->with('handswork')->get();
 
+        if (count($rdseServices) == 0) {
+            $rdse->services()->create();
+        }
+
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,

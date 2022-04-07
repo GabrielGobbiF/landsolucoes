@@ -50,7 +50,6 @@ class RdseApiController extends Controller
                 $preco = !empty($columns['preco'][$i]) ? $columns['preco'][$i] : '';
 
                 if ($serviceId) {
-
                     $serviceRdseById = RdseServices::where('id', $serviceId)->limit(1)->first();
 
                     if (!empty($serviceRdseById)) {
