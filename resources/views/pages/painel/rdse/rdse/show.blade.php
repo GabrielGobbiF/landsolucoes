@@ -235,6 +235,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 add_row();
+                att_total();
             }
         }, 250));
 
@@ -484,7 +485,6 @@
                 hours.val(moment.utc(moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"))).format("HH:mm:ss"));
                 updateHorasEspera(id);
             })
-            att_total();
         }
 
         function att_total() {
