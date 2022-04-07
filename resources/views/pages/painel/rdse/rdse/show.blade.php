@@ -222,6 +222,7 @@
             clickQntMinutes();
             att_lines();
             initSelect2();
+            att_total();
 
             setInterval("updateAjax()", 20000);
         })
