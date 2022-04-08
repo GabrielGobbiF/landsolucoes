@@ -66,11 +66,11 @@ class RdseController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $rdseServices = $rdse->services()->with('handswork')->get();
-
-        if (count($rdseServices) == 0) {
+        if ($rdse->services()->count() == 0) {
             $rdse->services()->create();
         }
+
+        $rdseServices = $rdse->services()->with('handswork')->get();
 
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,

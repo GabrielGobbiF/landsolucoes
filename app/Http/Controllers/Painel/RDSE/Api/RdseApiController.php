@@ -34,14 +34,6 @@ class RdseApiController extends Controller
             return response()->json('Object RDSE not found in scope', 404);
         }
 
-        $lastServiceRdseById = $rdse->services()->orderby('id', 'DESC')->limit(1)->first();
-
-        if (isset($lastServiceRdseById)) {
-            if ($lastServiceRdseById->minutos == '0') {
-                return response()->json(true, 200);
-            }
-        }
-
         if (!empty($columns['chegada']) && is_array($columns['chegada'])) {
             for ($i = 0; $i < count($columns['chegada']); $i++) {
 

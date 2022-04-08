@@ -428,6 +428,8 @@
                         scrollTop: $(document).height()
                     }, 1500);
 
+                }).catch(error => {
+                    toastr.error(response)
                 });
 
                 $('input, select').on('change', debounce(function(event) {
