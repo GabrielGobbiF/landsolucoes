@@ -28,6 +28,25 @@ class RdseApiController extends Controller
 
     public function storeService(Request $request, $rdseId)
     {
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return response()->json('Object RDSE not found in scope', 404);
+        }
+
+        $lastServiceRdseById = $rdse->services()->orderby('id', 'DESC')->limit(1)->first();
+
+        if (isset($lastServiceRdseById)) {
+            if ($lastServiceRdseById->minutos == '0') {
+                return response()->json('andamento', 200);
+            }
+        }
+
+        $service = $rdse->services()->create();
+
+        return response()->json($service->id, 200);
+    }
+
+    public function updateServices(Request $request, $rdseId)
+    {
         $columns = $request->all();
 
         if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
@@ -54,17 +73,6 @@ class RdseApiController extends Controller
 
                     if (!empty($serviceRdseById)) {
                         RdseServices::where('id', $serviceId)->update([
-                            'codigo_sap' => $codigo_sap,
-                            'chegada' => $chegada,
-                            'saida' => $saida,
-                            'minutos' => $minutos,
-                            'horas' => $horas,
-                            'description' => maiusculo($description),
-                            'qnt_atividade' => $qnt_atividade,
-                            'preco' => clearNumber($preco),
-                        ]);
-                    } else {
-                        $rdse->services()->create([
                             'codigo_sap' => $codigo_sap,
                             'chegada' => $chegada,
                             'saida' => $saida,

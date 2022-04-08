@@ -70,11 +70,15 @@ class RdseController extends Controller
             $rdse->services()->create();
         }
 
+        $typeRdse = $rdse->type;
+        $priceUps = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first()['value'];
+
         $rdseServices = $rdse->services()->with('handswork')->get();
 
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
+            'priceUps' => $priceUps
         ]);
     }
 

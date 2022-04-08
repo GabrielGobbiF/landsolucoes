@@ -26,6 +26,11 @@ class RdseServices extends Model
         'type',
     ];
 
+    public function getPrecoAttribute()
+    {
+        return maskPrice($this->attributes['preco']);
+    }
+
     public function setPrecoAttribute($value)
     {
         $this->attributes['preco'] = clearNumber($value);

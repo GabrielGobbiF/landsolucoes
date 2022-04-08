@@ -262,6 +262,31 @@ return [
     ],
 
     'rdse' => [
-        'type' => ['Emergencial', 'LDS', 'Manutenção', 'Futurabilit', 'Civil']
+        'type' => [
+            [
+                'name' => 'Emergencial',
+                'value' => '299.97'
+            ],
+            [
+                'name' => 'LDS',
+                'value' => '0'
+            ],
+            [
+                'name' => 'Manutenção',
+                'value' => '0'
+            ],
+            [
+                'name' => 'Futurabilit',
+                'value' => '0'
+            ],
+            [
+                'name' => 'Civil',
+                'value' => '0'
+            ],
+            [
+                'name' => 'Atendimento ao cliente',
+                'value' => '90.72'
+            ],
+        ]
     ]
 ];

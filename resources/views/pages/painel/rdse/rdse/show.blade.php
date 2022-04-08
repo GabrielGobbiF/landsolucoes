@@ -72,10 +72,9 @@
                                                 <input type="hidden" name="serviceId[]" value="{{ $service->id }}">
                                             </th>
                                             <th>
-                                                <div class="form-group ">
+                                                <div class="form-group">
                                                     <input type="time" class="form-control chegada_obra"
-                                                        onchange="att_lines()"
-                                                        onkeyup="att_lines()" id="chegada_obra_{{ $service->id }}"
+                                                        id="chegada_obra_{{ $service->id }}"
                                                         name="chegada[]"
                                                         data-id="{{ $service->id }}"
                                                         value="{{ $service->chegada }}" />
@@ -83,9 +82,8 @@
                                             </th>
                                             <th>
                                                 <div class="form-group ">
-                                                    <input type="number" class="form-control qnt_minutos"
-                                                        onchange="att_lines()"
-                                                        onkeyup="att_lines()" id="qnt_minutos_{{ $service->id }}"
+                                                    <input min="0" type="number" class="form-control qnt_minutos"
+                                                        id="qnt_minutos_{{ $service->id }}"
                                                         name="minutos[]"
                                                         data-id="{{ $service->id }}"
                                                         value="{{ $service->minutos }}" />
@@ -133,10 +131,12 @@
 
                                             <th>
                                                 <input type="hidden" id="price_ups_{{ $service->id }}" value="{{ !empty($service->handswork) ? $service->handswork->price_ups : '0' }}">
-                                                <input class="form-control conversion"
-                                                    onchange="updatePriceByQntAtv({{ $service->id }})"
-                                                    onkeyup="updatePriceByQntAtv({{ $service->id }})"
+                                                <input
+                                                    min="0"
+                                                    type="number"
+                                                    class="form-control conversion"
                                                     name="qnt_atividade[]" id="conversion_{{ $service->id }}"
+                                                    data-id="{{ $service->id }}"
                                                     value="{{ !empty($service->qnt_atividade) ? $service->qnt_atividade : '0' }}" />
                                             </th>
                                             <th>
@@ -218,253 +218,94 @@
 
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            clickQntMinutes();
-            att_lines();
-            initSelect2();
-            att_total();
+        const rdseId = $('#rdse_id').val();
+        const priceUps = $('#price_ups').val();
+        const formIdentifier = `services_rdse_${rdseId}`;
+        let formRdse = document.querySelector(`#form-update-services-rdse`);
+        let unsaved = true;
 
-            setInterval("updateAjax()", 20000);
-        })
+        window.addEventListener('load', () => {
+            initInputs();
+            attTotal();
+            setInterval("updateServices()", 5000);
+        });
 
-        $('.price_total_hours, .conversion').on('keyup change', function() {
-            att_total();
-        })
+        $('body').on('click', function() {
+            window.onbeforeunload = function() {
+                if (!unsaved)
+                    return 'Os dados do formulário não foram salvos, deseja permanecer nesta página?';
+            };
+        });
 
-        $('body').on('keydown', debounceAddRow(function(e) {
-            if (e.which === 9) {
-                e.preventDefault();
-                e.stopPropagation();
-                add_row();
-                att_total();
-            }
-        }, 250));
-
-        const add_row = async () => {
-            let option = true;
-            $('.qnt_minutos').each(function() {
-                console.log($(this).val())
-                if ($(this).val() == '0' || $(this).val() == '') {
-                    option = false;
+        $('body').on('keydown', debounce(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.which === 9 && !$(".select2-search__field").is(":focus")) {
+                let option = true;
+                $('.qnt_minutos').each(function() {
+                    if ($(this).val() == '0' || $(this).val() == '') {
+                        option = false;
+                    }
+                })
+                if (option) {
+                    addRow();
                 }
-            })
-            if (option) {
-
-                await axios.get(`${base_url}/api/v1/rdse/lastServiceId`).then(function(response) {
-                    let count = response.data;
-                    let line = parseInt(count) + 1;
-
-                    let html = `
-                        <tr class="service-row" data-id="${line}" id="services_${line}" tabindex="-1">
-                         <input type="hidden" name="serviceId[]" value="${line}" />
-                            <th>
-                                <div class="form-group ">
-                                    <input type="time" class="form-control chegada_obra"
-                                        onchange="att_lines()"
-                                        onkeyup="att_lines()" id="chegada_obra_${line}" name="chegada[]" data-id="${line}" readonly tabindex="-1"/>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="form-group ">
-                                    <input type="number" class="form-control qnt_minutos"
-                                        onchange="att_lines()"
-                                        onkeyup="att_lines()" id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
-                                </div>
-                            </th>
-
-                            <th>
-                                <div class="form-group ">
-                                    <input class="form-control saida_obra" name="saida[]" required readonly tabindex="-1"/>
-                                </div>
-                            </th>
-
-                            <th>
-                                <input class="form-control hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
-                            </th>
-
-                            <th>
-                                <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
-                                    <option value="" selected> Selecione  </option>  
-                                </select>
-                            </th>
-
-                            <th>
-                                <input class="form-control description_sap" name="description[]" id="description_sap_${line}" />
-                            </th>
-
-                            <th>
-                                <input type="hidden" id="price_ups_${line}">
-                                <input class="form-control conversion" 
-                                onchange="updatePriceByQntAtv(${line})" 
-                                onkeyup="updatePriceByQntAtv(${line})" name="qnt_atividade[]" id="conversion_${line}" 
-                                 tabindex="-1" value="0" />
-                            </th>
-
-                            <th>
-                                <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
-                            </th>
-
-                            <th>
-                                <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </th>
-                        </tr>
-
-
-                `;
-
-
-                    //let html =
-                    //    `<div class="row row-xs service-row no-gutters" data-id="${line}" id="services_${line}">
-                //        <div class="form-group col-1" style="min-width:125px">
-                //            <label>Chegada na obra</label>
-                //            <input type="time" class="form-control chegada_obra" onchange="att_lines()" onkeyup="att_lines()" id="chegada_obra_${line}" name="chegada_obra[]" data-id="${line}" disabled />
-                //        </div>
-                //
-                //        <div class="form-group col-1">
-                //            <label>Qnt Minutos</label>
-                //            <input type="number" class="form-control qnt_minutos" onchange="att_lines()" onkeyup="att_lines()" id="qnt_minutos_${line}" name="qnt_minutos[]" data-id="${line}"
-                //                value="0" />
-                //        </div>
-                //
-                //        <div class="form-group col-1" style="min-width:125px">
-                //            <label>Saida da obra</label>
-                //            <input class="form-control saida_obra" name="saida_obra[]" id="saida_obra_${line}" required disabled />
-                //        </div>
-                //
-                //        <div class="form-group col-1" style="min-width:125px">
-                //            <label>Horas</label>
-                //            <input class="form-control hours" name="hours"  disabled data-id="${line}" />
-                //        </div>
-                //
-                //        <div class="form-group col-1" style="min-width:150px">
-                //            <label>SAP</label>
-                //            <select name="" class="form-control select2 codigo_sap" data-id="${line}" placeholder="Código SAP"></select>
-                //        </div>
-                //
-                //        <div class="form-group col-3" style="min-width:220px">
-                //            <label>Descrição</label>
-                //            <input class="form-control description_sap" name="description_sap" id="description_sap_${line}"  />
-                //        </div>
-                //    </div>
-                //    `
-
-                    $('#services-row').append(html);
-
-                    clickQntMinutes();
-                    // initSelect2();
-
-                    $(`#codigo_sap_${line}`).select2({
-                        multiple: false,
-                        minimumInputLength: 3,
-                        language: "pt-br",
-                        selectOnClose: true,
-                        formatNoMatches: function() {
-                            return "Pesquisa não encontrada";
-                        },
-                        inputTooShort: function() {
-                            return "Digite para Pesquisar";
-                        },
-                        ajax: {
-                            url: `{{ route('api.handswork.all') }}`,
-                            dataType: 'json',
-                            data: function(term, page) {
-                                return {
-                                    search: term, //search term
-                                };
-                            },
-                            processResults: function(data, page) {
-                                var myResults = [];
-                                $.each(data.data, function(index, item) {
-                                    myResults.push({
-                                        'id': item.id,
-                                        'text': `${item.code}`,
-                                        'description': item.description,
-                                        'price_ups': item.price_ups,
-                                    });
-                                });
-                                return {
-                                    results: myResults
-                                };
-                            }
-                        },
-                        escapeMarkup: function(m) {
-                            return m;
-                        }
-                    });
-
-                    $(document).on('focus', '.select2-selection.select2-selection--single', function(e) {
-                        $(`#codigo_sap_${line}`).closest(".select2-container").siblings('select:enabled').select2('open');
-                    });
-
-                    // steal focus during close - only capture once and stop propogation
-                    $(`#codigo_sap_${line}`).on('select2:closing', function(e) {
-                        $(e.target).data("select2").$selection.one('focus focusin', function(e) {
-                            e.stopPropagation();
-                        });
-                    });
-
-                    $('select').on('select2:open', (event) => {
-                        if (!event.target.multiple) {
-                            document.querySelector('.select2-search__field').focus();
-                        }
-                    });
-
-                    $('.select2').on('select2:select', function(e) {
-                        let id = $(this).attr('data-id');
-                        let price_ups = e.params.data.price_ups
-                        $(`#description_sap_${id}`).val(e.params.data.description);
-
-                        if (e.params.data.id == 212) {
-                            addInputEspera(id, price_ups);
-                        } else {
-                            addInputQntAtividade(id, price_ups)
-                        }
-
-                    });
-
-                    $('html, body').animate({
-                        scrollTop: $(document).height()
-                    }, 1500);
-
-                }).catch(error => {
-                    toastr.error(response)
-                });
-
-                $('input, select').on('change', debounce(function(event) {
-                    updateAjax();
-                }, 1200));
-
-                att_lines();
             }
+        }, 100));
+
+        const initInputs = () => {
+            /**
+             * Toda alteração de conteudo irá mandar o post para salvar
+                $('input, select').on('change', debounce(function(e) {
+                    updateServices();
+                }, 2000));
+            */
+
+            $('input, select').on('keyup change focus, click', function(e) {
+                unsaved = false;
+            });
+
+            $('.qnt_minutos, .conversion').on('focusin', function() {
+                $(this).val() == '0' ? $(this).val('') : ''
+            }).on('focusout', function() {
+                $(this).val() == '' ? $(this).val('0') : ''
+            })
+
+            $('.chegada_obra, .qnt_minutos').on('keyup change', function() {
+                attLines();
+            })
+
+            $(`.select2`).select2(optionsSelectSap);
+
+            $(document).on('focus', '.select2', function(e) {
+                $(this).siblings('select').select2('open');
+            });
+
+            $('select').on('select2:open', (e) => {
+                if (!e.target.multiple) {
+                    document.querySelector('.select2-search__field').focus();
+                }
+            });
+
+            $('.select2').on('select2:select', function(e) {
+                let id = $(this).attr('data-id');
+                let price_ups = e.params.data.price_ups
+                $(`#price_ups_${id}`).val(price_ups);
+                $(`#description_sap_${id}`).val(e.params.data.description);
+                updateHorasAtividades(id);
+                attTotal();
+            });
+
+            $('.conversion').on('keyup change', function() {
+                updateHorasAtividades($(this).attr('data-id'));
+            })
+
+            $('.price_total_hours, .conversion').on('keyup change', function() {
+                attTotal();
+            })
         }
 
-        function debounce(fn, delay) {
-            var timer = null;
-            return function() {
-                var context = this,
-                    args = arguments;
-                clearTimeout(timer);
-                timer = setTimeout(function() {
-                    fn.apply(context, args);
-                }, delay);
-            };
-        }
-
-        function debounceAddRow(fn, delay) {
-            var timer2 = null;
-            return function() {
-                var context = this,
-                    args = arguments;
-                clearTimeout(timer2);
-                timer2 = setTimeout(function() {
-                    fn.apply(context, args);
-                }, delay);
-            };
-        }
-
-        function att_lines() {
+        function attLines() {
             $(".service-row").each(function() {
                 let id = $(this).attr("data-id");
                 let line = $(this).next('.service-row').attr('data-id');
@@ -479,18 +320,20 @@
                 var chegada_obra_date = moment(chegada_obra, "HH:mm:ss")
                 var saida_obra_date = chegada_obra_date.add(minute, 'minutes');
 
-                saida_obra.val(saida_obra_date.format('HH:mm:ss'));
-                chegada_obra_line.val(saida_obra_date.format('HH:mm:ss'));
+                if (chegada_obra_date.isValid() && saida_obra_date.isValid()) {
+                    saida_obra.val(saida_obra_date.format('HH:mm:ss'));
+                    chegada_obra_line.val(saida_obra_date.format('HH:mm:ss'));
 
-                var now = saida_obra.val();
-                let then = chegada_obra;
+                    var now = saida_obra.val();
+                    let then = chegada_obra;
 
-                hours.val(moment.utc(moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"))).format("HH:mm:ss"));
-                updateHorasEspera(id);
+                    hours.val(moment.utc(moment(now, "HH:mm:ss").diff(moment(then, "HH:mm:ss"))).format("HH:mm:ss"));
+                    updateHorasAtividades(id);
+                }
             })
         }
 
-        function att_total() {
+        function attTotal() {
             let total_espera = 0;
             let total_servico = 0;
             let total = 0;
@@ -516,179 +359,202 @@
 
         }
 
-        function updateAjax() {
-            var form_data = new FormData($("#form-update-services-rdse")[0]);
-            let id = $('#rdse_id').val();
-            axios.post(`${base_url}/api/v1/rdse/${id}/services`, form_data)
-                .then(function(response) {})
-                .catch(function(error) {
+        function updateHorasAtividades(serviceId) {
+            let serviceDiv = $(`#services_${serviceId}`);
+            let selectSap = serviceDiv.find(`select.codigo_sap`).select2('data');
+            let minute = serviceDiv.find(`.qnt_minutos`).val();
+            let price_service_ups = $(`#price_ups_${serviceId}`).val();
+            let inputQntAtividade = $(`#conversion_${serviceId}`);
+            let inputPriceTotal = $(`#price_total_hours_${serviceId}`);
+            let valueQntAtividade = inputQntAtividade.val();
+
+            if (price_ups != '0') {
+                if (selectSap && selectSap[0].id == '212') {
+                    let conversion = minute / 30;
+                    let conversionMathFloor = Math.floor(conversion);
+                    let priceTotal = numberFormat((price_service_ups * priceUps) * conversionMathFloor)
+                    inputQntAtividade.val(conversionMathFloor)
+                    inputPriceTotal.val(`${priceTotal}`)
+                    inputQntAtividade.attr('readonly', true).attr('tabindex', '-1');
+                } else if (selectSap && selectSap[0].id != '') {
+                    inputQntAtividade.attr('readonly', false).removeAttr('tabindex');
+                    if (valueQntAtividade != 0) {
+                        let priceTotal = numberFormat((price_service_ups * priceUps) * valueQntAtividade);
+                        inputPriceTotal.val(`${priceTotal}`)
+                    } else {
+                        inputPriceTotal.val(0)
+                    }
+                } else {
+                    inputQntAtividade.attr('readonly', false).removeAttr('tabindex');
+                }
+            }
+        }
+
+        const addRow = async () => {
+            await updateServices();
+
+            const service = await storeService();
+
+            if (service && service.data != undefined && service.data != 'andamento') {
+                let line = service.data;
+
+                if ($(`#services_${line}`).length == 0) {
+
+                    let html = `
+                        <tr class="service-row" data-id="${line}" id="services_${line}" tabindex="-1">
+                            <th class="d-none">
+                                <input type="hidden" name="serviceId[]" value="${line}" />
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <input type="time" class="form-control chegada_obra"
+                                    id="chegada_obra_${line}" name="chegada[]" data-id="${line}" readonly tabindex="-1"/>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group ">
+                                    <input type="number" class="form-control qnt_minutos"
+                                    id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
+                                </div>
+                            </th>
+                        
+                            <th>
+                                <div class="form-group ">
+                                    <input class="form-control saida_obra" name="saida[]" required readonly tabindex="-1"/>
+                                </div>
+                            </th>
+                        
+                            <th>
+                                <input class="form-control hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
+                            </th>
+                        
+                            <th>
+                                <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
+                                    <option value="" selected> Selecione  </option>  
+                                </select>
+                            </th>
+                        
+                            <th>
+                                <input class="form-control description_sap" name="description[]" id="description_sap_${line}" />
+                            </th>
+                        
+                            <th>
+                                <input type="hidden" id="price_ups_${line}">
+                                <input class="form-control conversion" 
+                                name="qnt_atividade[]" id="conversion_${line}" 
+                                data-id="${line}"
+                                tabindex="-1" 
+                                value="0" />
+                            </th>
+                        
+                            <th>
+                                <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
+                            </th>
+                        
+                            <th>
+                                <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </th>
+                        </tr> `;
+
+                    $('#services-row').append(html);
+                    initInputs();
+                    attLines();
+
+                    $('html, body').animate({
+                        scrollTop: $(document).height()
+                    }, 1500);
+                }
+            }
+        };
+
+        const updateServices = async () => {
+            let formData = new FormData($("#form-update-services-rdse")[0]);
+            formData.append('_method', 'PUT');
+
+            if (!unsaved)
+                await axios.post(`${base_url}/api/v1/rdse/${rdseId}/services/all`, formData)
+                .then(response => {
+                    unsaved = true;
+                })
+                .catch((error) => {
                     toastr.error(error);
                 });
         }
 
-        function initSelect2() {
-            $(".codigo_sap").select2({
-                multiple: false,
-                minimumInputLength: 3,
-                language: "pt-br",
-                selectOnClose: true,
-                formatNoMatches: function() {
-                    return "Pesquisa não encontrada";
-                },
-                inputTooShort: function() {
-                    return "Digite para Pesquisar";
-                },
-                ajax: {
-                    url: `{{ route('api.handswork.all') }}`,
-                    dataType: 'json',
-                    data: function(term, page) {
-                        return {
-                            search: term, //search term
-                        };
-                    },
-                    processResults: function(data, page) {
-                        var myResults = [];
-                        $.each(data.data, function(index, item) {
-                            myResults.push({
-                                'id': item.id,
-                                'text': `${item.code}`,
-                                'description': item.description,
-                                'price_ups': item.price_ups,
-                            });
-                        });
-                        return {
-                            results: myResults
-                        };
-                    }
-                },
-                escapeMarkup: function(m) {
-                    return m;
-                }
+        const storeService = async () => {
+            return await axios.post(`${base_url}/api/v1/rdse/${rdseId}/services`).catch(error => {
+                toastr.error(error)
             });
-            $(document).on('focus', '.select2-selection.select2-selection--single', function(e) {
-                $(this).closest(".select2-container").siblings('select:enabled').select2('open');
-            });
-
-            // steal focus during close - only capture once and stop propogation
-            $('select.select2').on('select2:closing', function(e) {
-                $(e.target).data("select2").$selection.one('focus focusin', function(e) {
-                    e.stopPropagation();
-                });
-            });
-
-            $('input, select').on('change', debounce(function(event) {
-                updateAjax();
-            }, 1200));
-        }
-
-        function addInputEspera(id, price_ups) {
-            $(`#price_ups_${id}`).val(price_ups);
-            $(`#conversion_${id}`).attr('readonly', true);
-            $(`#conversion_${id}`).attr('tabindex', '-1');
-
-            //const div = $(`#services_${id}`)
-            //let countDiv = $(`#conversion_${id}`).length;
-            //if (countDiv == 0) {
-            //    const div = $(`#services_${id}`)
-            //    let html = `
-        //        <input type="hidden" id="price_ups_${id}" value="${price_ups}" >
-        //        <div class="form-group col-1" style="min-width:115px">
-        //            <label>Horas Espera</label>
-        //            <input class="form-control conversion" name="conversion" id="conversion_${id}" disabled />
-        //        </div>
-        //
-        //        <div class="form-group col-1" style="min-width:120px">
-        //            <label>Preço</label>
-        //            <input class="form-control price_total_hours money" name="price_total_hours" id="price_total_hours_${id}" />
-        //        </div>
-        //    `;
-            //    div.append(html)
-            //}
-            //$('.money').mask('000.000.000.000.000,00', {
-            //    reverse: true
-            //});
-            updateHorasEspera(id);
-        }
-
-        function updateHorasEspera(id) {
-            const div = $(`#services_${id}`)
-            const selectSap = div.find(`select.codigo_sap`).select2('data') ?? false;
-
-            if (selectSap != '') {
-                if (selectSap[0].id == '212') {
-                    let minute = div.find(`.qnt_minutos`).val();
-                    let conversion = minute / 30;
-                    conversion = Math.floor(conversion);
-                    let priceTotal = numberFormat(($(`#price_ups_${id}`).val() * 299.97) * conversion)
-                    div.find(`#conversion_${id}`).val(conversion)
-                    div.find(`#price_total_hours_${id}`).val(`${priceTotal}`)
-                }
-            }
-        }
-
-        function addInputQntAtividade(id, price_ups) {
-            $(`#price_ups_${id}`).val(price_ups);
-            $(`#conversion_${id}`).attr('readonly', false);
-            $(`#conversion_${id}`).removeAttr('tabindex');
-
-            //const div = $(`#services_${id}`)
-            //let countDiv = $(`#qnt_atv_${id}`).length;
-            //if (countDiv == 0) {
-            //    const div = $(`#services_${id}`)
-            //    let html = `
-        //        <input type="hidden" id="price_ups_${id}" value="${price_ups}" >
-        //        <div class="form-group col-1" style="min-width:115px">
-        //            <label>Qnt Atividade</label>
-        //            <input type="number" class="form-control qnt_atv" onchange="updatePriceByQntAtv(${id})" onkeyup="updatePriceByQntAtv(${id})" name="qnt_atv" id="qnt_atv_${id}" value="0" />
-        //        </div>
-        //
-        //        <div class="form-group col-1" style="min-width:120px">
-        //            <label>Preço</label>
-        //            <input class="form-control price_total_hours money" name="price_total_hours" id="price_total_hours_${id}" />
-        //        </div>
-        //    `;
-            //    div.append(html)
-            //}
-            updatePriceByQntAtv(id);
-        }
-
-        function updatePriceByQntAtv(id) {
-            const div = $(`#services_${id}`)
-            let qntAtv = $(`#conversion_${id}`).val()
-
-
-            if (qntAtv != 0) {
-                let priceTotal = numberFormat(($(`#price_ups_${id}`).val() * 299.97) * qntAtv);
-                div.find(`#price_total_hours_${id}`).val(`${priceTotal}`)
-            }
-        }
-
-        function numberFormat(number) {
-            return number.toLocaleString('pt-br', {
-                minimumFractionDigits: 2
-            })
-        }
-
-        function clickQntMinutes() {
-            $('.qnt_minutos').on('focusin', function() {
-                $(this).val() == '0' ? $(this).val('') : ''
-            }).on('focusout', function() {
-                $(this).val() == '' ? $(this).val('0') : ''
-            })
         }
 
         function deleteService(serviceId) {
-            let rdseId = $('#rdse_id').val();
             axios.post(`${base_url}/api/v1/rdse/${rdseId}/services/${serviceId}`, {
                     _method: 'DELETE'
                 })
                 .then(response => {
                     $(`#services_${serviceId}`).remove();
-                    att_lines();
+                    attLines();
+                    attTotal();
                 })
                 .catch(error => {
-                    toastr.error(response)
+                    toastr.error(error)
                 })
+        }
+
+        /**
+         * Debounce
+         */
+        function debounce(fn, delay) {
+            var timer = null;
+            return function() {
+                var context = this,
+                    args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    fn.apply(context, args);
+                }, delay);
+            };
+        }
+
+        const optionsSelectSap = {
+            multiple: false,
+            minimumInputLength: 3,
+            language: "pt-br",
+            selectOnClose: true,
+            formatNoMatches: function() {
+                return "Pesquisa não encontrada";
+            },
+            inputTooShort: function() {
+                return "Digite para Pesquisar";
+            },
+            ajax: {
+                url: `{{ route('api.handswork.all') }}`,
+                dataType: 'json',
+                data: function(term, page) {
+                    return {
+                        search: term, //search term
+                    };
+                },
+                processResults: function(data, page) {
+                    var myResults = [];
+                    $.each(data.data, function(index, item) {
+                        myResults.push({
+                            'id': item.id,
+                            'text': `${item.code}`,
+                            'description': item.description,
+                            'price_ups': item.price_ups,
+                        });
+                    });
+                    return {
+                        results: myResults
+                    };
+                }
+            },
+            escapeMarkup: function(m) {
+                return m;
+            }
         }
 
         function clearNumber(number) {
@@ -698,6 +564,12 @@
             number = number.toString().replace("R$", "").replace(".", "").replace(".", "");
             number = number.replace(",", ".");
             return number != '' ? numeral(number).value() : 0;
+        }
+
+        function numberFormat(number) {
+            return number.toLocaleString('pt-br', {
+                minimumFractionDigits: 2
+            })
         }
     </script>
 @append

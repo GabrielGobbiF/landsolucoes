@@ -1,6 +1,7 @@
 @csrf
 <div class="row">
     <input type="hidden" value="{{ $rdse->id ?? '' }}" id="rdse_id">
+    <input type="hidden" value="{{ $priceUps ?? '0' }}" id="price_ups">
 
     <div class="col-12 col-md-12">
         <div class="form-group">
@@ -50,8 +51,9 @@
             <select name='type' class='form-control select2'>
                 @foreach (config('admin.rdse.type') as $status)
                     <option
-                        value='{{ $status }}'>
-                        {{ $status }}</option>
+                        value='{{ $status['name'] }}'>
+                        {{ $status['name'] }}
+                    </option>
                 @endforeach
             </select>
         </div>
