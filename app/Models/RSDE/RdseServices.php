@@ -2,6 +2,7 @@
 
 namespace App\Models\RSDE;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,5 +45,14 @@ class RdseServices extends Model
     public function handswork()
     {
         return $this->belongsTo(Handswork::class, 'codigo_sap', 'id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('visible', function (Builder $builder) {
+            $builder->orderBy('order');
+        });
     }
 }

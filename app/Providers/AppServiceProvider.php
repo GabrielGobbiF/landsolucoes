@@ -16,6 +16,7 @@ use App\Models\{
     ObraEtapa
 };
 use App\Models\RSDE\Handswork;
+use App\Models\RSDE\RdseServices;
 use App\Notifications\DataBaseChannel;
 use App\Observers\{
     EmployeeObserver,
@@ -30,6 +31,7 @@ use App\Observers\{
     ObraFinanceiroObserver,
     HandworkObserver,
     ObraEtapaObserver,
+    RdseServicesObserver,
 };
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +81,7 @@ class AppServiceProvider extends ServiceProvider
         Obra::observe(ComercialObserver::class);
         ObraFinanceiro::observe(ObraFinanceiroObserver::class);
         ObraEtapa::observe(ObraEtapaObserver::class);
+        RdseServices::observe(RdseServicesObserver::class);
         Handswork::observe(HandworkObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);

@@ -90,12 +90,6 @@ class RdseApiController extends Controller
         return response()->json(true, 200);
     }
 
-    public function getLastId()
-    {
-        $rdse = RdseServices::orderby('id', 'DESC')->select('id')->limit(1)->first();
-        return response()->json(!empty($rdse) ? $rdse->id : '1', 200);
-    }
-
     public function deleteService($rdseId, $serviceId)
     {
         if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
@@ -111,5 +105,37 @@ class RdseApiController extends Controller
         }
 
         return response()->json(true, 200);
+    }
+
+    public function reorderService(Request $request, $rdseId)
+    {
+        $itens = $request->input('itens');
+
+        if (!empty($itens)) {
+
+            if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+                return response()->json('Object RDSE not found in scope', 404);
+            }
+
+            try {
+                foreach ($itens as $a => $value) {
+                    $a = $a + 1;
+
+                    $service = $rdse->services()->where('id', str_replace('services_', '', $value))->limit(1)->select('id')->first();
+
+                    if (!empty($service)) {
+                        $service->order = $a;
+                        $service->save();
+                    }
+                }
+                return response()->json('Reorder', 200);
+            } catch (\Throwable $th) {
+                #slack('não foi possivel reorder');
+
+                dd($th->getMessage());
+
+                return response()->json('Não foi possivel reordernar', 500);
+            }
+        }
     }
 }

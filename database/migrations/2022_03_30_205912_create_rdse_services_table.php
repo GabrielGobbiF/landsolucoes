@@ -27,6 +27,7 @@ class CreateRdseServicesTable extends Migration
             $table->integer('qnt_atividade')->default('0');     // Quantidade de atividade ou qnt de horas;
             $table->double('preco', 10, 2)->default('0');
             $table->string('type')->nullable();                 // emergencia, espera
+            $table->integer('order')->default('0');             // Ordem da atividade
 
             $table->timestamps();
 

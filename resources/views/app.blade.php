@@ -32,8 +32,9 @@
     <script src="https://unpkg.com/jquery-datetimepicker"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
     <style>
         .form-group-money input {
             border-top: 1px solid #ced4da;
@@ -158,7 +159,7 @@
                         </div>
                         @yield('content')
                     </div>
-                @else
+                    @else
                     <div class="container-max-fluid">
                         @yield('content-max-fluid')
                     </div>
