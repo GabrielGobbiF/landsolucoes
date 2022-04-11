@@ -366,7 +366,7 @@
                 total += clearNumber($(this).find(`.price_total_hours `).val());
             })
 
-            total_ups = (total / priceUps);
+            total_ups = parseFloat(total / priceUps);
             total_servico = numberFormat(total - total_espera);
 
             total = numberFormat(total);
