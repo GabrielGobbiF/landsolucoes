@@ -75,7 +75,7 @@ function initTable() {
                 };
             },
             onClickCell: function (field, value, row, $element) {
-                if (click == 'false' || clickToSelect) {
+                if (click == 'false') {
                     return;
                 }
                 if (field != 'statusButton') {
