@@ -1,4 +1,10 @@
 @csrf
+<style>
+    #inputs-form__rdse input {
+        text-transform: uppercase
+    }
+
+</style>
 <div class="row">
     <div class="col-12 col-md-12">
         <div class="form-group">

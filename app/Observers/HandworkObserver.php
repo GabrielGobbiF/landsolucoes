@@ -18,6 +18,7 @@ class HandworkObserver
         $handswork->price_ups = !empty($handswork->price_ups) ? clearNumber($handswork->price_ups) : 0;
         $handswork->price = !empty($handswork->price) ? clearNumber($handswork->price) : 0;
         $handswork->description = !empty($handswork->description) ? mb_strtoupper($handswork->description, 'UTF-8') : '';
+        $handswork->code = !empty($handswork->code) ? mb_strtoupper($handswork->code, 'UTF-8') : '';
     }
 
     /**
@@ -31,5 +32,6 @@ class HandworkObserver
         $handswork->price_ups = !empty($handswork->price_ups) ? clearNumber($handswork->price_ups) : 0;
         $handswork->price = !empty($handswork->price) ? clearNumber($handswork->price) : 0;
         $handswork->description = !empty($handswork->description) ? mb_strtoupper($handswork->description, 'UTF-8') : '';
+        $handswork->code = !empty($handswork->code) ? mb_strtoupper($handswork->code, 'UTF-8') : '';
     }
 }

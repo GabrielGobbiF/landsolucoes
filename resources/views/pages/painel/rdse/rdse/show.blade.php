@@ -552,6 +552,7 @@
             inputTooShort: function() {
                 return "Digite para Pesquisar";
             },
+            templateResult: formatState,
             ajax: {
                 url: `{{ route('api.handswork.all') }}`,
                 dataType: 'json',
@@ -579,6 +580,11 @@
                 return m;
             }
         }
+
+        function formatState(state) {
+            console.log(state);
+            return `${state.text} - ${state.description}`;
+        };
 
         function clearNumber(number) {
             if (number == '' || number == null) {

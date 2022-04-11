@@ -1,5 +1,11 @@
 @csrf
-<div class="row">
+<style>
+    #inputs-form__rdse input {
+        text-transform: uppercase
+    }
+
+</style>
+<div class="row" id="inputs-form__rdse">
     <input type="hidden" value="{{ $rdse->id ?? '' }}" id="rdse_id">
     <input type="hidden" value="{{ $priceUps ?? '0' }}" id="price_ups">
 
