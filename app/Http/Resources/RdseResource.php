@@ -17,7 +17,7 @@ class RdseResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'n_order' => $this->n_order,
+            'n_order' => $this->n_order ?? '',
             'equipe' => $this->equipe,
             'solicitante' => $this->solicitante,
             'at' => !empty($this->at) ? return_format_date($this->at) : '',

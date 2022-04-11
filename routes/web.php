@@ -391,6 +391,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:admin'], function () {
         Route::prefix('rdse')->group(function () {
+            Route::put('/rdse/status/{status}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateStatus'])->name('rdse.update.status');
             Route::resource('rdse', App\Http\Controllers\Painel\RDSE\RdseController::class);
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
         });

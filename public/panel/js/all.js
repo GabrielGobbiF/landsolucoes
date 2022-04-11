@@ -11,10 +11,12 @@ function initTable() {
     const BASE_URL = $('meta[name="js-base_url"]').attr('content');
     const URL = $('meta[name="url"]').attr('content');
 
-    var $table = $('#table-api');
+    const $table = $('#table-api');
     var dataTable = $table.attr('data-table');
     var order = $table.attr('order');
     var filter = {};
+
+    $('#preloader-content').remove();
 
     $('.table-api').append(preload());
 
@@ -28,6 +30,7 @@ function initTable() {
         var paginate = $table.attr('data-paginate') != undefined ? false : true;
         var eExport = $table.attr('data-export') != undefined ? false : true;
         var showColumns = $table.attr('data-collums') != undefined ? false : true;
+        var clickToSelect = $table.attr('data-click-select') != undefined ? false : true;
         var click = $table.attr('data-click');
 
         $table.bootstrapTable('refreshOptions', {
@@ -72,7 +75,7 @@ function initTable() {
                 };
             },
             onClickCell: function (field, value, row, $element) {
-                if (click == 'false') {
+                if (click == 'false' || clickToSelect) {
                     return;
                 }
                 if (field != 'statusButton') {
@@ -85,6 +88,10 @@ function initTable() {
             },
         });
     }
+
+    $('.search-input .modify').on('change', function () {
+        initTable();
+    })
 }
 
 function preload() {

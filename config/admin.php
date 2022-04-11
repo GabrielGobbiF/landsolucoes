@@ -269,19 +269,19 @@ return [
             ],
             [
                 'name' => 'LDS',
-                'value' => '0'
+                'value' => '120.20'
             ],
             [
                 'name' => 'Manutenção',
-                'value' => '0'
+                'value' => '132.64'
             ],
             [
                 'name' => 'Futurabilit',
-                'value' => '0'
+                'value' => '422.86'
             ],
             [
                 'name' => 'Civil',
-                'value' => '0'
+                'value' => '1.00'
             ],
             [
                 'name' => 'Atendimento ao cliente',

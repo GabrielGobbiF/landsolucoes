@@ -172,17 +172,28 @@ class TableApiController extends Controller
 
         $searchColumns = ['id', 'description', 'n_order', 'equipe', 'solicitante', 'at', 'type', 'status'];
 
+        $filters = $this->filter;
+
+        $filters['search'] =  $this->search;
+
         $rdses = $rdses
             ->where(function ($query) use ($searchColumns) {
                 $search = $this->search;
                 if ($search != '' && !is_null($searchColumns)) {
+                    $search = is_array($search) && isset($search['term']) ? $search['term'] : $search;
                     foreach ($searchColumns as $searchColumn) {
                         $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
                     }
                 }
+            })->where(function ($query) use ($filters) {
+                if (!empty($filters['status'])) {
+                    $query->where('rdses.status', $filters['status']);
+                }
             })
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
+
+        #dd([$rdses->toSql(), $rdses->getBindings()]);
 
         return RdseResource::collection($rdses);
     }

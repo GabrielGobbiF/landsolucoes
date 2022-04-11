@@ -21,13 +21,17 @@ class RdseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         # $rdses = Rdse::all();
 
+        $status = $request->has('status') ? $request->input('status') : 'pending';
+
+        $request->merge(['status' => $status]);
+
         return view('pages.painel.rdse.rdse.index', [
             #'rdses' => $rdses
-        ]);
+        ])->with($request->only('status'));
     }
 
     /**
@@ -125,5 +129,17 @@ class RdseController extends Controller
         return redirect()
             ->route('rdse.index')
             ->with('message', 'Deletado com sucesso');
+    }
+
+    public function updateStatus(Request $request, $status)
+    {
+        $ids = $request->only('medicoes', false);
+
+        if ($ids) {
+            Rdse::whereIn('id', $ids['medicoes'])->update(['status' => $status]);
+        }
+
+        return redirect()
+            ->route('rdse.index', ['status' => $status]);
     }
 }

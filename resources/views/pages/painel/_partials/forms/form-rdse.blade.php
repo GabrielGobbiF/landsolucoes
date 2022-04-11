@@ -51,6 +51,7 @@
             <select name='type' class='form-control select2'>
                 @foreach (config('admin.rdse.type') as $status)
                     <option
+                        {{ isset($rdse) && $rdse->type == $status['name'] ? 'selected="selected"' : '' }}
                         value='{{ $status['name'] }}'>
                         {{ $status['name'] }}
                     </option>
@@ -58,5 +59,4 @@
             </select>
         </div>
     </div>
-
 </div>

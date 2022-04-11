@@ -42,16 +42,24 @@
     @endif
 
     <script>
-        $(document).ready(function() {
-            $("#modal-add-{{ $type }}").on("hidden.bs.modal", function() {
-                $("#form-add-{{ $type }}")[0].reset();
+        window.addEventListener('load', () => {
+            let modal = $('#modal-add-{{ $type }}')
+
+            modal.on("show.bs.modal", function() {
+                modal.find('.select2').each(function() {
+                    let multiple = $(this).attr('multiple') ? true : false;
+                    let close = multiple ? false : true;
+                    $(this).select2({
+                        dropdownParent: $('#modal-add-{{ $type }} .modal-content'),
+                        width: '100%',
+                        closeOnSelect: close,
+                    })
+                })
             })
 
-            $('.select2').select2({
-                width: '100%',
-                dropdownParent: $("#modal-add-{{ $type }}")
-            });
-
+            modal.on("hidden.bs.modal", function() {
+                $("#form-add-{{ $type }}")[0].reset();
+            })
         })
     </script>
 @append
