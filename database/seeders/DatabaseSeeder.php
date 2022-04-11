@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->handsWorks();
-        $this->rdses();
+        #$this->rdses();
     }
 
     private function handsWorks()

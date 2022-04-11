@@ -366,7 +366,7 @@
                 total += clearNumber($(this).find(`.price_total_hours `).val());
             })
 
-            total_ups = numberFormat(total / 299.97);
+            total_ups = total / $(`#price_ups_${serviceId}`).val();
             total_servico = numberFormat(total - total_espera);
 
             total = numberFormat(total);
@@ -375,7 +375,7 @@
             $('.total_espera').html(`R$ ${total_espera}`)
             $('.total').html(`R$ ${total}`)
             $('.total_servico').html(`R$ ${total_servico}`)
-            $('.total_ups').html(`R$ ${total_ups}`)
+            $('.total_ups').html(`${total_ups}`)
 
         }
 

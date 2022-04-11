@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <div class='modal' id='modal-finalize' tabindex='-1' role='dialog'>
+    <div class='modal modal-rdse-status' id='modal-finalize' tabindex='-1' role='dialog'>
         <div class='modal-dialog  modal-dialog-centered' role='document'>
             <div class='modal-content'>
                 <form id='form-update-status' role='form' class='needs-validation' action='{{ route('rdse.update.status', [$state]) }}' method='POST'>
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <div class='modal' id='modal-faturar' tabindex='-1' role='dialog'>
+    <div class='modal modal-rdse-status' id='modal-faturar' tabindex='-1' role='dialog'>
         <div class='modal-dialog  modal-dialog-centered' role='document'>
             <div class='modal-content'>
                 <form id='form-update-status' role='form' class='needs-validation' action='{{ route('rdse.update.status', ['invoice']) }}' method='POST'>
@@ -135,7 +135,7 @@
             window.location.href = `${base_url}/rdse/rdse?status=${state}`;
         })
 
-        $('.modal').on("show.bs.modal", function() {
+        $('.modal-rdse-status').on("show.bs.modal", function() {
             let modal = $(this);
             modal.find('.select2').each(function() {
                 $(this).select2({
