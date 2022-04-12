@@ -1,11 +1,11 @@
 @csrf
 <style>
-    #inputs-form__rdse input {
+    #inputs-form__handswork input {
         text-transform: uppercase
     }
 
 </style>
-<div class="row">
+<div class="row" id="inputs-form__handswork">
     <div class="col-12 col-md-12">
         <div class="form-group">
             <label for="input--code">Código</label>
