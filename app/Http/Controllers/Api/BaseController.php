@@ -150,4 +150,15 @@ class BaseController extends Controller
         return  $model->get($get);
     }
 
+    public function getObraByNumberNota(Request $request, $filter)
+    {
+        $nota = ObraEtapa::where('nota_numero', 'LIKE', '%' . $filter . '%')->first();
+
+        if ($nota) {
+
+            $obra = Obra::where('id', $nota->id_obra)->first();
+
+            return response()->json($obra->razao_social . '  - ' . route('obras.show', $obra->id));
+        }
+    }
 }
