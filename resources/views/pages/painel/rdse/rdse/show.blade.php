@@ -264,6 +264,7 @@
             var html = '';
             let table = $('#table-codigos-rdse');
             let body = table.find('tbody');
+            body.html('');
 
             $('.codigo_sap').each(function() {
                 var data = $(this).select2('data')
