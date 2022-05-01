@@ -214,6 +214,32 @@
             </div>
         </div>
     </div>
+    <button type='button' class='btn btn-primary' id="button_modal-rdse-codigo">
+        Visualizar Códigos
+    </button>
+    <div class='modal' id='modal-rdse-codigo' tabindex='-1' role='dialog'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title'>Códigos</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <table class='table table-hover' id="table-codigos-rdse">
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('scripts')
@@ -230,6 +256,29 @@
             attTotal();
             setInterval("updateServices()", 5000);
         });
+
+
+
+        $('#button_modal-rdse-codigo').on('click', () => {
+
+            var html = '';
+            let table = $('#table-codigos-rdse');
+            let body = table.find('tbody');
+
+            $('.codigo_sap').each(function() {
+                var data = $(this).select2('data')
+                if (data[0].text != ' Selecione ') {
+                    html += `<tr>
+                                  <th>${data[0].text}</th>
+                                </tr>`;
+                }
+
+            })
+            body.append(html)
+            $('#modal-rdse-codigo').modal('show');
+        })
+
+
 
         $(function() {
             $("#services-row").sortable({
@@ -305,6 +354,7 @@
                 if (!e.target.multiple) {
                     document.querySelector('.select2-search__field').focus();
                 }
+                $('.select2-dropdown--below').css('width', '300px !important');
             });
 
             $('.select2.codigo_sap').on('select2:select', function(e) {
@@ -542,6 +592,7 @@
         }
 
         const optionsSelectSap = {
+            dropdownAutoWidth: true,
             multiple: false,
             minimumInputLength: 3,
             language: "pt-br",
@@ -582,7 +633,6 @@
         }
 
         function formatState(state) {
-            console.log(state);
             return `${state.text} - ${state.description}`;
         };
 
