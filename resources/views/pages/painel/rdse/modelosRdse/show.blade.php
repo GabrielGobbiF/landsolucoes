@@ -42,7 +42,7 @@
                     <form role="form" class="needs-validation" novalidate id="form-rdse" autocomplete="off" action="{{ route('rdse.update', $rdse->id) }}" method="POST">
                         @csrf
                         @method("put")
-                        @include('pages.painel._partials.forms.form-rdse')
+                        @include('pages.painel._partials.forms.form-modelo-rdse')
                         <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                     </form>
                 </div>
@@ -210,33 +210,36 @@
                             </table>
                         </div>
                     </form>
-
-                    <button type='button' class='btn btn-primary' id="button_modal-rdse-codigo">
-                        Visualizar Códigos
-                    </button>
-                    <div class='modal' id='modal-rdse-codigo' tabindex='-1' role='dialog'>
-                        <div class='modal-dialog' role='document'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title'>Códigos</h5>
-                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>
-                                </div>
-                                <div class='modal-body'>
-                                    <table class='table table-hover' id="table-codigos-rdse">
-                                        <thead class='thead-light'>
-                                            <tr>
-                                                <th>#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="d-flex">
+                        <button type='button' class='btn btn-primary' id="button_modal-rdse-codigo">
+                            Visualizar Códigos
+                        </button>
+                        <a type="button" class="ml-2 btn btn-info" href="{{ route('modelo.rdse.create', $rdse->id) }}" target="_blank">Criar RDSE com esse modelo</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal' id='modal-rdse-codigo' tabindex='-1' role='dialog'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title'>Códigos</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <table class='table table-hover' id="table-codigos-rdse">
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

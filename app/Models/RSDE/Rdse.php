@@ -21,6 +21,7 @@ class Rdse extends Model
         'solicitante',
         'at',
         'type',
+        'modelo',
         'status',
     ];
 

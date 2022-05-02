@@ -52,6 +52,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
         Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
         Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
+        Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
         Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
@@ -393,7 +394,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         Route::prefix('rdse')->group(function () {
             Route::put('/rdse/status/{status}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateStatus'])->name('rdse.update.status');
             Route::resource('rdse', App\Http\Controllers\Painel\RDSE\RdseController::class);
+            Route::resource('modelo-rdse', App\Http\Controllers\Painel\RDSE\ModelosRdseController::class);
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
+
+            Route::get('modelo-rdse/{modeloId}/create-rdse', [App\Http\Controllers\Painel\RDSE\ModelosRdseController::class, 'createRdseByModelo'])->name('modelo.rdse.create');
         });
     });
 
@@ -415,4 +419,4 @@ Route::get('/cron', function () {
 });
 
 Route::get('v1/api/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
-Route::get('v1/api/getObraByNumberNota/{nNota}', [App\Http\Controllers\Api\BaseController::class, 'getObraByNumberNota']);
+#Route::get('v1/api/getObraByNumberNota/{nNota}', [App\Http\Controllers\Api\BaseController::class, 'getObraByNumberNota']);

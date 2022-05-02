@@ -12,6 +12,7 @@ use App\Http\Resources\DriversResource;
 use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\HandsworksResource;
+use App\Http\Resources\ModeloRdseResource;
 use App\Http\Resources\ObraResource;
 use App\Http\Resources\OrcamentoResource;
 use App\Http\Resources\PortariaResource;
@@ -33,6 +34,7 @@ use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\Portaria;
 use App\Models\RSDE\Handswork;
+use App\Models\RSDE\ModeloRdse;
 use App\Models\RSDE\Rdse;
 use App\Models\Service;
 use App\Models\User;
@@ -166,6 +168,33 @@ class TableApiController extends Controller
         return HandsworksResource::collection($handsworks);
     }
 
+    public function ModelosRdses()
+    {
+        $rdses = new Rdse();
+
+        $searchColumns = ['id', 'description', 'type'];
+
+        $filters = $this->filter;
+
+        $filters['search'] =  $this->search;
+
+        $rdses = $rdses
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    $search = is_array($search) && isset($search['term']) ? $search['term'] : $search;
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->where('modelo', 1)
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return ModeloRdseResource::collection($rdses);
+    }
+
     public function rdses()
     {
         $rdses = new Rdse();
@@ -190,6 +219,7 @@ class TableApiController extends Controller
                     $query->where('rdses.status', $filters['status']);
                 }
             })
+            ->where('modelo', 0)
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
 

@@ -21,7 +21,7 @@ class CreateRdseServicesTable extends Migration
 
             $table->time('chegada')->nullable();                // Data de chegada;
             $table->time('saida')->nullable();                  // Data de saida;
-            $table->integer('minutos')->default('0');              // Qnt de Minutos;
+            $table->integer('minutos')->default('0');           // Qnt de Minutos;
             $table->time('horas')->nullable();                  // Qnt de Horas;
             $table->longtext('description')->nullable();        // Descrição;
             $table->integer('qnt_atividade')->default('0');     // Quantidade de atividade ou qnt de horas;

@@ -201,6 +201,11 @@ return [
         ],
         'rdse' => [
             [
+                'name' =>  'Modelos RDSE',
+                'icon' =>  'fas fa-file-invoice',
+                'route' => 'modelo-rdse.index',
+            ],
+            [
                 'name' =>  'RDSE',
                 'icon' =>  'fas fa-file-invoice',
                 'route' => 'rdse.index',

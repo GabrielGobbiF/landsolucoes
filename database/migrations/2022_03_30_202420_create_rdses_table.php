@@ -24,6 +24,7 @@ class CreateRdsesTable extends Migration
             $table->date('at')->nullable();                     // Data
             $table->string('type');                             // Emergencia, LDS, Manutenção, Futurabilit, Civil
             $table->string('status')->default('pending');       // pending, review, approved
+            $table->string('modelo')->default(false);           // 1 true = é um modelo
 
             $table->timestamps();
         });

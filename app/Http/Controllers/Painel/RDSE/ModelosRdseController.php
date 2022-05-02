@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\RSDE\RdseServices;
 use Illuminate\Http\Request;
 
-class RdseController extends Controller
+use function PHPUnit\Framework\isTrue;
+
+class ModelosRdseController extends Controller
 {
     protected $repository;
 
@@ -23,15 +25,7 @@ class RdseController extends Controller
      */
     public function index(Request $request)
     {
-        # $rdses = Rdse::all();
-
-        $status = $request->has('status') ? $request->input('status') : 'pending';
-
-        $request->merge(['status' => $status]);
-
-        return view('pages.painel.rdse.rdse.index', [
-            #'rdses' => $rdses
-        ])->with($request->only('status'));
+        return view('pages.painel.rdse.modelosRdse.index', []);
     }
 
     /**
@@ -43,18 +37,17 @@ class RdseController extends Controller
     public function store(Request $request)
     {
         $columns = $request->all();
-        $columns['modelo'] = false;
+        $columns['modelo'] = true;
 
         $rdse = $this->repository->create($columns);
 
         /* TODO  */
         $rdseService = new RdseServices();
         $rdseService->rdse_id = $rdse->id;
-
         $rdseService->save();
 
         return redirect()
-            ->route('rdse.index')
+            ->route('modelo-rdse.index')
             ->with('message', 'Criado com sucesso');
     }
 
@@ -68,7 +61,7 @@ class RdseController extends Controller
     {
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
-                ->route('rdse.index')
+                ->route('modelo-rdse.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -81,7 +74,7 @@ class RdseController extends Controller
 
         $rdseServices = $rdse->services()->with('handswork')->get();
 
-        return view('pages.painel.rdse.rdse.show', [
+        return view('pages.painel.rdse.modelosRdse.show', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
             'priceUps' => $priceUps
@@ -101,7 +94,7 @@ class RdseController extends Controller
 
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
-                ->route('rdse.index')
+                ->route('modelo-rdse.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
@@ -122,14 +115,14 @@ class RdseController extends Controller
     {
         if (!$rdse = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('rdse.index')
+                ->route('modelo-rdse.index')
                 ->with('message', 'Registro (Rdsee) não encontrado!');
         }
 
         $rdse->delete();
 
         return redirect()
-            ->route('rdse.index')
+            ->route('modelo-rdse.index')
             ->with('message', 'Deletado com sucesso');
     }
 
@@ -143,5 +136,34 @@ class RdseController extends Controller
 
         return redirect()
             ->route('rdse.index', ['status' => $status]);
+    }
+
+    public function createRdseByModelo($modeloId)
+    {
+        if (!$rdse = $this->repository->where('id', $modeloId)->with('services')->first()) {
+            return redirect()
+                ->route('modelo-rdse.index')
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        $new = $rdse->replicate();
+        $new->modelo = false;
+        //save model before you recreate relations (so it has an id)
+        $new->push();
+
+        //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
+        $new->relations = [];
+
+        //load relations on EXISTING MODEL
+        $new->load('services');
+
+        //re-sync everything
+        foreach ($rdse->getRelations() as $relation => $items) {
+            foreach ($items as $item) {
+                unset($item->id);
+                $new->{$relation}()->create($item->toArray());
+            }
+        }
+        return redirect()->route('rdse.show', $new->id);
     }
 }
