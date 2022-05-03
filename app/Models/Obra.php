@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RSDE\Rdse;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -90,6 +91,11 @@ class Obra extends Model
     public function financeiro()
     {
         return $this->hasOne(ObraFinanceiro::class, 'id_obra');
+    }
+
+    public function medicao()
+    {
+        return $this->hasOne(Rdse::class, 'obra_id');
     }
 
     public function etapas()

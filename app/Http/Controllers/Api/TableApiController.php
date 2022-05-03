@@ -180,11 +180,10 @@ class TableApiController extends Controller
 
         $rdses = $rdses
             ->where(function ($query) use ($searchColumns) {
-                $search = $this->search;
+                $search = !is_array($this->search) ?  $this->search : (isset($this->search['term']) ? $this->search['term'] : null);
                 if ($search != '' && !is_null($searchColumns)) {
-                    $search = is_array($search) && isset($search['term']) ? $search['term'] : $search;
                     foreach ($searchColumns as $searchColumn) {
-                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                        $query->Orwhere($searchColumn, 'LIKE', "%$search%");
                     }
                 }
             })

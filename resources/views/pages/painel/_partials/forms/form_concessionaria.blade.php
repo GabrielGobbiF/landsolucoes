@@ -17,7 +17,7 @@
                 @if (isset($services))
                     <div class="col-md-12">
                         <label for="service">Serviços</label>
-                        <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2Multiple @error('service') is-invalid @enderror" multiple>
+                        <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2 @error('service') is-invalid @enderror" multiple>
                             @foreach ($services as $service)
                                 <option value="{{ $service->id }}">{{ $service->name }}</option>
                             @endforeach

@@ -201,7 +201,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="name">Pasta Padrão Cadastradas</label>
-                                            <select name="name_padrao[]" class="form-control select2Multiple" multiple>
+                                            <select name="name_padrao[]" class="form-control select2" multiple>
                                                 @foreach ($pastaPadrao as $pastP)
                                                     <option value="{{ $pastP['nome_pasta'] }}">{{ $pastP['nome_pasta'] }}</option>
                                                 @endforeach
@@ -286,9 +286,9 @@
                 </div>
             </div>
 
-            @include("pages.painel.obras.obras.etapas.show_right")
-            @include("pages.painel.obras._partials.modals.modal-update-obra")
-            @include("pages.painel.obras._partials.modals.modal-update-etapa-all")
+            @include('pages.painel.obras.obras.etapas.show_right')
+            @include('pages.painel.obras._partials.modals.modal-update-obra')
+            @include('pages.painel.obras._partials.modals.modal-update-etapa-all')
         </div>
     </div>
 @stop

@@ -13,7 +13,7 @@
             <div class="row mb-4">
                 <div class="col-12 col-md-5">
                     <label for="fl_art_nome">Status</label>
-                    <select name="status" id="select--status" multiple class="form-control select2Multiple search-input">
+                    <select name="status" id="select--status" multiple class="form-control select2 search-input">
                         @foreach (config('constants.status_build') as $status)
                             <option value="{{ $status }}"> {{ ucfirst($status) }}</option>
                         @endforeach

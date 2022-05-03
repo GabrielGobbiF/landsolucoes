@@ -398,6 +398,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
 
             Route::get('modelo-rdse/{modeloId}/create-rdse', [App\Http\Controllers\Painel\RDSE\ModelosRdseController::class, 'createRdseByModelo'])->name('modelo.rdse.create');
+            Route::post('rdse/obra/{obraId}/store', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'createRdseByObra'])->name('rdse.obra.create');
         });
     });
 

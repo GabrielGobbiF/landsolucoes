@@ -73,15 +73,6 @@
         })
     });
 
-    $('.select2').select2({
-        width: '100%',
-    });
-
-    $('.select2Multiple').select2({
-        width: '100%',
-        closeOnSelect: false
-    });
-
     $('.date').mask('00/00/0000');
 
     $('.money').mask('000.000.000.000.000,00', { reverse: true });
@@ -377,7 +368,7 @@ for (var i = 0; i < elements.length; i++) {
     elements[i].addEventListener('click', formSubmit, false);
 }
 
-function axiosCath(){
+function axiosCath() {
     return '<div class="text-center"><a onclick="location.reload()" class="btn btn-sm btn-danger"><i class="fas fa-redo-alt"></i> ERROR - Recarregar</a> </div>';
 }
 

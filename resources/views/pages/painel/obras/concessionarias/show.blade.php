@@ -34,15 +34,12 @@
                         @csrf
                         @method("put")
                         <div>
-                            @include("pages.painel._partials.forms.form_concessionaria")
+                            @include('pages.painel._partials.forms.form_concessionaria')
                         </div>
                     </form>
                 </div>
                 <div class="tab-pane" id="v-department" role="tabpanel">
-                    @include("pages.painel._partials.forms.form_department", [
-                    $type = "concessionaria_id",
-                    $idType = $concessionaria->id
-                    ])
+                    @include('pages.painel._partials.forms.form_department', [($type = 'concessionaria_id'), ($idType = $concessionaria->id)])
                 </div>
                 <div class="tab-pane" id="v-services" role="tabpanel">
 
@@ -104,7 +101,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label for="service">Adicionar novo Serviço</label>
-                                            <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2Multiple" multiple>
+                                            <select name="service[]" data-placeholder="Selecione o serviço" class="form-control select2" multiple>
                                                 @foreach ($servicesNotConces as $service)
                                                     <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                 @endforeach
@@ -136,6 +133,5 @@
             var tab = localStorage.getItem('nav-tabs_concessionaria')
             $('#v-tab a#' + tab).tab('show')
         })
-
     </script>
 @endsection

@@ -23,6 +23,7 @@ class Rdse extends Model
         'type',
         'modelo',
         'status',
+        'obra_id'
     ];
 
     protected $appends = ['StatusLabel'];

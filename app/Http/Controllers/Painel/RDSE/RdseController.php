@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\RDSE;
 
 use App\Models\RSDE\Rdse;
 use App\Http\Controllers\Controller;
+use App\Models\Obra;
 use App\Models\RSDE\RdseServices;
 use Illuminate\Http\Request;
 
@@ -143,5 +144,46 @@ class RdseController extends Controller
 
         return redirect()
             ->route('rdse.index', ['status' => $status]);
+    }
+
+    public function createRdseByObra(Request $request, $obraId)
+    {
+        $rdseId = $request->input('modelo', null);
+
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        if (!$obra = Obra::where('id', $obraId)->select('id')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Obra) não encontrado!');
+        }
+
+        $new = $rdse->replicate();
+        $new->modelo = false;
+        $new->obra_id = $obra->id;
+        //save model before you recreate relations (so it has an id)
+        $new->push();
+
+        //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
+        $new->relations = [];
+
+        //load relations on EXISTING MODEL
+        $new->load('services');
+
+        //re-sync everything
+        foreach ($rdse->getRelations() as $relation => $items) {
+            foreach ($items as $item) {
+                unset($item->id);
+                $new->{$relation}()->create($item->toArray());
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Criado com sucesso');
     }
 }

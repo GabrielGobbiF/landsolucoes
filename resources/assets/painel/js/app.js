@@ -249,6 +249,8 @@
         //Waves.init()
     }
 
+    console.log('app')
+
     init();
 
 })(jQuery)

@@ -18,6 +18,7 @@ class ModeloRdseResource extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'description' => $this->description,
+            'name' => $this->description,
         ];
     }
 }

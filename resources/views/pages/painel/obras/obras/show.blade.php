@@ -79,49 +79,82 @@
 
         <div class="main row">
             <div class="col-12 col-md-8">
-                    <div class="box box-default box-solid">
-                        <div class="box-body mg-0 pd-0">
-                            <div class="mail-content-header d-flex">
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-update-obra">Editar Obra</button>
-                                <a href="{{ route('obras.finance', $obra->id) }}" class="btn btn-outline-primary ml-2">Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
-                                <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-outline-primary ml-2">Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
-                                <nav class="nav nav-icon-only mg-l-auto">
-                                    <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra"
-                                        class="nav-link d-none d-sm-block js-btn-delete">
-                                        <i data-feather="archive"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" data-text="Deletar" data-href="{{ route('obras.destroy', $obra->id) }}" rel="tooltip" title="Excluir Obra"
-                                        class="nav-link d-none d-sm-block js-btn-delete"
-                                        data-original-title="Archive">
-                                        <i data-feather="trash"></i>
-                                    </a>
+                <div class="box box-default box-solid">
+                    <div class="box-body mg-0 pd-0">
+                        <div class="mail-content-header d-flex">
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-update-obra">Editar Obra</button>
+                            <a href="{{ route('obras.finance', $obra->id) }}" class="btn btn-outline-primary ml-2">Financeiro <i class="fas fa-long-arrow-alt-right"></i></a>
+                            <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-outline-primary ml-2">Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
 
-                                    @if ($obra->favorited())
-                                        <form id="form-unfavorite" role="form" class="needs-validation" action="{{ route('obras.unfavorite', $obra->id) }}" method="POST">
-                                            @csrf
-                                            <a href="javascript:void(0)"
-                                                onclick="event.preventDefault(); document.getElementById('form-unfavorite').submit();"
-                                                class="nav-link d-none d-sm-block"
-                                                rel="tooltip"
-                                                title="Des Favoritar"
-                                                data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
-                                        </form>
-                                    @else
-                                        <form id="form-favorite" role="form" class="needs-validation" action="{{ route('obras.favorite', $obra->id) }}" method="POST">
-                                            @csrf
-                                            <a href="javascript:void(0)"
-                                                onclick="event.preventDefault(); document.getElementById('form-favorite').submit();"
-                                                class="nav-link d-none d-sm-block"
-                                                rel="tooltip"
-                                                title="Favoritar"
-                                                data-original-title="Favoritar"> <i data-feather="heart"></i></a>
-                                        </form>
-                                    @endif
-                                    <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>
-                                </nav>
-                            </div>
+                            @if ($obra->concessionaria->name == 'RDSE')
+                                @if ($obra->medicao)
+                                    <a href="{{ route('rdse.show', $obra->medicao->id) }}" target="_blank" class="btn btn-outline-primary ml-2">Medição <i class="fas fa-long-arrow-alt-right"></i></a>
+                                @else
+                                    <button type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#store-rdse_obra">Criar Medição</button>
+                                    <div class="modal" id="store-rdse_obra" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <form id='form-add-rdse_obra' role='form' class='needs-validation' action='{{ route('rdse.obra.create', $obra->id) }}' method='POST'>
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Criar Medição na obra {{ $obra->razao_social }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <select required name='modelo' parent="#store-rdse_obra .modal-content" class='form-control select2' request="{{ route('modelos.rdses.all') }}"
+                                                            placeholder="Selecione o Modelo">
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary btn-submit">Criar</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
+
+                            <nav class="nav nav-icon-only mg-l-auto">
+                                <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip" title="Concluir Obra"
+                                    class="nav-link d-none d-sm-block js-btn-delete">
+                                    <i data-feather="archive"></i>
+                                </a>
+                                <a href="javascript:void(0)" data-text="Deletar" data-href="{{ route('obras.destroy', $obra->id) }}" rel="tooltip" title="Excluir Obra"
+                                    class="nav-link d-none d-sm-block js-btn-delete"
+                                    data-original-title="Archive">
+                                    <i data-feather="trash"></i>
+                                </a>
+
+                                @if ($obra->favorited())
+                                    <form id="form-unfavorite" role="form" class="needs-validation" action="{{ route('obras.unfavorite', $obra->id) }}" method="POST">
+                                        @csrf
+                                        <a href="javascript:void(0)"
+                                            onclick="event.preventDefault(); document.getElementById('form-unfavorite').submit();"
+                                            class="nav-link d-none d-sm-block"
+                                            rel="tooltip"
+                                            title="Des Favoritar"
+                                            data-original-title="Des Favoritar"> <i data-feather="x"></i></a>
+                                    </form>
+                                @else
+                                    <form id="form-favorite" role="form" class="needs-validation" action="{{ route('obras.favorite', $obra->id) }}" method="POST">
+                                        @csrf
+                                        <a href="javascript:void(0)"
+                                            onclick="event.preventDefault(); document.getElementById('form-favorite').submit();"
+                                            class="nav-link d-none d-sm-block"
+                                            rel="tooltip"
+                                            title="Favoritar"
+                                            data-original-title="Favoritar"> <i data-feather="heart"></i></a>
+                                    </form>
+                                @endif
+                                <a href="" rel="tooltip" title="Concluir Obra" class="nav-link d-sm-none" data-original-title="Options"><i class="ri-delete-bin-line"></i></a>
+                            </nav>
                         </div>
                     </div>
+                </div>
             </div>
 
             <div class="col-12 col-md-8">
@@ -254,7 +287,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="name">Pasta Padrão Cadastradas</label>
-                                            <select name="name_padrao[]" class="form-control select2Multiple" multiple>
+                                            <select name="name_padrao[]" class="form-control select2" multiple parent="#add__folder .modal-content">
                                                 @foreach ($pastaPadrao as $pastP)
                                                     <option value="{{ $pastP['nome_pasta'] }}">{{ $pastP['nome_pasta'] }}</option>
                                                 @endforeach
@@ -339,9 +372,9 @@
                 </div>
             </div>
 
-            @include("pages.painel.obras.obras.etapas.show_right")
-            @include("pages.painel.obras._partials.modals.modal-update-obra")
-            @include("pages.painel.obras._partials.modals.modal-update-etapa-all")
+            @include('pages.painel.obras.obras.etapas.show_right')
+            @include('pages.painel.obras._partials.modals.modal-update-obra')
+            @include('pages.painel.obras._partials.modals.modal-update-etapa-all')
         </div>
     </div>
 @stop
@@ -355,7 +388,7 @@
         </script>
     @endif
 
-    
+
     <script>
         $(document).ready(function() {
 
