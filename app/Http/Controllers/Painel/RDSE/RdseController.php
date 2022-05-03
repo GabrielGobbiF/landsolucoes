@@ -150,7 +150,7 @@ class RdseController extends Controller
     {
         $rdseId = $request->input('modelo', null);
 
-        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+        if (!$rdse = $this->repository->where('id', $rdseId)->with('services')->first()) {
             return redirect()
                 ->back()
                 ->with('message', 'Registro (Rdsee) não encontrado!');
