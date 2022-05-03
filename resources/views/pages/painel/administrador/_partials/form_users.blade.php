@@ -45,7 +45,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="input--type">Tipo de Usuário</label>
-                <select class="select2Multiple form-control" required multiple id="input--type"
+                <select class="select2 form-control" required multiple id="input--type"
                     name="roles[]" {{ Request::user()->hasRole('admin') ? '' : 'disabled' }}>
                     @foreach ($roles as $role)
                         <option {{ isset($roles_user) && in_array($role['name'], $roles_user) ? 'selected' : '' }} value="{{ $role['id'] }}">{{ $role['name'] }}</option>

@@ -159,7 +159,7 @@
                         </div>
                         @yield('content')
                     </div>
-                    @else
+                @else
                     <div class="container-max-fluid">
                         @yield('content-max-fluid')
                     </div>
@@ -170,6 +170,7 @@
 
     <script src="{{ asset('panel/js/all.js') }}"></script>
     <script src="{{ asset('panel/js/app.js') }}"></script>
+    <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
 
 

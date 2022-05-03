@@ -177,14 +177,6 @@ function preload() {
         })
     });
 
-    $('.select2').select2({
-        width: '100%',
-    });
-
-    $('.select2Multiple').select2({
-        width: '100%',
-        closeOnSelect: false
-    });
 
     $('.date').mask('00/00/0000');
 

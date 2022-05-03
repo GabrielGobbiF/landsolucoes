@@ -17,6 +17,8 @@ class CreateRdsesTable extends Migration
         Schema::create('rdses', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('obra_id')->nullable();  //Alocado em um obra
+
             $table->longtext('description')->nullable();        // Descrição
             $table->string('n_order')->nullable();              // Nº de ordem
             $table->string('equipe')->nullable();               // Descrição
