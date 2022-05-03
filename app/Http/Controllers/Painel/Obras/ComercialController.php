@@ -295,14 +295,14 @@ class ComercialController extends Controller
             }
         }
 
-        $url = '00tR9vps6D';
-        $folder =  Pasta::create([
-            'name' => $comercial->razao_social,
-            'type' => 'obras',
-            'url' => '00tR9vps6D',
-            'type_id' => $comercial->id
-        ]);
-        Storage::makeDirectory($url . '/' . $folder->uuid);
+        //$url = '00tR9vps6D';
+        //$folder =  Pasta::create([
+        //    'name' => $comercial->razao_social,
+        //    'type' => 'obras',
+        //    'url' => '00tR9vps6D',
+        //    'type_id' => $comercial->id
+        //]);
+        //Storage::makeDirectory($url . '/' . $folder->uuid);
 
         return redirect()
             ->route('obras.show', $comercial->id)
