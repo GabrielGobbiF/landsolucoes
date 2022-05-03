@@ -87,8 +87,34 @@
                             <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-outline-primary ml-2">Comercial <i class="fas fa-long-arrow-alt-right"></i></a>
 
                             @if ($obra->concessionaria->name == 'RDSE')
-                                @if (!optional($obra->medicao))
-                                    <a href="" class="btn btn-outline-primary ml-2">Medição <i class="fas fa-long-arrow-alt-right"></i></a>
+                                @if ($obra->medicao)
+                                    <a href="{{ route('rdse.show', $obra->medicao->id) }}" target="_blank" class="btn btn-outline-primary ml-2">Medição <i class="fas fa-long-arrow-alt-right"></i></a>
+                                @else
+                                    <button type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#store-rdse_obra">Criar Medição</button>
+                                    <div class="modal" id="store-rdse_obra" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <form id='form-add-rdse_obra' role='form' class='needs-validation' action='{{ route('rdse.obra.create', $obra->id) }}' method='POST'>
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Criar Medição na obra {{ $obra->razao_social }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <select required name='modelo' parent="#store-rdse_obra .modal-content" class='form-control select2' request="{{ route('modelos.rdses.all') }}"
+                                                            placeholder="Selecione o Modelo">
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary btn-submit">Criar</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endif
                             @endif
 

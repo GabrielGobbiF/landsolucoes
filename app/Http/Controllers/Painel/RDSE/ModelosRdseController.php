@@ -164,6 +164,7 @@ class ModelosRdseController extends Controller
                 $new->{$relation}()->create($item->toArray());
             }
         }
+
         return redirect()->route('rdse.show', $new->id);
     }
 }

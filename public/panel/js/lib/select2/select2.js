@@ -2,20 +2,18 @@
 
     "use strict";
 
-    const selectAxOption = (request) => {
+    const selectAxOption = (request, placeholder) => {
         return {
-            minimumInputLength: 3,
+            //minimumInputLength: 3,
             language: "pt-br",
-            placeholder: "Selecione",
+            placeholder: placeholder != null ? placeholder : "Selecione",
             ajax: {
                 url: `${request}`,
                 dataType: 'json',
-                delay: 250,
+                delay: 500,
                 data: function (term, page) {
                     return {
-                        filters: {
-                            name: term.term
-                        }
+                        search: term.term
                     };
                 },
                 processResults: function (data, page) {
@@ -41,6 +39,7 @@
         let inParent = $(this).attr('parent') ? $(this).attr('parent') : false
         let inRequest = $(this).attr('request') ? $(this).attr('request') : false
 
+
         let options = {
             width: '100%',
             closeOnSelect: close,
@@ -58,7 +57,7 @@
         }
 
         if (inRequest != false) {
-            options = Object.assign(options, selectAxOption(inRequest))
+            options = Object.assign(options, selectAxOption(inRequest, $(this).attr('placeholder')))
         }
 
         if (inParent != false) {
