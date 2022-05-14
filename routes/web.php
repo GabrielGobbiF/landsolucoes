@@ -390,7 +390,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     | RDSE
     |--------------------------------------------------------------------------
     */
-    Route::group(['middleware' => 'role:admin'], function () {
+    Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
             Route::put('/rdse/status/{status}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateStatus'])->name('rdse.update.status');
             Route::resource('rdse', App\Http\Controllers\Painel\RDSE\RdseController::class);

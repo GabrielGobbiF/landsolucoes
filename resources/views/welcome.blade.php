@@ -505,7 +505,7 @@
                         </div>
                     @endif --}}
 
-                    @if (auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('rdse'))
                         <div class="grid_itens">
                             <a href="{{ route('rdse.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-file-invoice mr-2"></i>

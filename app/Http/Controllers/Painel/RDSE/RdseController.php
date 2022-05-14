@@ -165,7 +165,7 @@ class RdseController extends Controller
         $new = $rdse->replicate();
         $new->modelo = false;
         $new->obra_id = $obra->id;
-        $new->descricao = $obra->razao_social;
+        $new->description = $obra->razao_social;
         $new->n_order = null;
         $new->solicitante = "Marcos";
         $new->at = date('Y-m-d');
