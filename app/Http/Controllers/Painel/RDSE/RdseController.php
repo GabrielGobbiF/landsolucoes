@@ -171,6 +171,7 @@ class RdseController extends Controller
         $new->at = date('Y-m-d');
         //save model before you recreate relations (so it has an id)
         $new->push();
+        $new->save();
 
         //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
         $new->relations = [];
