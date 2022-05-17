@@ -1,4 +1,4 @@
-@extends("app")
+@extends('app')
 
 @section('title', 'Editar - ' . ucfirst($rdse->description))
 
@@ -41,7 +41,7 @@
                 <div class="tab-pane" id="info" role="tabpanel">
                     <form role="form" class="needs-validation" novalidate id="form-rdse" autocomplete="off" action="{{ route('rdse.update', $rdse->id) }}" method="POST">
                         @csrf
-                        @method("put")
+                        @method('put')
                         @include('pages.painel._partials.forms.form-rdse')
                         <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                     </form>
@@ -126,7 +126,7 @@
                                                 <input class="form-control description_sap"
                                                     name="description[]"
                                                     id="description_sap_{{ $service->id }}"
-                                                    value="{{ !empty($service->description)? $service->description: (!empty($service->handswork)? $service->handswork->description: '') }}" />
+                                                    value="{{ !empty($service->description) ? $service->description : (!empty($service->handswork) ? $service->handswork->description : '') }}" />
                                             </th>
 
                                             <th>
@@ -224,15 +224,32 @@
                                     </button>
                                 </div>
                                 <div class='modal-body'>
-                                    <table class='table table-hover' id="table-codigos-rdse">
-                                        <thead class='thead-light'>
-                                            <tr>
-                                                <th>#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                    <div class="row row-sm no-gutters">
+                                        <div class="col-md-6">
+                                            <table class='table table-hover' id="table-codigos-rdse">
+                                                <thead class='thead-light'>
+                                                    <tr>
+                                                        <th>#</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <table class='table table-hover' id="table-qnt-rdse">
+                                                <thead class='thead-light'>
+                                                    <tr>
+                                                        <th>Qnt</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -263,21 +280,34 @@
 
         $('#button_modal-rdse-codigo').on('click', () => {
 
-            var html = '';
-            let table = $('#table-codigos-rdse');
-            let body = table.find('tbody');
-            body.html('');
+            var htmlCodigo = '';
+            var htmlQntAtividade = '';
+            let tableCodigo = $('#table-codigos-rdse');
+            let bodyCodigo = tableCodigo.find('tbody');
+
+            let tableQntAtividade  = $('#table-qnt-rdse');
+            let bodyQntAtividade  = tableQntAtividade.find('tbody');
+
+            bodyCodigo.html('');
+            bodyQntAtividade.html('');
 
             $('.codigo_sap').each(function() {
                 var data = $(this).select2('data')
                 if (data[0].text != ' Selecione ') {
-                    html += `<tr>
+                    htmlCodigo += `<tr>
                                   <th>${data[0].text}</th>
                                 </tr>`;
                 }
-
             })
-            body.append(html)
+
+            $('.conversion').each(function() {
+                var data = $(this).val();
+                htmlQntAtividade += `<tr>
+                                  <th>${data}</th>
+                                </tr>`;
+            })
+            bodyCodigo.append(htmlCodigo)
+            bodyQntAtividade.append(htmlQntAtividade)
             $('#modal-rdse-codigo').modal('show');
         })
 
