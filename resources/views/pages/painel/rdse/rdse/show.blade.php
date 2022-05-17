@@ -17,6 +17,29 @@
             text-transform: uppercase;
         }
 
+        .select2-selection__rendered {
+            line-height: 27px !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 1.8rem !important
+        }
+
+        .select2-selection__arrow {
+            height: 1.8rem !important
+        }
+
+        .form-group {
+            margin-bottom: 0rem !important;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.2rem !important;
+            padding-top: 0.3rem !important;
+            padding-bottom: 0.3rem !important;
+        }
+
     </style>
 
     <div class='card'>
@@ -50,19 +73,19 @@
                 <div class="tab-pane active" id="services-tab" role="tabpanel">
                     <form id='form-update-services-rdse' role='form' class='needs-validation' method='POST'>
                         <div id="services">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-sm">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="d-none"></th>
-                                        <th style="width: 13%">Chegada</th>
-                                        <th style="width: 10%">Qnt Minutos</th>
-                                        <th style="width: 10%">Saida</th>
-                                        <th style="width: 10%">Horas</th>
-                                        <th style="width: 15%">SAP</th>
+                                        <th style="width: 7%">Chegada</th>
+                                        <th style="width: 6%">Qnt Minutos</th>
+                                        <th style="width: 7%">Saida</th>
+                                        <th style="width: 7%">Horas</th>
+                                        <th style="width: 10%">SAP</th>
                                         <th>Descrição</th>
-                                        <th style="width: 10%">Horas / <br>Qnt Atividade</th>
-                                        <th style="width: 10%">Preço</th>
-                                        <th></th>
+                                        <th style="width: 6%">Horas / <br>Qnt Atividade</th>
+                                        <th style="width: 6%">Preço</th>
+                                        <th style="width: 1%"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="services-row">
@@ -73,7 +96,7 @@
                                             </th>
                                             <th>
                                                 <div class="form-group">
-                                                    <input type="time" class="form-control chegada_obra"
+                                                    <input type="time" class="form-control form-control-sm chegada_obra"
                                                         id="chegada_obra_{{ $service->id }}"
                                                         name="chegada[]"
                                                         data-id="{{ $service->id }}"
@@ -82,7 +105,7 @@
                                             </th>
                                             <th>
                                                 <div class="form-group ">
-                                                    <input min="0" type="number" class="form-control qnt_minutos"
+                                                    <input min="0" type="number" class="form-control form-control-sm qnt_minutos"
                                                         id="qnt_minutos_{{ $service->id }}"
                                                         name="minutos[]"
                                                         data-id="{{ $service->id }}"
@@ -92,7 +115,7 @@
 
                                             <th>
                                                 <div class="form-group ">
-                                                    <input class="form-control saida_obra"
+                                                    <input class="form-control form-control-sm saida_obra"
                                                         name="saida[]"
                                                         required readonly tabindex="-1"
                                                         value="{{ !empty($service->saida) ? $service->saida : '' }}" />
@@ -100,7 +123,7 @@
                                             </th>
 
                                             <th>
-                                                <input class="form-control hours"
+                                                <input class="form-control form-control-sm hours"
                                                     name="horas[]"
                                                     id="hours_{{ $service->id }}" readonly
                                                     data-id="{{ $service->id }}"
@@ -109,7 +132,7 @@
                                             </th>
 
                                             <th>
-                                                <select name="codigo_sap[]" class="form-control select2 codigo_sap"
+                                                <select name="codigo_sap[]" class="form-control form-control-sm select2 codigo_sap"
                                                     placeholder="Código SAP"
                                                     data-id="{{ $service->id }}">
                                                     @if (!empty($service->codigo_sap))
@@ -123,7 +146,7 @@
                                             </th>
 
                                             <th>
-                                                <input class="form-control description_sap"
+                                                <input class="form-control form-control-sm description_sap"
                                                     name="description[]"
                                                     id="description_sap_{{ $service->id }}"
                                                     value="{{ !empty($service->description) ? $service->description : (!empty($service->handswork) ? $service->handswork->description : '') }}" />
@@ -134,13 +157,13 @@
                                                 <input
                                                     min="0"
                                                     type="number"
-                                                    class="form-control conversion"
+                                                    class="form-control form-control-sm conversion"
                                                     name="qnt_atividade[]" id="conversion_{{ $service->id }}"
                                                     data-id="{{ $service->id }}"
                                                     value="{{ !empty($service->qnt_atividade) ? $service->qnt_atividade : '0' }}" />
                                             </th>
                                             <th>
-                                                <input class="form-control price_total_hours money"
+                                                <input class="form-control form-control-sm price_total_hours money"
                                                     name="preco[]"
                                                     id="price_total_hours_{{ $service->id }}"
                                                     value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
@@ -188,7 +211,7 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th scope="row">
+                                        <th scope="row" style="width: 9%;">
                                             Total R$ :
                                         </th>
                                         <td class="total" colspan="2"></td>
@@ -285,8 +308,8 @@
             let tableCodigo = $('#table-codigos-rdse');
             let bodyCodigo = tableCodigo.find('tbody');
 
-            let tableQntAtividade  = $('#table-qnt-rdse');
-            let bodyQntAtividade  = tableQntAtividade.find('tbody');
+            let tableQntAtividade = $('#table-qnt-rdse');
+            let bodyQntAtividade = tableQntAtividade.find('tbody');
 
             bodyCodigo.html('');
             bodyQntAtividade.html('');
