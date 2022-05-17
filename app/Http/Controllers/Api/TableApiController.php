@@ -151,7 +151,7 @@ class TableApiController extends Controller
     {
         $handsworks = new Handswork();
 
-        $searchColumns = ['id', 'description', 'price', 'price_ups'];
+        $searchColumns = ['id', 'description', 'price', 'price_ups', 'code'];
 
         $handsworks = $handsworks
             ->where(function ($query) use ($searchColumns) {
