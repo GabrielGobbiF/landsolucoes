@@ -217,6 +217,10 @@ class TableApiController extends Controller
                 if (!empty($filters['status'])) {
                     $query->where('rdses.status', $filters['status']);
                 }
+            })->where(function ($query) use ($filters) {
+                if (!empty($filters['type'])) {
+                    $query->where('rdses.type', $filters['type']);
+                }
             })
             ->where('modelo', 0)
             ->orderBy($this->sort, $this->order)

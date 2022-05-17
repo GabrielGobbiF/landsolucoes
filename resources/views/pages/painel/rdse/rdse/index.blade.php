@@ -11,12 +11,21 @@
                     <select name="status" id="select--status" class="form-control select2 search-input">
                         @foreach (__trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
-                                {{ (!request()->filled('status') && $text == 'Em Medição'
-                                        ? ' selected="selected"'
-                                        : request()->filled('status') && request()->input('status') == $status)
-                                    ? ' selected="selected"'
-                                    : '' }}>
+                                {{ (!request()->filled('status') && $text == 'Em Medição' ? ' selected="selected"' : request()->filled('status') && request()->input('status') == $status) ? ' selected="selected"' : '' }}>
                                 {{ $text }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Tipo</label>
+                    <select name="type" id="select--type" class="form-control select2 search-input">
+                        <option value="">Selecione</option>
+                        @foreach (config('admin.rdse.type') as $type)
+                            <option value='{{ $type['name'] }}'
+                                {{ (!request()->filled('type') && $type['name'] == 'Em Medição' ? ' selected="selected"' : request()->filled('type') && request()->input('type') == $type['name']) ? ' selected="selected"' : '' }}>
+                                {{ $type['name'] }}
                             </option>
                         @endforeach
                     </select>
@@ -31,34 +40,14 @@
                                 <button type="button" data-toggle="modal" data-target="#modal-add-rdse" class="btn btn-dark waves-effect waves-light">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Novo
                                 </button>
-                                @php
-                                    $state = 'pending';
-                                @endphp
-                                @if (request()->input('status') == 'pending')
-                                    @php
-                                        $state = 'approved';
-                                    @endphp
-                                    <button type="button" data-toggle="modal" data-target="#modal-finalize" class="btn btn-warning waves-effect waves-light">
-                                        <i class="fas fa-archive"></i> Finalizar Medições
-                                    </button>
-                                @elseif(request()->input('status') == 'approved')
-                                    @php
-                                        $state = 'pending';
-                                    @endphp
-                                    <button type="button" data-toggle="modal" data-target="#modal-finalize" class="btn btn-info waves-effect waves-light">
-                                        <i class="fas fa-archive"></i> Retirar Aprovações
-                                    </button>
-                                    <button type="button" data-toggle="modal" data-target="#modal-faturar" class="btn btn-warning waves-effect waves-light">
-                                        <i class="fas fa-hand-holding-usd"></i> Faturar
-                                    </button>
-                                @endif
+                                <button id="button" class="btn btn-secondary"><i class="fas fa-file-export"></i> Enviar para Aprovação</button>
                             </div>
                         </div>
-
                     </div>
-                    <table data-toggle="table" id="table-api" data-table="rdses" data-on-click="true">
+                    <table data-toggle="table" id="ttable" data-table="rdses" data-on-click="true">
                         <thead class="thead-light">
                             <tr>
+                                <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true">Nº Ordem</th>
                                 <th data-field="description">Descrição</th>
@@ -76,109 +65,125 @@
         </div>
     </div>
 
-    <div class='modal modal-rdse-status' id='modal-finalize' tabindex='-1' role='dialog'>
-        <div class='modal-dialog  modal-dialog-centered' role='document'>
-            <div class='modal-content'>
-                <form id='form-update-status' role='form' class='needs-validation' action='{{ route('rdse.update.status', [$state]) }}' method='POST'>
-                    @csrf
-                    @method('put')
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Escolha as medições</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                            <span aria-hidden='true'>&times;</span>
-                        </button>
-                    </div>
-                    <div class='modal-body'>
-                        <select name='medicoes[]' class='form-control select2 medicoes'></select>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary btn-submit'>Enviar</button>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class='modal modal-rdse-status' id='modal-faturar' tabindex='-1' role='dialog'>
-        <div class='modal-dialog  modal-dialog-centered' role='document'>
-            <div class='modal-content'>
-                <form id='form-update-status' role='form' class='needs-validation' action='{{ route('rdse.update.status', ['invoice']) }}' method='POST'>
-                    @csrf
-                    @method('put')
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Escolha as medições para faturar</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                            <span aria-hidden='true'>&times;</span>
-                        </button>
-                    </div>
-                    <div class='modal-body'>
-                        <select name='medicoes[]' class='form-control select2 medicoes'></select>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary btn-submit'>Faturar</button>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
 @endsection
 
 @section('scripts')
     <script>
-        $('#select--status').on('change', function() {
-            let state = $(this).val();
-            window.location.href = `${base_url}/rdse/rdse?status=${state}`;
-        })
+        jQuery(function() {
 
-        $('.modal-rdse-status').on("show.bs.modal", function() {
-            let modal = $(this);
-            modal.find('.select2').each(function() {
-                $(this).select2({
-                    multiple: true,
-                    minimumInputLength: 3,
-                    language: "pt-br",
-                    closeOnSelect: false,
-                    dropdownParent: $(`#${modal.attr('id')} .modal-content`),
-                    formatNoMatches: function() {
-                        return "Pesquisa não encontrada";
+            'use strict'
+
+
+            initTable();
+        });
+
+        function initTable() {
+            const BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
+            const BASE_URL = $('meta[name="js-base_url"]').attr('content');
+            const URL = $('meta[name="url"]').attr('content');
+
+            const $table = $('#ttable');
+            var dataTable = $table.attr('data-table');
+            var order = $table.attr('order');
+            var filter = {};
+            let $button = $('#button')
+
+            $('#preloader-content').remove();
+
+            $('.table-api').append(preload());
+
+            $.each($('.search-input'), function() {
+                if ($(this).attr('name') != undefined) {
+                    filter[$(this).attr('name')] = $(this).val() ?? '';
+                }
+            });
+
+            if ($table.length > 0) {
+                var paginate = $table.attr('data-paginate') != undefined ? false : true;
+                var eExport = $table.attr('data-export') != undefined ? false : true;
+                var showColumns = $table.attr('data-collums') != undefined ? false : true;
+                var clickToSelect = $table.attr('data-click-select') != undefined ? false : true;
+                var click = $table.attr('data-click');
+
+                $table.bootstrapTable('refreshOptions', {
+                    locale: 'pt-BR',
+                    method: 'get',
+                    url: `${BASE_URL_API}${dataTable}`,
+                    dataType: 'json',
+                    classes: 'table table-hover table-striped table-sm',
+                    pageList: "[10, 25, 50, 100, all]",
+                    cookie: true,
+                    cache: true,
+                    search: true,
+                    showExport: eExport,
+                    showColumns: showColumns,
+                    idField: 'id',
+                    toolbar: '#toolbar',
+                    buttonsClass: 'dark',
+                    showColumnsToggleAll: true,
+                    pageSize: 20,
+                    cookieIdTable: dataTable,
+                    queryParamsType: 'all',
+                    striped: true,
+                    pagination: paginate,
+                    sidePagination: "server",
+                    pageNumber: 1,
+                    cookiesEnabled: "['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']",
+                    mobileResponsive: true,
+                    queryParams: function(p) {
+                        return {
+                            sort: p.sortName ?? order,
+                            order: p.sortOrder,
+                            search: p.searchText,
+                            page: p.pageNumber,
+                            pageSize: paginate ? p.pageSize : 'all',
+                            filter: filter ?? {}
+                        };
                     },
-                    inputTooShort: function() {
-                        return "Digite para Pesquisar";
+                    responseHandler: function(res) {
+                        return {
+                            total: res.meta ? res.meta.total : null,
+                            rows: res.data
+                        };
                     },
-                    ajax: {
-                        url: `${base_url}/v1/api/rdses`,
-                        dataType: 'json',
-                        data: function(term, page) {
-                            return {
-                                search: term, //search term
-                                filter: {
-                                    status: `{{ request()->input('status') ?? 'pending' }}`,
-                                }
-                            };
-                        },
-                        processResults: function(data, page) {
-                            var myResults = [];
-                            $.each(data.data, function(index, item) {
-                                myResults.push({
-                                    'id': item.id,
-                                    'text': `${item.n_order} - ${item.description}`,
-                                });
-                            });
-                            return {
-                                results: myResults
-                            };
+                    onClickCell: function(field, value, row, $element) {
+                        console.log(field);
+                        return;
+                        if (click == 'false') {
+                            return;
+                        }
+                        if (field != 'statusButton') {
+                            window.location.href = `${BASE_URL}${URL}/${row.id}`
                         }
                     },
-                    escapeMarkup: function(m) {
-                        return m;
-                    }
+                    onLoadSuccess: function() {
+                        $('#preloader-content').remove();
+                        $('.table-responsive').removeClass('d-none');
+                    },
+                });
+            }
+
+            $('.search-input .modify').on('change', function() {
+                initTable();
+            })
+
+            $(function() {
+                $button.click(function() {
+                    
                 })
             })
-        })
+        }
+
+        function preload() {
+            var preload = ''
+            preload += `<div class="text-center" id="preloader-content">`;
+            preload += `    <div class="spinner-border text-primary m-1 align-self-center" role="status">`;
+            preload += `        <span class="sr-only"></span>`;
+            preload += `    </div>`;
+            preload += `</div>`;
+            return preload;
+        }
     </script>
 @append
