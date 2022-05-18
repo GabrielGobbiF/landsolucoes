@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Painel\RDSE\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\HandsworksResource;
+use App\Http\Resources\RdseResource;
 use App\Models\RSDE\Handswork;
 use App\Models\RSDE\Rdse;
 use App\Models\RSDE\RdseServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class RdseApiController extends Controller
 {
@@ -137,5 +140,53 @@ class RdseApiController extends Controller
                 return response()->json('Não foi possivel reordernar', 500);
             }
         }
+    }
+
+    public function getRdsesByGroup(Request $request)
+    {
+        $response = [];
+
+        $arrayGroupByRdseByType = [];
+
+        $allRdse = [];
+
+        $rdses = $request->input('rdses');
+
+        foreach ($rdses as $rdse) {
+            $rdseDecode = json_decode($rdse);
+            $rdseId = $rdseDecode->id;
+            $getRdse = Rdse::find($rdseId) ?? null;
+
+            if ($getRdse) {
+                $allRdse[] =  $getRdse;
+            }
+        }
+
+        $groupByRdseByType = collect($allRdse)->groupby('type');
+
+        foreach ($groupByRdseByType as $groupRdse => $itens) {
+            $lotes = DB::select('SELECT lote FROM rdses where type = ? and modelo = 0 group by lote', [
+                $groupRdse
+            ]);
+
+            $lotes = DB::table('rdses')
+                ->select('lote')
+                ->where('type', $groupRdse)
+                ->whereNotNull('lote')
+                ->where('modelo', 0)
+                ->groupBy('lote')
+                ->get();
+
+            $l = $lotes->map(function ($rdse) {
+                return $rdse->lote == 0 ? 1 : $rdse->lote + 1;
+            });
+
+            $arrayGroupByRdseByType[$groupRdse] = [
+                "lotes" => $l,
+                "itens" => RdseResource::collection($itens)
+            ];
+        }
+
+        return response()->json($arrayGroupByRdseByType, 200);
     }
 }

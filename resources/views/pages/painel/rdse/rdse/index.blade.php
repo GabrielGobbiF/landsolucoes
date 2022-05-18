@@ -69,40 +69,57 @@
         </div>
     </div>
 
-    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>
-    </button>
-    <div class='modal' id='exampleModal' tabindex='-1' role='dialog'>
-        <div class='modal-dialog' role='document'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Enviar medições para "Aprovação"</h5>
-                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                    </button>
-                </div>
-                <div class='modal-body'>
-                    <div class='form-group'>
-                        <label for='input--lote'>As medições serão enviadas para o ultimo lote:</label>
-                        <select name='' class='form-control select2'>
-                            <option value="1">Lote: 1</option>
-                            <option value="2">Lote: 2</option>
-                            <option value="3" selected>Lote: 3</option>
-                        </select>
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="form-rdse_change_status" role="form" class="needs-validation" action="" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title">Enviar medições para "Aprovação"</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary btn-submit'>Enviar</button>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-submit-rdse_change_status">Enviar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
+    <div class="pos-fixed b-10 r-10 z-index-200 d-none" id="rdses-downloading">
+        <div class='card'>
+            <form id='form-download-rdse' role='form' class='needs-validation' action='' method='POST'>
+                <input type="hidden" id="rdse--input" name="rdse">
+                <input id="rdse--id" name="rdseId" class="d-none">
+                @csrf
+                <div class='card-header bg-primary'>
+                    <h6 class="tx-white mg-b-0 mg-r-auto">Selecionados</h6>
+                </div>
+                <div class='card-body pd-15' id="rdses-row">
+                </div>
+                <div class="card-footer">
+                    <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states button-pending"><i class="fas fa-file-export"></i> Enviar para
+                        Aprovação
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('panel/js/pages/rdse/rdse.js') }}"></script>
+
     <script>
         jQuery(function() {
             'use strict'
@@ -111,12 +128,74 @@
             initTable();
         });
 
+        $('#select--status').on('change', function() {
+            let state = $(this).val();
+            window.location.href = `${base_url}/rdse/rdse?status=${state}`;
+        })
+
+
         function initButtons() {
             let selected = $('#select--status').val();
-            $(`button[data-type="${selected}"]`).removeClass('d-none');
+            //$(`button[data-type="${selected}"]`).removeClass('d-none');
         }
 
         function initTable() {
+            /**
+             * Rdse Selecionados
+             */
+            const getRdseSelected = function() {
+                return localStorage.getItem('rdse-selecteds') ? JSON.parse(localStorage.getItem('rdse-selecteds')) : [];
+            }
+
+            const setRdseSelected = function(rdsesItems) {
+                localStorage.setItem('rdse-selecteds', JSON.stringify(rdsesItems));
+                getDivItensSelected();
+            }
+
+            const hasItemSelected = function(item) {
+                let rdses = getRdseSelected();
+                if (!item.id)
+                    return false
+                return rdses.some(rdse => item.id == rdse.id)
+            }
+
+            const getDivItensSelected = function() {
+                let rdses = getRdseSelected();
+                let obj = Object.keys(rdses).map(f => rdses[f].id);
+                let implode = obj.join([obj = ',']);
+                $('#rdses-row').html('');
+                if (rdses.length > 0) {
+                    $.each(rdses, function(index, value) {
+                        $('#rdses-row').append('<h6>' + rdses[index]['name'] + ' <a href="javascript:void(0)" data-id="' + rdses[index]['id'] +
+                            '" class="removeItem"><i class="fas fa-trash ml-2 tx-danger"></i></a></h6>')
+                    });
+                    $("#rdses--input").val(JSON.stringify(rdses));
+                    $("#rdses--id").val(implode);
+                    $('#rdses-downloading').removeClass('d-none');
+                    $('.removeItem').on('click', function() {
+                        var id = $(this).attr('data-id');
+                        for (var i = 0; i < rdses.length; i++) {
+                            if (rdses[i].id == id) {
+                                rdses.splice(i, 1);
+                                localStorage.setItem('rdse-selecteds', JSON.stringify(rdses));
+                                getDivItensSelected();
+                            }
+                        }
+                    })
+                } else {
+                    $('#rdses-downloading').addClass('d-none');
+                }
+            }
+
+            const items = function() {
+                let rdses = getRdseSelected();
+                return rdses.map(({
+                    id
+                }) => ({
+                    id
+                }));
+            }
+
             const BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
             const BASE_URL = $('meta[name="js-base_url"]').attr('content');
             const URL = $('meta[name="url"]').attr('content');
@@ -203,27 +282,49 @@
                     'check-all.bs.table uncheck-all.bs.table',
                     function() {
                         $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
-
                         selections = getIdSelections()
                     })
 
                 function getIdSelections() {
                     return $.map($table.bootstrapTable('getSelections'), function(row) {
-                        return row.id
+                        let item = {
+                            id: row.id,
+                            name: `${row.id} - ${row.n_order} - ${row.description} - ${row.type}`
+                        }
+                        saveItemRdses(item);
                     })
                 }
+
+                const saveItemRdses = function(item) {
+                    let rdses = getRdseSelected()
+                    if (hasItemSelected(item)) {
+                        rdses.forEach(rdseItem => {
+                            if (rdseItem.id == item.id) {
+                                rdseItem.name = item.name
+                            }
+                        })
+                    } else {
+                        if (!item.id)
+                            item.id = rdses.length + 1
+                        rdses.push(item)
+                    }
+                    setRdseSelected(rdses)
+                }
+
+                $table.on('check.bs.table uncheck.bs.table ' +
+                    'check-all.bs.table uncheck-all.bs.table',
+                    function() {
+                        selections = getIdSelections();
+                    })
             }
 
             $('.search-input .modify').on('change', function() {
                 initTable();
             })
 
-            $(function() {
-                $('#button-pending').on('click', function(e) {
-                    console.log($table.bootstrapTable('getSelections'));
-                    alert($table.bootstrapTable('getSelections'))
-                })
-            })
+
+            getDivItensSelected();
+
         }
 
         function preload() {
