@@ -17,24 +17,24 @@
             text-transform: uppercase;
         }
 
-        .select2-selection__rendered {
+        #services-tab .select2-selection__rendered {
             line-height: 27px !important;
         }
 
-        .select2-container .select2-selection--single {
+        #services-tab .select2-container .select2-selection--single {
             height: 1.8rem !important
         }
 
-        .select2-selection__arrow {
+        #services-tab .select2-selection__arrow {
             height: 1.8rem !important
         }
 
-        .form-group {
+        #services-tab .form-group {
             margin-bottom: 0rem !important;
         }
 
-        .table th,
-        .table td {
+        #services-tab .table th,
+        #services-tab .table td {
             padding: 0.2rem !important;
             padding-top: 0.3rem !important;
             padding-bottom: 0.3rem !important;
