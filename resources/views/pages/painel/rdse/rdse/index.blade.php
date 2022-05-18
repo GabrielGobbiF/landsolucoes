@@ -40,7 +40,11 @@
                                 <button type="button" data-toggle="modal" data-target="#modal-add-rdse" class="btn btn-dark waves-effect waves-light">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Novo
                                 </button>
-                                <button id="button" class="btn btn-secondary"><i class="fas fa-file-export"></i> Enviar para Aprovação</button>
+                                <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Enviar para
+                                    Aprovação
+                                </button>
+                                <button id="button-approval" type="button" data-type="approval" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Aprovar</button>
+                                <button id="button-type" type="button" data-type="approved" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Faturar</button>
                             </div>
                         </div>
                     </div>
@@ -65,6 +69,35 @@
         </div>
     </div>
 
+    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>
+    </button>
+    <div class='modal' id='exampleModal' tabindex='-1' role='dialog'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title'>Enviar medições para "Aprovação"</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <div class='form-group'>
+                        <label for='input--lote'>As medições serão enviadas para o ultimo lote:</label>
+                        <select name='' class='form-control select2'>
+                            <option value="1">Lote: 1</option>
+                            <option value="2">Lote: 2</option>
+                            <option value="3" selected>Lote: 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary btn-submit'>Enviar</button>
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
 @endsection
@@ -72,12 +105,16 @@
 @section('scripts')
     <script>
         jQuery(function() {
-
             'use strict'
 
-
+            initButtons();
             initTable();
         });
+
+        function initButtons() {
+            let selected = $('#select--status').val();
+            $(`button[data-type="${selected}"]`).removeClass('d-none');
+        }
 
         function initTable() {
             const BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
@@ -88,7 +125,7 @@
             var dataTable = $table.attr('data-table');
             var order = $table.attr('order');
             var filter = {};
-            let $button = $('#button')
+            let selections = [];
 
             $('#preloader-content').remove();
 
@@ -112,7 +149,7 @@
                     method: 'get',
                     url: `${BASE_URL_API}${dataTable}`,
                     dataType: 'json',
-                    classes: 'table table-hover table-striped table-sm',
+                    classes: 'table table-hover table-striped ',
                     pageList: "[10, 25, 50, 100, all]",
                     cookie: true,
                     cache: true,
@@ -149,9 +186,7 @@
                         };
                     },
                     onClickCell: function(field, value, row, $element) {
-                        console.log(field);
-                        return;
-                        if (click == 'false') {
+                        if (click == 'false' || field == 'state') {
                             return;
                         }
                         if (field != 'statusButton') {
@@ -163,6 +198,20 @@
                         $('.table-responsive').removeClass('d-none');
                     },
                 });
+
+                $table.on('check.bs.table uncheck.bs.table ' +
+                    'check-all.bs.table uncheck-all.bs.table',
+                    function() {
+                        $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
+
+                        selections = getIdSelections()
+                    })
+
+                function getIdSelections() {
+                    return $.map($table.bootstrapTable('getSelections'), function(row) {
+                        return row.id
+                    })
+                }
             }
 
             $('.search-input .modify').on('change', function() {
@@ -170,8 +219,9 @@
             })
 
             $(function() {
-                $button.click(function() {
-                    
+                $('#button-pending').on('click', function(e) {
+                    console.log($table.bootstrapTable('getSelections'));
+                    alert($table.bootstrapTable('getSelections'))
                 })
             })
         }
