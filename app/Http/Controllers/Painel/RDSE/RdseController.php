@@ -136,10 +136,17 @@ class RdseController extends Controller
 
     public function updateStatus(Request $request, $status)
     {
-        $ids = $request->only('medicoes', false);
+        $rdsesByGroup = $request->input('rdses', false);
 
-        if ($ids) {
-            Rdse::whereIn('id', $ids['medicoes'])->update(['status' => $status]);
+        if ($rdsesByGroup) {
+
+            foreach ($rdsesByGroup as $type => $itens){
+                Rdse::whereIn('id',$itens['itens'])->update([
+                    'lote' => $itens['lote'],
+                    'status' => $status
+                ]);
+            }
+            
         }
 
         return redirect()

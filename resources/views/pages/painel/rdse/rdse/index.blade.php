@@ -11,12 +11,21 @@
                     <select name="status" id="select--status" class="form-control select2 search-input">
                         @foreach (__trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
-                                {{ (!request()->filled('status') && $text == 'Em Medição'
-                                        ? ' selected="selected"'
-                                        : request()->filled('status') && request()->input('status') == $status)
-                                    ? ' selected="selected"'
-                                    : '' }}>
+                                {{ (!request()->filled('status') && $text == 'Em Medição' ? ' selected="selected"' : request()->filled('status') && request()->input('status') == $status) ? ' selected="selected"' : '' }}>
                                 {{ $text }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Tipo</label>
+                    <select name="type" id="select--type" class="form-control select2 search-input">
+                        <option value="">Selecione</option>
+                        @foreach (config('admin.rdse.type') as $type)
+                            <option value='{{ $type['name'] }}'
+                                {{ (!request()->filled('type') && $type['name'] == 'Em Medição' ? ' selected="selected"' : request()->filled('type') && request()->input('type') == $type['name']) ? ' selected="selected"' : '' }}>
+                                {{ $type['name'] }}
                             </option>
                         @endforeach
                     </select>
@@ -31,34 +40,18 @@
                                 <button type="button" data-toggle="modal" data-target="#modal-add-rdse" class="btn btn-dark waves-effect waves-light">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Novo
                                 </button>
-                                @php
-                                    $state = 'pending';
-                                @endphp
-                                @if (request()->input('status') == 'pending')
-                                    @php
-                                        $state = 'approved';
-                                    @endphp
-                                    <button type="button" data-toggle="modal" data-target="#modal-finalize" class="btn btn-warning waves-effect waves-light">
-                                        <i class="fas fa-archive"></i> Finalizar Medições
-                                    </button>
-                                @elseif(request()->input('status') == 'approved')
-                                    @php
-                                        $state = 'pending';
-                                    @endphp
-                                    <button type="button" data-toggle="modal" data-target="#modal-finalize" class="btn btn-info waves-effect waves-light">
-                                        <i class="fas fa-archive"></i> Retirar Aprovações
-                                    </button>
-                                    <button type="button" data-toggle="modal" data-target="#modal-faturar" class="btn btn-warning waves-effect waves-light">
-                                        <i class="fas fa-hand-holding-usd"></i> Faturar
-                                    </button>
-                                @endif
+                                <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Enviar para
+                                    Aprovação
+                                </button>
+                                <button id="button-approval" type="button" data-type="approval" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Aprovar</button>
+                                <button id="button-type" type="button" data-type="approved" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Faturar</button>
                             </div>
                         </div>
-
                     </div>
-                    <table data-toggle="table" id="table-api" data-table="rdses" data-on-click="true">
+                    <table data-toggle="table" id="ttable" data-table="rdses" data-on-click="true">
                         <thead class="thead-light">
                             <tr>
+                                <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true">Nº Ordem</th>
                                 <th data-field="description">Descrição</th>
@@ -76,48 +69,24 @@
         </div>
     </div>
 
-    <div class='modal modal-rdse-status' id='modal-finalize' tabindex='-1' role='dialog'>
-        <div class='modal-dialog  modal-dialog-centered' role='document'>
-            <div class='modal-content'>
-                <form id='form-update-status' role='form' class='needs-validation' action='{{ route('rdse.update.status', [$state]) }}' method='POST'>
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="form-rdse_change_status" role="form" class="needs-validation" action="" method="POST">
                     @csrf
-                    @method('put')
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Escolha as medições</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                            <span aria-hidden='true'>&times;</span>
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title">Enviar medições para "Aprovação"</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class='modal-body'>
-                        <select name='medicoes[]' class='form-control select2 medicoes'></select>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary btn-submit'>Enviar</button>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <div class="modal-body">
 
-    <div class='modal modal-rdse-status' id='modal-faturar' tabindex='-1' role='dialog'>
-        <div class='modal-dialog  modal-dialog-centered' role='document'>
-            <div class='modal-content'>
-                <form id='form-update-status' role='form' class='needs-validation' action='{{ route('rdse.update.status', ['invoice']) }}' method='POST'>
-                    @csrf
-                    @method('put')
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Escolha as medições para faturar</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                            <span aria-hidden='true'>&times;</span>
-                        </button>
                     </div>
-                    <div class='modal-body'>
-                        <select name='medicoes[]' class='form-control select2 medicoes'></select>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary btn-submit'>Faturar</button>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-submit-rdse_change_status">Enviar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </div>
                 </form>
             </div>
@@ -126,59 +95,246 @@
 
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
+    <div class="pos-fixed b-10 r-10 z-index-200 d-none" id="rdses-downloading">
+        <div class='card'>
+            <form id='form-download-rdse' role='form' class='needs-validation' action='' method='POST'>
+                <input type="hidden" id="rdse--input" name="rdse">
+                <input id="rdse--id" name="rdseId" class="d-none">
+                @csrf
+                <div class='card-header bg-primary'>
+                    <h6 class="tx-white mg-b-0 mg-r-auto">Selecionados</h6>
+                </div>
+                <div class='card-body pd-15' id="rdses-row">
+                </div>
+                <div class="card-footer">
+                    <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states button-pending"><i class="fas fa-file-export"></i> Enviar para
+                        Aprovação
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('panel/js/pages/rdse/rdse.js') }}"></script>
+
     <script>
+        jQuery(function() {
+            'use strict'
+
+            initButtons();
+            initTable();
+        });
+
         $('#select--status').on('change', function() {
             let state = $(this).val();
             window.location.href = `${base_url}/rdse/rdse?status=${state}`;
         })
 
-        $('.modal-rdse-status').on("show.bs.modal", function() {
-            let modal = $(this);
-            modal.find('.select2').each(function() {
-                $(this).select2({
-                    multiple: true,
-                    minimumInputLength: 3,
-                    language: "pt-br",
-                    closeOnSelect: false,
-                    dropdownParent: $(`#${modal.attr('id')} .modal-content`),
-                    formatNoMatches: function() {
-                        return "Pesquisa não encontrada";
+
+        function initButtons() {
+            let selected = $('#select--status').val();
+            //$(`button[data-type="${selected}"]`).removeClass('d-none');
+        }
+
+        function initTable() {
+            /**
+             * Rdse Selecionados
+             */
+            const getRdseSelected = function() {
+                return localStorage.getItem('rdse-selecteds') ? JSON.parse(localStorage.getItem('rdse-selecteds')) : [];
+            }
+
+            const setRdseSelected = function(rdsesItems) {
+                localStorage.setItem('rdse-selecteds', JSON.stringify(rdsesItems));
+                getDivItensSelected();
+            }
+
+            const hasItemSelected = function(item) {
+                let rdses = getRdseSelected();
+                if (!item.id)
+                    return false
+                return rdses.some(rdse => item.id == rdse.id)
+            }
+
+            const getDivItensSelected = function() {
+                let rdses = getRdseSelected();
+                let obj = Object.keys(rdses).map(f => rdses[f].id);
+                let implode = obj.join([obj = ',']);
+                $('#rdses-row').html('');
+                if (rdses.length > 0) {
+                    $.each(rdses, function(index, value) {
+                        $('#rdses-row').append('<h6>' + rdses[index]['name'] + ' <a href="javascript:void(0)" data-id="' + rdses[index]['id'] +
+                            '" class="removeItem"><i class="fas fa-trash ml-2 tx-danger"></i></a></h6>')
+                    });
+                    $("#rdses--input").val(JSON.stringify(rdses));
+                    $("#rdses--id").val(implode);
+                    $('#rdses-downloading').removeClass('d-none');
+                    $('.removeItem').on('click', function() {
+                        var id = $(this).attr('data-id');
+                        for (var i = 0; i < rdses.length; i++) {
+                            if (rdses[i].id == id) {
+                                rdses.splice(i, 1);
+                                localStorage.setItem('rdse-selecteds', JSON.stringify(rdses));
+                                getDivItensSelected();
+                            }
+                        }
+                    })
+                } else {
+                    $('#rdses-downloading').addClass('d-none');
+                }
+            }
+
+            const items = function() {
+                let rdses = getRdseSelected();
+                return rdses.map(({
+                    id
+                }) => ({
+                    id
+                }));
+            }
+
+            const BASE_URL_API = $('meta[name="js-base_url_api"]').attr('content');
+            const BASE_URL = $('meta[name="js-base_url"]').attr('content');
+            const URL = $('meta[name="url"]').attr('content');
+
+            const $table = $('#ttable');
+            var dataTable = $table.attr('data-table');
+            var order = $table.attr('order');
+            var filter = {};
+            let selections = [];
+
+            $('#preloader-content').remove();
+
+            $('.table-api').append(preload());
+
+            $.each($('.search-input'), function() {
+                if ($(this).attr('name') != undefined) {
+                    filter[$(this).attr('name')] = $(this).val() ?? '';
+                }
+            });
+
+            if ($table.length > 0) {
+                var paginate = $table.attr('data-paginate') != undefined ? false : true;
+                var eExport = $table.attr('data-export') != undefined ? false : true;
+                var showColumns = $table.attr('data-collums') != undefined ? false : true;
+                var clickToSelect = $table.attr('data-click-select') != undefined ? false : true;
+                var click = $table.attr('data-click');
+
+                $table.bootstrapTable('refreshOptions', {
+                    locale: 'pt-BR',
+                    method: 'get',
+                    url: `${BASE_URL_API}${dataTable}`,
+                    dataType: 'json',
+                    classes: 'table table-hover table-striped ',
+                    pageList: "[10, 25, 50, 100, all]",
+                    cookie: true,
+                    cache: true,
+                    search: true,
+                    showExport: eExport,
+                    showColumns: showColumns,
+                    idField: 'id',
+                    toolbar: '#toolbar',
+                    buttonsClass: 'dark',
+                    showColumnsToggleAll: true,
+                    pageSize: 20,
+                    cookieIdTable: dataTable,
+                    queryParamsType: 'all',
+                    striped: true,
+                    pagination: paginate,
+                    sidePagination: "server",
+                    pageNumber: 1,
+                    cookiesEnabled: "['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']",
+                    mobileResponsive: true,
+                    queryParams: function(p) {
+                        return {
+                            sort: p.sortName ?? order,
+                            order: p.sortOrder,
+                            search: p.searchText,
+                            page: p.pageNumber,
+                            pageSize: paginate ? p.pageSize : 'all',
+                            filter: filter ?? {}
+                        };
                     },
-                    inputTooShort: function() {
-                        return "Digite para Pesquisar";
+                    responseHandler: function(res) {
+                        return {
+                            total: res.meta ? res.meta.total : null,
+                            rows: res.data
+                        };
                     },
-                    ajax: {
-                        url: `${base_url}/v1/api/rdses`,
-                        dataType: 'json',
-                        data: function(term, page) {
-                            return {
-                                search: term, //search term
-                                filter: {
-                                    status: `{{ request()->input('status') ?? 'pending' }}`,
-                                }
-                            };
-                        },
-                        processResults: function(data, page) {
-                            var myResults = [];
-                            $.each(data.data, function(index, item) {
-                                myResults.push({
-                                    'id': item.id,
-                                    'text': `${item.n_order} - ${item.description}`,
-                                });
-                            });
-                            return {
-                                results: myResults
-                            };
+                    onClickCell: function(field, value, row, $element) {
+                        if (click == 'false' || field == 'state') {
+                            return;
+                        }
+                        if (field != 'statusButton') {
+                            window.location.href = `${BASE_URL}${URL}/${row.id}`
                         }
                     },
-                    escapeMarkup: function(m) {
-                        return m;
+                    onLoadSuccess: function() {
+                        $('#preloader-content').remove();
+                        $('.table-responsive').removeClass('d-none');
+                    },
+                });
+
+                $table.on('check.bs.table uncheck.bs.table ' +
+                    'check-all.bs.table uncheck-all.bs.table',
+                    function() {
+                        $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
+                        selections = getIdSelections()
+                    })
+
+                function getIdSelections() {
+                    return $.map($table.bootstrapTable('getSelections'), function(row) {
+                        let item = {
+                            id: row.id,
+                            name: `${row.id} - ${row.n_order} - ${row.description} - ${row.type}`
+                        }
+                        saveItemRdses(item);
+                    })
+                }
+
+                const saveItemRdses = function(item) {
+                    let rdses = getRdseSelected()
+                    if (hasItemSelected(item)) {
+                        rdses.forEach(rdseItem => {
+                            if (rdseItem.id == item.id) {
+                                rdseItem.name = item.name
+                            }
+                        })
+                    } else {
+                        if (!item.id)
+                            item.id = rdses.length + 1
+                        rdses.push(item)
                     }
-                })
+                    setRdseSelected(rdses)
+                }
+
+                $table.on('check.bs.table uncheck.bs.table ' +
+                    'check-all.bs.table uncheck-all.bs.table',
+                    function() {
+                        selections = getIdSelections();
+                    })
+            }
+
+            $('.search-input .modify').on('change', function() {
+                initTable();
             })
-        })
+
+
+            getDivItensSelected();
+
+        }
+
+        function preload() {
+            var preload = ''
+            preload += `<div class="text-center" id="preloader-content">`;
+            preload += `    <div class="spinner-border text-primary m-1 align-self-center" role="status">`;
+            preload += `        <span class="sr-only"></span>`;
+            preload += `    </div>`;
+            preload += `</div>`;
+            return preload;
+        }
     </script>
 @append

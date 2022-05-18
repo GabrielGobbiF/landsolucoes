@@ -23,9 +23,10 @@ class CreateRdsesTable extends Migration
             $table->string('n_order')->nullable();              // Nº de ordem
             $table->string('equipe')->nullable();               // Descrição
             $table->string('solicitante')->nullable();          // Descrição
+            $table->string('lote')->nullable();                 // Lote
             $table->date('at')->nullable();                     // Data
             $table->string('type');                             // Emergencia, LDS, Manutenção, Futurabilit, Civil
-            $table->string('status')->default('pending');       // pending, review, approved
+            $table->string('status')->default('pending');       // pending, review, approved, approval
             $table->string('modelo')->default(false);           // 1 true = é um modelo
 
             $table->timestamps();
