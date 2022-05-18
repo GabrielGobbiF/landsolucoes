@@ -34,6 +34,11 @@ class Rdse extends Model
         return $this->hasMany(RdseServices::class, 'rdse_id', 'id');
     }
 
+    public function getServicesTotal()
+    {
+        return $this->services()->sum('preco');
+    }
+
     public function getStatusLabelAttribute()
     {
         switch ($this->status) {

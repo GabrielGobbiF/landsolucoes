@@ -24,6 +24,7 @@ class RdseResource extends JsonResource
             'type' => $this->type,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
+            'valor_total' => 'R$ ' . maskPrice($this->getServicesTotal()),
         ];
     }
 

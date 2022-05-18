@@ -59,6 +59,7 @@
                                 <th data-field="solicitante" data-sortable="true">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
+                                <th data-field="valor_total" >Valor Total</th>
                                 <th data-field="status_label">Status</th>
                             </tr>
                         </thead>
