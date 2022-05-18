@@ -30,6 +30,8 @@ class CreateRdsesTable extends Migration
             $table->string('modelo')->default(false);           // 1 true = é um modelo
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

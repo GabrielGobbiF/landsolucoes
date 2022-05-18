@@ -67,6 +67,9 @@
                         @method('put')
                         @include('pages.painel._partials.forms.form-rdse')
                         <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
+                        <button type="button" class="btn btn-primary js-btn-delete float-left"
+                            data-text="Excluir RDSE" data-href="{{ route('rdse.destroy', $rdse->id) }}"><i class="fas fa-trash"></i>
+                        </button>
                     </form>
                 </div>
 

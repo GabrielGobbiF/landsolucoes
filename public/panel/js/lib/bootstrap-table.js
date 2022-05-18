@@ -27,10 +27,12 @@ function initTable() {
     });
 
     if ($table.length > 0) {
+
         var paginate = $table.attr('data-paginate') != undefined ? false : true;
         var eExport = $table.attr('data-export') != undefined ? false : true;
         var showColumns = $table.attr('data-collums') != undefined ? false : true;
         var clickToSelect = $table.attr('data-click-select') != undefined ? false : true;
+        var targetBlank = $table.attr('data-target') != undefined ? true : false;
         var click = $table.attr('data-click');
 
         $table.bootstrapTable('refreshOptions', {
@@ -79,7 +81,9 @@ function initTable() {
                     return;
                 }
                 if (field != 'statusButton') {
-                    window.location.href = `${BASE_URL}${URL}/${row.id}`
+
+                    targetBlank ? window.open(`${BASE_URL}${URL}/${row.id}`, '_blank')
+                        : window.location.href = `${BASE_URL}${URL}/${row.id}`;
                 }
             },
             onLoadSuccess: function () {
