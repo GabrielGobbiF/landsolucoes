@@ -61,6 +61,7 @@
                     <th>Descrição</th>
                     <th>Horas / <br>Qnt Atividade</th>
                     <th>Preço</th>
+                    
                     {{-- parcial --}}
                     <th>Parcial 1</th>
                     <th>Preço Parc 1</th>

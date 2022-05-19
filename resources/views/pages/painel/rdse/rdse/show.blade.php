@@ -57,14 +57,6 @@
                         <span class="d-none d-sm-block">Serviços</span>
                     </a>
                 </li>
-                {{--}}
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#table" role="tab">
-                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                        <span class="d-none d-sm-block">Tabela</span>
-                    </a>
-                </li>
-                {{--}}
             </ul>
 
             <div class="tab-content mt-3 text-muted">
@@ -194,17 +186,17 @@
                                     <div class="col-9"></div>
                                     <div class="col-3">
                                         <div class="row row-xs no-gutters">
-                                            <dt class="col-6">Total Espera</dt>
-                                            <dd class="col-6 total_espera" style="text-align: end;"></dd>
+                                            <dt class="col-sm-6">Total Espera</dt>
+                                            <dd class="col-sm-auto total_espera" style="text-align: end;"></dd>
 
-                                            <dt class="col-6">Total Serviços</dt>
-                                            <dd class="col-6 total_servico" style="text-align: end;"></dd>
+                                            <dt class="col-sm-6">Total Serviços</dt>
+                                            <dd class="col-sm-auto total_servico" style="text-align: end;"></dd>
 
-                                            <dt class="col-6">Total R$</dt>
-                                            <dd class="col-6 total" style="text-align: end;"></dd>
+                                            <dt class="col-sm-6">Total R$</dt>
+                                            <dd class="col-sm-auto total" style="text-align: end;"></dd>
 
-                                            <dt class="col-6 text-truncate">Total UPS</dt>
-                                            <dd class="col-6 total_ups" style="text-align: end;"></dd>
+                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                            <dd class="col-sm-auto total_ups" style="text-align: end;"></dd>
                                         </div>
                                     </div>
                                 </dl>
@@ -255,10 +247,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="tab-pane" id="table" role="tabpanel">
-                   @include('pages.painel.rdse.rdse.tab.table')
                 </div>
             </div>
         </div>
