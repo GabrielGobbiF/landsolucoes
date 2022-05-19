@@ -57,6 +57,14 @@
                         <span class="d-none d-sm-block">Serviços</span>
                     </a>
                 </li>
+                {{--}}
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#table" role="tab">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Tabela</span>
+                    </a>
+                </li>
+                {{--}}
             </ul>
 
             <div class="tab-content mt-3 text-muted">
@@ -179,61 +187,28 @@
                                             </th>
                                         </tr>
                                     @endforeach
-
-                                </tbody>
-                                <tbody>
-                                    <tr class="text-end">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th scope="row">
-                                            Total Espera :
-                                        </th>
-                                        <td class="total_espera" colspan="2"></td>
-                                    </tr>
-                                    <tr class="text-end">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th scope="row">
-                                            Total Serviços :
-                                        </th>
-                                        <td class="total_servico" colspan="2"></td>
-                                    </tr>
-
-                                    <tr class="text-end">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th scope="row" style="width: 9%;">
-                                            Total R$ :
-                                        </th>
-                                        <td class="total" colspan="2"></td>
-                                    </tr>
-
-                                    <tr class="text-end">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th scope="row">
-                                            Total UPS :
-                                        </th>
-                                        <td class="total_ups" colspan="2"></td>
-                                    </tr>
                                 </tbody>
                             </table>
+                            <div class="totais my-5">
+                                <dl class="row mb-0 row-xs no-gutters">
+                                    <div class="col-9"></div>
+                                    <div class="col-3">
+                                        <div class="row row-xs no-gutters">
+                                            <dt class="col-6">Total Espera</dt>
+                                            <dd class="col-6 total_espera" style="text-align: end;"></dd>
+
+                                            <dt class="col-6">Total Serviços</dt>
+                                            <dd class="col-6 total_servico" style="text-align: end;"></dd>
+
+                                            <dt class="col-6">Total R$</dt>
+                                            <dd class="col-6 total" style="text-align: end;"></dd>
+
+                                            <dt class="col-6 text-truncate">Total UPS</dt>
+                                            <dd class="col-6 total_ups" style="text-align: end;"></dd>
+                                        </div>
+                                    </div>
+                                </dl>
+                            </div>
                         </div>
                     </form>
 
@@ -280,6 +255,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="tab-pane" id="table" role="tabpanel">
+                   @include('pages.painel.rdse.rdse.tab.table')
                 </div>
             </div>
         </div>
@@ -399,6 +378,7 @@
 
             $('.chegada_obra, .qnt_minutos').on('keyup change', function() {
                 attLines();
+                attTotal();
             })
 
             $(`.select2.codigo_sap`).select2(optionsSelectSap);
@@ -534,40 +514,40 @@
                             </th>
                             <th>
                                 <div class="form-group">
-                                    <input type="time" class="form-control chegada_obra"
+                                    <input type="time" class="form-control form-control-sm  chegada_obra"
                                     id="chegada_obra_${line}" name="chegada[]" data-id="${line}" readonly tabindex="-1"/>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group ">
-                                    <input type="number" class="form-control qnt_minutos"
+                                    <input type="number" class="form-control form-control-sm  qnt_minutos"
                                     id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
                                 </div>
                             </th>
                         
                             <th>
                                 <div class="form-group ">
-                                    <input class="form-control saida_obra" name="saida[]" required readonly tabindex="-1"/>
+                                    <input class="form-control form-control-sm  saida_obra" name="saida[]" required readonly tabindex="-1"/>
                                 </div>
                             </th>
                         
                             <th>
-                                <input class="form-control hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
+                                <input class="form-control form-control-sm  hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
                             </th>
                         
                             <th>
-                                <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
+                                <select name="codigo_sap[]" class="form-control form-control-sm  select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
                                     <option value="" selected> Selecione  </option>  
                                 </select>
                             </th>
                         
                             <th>
-                                <input class="form-control description_sap" name="description[]" id="description_sap_${line}" />
+                                <input class="form-control form-control-sm  description_sap" name="description[]" id="description_sap_${line}" />
                             </th>
                         
                             <th>
                                 <input type="hidden" id="price_ups_${line}">
-                                <input class="form-control conversion" 
+                                <input class="form-control form-control-sm  conversion" 
                                 name="qnt_atividade[]" id="conversion_${line}" 
                                 data-id="${line}"
                                 tabindex="-1" 
@@ -575,7 +555,7 @@
                             </th>
                         
                             <th>
-                                <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
+                                <input class="form-control form-control-sm  price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
                             </th>
                         
                             <th>

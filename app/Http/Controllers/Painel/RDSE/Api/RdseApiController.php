@@ -144,8 +144,6 @@ class RdseApiController extends Controller
 
     public function getRdsesByGroup(Request $request)
     {
-        $response = [];
-
         $arrayGroupByRdseByType = [];
 
         $allRdse = [];
@@ -166,10 +164,6 @@ class RdseApiController extends Controller
         $groupByRdseByType = collect($allRdse)->groupby('type');
 
         foreach ($groupByRdseByType as $groupRdse => $itens) {
-            $lotes = DB::select('SELECT lote FROM rdses where type = ? and modelo = 0 group by lote', [
-                $groupRdse
-            ]);
-
             $lotes = DB::table('rdses')
                 ->select('lote')
                 ->where('status', $status)
@@ -179,10 +173,13 @@ class RdseApiController extends Controller
                 ->groupBy('lote')
                 ->get();
 
-
             $l = $lotes->map(function ($rdse) {
-                return $rdse->lote == 0 ? 1 : $rdse->lote + 1;
+                return $rdse->lote == 0 ? 1 : $rdse->lote;
             });
+
+            if (count($l) > 0) {
+                $l->push($l->last() + 1);
+            }
 
             $arrayGroupByRdseByType[$groupRdse] = [
                 "lotes" => count($l) > 0 ? $l : [1],
