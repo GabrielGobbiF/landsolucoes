@@ -3,6 +3,7 @@
 @section('title', "RDSE'S")
 
 @section('content')
+
     <div class="card">
         <div class="card-body">
             <div class="row mb-4">
@@ -30,6 +31,16 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="col-md-3 d-none" id="div-search_lote">
+                    <label>Lote</label>
+                    <select name="lote" id="select--lote" class="form-control select2 search-input">
+                        <option value="">Selecione</option>
+                        @foreach ($lotes as $lote)
+                            <option value='{{ $lote->lote }}'>{{ $lote->lote }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="table table-api">
@@ -40,11 +51,6 @@
                                 <button type="button" data-toggle="modal" data-target="#modal-add-rdse" class="btn btn-dark waves-effect waves-light">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Novo
                                 </button>
-                                <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Enviar para
-                                    Aprovação
-                                </button>
-                                <button id="button-approval" type="button" data-type="approval" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Aprovar</button>
-                                <button id="button-type" type="button" data-type="approved" class="btn btn-secondary btn-states d-none" disabled><i class="fas fa-file-export"></i> Faturar</button>
                             </div>
                         </div>
                     </div>
@@ -59,7 +65,7 @@
                                 <th data-field="solicitante" data-sortable="true">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
-                                <th data-field="valor_total" >Valor Total</th>
+                                <th data-field="valor_total">Valor Total</th>
                                 <th data-field="status_label">Status</th>
                             </tr>
                         </thead>
@@ -77,7 +83,7 @@
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title">Enviar medições para "Aprovação"</h5>
+                        <h5 class="modal-title"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -94,7 +100,6 @@
         </div>
     </div>
 
-    @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
     <div class="pos-fixed b-10 r-10 z-index-200 d-none" id="rdses-downloading">
         <div class='card'>
@@ -108,13 +113,14 @@
                 <div class='card-body pd-15' id="rdses-row">
                 </div>
                 <div class="card-footer">
-                    <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states button-pending"><i class="fas fa-file-export"></i> Enviar para
-                        Aprovação
-                    </button>
+                    @include('pages.painel.rdse._partials.buttons', [request()->input('status')])
                 </div>
             </form>
         </div>
     </div>
+
+
+    @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
 @endsection
 
@@ -124,19 +130,27 @@
     <script>
         jQuery(function() {
             'use strict'
-
             initButtons();
             initTable();
         });
 
         $('#select--status').on('change', function() {
             let state = $(this).val();
+            localStorage.setItem('rdse-selecteds', JSON.stringify([]));
             window.location.href = `${base_url}/rdse/rdse?status=${state}`;
         })
 
+        $('.search-input').on('change', function() {
+            if ($(this).attr('id') != 'select--status') {
+                initTable();
+            }
+        })
 
         function initButtons() {
             let selected = $('#select--status').val();
+            selected != 'pending' ?
+                $('#div-search_lote').removeClass('d-none') :
+                $('#div-search_lote').addClass('d-none')
             //$(`button[data-type="${selected}"]`).removeClass('d-none');
         }
 
@@ -282,7 +296,7 @@
                 $table.on('check.bs.table uncheck.bs.table ' +
                     'check-all.bs.table uncheck-all.bs.table',
                     function() {
-                        $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
+                       // $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
                         selections = getIdSelections()
                     })
 

@@ -25,13 +25,18 @@ const listRdsesGroupInDom = (data, status) => {
         });
         html += `
                     </ul>
-
+        `
+        if (status != 'pending') {
+            html +=
+                `
                     <label for='input--lote'>As medições serão enviadas para o ultimo lote:</label>
                     <select name='rdses[${type}][lote]' class='form-control select2'>
                     `
-        $.each(rdses.lotes, function (index, value) {
-            html += `<option selected value="${value}">Lote: ${value}</option>`
-        });
+
+            $.each(rdses.lotes, function (index, value) {
+                html += `<option selected value="${value}">Lote: ${value}</option>`
+            });
+        }
         html += `
                     </select>
                 </div>
@@ -39,12 +44,16 @@ const listRdsesGroupInDom = (data, status) => {
     });
 
     bodyModal.html(html);
+    modalRdseChangeStatus.find('.modal-title').html(`Enviar medições para "${status}"`)
     modalRdseChangeStatus.modal('show');
 }
 
 const getGroupRdseByType = async (status) => {
     const response = await axios.get(`${base_url}/api/v1/rdses/bygroup`, {
-        params: { rdses: JSON.parse(localStorage.getItem('rdse-selecteds')) }
+        params: {
+            rdses: JSON.parse(localStorage.getItem('rdse-selecteds')),
+            status: status
+        }
     });
     const data = await response.data;
     listRdsesGroupInDom(data, status)
@@ -56,6 +65,7 @@ $('#btn-submit-rdse_change_status').on('click', (e) => {
     $('#form-rdse_change_status').submit();
 })
 
-$('.button-pending').on('click', () => {
-    getGroupRdseByType('approval');
+$('.btn-states').on('click', (e) => {
+    let stateIn = e.target.getAttribute('data-type');
+    getGroupRdseByType(stateIn);
 })

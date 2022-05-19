@@ -151,6 +151,7 @@ class RdseApiController extends Controller
         $allRdse = [];
 
         $rdses = $request->input('rdses');
+        $status = $request->input('status');
 
         foreach ($rdses as $rdse) {
             $rdseDecode = json_decode($rdse);
@@ -171,18 +172,20 @@ class RdseApiController extends Controller
 
             $lotes = DB::table('rdses')
                 ->select('lote')
+                ->where('status', $status)
                 ->where('type', $groupRdse)
                 ->whereNotNull('lote')
                 ->where('modelo', 0)
                 ->groupBy('lote')
                 ->get();
 
+
             $l = $lotes->map(function ($rdse) {
                 return $rdse->lote == 0 ? 1 : $rdse->lote + 1;
             });
 
             $arrayGroupByRdseByType[$groupRdse] = [
-                "lotes" => $l,
+                "lotes" => count($l) > 0 ? $l : [1],
                 "itens" => RdseResource::collection($itens)
             ];
         }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Obra;
 use App\Models\RSDE\RdseServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RdseController extends Controller
 {
@@ -30,8 +31,16 @@ class RdseController extends Controller
 
         $request->merge(['status' => $status]);
 
+        $lotes = DB::table('rdses')
+            ->select('lote')
+            ->whereNotNull('lote')
+            ->where('lote', '<>', '0')
+            ->where('modelo', 0)
+            ->groupBy('lote')
+            ->get();
+
         return view('pages.painel.rdse.rdse.index', [
-            #'rdses' => $rdses
+            'lotes' => $lotes
         ])->with($request->only('status'));
     }
 
@@ -140,13 +149,12 @@ class RdseController extends Controller
 
         if ($rdsesByGroup) {
 
-            foreach ($rdsesByGroup as $type => $itens){
-                Rdse::whereIn('id',$itens['itens'])->update([
-                    'lote' => $itens['lote'],
+            foreach ($rdsesByGroup as $type => $itens) {
+                Rdse::whereIn('id', $itens['itens'])->update([
+                    'lote' => $itens['lote'] ?? 0,
                     'status' => $status
                 ]);
             }
-            
         }
 
         return redirect()
