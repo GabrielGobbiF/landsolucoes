@@ -91,6 +91,7 @@
 
             if (localStorage.getItem('obra-select_concessionaria_id')) {
                 $('#obra-select_concessionaria_id').val(JSON.parse(localStorage.getItem('obra-select_concessionaria_id'))).trigger('change');
+                initTable();
             }
 
             let time = null;
