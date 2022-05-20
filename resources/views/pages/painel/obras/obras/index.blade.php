@@ -1,4 +1,4 @@
-@extends("app")
+@extends('app')
 
 @section('title', 'Obras')
 
@@ -15,7 +15,7 @@
 
                         <div class="col-md-3">
                             <label for="fl_art_nome">Cliente</label>
-                            <select name="client_id" id="select--client_id" class="form-control select2 search-input">
+                            <select name="client_id" id="obra-select_client_id" class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
                                 @foreach ($clients as $client)
                                     <option value="{{ $client->id }}"> {{ $client->username }}</option>
@@ -25,7 +25,7 @@
 
                         <div class="col-md-3">
                             <label for="fl_art_nome">Concessionarias</label>
-                            <select name="concessionaria_id" id="select--concessionaria_id" class="form-control select2 search-input">
+                            <select name="concessionaria_id" id="obra-select_concessionaria_id" class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
                                 @foreach ($concessionarias as $concessionaria)
                                     <option value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}</option>
@@ -88,6 +88,11 @@
 @section('scripts')
     <script>
         $(function() {
+
+            if (localStorage.getItem('obra-select_concessionaria_id')) {
+                $('#obra-select_concessionaria_id').val(JSON.parse(localStorage.getItem('obra-select_concessionaria_id'))).trigger('change');
+            }
+
             let time = null;
             $('.btn-empty-search').on('click', function() {
                 $.each($('.search-input'), function() {
@@ -111,7 +116,9 @@
             //});
 
             $('.search-input').on('change keyup', function() {
-
+                const value = $(this).val();
+                const id = $(this).attr('id');
+                localStorage.setItem(id, JSON.stringify(value));
                 clearTimeout(time);
                 time = setTimeout(function() {
                     initTable();

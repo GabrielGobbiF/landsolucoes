@@ -47,6 +47,11 @@ class RdseServices extends Model
         return $this->belongsTo(Handswork::class, 'codigo_sap', 'id');
     }
 
+    public function partials()
+    {
+        return $this->hasMany(RdseServicesPartials::class, 'rdse_service_id', 'id');
+    }
+
     protected static function boot()
     {
         parent::boot();

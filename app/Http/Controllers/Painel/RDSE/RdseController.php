@@ -89,12 +89,22 @@ class RdseController extends Controller
         $typeRdse = $rdse->type;
         $priceUps = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first()['value'];
 
-        $rdseServices = $rdse->services()->with('handswork')->get();
+        $rdseServices = $rdse->services()->with('handswork', 'partials')->get();
+
+        //select partial from `rdse_services_partials` where `rdse_id` = 44 ORDER BY partial desc limit 1
+
+        $partialsCount = DB::table('rdse_services_partials')
+            ->select('partial')
+            ->where('rdse_id', $rdse->id)
+            ->orderBy('partial', 'desc')->limit(1)->first();
+
+        $partialCount = !empty($partialsCount) ? intval($partialsCount->partial) : 0;
 
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
-            'priceUps' => $priceUps
+            'priceUps' => $priceUps,
+            'partialsCount' => $partialCount
         ]);
     }
 
@@ -205,5 +215,32 @@ class RdseController extends Controller
         return redirect()
             ->back()
             ->with('message', 'Criado com sucesso');
+    }
+
+    public function addPartialRdse(Request $request, $rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->with('services')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        $partialsCount = DB::table('rdse_services_partials')
+            ->select('partial')
+            ->where('rdse_id', $rdse->id)
+            ->orderBy('partial', 'desc')->limit(1)->first();
+
+        $partialCount = !empty($partialsCount) ? intval($partialsCount->partial) + 1 : 1;
+
+        foreach ($rdse->services as $service) {
+            $service->partials()->create([
+                'rdse_id' => $rdse->id,
+                'partial' => $partialCount
+            ]);
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Parcial Criado com sucesso');
     }
 }

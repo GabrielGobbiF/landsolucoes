@@ -9,7 +9,7 @@
             <div class="row mb-4">
                 <div class="col-md-3">
                     <label>Status</label>
-                    <select name="status" id="select--status" class="form-control select2 search-input">
+                    <select name="status" id="rdse-select_status" class="form-control select2 search-input">
                         @foreach (__trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
                                 {{ (!request()->filled('status') && $text == 'Em Medição' ? ' selected="selected"' : request()->filled('status') && request()->input('status') == $status) ? ' selected="selected"' : '' }}>
@@ -100,7 +100,6 @@
         </div>
     </div>
 
-
     <div class="pos-fixed b-10 r-10 z-index-200 d-none" id="rdses-downloading">
         <div class='card'>
             <form id='form-download-rdse' role='form' class='needs-validation' action='' method='POST'>
@@ -119,7 +118,6 @@
         </div>
     </div>
 
-
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
 @endsection
@@ -134,20 +132,29 @@
             initTable();
         });
 
-        $('#select--status').on('change', function() {
+        $('#rdse-select_status').on('change', function() {
             let state = $(this).val();
             localStorage.setItem('rdse-selecteds', JSON.stringify([]));
-            window.location.href = `${base_url}/rdse/rdse?status=${state}`;
+            if (state != `{{ request()->input('status') }}`) {
+                window.location.href = `${base_url}/rdse/rdse?status=${state}`;
+            }
         })
 
+        if (localStorage.getItem('rdse-select_status')) {
+            $('#rdse-select_status').val(JSON.parse(localStorage.getItem('rdse-select_status'))).trigger('change');
+        }
+
         $('.search-input').on('change', function() {
-            if ($(this).attr('id') != 'select--status') {
+            const value = $(this).val();
+            const id = $(this).attr('id');
+            localStorage.setItem(id, JSON.stringify(value));
+            if ($(this).attr('id') != 'rdse-select_status') {
                 initTable();
             }
         })
 
         function initButtons() {
-            let selected = $('#select--status').val();
+            let selected = $('#rdse-select_status').val();
             selected != 'pending' ?
                 $('#div-search_lote').removeClass('d-none') :
                 $('#div-search_lote').addClass('d-none')
@@ -296,7 +303,7 @@
                 $table.on('check.bs.table uncheck.bs.table ' +
                     'check-all.bs.table uncheck-all.bs.table',
                     function() {
-                       // $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
+                        // $('.btn-states').attr('disabled', !$table.bootstrapTable('getSelections').length)
                         selections = getIdSelections()
                     })
 
