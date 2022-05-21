@@ -61,6 +61,14 @@
                         <span class="d-none d-sm-block">Serviços</span>
                     </a>
                 </li>
+                @if (!empty($rdse->obra_id))
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" href="{{ route('obras.show', $rdse->obra_id) }}">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            <span class="d-none d-sm-block">Obra</span>
+                        </a>
+                    </li>
+                @endif
 
             </ul>
         </div>
@@ -88,6 +96,11 @@
         <div class="tab-pane active show" id="rdse-services_tab" role="tabpanel">
             <div class='card'>
                 <div class='card-body'>
+                    <div class="float-right mb-2">
+                        <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
+                            {{ __trans('rdses.status_label.' . $rdse->status) }}
+                        </div>
+                    </div>
                     <form id='form-update-services-rdse' role='form' class='needs-validation' method='POST'>
                         <div id="services">
                             <table class="table table-hover table-sm">

@@ -146,6 +146,12 @@ class RdseController extends Controller
                 ->with('message', 'Registro (Rdsee) não encontrado!');
         }
 
+        if ($rdse->status != 'pending') {
+            return redirect()
+                ->route('rdse.show', $rdse->id)
+                ->with('error', 'Registro (Rdse) não pode ser deletado!');
+        }
+
         $rdse->delete();
 
         return redirect()
