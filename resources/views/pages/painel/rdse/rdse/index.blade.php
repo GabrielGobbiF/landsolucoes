@@ -287,7 +287,10 @@
                         $.each(res.data, function(index, value) {
                             total += parseFloat(value.valor)
                         });
-                        $('#totalTable').val(total);
+
+                        $('#totalTable').val(total.toLocaleString('pt-br', {
+                            minimumFractionDigits: 2
+                        }));
                         return {
                             total: res.meta ? res.meta.total : null,
                             rows: res.data
