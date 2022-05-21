@@ -41,6 +41,7 @@
                         @endforeach
                     </select>
                 </div>
+                <input type="hidden" id="totalTable">
             </div>
 
             <div class="table table-api">
@@ -65,7 +66,7 @@
                                 <th data-field="solicitante" data-sortable="true">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
-                                <th data-field="valor_total">Valor Total</th>
+                                <th data-field="valor_total" data-footer-formatter="idFormatter">Valor Total</th>
                                 <th data-field="status_label">Status</th>
                             </tr>
                         </thead>
@@ -270,6 +271,7 @@
                     pageNumber: 1,
                     cookiesEnabled: "['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']",
                     mobileResponsive: true,
+                    showFooter: true,
                     queryParams: function(p) {
                         return {
                             sort: p.sortName ?? order,
@@ -281,6 +283,11 @@
                         };
                     },
                     responseHandler: function(res) {
+                        var total = 0;
+                        $.each(res.data, function(index, value) {
+                            total += parseFloat(value.valor)
+                        });
+                        $('#totalTable').val(total);
                         return {
                             total: res.meta ? res.meta.total : null,
                             rows: res.data
@@ -297,8 +304,9 @@
                     onLoadSuccess: function() {
                         $('#preloader-content').remove();
                         $('.table-responsive').removeClass('d-none');
-                    },
+                    }
                 });
+
 
                 $table.on('check.bs.table uncheck.bs.table ' +
                     'check-all.bs.table uncheck-all.bs.table',
@@ -344,9 +352,12 @@
                 initTable();
             })
 
-
             getDivItensSelected();
 
+        }
+
+        function idFormatter(data, footerValue) {
+            return 'R$ ' + $('#totalTable').val()
         }
 
         function preload() {

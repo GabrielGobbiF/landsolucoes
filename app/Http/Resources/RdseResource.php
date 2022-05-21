@@ -14,6 +14,7 @@ class RdseResource extends JsonResource
      */
     public function toArray($request)
     {
+        $valorTotal = $this->getServicesTotal();
         return [
             'id' => $this->id,
             'description' => $this->description,
@@ -24,7 +25,8 @@ class RdseResource extends JsonResource
             'type' => $this->type,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
-            'valor_total' => 'R$ ' . maskPrice($this->getServicesTotal()),
+            'valor_total' => 'R$ ' . maskPrice($valorTotal),
+            'valor' => $valorTotal,
         ];
     }
 
