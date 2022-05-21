@@ -55,13 +55,13 @@
                         <span class="d-none d-sm-block">Dados</span>
                     </a>
                 </li>
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link active" data-toggle="tab" href="#rdse-services_tab" role="tab">
-                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                            <span class="d-none d-sm-block">Serviços</span>
-                        </a>
-                    </li>
-              
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link active" data-toggle="tab" href="#rdse-services_tab" role="tab">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Serviços</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -196,8 +196,12 @@
                                 </tbody>
                             </table>
                             <div class="totais my-5">
-                                <dl class="row mb-0 row-xs no-gutters">
-                                    <div class="col-9"></div>
+                                <dl class="row mb-0 ">
+                                    <div class="col-6">
+                                        <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
+                                            class="form-control input-update">{{ $rdse->observations }}</textarea>
+                                    </div>
+                                    <div class="col-3"></div>
                                     <div class="col-3">
                                         <div class="row row-xs no-gutters">
                                             <dt class="col-sm-6">Total Espera</dt>
@@ -690,5 +694,20 @@
                 minimumFractionDigits: 2
             })
         }
+
+        let timeUpdate
+        $('.input-update').on('keyup', function() {
+            let collumn = $(this).attr('name');
+            let value = $(this).val();
+            clearTimeout(timeUpdate);
+            timeUpdate = setTimeout(function() {
+                axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
+                    collumn: collumn,
+                    value: value,
+                }).catch(error => {
+                    toastr.error(error)
+                });
+            }, 900);
+        });
     </script>
 @append

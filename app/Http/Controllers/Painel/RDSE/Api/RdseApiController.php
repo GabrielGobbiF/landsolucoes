@@ -48,6 +48,29 @@ class RdseApiController extends Controller
         return response()->json($service->id, 200);
     }
 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Rdse  $identify
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, int $identify)
+    {
+        $columns = $request->input('collumn');
+        $value = $request->input('value');
+
+        if (!$rdse = $this->repository->where('id', $identify)->first()) {
+            return response()->json('Object RDSE not found in scope', 404);
+        }
+
+        $rdse->update([
+            $columns => $value
+        ]);
+
+        return response()->json(true, 200);
+    }
+
     public function updateServices(Request $request, $rdseId)
     {
         $columns = $request->all();

@@ -28,6 +28,7 @@ class CreateRdsesTable extends Migration
             $table->string('type');                             // Emergencia, LDS, Manutenção, Futurabilit, Civil
             $table->string('status')->default('pending');       // pending, review, approved, approval
             $table->string('modelo')->default(false);           // 1 true = é um modelo
+            $table->longtext('observations')->nullable();             // 1 true = é um modelo
 
             $table->timestamps();
 
