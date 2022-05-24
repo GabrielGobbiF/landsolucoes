@@ -381,7 +381,7 @@
         }
 
         function valor_ups_sum(data, footerValue) {
-            return 'R$ ' + $('#totalUpsTable').val()
+            return  $('#totalUpsTable').val()
         }
 
         function preload() {

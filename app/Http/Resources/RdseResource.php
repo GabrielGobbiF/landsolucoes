@@ -31,7 +31,7 @@ class RdseResource extends JsonResource
             'status_label' => $this->getStatusLabel(),
             'valor_total' => 'R$ ' . maskPrice($valorTotal),
             'valor' => $valorTotal,
-            'valor_ups' => 'R$ ' . maskPrice($valorUps),
+            'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
         ];
     }
