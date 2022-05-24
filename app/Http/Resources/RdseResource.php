@@ -15,6 +15,10 @@ class RdseResource extends JsonResource
     public function toArray($request)
     {
         $valorTotal = $this->getServicesTotal();
+
+        $typeRdse = $this->type;
+        $valorUps = $valorTotal / collect(config("admin.rdse.type", []))->where('name', $typeRdse)->first()['value'];
+
         return [
             'id' => $this->id,
             'description' => $this->description,
@@ -27,6 +31,8 @@ class RdseResource extends JsonResource
             'status_label' => $this->getStatusLabel(),
             'valor_total' => 'R$ ' . maskPrice($valorTotal),
             'valor' => $valorTotal,
+            'valor_ups' => 'R$ ' . maskPrice($valorUps),
+            'ups' => $valorUps,
         ];
     }
 

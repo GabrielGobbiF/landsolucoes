@@ -10,6 +10,7 @@
                 <div class="col-md-3">
                     <label>Status</label>
                     <select name="status" id="rdse-select_status" class="form-control select2 search-input">
+                        <option value="" class="">Selecione</option>
                         @foreach (__trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
                                 {{ (!request()->filled('status') && $text == 'Em Medição' ? ' selected="selected"' : request()->filled('status') && request()->input('status') == $status) ? ' selected="selected"' : '' }}>
@@ -21,7 +22,7 @@
 
                 <div class="col-md-3">
                     <label>Tipo</label>
-                    <select name="type" id="select--type" class="form-control select2 search-input">
+                    <select name="type" id="rdse-select--type" class="form-control select2 search-input">
                         <option value="">Selecione</option>
                         @foreach (config('admin.rdse.type') as $type)
                             <option value='{{ $type['name'] }}'
@@ -34,7 +35,7 @@
 
                 <div class="col-md-3 d-none" id="div-search_lote">
                     <label>Lote</label>
-                    <select name="lote" id="select--lote" class="form-control select2 search-input">
+                    <select name="lote" id="rdse-select--lote" class="form-control select2 search-input">
                         <option value="">Selecione</option>
                         @foreach ($lotes as $lote)
                             <option value='{{ $lote->lote }}'>{{ $lote->lote }}</option>
@@ -42,6 +43,7 @@
                     </select>
                 </div>
                 <input type="hidden" id="totalTable">
+                <input type="hidden" id="totalUpsTable">
             </div>
 
             <div class="table table-api">
@@ -66,7 +68,8 @@
                                 <th data-field="solicitante" data-sortable="true">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
-                                <th data-field="valor_total" data-footer-formatter="idFormatter">Valor Total</th>
+                                <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Total</th>
+                                <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
                                 <th data-field="status_label">Status</th>
                             </tr>
                         </thead>
@@ -143,6 +146,14 @@
 
         if (localStorage.getItem('rdse-select_status')) {
             $('#rdse-select_status').val(JSON.parse(localStorage.getItem('rdse-select_status'))).trigger('change');
+        }
+
+        if (localStorage.getItem('rdse-select--type')) {
+            $('#rdse-select--type').val(JSON.parse(localStorage.getItem('rdse-select--type'))).trigger('change');
+        }
+
+        if (localStorage.getItem('rdse-select--lote')) {
+            $('#rdse-select--lote').val(JSON.parse(localStorage.getItem('rdse-select--lote'))).trigger('change');
         }
 
         $('.search-input').on('change', function() {
@@ -263,13 +274,13 @@
                     buttonsClass: 'dark',
                     showColumnsToggleAll: true,
                     pageSize: 20,
-                    cookieIdTable: dataTable,
+                    cookieIdTable: 'rdseTable',
                     queryParamsType: 'all',
                     striped: true,
                     pagination: paginate,
                     sidePagination: "server",
                     pageNumber: 1,
-                    cookiesEnabled: "['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl']",
+                    cookiesEnabled: "['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.columns', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.columns', 'bs.table.searchText', 'bs.table.filterControl',]",
                     mobileResponsive: true,
                     showFooter: true,
                     queryParams: function(p) {
@@ -283,12 +294,18 @@
                         };
                     },
                     responseHandler: function(res) {
-                        var total = 0;
+                        var valorTotal = 0;
+                        var valorUpsTotal = 0;
                         $.each(res.data, function(index, value) {
-                            total += parseFloat(value.valor)
+                            valorTotal += parseFloat(value.valor)
+                            valorUpsTotal += parseFloat(value.ups)
                         });
 
-                        $('#totalTable').val(total.toLocaleString('pt-br', {
+                        $('#totalTable').val(valorTotal.toLocaleString('pt-br', {
+                            minimumFractionDigits: 2
+                        }));
+
+                        $('#totalUpsTable').val(valorUpsTotal.toLocaleString('pt-br', {
                             minimumFractionDigits: 2
                         }));
                         return {
@@ -359,8 +376,12 @@
 
         }
 
-        function idFormatter(data, footerValue) {
+        function valor_total_sum(data, footerValue) {
             return 'R$ ' + $('#totalTable').val()
+        }
+
+        function valor_ups_sum(data, footerValue) {
+            return 'R$ ' + $('#totalUpsTable').val()
         }
 
         function preload() {
