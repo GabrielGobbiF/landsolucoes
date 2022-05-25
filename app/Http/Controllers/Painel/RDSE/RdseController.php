@@ -231,19 +231,30 @@ class RdseController extends Controller
                 ->with('message', 'Registro (Rdsee) não encontrado!');
         }
 
-        $partialsCount = DB::table('rdse_services_partials')
-            ->select('partial')
-            ->where('rdse_id', $rdse->id)
-            ->orderBy('partial', 'desc')->limit(1)->first();
+        if ($rdse->parcial_1 == 0) {
+            $rdse->parcial_1 = 1;
+        } else if ($rdse->parcial_2 == 0) {
+            $rdse->parcial_2 = 1;
 
-        $partialCount = !empty($partialsCount) ? intval($partialsCount->partial) + 1 : 1;
-
-        foreach ($rdse->services as $service) {
-            $service->partials()->create([
-                'rdse_id' => $rdse->id,
-                'partial' => $partialCount
-            ]);
+        } else if ($rdse->parcial_3 == 0) {
+            $rdse->parcial_3 = 1;
         }
+
+        $rdse->update();
+
+        //$partialsCount = DB::table('rdse_services_partials')
+        //    ->select('partial')
+        //    ->where('rdse_id', $rdse->id)
+        //    ->orderBy('partial', 'desc')->limit(1)->first();
+        //
+        //$partialCount = !empty($partialsCount) ? intval($partialsCount->partial) + 1 : 1;
+        //
+        //foreach ($rdse->services as $service) {
+        //    $service->partials()->create([
+        //        'rdse_id' => $rdse->id,
+        //        'partial' => $partialCount
+        //    ]);
+        //}
 
         return redirect()
             ->back()

@@ -94,6 +94,15 @@ class RdseApiController extends Controller
                 $qnt_atividade = !empty($columns['qnt_atividade'][$i]) ? $columns['qnt_atividade'][$i] : '';
                 $preco = !empty($columns['preco'][$i]) ? $columns['preco'][$i] : '';
 
+                $p_quantidade1 = !empty($columns['p_quantidade1'][$i]) ? $columns['p_quantidade1'][$i] : '';
+                $p_preco1 = !empty($columns['p_preco1'][$i]) ? $columns['p_preco1'][$i] : '';
+
+                $p_quantidade2 = !empty($columns['p_quantidade2'][$i]) ? $columns['p_quantidade2'][$i] : '';
+                $p_preco2 = !empty($columns['p_preco2'][$i]) ? $columns['p_preco2'][$i] : '';
+
+                $p_quantidade3 = !empty($columns['p_quantidade3'][$i]) ? $columns['p_quantidade3'][$i] : '';
+                $p_preco3 = !empty($columns['p_preco3'][$i]) ? $columns['p_preco3'][$i] : '';
+
                 if ($serviceId) {
                     $serviceRdseById = RdseServices::where('id', $serviceId)->limit(1)->first();
 
@@ -107,6 +116,15 @@ class RdseApiController extends Controller
                             'description' => maiusculo($description),
                             'qnt_atividade' => $qnt_atividade,
                             'preco' => clearNumber($preco),
+
+                            'p_preco1' => clearNumber($p_preco1),
+                            'p_preco2' => clearNumber($p_preco2),
+                            'p_preco3' => clearNumber($p_preco3),
+
+                            'p_quantidade1' => $p_quantidade1,
+                            'p_quantidade2' => $p_quantidade2,
+                            'p_quantidade3' => $p_quantidade3,
+                            
                         ]);
                     }
                 }

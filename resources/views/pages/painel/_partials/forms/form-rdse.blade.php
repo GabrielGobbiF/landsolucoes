@@ -9,6 +9,10 @@
     <input type="hidden" value="{{ $rdse->id ?? '' }}" id="rdse_id">
     <input type="hidden" value="{{ $priceUps ?? '0' }}" id="price_ups">
 
+    <input type="hidden" value="{{ $rdse->parcial_1 }}" id="parcial_1">
+    <input type="hidden" value="{{ $rdse->parcial_2 }}" id="parcial_2">
+    <input type="hidden" value="{{ $rdse->parcial_3 }}" id="parcial_3">
+
     <div class="col-12 col-md-12">
         <div class="form-group">
             <label for="input--description">Descrição</label>

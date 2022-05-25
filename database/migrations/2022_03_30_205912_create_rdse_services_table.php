@@ -29,6 +29,15 @@ class CreateRdseServicesTable extends Migration
             $table->string('type')->nullable();                 // emergencia, espera
             $table->integer('order')->default('0');             // Ordem da atividade
 
+            $table->integer('p_quantidade1')->default('0');     // Quantidade Parcial 1;
+            $table->double('p_preco1', 10, 2)->default('0');    // Preço Parcial 1;
+
+            $table->integer('p_quantidade2')->default('0');     // Quantidade Parcial 2;
+            $table->double('p_preco2', 10, 2)->default('0');    // Preço Parcial 2;
+
+            $table->integer('p_quantidade3')->default('0');     // Quantidade Parcial 3;
+            $table->double('p_preco3', 10, 2)->default('0');    // Preço Parcial 3;
+
             $table->timestamps();
 
             $table->foreign('codigo_sap')

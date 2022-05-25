@@ -96,11 +96,17 @@
         <div class="tab-pane active show" id="rdse-services_tab" role="tabpanel">
             <div class='card'>
                 <div class='card-body'>
-                    <div class="float-right mb-2">
-                        <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
-                            {{ __trans('rdses.status_label.' . $rdse->status) }}
+                    <div class="d-grid float-right mb-2" style="display: grid">
+                        <div>
+                            <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
+                                {{ __trans('rdses.status_label.' . $rdse->status) }}
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                         </div>
                     </div>
+
                     <form id='form-update-services-rdse' role='form' class='needs-validation' method='POST'>
                         <div id="services">
                             <table class="table table-hover table-sm">
@@ -114,8 +120,26 @@
                                         <th style="width: 10%">SAP</th>
                                         <th>Descrição</th>
                                         <th style="width: 6%">Horas / <br>Qnt Atividade</th>
-                                        <th style="width: 6%">Preço</th>
-                                        <th style="width: 1%"></th>
+                                        <th style="width: 8%">Preço</th>
+
+                                        @if ($rdse->parcial_1)
+                                            <th style="width: 6%">Parcial 1</th>
+                                            <th style="width: 8%">Parcial 1</th>
+                                        @endif
+
+                                        @if ($rdse->parcial_2)
+                                            <th style="width: 6%">Parcial 2</th>
+                                            <th style="width: 8%">Parcial 2</th>
+                                        @endif
+
+                                        @if ($rdse->parcial_3)
+                                            <th style="width: 6%">Parcial 3</th>
+                                            <th style="width: 8%">Parcial 3</th>
+                                        @endif
+
+                                        @if ($rdse->status == 'pending' || $rdse->status == 'approval')
+                                            <th style="width: 1%"></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody id="services-row">
@@ -199,11 +223,77 @@
                                                     value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
                                             </th>
 
-                                            <th>
-                                                <a type="button" href="javascript:void(0)" onclick="deleteService(`{{ $service->id }}`)" class=" " tabindex="-1">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </th>
+                                            @if ($rdse->parcial_1)
+                                                <th>
+                                                    <input
+                                                        min="0"
+                                                        type="number"
+                                                        class="form-control form-control-sm quantidade_parcial"
+                                                        name="p_quantidade1[]" id="p_quantidade1_{{ $service->id }}"
+                                                        data-id="{{ $service->id }}"
+                                                        data-parcial="1"
+                                                        value="{{ !empty($service->p_quantidade1) ? $service->p_quantidade1 : '0' }}" />
+                                                </th>
+                                                <th>
+                                                    <input class="form-control form-control-sm price_parcial price_parcial1 money"
+                                                        name="p_preco1[]"
+                                                        id="price_total_parcial1_{{ $service->id }}"
+                                                        data-parcial="1"
+                                                        data-id="{{ $service->id }}"
+                                                        value="{{ !empty($service->p_preco1) ? $service->p_preco1 : '0' }}" />
+                                                </th>
+                                            @endif
+
+                                            @if ($rdse->parcial_2)
+                                                <th>
+                                                    <input
+                                                        min="0"
+                                                        type="number"
+                                                        class="form-control form-control-sm quantidade_parcial"
+                                                        name="p_quantidade2[]" id="p_quantidade2_{{ $service->id }}"
+                                                        data-id="{{ $service->id }}"
+                                                        data-parcial="2"
+                                                        value="{{ !empty($service->p_quantidade2) ? $service->p_quantidade2 : '0' }}" />
+                                                </th>
+                                                <th>
+                                                    <input class="form-control form-control-sm price_parcial price_parcial2 money"
+                                                        name="p_preco2[]"
+                                                        id="price_total_parcial2_{{ $service->id }}"
+                                                        data-parcial="2"
+                                                        data-id="{{ $service->id }}"
+                                                        value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" />
+                                                </th>
+                                            @endif
+
+                                            @if ($rdse->parcial_3)
+                                                <th>
+                                                    <input
+                                                        min="0"
+                                                        type="number"
+                                                        class="form-control form-control-sm quantidade_parcial"
+                                                        name="p_quantidade3[]" id="p_quantidade3_{{ $service->id }}"
+                                                        data-id="{{ $service->id }}"
+                                                        data-parcial="3"
+                                                        value="{{ !empty($service->p_quantidade3) ? $service->p_quantidade3 : '0' }}" />
+                                                </th>
+                                                <th>
+                                                    <input class="form-control form-control-sm price_parcial price_parcial3 money"
+                                                        name="p_preco3[]"
+                                                        id="price_total_parcial3_{{ $service->id }}"
+                                                        data-id="{{ $service->id }}"
+                                                        data-parcial="3"
+                                                        value="{{ !empty($service->p_preco3) ? $service->p_preco3 : '0' }}" />
+                                                </th>
+                                            @endif
+
+                                            @if ($rdse->status == 'pending' || $rdse->status == 'approval')
+                                                <th>
+                                                    <a type="button" href="javascript:void(0)" onclick="deleteService(`{{ $service->id }}`)" class="" tabindex="-1">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </th>
+                                            @endif
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -214,9 +304,106 @@
                                         <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
                                             class="form-control input-update">{{ $rdse->observations }}</textarea>
                                     </div>
-                                    <div class="col-3"></div>
-                                    <div class="col-3">
-                                        <div class="row row-xs no-gutters">
+                                    <div class="col-2"></div>
+                                    <div class="col-4">
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                    <a class="nav-link mb-2 active" id="v-pills-total-tab" data-toggle="pill" href="#v-pills-total" role="tab" aria-controls="v-pills-total"
+                                                        aria-selected="true">Total</a>
+
+                                                    @if ($rdse->parcial_1 == 1)
+                                                        <a class="nav-link mb-2" id="v-pills-parcial_1-tab" data-toggle="pill" href="#v-pills-parcial_1" role="tab" aria-controls="v-pills-parcial_1"
+                                                            aria-selected="false">Parcial 1
+                                                        </a>
+                                                    @endif
+
+                                                    @if ($rdse->parcial_2 == 1)
+                                                        <a class="nav-link mb-2" id="v-pills-parcial_2-tab" data-toggle="pill" href="#v-pills-parcial_2" role="tab" aria-controls="v-pills-parcial_2"
+                                                            aria-selected="false">Parcial 2
+                                                        </a>
+                                                    @endif
+
+                                                    @if ($rdse->parcial_3 == 1)
+                                                        <a class="nav-link" id="v-pills-parcial_3-tab" data-toggle="pill" href="#v-pills-parcial_3" role="tab" aria-controls="v-pills-parcial_3"
+                                                            aria-selected="false">Parcial 3
+                                                        </a>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-8">
+                                                <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
+                                                    <div class="tab-pane fade show active" id="v-pills-total" role="tabpanel" aria-labelledby="v-pills-total-tab">
+
+                                                        <div class="row row-xs no-gutters">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 total_ups" style="text-align: end;"></dd>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-parcial_1" role="tabpanel" aria-labelledby="v-pills-parcial_1-tab">
+                                                        <div class="row row-xs no-gutters" id="row-total_parcial_1">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 p_total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 p_total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-parcial_2" role="tabpanel" aria-labelledby="v-pills-parcial_2-tab">
+                                                        <div class="row row-xs no-gutters" id="row-total_parcial_2">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 p_total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 p_total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="v-pills-parcial_3" role="tabpanel" aria-labelledby="v-pills-parcial_3-tab">
+                                                        <div class="row row-xs no-gutters" id="row-total_parcial_3">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 p_total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 p_total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row row-xs no-gutters d-none">
                                             <dt class="col-sm-6">Total Espera</dt>
                                             <dd class="col-sm-6 total_espera" style="text-align: end;"></dd>
 
@@ -284,8 +471,6 @@
 
     </div>
 
-
-
 @stop
 
 @section('scripts')
@@ -300,7 +485,18 @@
         window.addEventListener('load', () => {
             initInputs();
             attTotal();
+
             setInterval("updateServices()", 5000);
+
+            if ($('#parcial_1').val() == 1) {
+                attTotalParciais(1);
+            }
+            if ($('#parcial_2').val() == 1) {
+                attTotalParciais(2);
+            }
+            if ($('#parcial_3').val() == 1) {
+                attTotalParciais(3);
+            }
         });
 
         $('#button_modal-rdse-codigo').on('click', () => {
@@ -390,7 +586,7 @@
                 unsaved = false;
             });
 
-            $('.qnt_minutos, .conversion').on('focusin', function() {
+            $('.qnt_minutos, .conversion, .quantidade_parcial').on('focusin', function() {
                 $(this).val() == '0' ? $(this).val('') : ''
             }).on('focusout', function() {
                 $(this).val() == '' ? $(this).val('0') : ''
@@ -430,6 +626,42 @@
             $('.price_total_hours, .conversion').on('keyup change', function() {
                 attTotal();
             })
+
+            $('.price_parcial, .quantidade_parcial').on('keyup change', function() {
+                let serviceId = $(this).attr('data-id');
+                let parcial = $(this).attr('data-parcial');
+                attParciais(serviceId, parcial);
+                attTotalParciais(parcial);
+            })
+        }
+
+        function attTotalParciais(parcial) {
+
+            let total_espera = 0;
+            let total_servico = 0;
+            let total = 0;
+            let total_ups = 0;
+            let rowParcial = $(`#row-total_parcial_${parcial}`)
+
+            $(".service-row").each(function() {
+                const selectSap = $(this).find(`select.codigo_sap`).select2('data');
+                if (selectSap.length > 0 && selectSap[0].id == '212') {
+                    total_espera += clearNumber($(this).find(`.price_parcial${parcial}`).val());
+                }
+                total += clearNumber($(this).find(`.price_parcial${parcial}`).val());
+            })
+
+            total_ups = numberFormat(total / priceUps);
+            total_servico = numberFormat(total - total_espera);
+
+            total = numberFormat(total);
+            total_espera = numberFormat(total_espera);
+
+            rowParcial.find('.p_total_espera').html(`R$ ${total_espera}`)
+            rowParcial.find('.p_total').html(`R$ ${total}`)
+            rowParcial.find('.p_total_servico').html(`R$ ${total_servico}`)
+            rowParcial.find('.p_total_ups').html(`${total_ups}`)
+
         }
 
         function attLines() {
@@ -503,6 +735,7 @@
                     inputQntAtividade.val(conversionMathFloor)
                     inputPriceTotal.val(`${priceTotal}`)
                     inputQntAtividade.attr('readonly', true).attr('tabindex', '-1');
+
                 } else if (selectSap && selectSap[0].id != '') {
                     inputQntAtividade.attr('readonly', false).removeAttr('tabindex');
                     if (valueQntAtividade != 0) {
@@ -515,6 +748,39 @@
                     inputQntAtividade.attr('readonly', false).removeAttr('tabindex');
                 }
             }
+        }
+
+        function attParciais(serviceId, parcial) {
+            let serviceDiv = $(`#services_${serviceId}`);
+            let minute = serviceDiv.find(`.qnt_minutos`).val();
+            let quantidade_parcial = $(`#p_quantidade${parcial}_${serviceId}`).val();
+            let price_service_ups = $(`#price_ups_${serviceId}`).val();
+            let selectSap = serviceDiv.find(`select.codigo_sap`).select2('data');
+
+            if (price_service_ups != '0') {
+                if (selectSap && selectSap[0].id == '212') {
+                    let conversion = minute / 30;
+                    let conversionMathFloor = Math.floor(conversion);
+                    let priceTotal = numberFormat((price_service_ups * priceUps) * conversionMathFloor)
+                    $(`#p_quantidade${parcial}_${serviceId}`).val(conversionMathFloor)
+
+                    $(`#price_total_parcial${parcial}_${serviceId}`).val(`${priceTotal}`)
+                    $(`#p_quantidade${parcial}_${serviceId}`).attr('readonly', true).attr('tabindex', '-1');
+
+                } else if (selectSap && selectSap[0].id != '') {
+                    $(`#p_quantidade${parcial}_${serviceId}`).attr('readonly', false).removeAttr('tabindex');
+
+                    if (quantidade_parcial != 0) {
+                        let priceTotal = numberFormat((price_service_ups * priceUps) * quantidade_parcial);
+                        $(`#price_total_parcial${parcial}_${serviceId}`).val(`${priceTotal}`)
+                    } else {
+                        $(`#price_total_parcial${parcial}_${serviceId}`).val(0)
+                    }
+                } else {
+                    $(`#p_quantidade${parcial}_${serviceId}`).attr('readonly', false).removeAttr('tabindex');
+                }
+            }
+
         }
 
         const addRow = async () => {
@@ -576,14 +842,81 @@
         
             <th>
                 <input class="form-control form-control-sm  price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
-            </th>
-        
-            <th>
-                <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </th>
-        </tr> `;
+            </th>`;
+
+                    if ($('#parcial_1').val() == 1) {
+                        html += `
+                            <th>
+                                <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control form-control-sm quantidade_parcial"
+                                    name="p_quantidade1[]" id="p_quantidade1_${line}"
+                                    data-id="${line}"
+                                    data-parcial="1"
+                                    value="" />
+                            </th>
+                            <th>
+                                <input class="form-control form-control-sm price_parcial money"
+                                    name="p_preco1[]"
+                                    id="price_total_parcial1_${line}"
+                                    data-parcial="1"
+                                    data-id="${line}"
+                                    value="" />
+                            </th>`
+                    }
+
+                    if ($('#parcial_2').val() == 1) {
+                        html += `
+                            <th>
+                                <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control form-control-sm quantidade_parcial"
+                                    name="p_quantidade2[]" id="p_quantidade2_${line}"
+                                    data-id="${line}"
+                                    data-parcial="2"
+                                    value="" />
+                            </th>
+                            <th>
+                                <input class="form-control form-control-sm price_parcial money"
+                                    name="p_preco2[]"
+                                    id="price_total_parcial2_${line}"
+                                    data-parcial="2"
+                                    data-id="${line}"
+                                    value="" />
+                            </th>`
+                    }
+
+                    if ($('#parcial_3').val() == 1) {
+                        html += `
+                            <th>
+                                <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control form-control-sm quantidade_parcial"
+                                    name="p_quantidade3[]" id="p_quantidade3_${line}"
+                                    data-id="${line}"
+                                    data-parcial="3"
+                                    value="" />
+                            </th>
+                            <th>
+                                <input class="form-control form-control-sm price_parcial money"
+                                    name="p_preco3[]"
+                                    id="price_total_parcial3_${line}"
+                                    data-parcial="3"
+                                    data-id="${line}"
+                                    value="" />
+                            </th>`
+                    }
+
+
+                    html += `<th>
+                        <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </th>
+                </tr> `;
 
                     $('#services-row').append(html);
                     initInputs();

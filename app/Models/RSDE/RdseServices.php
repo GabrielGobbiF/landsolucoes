@@ -25,6 +25,13 @@ class RdseServices extends Model
         'qnt_atividade',
         'preco',
         'type',
+
+        'p_quantidade1',
+        'p_preco1',
+        'p_quantidade2',
+        'p_preco2',
+        'p_quantidade3',
+        'p_preco3',
     ];
 
     public function getPrecoAttribute()
