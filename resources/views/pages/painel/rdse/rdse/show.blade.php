@@ -103,7 +103,9 @@
                             </div>
                         </div>
                         <div>
+                            @if($rdse->status != 'pending' && $rdse->status != 'approval')
                             <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
+                            @endif
                         </div>
                     </div>
 
