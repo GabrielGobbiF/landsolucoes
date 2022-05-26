@@ -491,7 +491,10 @@
 
             if ($('#parcial_1').val() == 1) {
                 attTotalParciais(1);
+            }else {
+                attTotal();
             }
+            
             if ($('#parcial_2').val() == 1) {
                 attTotalParciais(2);
             }
@@ -679,7 +682,6 @@
             rowParcial.find('.p_total_ups').html(`${total_ups}`)
 
             attTotal();
-
         }
 
         function attLines() {
