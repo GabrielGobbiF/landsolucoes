@@ -215,11 +215,11 @@ class RdseApiController extends Controller
                 ->get();
 
             $l = $lotes->map(function ($rdse) {
-                return $rdse->lote == 0 ? 1 : $rdse->lote;
+                return $rdse->lote === 0 ? 1 : $rdse->lote;
             });
 
             if (count($l) > 0) {
-                $l->push($l->last() + 1);
+                $l->push(count($l) + 1);
             }
 
             $arrayGroupByRdseByType[$groupRdse] = [

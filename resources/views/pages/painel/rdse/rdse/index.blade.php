@@ -33,7 +33,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3 d-none" id="div-search_lote">
+                <div class="col-md-3" id="div-search_lote">
                     <label>Lote</label>
                     <select name="lote" id="rdse-select--lote" class="form-control select2 search-input">
                         <option value="">Selecione</option>
@@ -167,6 +167,7 @@
 
         function initButtons() {
             let selected = $('#rdse-select_status').val();
+
             selected != 'pending' ?
                 $('#div-search_lote').removeClass('d-none') :
                 $('#div-search_lote').addClass('d-none')

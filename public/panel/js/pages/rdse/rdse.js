@@ -7,7 +7,9 @@ const listRdsesGroupInDom = (data, status) => {
     $('#form-rdse_change_status').attr('action', `${base_url}/rdse/rdse/status/${status}`)
     bodyModal.html('');
     let html = ``;
+    let t = 0
     $.each(data, function (type, rdses) {
+        t += 1;
         html += `
             <div class='card'>
                 <div class='card-header'>
@@ -30,7 +32,7 @@ const listRdsesGroupInDom = (data, status) => {
             html +=
                 `
                     <label for='input--lote'>As medições serão enviadas para o ultimo lote:</label>
-                    <select name='rdses[${type}][lote]' class='form-control select2'>
+                    <select name='rdses[${type}][lote]' class='form-control select-rdse_lote' id="select_${t}">
                     `
 
             $.each(rdses.lotes, function (index, value) {
@@ -42,10 +44,38 @@ const listRdsesGroupInDom = (data, status) => {
                 </div>
             </div>`;
     });
-
     bodyModal.html(html);
+
+    $('.select-rdse_lote').each(function () {
+        let selectId = $(this).attr('id');
+
+        $(this).select2({
+            dropdownParent: $('#exampleModal  .modal-content'),
+            width: '100%',
+            placeholder: 'Selecione',
+            language: {
+                noResults: function () {
+                    return `<a href = "javascript:void(0)" onclick = "add_lote('${selectId}')" style = "padding: 6px;height: 20px;display: inline-table;" > Sem resultados, Adicionar um novo ?</a>`;
+                },
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+        })
+    })
+
     modalRdseChangeStatus.find('.modal-title').html(`Enviar medições para "${status}"`)
     modalRdseChangeStatus.modal('show');
+}
+
+
+function add_lote(selectId) {
+    let select = $(`#${selectId}`)
+    let name = select.data("select2").dropdown.$search.val();
+
+    var option = new Option(name, name, true, true);
+    select.append(option).trigger('change').trigger('close');
+    select.select2('close');
 }
 
 const getGroupRdseByType = async (status) => {

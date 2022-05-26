@@ -222,7 +222,7 @@ class TableApiController extends Controller
                     $query->where('rdses.type', $filters['type']);
                 }
             })->where(function ($query) use ($filters) {
-                if (!empty($filters['lote'])) {
+                if (!empty($filters['lote']) && $filters['status'] != '' && $filters['status'] !=  'pending') {
                     $query->where('rdses.lote', $filters['lote']);
                 }
             })
