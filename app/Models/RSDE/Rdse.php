@@ -38,7 +38,20 @@ class Rdse extends Model
 
     public function getServicesTotal()
     {
-        return $this->services()->sum('preco');
+        $column = 'preco';
+        if ($this->parcial_1 == true) {
+            $column = 'p_preco1';
+        }
+
+        if ($this->parcial_2 == true) {
+            $column = 'p_preco2';
+        }
+
+        if ($this->parcial_3 == true) {
+            $column = 'p_preco3';
+        }
+
+        return $this->services()->sum($column);
     }
 
     public function getStatusLabelAttribute()

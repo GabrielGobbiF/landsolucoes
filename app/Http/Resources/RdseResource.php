@@ -14,10 +14,23 @@ class RdseResource extends JsonResource
      */
     public function toArray($request)
     {
+        $p = '';
         $valorTotal = $this->getServicesTotal();
 
         $typeRdse = $this->type;
         $valorUps = $valorTotal / collect(config("admin.rdse.type", []))->where('name', $typeRdse)->first()['value'];
+
+        if ($this->parcial_1 == true) {
+            $p = 'P2';
+        }
+
+        if ($this->parcial_2 == true) {
+            $p = 'P3';
+        }
+
+        if ($this->parcial_3 == true) {
+            $p = 'P4';
+        }
 
         return [
             'id' => $this->id,
@@ -29,7 +42,7 @@ class RdseResource extends JsonResource
             'type' => $this->type,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
-            'valor_total' => 'R$ ' . maskPrice($valorTotal),
+            'valor_total' => $p . ' R$ ' . maskPrice($valorTotal),
             'valor' => $valorTotal,
             'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
@@ -41,5 +54,23 @@ class RdseResource extends JsonResource
         return "<div class='badge badge-soft-" . $this->StatusLabel . " font-size-12'>
                 " . __trans('rdses.status_label.' . $this->status) . "
             </div>";
+    }
+
+    private function getValorTotalAndUps()
+    {
+        if ($this->parcial_1 == true) {
+            $p = 'P2';
+        }
+
+        if ($this->parcial_2 == true) {
+            $p = 'P3';
+        }
+
+        if ($this->parcial_3 == true) {
+            $p = 'P4';
+        }
+
+
+        $result = [];
     }
 }

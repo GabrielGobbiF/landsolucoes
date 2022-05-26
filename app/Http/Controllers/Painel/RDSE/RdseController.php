@@ -240,6 +240,7 @@ class RdseController extends Controller
             $rdse->parcial_3 = 1;
         }
 
+        $rdse->status = 'pending';
         $rdse->update();
 
         //$partialsCount = DB::table('rdse_services_partials')

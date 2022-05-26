@@ -103,8 +103,8 @@
                             </div>
                         </div>
                         <div>
-                            @if($rdse->status != 'pending' && $rdse->status != 'approval')
-                            <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
+                            @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
+                                <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                             @endif
                         </div>
                     </div>
@@ -125,18 +125,18 @@
                                         <th style="width: 8%">Preço</th>
 
                                         @if ($rdse->parcial_1)
-                                            <th style="width: 6%">Parcial 1</th>
-                                            <th style="width: 8%">Parcial 1</th>
+                                            <th style="width: 6%">P Qnt 2</th>
+                                            <th style="width: 8%">P Preço 2</th>
                                         @endif
 
                                         @if ($rdse->parcial_2)
-                                            <th style="width: 6%">Parcial 2</th>
-                                            <th style="width: 8%">Parcial 2</th>
+                                            <th style="width: 6%">P Qnt 3</th>
+                                            <th style="width: 8%">P Preço 3</th>
                                         @endif
 
                                         @if ($rdse->parcial_3)
-                                            <th style="width: 6%">Parcial 3</th>
-                                            <th style="width: 8%">Parcial 3</th>
+                                            <th style="width: 6%">P Qnt 4</th>
+                                            <th style="width: 8%">P Preço 4</th>
                                         @endif
 
                                         @if ($rdse->status == 'pending' || $rdse->status == 'approval')
@@ -317,19 +317,19 @@
 
                                                     @if ($rdse->parcial_1 == 1)
                                                         <a class="nav-link mb-2" id="v-pills-parcial_1-tab" data-toggle="pill" href="#v-pills-parcial_1" role="tab" aria-controls="v-pills-parcial_1"
-                                                            aria-selected="false">Parcial 1
+                                                            aria-selected="false">Parcial 2
                                                         </a>
                                                     @endif
 
                                                     @if ($rdse->parcial_2 == 1)
                                                         <a class="nav-link mb-2" id="v-pills-parcial_2-tab" data-toggle="pill" href="#v-pills-parcial_2" role="tab" aria-controls="v-pills-parcial_2"
-                                                            aria-selected="false">Parcial 2
+                                                            aria-selected="false">Parcial 3
                                                         </a>
                                                     @endif
 
                                                     @if ($rdse->parcial_3 == 1)
                                                         <a class="nav-link" id="v-pills-parcial_3-tab" data-toggle="pill" href="#v-pills-parcial_3" role="tab" aria-controls="v-pills-parcial_3"
-                                                            aria-selected="false">Parcial 3
+                                                            aria-selected="false">Parcial 4
                                                         </a>
                                                     @endif
 
@@ -486,7 +486,6 @@
 
         window.addEventListener('load', () => {
             initInputs();
-            attTotal();
 
             setInterval("updateServices()", 5000);
 
@@ -499,6 +498,8 @@
             if ($('#parcial_3').val() == 1) {
                 attTotalParciais(3);
             }
+
+
         });
 
         $('#button_modal-rdse-codigo').on('click', () => {
@@ -635,6 +636,18 @@
                 attParciais(serviceId, parcial);
                 attTotalParciais(parcial);
             })
+
+            if ($('#rdse-status').val() == 'invoice' || $('#rdse-status').val() == 'approved') {
+                $('.conversion').attr('readonly', true)
+                $('.price_total_hours').attr('readonly', true)
+                $('.qnt_minutos').attr('readonly', true)
+                $('.codigo_sap ').attr('readonly', true)
+            } else {
+                $('.conversion').attr('readonly', false)
+                $('.price_total_hours').attr('readonly', false)
+                $('.qnt_minutos').attr('readonly', false)
+                $('.codigo_sap ').attr('readonly', false)
+            }
         }
 
         function attTotalParciais(parcial) {
@@ -647,6 +660,7 @@
 
             $(".service-row").each(function() {
                 const selectSap = $(this).find(`select.codigo_sap`).select2('data');
+                let priceParcial = 0;
                 if (selectSap.length > 0 && selectSap[0].id == '212') {
                     total_espera += clearNumber($(this).find(`.price_parcial${parcial}`).val());
                 }
@@ -663,6 +677,8 @@
             rowParcial.find('.p_total').html(`R$ ${total}`)
             rowParcial.find('.p_total_servico').html(`R$ ${total_servico}`)
             rowParcial.find('.p_total_ups').html(`${total_ups}`)
+
+            attTotal();
 
         }
 
@@ -701,10 +717,21 @@
             let total_ups = 0;
             $(".service-row").each(function() {
                 const selectSap = $(this).find(`select.codigo_sap`).select2('data');
+                let priceParcial = 0;
+
+                $(this).find('.price_parcial').each(function() {
+                    priceParcial += clearNumber($(this).val());
+                })
+
                 if (selectSap.length > 0 && selectSap[0].id == '212') {
                     total_espera += clearNumber($(this).find(`.price_total_hours `).val());
                 }
-                total += clearNumber($(this).find(`.price_total_hours `).val());
+                console.log(priceParcial);
+                console.log(priceParcial);
+
+                console.log($(this).find(`.price_total_hours `).val() + priceParcial);
+
+                total += clearNumber($(this).find(`.price_total_hours `).val()) + priceParcial;
             })
 
             total_ups = numberFormat(total / priceUps);
