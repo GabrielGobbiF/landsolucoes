@@ -19,14 +19,26 @@
         <i class="fas fa-arrow-left"></i> Enviar para Em Aprovação
     </button>
 
-    <button id="button-inventariando" type="button" data-type="inventariando" class="btn btn-secondary btn-states">
-        <i class="fas fa-file-export"></i> Enviar para Inventariando
+    <button id="button-invoice" type="button" data-type="invoice" class="btn btn-secondary btn-states">
+        <i class="fas fa-file-export"></i> Faturar
     </button>
 @endif
 
-@if (request()->input('status') == 'inventariando')
+@if (request()->input('status') == 'invoice')
+   
     <button id="button-approved" type="button" data-type="approved" class="btn btn-secondary btn-states">
-        <i class="fas fa-arrow-left"></i> Enviar para Aprovado
+        <i class="fas fa-arrow-left"></i> Enviar para Aprovação
+    </button>
+
+    <button id="button-inventariando" type="button" data-type="inventariando" class="btn btn-secondary btn-states">
+        <i class="fas fa-file-export"></i>  Enviar para Inventariando
+    </button>
+
+@endif
+
+@if (request()->input('status') == 'inventariando')
+    <button id="button-invoice" type="button" data-type="invoice" class="btn btn-secondary btn-states">
+        <i class="fas fa-arrow-left"></i> Enviar para Faturar
     </button>
 
     <button id="button-inventariado" type="button" data-type="inventariado" class="btn btn-secondary btn-states">
@@ -37,16 +49,6 @@
 @if (request()->input('status') == 'inventariado')
     <button id="button-inventariando" type="button" data-type="inventariando" class="btn btn-secondary btn-states">
         <i class="fas fa-arrow-left"></i> Enviar para Inventariando
-    </button>
-
-    <button id="button-invoice" type="button" data-type="invoice" class="btn btn-secondary btn-states">
-        <i class="fas fa-file-export"></i> Faturar
-    </button>
-@endif
-
-@if (request()->input('status') == 'invoice')
-    <button id="button-inventariado" type="button" data-type="inventariado" class="btn btn-secondary btn-states">
-        <i class="fas fa-arrow-left"></i> Enviar para Inventariado
     </button>
 @endif
 

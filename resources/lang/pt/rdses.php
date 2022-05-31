@@ -7,10 +7,9 @@ return [
         'pending' => 'Em Medição',
         'approval' => 'Em Aprovação',
         'approved' => 'Aprovado(a)',
-        'inventariando' => 'Inventariando',
-        'inventariado' => 'Inventariado',
         #'review' => 'Em Análise',
         'invoice' => 'Faturada',
-       
+        'inventariando' => 'Inventariando',
+        'inventariado' => 'Inventariado',
     ]
 ];
