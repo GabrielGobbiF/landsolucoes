@@ -5,12 +5,13 @@
     }
 
 </style>
+
 <div class="row" id="inputs-form__rdse">
     <input type="hidden" value="{{ $rdse->id ?? '' }}" id="rdse_id">
     <input type="hidden" value="{{ $priceUps ?? '0' }}" id="price_ups">
 
     <input type="hidden" value="{{ $rdse->parcial_1 ?? 0 }}" id="parcial_1">
-    <input type="hidden" value="{{ $rdse->parcial_2 ?? 0}}" id="parcial_2">
+    <input type="hidden" value="{{ $rdse->parcial_2 ?? 0 }}" id="parcial_2">
     <input type="hidden" value="{{ $rdse->parcial_3 ?? 0 }}" id="parcial_3">
     <input type="hidden" value="{{ $rdse->status ?? '' }}" id="rdse-status">
 
@@ -70,4 +71,33 @@
             </select>
         </div>
     </div>
+
+    @if (!empty($rdse->nf))
+        <div class="col-12">
+            <div class='card'>
+                <div class='card-body row'>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label for="input--nf">Nota Fiscal</label>
+                            <input type="text" name="nf" class="form-control @error('nf') is-invalid @enderror"
+                                id="input--nf"
+                                value="{{ !empty($rdse->nf) ? $rdse->nf : old('nf')  }}"
+                                autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <div class="form-group">
+                            <label for="input--date_nfe_at">Data</label>
+                            <input type="text" name="date_nfe_at" class="form-control date"
+                                id="input--date_nfe_at"
+                                value="{{ !empty($rdse->date_nfe_at) ? dataLimpa($rdse->date_nfe_at) : old('date_nfe_at') ?? date('d/m/Y') }}"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

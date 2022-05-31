@@ -20,10 +20,28 @@ const listRdsesGroupInDom = (data, status) => {
                         `
         $.each(rdses.itens, function (index, rdses) {
 
-            html += `<input type="hidden" name="rdses[${type}][itens][]" value="${rdses.id}"/>
-            <li class="nav-item">${rdses.description}
-            </li>
-            `
+            if (status == 'invoice') {
+                html += `
+                <input type="hidden" name="rdses[${type}][itens][]" value="${rdses.id}"/>
+                <h5 class="font-size-14"><i class="mdi mdi-location"></i> ${rdses.description}</h5>
+                    <div class="d-flex flex-wrap">
+                    <div class="input-group mb-3 w-auto">
+                        <input type="text" class="form-control" name="rdses[${type}][nf][]" placeholder="Digite o Nº NF" required>
+                    </div>
+                    <div class="input-group mb-3 w-auto">
+                        <input type="text" class="form-control date"  name="rdses[${type}][date][] placeholder="Digite a data dd/mm/yyyy" required>
+                    </div>
+                </div>
+                `
+            } else {
+                html += `
+                <input type="hidden" name="rdses[${type}][itens][]" value="${rdses.id}"/>
+                    <li class="nav-item">${rdses.description}
+                </li>`
+            }
+
+
+
         });
         html += `
                     </ul>
@@ -45,6 +63,9 @@ const listRdsesGroupInDom = (data, status) => {
             </div>`;
     });
     bodyModal.html(html);
+
+    $('.date').mask('00/00/0000');
+
 
     $('.select-rdse_lote').each(function () {
         let selectId = $(this).attr('id');
@@ -92,7 +113,34 @@ const getGroupRdseByType = async (status) => {
 $('#btn-submit-rdse_change_status').on('click', (e) => {
     e.preventDefault()
     localStorage.setItem('rdse-selecteds', JSON.stringify([]));
-    $('#form-rdse_change_status').submit();
+
+    var form = $('#form-rdse_change_status')[0];
+    var isValid = true;
+    var text = $(this).attr("data-btn-text");
+    var textBack = $(this).innerHTML;
+    text = text != null ? text : 'Salvando...';
+    $(this).innerHTML = `<i class='fa fa-spinner fa-spin'></i> ${text}`;
+    $(this).disabled = true;
+    $.each(form.elements, function (index, value) {
+        if (value.value === '' && value.hasAttribute('required')) {
+            value.classList.add('is-invalid')
+            isValid = false;
+        }
+        value.addEventListener('keyup', (e) => {
+            if (e.value != '') {
+                value.classList.remove('is-invalid')
+            }
+        });
+    });
+
+    if (isValid) {
+        form.submit()
+    } else {
+        $(this).innerHTML = textBack;
+        $(this).disabled = false;
+    }
+
+    //$('#form-rdse_change_status').submit();
 })
 
 $('.btn-states').on('click', (e) => {

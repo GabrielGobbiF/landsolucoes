@@ -132,8 +132,7 @@
                 <div class='card-header bg-primary'>
                     <h6 class="tx-white mg-b-0 mg-r-auto">Selecionados</h6>
                 </div>
-                <div class='card-body pd-15' id="rdses-row">
-                </div>
+                <div class='card-body pd-15' id="rdses-row"></div>
                 <div class="card-footer">
                     @include('pages.painel.rdse._partials.buttons', [request()->input('status')])
                 </div>

@@ -32,7 +32,9 @@ class Rdse extends Model
         'status',
         'obra_id',
         'lote',
-        'observations'
+        'observations',
+        'nf',
+        'date_nfe_at'
     ];
 
     protected $appends = ['StatusLabel'];
@@ -53,7 +55,9 @@ class Rdse extends Model
         'status',
         'obra_id',
         'lote',
-        'observations'
+        'observations',
+        'nf',
+        'date_nfe_at'
     ];
 
     public function services()

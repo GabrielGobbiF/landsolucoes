@@ -34,6 +34,8 @@ class CreateRdsesTable extends Migration
             $table->integer('parcial_2')->default('0')->nullable();          
             $table->integer('parcial_3')->default('0')->nullable();          
             
+            $table->string('nf')->nullable();          
+            $table->timestamp('date_nfe_at')->nullable();          
 
             $table->timestamps();
 
