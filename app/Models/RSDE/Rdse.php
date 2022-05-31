@@ -115,6 +115,11 @@ class Rdse extends Model
         $this->attributes['solicitante'] = ucfirst($value);
     }
 
+    public function setDateNfeAtAttribute($value)
+    {
+        $this->attributes['date_nfe_at'] = return_format_date($value, 'en');
+    }
+
     public function setAtAttribute($value)
     {
         $this->attributes['at'] = return_format_date($value, 'en');

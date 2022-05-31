@@ -92,7 +92,7 @@
                             <label for="input--date_nfe_at">Data</label>
                             <input type="text" name="date_nfe_at" class="form-control date"
                                 id="input--date_nfe_at"
-                                value="{{ !empty($rdse->date_nfe_at) ? dataLimpa($rdse->date_nfe_at) : old('date_nfe_at') ?? date('d/m/Y') }}"
+                                value="{{ !empty($rdse->date_nfe_at) ? return_format_date($rdse->date_nfe_at) : old('date_nfe_at') ?? date('d/m/Y') }}"
                                 autocomplete="off">
                         </div>
                     </div>
