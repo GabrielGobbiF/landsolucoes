@@ -303,56 +303,10 @@
                             <div class="totais my-5">
                                 <dl class="row mb-5">
                                     <div class="col-6">
-                                        <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-                                        <div id="toolbar">
-                                            <span class="ql-formats">
-                                                <select class="ql-size"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                                <button class="ql-strike"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <select class="ql-color"></select>
-                                                <select class="ql-background"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-script" value="sub"></button>
-                                                <button class="ql-script" value="super"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-header" value="1"></button>
-                                                <button class="ql-header" value="2"></button>
-                                                <button class="ql-blockquote"></button>
-                                                <button class="ql-code-block"></button>
-                                            </span>
-                                            <span class="ql-formats mg-t-5">
-                                                <button class="ql-list" value="ordered"></button>
-                                                <button class="ql-list" value="bullet"></button>
-                                                <button class="ql-indent" value="-1"></button>
-                                                <button class="ql-indent" value="+1"></button>
-                                            </span>
-                                            <span class="ql-formats mg-t-5">
-                                                <button class="ql-link"></button>
-                                            </span>
-                                            <span class="ql-formats mg-t-5">
-                                                <button class="ql-direction" value="rtl"></button>
-                                                <select class="ql-align"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-clean"></button>
-                                            </span>
-                                        </div>
-
-                                        <!-- Create the editor container -->
-                                        <div id="editor" ></div>
-
-                                        <input type="hidden" id="html" name="body">
+                                        
 
                                         <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
-                                            class="form-control input-update d-none">{{ $rdse->observations }}</textarea>
+                                            class="form-control input-update">{{ $rdse->observations }}</textarea>
                                     </div>
                                     <div class="col-2"></div>
                                     <div class="col-4">

@@ -5,10 +5,19 @@ namespace App\Models\RSDE;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Rdse extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public $logName  = 'RDSE';
+
+    public $logExceptAttributes = ['observations'];
+
+    public array $dontLogIfAttributesChangedOnly = ['observations'];
+
+    protected $appends = ['StatusLabel'];
 
     /**
      * The attributes that are mass assignable.
@@ -28,8 +37,6 @@ class Rdse extends Model
         'lote',
         'observations'
     ];
-
-    protected $appends = ['StatusLabel'];
 
     public function services()
     {
