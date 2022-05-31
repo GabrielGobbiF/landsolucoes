@@ -172,7 +172,7 @@
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdn.tiny.cloud/1/rxt6gu66oa6gavl0hljt0k37ibd9qw3l0fev1vtpsexwx573/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     @include('pages.painel._partials.modals.modal-search-global')
