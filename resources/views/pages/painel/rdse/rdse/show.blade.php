@@ -431,23 +431,30 @@
                         </div>
                     </form>
 
-                    <button type='button' class='btn btn-primary' id="button_modal-rdse-codigo">
+                    <button type="button" class="btn btn-primary" id="button_modal-rdse-codigo">
                         Visualizar Códigos
                     </button>
-                    <div class='modal' id='modal-rdse-codigo' tabindex='-1' role='dialog'>
-                        <div class='modal-dialog' role='document'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title'>Códigos</h5>
-                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
+
+                    @if ($rdse->status != 'invoice')
+                        <a href="{{ route('rdse.duplicate', $rdse->id) }}" type="button" class="btn btn-info btn-confirm">
+                            Duplicar RDSE
+                        </a>
+                    @endif
+
+                    <div class="modal" id="modal-rdse-codigo" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Códigos</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class='modal-body'>
+                                <div class="modal-body">
                                     <div class="row row-sm no-gutters">
                                         <div class="col-md-6">
-                                            <table class='table table-hover' id="table-codigos-rdse">
-                                                <thead class='thead-light'>
+                                            <table class="table table-hover" id="table-codigos-rdse">
+                                                <thead class="thead-light">
                                                     <tr>
                                                         <th>#</th>
                                                     </tr>
@@ -458,8 +465,8 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <table class='table table-hover' id="table-qnt-rdse">
-                                                <thead class='thead-light'>
+                                            <table class="table table-hover" id="table-qnt-rdse">
+                                                <thead class="thead-light">
                                                     <tr>
                                                         <th>Qnt</th>
                                                     </tr>

@@ -16,6 +16,10 @@ class RdseServicesObserver
     public function creating(RdseServices $rdseServices)
     {
         $rdseServices->order = $this->getLastOrder($rdseServices->rdse_id);
+
+        $rdseServices->p_preco1 = !empty($rdseServices->p_preco1) ? clearNumber($rdseServices->p_preco1) : 0;
+        $rdseServices->p_preco2 = !empty($rdseServices->p_preco2) ? clearNumber($rdseServices->p_preco2) : 0;
+        $rdseServices->p_preco3 = !empty($rdseServices->p_preco3) ? clearNumber($rdseServices->p_preco3) : 0;
     }
 
     /**
@@ -26,6 +30,9 @@ class RdseServicesObserver
      */
     public function updating(RdseServices $rdseServices)
     {
+        $rdseServices->p_preco1 = !empty($rdseServices->p_preco1) ? clearNumber($rdseServices->p_preco1) : 0;
+        $rdseServices->p_preco2 = !empty($rdseServices->p_preco2) ? clearNumber($rdseServices->p_preco2) : 0;
+        $rdseServices->p_preco3 = !empty($rdseServices->p_preco3) ? clearNumber($rdseServices->p_preco3) : 0;
         #$rdseServices->slug = Str::slug(mb_strtolower($rdseServices->name, 'UTF-8'), '_');
     }
 

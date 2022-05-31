@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\RDSE;
 
 use App\Models\RSDE\Rdse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateRdse;
 use App\Models\Obra;
 use App\Models\RSDE\RdseServices;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class RdseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateRdse $request)
     {
         $columns = $request->all();
         $columns['modelo'] = false;
@@ -115,7 +116,7 @@ class RdseController extends Controller
      * @param  \App\Models\Rdse  $identify
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $identify)
+    public function update(StoreUpdateRdse $request, int $identify)
     {
         $columns = $request->all();
 
@@ -235,7 +236,6 @@ class RdseController extends Controller
             $rdse->parcial_1 = 1;
         } else if ($rdse->parcial_2 == 0) {
             $rdse->parcial_2 = 1;
-
         } else if ($rdse->parcial_3 == 0) {
             $rdse->parcial_3 = 1;
         }
@@ -260,5 +260,42 @@ class RdseController extends Controller
         return redirect()
             ->back()
             ->with('message', 'Parcial Criado com sucesso');
+    }
+
+    public function duplicateRdse($rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->with('services')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        $new = $rdse->replicate();
+        $new->modelo = false;
+        $new->description = $rdse->description . '_copy' . $rdse->id;
+        $new->n_order = $rdse->n_order . '_copy_' . $rdse->id;
+        $new->solicitante = "Marcos";
+        $new->at = date('Y-m-d');
+        //save model before you recreate relations (so it has an id)
+        $new->push();
+        $new->save();
+
+        //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
+        $new->relations = [];
+
+        //load relations on EXISTING MODEL
+        $new->load('services');
+
+        //re-sync everything
+        foreach ($rdse->getRelations() as $relation => $items) {
+            foreach ($items as $item) {
+                unset($item->id);
+                $new->{$relation}()->create($item->toArray());
+            }
+        }
+
+        return  redirect()
+            ->route('rdse.show', $new->id)
+            ->with('message', 'Duplicado com sucesso');
     }
 }

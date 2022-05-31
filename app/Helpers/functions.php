@@ -29,6 +29,7 @@ function formatDateAndTime($value, $format = 'd/m/Y')
 
 function maskPrice($number = 0)
 {
+    $number = clearNumber($number);
     return number_format($number, 2, ',', '.');
 }
 

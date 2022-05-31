@@ -10,7 +10,6 @@ Auth::routes();
 Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
 Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
-
 //Login Routes Clients...
 Route::get('/cliente/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
 Route::get('/clientes/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
@@ -392,7 +391,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
-            Route::put('/rdse/status/{status}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateStatus'])->name('rdse.update.status');
+            Route::put('rdse/status/{status}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateStatus'])->name('rdse.update.status');
+            Route::get('rdse/{rdseId}/duplicate', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'duplicateRdse'])->name('rdse.duplicate');
             Route::resource('rdse', App\Http\Controllers\Painel\RDSE\RdseController::class);
             Route::resource('modelo-rdse', App\Http\Controllers\Painel\RDSE\ModelosRdseController::class);
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
