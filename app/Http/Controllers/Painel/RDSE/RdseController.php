@@ -66,7 +66,6 @@ class RdseController extends Controller
         /* TODO  */
         $rdseService = new RdseServices();
         $rdseService->rdse_id = $rdse->id;
-
         $rdseService->save();
 
         return redirect()
