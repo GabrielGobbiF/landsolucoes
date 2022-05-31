@@ -225,6 +225,14 @@ class TableApiController extends Controller
                 if (!empty($filters['lote']) && $filters['status'] != '' && $filters['status'] !=  'pending') {
                     $query->where('rdses.lote', $filters['lote']);
                 }
+            })->where(function ($query) use ($filters) {
+                if (!empty($filters['daterange'])) {
+                    [$date_to, $date_from] = explode(' - ', $filters['daterange']);
+                    $date_to = return_format_date($date_to, 'en');
+                    $date_from = return_format_date($date_from, 'en');
+                    $query->whereDate('rdses.created_at', '>=',$date_to);
+                    $query->whereDate('rdses.created_at', '<=',$date_from);
+                }
             })
             ->where('modelo', 0)
             ->orderBy($this->sort, $this->order)

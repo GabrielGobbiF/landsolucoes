@@ -33,7 +33,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
     <style>
         .form-group-money input {
             border-top: 1px solid #ced4da;
@@ -172,7 +173,7 @@
     <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     @include('pages.painel._partials.modals.modal-search-global')
 

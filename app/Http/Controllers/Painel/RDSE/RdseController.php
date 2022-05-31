@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateRdse;
 use App\Models\Obra;
 use App\Models\RSDE\RdseServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,10 +28,14 @@ class RdseController extends Controller
     public function index(Request $request)
     {
         # $rdses = Rdse::all();
+        $date = Carbon::now()->format('d/m/Y');
 
         $status = $request->has('status') ? $request->input('status') : 'pending';
+        [$date_to, $date_from] = $request->has('daterange') ? explode(' - ', $request->input('daterange')) : [null, null];
 
-        $request->merge(['status' => $status]);
+        $request->merge(['status' => $status, 'date_to' => $date_to, 'date_from' => $date_from]);
+
+        #dd([$date_to, $date_from]);
 
         $lotes = DB::table('rdses')
             ->select('lote')
@@ -42,7 +47,7 @@ class RdseController extends Controller
 
         return view('pages.painel.rdse.rdse.index', [
             'lotes' => $lotes
-        ])->with($request->only('status'));
+        ])->with($request->only('status', 'date_to', 'date_from'));
     }
 
     /**

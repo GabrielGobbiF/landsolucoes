@@ -7,6 +7,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row mb-4">
+
                 <div class="col-md-3">
                     <label>Status</label>
                     <select name="status" id="rdse-select_status" class="form-control select2 search-input">
@@ -33,7 +34,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3" id="div-search_lote">
+                <div class="col-md-3 d-none" id="div-search_lote">
                     <label>Lote</label>
                     <select name="lote" id="rdse-select--lote" class="form-control select2 search-input">
                         <option value="">Selecione</option>
@@ -42,6 +43,13 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="col-md-3">
+                    <label>Data</label>
+                    <input type="text" class="form-control search-input" name="daterange"
+                        @if (request()->input('  daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
+                </div>
+
                 <input type="hidden" id="totalTable">
                 <input type="hidden" id="totalP1">
                 <input type="hidden" id="totalP2">
@@ -73,13 +81,13 @@
                                 <th data-field="type" data-sortable="true">Tipo</th>
                                 <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Total</th>
 
-                                {{--}}
+                                {{-- }}
                                 <th data-field="total_p1" data-visible="false" data-footer-formatter="valor_totalp1">Valor P2</th>
                                 <th data-field="total_p2" data-visible="false" data-footer-formatter="valor_totalp2">Valor P3</th>
                                 <th data-field="total_p3" data-visible="false" data-footer-formatter="valor_totalp3">Valor P4</th>
                                 <th data-field="parcial">Parcial</th>
-                                {{--}}
-                                
+                                {{ --}}
+
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
                                 <th data-field="status_label">Status</th>
                             </tr>
@@ -307,15 +315,15 @@
                     },
                     responseHandler: function(res) {
                         var valorTotal = 0;
-                        var valorP1= 0;
-                        var valorP2= 0;
-                        var valorP3= 0;
+                        var valorP1 = 0;
+                        var valorP2 = 0;
+                        var valorP3 = 0;
                         var valorUpsTotal = 0;
                         $.each(res.data, function(index, value) {
                             valorP1 += parseFloat(value.total_p1)
                             valorP2 += parseFloat(value.total_p2)
                             valorP3 += parseFloat(value.total_p3)
-                        
+
                             valorTotal += parseFloat(value.valor)
                             valorUpsTotal += parseFloat(value.ups)
                         });
@@ -418,13 +426,13 @@
         }
 
         function valor_totalp3(data, footerValue) {
-            
+
             return 'R$ ' + $('#totalP3').val()
         }
-        
+
 
         function valor_ups_sum(data, footerValue) {
-            return  $('#totalUpsTable').val()
+            return $('#totalUpsTable').val()
         }
 
         function preload() {
@@ -436,5 +444,24 @@
             preload += `</div>`;
             return preload;
         }
+    </script>
+
+    <script>
+        $(function() {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'center',
+                autoUpdateInput: false,
+                locale: {
+                    format: 'Y-m-d',
+                    cancelLabel: 'Clear'
+                },
+            }).on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+                initTable();
+            }).on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+                initTable();
+            });
+        });
     </script>
 @append

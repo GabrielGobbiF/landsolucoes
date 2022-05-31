@@ -24,6 +24,7 @@ function token($size = 10, $charsAlphabetic = true)
 function formatDateAndTime($value, $format = 'd/m/Y')
 {
     // Utiliza a classe de Carbon para converter ao formato de data ou hora desejado
+    $value = str_replace('/', '-', $value);
     return Carbon::parse($value)->format($format);
 }
 
