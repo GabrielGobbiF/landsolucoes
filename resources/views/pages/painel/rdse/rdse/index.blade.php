@@ -43,6 +43,9 @@
                     </select>
                 </div>
                 <input type="hidden" id="totalTable">
+                <input type="hidden" id="totalP1">
+                <input type="hidden" id="totalP2">
+                <input type="hidden" id="totalP3">
                 <input type="hidden" id="totalUpsTable">
             </div>
 
@@ -64,11 +67,19 @@
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true">Nº Ordem</th>
                                 <th data-field="description">Descrição</th>
-                                <th data-field="equipe" data-sortable="true">Equipe</th>
-                                <th data-field="solicitante" data-sortable="true">Solicitante</th>
+                                <th data-field="equipe" data-sortable="true" data-visible="false">Equipe</th>
+                                <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
                                 <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Total</th>
+
+                                {{--}}
+                                <th data-field="total_p1" data-visible="false" data-footer-formatter="valor_totalp1">Valor P2</th>
+                                <th data-field="total_p2" data-visible="false" data-footer-formatter="valor_totalp2">Valor P3</th>
+                                <th data-field="total_p3" data-visible="false" data-footer-formatter="valor_totalp3">Valor P4</th>
+                                <th data-field="parcial">Parcial</th>
+                                {{--}}
+                                
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
                                 <th data-field="status_label">Status</th>
                             </tr>
@@ -296,11 +307,28 @@
                     },
                     responseHandler: function(res) {
                         var valorTotal = 0;
+                        var valorP1= 0;
+                        var valorP2= 0;
+                        var valorP3= 0;
                         var valorUpsTotal = 0;
                         $.each(res.data, function(index, value) {
+                            valorP1 += parseFloat(value.total_p1)
+                            valorP2 += parseFloat(value.total_p2)
+                            valorP3 += parseFloat(value.total_p3)
+                        
                             valorTotal += parseFloat(value.valor)
                             valorUpsTotal += parseFloat(value.ups)
                         });
+
+                        $('#totalP1').val(valorP1.toLocaleString('pt-br', {
+                            minimumFractionDigits: 2
+                        }));
+                        $('#totalP2').val(valorP2.toLocaleString('pt-br', {
+                            minimumFractionDigits: 2
+                        }));
+                        $('#totalP3').val(valorP3.toLocaleString('pt-br', {
+                            minimumFractionDigits: 2
+                        }));
 
                         $('#totalTable').val(valorTotal.toLocaleString('pt-br', {
                             minimumFractionDigits: 2
@@ -380,6 +408,20 @@
         function valor_total_sum(data, footerValue) {
             return 'R$ ' + $('#totalTable').val()
         }
+
+        function valor_totalp1(data, footerValue) {
+            return 'R$ ' + $('#totalP1').val()
+        }
+
+        function valor_totalp2(data, footerValue) {
+            return 'R$ ' + $('#totalP2').val()
+        }
+
+        function valor_totalp3(data, footerValue) {
+            
+            return 'R$ ' + $('#totalP3').val()
+        }
+        
 
         function valor_ups_sum(data, footerValue) {
             return  $('#totalUpsTable').val()

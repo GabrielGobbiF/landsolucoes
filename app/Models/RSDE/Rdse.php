@@ -9,13 +9,31 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Rdse extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
-    public $logName  = 'RDSE';
+    protected static $logName = 'RDSE';
 
-    public $logExceptAttributes = ['observations'];
+    #protected static $ignoreChangedAttributes   =  ['observations'];
 
-    public array $dontLogIfAttributesChangedOnly = ['observations'];
+    #protected static $logAttributesToIgnore  =  ['observations'];
+
+    #protected static $logOnlyDirty = true;getServicesTotal
+
+    #protected static $submitEmptyLogs = false;
+
+    protected static $logAttributes = [
+        'description',
+        'n_order',
+        'equipe',
+        'solicitante',
+        'at',
+        'type',
+        'modelo',
+        'status',
+        'obra_id',
+        'lote',
+        'observations'
+    ];
 
     protected $appends = ['StatusLabel'];
 

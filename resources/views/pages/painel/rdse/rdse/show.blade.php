@@ -303,7 +303,7 @@
                             <div class="totais my-5">
                                 <dl class="row mb-5">
                                     <div class="col-6">
-                                        
+
 
                                         <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
                                             class="form-control input-update">{{ $rdse->observations }}</textarea>
@@ -348,6 +348,11 @@
 
                                                             <dt class="col-sm-6">Total Serviços</dt>
                                                             <dd class="col-sm-6 total_servico" style="text-align: end;"></dd>
+
+                                                            @if ($rdse->parcial_1)
+                                                                <dt class="col-sm-6">Total P1 R$</dt>
+                                                                <dd class="col-sm-6 total_p1" style="text-align: end;"></dd>
+                                                            @endif
 
                                                             <dt class="col-sm-6">Total R$</dt>
                                                             <dd class="col-sm-6 total" style="text-align: end;"></dd>
@@ -488,12 +493,12 @@
 
         window.addEventListener('load', () => {
 
-            let editor = new Quill('#editor', {
-                modules: {
-                    toolbar: '#toolbar'
-                },
-                theme: 'snow',
-            });
+            //let editor = new Quill('#editor', {
+            //    modules: {
+            //        toolbar: '#toolbar'
+            //    },
+            //    theme: 'snow',
+            //});
 
             initInputs();
 
@@ -511,10 +516,6 @@
             if ($('#parcial_3').val() == 1) {
                 attTotalParciais(3);
             }
-
-            
-
-
         });
 
         $('#button_modal-rdse-codigo').on('click', () => {
@@ -675,7 +676,6 @@
 
             $(".service-row").each(function() {
                 const selectSap = $(this).find(`select.codigo_sap`).select2('data');
-                let priceParcial = 0;
                 if (selectSap.length > 0 && selectSap[0].id == '212') {
                     total_espera += clearNumber($(this).find(`.price_parcial${parcial}`).val());
                 }
@@ -691,7 +691,8 @@
             rowParcial.find('.p_total_espera').html(`R$ ${total_espera}`)
             rowParcial.find('.p_total').html(`R$ ${total}`)
             rowParcial.find('.p_total_servico').html(`R$ ${total_servico}`)
-            rowParcial.find('.p_total_ups').html(`${total_ups}`)
+            rowParcial.find('.p_total_ups').html(`${total_ups}`);
+
 
             attTotal();
         }
@@ -740,10 +741,6 @@
                 if (selectSap.length > 0 && selectSap[0].id == '212') {
                     total_espera += clearNumber($(this).find(`.price_total_hours `).val());
                 }
-                console.log(priceParcial);
-                console.log(priceParcial);
-
-                console.log($(this).find(`.price_total_hours `).val() + priceParcial);
 
                 total += clearNumber($(this).find(`.price_total_hours `).val()) + priceParcial;
             })
@@ -759,6 +756,10 @@
             $('.total_servico').html(`R$ ${total_servico}`)
             $('.total_ups').html(`${total_ups}`)
 
+            if ($('#parcial_1').val() == 1) {
+                let totalInParcial1 = numberFormat(clearNumber(total) - clearNumber($(`#row-total_parcial_1`).find('.p_total').html()));
+                $('.total_p1').html(`R$ ${totalInParcial1}`)
+            }
         }
 
         function updateHorasAtividades(serviceId) {
@@ -900,7 +901,7 @@
                                     value="" />
                             </th>
                             <th>
-                                <input class="form-control form-control-sm price_parcial money"
+                                <input class="form-control form-control-sm price_parcial price_parcial1 money"
                                     name="p_preco1[]"
                                     id="price_total_parcial1_${line}"
                                     data-parcial="1"
@@ -922,7 +923,7 @@
                                     value="" />
                             </th>
                             <th>
-                                <input class="form-control form-control-sm price_parcial money"
+                                <input class="form-control form-control-sm price_parcial price_parcial2 money"
                                     name="p_preco2[]"
                                     id="price_total_parcial2_${line}"
                                     data-parcial="2"
@@ -944,7 +945,7 @@
                                     value="" />
                             </th>
                             <th>
-                                <input class="form-control form-control-sm price_parcial money"
+                                <input class="form-control form-control-sm price_parcial price_parcial3 money"
                                     name="p_preco3[]"
                                     id="price_total_parcial3_${line}"
                                     data-parcial="3"
