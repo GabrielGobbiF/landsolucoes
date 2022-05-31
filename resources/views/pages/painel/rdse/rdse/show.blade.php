@@ -1105,7 +1105,7 @@
     <script>
         tinymce.init({
             selector: '#textarea-observations',
-            plugins: 'lists checklist',
+            plugins: 'lists checklist autoresize',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',           
             height: 300,
             init_instance_callback: function(editor) {
