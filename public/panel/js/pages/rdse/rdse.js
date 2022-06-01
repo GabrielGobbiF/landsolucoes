@@ -29,7 +29,7 @@ const listRdsesGroupInDom = (data, status) => {
                         <input type="text" class="form-control" name="rdses[${type}][nf][]" placeholder="Digite o Nº NF" required>
                     </div>
                     <div class="input-group mb-3 w-auto">
-                        <input type="text" class="form-control date"  name="rdses[${type}][date][] placeholder="Digite a data dd/mm/yyyy" required>
+                        <input type="text" class="form-control date" name="rdses[${type}][date][]" placeholder="Digite a data dd/mm/yyyy" required>
                     </div>
                 </div>
                 `
