@@ -92,7 +92,9 @@ class RdseController extends Controller
         }
 
         $typeRdse = $rdse->type;
-        $priceUps = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first()['value'];
+        $typeRdseArray = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first();
+        $priceUps = $typeRdseArray['value'];
+        $codigoType = $typeRdseArray['codigo'];
 
         $rdseServices = $rdse->services()->with('handswork', 'partials')->get();
 
@@ -109,7 +111,8 @@ class RdseController extends Controller
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
             'priceUps' => $priceUps,
-            'partialsCount' => $partialCount
+            'partialsCount' => $partialCount,
+            'codigoType' => $codigoType
         ]);
     }
 

@@ -63,12 +63,23 @@
             content: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cg%20id%3D%22checklist-checked%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20id%3D%22Rectangle%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%234099FF%22%20fill-rule%3D%22nonzero%22%20rx%3D%222%22%2F%3E%3Cpath%20id%3D%22Path%22%20fill%3D%22%23FFF%22%20fill-rule%3D%22nonzero%22%20d%3D%22M11.5703186%2C3.14417309%20C11.8516238%2C2.73724603%2012.4164781%2C2.62829933%2012.83558%2C2.89774797%20C13.260121%2C3.17069355%2013.3759736%2C3.72932262%2013.0909105%2C4.14168582%20L7.7580587%2C11.8560195%20C7.43776896%2C12.3193404%206.76483983%2C12.3852142%206.35607322%2C11.9948725%20L3.02491697%2C8.8138662%20C2.66090143%2C8.46625845%202.65798871%2C7.89594698%203.01850234%2C7.54483354%20C3.373942%2C7.19866177%203.94940006%2C7.19592841%204.30829608%2C7.5386474%20L6.85276923%2C9.9684299%20L11.5703186%2C3.14417309%20Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A");
         }
 
+        @media print {
+            #button_modal-rdse-codigo, #nav-links-rdse {
+                display: none;
+            }
+
+            .input-group {
+                width: 49%;
+            }
+          
+        }
+
     </style>
 
     <!-- Nav tabs -->
     <div class="container">
         <div class="d-flex ">
-            <ul class="nav nav-pills nav-justified" role="tablist">
+            <ul class="nav nav-pills nav-justified" role="tablist" id="nav-links-rdse">
                 <li class="nav-item waves-effect waves-light">
                     <a class="nav-link" data-toggle="tab" href="#rdse-dados_tab" role="tab">
                         <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -115,51 +126,50 @@
         </div>
         <div class="tab-pane active show" id="rdse-services_tab" role="tabpanel">
             <div class='card'>
-                <div class='card-body'>
-
-                    <div class="d-flex justify-content-between" style="align-items: end;">
+                <div class='card-body' style="padding: 1rem 1rem 0 1rem;">
+                    <div class="d-flex justify-content-between mb-2" style="align-items: end;">
                         <div>
-                            <h5 class="font-size-14"><i class="mdi mdi-location"></i> Croqui Atualizado Sigeo</h5>
+                            <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Atualizado Sigeo</h5>
                             <div class="d-flex flex-wrap">
                                 <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control input-update date" name="croqui_atualizado_data" placeholder="Data"
-                                    value="{{!empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data,'pt') : ''}}"
-                                    >
+                                    <input type="text" class="form-control form-control-sm input-update date" name="croqui_atualizado_data" placeholder="Data"
+                                        value="{{ !empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data, 'pt') : '' }}">
                                 </div>
                                 <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control input-update" name="croqui_atualizado_responsavel" placeholder="Responsável"
-                                    value="{{!empty($rdse->croqui_atualizado_responsavel) ? ($rdse->croqui_atualizado_responsavel) : ''}}"
-                                    >
-                                </div>
-                            </div>
-                            <h5 class="font-size-14"><i class="mdi mdi-location"></i> Croqui Validado</h5>
-                            <div class="d-flex flex-wrap">
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control input-update date" name="croqui_validado_data" placeholder="Data"
-                                    value="{{!empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data,'pt') : ''}}"
-                                    >
-                                </div>
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control input-update" name="croqui_validado_responsavel" placeholder="Responsável"
-                                    value="{{!empty($rdse->croqui_validado_responsavel) ? ($rdse->croqui_validado_responsavel) : ''}}"
-                                    >
-                                </div>
-                            </div>
-                            <h5 class="font-size-14"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
-                            <div class="d-flex flex-wrap">
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control input-update date" name="croqui_finalizado_data" placeholder="Data"
-                                    value="{{!empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data,'pt') : ''}}"
-                                    >
-                                </div>
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control input-update" name="croqui_finalizado_responsavel" placeholder="Responsável"
-                                    value="{{!empty($rdse->croqui_finalizado_responsavel) ? ($rdse->croqui_finalizado_responsavel) : ''}}"
-                                    >
+                                    <input type="text" class="form-control form-control-sm input-update" name="croqui_atualizado_responsavel" placeholder="Responsável"
+                                        value="{{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}">
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Validado</h5>
+                            <div class="d-flex flex-wrap">
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control form-control-sm input-update date" name="croqui_validado_data" placeholder="Data"
+                                        value="{{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }}">
+                                </div>
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control form-control-sm input-update" name="croqui_validado_responsavel" placeholder="Responsável"
+                                        value="{{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-size-12"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
+                            <div class="d-flex flex-wrap">
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control form-control-sm input-update date" name="croqui_finalizado_data" placeholder="Data"
+                                        value="{{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }}">
+                                </div>
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control form-control-sm input-update" name="croqui_finalizado_responsavel" placeholder="Responsável"
+                                        value="{{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="d-flex justify-content-between" style="align-items: end;">
                         <div class="d-grid float-right mb-2" style="display: grid">
                             <div>
                                 <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
@@ -172,6 +182,12 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="float-right mb-2">
+                            <div>
+                                <h5 class="mt-1 mb-3">{{ $codigoType }} - {{ $rdse->type }}</h5>
+                            </div>
+                        </div>
                     </div>
 
                     <form id='form-update-services-rdse' role='form' class='needs-validation' method='POST'>
@@ -180,10 +196,10 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="d-none"></th>
-                                        <th style="width: 7%">Chegada</th>
+                                        <th class="chegada_obra" style="width: 7%">Chegada</th>
                                         <th style="width: 6%">Qnt Minutos</th>
-                                        <th style="width: 7%">Saida</th>
-                                        <th style="width: 7%">Horas</th>
+                                        <th class="saida_obra" style="width: 7%">Saida</th>
+                                        <th class="hours" style="width: 7%">Horas</th>
                                         <th style="width: 10%">SAP</th>
                                         <th>Descrição</th>
                                         <th style="width: 6%">Horas / <br>Qnt Atividade</th>
@@ -791,6 +807,7 @@
             let total_servico = 0;
             let total = 0;
             let total_ups = 0;
+            let totalP1 = 0;
             $(".service-row").each(function() {
                 const selectSap = $(this).find(`select.codigo_sap`).select2('data');
                 let priceParcial = 0;
@@ -800,10 +817,11 @@
                 })
 
                 if (selectSap.length > 0 && selectSap[0].id == '212') {
-                    total_espera += clearNumber($(this).find(`.price_total_hours `).val());
+                    total_espera += clearNumber($(this).find(`.price_total_hours`).val());
                 }
 
-                total += clearNumber($(this).find(`.price_total_hours `).val()) + priceParcial;
+                total += clearNumber($(this).find(`.price_total_hours`).val()) + priceParcial;
+                totalP1 += clearNumber($(this).find(`.price_total_hours `).val());
             })
 
             total_ups = numberFormat(total / priceUps);
@@ -818,7 +836,7 @@
             $('.total_ups').html(`${total_ups}`)
 
             if ($('#parcial_1').val() == 1) {
-                let totalInParcial1 = numberFormat(clearNumber(total) - clearNumber($(`#row-total_parcial_1`).find('.p_total').html()));
+                let totalInParcial1 = numberFormat(totalP1);
                 $('.total_p1').html(`R$ ${totalInParcial1}`)
             }
         }

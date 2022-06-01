@@ -40,8 +40,6 @@ const listRdsesGroupInDom = (data, status) => {
                 </li>`
             }
 
-
-
         });
         html += `
                     </ul>
