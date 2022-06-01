@@ -116,16 +116,61 @@
         <div class="tab-pane active show" id="rdse-services_tab" role="tabpanel">
             <div class='card'>
                 <div class='card-body'>
-                    <div class="d-grid float-right mb-2" style="display: grid">
+
+                    <div class="d-flex justify-content-between" style="align-items: end;">
                         <div>
-                            <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
-                                {{ __trans('rdses.status_label.' . $rdse->status) }}
+                            <h5 class="font-size-14"><i class="mdi mdi-location"></i> Croqui Atualizado Sigeo</h5>
+                            <div class="d-flex flex-wrap">
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control input-update date" name="croqui_atualizado_data" placeholder="Data"
+                                    value="{{!empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data,'pt') : ''}}"
+                                    >
+                                </div>
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control input-update" name="croqui_atualizado_responsavel" placeholder="Responsável"
+                                    value="{{!empty($rdse->croqui_atualizado_responsavel) ? ($rdse->croqui_atualizado_responsavel) : ''}}"
+                                    >
+                                </div>
+                            </div>
+                            <h5 class="font-size-14"><i class="mdi mdi-location"></i> Croqui Validado</h5>
+                            <div class="d-flex flex-wrap">
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control input-update date" name="croqui_validado_data" placeholder="Data"
+                                    value="{{!empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data,'pt') : ''}}"
+                                    >
+                                </div>
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control input-update" name="croqui_validado_responsavel" placeholder="Responsável"
+                                    value="{{!empty($rdse->croqui_validado_responsavel) ? ($rdse->croqui_validado_responsavel) : ''}}"
+                                    >
+                                </div>
+                            </div>
+                            <h5 class="font-size-14"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
+                            <div class="d-flex flex-wrap">
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control input-update date" name="croqui_finalizado_data" placeholder="Data"
+                                    value="{{!empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data,'pt') : ''}}"
+                                    >
+                                </div>
+                                <div class="input-group mb-3 w-auto">
+                                    <input type="text" class="form-control input-update" name="croqui_finalizado_responsavel" placeholder="Responsável"
+                                    value="{{!empty($rdse->croqui_finalizado_responsavel) ? ($rdse->croqui_finalizado_responsavel) : ''}}"
+                                    >
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
-                                <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
-                            @endif
+
+                        <div class="d-grid float-right mb-2" style="display: grid">
+                            <div>
+                                <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
+                                    {{ __trans('rdses.status_label.' . $rdse->status) }}
+                                </div>
+                            </div>
+                            <div>
+                                @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
+                                    <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
@@ -1106,7 +1151,7 @@
         tinymce.init({
             selector: '#textarea-observations',
             plugins: 'lists checklist autoresize',
-            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',           
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',
             height: 300,
             init_instance_callback: function(editor) {
                 let timeUpdate
@@ -1122,6 +1167,27 @@
                     }, 1200);
                 });
             }
+        });
+    </script>
+
+    <script class="">
+        let timeUpdateColumns
+        $('.input-update').on('keyup', function() {
+            let collumn = $(this).attr('name');
+            let value = $(this).val();
+            $('.input-update ').not(this).attr('disabled', true);
+            clearTimeout(timeUpdateColumns);
+            timeUpdateColumns = setTimeout(function() {
+                axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
+                    collumn: collumn,
+                    value: value,
+                }).then(function(response) {
+                    toastr.success('Salvo');
+                    $('.input-update').attr('disabled', false);
+                }).catch(error => {
+                    toastr.error(error)
+                });
+            }, 900);
         });
     </script>
 

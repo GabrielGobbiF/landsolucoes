@@ -34,7 +34,13 @@ class Rdse extends Model
         'lote',
         'observations',
         'nf',
-        'date_nfe_at'
+        'date_nfe_at',
+        'croqui_atualizado_data',
+        'croqui_atualizado_responsavel',
+        'croqui_validado_data',
+        'croqui_validado_responsavel',
+        'croqui_finalizado_data',
+        'croqui_finalizado_responsavel',
     ];
 
     protected $appends = ['StatusLabel'];
@@ -57,7 +63,13 @@ class Rdse extends Model
         'lote',
         'observations',
         'nf',
-        'date_nfe_at'
+        'date_nfe_at',
+        'croqui_atualizado_data',
+        'croqui_atualizado_responsavel',
+        'croqui_validado_data',
+        'croqui_validado_responsavel',
+        'croqui_finalizado_data',
+        'croqui_finalizado_responsavel',
     ];
 
     public function services()
@@ -118,6 +130,21 @@ class Rdse extends Model
     public function setDateNfeAtAttribute($value)
     {
         $this->attributes['date_nfe_at'] = return_format_date($value, 'en');
+    }
+
+    public function setCroquiAtualizadoDataAttribute($value)
+    {
+        $this->attributes['croqui_atualizado_data'] = return_format_date($value, 'en');
+    }
+
+    public function setCroquiValidadoDataAttribute($value)
+    {
+        $this->attributes['croqui_validado_data'] = return_format_date($value, 'en');
+    }
+
+    public function setCroquiFinalizadoDataAttribute($value)
+    {
+        $this->attributes['croqui_finalizado_data'] = return_format_date($value, 'en');
     }
 
     public function setAtAttribute($value)
