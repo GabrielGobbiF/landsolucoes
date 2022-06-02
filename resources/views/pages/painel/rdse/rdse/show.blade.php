@@ -16,6 +16,10 @@
             text-transform: uppercase;
         }
 
+        table tr.active {
+            background: #4caf50ad;
+        }
+
         #rdse-services_tab .select2-selection__rendered {
             line-height: 27px !important;
         }
@@ -194,7 +198,7 @@
 
                     <form id='form-update-services-rdse' role='form' class='needs-validation' method='POST'>
                         <div id="services">
-                            <table class="table table-hover table-sm">
+                            <table class="table table-sm">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="d-none"></th>
@@ -382,6 +386,24 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7"></td>
+                                        <td class="total"></td>
+                                        @if ($rdse->parcial_1)
+                                            <td></td>
+                                            <td class="total_p1"></td>
+                                        @endif
+                                        @if ($rdse->parcial_2)
+                                            <td></td>
+                                            <td class="total_p2"></td>
+                                        @endif
+                                        @if ($rdse->parcial_3)
+                                            <td></td>
+                                            <td class="total_p3"></td>
+                                        @endif
+                                    </tr>
+                                </tfoot>
                             </table>
                             <div class="totais my-5">
                                 <dl class="row mb-5">
@@ -427,11 +449,6 @@
 
                                                             <dt class="col-sm-6">Total Serviços</dt>
                                                             <dd class="col-sm-6 total_servico" style="text-align: end;"></dd>
-
-                                                            @if ($rdse->parcial_1)
-                                                                <dt class="col-sm-6">Total P1 R$</dt>
-                                                                <dd class="col-sm-6 total_p1" style="text-align: end;"></dd>
-                                                            @endif
 
                                                             <dt class="col-sm-6">Total R$</dt>
                                                             <dd class="col-sm-6 total" style="text-align: end;"></dd>
@@ -777,7 +794,7 @@
             rowParcial.find('.p_total').html(`R$ ${total}`)
             rowParcial.find('.p_total_servico').html(`R$ ${total_servico}`)
             rowParcial.find('.p_total_ups').html(`${total_ups}`);
-
+            $(`.total_p${parcial}`).html(`R$ ${total}`);
 
             attTotal();
         }
@@ -842,11 +859,8 @@
             $('.total').html(`R$ ${total}`)
             $('.total_servico').html(`R$ ${total_servico}`)
             $('.total_ups').html(`${total_ups}`)
+            $(`.total`).html(`R$ ${numberFormat(totalP1)}`);
 
-            if ($('#parcial_1').val() == 1) {
-                let totalInParcial1 = numberFormat(totalP1);
-                $('.total_p1').html(`R$ ${totalInParcial1}`)
-            }
         }
 
         function updateHorasAtividades(serviceId) {
@@ -1171,6 +1185,20 @@
                 minimumFractionDigits: 2
             })
         }
+
+        let clickTable = 0;
+        $('.table').on('click', function(e) {
+            clickTable++;
+            if (clickTable == 2) {
+                let target = e.target.closest('tr');
+                if (target) {
+                    $(target).hasClass('active') ?
+                        $(target).removeClass('active') :
+                        $(target).addClass('active');
+                }
+                clickTable = 0;
+            }
+        })
     </script>
 
     <script>
