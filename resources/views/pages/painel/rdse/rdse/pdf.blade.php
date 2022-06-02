@@ -75,7 +75,8 @@
             #nav-links-rdse,
             .fas.fa-bell,
             .ri-menu-2-line.align-middle,
-            .ri-search-line {
+            .ri-search-line,
+            .user-dropdown {
                 display: none;
             }
 
@@ -90,6 +91,8 @@
             .table {
                 font-size: 10px;
             }
+
+            .
         }
 
     </style>
