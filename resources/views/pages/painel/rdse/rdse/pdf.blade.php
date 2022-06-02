@@ -4,6 +4,12 @@
 
 @section('content-max-fluid')
     <style>
+        .table td,
+        .table th {
+            padding: 0.3rem; 
+            vertical-align: top;
+        }
+
         .form-group {
             margin-right: 8px;
         }
@@ -149,7 +155,7 @@
 
             <div id="table-rdse-clean">
 
-                <table class='table table-hover'>
+                <table class='table'>
                     <thead class='thead-light'>
                         <tr>
                             <th class="d-none"></th>
@@ -287,13 +293,9 @@
                         </div>
                     </dl>
                 </div>
-
             </div>
-
         </div>
     </div>
-
-
 @stop
 
 @section('scripts')
