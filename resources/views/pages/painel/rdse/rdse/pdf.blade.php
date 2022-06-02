@@ -91,8 +91,6 @@
             .table {
                 font-size: 10px;
             }
-
-            .
         }
 
     </style>
