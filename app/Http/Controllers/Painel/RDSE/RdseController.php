@@ -355,6 +355,10 @@ class RdseController extends Controller
             return clearNumber($service->p_preco2);
         });
 
+        $totalP4 = $rdseServices->sum(function ($service) {
+            return clearNumber($service->p_preco3);
+        });
+
         return view('pages.painel.rdse.rdse.pdf', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
@@ -369,6 +373,7 @@ class RdseController extends Controller
 
             'totalP2' => $totalP2,
             'totalP3' => $totalP3,
+            'totalP4' => $totalP4,
         ]);
     }
 }
