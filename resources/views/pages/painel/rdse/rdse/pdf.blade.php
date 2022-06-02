@@ -76,8 +76,9 @@
             .fas.fa-bell,
             .ri-menu-2-line.align-middle,
             .ri-search-line,
-            .user-dropdown {
-                display: none;
+            .user-dropdown,
+            .avatar-sm {
+                display: none !important;
             }
 
             .input-group {
