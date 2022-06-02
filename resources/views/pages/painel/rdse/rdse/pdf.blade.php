@@ -101,48 +101,35 @@
                 <div>
                     <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Atualizado Sigeo</h5>
                     <div class="d-flex flex-wrap">
-                        <div class="input-group mb-3 w-auto">
-                            <span>
-                                {{ !empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data, 'pt') : '' }}
-                            </span>
-                        </div>
-                        <div class="input-group mb-3 w-auto">
-                            <span>
-                                {{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}
-                            </span>
-                        </div>
+                        <span class="mr-2">
+                            {{ !empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data, 'pt') : '' }} -
+                        </span>
+                        <span>
+                            {{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}
+                        </span>
                     </div>
                 </div>
                 <div>
                     <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Validado</h5>
                     <div class="d-flex flex-wrap">
-                        <div class="input-group mb-3 w-auto">
-
-                            <span>
-                                {{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }}
+                            <span class="mr-2">
+                                {{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }} -
                             </span>
-                        </div>
-                        <div class="input-group mb-3 w-auto">
                             <span>
                                 {{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}
                             </span>
 
-                        </div>
                     </div>
                 </div>
                 <div>
                     <h5 class="font-size-12"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
                     <div class="d-flex flex-wrap">
-                        <div class="input-group mb-3 w-auto">
-                            <span>
-                                {{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }}
+                            <span class="mr-2">
+                                {{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }} -
                             </span>
-                        </div>
-                        <div class="input-group mb-3 w-auto">
                             <span>
                                 {{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}
                             </span>
-                        </div>
                     </div>
                 </div>
             </div>
