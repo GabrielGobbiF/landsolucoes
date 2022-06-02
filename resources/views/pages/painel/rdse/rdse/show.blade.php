@@ -64,14 +64,16 @@
         }
 
         @media print {
-            #button_modal-rdse-codigo, #nav-links-rdse {
+
+            #button_modal-rdse-codigo,
+            #nav-links-rdse {
                 display: none;
             }
 
             .input-group {
                 width: 49%;
             }
-          
+
         }
 
     </style>
@@ -508,15 +510,21 @@
                         </div>
                     </form>
 
-                    <button type="button" class="btn btn-primary" id="button_modal-rdse-codigo">
-                        Visualizar Códigos
-                    </button>
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-primary" id="button_modal-rdse-codigo">
+                            Visualizar Códigos
+                        </button>
 
-                    @if ($rdse->status != 'invoice')
-                        <a href="{{ route('rdse.duplicate', $rdse->id) }}" type="button" class="btn btn-info btn-confirm">
-                            Duplicar RDSE
+                        <a type="button" class="btn btn-dark" target="_blank" href="{{ route('rdse.pdf', $rdse->id) }}">
+                            <i class="fas fa-pdf"></i> Visualizar PDF
                         </a>
-                    @endif
+
+                        @if ($rdse->status != 'invoice')
+                            <a href="{{ route('rdse.duplicate', $rdse->id) }}" type="button" class="btn btn-info btn-confirm">
+                                Duplicar RDSE
+                            </a>
+                        @endif
+                    </div>
 
                     <div class="modal" id="modal-rdse-codigo" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">

@@ -98,20 +98,10 @@ class RdseController extends Controller
 
         $rdseServices = $rdse->services()->with('handswork', 'partials')->get();
 
-        //select partial from `rdse_services_partials` where `rdse_id` = 44 ORDER BY partial desc limit 1
-
-        $partialsCount = DB::table('rdse_services_partials')
-            ->select('partial')
-            ->where('rdse_id', $rdse->id)
-            ->orderBy('partial', 'desc')->limit(1)->first();
-
-        $partialCount = !empty($partialsCount) ? intval($partialsCount->partial) : 0;
-
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
             'priceUps' => $priceUps,
-            'partialsCount' => $partialCount,
             'codigoType' => $codigoType
         ]);
     }
@@ -314,5 +304,60 @@ class RdseController extends Controller
         return  redirect()
             ->route('rdse.show', $new->id)
             ->with('message', 'Duplicado com sucesso');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Rdse  $identify
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf(int $identify)
+    {
+        if (!$rdse = $this->repository->where('id', $identify)->first()) {
+            return redirect()
+                ->route('rdse.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $typeRdse = $rdse->type;
+        $typeRdseArray = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first();
+        $priceUps = $typeRdseArray['value'];
+        $codigoType = $typeRdseArray['codigo'];
+
+        $rdseS = new RdseServices();
+        $rdseS->setPreventAttrSet(false);
+        $rdseServices = $rdseS->where('rdse_id', $rdse->id)->with('handswork')->get();
+
+
+        //TODO
+        $total = $rdseServices->sum(function ($service) {
+            return clearNumber($service->preco)
+                + clearNumber($service->p_preco1)
+                + clearNumber($service->p_preco2)
+                + clearNumber($service->p_preco3);
+        });
+
+        $totalEspera = $rdseServices->where('codigo_sap', 212)->sum(function ($service) {
+            return clearNumber($service->preco);
+        });
+        $totalServico =  $total  - $totalEspera;
+        $totalP1 = $rdseServices->sum(function ($service) {
+            return clearNumber($service->preco);
+        });
+        $totalUps = $total / $priceUps;
+
+        return view('pages.painel.rdse.rdse.pdf', [
+            'rdse' => $rdse,
+            'rdseServices' => $rdseServices,
+            'priceUps' => $priceUps,
+            'codigoType' => $codigoType,
+
+            'totalEspera' => $totalEspera,
+            'totalServico' => $totalServico,
+            'totalP1' => $totalP1,
+            'total' => $total,
+            'totalUps' => $totalUps,
+        ]);
     }
 }

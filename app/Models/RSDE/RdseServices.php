@@ -34,24 +34,34 @@ class RdseServices extends Model
         'p_preco3',
     ];
 
+    public $preventAttrSet = true;
+
     public function getPrecoAttribute()
     {
-        return maskPrice($this->attributes['preco']);
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['preco'])
+            : $this->attributes['preco'];
     }
 
     public function getPPreco1Attribute()
     {
-        return maskPrice($this->attributes['p_preco1']);
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['p_preco1'])
+            : $this->attributes['p_preco1'];
     }
 
     public function getPPreco2Attribute()
     {
-        return maskPrice($this->attributes['p_preco2']);
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['p_preco2'])
+            : $this->attributes['p_preco2'];
     }
 
     public function getPPreco3Attribute()
     {
-        return maskPrice($this->attributes['p_preco3']);
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['p_preco3'])
+            : $this->attributes['p_preco3'];
     }
 
     public function setPrecoAttribute($value)
@@ -72,6 +82,11 @@ class RdseServices extends Model
     public function partials()
     {
         return $this->hasMany(RdseServicesPartials::class, 'rdse_service_id', 'id');
+    }
+
+    public function setPreventAttrSet($value)
+    {
+        $this->preventAttrSet = $value;
     }
 
     protected static function boot()
