@@ -163,29 +163,25 @@
                 <table class='table'>
                     <thead class='thead-light'>
                         <tr>
-                            <th class="d-none"></th>
-                            {{-- <th>Chegada</th> --}}
-                            <th style="width: 8%;">Minutos</th>
-                            {{-- <th>Saida</th> --}}
-                            {{-- <th>Horas</th> --}}
-                            <th>SAP</th>
-                            <th>Descrição</th>
+                            <th style="width: 5%;">Minutos</th>
+                            <th style="width: 9%;">SAP</th>
+                            <th style="width: auto;">Descrição</th>
                             <th class="text-center" style="width: 10%;">Atividade</th>
-                            <th style="width: 10%;">Preço</th>
+                            <th style="width: 8%;">Preço</th>
 
                             @if ($rdse->parcial_1)
                                 <th>P Qnt 2</th>
-                                <th style="width: 10%;">P Preço 2</th>
+                                <th style="width: 8%;">P Preço 2</th>
                             @endif
 
                             @if ($rdse->parcial_2)
                                 <th>P Qnt 3</th>
-                                <th style="width: 10%;">P Preço 3</th>
+                                <th style="width: 8%;">P Preço 3</th>
                             @endif
 
                             @if ($rdse->parcial_3)
                                 <th>P Qnt 4</th>
-                                <th style="width: 10%;">P Preço 4</th>
+                                <th style="width: 8%;">P Preço 4</th>
                             @endif
                         </tr>
                     </thead>
@@ -193,21 +189,9 @@
                     <tbody>
                         @foreach ($rdseServices as $service)
                             <tr class="service-row">
-                                {{-- <th>
-                                                {{ $service->chegada }}
-                                            </th> --}}
                                 <th>
                                     {{ $service->minutos }}
                                 </th>
-
-                                {{-- <th>
-                                                {{ !empty($service->saida) ? $service->saida : '' }}
-                                            </th>
-                    
-                                            <th>
-                                                {{ !empty($service->horas) ? $service->horas : '' }}
-                                            </th> --}}
-
                                 <th>
                                     {{ !empty($service->handswork) ? $service->handswork->code : '' }}
                                 </th>
