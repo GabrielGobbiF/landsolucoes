@@ -369,7 +369,6 @@ class RdseController extends Controller
 
             'totalP2' => $totalP2,
             'totalP3' => $totalP3,
-
         ]);
     }
 }

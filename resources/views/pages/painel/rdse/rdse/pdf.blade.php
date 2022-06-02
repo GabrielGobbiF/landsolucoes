@@ -258,18 +258,18 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>R$ {{ maskPrice($totalP1) }}</td>
+                            <td>R$ {{ maskPrice($total) }}</td>
                             @if ($rdse->parcial_1)
                                 <td></td>
-                                <td>R$ {{ maskPrice($totalP2) }}</td>
+                                <td>R$ {{ maskPrice($totalP1) }}</td>
                             @endif
                             @if ($rdse->parcial_2)
                                 <td></td>
-                                <td>R$ {{ maskPrice($totalP3) }}</td>
+                                <td>R$ {{ maskPrice($totalP2) }}</td>
                             @endif
                             @if ($rdse->parcial_3)
                                 <td></td>
-                                <td>R$ {{ maskPrice($totalP4) }}</td>
+                                <td>R$ {{ maskPrice($totalP3) }}</td>
                             @endif
                         </tr>
                     </tfoot>
