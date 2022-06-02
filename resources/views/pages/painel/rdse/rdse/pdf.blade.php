@@ -112,29 +112,28 @@
                 <div>
                     <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Validado</h5>
                     <div class="d-flex flex-wrap">
-                            <span class="mr-2">
-                                {{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }} -
-                            </span>
-                            <span>
-                                {{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}
-                            </span>
-
+                        <span class="mr-2">
+                            {{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }} -
+                        </span>
+                        <span>
+                            {{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}
+                        </span>
                     </div>
                 </div>
                 <div>
                     <h5 class="font-size-12"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
                     <div class="d-flex flex-wrap">
-                            <span class="mr-2">
-                                {{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }} -
-                            </span>
-                            <span>
-                                {{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}
-                            </span>
+                        <span class="mr-2">
+                            {{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }} -
+                        </span>
+                        <span>
+                            {{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between mb-2" style="    align-items: stretch;">
+            <div class="d-flex justify-content-between mt-3" style="align-items: stretch;">
                 <div>
                     <div class='badge badge-soft-{{ $rdse->StatusLabel }} font-size-18'>
                         {{ __trans('rdses.status_label.' . $rdse->status) }}
