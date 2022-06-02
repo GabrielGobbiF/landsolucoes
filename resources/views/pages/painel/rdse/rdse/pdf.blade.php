@@ -6,7 +6,7 @@
     <style>
         .table td,
         .table th {
-            padding: 0.3rem; 
+            padding: 0.3rem;
             vertical-align: top;
         }
 
@@ -85,6 +85,10 @@
 
             .badge.badge-soft-info {
                 border: none
+            }
+
+            .table {
+                font-size: 10px;
             }
         }
 
