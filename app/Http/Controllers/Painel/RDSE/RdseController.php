@@ -347,6 +347,14 @@ class RdseController extends Controller
         });
         $totalUps = $total / $priceUps;
 
+        $totalP2 = $rdseServices->sum(function ($service) {
+            return clearNumber($service->p_preco1);
+        });
+
+        $totalP3 = $rdseServices->sum(function ($service) {
+            return clearNumber($service->p_preco2);
+        });
+
         return view('pages.painel.rdse.rdse.pdf', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
@@ -358,6 +366,10 @@ class RdseController extends Controller
             'totalP1' => $totalP1,
             'total' => $total,
             'totalUps' => $totalUps,
+
+            'totalP2' => $totalP2,
+            'totalP3' => $totalP3,
+
         ]);
     }
 }
