@@ -1187,6 +1187,7 @@
         }
 
         let clickTable = 0;
+        let timeButtonConfirm = 0;
         $('.table').on('click', function(e) {
             clickTable++;
             if (clickTable == 2) {
@@ -1196,8 +1197,11 @@
                         $(target).removeClass('active') :
                         $(target).addClass('active');
                 }
-                clickTable = 0;
             }
+            clearTimeout(timeButtonConfirm);
+            timeButtonConfirm = setTimeout(function() {
+                clickTable = 0;
+            }, 200);
         })
     </script>
 
