@@ -200,6 +200,23 @@
                         <div id="services">
                             <table class="table table-sm">
                                 <thead class="thead-light">
+                                    @if ($rdse->parcial_1)
+                                        <tr>
+                                            <th colspan="6"></th>
+                                            <th colspan="2" class="text-center">Parcial 1</th>
+                                            @if ($rdse->parcial_1)
+                                                <th colspan="2" class="text-center">Parcial 2</th>
+                                            @endif
+
+                                            @if ($rdse->parcial_2)
+                                            <th colspan="2" class="text-center">Parcial 3</th>
+                                            @endif
+
+                                            @if ($rdse->parcial_3)
+                                            <th colspan="2" class="text-center">Parcial 4</th>
+                                            @endif
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <th class="d-none"></th>
                                         <th class="chegada_obra" style="width: 7%">Chegada</th>
@@ -388,18 +405,19 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="7"></td>
+                                        <td colspan="6"></td>
+                                        <td>Parcial 1</td>
                                         <td class="total"></td>
                                         @if ($rdse->parcial_1)
-                                            <td></td>
+                                            <td>Parcial 2</td>
                                             <td class="total_p1"></td>
                                         @endif
                                         @if ($rdse->parcial_2)
-                                            <td></td>
+                                            <td>Parcial 3</td>
                                             <td class="total_p2"></td>
                                         @endif
                                         @if ($rdse->parcial_3)
-                                            <td></td>
+                                            <td>Parcial 4</td>
                                             <td class="total_p3"></td>
                                         @endif
                                     </tr>

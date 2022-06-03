@@ -149,6 +149,23 @@
 
                 <table class='table'>
                     <thead class='thead-light'>
+                        @if ($rdse->parcial_1)
+                            <tr>
+                                <th colspan="3"></th>
+                                <th colspan="2" class="text-center">Parcial 1</th>
+                                @if ($rdse->parcial_1)
+                                    <th colspan="2" class="text-center">Parcial 2</th>
+                                @endif
+
+                                @if ($rdse->parcial_2)
+                                    <th colspan="2" class="text-center">Parcial 3</th>
+                                @endif
+
+                                @if ($rdse->parcial_3)
+                                    <th colspan="2" class="text-center">Parcial 4</th>
+                                @endif
+                            </tr>
+                        @endif
                         <tr>
                             <th style="width: 5%;">Minutos</th>
                             <th style="width: 9%;">SAP</th>
@@ -157,17 +174,17 @@
                             <th style="width: 8%;">Preço</th>
 
                             @if ($rdse->parcial_1)
-                                <th>P Qnt 2</th>
+                                <th class="text-center">P Qnt 2</th>
                                 <th style="width: 8%;">P Preço 2</th>
                             @endif
 
                             @if ($rdse->parcial_2)
-                                <th>P Qnt 3</th>
+                                <th class="text-center">P Qnt 3</th>
                                 <th style="width: 8%;">P Preço 3</th>
                             @endif
 
                             @if ($rdse->parcial_3)
-                                <th>P Qnt 4</th>
+                                <th class="text-center">P Qnt 4</th>
                                 <th style="width: 8%;">P Preço 4</th>
                             @endif
                         </tr>
@@ -195,7 +212,7 @@
                                 </th>
 
                                 @if ($rdse->parcial_1)
-                                    <th>
+                                    <th class="text-center">
                                         {{ !empty($service->p_quantidade1) ? $service->p_quantidade1 : '0' }}
                                     </th>
                                     <th>
@@ -204,7 +221,7 @@
                                 @endif
 
                                 @if ($rdse->parcial_2)
-                                    <th>
+                                    <th class="text-center">
                                         {{ !empty($service->p_quantidade2) ? $service->p_quantidade2 : '0' }}
                                     </th>
                                     <th>
@@ -213,7 +230,7 @@
                                 @endif
 
                                 @if ($rdse->parcial_3)
-                                    <th>
+                                    <th class="text-center">
                                         {{ !empty($service->p_quantidade3) ? $service->p_quantidade3 : '0' }}
                                     </th>
                                     <th>
@@ -228,18 +245,18 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
+                            <td class="text-center">Parcial 1</td>
                             <td>R$ {{ maskPrice($totalP1) }}</td>
                             @if ($rdse->parcial_1)
-                                <td></td>
+                                <td class="text-center">Parcial 2</td>
                                 <td>R$ {{ maskPrice($totalP2) }}</td>
                             @endif
                             @if ($rdse->parcial_2)
-                                <td></td>
+                                <td class="text-center">Parcial 3 </td>
                                 <td>R$ {{ maskPrice($totalP3) }}</td>
                             @endif
                             @if ($rdse->parcial_3)
-                                <td></td>
+                                <td class="text-center">Parcial 4</td>
                                 <td>R$ {{ maskPrice($totalP4) }}</td>
                             @endif
                         </tr>
