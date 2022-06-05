@@ -187,7 +187,7 @@
                             <th style="width: 8%;" class="pborder">Preço</th>
 
                             @if ($rdse->parcial_1)
-                                <th class="text-center">Atividade</th>
+                                <th class="text-center pborder">Atividade</th>
                                 <th style="width: 8%;" class="pborder">Preço</th>
                             @endif
 
