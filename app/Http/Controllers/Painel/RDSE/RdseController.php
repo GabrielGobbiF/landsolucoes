@@ -359,6 +359,7 @@ class RdseController extends Controller
             return clearNumber($service->p_preco3);
         });
 
+
         return view('pages.painel.rdse.rdse.pdf', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,

@@ -191,7 +191,7 @@
 
                         <div class="float-right mb-2">
                             <div>
-                                <h5 class="mt-1 mb-3">{{ $codigoType }} - {{ $rdse->type }}</h5>
+                                <h5 class="mt-1 mb-3">{{ $codigoType }} - {{ $rdse->type }} - {{ $priceUps }}</h5>
                             </div>
                         </div>
                     </div>
@@ -209,11 +209,11 @@
                                             @endif
 
                                             @if ($rdse->parcial_2)
-                                            <th colspan="2" class="text-center">Parcial 3</th>
+                                                <th colspan="2" class="text-center">Parcial 3</th>
                                             @endif
 
                                             @if ($rdse->parcial_3)
-                                            <th colspan="2" class="text-center">Parcial 4</th>
+                                                <th colspan="2" class="text-center">Parcial 4</th>
                                             @endif
                                         </tr>
                                     @endif
