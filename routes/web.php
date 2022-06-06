@@ -391,6 +391,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
+            Route::get('rdse/lotesByStatus', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'getLotesByStatus'])->name('rdse.lotes.by.status');
             Route::put('rdse/status/{status}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateStatus'])->name('rdse.update.status');
             Route::get('rdse/{rdseId}/duplicate', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'duplicateRdse'])->name('rdse.duplicate');
             Route::get('rdse/{rdseId}/pdf', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'pdf'])->name('rdse.pdf');

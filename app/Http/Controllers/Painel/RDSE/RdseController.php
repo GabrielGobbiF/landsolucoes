@@ -391,4 +391,17 @@ class RdseController extends Controller
             ->back()
             ->with('message', 'Atualizado com sucesso');
     }
+
+    /**
+     * Pegar os lotes que existem naquele status
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLotesByStatus(Request $request)
+    {
+        $status = $request->input('status', null);
+        $lotes = Rdse::select('lote')->where('status', $status)->groupBy('lote')->get('lotes');
+
+        return  $lotes;
+    }
 }

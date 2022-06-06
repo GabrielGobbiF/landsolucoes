@@ -47,7 +47,7 @@
                 <div class="col-md-3">
                     <label>Data</label>
                     <input type="text" class="form-control search-input" name="daterange"
-                        @if (request()->input('  daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
+                        @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
                 <input type="hidden" id="totalTable">
@@ -111,9 +111,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-
-                    </div>
+                    <div class="modal-body"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btn-submit-rdse_change_status">Enviar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -143,7 +141,6 @@
         </div>
     </div>
 
-
     <div class='modal' id='modal-update_lote' tabindex='-1' role='dialog'>
         <div class='modal-dialog' role='document'>
             <div class='modal-content'>
@@ -159,7 +156,7 @@
                         <div class='form-group'>
                             <label for='input--lote'>Lote</label>
                             <input type="hidden" name="alterLote" id="input-lote-update">
-                            <input type="text" name="lote" class="form-control" id="input--lote" value="">
+                            <select class="form-control" name="lote" id="select--lotes"></select>
                         </div>
                     </div>
                     <div class='modal-footer'>
@@ -217,10 +214,12 @@
         function initButtons() {
             let selected = $('#rdse-select_status').val();
 
-            selected != 'pending' ?
-                $('#div-search_lote').removeClass('d-none') :
+            if (selected != 'pending') {
+                $('#div-search_lote').removeClass('d-none')
+            } else {
                 $('#div-search_lote').addClass('d-none')
-            //$(`button[data-type="${selected}"]`).removeClass('d-none');
+                $('#rdse-select--lote').val('').trigger('change');
+            }
         }
 
         function initTable() {
@@ -267,10 +266,10 @@
                         }
                     })
 
-                    if($('#rdse-select--lote').val() != ''){
+                    if ($('#rdse-select--lote').val() != '') {
                         $('.btn-save-lote').removeClass('d-none')
                         $('#input-lote-update').val($('#rdse-select--lote').val());
-                    }else {
+                    } else {
                         $('.btn-save-lote').addClass('d-none')
                         $('#input-lote-update').val();
                     }
@@ -501,6 +500,40 @@
                 $(this).val('');
                 initTable();
             });
+        });
+    </script>
+
+    <script>
+        $('.btn-save-lote').on('click', function() {
+            axios.get(`${base_url}/rdse/rdse/lotesByStatus`, {
+                    params: {
+                        status: $('#rdse-select_status').val()
+                    }
+                })
+                .then(function(response) {
+                    let select = $('#select--lotes');
+                    let selectId = select.attr('id');
+
+                    $.each(response.data, function(index, value) {
+                        var option = new Option(value.lote, value.lote, true, true);
+                        select.append(option);
+                    });
+
+                    select.select2({
+                        dropdownParent: $('#modal-update_lote  .modal-content'),
+                        width: '100%',
+                        placeholder: 'Selecione',
+                        language: {
+                            noResults: function() {
+                                return `<a href = "javascript:void(0)" onclick = "add_lote('${selectId}')" style = "padding: 6px;height: 20px;display: inline-table;" > Sem resultados, Adicionar um novo ?</a>`;
+                            },
+                        },
+                        escapeMarkup: function(markup) {
+                            return markup;
+                        },
+                    })
+
+                })
         });
     </script>
 @append
