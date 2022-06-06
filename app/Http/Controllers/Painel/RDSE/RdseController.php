@@ -377,4 +377,18 @@ class RdseController extends Controller
             'totalP4' => $totalP4,
         ]);
     }
+
+    public function updateLote(Request $request)
+    {
+        $loteUpdate = $request->input('alterLote');
+        $loteName = $request->input('lote');
+
+        Rdse::where('lote', $loteUpdate)->update([
+            'lote' => $loteName,
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
+    }
 }

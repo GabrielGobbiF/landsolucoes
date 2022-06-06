@@ -134,9 +134,40 @@
                 </div>
                 <div class='card-body pd-15' id="rdses-row"></div>
                 <div class="card-footer">
+                    <button type='button' class='btn btn-primary mr-3 d-none btn-save-lote' data-toggle='modal' data-target='#modal-update_lote'>
+                        <i class="fas fa-save"></i> Alterar Lote
+                    </button>
                     @include('pages.painel.rdse._partials.buttons', [request()->input('status')])
                 </div>
             </form>
+        </div>
+    </div>
+
+
+    <div class='modal' id='modal-update_lote' tabindex='-1' role='dialog'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <form id='form-update_rdse_lote' role='form' class='needs-validation' action='{{ route('rdse.update.lote') }}' method='POST'>
+                    @csrf
+                    <div class='modal-header'>
+                        <h5 class='modal-title'>Alterar Lote</h5>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group'>
+                            <label for='input--lote'>Lote</label>
+                            <input type="hidden" name="alterLote" id="input-lote-update">
+                            <input type="text" name="lote" class="form-control" id="input--lote" value="">
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-primary btn-submit'>Salvar</button>
+                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -235,6 +266,15 @@
                             }
                         }
                     })
+
+                    if($('#rdse-select--lote').val() != ''){
+                        $('.btn-save-lote').removeClass('d-none')
+                        $('#input-lote-update').val($('#rdse-select--lote').val());
+                    }else {
+                        $('.btn-save-lote').addClass('d-none')
+                        $('#input-lote-update').val();
+                    }
+
                 } else {
                     $('#rdses-downloading').addClass('d-none');
                 }
