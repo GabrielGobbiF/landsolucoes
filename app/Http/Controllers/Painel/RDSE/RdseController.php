@@ -159,30 +159,37 @@ class RdseController extends Controller
 
     public function updateStatus(Request $request, $status)
     {
-        $rdsesByGroup = $request->input('rdses', false);
+        if ($status) {
 
-        if ($rdsesByGroup) {
+            $rdsesByGroup = $request->input('rdses', false);
 
-            foreach ($rdsesByGroup as $type => $itens) {
+            if ($rdsesByGroup) {
 
-                Rdse::whereIn('id', $itens['itens'])->update([
-                    'lote' => $itens['lote'] ?? 0,
-                    'status' => $status
-                ]);
+                foreach ($rdsesByGroup as $type => $itens) {
 
-                if (isset($itens['nf'])) {
-                    for ($i = 0; $i < count($itens['itens']); $i++) {
-                        Rdse::where('id', $itens['itens'][$i])->update([
-                            'nf' => $itens['nf'][$i] ?? 0,
-                            'date_nfe_at' => return_format_date($itens['date'][$i], 'en'),
-                        ]);
+                    Rdse::whereIn('id', $itens['itens'])->update([
+                        'lote' => $itens['lote'] ?? 0,
+                        'status' => $status
+                    ]);
+
+                    if (isset($itens['nf'])) {
+                        for ($i = 0; $i < count($itens['itens']); $i++) {
+                            Rdse::where('id', $itens['itens'][$i])->update([
+                                'nf' => $itens['nf'][$i] ?? 0,
+                                'date_nfe_at' => return_format_date($itens['date'][$i], 'en'),
+                            ]);
+                        }
                     }
                 }
             }
+
+            return redirect()
+                ->route('rdse.index', ['status' => $status]);
         }
 
         return redirect()
-            ->route('rdse.index', ['status' => $status]);
+            ->back()
+            ->with('message', 'Selecione um status');
     }
 
     public function createRdseByObra(Request $request, $obraId)

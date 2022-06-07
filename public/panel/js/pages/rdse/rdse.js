@@ -143,5 +143,7 @@ $('#btn-submit-rdse_change_status').on('click', (e) => {
 
 $('.btn-states').on('click', (e) => {
     let stateIn = e.target.getAttribute('data-type');
-    getGroupRdseByType(stateIn);
+    if (stateIn != null || stateIn !=  undefined) {
+        getGroupRdseByType(stateIn);
+    }
 })
