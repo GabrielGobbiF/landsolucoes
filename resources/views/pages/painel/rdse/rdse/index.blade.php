@@ -5,10 +5,11 @@
 @section('content')
 
     <div class="card">
+
         <div class="card-body">
             <div class="row mb-4">
 
-                <div class="col-md-3">
+                <div class="col-12 col-md-3 mb-2">
                     <label>Status</label>
                     <select name="status" id="rdse-select_status" class="form-control select2 search-input">
                         <option value="" class="">Selecione</option>
@@ -21,7 +22,20 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-md-3">
+                    <label>Status de Execução</label>
+                    <select name="status_execution" id="rdse-select_status_execution" class="form-control select2 search-input">
+                        <option value="" class="">Selecione</option>
+                        @foreach (__trans('rdses.status_execution') as $status_execution)
+                            <option value='{{ $status_execution }}'
+                                {{ request()->filled('status_execution') && request()->input('status_execution') == $status_execution ? ' selected="selected"' : '' }}>
+                                {{ $status_execution }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-3">
                     <label>Tipo</label>
                     <select name="type" id="rdse-select--type" class="form-control select2 search-input">
                         <option value="">Selecione</option>
@@ -34,7 +48,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3 d-none" id="div-search_lote">
+                <div class="col-12 col-md-3 d-none" id="div-search_lote">
                     <label>Lote</label>
                     <select name="lote" id="rdse-select--lote" class="form-control select2 search-input">
                         <option value="">Selecione</option>
@@ -44,7 +58,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-md-3">
                     <label>Data</label>
                     <input type="text" class="form-control search-input" name="daterange"
                         @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
@@ -90,6 +104,7 @@
 
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
                                 <th data-field="status_label">Status</th>
+                                <th data-field="status_execution" data-formatter="statusExecution">Status de Execução</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -168,6 +183,7 @@
         </div>
     </div>
 
+
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
 @endsection
@@ -189,6 +205,10 @@
                 window.location.href = `${base_url}/rdse/rdse?status=${state}`;
             }
         })
+
+        if (localStorage.getItem('rdse-select_status_execution')) {
+            $('#rdse-select_status_execution').val(JSON.parse(localStorage.getItem('rdse-select_status_execution'))).trigger('change');
+        }
 
         if (localStorage.getItem('rdse-select_status')) {
             $('#rdse-select_status').val(JSON.parse(localStorage.getItem('rdse-select_status'))).trigger('change');
@@ -389,7 +409,7 @@
                         };
                     },
                     onClickCell: function(field, value, row, $element) {
-                        if (click == 'false' || field == 'state') {
+                        if (click == 'false' || field == 'state' || field == 'status_execution') {
                             return;
                         }
                         if (field != 'statusButton') {
@@ -468,9 +488,21 @@
             return 'R$ ' + $('#totalP3').val()
         }
 
-
         function valor_ups_sum(data, footerValue) {
             return $('#totalUpsTable').val()
+        }
+
+        function statusExecution(value, row) {
+            return `
+            <select name="" class="form-control" id="select-status_execution" onchange="updateStatusExecution(this, ${row.id})">
+                <option value="Pré APR"> Pré APR</option>
+                <option ${value == 'Programação' ? 'selected' : ''} value="Programação">  Programação </option>
+                <option ${value == 'Execução 25%' ? 'selected' : ''} value="Execução 25%"> Execução 25%</option>
+                <option ${value == 'Execução 50%' ? 'selected' : ''} value="Execução 50%"> Execução 50%</option>
+                <option ${value == 'Execução 75%' ? 'selected' : ''} value="Execução 75%"> Execução 75%</option>
+                <option ${value == 'Execução 100%' ? 'selected' : ''} value="Execução 100%">Execução 100%</option>
+            </select>
+            `
         }
 
         function preload() {
@@ -481,6 +513,15 @@
             preload += `    </div>`;
             preload += `</div>`;
             return preload;
+        }
+
+        function updateStatusExecution(select, rdseId) {
+            axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
+                _method: 'PUT',
+                status_execution: $(select).val(),
+            }).catch(function(error) {
+                toastr.error(error)
+            });
         }
     </script>
 

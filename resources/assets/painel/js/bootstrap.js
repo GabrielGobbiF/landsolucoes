@@ -4,7 +4,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.Popper = require('popper.js').default;
     window.toastr = require('toastr');
-
+    window.TomSelect = require('tom-select');
 
     require('bootstrap');
     require('jquery-mask-plugin');

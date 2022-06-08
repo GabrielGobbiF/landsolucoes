@@ -48,7 +48,7 @@ class RdseApiController extends Controller
         return response()->json($service->id, 200);
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -124,7 +124,7 @@ class RdseApiController extends Controller
                             'p_quantidade1' => $p_quantidade1,
                             'p_quantidade2' => $p_quantidade2,
                             'p_quantidade3' => $p_quantidade3,
-                            
+
                         ]);
                     }
                 }
@@ -229,5 +229,24 @@ class RdseApiController extends Controller
         }
 
         return response()->json($arrayGroupByRdseByType, 200);
+    }
+
+    public function updateStatusExecution(Request $request, $rdseId)
+    {
+        $statusExecution = $request->input('status_execution', null);
+
+        if (!$statusExecution) {
+            return response()->json('Select one status', 404);
+        }
+
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return response()->json('Object RDSE not found in scope', 404);
+        }
+
+        $rdse->update([
+            'status_execution' => $statusExecution
+        ]);
+
+        return response()->json(true, 200);
     }
 }

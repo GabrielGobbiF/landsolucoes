@@ -33,6 +33,7 @@ class Rdse extends Model
         'obra_id',
         'lote',
         'observations',
+        'observations_execution',
         'nf',
         'date_nfe_at',
         'croqui_atualizado_data',
@@ -41,6 +42,11 @@ class Rdse extends Model
         'croqui_validado_responsavel',
         'croqui_finalizado_data',
         'croqui_finalizado_responsavel',
+
+        'parcial_1_at',
+        'parcial_2_at',
+        'parcial_3_at',
+        'status_execution',
     ];
 
     protected $appends = ['StatusLabel'];
@@ -70,6 +76,12 @@ class Rdse extends Model
         'croqui_validado_responsavel',
         'croqui_finalizado_data',
         'croqui_finalizado_responsavel',
+        'observations_execution',
+        
+        'parcial_1_at',
+        'parcial_2_at',
+        'parcial_3_at',
+        'status_execution',
     ];
 
     public function services()

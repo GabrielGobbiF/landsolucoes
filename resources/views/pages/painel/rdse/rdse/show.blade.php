@@ -79,7 +79,6 @@
             }
 
         }
-
     </style>
 
     <!-- Nav tabs -->
@@ -426,8 +425,36 @@
                             <div class="totais my-5">
                                 <dl class="row mb-5">
                                     <div class="col-8">
-                                        <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
-                                            class="form-control input-update">{{ $rdse->observations }}</textarea>
+
+
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link active" data-toggle="tab" href="#observations-1" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="fas fa-observations"></i></span>
+                                                    <span class="d-none d-sm-block">Observações</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link" data-toggle="tab" href="#observations_execution-1" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                    <span class="d-none d-sm-block">Observações Execução</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content mt-2 text-muted">
+                                            <div class="tab-pane active" id="observations-1" role="tabpanel">
+                                                <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
+                                                    class="form-control input-update">{{ $rdse->observations }}</textarea>
+                                            </div>
+                                            <div class="tab-pane" id="observations_execution-1" role="tabpanel">
+                                                <textarea style="height:auto !important" name="observations_execution" id="textarea-observations_execution" cols="5" rows="4"
+                                                    class="form-control input-update">{{ $rdse->observations_execution }}</textarea>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                     <div class="col-4">
                                         <div class="row">
@@ -1236,6 +1263,27 @@
                     timeUpdate = setTimeout(function() {
                         axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
                             collumn: 'observations',
+                            value: ed,
+                        }).catch(error => {
+                            toastr.error(error)
+                        });
+                    }, 1200);
+                });
+            }
+        });
+
+        tinymce.init({
+            selector: '#textarea-observations_execution',
+            plugins: 'lists checklist autoresize',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',
+            height: 300,
+            init_instance_callback: function(editor) {
+                let timeUpdate
+                editor.on('keyup, change', function(e) {
+                    let ed = tinymce.get('textarea-observations_execution').getContent();
+                    timeUpdate = setTimeout(function() {
+                        axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
+                            collumn: 'observations_execution',
                             value: ed,
                         }).catch(error => {
                             toastr.error(error)

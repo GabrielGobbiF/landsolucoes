@@ -46,6 +46,7 @@ class RdseResource extends JsonResource
             'valor' => $valorTotal,
             'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
+            'status_execution' => $this->status_execution,
         ];
     }
 
@@ -54,6 +55,11 @@ class RdseResource extends JsonResource
         return "<div class='badge badge-soft-" . $this->StatusLabel . " font-size-12'>
                 " . __trans('rdses.status_label.' . $this->status) . "
             </div>";
+    }
+
+    private function getLabelStatusExecution()
+    {
+        
     }
 
     private function getValorTotalAndUps()

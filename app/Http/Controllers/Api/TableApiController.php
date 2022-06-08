@@ -226,6 +226,10 @@ class TableApiController extends Controller
                     $query->where('rdses.lote', $filters['lote']);
                 }
             })->where(function ($query) use ($filters) {
+                if (!empty($filters['status_execution'])) {
+                    $query->where('rdses.status_execution', $filters['status_execution']);
+                }
+            })->where(function ($query) use ($filters) {
                 if (!empty($filters['daterange'])) {
                     [$date_to, $date_from] = explode(' - ', $filters['daterange']);
                     $date_to = return_format_date($date_to, 'en');

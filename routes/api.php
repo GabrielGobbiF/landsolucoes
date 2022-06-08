@@ -28,9 +28,9 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     /**
      * RDSE
      */
+    Route::put('rdse/{rdseId}/update-status-execution', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateStatusExecution'])->name('api.rdse.update.status.execution');
     Route::get('rdses/bygroup', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'getRdsesByGroup'])->name('api.rdse.get.rdses.bygroup');
     Route::put('rdse/{rdseId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'update'])->name('api.rdse.update');
-
     Route::post('rdse/{rdseId}/services/reorder', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'reorderService'])->name('api.rdse.service.reorder');
     Route::post('rdse/{rdseId}/services', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'storeService'])->name('api.rdse.service.store');
     Route::put('rdse/{rdseId}/services/all', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateServices'])->name('api.rdse.services.update');
