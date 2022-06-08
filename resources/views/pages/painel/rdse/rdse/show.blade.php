@@ -437,7 +437,7 @@
                                             <li class="nav-item waves-effect waves-light">
                                                 <a class="nav-link" data-toggle="tab" href="#observations_execution-1" role="tab">
                                                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                                    <span class="d-none d-sm-block">Observações Execução</span>
+                                                    <span class="d-none d-sm-block">Documentos Execução</span>
                                                 </a>
                                             </li>
                                         </ul>

@@ -301,7 +301,7 @@
                 <div class="totais my-5">
                     <dl class="row mb-5">
                         <div class="col-8">
-                            {!! $rdse->observations_execution !!}
+                            {!! $rdse->observations !!}
                         </div>
                         <div class="col-4">
                             <div class="row">
