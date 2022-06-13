@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', ucfirst($rdse->description))
+@section('title', ucfirst($rdse->n_order) .' - '. ucfirst($rdse->description))
 
 @section('content-max-fluid')
     <style>
