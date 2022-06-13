@@ -1112,10 +1112,6 @@
                     initInputs();
                     attLines();
 
-                    $('html, body').animate({
-                        scrollTop: $(document).height()
-                    }, 1500);
-
                     return true;
                 }
             }
