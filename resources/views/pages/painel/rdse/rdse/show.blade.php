@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Editar - ' . ucfirst($rdse->description))
+@section('title', 'Editar - ' . ucfirst($rdse->n_order) .' - '. ucfirst($rdse->description))
 
 @section('content-max-fluid')
     <style>
@@ -183,10 +183,10 @@
                             </div>
                             <div>
                                 @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
-                                    <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
+                                    <a class="mr-3" href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                                 @endif
                                 @if ($rdse->parcial_1 == 1)
-                                    <a class="ml-3" href="{{ route('rdse.service.partial.destroy', $rdse->id) }}">Deletar Ultima Parcial</a>
+                                    <a href="{{ route('rdse.service.partial.destroy', $rdse->id) }}">Deletar Ultima Parcial</a>
                                 @endif
                             </div>
                         </div>

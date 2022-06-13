@@ -11,7 +11,7 @@
     <meta name="js-base_url_api" content="{{ env('APP_URL_API') }}">
     <meta name="url" content="{{ str_replace([Request::getQueryString(), '?'], '', Request::getPathInfo()) }}">
 
-    <title>@yield("title", config("app.name", "Laravel"))</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
@@ -34,7 +34,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
+
     <style>
         .form-group-money input {
             border-top: 1px solid #ced4da;
@@ -63,7 +63,6 @@
                 display: none;
             }
         }
-
     </style>
 
 </head>
@@ -89,7 +88,7 @@
 
                     <div class="d-flex mobile--hidden">
                         <div>
-                            <h4 class="text-white mobile--hidden">@yield("title", "")</h4>
+                            <h4 class="text-white mobile--hidden">@yield('title', '')</h4>
                         </div>
                     </div>
 
@@ -180,7 +179,7 @@
     <!-- todoFazer  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
-    @yield("scripts")
+    @yield('scripts')
 
     <script>
         @include('components.toastr')
