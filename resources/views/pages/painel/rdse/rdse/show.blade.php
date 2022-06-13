@@ -185,6 +185,9 @@
                                 @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
                                     <a href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                                 @endif
+                                @if ($rdse->parcial_1 == 1)
+                                    <a class="ml-3" href="{{ route('rdse.service.partial.destroy', $rdse->id) }}">Deletar Ultima Parcial</a>
+                                @endif
                             </div>
                         </div>
 
@@ -805,11 +808,13 @@
                 $('.price_total_hours').attr('readonly', true)
                 $('.qnt_minutos').attr('readonly', true)
                 $('.codigo_sap ').attr('readonly', true)
+                $('.qnt_atividade').attr('readonly', true)
             } else {
                 $('.conversion').attr('readonly', false)
                 $('.price_total_hours').attr('readonly', false)
                 $('.qnt_minutos').attr('readonly', false)
                 $('.codigo_sap ').attr('readonly', false)
+                $('.qnt_atividade').attr('readonly', false)
             }
         }
 
@@ -978,12 +983,14 @@
 
             const service = await storeService();
 
-            if (service && service.data != undefined && service.data != 'andamento') {
-                let line = service.data;
+            if (($('#rdse-status').val() == 'invoice' || $('#rdse-status').val() == 'approved')) {
 
-                if ($(`#services_${line}`).length == 0) {
+                if (service && service.data != undefined && service.data != 'andamento') {
+                    let line = service.data;
 
-                    let html = `
+                    if ($(`#services_${line}`).length == 0) {
+
+                        let html = `
         <tr class="service-row" data-id="${line}" id="services_${line}" tabindex="-1">
             <th class="d-none">
                 <input type="hidden" name="serviceId[]" value="${line}" />
@@ -1034,8 +1041,8 @@
                 <input class="form-control form-control-sm  price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
             </th>`;
 
-                    if ($('#parcial_1').val() == 1) {
-                        html += `
+                        if ($('#parcial_1').val() == 1) {
+                            html += `
                             <th>
                                 <input
                                     min="0"
@@ -1054,10 +1061,10 @@
                                     data-id="${line}"
                                     value="" />
                             </th>`
-                    }
+                        }
 
-                    if ($('#parcial_2').val() == 1) {
-                        html += `
+                        if ($('#parcial_2').val() == 1) {
+                            html += `
                             <th>
                                 <input
                                     min="0"
@@ -1076,10 +1083,10 @@
                                     data-id="${line}"
                                     value="" />
                             </th>`
-                    }
+                        }
 
-                    if ($('#parcial_3').val() == 1) {
-                        html += `
+                        if ($('#parcial_3').val() == 1) {
+                            html += `
                             <th>
                                 <input
                                     min="0"
@@ -1098,23 +1105,25 @@
                                     data-id="${line}"
                                     value="" />
                             </th>`
-                    }
+                        }
 
 
-                    html += `<th>
+                        html += `<th>
                         <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
                             <i class="fas fa-trash"></i>
                         </a>
                     </th>
                 </tr> `;
 
-                    $('#services-row').append(html);
-                    initInputs();
-                    attLines();
+                        $('#services-row').append(html);
+                        initInputs();
+                        attLines();
 
-                    return true;
+                        return true;
+                    }
                 }
             }
+
             return false;
         };
 

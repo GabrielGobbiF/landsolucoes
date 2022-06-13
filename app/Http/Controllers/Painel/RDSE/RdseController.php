@@ -411,4 +411,27 @@ class RdseController extends Controller
 
         return  $lotes;
     }
+
+    public function destroyPartialRdse($rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->with('services')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        if ($rdse->parcial_3 == 1) {
+            $rdse->parcial_3 = 0;
+        } else if ($rdse->parcial_2 == 1) {
+            $rdse->parcial_2 = 0;
+        } else if ($rdse->parcial_1 == 1) {
+            $rdse->parcial_1 = 0;
+        }
+
+        $rdse->update();
+
+        return redirect()
+            ->back()
+            ->with('message', 'Parcial Deletada com sucesso');
+    }
 }

@@ -16,6 +16,7 @@ return [
     'status_execution' => [
         'Pré APR',
         'Programação',
+        'Impedimento',
         'Execução 25%',
         'Execução 50%',
         'Execução 75%',

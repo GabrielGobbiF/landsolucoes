@@ -402,9 +402,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('modelo-rdse/{modeloId}/create-rdse', [App\Http\Controllers\Painel\RDSE\ModelosRdseController::class, 'createRdseByModelo'])->name('modelo.rdse.create');
             Route::post('rdse/obra/{obraId}/store', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'createRdseByObra'])->name('rdse.obra.create');
             Route::get('rdse/{rdseId}/partial', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'addPartialRdse'])->name('rdse.service.partial.store');
+            Route::get('rdse/{rdseId}/partial/destroy', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'destroyPartialRdse'])->name('rdse.service.partial.destroy');
 
             Route::post('rdse/update-lote', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateLote'])->name('rdse.update.lote');
-
         });
     });
 

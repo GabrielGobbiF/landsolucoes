@@ -497,6 +497,7 @@
             <select name="" class="form-control" id="select-status_execution" onchange="updateStatusExecution(this, ${row.id})">
                 <option value="Pré APR"> Pré APR</option>
                 <option ${value == 'Programação' ? 'selected' : ''} value="Programação">  Programação </option>
+                <option ${value == 'Impedimento' ? 'selected' : ''} value="Impedimento"> Impedimento</option>
                 <option ${value == 'Execução 25%' ? 'selected' : ''} value="Execução 25%"> Execução 25%</option>
                 <option ${value == 'Execução 50%' ? 'selected' : ''} value="Execução 50%"> Execução 50%</option>
                 <option ${value == 'Execução 75%' ? 'selected' : ''} value="Execução 75%"> Execução 75%</option>
