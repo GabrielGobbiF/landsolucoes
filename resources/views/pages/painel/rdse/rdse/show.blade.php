@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Editar - ' . ucfirst($rdse->n_order) .' - '. ucfirst($rdse->description))
+@section('title', 'Editar - ' . ucfirst($rdse->n_order) . ' - ' . ucfirst($rdse->description))
 
 @section('content-max-fluid')
     <style>
@@ -588,6 +588,38 @@
                             <a href="{{ route('rdse.duplicate', $rdse->id) }}" type="button" class="btn btn-info btn-confirm">
                                 Duplicar RDSE
                             </a>
+                        @endif
+
+                        @if ($rdse->status == 'pending')
+                            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#addServicesByModel'>
+                                Adicionar Serviços de Modelo
+                            </button>
+
+                            <div class='modal' id='addServicesByModel' tabindex='-1' role='dialog'>
+                                <div class='modal-dialog' role='document'>
+                                    <form id='form-add-services-byModel' role='form' class='needs-validation' action='{{ route('rdse.add.service.by.model', $rdse->id) }}' method='POST'>
+                                        @csrf
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h5 class='modal-title'>Selecione o modelo</h5>
+                                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                                    <span aria-hidden='true'>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class='modal-body'>
+                                                <select name='modelo' class='form-control t-select' data-request="modelos-rdses"></select>
+                                            </div>
+                                            <div class='modal-footer'>
+                                                <button type='button' class='btn btn-primary btn-submit'>Salvar</button>
+                                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <script class=""></script>
                         @endif
                     </div>
 

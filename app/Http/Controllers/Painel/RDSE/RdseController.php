@@ -434,4 +434,36 @@ class RdseController extends Controller
             ->back()
             ->with('message', 'Parcial Deletada com sucesso');
     }
+
+    public function addServiceByModel(Request $request, $rdseId)
+    {
+        $modelo = $request->input('modelo', null);
+
+        if (!$rdse = $this->repository->where('id', $rdseId)->with('services')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        if (!$rdseModelo = $this->repository->where('id', $modelo)->where('modelo', 1)->with('services')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) Modelo não encontrado!');
+        }
+
+        //load relations on EXISTING MODEL
+        $rdseModelo->load('services');
+
+        //re-sync everything
+        foreach ($rdseModelo->getRelations() as $relation => $items) {
+            foreach ($items as $item) {
+                unset($item->id);
+                $rdse->{$relation}()->create($item->toArray());
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Modelo puxado com sucesso');
+    }
 }

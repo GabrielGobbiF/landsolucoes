@@ -2,8 +2,9 @@ const selectAxOption = (request) => {
     return {
         valueField: 'id',
         labelField: 'name',
+        searchField: 'name',
         load: function (query, callback) {
-            var url = `${base_url_api}/${request}?search=` + encodeURIComponent(query);
+            var url = `${base_url_api}${request}?search=` + encodeURIComponent(query);
             fetch(url)
                 .then(response => response.json())
                 .then(response => {
