@@ -428,6 +428,8 @@ class RdseController extends Controller
             $rdse->parcial_1 = 0;
         }
 
+        $rdse->status = 'invoice';
+
         $rdse->update();
 
         return redirect()
