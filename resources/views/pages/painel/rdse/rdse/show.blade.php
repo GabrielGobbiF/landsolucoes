@@ -1011,11 +1011,12 @@
         }
 
         const addRow = async () => {
-            await updateServices();
+            if ($('#rdse-status').val() != 'invoice' || $('#rdse-status').val() != 'inventariando' || $('#rdse-status').val() != 'inventariado') {
+                await updateServices();
 
-            const service = await storeService();
+                const service = await storeService();
 
-            if (($('#rdse-status').val() == 'invoice' || $('#rdse-status').val() == 'approved')) {
+
 
                 if (service && service.data != undefined && service.data != 'andamento') {
                     let line = service.data;
@@ -1152,6 +1153,7 @@
                         attLines();
 
                         return true;
+
                     }
                 }
             }
@@ -1290,7 +1292,7 @@
     <script>
         tinymce.init({
             selector: '#textarea-observations',
-            plugins: 'lists checklist autoresize',
+            plugins: 'lists autoresize',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',
             height: 300,
             init_instance_callback: function(editor) {
@@ -1311,7 +1313,7 @@
 
         tinymce.init({
             selector: '#textarea-observations_execution',
-            plugins: 'lists checklist autoresize',
+            plugins: 'lists autoresize',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',
             height: 300,
             init_instance_callback: function(editor) {
