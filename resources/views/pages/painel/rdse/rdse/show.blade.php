@@ -467,13 +467,15 @@
                                                         aria-selected="true">Total</a>
 
                                                     @if ($rdse->parcial_1 == 1)
-                                                        <a class="nav-link mb-2" id="v-pills-parcial_1-tab" data-toggle="pill" href="#v-pills-parcial_1" role="tab" aria-controls="v-pills-parcial_1"
+                                                        <a class="nav-link mb-2" id="v-pills-parcial_1-tab" data-toggle="pill" href="#v-pills-parcial_1" role="tab"
+                                                            aria-controls="v-pills-parcial_1"
                                                             aria-selected="false">Parcial 2
                                                         </a>
                                                     @endif
 
                                                     @if ($rdse->parcial_2 == 1)
-                                                        <a class="nav-link mb-2" id="v-pills-parcial_2-tab" data-toggle="pill" href="#v-pills-parcial_2" role="tab" aria-controls="v-pills-parcial_2"
+                                                        <a class="nav-link mb-2" id="v-pills-parcial_2-tab" data-toggle="pill" href="#v-pills-parcial_2" role="tab"
+                                                            aria-controls="v-pills-parcial_2"
                                                             aria-selected="false">Parcial 3
                                                         </a>
                                                     @endif
@@ -1290,10 +1292,13 @@
     </script>
 
     <script>
+        var alreadyVisited = localStorage.getItem("is_visited");
         tinymce.init({
             selector: '#textarea-observations',
             plugins: 'lists autoresize',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',
+            skin: alreadyVisited == "dark-mode-switch" ? "oxide-dark" : null,
+            content_css: alreadyVisited == "dark-mode-switch" ? "dark" : "light",
             height: 300,
             init_instance_callback: function(editor) {
                 let timeUpdate
@@ -1316,6 +1321,8 @@
             plugins: 'lists autoresize',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | checklist',
             height: 300,
+            skin: alreadyVisited == "dark-mode-switch" ? "oxide-dark" : null,
+            content_css: alreadyVisited == "dark-mode-switch" ? "dark" : "light",
             init_instance_callback: function(editor) {
                 let timeUpdate
                 editor.on('keyup, change', function(e) {

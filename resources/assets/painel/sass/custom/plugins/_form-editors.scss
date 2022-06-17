@@ -2,7 +2,7 @@
 // Form editors.scss
 //
 
-// Tinymce 
+// Tinymce
 
 .tox-tinymce {
     border: 2px solid $gray-300 !important;
@@ -62,11 +62,14 @@
         color: $gray-700 !important;
     }
 
-    &:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
+    &:not([dir="rtl"]) .tox-toolbar__group:not(:last-of-type) {
         border-right: 1px solid darken($gray-300, 5%) !important;
     }
 }
 
+.mce-content-body {
+    color: $gray-700 !important;
+}
 
 // Summernote
 
@@ -82,7 +85,6 @@
         }
 
         .note-editing-area {
-
             .note-editable,
             .note-codable {
                 border: none;
@@ -90,7 +92,6 @@
                 background-color: transparent;
             }
         }
-
     }
 }
 
@@ -106,7 +107,6 @@
 }
 
 .note-editable {
-
     p {
         &:last-of-type {
             margin-bottom: 0;

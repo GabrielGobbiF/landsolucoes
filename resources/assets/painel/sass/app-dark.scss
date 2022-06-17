@@ -7,7 +7,7 @@
 //Core files
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
-@import "variables";
+@import "variables-dark";
 @import "~bootstrap/scss/mixins.scss";
 
 // General - Principal
@@ -26,8 +26,8 @@
 @import "custom/plugins/custom-scrollbar";
 @import "custom/plugins/bootstrap-table";
 @import "custom/plugins/responsive-table";
-@import "custom/plugins/form-editors";
 @import "custom/plugins/tom-select";
+@import "custom/plugins/form-editors";
 
 //Libs (Helpers)
 @import "custom/helpers/helpers";
@@ -40,6 +40,7 @@
 @import "custom/components/metisMenu";
 @import "custom/components/card";
 @import "custom/components/dropzone";
+@import "custom/components/inputs";
 
 // Pages
 @import "custom/pages/home";
@@ -59,7 +60,6 @@
 //@import "custom/plugins/switch";
 //@import "custom/plugins/datepicker";
 //@import "custom/plugins/datatable";
-//@import "custom/plugins/form-editors";
 //@import "custom/plugins/form-upload";
 //@import "custom/plugins/form-wizard";
 //@import "custom/plugins/table-editable";

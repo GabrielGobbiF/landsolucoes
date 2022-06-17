@@ -1,7 +1,8 @@
 {
-    "/panel/js/app.js": "/panel/js/app.js?id=df24aa53098ecfde89cdc395a888019b",
-    "/panel/js/bootstrap.js": "/panel/js/bootstrap.js?id=f9a9115673eb785c96f4081047b98df8",
-    "/panel/css/app.css": "/panel/css/app.css?id=2617ccfb18b216768f6163dcff416ada",
+    "/panel/js/app.js": "/panel/js/app.js?id=d34e54e10cc97e9c540065fbec6b0098",
+    "/panel/css/app-dark.css": "/panel/css/app-dark.css?id=7bc3945bb632e643e4e24b4467b37919",
+    "/panel/css/app.css": "/panel/css/app.css?id=744834b8147e3276277d7760655de3ec",
+    "/panel/css/bootstrap-dark.css": "/panel/css/bootstrap-dark.css?id=7b3bffd4993f7a75d8ed906bbad90e9f",
     "/panel/css/bootstrap.css": "/panel/css/bootstrap.css?id=62bb25dca93ba01320c46644e81d28b2",
     "/panel/js/all.js": "/panel/js/all.js?id=aa7feefadf46455857c6ded373e4ce52"
 }
