@@ -11,7 +11,6 @@
                 <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
                     <label>Status</label>
                     <select name="status" id="rdse-select_status" class="form-control select2 search-input-rdse" multiple>
-                        <option value="" class="">Todos</option>
                         @foreach (__trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
                                 {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
@@ -24,7 +23,6 @@
                 <div class="col-12 col-md-auto" style="min-width: 180px">
                     <label>Status de Execução</label>
                     <select name="status_execution" id="rdse-select_status_execution" class="form-control select2 search-input-rdse" multiple>
-                        <option value="" class="">Todos</option>
                         @foreach (__trans('rdses.status_execution') as $status_execution)
                             <option value='{{ $status_execution }}'
                                 {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
