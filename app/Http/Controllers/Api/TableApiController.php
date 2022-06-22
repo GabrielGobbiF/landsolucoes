@@ -215,7 +215,7 @@ class TableApiController extends Controller
                 }
             })->where(function ($query) use ($filters) {
                 if (!empty($filters['status'])) {
-                    $query->where('rdses.status', $filters['status']);
+                    $query->whereIn('rdses.status', $filters['status']);
                 }
             })->where(function ($query) use ($filters) {
                 if (!empty($filters['type'])) {
@@ -227,7 +227,7 @@ class TableApiController extends Controller
                 }
             })->where(function ($query) use ($filters) {
                 if (!empty($filters['status_execution'])) {
-                    $query->where('rdses.status_execution', $filters['status_execution']);
+                    $query->whereIn('rdses.status_execution', $filters['status_execution']);
                 }
             })->where(function ($query) use ($filters) {
                 if (!empty($filters['daterange'])) {

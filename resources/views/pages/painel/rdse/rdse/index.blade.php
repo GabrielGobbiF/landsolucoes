@@ -8,27 +8,26 @@
 
         <div class="card-body">
             <div class="row mb-4">
-
-                <div class="col-12 col-md-3 mb-2">
+                <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
                     <label>Status</label>
-                    <select name="status" id="rdse-select_status" class="form-control select2 search-input">
-                        <option value="" class="">Selecione</option>
+                    <select name="status" id="rdse-select_status" class="form-control select2 search-input-rdse" multiple>
+                        <option value="" class="">Todos</option>
                         @foreach (__trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
-                                {{ (!request()->filled('status') && $text == 'Em Medição' ? ' selected="selected"' : request()->filled('status') && request()->input('status') == $status) ? ' selected="selected"' : '' }}>
+                                {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
                                 {{ $text }}
                             </option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-auto" style="min-width: 180px">
                     <label>Status de Execução</label>
-                    <select name="status_execution" id="rdse-select_status_execution" class="form-control select2 search-input">
-                        <option value="" class="">Selecione</option>
+                    <select name="status_execution" id="rdse-select_status_execution" class="form-control select2 search-input-rdse" multiple>
+                        <option value="" class="">Todos</option>
                         @foreach (__trans('rdses.status_execution') as $status_execution)
                             <option value='{{ $status_execution }}'
-                                {{ request()->filled('status_execution') && request()->input('status_execution') == $status_execution ? ' selected="selected"' : '' }}>
+                                {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
                                 {{ $status_execution }}
                             </option>
                         @endforeach
@@ -37,7 +36,7 @@
 
                 <div class="col-12 col-md-3">
                     <label>Tipo</label>
-                    <select name="type" id="rdse-select--type" class="form-control select2 search-input">
+                    <select name="type" id="rdse-select--type" class="form-control select2 search-input-rdse">
                         <option value="">Selecione</option>
                         @foreach (config('admin.rdse.type') as $type)
                             <option value='{{ $type['name'] }}'
@@ -50,7 +49,7 @@
 
                 <div class="col-12 col-md-3 d-none" id="div-search_lote">
                     <label>Lote</label>
-                    <select name="lote" id="rdse-select--lote" class="form-control select2 search-input">
+                    <select name="lote" id="rdse-select--lote" class="form-control select2 search-input-rdse">
                         <option value="">Selecione</option>
                         @foreach ($lotes as $lote)
                             <option value='{{ $lote->lote }}'>{{ $lote->lote }}</option>
@@ -60,7 +59,7 @@
 
                 <div class="col-12 col-md-3">
                     <label>Data</label>
-                    <input type="text" class="form-control search-input" name="daterange"
+                    <input type="text" class="form-control search-input-rdse" name="daterange"
                         @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
@@ -199,11 +198,11 @@
         });
 
         $('#rdse-select_status').on('change', function() {
-            let state = $(this).val();
-            localStorage.setItem('rdse-selecteds', JSON.stringify([]));
-            if (state != `{{ request()->input('status') }}`) {
-                window.location.href = `${base_url}/rdse/rdse?status=${state}`;
-            }
+            //let state = $(this).val();
+            //localStorage.setItem('rdse-selecteds', JSON.stringify([]));
+            //if (state != `{{ request()->input('status')[0] }}`) {
+            //    //window.location.href = `${base_url}/rdse/rdse?status=${arrStr}`;
+            //}
         })
 
         if (localStorage.getItem('rdse-select_status_execution')) {
@@ -222,24 +221,25 @@
             $('#rdse-select--lote').val(JSON.parse(localStorage.getItem('rdse-select--lote'))).trigger('change');
         }
 
-        $('.search-input').on('change', function() {
+        $('.search-input-rdse').on('change', function() {
             const value = $(this).val();
             const id = $(this).attr('id');
             localStorage.setItem(id, JSON.stringify(value));
-            if ($(this).attr('id') != 'rdse-select_status') {
-                initTable();
-            }
+            localStorage.setItem('rdse-selecteds', JSON.stringify([]));
+            initButtons();
+            initTable();
         })
 
         function initButtons() {
             let selected = $('#rdse-select_status').val();
-
-            if (selected != 'pending') {
-                $('#div-search_lote').removeClass('d-none')
-            } else {
-                $('#div-search_lote').addClass('d-none')
-                $('#rdse-select--lote').val('').trigger('change');
-            }
+            //if (selected != 'pending') {
+            //    $('#div-search_lote').removeClass('d-none')
+            //} else {
+            //    $('#div-search_lote').addClass('d-none')
+            //    $('#rdse-select--lote').val('').trigger('change');
+            //}
+            selected.length == 1 ? $("#buttons-alter-status").removeClass('d-none') :
+                $("#buttons-alter-status").addClass('d-none')
         }
 
         function initTable() {
@@ -322,7 +322,7 @@
 
             $('.table-api').append(preload());
 
-            $.each($('.search-input'), function() {
+            $.each($('.search-input-rdse'), function() {
                 if ($(this).attr('name') != undefined) {
                     filter[$(this).attr('name')] = $(this).val() ?? '';
                 }
@@ -463,10 +463,6 @@
                     })
             }
 
-            $('.search-input .modify').on('change', function() {
-                initTable();
-            })
-
             getDivItensSelected();
 
         }
@@ -520,7 +516,10 @@
             axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
                 _method: 'PUT',
                 status_execution: $(select).val(),
-            }).catch(function(error) {
+            }).then(function(error) {
+                toastr.success('Alterado')
+            })
+            .catch(function(error) {
                 toastr.error(error)
             });
         }

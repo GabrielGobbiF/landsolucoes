@@ -1,1 +1,6 @@
 @import "~tom-select/src/scss/tom-select.bootstrap4";
+
+.ts-wrapper.multi .ts-control > div {
+    background: $gray-700 !important;
+    border: 0 solid $gray-300 !important;
+}

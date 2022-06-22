@@ -30,12 +30,10 @@ class RdseController extends Controller
         # $rdses = Rdse::all();
         $date = Carbon::now()->format('d/m/Y');
 
-        $status = $request->has('status') ? $request->input('status') : 'pending';
+        $status = $request->has('status') ? $request->input('status') : ['pending'];
         [$date_to, $date_from] = $request->has('daterange') ? explode(' - ', $request->input('daterange')) : [null, null];
 
         $request->merge(['status' => $status, 'date_to' => $date_to, 'date_from' => $date_from]);
-
-        #dd([$date_to, $date_from]);
 
         $lotes = DB::table('rdses')
             ->select('lote')
