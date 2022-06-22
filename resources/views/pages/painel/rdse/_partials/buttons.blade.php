@@ -1,12 +1,12 @@
 <div id="buttons-alter-status" class="d-none">
 
-    @if (request()->input('status')[0] == 'pending')
+    <div class="div__pending d-none" id="div-pending">
         <button id="button-approval" type="button" data-type="approval" class="btn btn-secondary btn-states">
             <i class="fas fa-file-export"></i> Enviar para Aprovação
         </button>
-    @endif
+    </div>
 
-    @if (request()->input('status')[0] == 'approval')
+    <div class="div__pending d-none" id="div-approval">
         <button id="button-pending" type="button" data-type="pending" class="btn btn-secondary btn-states">
             <i class="fas fa-arrow-left"></i> Em Medição
         </button>
@@ -14,9 +14,9 @@
         <button id="button-approved" type="button" data-type="approved" class="btn btn-secondary btn-states">
             <i class="fas fa-file-export"></i> Enviar para Aprovado
         </button>
-    @endif
+    </div>
 
-    @if (request()->input('status')[0] == 'approved')
+    <div class="div__pending d-none" id="div-approved">
         <button id="button-approval" type="button" data-type="approval" class="btn btn-secondary btn-states">
             <i class="fas fa-arrow-left"></i> Enviar para Em Aprovação
         </button>
@@ -24,9 +24,9 @@
         <button id="button-invoice" type="button" data-type="invoice" class="btn btn-secondary btn-states">
             <i class="fas fa-file-export"></i> Faturar
         </button>
-    @endif
+    </div>
 
-    @if (request()->input('status')[0] == 'invoice')
+    <div class="div__pending d-none" id="div-invoice">
         <button id="button-approved" type="button" data-type="approved" class="btn btn-secondary btn-states">
             <i class="fas fa-arrow-left"></i> Enviar para Aprovação
         </button>
@@ -34,9 +34,9 @@
         <button id="button-inventariando" type="button" data-type="inventariando" class="btn btn-secondary btn-states">
             <i class="fas fa-file-export"></i> Enviar para Inventariando
         </button>
-    @endif
+    </div>
 
-    @if (request()->input('status')[0] == 'inventariando')
+    <div class="div__pending d-none" id="div-inventariando">
         <button id="button-invoice" type="button" data-type="invoice" class="btn btn-secondary btn-states">
             <i class="fas fa-arrow-left"></i> Enviar para Faturar
         </button>
@@ -44,13 +44,13 @@
         <button id="button-inventariado" type="button" data-type="inventariado" class="btn btn-secondary btn-states">
             <i class="fas fa-file-export"></i> Enviar para Inventariado
         </button>
-    @endif
+    </div>
 
-    @if (request()->input('status')[0] == 'inventariado')
+    <div class="div__pending d-none" id="div-inventariado">
         <button id="button-inventariando" type="button" data-type="inventariando" class="btn btn-secondary btn-states">
             <i class="fas fa-arrow-left"></i> Enviar para Inventariando
         </button>
-    @endif
+    </div>
 </div>
 
 {{-- <button id="button-approval" type="button" data-type="approval" class="btn btn-secondary btn-states button-approval">

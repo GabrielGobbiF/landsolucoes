@@ -195,13 +195,14 @@
             initTable();
         });
 
-        $('#rdse-select_status').on('change', function() {
-            //let state = $(this).val();
-            //localStorage.setItem('rdse-selecteds', JSON.stringify([]));
-            //if (state != `{{ request()->input('status')[0] }}`) {
-            //    //window.location.href = `${base_url}/rdse/rdse?status=${arrStr}`;
-            //}
-        })
+        //$('#rdse-select_status').on('change', function() {
+        //let state = $(this).val();
+        //let arrStr = encodeURIComponent(JSON.stringify(state));
+        //localStorage.setItem('rdse-selecteds', JSON.stringify([]));
+        //if (state[0] == `{{ request()->input('status')[0] }}`) {
+        //    window.location.href = `${base_url}/rdse/rdse?status=${arrStr}`;
+        //}
+        //})
 
         if (localStorage.getItem('rdse-select_status_execution')) {
             $('#rdse-select_status_execution').val(JSON.parse(localStorage.getItem('rdse-select_status_execution'))).trigger('change');
@@ -229,6 +230,8 @@
         })
 
         function initButtons() {
+            $('.div__pending').addClass('d-none')
+
             let selected = $('#rdse-select_status').val();
             //if (selected != 'pending') {
             //    $('#div-search_lote').removeClass('d-none')
@@ -236,6 +239,8 @@
             //    $('#div-search_lote').addClass('d-none')
             //    $('#rdse-select--lote').val('').trigger('change');
             //}
+            $(`#div-${selected[0]}`).removeClass('d-none')
+
             selected.length == 1 ? $("#buttons-alter-status").removeClass('d-none') :
                 $("#buttons-alter-status").addClass('d-none')
         }
@@ -512,14 +517,14 @@
 
         function updateStatusExecution(select, rdseId) {
             axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
-                _method: 'PUT',
-                status_execution: $(select).val(),
-            }).then(function(error) {
-                toastr.success('Alterado')
-            })
-            .catch(function(error) {
-                toastr.error(error)
-            });
+                    _method: 'PUT',
+                    status_execution: $(select).val(),
+                }).then(function(error) {
+                    toastr.success('Alterado')
+                })
+                .catch(function(error) {
+                    toastr.error(error)
+                });
         }
     </script>
 
