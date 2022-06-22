@@ -180,9 +180,8 @@ class RdseController extends Controller
                     }
                 }
             }
-
             return redirect()
-                ->route('rdse.index', ['status' => $status]);
+                ->route('rdse.index', ['status' => [$status]]);
         }
 
         return redirect()
