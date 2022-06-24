@@ -4,10 +4,31 @@
 
 @section('content')
 
-    <div class="card">
+    <style>
+        @media print {
 
+            .table-responsive {
+                -webkit-overflow-scrolling: touch !important;
+                display: inline !important;
+                overflow-x: auto !important;
+                width: 120% !important;
+            }
+
+            .badge {
+                border: none !important;
+            }
+
+            table thead tr th:first-child,
+            table tbody tr td:first-child,
+            table tfoot tr th:first-child {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <div class="card">
         <div class="card-body">
-            <div class="row mb-4">
+            <div class="row mb-4 no-print">
                 <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
                     <label>Status</label>
                     <select name="status" id="rdse-select_status" class="form-control select2 search-input-rdse" multiple>
@@ -70,7 +91,7 @@
 
             <div class="table table-api">
                 <div class="table-responsive d-none">
-                    <div id="toolbar">
+                    <div id="toolbar" class="no-print">
                         <div class="form-inline" role="form">
                             <div class="btn-group mr-2">
                                 <button type="button" data-toggle="modal" data-target="#modal-add-rdse" class="btn btn-dark waves-effect waves-light">
@@ -84,8 +105,8 @@
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                                <th data-field="n_order" data-sortable="true">Nº Ordem</th>
-                                <th data-field="description">Descrição</th>
+                                <th data-field="n_order" data-sortable="true" data-width="150">Nº Ordem</th>
+                                <th data-field="description" data-width="150">Descrição</th>
                                 <th data-field="equipe" data-sortable="true" data-visible="false">Equipe</th>
                                 <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
@@ -100,7 +121,7 @@
                                 {{ --}}
 
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
-                                <th data-field="status_label">Status</th>
+                                <th data-field="status_label" data-width="150">Status</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Execução</th>
                             </tr>
                         </thead>

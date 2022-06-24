@@ -63,6 +63,20 @@
                 display: none;
             }
         }
+
+        @media print {
+
+            .fixed-table-toolbar,
+            .fixed-table-pagination,
+            .no-print {
+                display: none !important;
+            }
+
+            .fixed-table-body {
+                overflow: hidden !important;
+                overscroll-behavior: none !important;
+            }
+        }
     </style>
 
 </head>
@@ -81,18 +95,18 @@
                             </a>
                         </div>
 
-                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav" data-toggle="collapse" data-target="#topnav-menu-content">
+                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav no-print" data-toggle="collapse" data-target="#topnav-menu-content">
                             <i class="ri-menu-2-line align-middle"></i>
                         </button>
                     </div>
 
-                    <div class="d-flex mobile--hidden">
+                    <div class="d-flex mobile--hidden ">
                         <div>
                             <h4 class="text-white mobile--hidden">@yield('title', '')</h4>
                         </div>
                     </div>
 
-                    <div class="d-flex">
+                    <div class="d-flex no-print">
                         <div class="dropdown d-inline-block d-lg-none ml-2">
                             <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,7 +130,7 @@
                         <x-notification />
 
                         @if (auth()->check())
-                            <div class="dropdown d-inline-block user-dropdown">
+                            <div class="dropdown d-inline-block user-dropdown no-print">
                                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @include('pages.painel._partials.avatar', [
@@ -139,7 +153,7 @@
                             </div>
                         @endif
 
-                        <div class="dropdown d-inline-block">
+                        <div class="dropdown d-inline-block no-print">
                             <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                                 <i class="ri-settings-2-line"></i>
                             </button>
@@ -191,10 +205,11 @@
                 </div>
 
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.css" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css"
+                        data-appStyle="assets/css/app-dark.min.css" />
                     <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
-        
+
             </div>
 
         </div> <!-- end slimscroll-menu-->
