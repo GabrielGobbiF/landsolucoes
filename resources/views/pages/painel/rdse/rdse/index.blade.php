@@ -66,7 +66,7 @@
                     </select>
                 </div>
 
-                <div class="col-12 col-md-3 d-none" id="div-search_lote">
+                <div class="col-12 col-md-3" id="div-search_lote">
                     <label>Lote</label>
                     <select name="lote" id="rdse-select--lote" class="form-control select2 search-input-rdse">
                         <option value="">Selecione</option>
