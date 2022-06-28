@@ -62,7 +62,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
             'dump' => [
-                'exclude_tables' => ['activity_log'],
+                'exclude_tables' => ['activity_log', 'sessions'],
             ]
         ],
 
