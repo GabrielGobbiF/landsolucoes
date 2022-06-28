@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('telescope:prune --hours=48')->daily();
 
         $schedule->command('backup:clean')->dailyAt('22:00');
-        $schedule->command('backup:run --disable-notifications')->dailyAt('11:15');
+        $schedule->command('backup:run --disable-notifications')->dailyAt('11:20');
     }
 
     /**
