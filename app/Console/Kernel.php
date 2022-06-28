@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CarReview::class,
+        Commands\Backup::class,
     ];
 
     /**
@@ -30,6 +31,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('telescope:prune --hours=48')->daily();
 
+
+        $schedule->command('backup:clean')->dailyAt('22:00');
+        $schedule->command('backup:run --disable-notifications')->dailyAt('11:12');
     }
 
     /**
@@ -39,7 +43,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
