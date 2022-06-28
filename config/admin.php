@@ -275,12 +275,12 @@ return [
             ],
             [
                 'name' => 'LDS',
-                'value' => '120.20',
+                'value' => '155.17',
                 'codigo' => '4610003671'
             ],
             [
                 'name' => 'Manutenção',
-                'value' => '132.64',
+                'value' => '155.17',
                 'codigo' => '4610003672'
             ],
             [
@@ -295,7 +295,7 @@ return [
             ],
             [
                 'name' => 'Atendimento ao cliente',
-                'value' => '90.72',
+                'value' => '155.17',
                 'codigo' => '4610003670'
             ],
         ]
