@@ -465,4 +465,46 @@ class RdseController extends Controller
             ->back()
             ->with('message', 'Modelo puxado com sucesso');
     }
+
+    public function AttServicesAll($rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        $services = $rdse->services()->with('handswork')->get();
+
+        $typeRdse = $rdse->type;
+        $typeRdseArray = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first();
+        $priceUps = $typeRdseArray['value'];
+
+        foreach ($services as $service) {
+            $codigoSap = $service->codigo_sap;
+            $qntMinutes = $service->minutos;
+            $qntAtv = $service->qnt_atividade;
+            $handsworkPrice = $service->handswork ?  $service->handswork->price_ups : 0;
+
+            if (!empty($codigoSap) && $qntAtv != 0) {
+                if ($codigoSap == '212') {
+                    $conversion = $qntMinutes / 30;
+                    $conversionInFloor = floor($conversion);
+                    $price = ($handsworkPrice * $priceUps) * $conversionInFloor;
+                } else {
+                    $price = ($handsworkPrice * $priceUps) * $qntAtv;
+                }
+
+                if (isset($price)) {
+                    $service->update([
+                        'preco' => clearNumber($price)
+                    ]);
+                }
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Serviços atualizados com sucesso');
+    }
 }

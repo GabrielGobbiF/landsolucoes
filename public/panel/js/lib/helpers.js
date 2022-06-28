@@ -304,7 +304,6 @@
 
         if (click == 2) {
             var form = btn.closest("form");
-            console.log(form);
             form.submit();
         }
 
