@@ -15,6 +15,7 @@ return [
 
     'status_execution' => [
         'Pré APR',
+        'Revisar',
         'Programação',
         'Impedimento',
         'Execução 25%',
