@@ -182,7 +182,7 @@
                                 </div>
                             </div>
                             <div>
-                                @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
+                                @if (($rdse->status == 'invoice' || $rdse->status == 'approved' || $rdse->status == 'approval') && $rdse->parcial_3 == 0)
                                     <a class="mr-3" href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                                 @endif
                                 @if ($rdse->parcial_1 == 1)
