@@ -182,7 +182,7 @@
                                 </div>
                             </div>
                             <div>
-                                @if (($rdse->status == 'invoice' || $rdse->status == 'approved' || $rdse->status == 'approval') && $rdse->parcial_3 == 0)
+                                @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
                                     <a class="mr-3" href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                                 @endif
                                 @if ($rdse->parcial_1 == 1)
@@ -621,17 +621,17 @@
                             </div>
                         @endif
 
-                        @if(auth()->user()->id == 8 || auth()->user()->id == 1)
-                        <a class="btn btn-info btn-confirm" href="#"
-                            onclick="event.preventDefault();document.getElementById('form-attServices').submit();">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Atualizar Todos os Valores
-                            <form id="form-attServices" onSubmit="if(!confirm('Tem certeza que deseja atualizar os valores?')){return false;}" action="{{ route('rdse.att.services', $rdse->id) }}"
-                                method="POST" class="d-none">
-                                @method('PUT')
-                                @csrf
-                            </form>
-                        </a>
+                        @if (auth()->user()->id == 8 || auth()->user()->id == 1)
+                            <a class="btn btn-info btn-confirm" href="#"
+                                onclick="event.preventDefault();document.getElementById('form-attServices').submit();">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Atualizar Todos os Valores
+                                <form id="form-attServices" onSubmit="if(!confirm('Tem certeza que deseja atualizar os valores?')){return false;}" action="{{ route('rdse.att.services', $rdse->id) }}"
+                                    method="POST" class="d-none">
+                                    @method('PUT')
+                                    @csrf
+                                </form>
+                            </a>
                         @endif
 
                     </div>
