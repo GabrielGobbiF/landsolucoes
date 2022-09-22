@@ -270,22 +270,22 @@ return [
         'type' => [
             [
                 'name' => 'Emergencial',
-                'value' => '299.97',
+                'value' => '326.16',
                 'codigo' => '4610003674'
             ],
             [
                 'name' => 'LDS',
-                'value' => '155.17',
+                'value' => '168.72',
                 'codigo' => '4610003729'
             ],
             [
                 'name' => 'Manutenção',
-                'value' => '155.17',
+                'value' => '168.72',
                 'codigo' => '4610003730'
             ],
             [
                 'name' => 'Futurabilit',
-                'value' => '422.86',
+                'value' => '168.72',
                 'codigo' => '4610003673'
             ],
             [
@@ -295,7 +295,7 @@ return [
             ],
             [
                 'name' => 'Atendimento ao cliente',
-                'value' => '155.17',
+                'value' => '168.72',
                 'codigo' => '4610003728'
             ],
         ]
