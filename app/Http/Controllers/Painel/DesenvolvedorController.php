@@ -103,11 +103,12 @@ class DesenvolvedorController extends Controller
         }
     }
 
-    public function clientsAlterPassword(){
+    public function clientsAlterPassword()
+    {
 
         $clients = Client::all();
 
-        foreach ($clients as $client){
+        foreach ($clients as $client) {
 
             $client->password = Hash::make("cena_" . limpar($client->username, ''));
             $client->save();
@@ -121,5 +122,10 @@ class DesenvolvedorController extends Controller
         }
 
         echo 'ok';
+    }
+
+    public function downloadEnel()
+    {
+        return view('pages.enel.download');
     }
 }
