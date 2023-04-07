@@ -17,4 +17,9 @@ class Epi extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'service');
+    }
 }

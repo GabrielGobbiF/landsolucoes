@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Epi;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Arr;
@@ -304,4 +305,14 @@ function in_array_column($text, $column, $array)
 function limparTelefone($v)
 {
     return str_replace(['+55', '(', ')', '-', '-', ' '], '', $v);
+}
+
+function slug($value, $caracter = '_')
+{
+    return Str::slug(mb_strtolower($value, 'UTF-8'), $caracter);
+}
+
+function getEpi($id)
+{
+    return Epi::where('id', $id)->first();
 }

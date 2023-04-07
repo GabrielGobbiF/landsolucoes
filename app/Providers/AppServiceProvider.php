@@ -11,6 +11,7 @@ use App\Models\{
     Service,
     Tipo,
     Etapa,
+    File,
     Obra,
     ObraFinanceiro,
     ObraEtapa
@@ -28,6 +29,7 @@ use App\Observers\{
     TipoObserver,
     EtapaObserver,
     ComercialObserver,
+    FileObserver,
     ObraFinanceiroObserver,
     HandworkObserver,
     ObraEtapaObserver,
@@ -83,6 +85,7 @@ class AppServiceProvider extends ServiceProvider
         ObraEtapa::observe(ObraEtapaObserver::class);
         RdseServices::observe(RdseServicesObserver::class);
         Handswork::observe(HandworkObserver::class);
+        File::observe(FileObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

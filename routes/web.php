@@ -424,6 +424,14 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::put('{epiId}', [App\Http\Controllers\Painel\EPI\EpiController::class, 'update'])->name('epi.update');
             Route::delete('{epiId}', [App\Http\Controllers\Painel\EPI\EpiController::class, 'destroy'])->name('epi.destroy');
         });
+
+        Route::prefix('epi/files')->group(function () {
+            Route::get('', [App\Http\Controllers\Painel\EPI\EpiFilesController::class, 'index'])->name('epi.files.index');
+
+            Route::get('register', [App\Http\Controllers\Painel\EPI\EpiFilesController::class, 'register'])->name('epi.files.register');
+            Route::post('register', [App\Http\Controllers\Painel\EPI\EpiFilesController::class, 'registerStore'])->name('epi.files.register.store');
+
+        });
     });
 
     Route::group(['middleware' => 'role:desenvolvedor'], function () {
