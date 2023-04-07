@@ -52,6 +52,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
         Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
         Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
+        Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
         Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
@@ -407,6 +408,21 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('rdse/{rdseId}/partial/destroy', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'destroyPartialRdse'])->name('rdse.service.partial.destroy');
 
             Route::post('rdse/update-lote', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateLote'])->name('rdse.update.lote');
+        });
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | EPI
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['middleware' => 'role:epi'], function () {
+        Route::prefix('epi')->group(function () {
+            Route::get('', [App\Http\Controllers\Painel\EPI\EpiController::class, 'index'])->name('epi.index');
+            Route::post('', [App\Http\Controllers\Painel\EPI\EpiController::class, 'store'])->name('epi.store');
+            Route::get('{epiId}', [App\Http\Controllers\Painel\EPI\EpiController::class, 'show'])->name('epi.show');
+            Route::put('{epiId}', [App\Http\Controllers\Painel\EPI\EpiController::class, 'update'])->name('epi.update');
+            Route::delete('{epiId}', [App\Http\Controllers\Painel\EPI\EpiController::class, 'destroy'])->name('epi.destroy');
         });
     });
 

@@ -10,6 +10,7 @@ use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
 use App\Http\Resources\DriversResource;
 use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\EpiResource;
 use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\HandsworksResource;
 use App\Http\Resources\ModeloRdseResource;
@@ -29,6 +30,7 @@ use App\Models\Compras\Orcamento;
 use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
 use App\Models\Employee;
+use App\Models\Epi;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
@@ -45,7 +47,7 @@ use Illuminate\Support\Facades\DB;
 
 class TableApiController extends Controller
 {
-    protected $limit, $offset, $order;
+    protected $limit, $offset, $order, $search, $sort, $filter;
 
     public function __construct(Request $request)
     {
@@ -72,6 +74,15 @@ class TableApiController extends Controller
         })->paginate($this->limit);
 
         return DriversResource::collection($drivers);
+    }
+
+    public function epi()
+    {
+        $search = $this->search;
+
+        $epi = Epi::paginate($this->limit);
+
+        return EpiResource::collection($epi);
     }
 
 

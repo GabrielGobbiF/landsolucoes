@@ -32,10 +32,12 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             [
                 'name' => 'Gabriel Gobbi',
-                'password' => '$2y$10$QygCRy.mrYzVL6vkvatzEepNMFud3bKvvLBAwz/Jbvrms9qFB9p2e',
+                'password' => '$2y$10$hBIkxTJLzwCa81qGl0TtT.6s/xWXZd0wmtXosFdmHV38yDjSxQ31m', //superadmin,
                 'email' => 'gabriel.gobbi15@gmail.com',
                 'username' => 'gabriel.gobbi',
-                'uuid' => '3edascdsa'
+                'uuid' => '3edascdsa',
+                'email_verified_at' => now(),
+                'password_verified' => 'Y'
             ]
         );
 

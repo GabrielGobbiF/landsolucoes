@@ -24,8 +24,6 @@ class CreateHandsworksTable extends Migration
 
             $table->timestamps();
         });
-
-        DB::unprepared(file_get_contents(database_path('seeders/jsons/permissions.sql')));
     }
 
     /**

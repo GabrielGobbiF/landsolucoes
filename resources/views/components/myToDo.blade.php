@@ -63,7 +63,7 @@
                                             <label class="form-check-label mr-2">Lembrar-me</label>
                                             <input class="form-check-input wd-15 ht-15" id="lembrete" type="checkbox">
                                         </div>
-                                        <input class="form-control d-none" disabled readonly type="datetime-local" value="{{ somarData('1', 'hours', '', 'Y-m-d\TH:i') }}" id="dateTime" name="data">
+                                        <input class="form-control d-none" disabled readonly type="datetime-local" value="{{ somarData('1', '', 'hours', 'Y-m-d\TH:i') }}" id="dateTime" name="data">
                                     </div>
                                 </div>
                             </div>

@@ -215,6 +215,18 @@ return [
                 'icon' =>  'fas fa-pallet',
                 'route' => 'handswork.index',
             ],
+        ],
+        'epi' => [
+            [
+                'name' =>  'EPI',
+                'icon' =>  'fas fa-clipboard',
+                'route' => 'epi.index',
+            ],
+            [
+                'name' =>  'Arquivos',
+                'icon' =>  'fas fa-file',
+                'route' => 'epi.index',
+            ],
         ]
     ],
 
