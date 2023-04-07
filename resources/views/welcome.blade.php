@@ -529,14 +529,12 @@
                         </a>
                     </div>
 
-                    @if (auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('epi.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-file-invoice mr-2"></i>
                                 EPI
                             </a>
                         </div>
-                    @endif
 
                 </div>
             </div>
