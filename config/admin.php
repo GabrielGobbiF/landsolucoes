@@ -227,6 +227,18 @@ return [
                 'icon' =>  'fas fa-file',
                 'route' => 'epi.index',
             ],
+        ],
+        'etds' => [
+            [
+                'name' =>  'Etds',
+                'icon' =>  'fas fa-clipboard',
+                'route' => 'etd.index',
+            ],
+            [
+                'name' =>  'Arquivos',
+                'icon' =>  'fas fa-file',
+                'route' => 'etd.files.index',
+            ],
         ]
     ],
 

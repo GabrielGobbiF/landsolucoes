@@ -53,6 +53,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
         Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
         Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
+        Route::get('/etd', [App\Http\Controllers\Api\TableApiController::class, 'etd'])->name('etd.all');
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
         Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
@@ -415,7 +416,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     |--------------------------------------------------------------------------
     | EPI
     |--------------------------------------------------------------------------
-    */
+
     Route::group(['middleware' => 'role:epi'], function () {
         Route::prefix('epi')->group(function () {
             Route::get('', [App\Http\Controllers\Painel\EPI\EpiController::class, 'index'])->name('epi.index');
@@ -431,6 +432,28 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('register', [App\Http\Controllers\Painel\EPI\EpiFilesController::class, 'register'])->name('epi.files.register');
             Route::post('register', [App\Http\Controllers\Painel\EPI\EpiFilesController::class, 'registerStore'])->name('epi.files.register.store');
 
+        });
+    });
+ */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ETD
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['middleware' => 'role:etd'], function () {
+        Route::prefix('etds/files')->group(function () {
+            Route::get('', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'index'])->name('etd.files.index');
+            Route::get('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'register'])->name('etd.files.register');
+            Route::post('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'registerStore'])->name('etd.files.register.store');
+        });
+
+        Route::prefix('etds')->group(function () {
+            Route::get('', [App\Http\Controllers\Painel\ETD\EtdController::class, 'index'])->name('etd.index');
+            Route::post('', [App\Http\Controllers\Painel\ETD\EtdController::class, 'store'])->name('etd.store');
+            Route::get('{etdId}', [App\Http\Controllers\Painel\ETD\EtdController::class, 'show'])->name('etd.show');
+            Route::put('{etdId}', [App\Http\Controllers\Painel\ETD\EtdController::class, 'update'])->name('etd.update');
+            Route::delete('{etdId}', [App\Http\Controllers\Painel\ETD\EtdController::class, 'destroy'])->name('etd.destroy');
         });
     });
 

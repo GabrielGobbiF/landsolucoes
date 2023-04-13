@@ -9,7 +9,7 @@ class File extends Model
 {
     use HasFactory;
 
-    protected $with = ['user', 'epi'];
+    protected $with = ['user', 'etd'];
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,7 @@ class File extends Model
         'file_hash',
         'collection',
         'size',
+        'observations',
     ];
 
     public function user()
@@ -35,5 +36,10 @@ class File extends Model
     public function epi()
     {
         return $this->morphTo(Epi::class, 'service', 'service_id', 'id');
+    }
+
+    public function etd()
+    {
+        return $this->morphTo(Etd::class, 'service', 'service_id', 'id');
     }
 }

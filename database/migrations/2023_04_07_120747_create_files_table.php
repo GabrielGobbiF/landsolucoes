@@ -25,6 +25,7 @@ class CreateFilesTable extends Migration
             $table->string('disk')->default('local');
             $table->string('file_hash', 64)->nullable()->unique();
             $table->string('collection')->nullable();
+            $table->string('observations')->nullable();
             $table->unsignedBigInteger('size');
 
             $table->timestamps();

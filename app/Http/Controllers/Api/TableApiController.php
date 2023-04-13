@@ -31,6 +31,7 @@ use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
 use App\Models\Employee;
 use App\Models\Epi;
+use App\Models\Etd;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
@@ -83,6 +84,15 @@ class TableApiController extends Controller
         $epi = Epi::paginate($this->limit);
 
         return EpiResource::collection($epi);
+    }
+
+    public function etd()
+    {
+        $search = $this->search;
+
+        $etd = Etd::paginate($this->limit);
+
+        return EpiResource::collection($etd);
     }
 
 

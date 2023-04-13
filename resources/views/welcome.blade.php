@@ -529,12 +529,12 @@
                         </a>
                     </div>
 
-                        <div class="grid_itens">
-                            <a href="{{ route('epi.index') }}" class="underline text-gray-900 ">
-                                <i class="fas fa-file-invoice mr-2"></i>
-                                EPI
-                            </a>
-                        </div>
+                    <div class="grid_itens">
+                        <a href="{{ route('etd.index') }}" class="underline text-gray-900 ">
+                            <i class="fas fa-file-invoice mr-2"></i>
+                            ETD's
+                        </a>
+                    </div>
 
                 </div>
             </div>
