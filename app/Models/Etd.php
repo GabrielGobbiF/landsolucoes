@@ -9,6 +9,8 @@ class Etd extends Model
 {
     use HasFactory;
 
+    protected $with = ['files'];
+
     /**
      * The attributes that are mass assignable.
      *

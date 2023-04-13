@@ -24,7 +24,58 @@ class EtdFilesController extends Controller
      */
     public function index()
     {
-        return view('pages.painel.etd.index', []);
+        $etds = Etd::get();
+
+        return view('pages.painel.etd.files.index', [
+            'etds' => $etds
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        if (!$etd = Etd::where('id', $id)->first()) {
+            return redirect()
+                ->route('etd.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $pastasPorData = File::select('created_at')
+            ->where('service_type', 'App\Models\Etd')
+            ->where('service_id', $etd->id)
+            ->groupBy('created_at')
+            ->get();
+
+        #dd($pastasPorData);
+
+        return view('pages.painel.etd.files.show', [
+            'etd' => $etd,
+            'pastasPorData' => $pastasPorData,
+        ]);
+    }
+
+    public function folderFiles($etdId, $folder)
+    {
+        $date = Carbon::parse($folder)->format('Y-m-d');
+
+        if (!$etd = Etd::where('id', $etdId)->first()) {
+            return redirect()
+                ->route('etd.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $files = File::where('service_type', 'App\Models\Etd')
+            ->where('service_id', $etd->id)
+            ->whereDate('created_at', $date)
+            ->get();
+
+        return view('pages.painel.etd.files.folder_show', [
+            'etd' => $etd,
+            'date' => $date,
+            'files' => $files,
+        ]);
     }
 
     /**
