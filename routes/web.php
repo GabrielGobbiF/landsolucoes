@@ -443,11 +443,12 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:etd'], function () {
         Route::prefix('etds/files')->group(function () {
+            Route::get('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'register'])->name('etd.files.register');
+            Route::post('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'registerStore'])->name('etd.files.register.store');
             Route::get('', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'index'])->name('etd.files.index');
             Route::get('{etdId}', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'show'])->name('etd.files.show');
             Route::get('{etdId}/{folder}', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'folderFiles'])->name('etd.folder.files.show');
-            Route::get('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'register'])->name('etd.files.register');
-            Route::post('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'registerStore'])->name('etd.files.register.store');
+
         });
 
         Route::prefix('etds')->group(function () {
