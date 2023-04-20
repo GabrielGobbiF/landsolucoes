@@ -22,12 +22,6 @@ class CreateETDSTable extends Migration
 
             $table->timestamps();
         });
-
-        for ($i = 0; $i < 10; $i++) {
-            Etd::create([
-                'name' => 'Etd_' . $i
-            ]);
-        }
     }
 
     /**
