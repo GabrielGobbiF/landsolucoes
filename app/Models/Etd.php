@@ -11,13 +11,21 @@ class Etd extends Model
 
     protected $with = ['files'];
 
+    protected $table = 'edp';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name'
+        'nome',
+        'id',
+        'nome',
+        'sigla',
+        'endereco',
+        'bairro',
+        'municipio',
     ];
 
     public function files()

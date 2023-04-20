@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEtdFile;
 use App\Models\Etd;
 use App\Models\File;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class EtdFilesController extends Controller
@@ -22,9 +23,21 @@ class EtdFilesController extends Controller
      *
      * @return  \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $etds = Etd::get();
+        $search = $request->input('search');
+
+        $etds = Etd::limit(30)
+            ->where(function ($query) use ($search) {
+                $query->where(
+                    function ($query) use ($search) {
+                        if (isset($search) && $search != '') {
+                            $query->where('nome', 'like', '%' . $search . '%');
+                        }
+                    }
+                );
+            })
+            ->get();
 
         return view('pages.painel.etd.files.index', [
             'etds' => $etds
@@ -83,7 +96,7 @@ class EtdFilesController extends Controller
      *
      * @return  \Illuminate\View\View
      */
-    public function register()
+    public function register(Request $request)
     {
         $etds = Etd::get();
 

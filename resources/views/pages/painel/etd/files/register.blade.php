@@ -70,7 +70,7 @@
                                 <select name="etd" id="etd" class="select2" required>
                                     <option value="">Selecione a ETDs</option>
                                     @foreach ($etds as $etd)
-                                        <option required value="{{ $etd->id }}">{{ $etd->name }} -
+                                        <option required value="{{ $etd->id }}">{{ $etd->nome }} -
                                             {{ $etd->board }}</option>
                                     @endforeach
                                 </select>
@@ -118,7 +118,7 @@
                                 @endphp
                                 <tr>
                                     <td>{{ $fileNow->user->name }}</td>
-                                    <td>{{ $etd->name }}</td>
+                                    <td>{{ $etd->nome }}</td>
                                     <td>{{ $fileNow->created_at }}</td>
                                 </tr>
                             @endforeach

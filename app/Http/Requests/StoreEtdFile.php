@@ -26,7 +26,7 @@ class StoreEtdFile extends FormRequest
     public function rules()
     {
         return [
-            'etd' => ['required', 'exists:etds,id'],
+            'etd' => ['required', 'exists:edp,id'],
             'observations' => ['nullable'],
         ];
     }

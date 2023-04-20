@@ -20,7 +20,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                                <th data-field="name" data-sortable="true">Nome</th>
+                                <th data-field="nome" data-sortable="true">Nome</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

@@ -13,11 +13,12 @@
                         <h4 class="mg-b-15 mg-lg-b-25">Todos as ETD'S</h4>
                     </div>
                     <div class="tollbar btn-toolbar mb-2 mb-md-0 float-right">
-                        <form id="form-search-doc" role="form" class="needs-validation"
-                            action="http://www2.landsolucoes.com.br/l/arquivos" method="GET">
+                        <form id="" role="form" class="needs-validation" action="{{ route('etd.files.index') }}"
+                            method="GET">
                             <div class="form-inline">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="search" placeholder="" value="">
+                                    <input type="text" class="form-control" name="search" placeholder=""
+                                        value="{{ request()->input('search') }}">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-light">Buscar ETD</button>
                                     </div>
@@ -44,7 +45,7 @@
 
                                     <div class="media-body">
                                         <h6>
-                                            {{ $etd->name }}
+                                            {{ $etd->nome }}
                                         </h6>
                                     </div>
                                     <div class="dropdown-file">
@@ -87,9 +88,10 @@
                             </a>
                         </div>
                     @endforeach
-
                 </div>
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center mt-4">
+                    <code> Para visualizar outras EDP'S pesquise </code>
+
                     <ul class="pagination pagination-rounded mb-sm-0">
 
                     </ul>

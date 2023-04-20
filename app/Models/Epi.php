@@ -9,13 +9,21 @@ class Epi extends Model
 {
     use HasFactory;
 
+    protected $table = 'edp';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name'
+        'name',
+        'id',
+        'nome',
+        'sigla',
+        'endereco',
+        'bairro',
+        'municipio',
     ];
 
     public function files()
