@@ -17,6 +17,8 @@ class CreateETDSTable extends Migration
         Schema::create('etds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('type')->nullable();
+            $table->string('address')->nullable();
 
             $table->timestamps();
         });
