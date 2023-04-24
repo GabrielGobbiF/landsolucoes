@@ -107,7 +107,7 @@
                         <thead>
                             <tr>
                                 <th>Usuário</th>
-                                <th>Epi</th>
+                                <th>Local</th>
                                 <th>Data</th>
                             </tr>
                         </thead>
