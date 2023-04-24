@@ -19,12 +19,6 @@ class CreateEpisTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        for ($i = 0; $i < 10; $i++) {
-            Epi::create([
-                'name' => 'Epi_' . $i
-            ]);
-        }
     }
 
     /**

@@ -487,12 +487,15 @@
                         </div>
                     @endif
 
-                    <div class="grid_itens">
-                        <a href="{{ route('celulares.index') }}" class="underline text-gray-900 ">
-                            <i class="fas fa-mobile-alt mr-2"></i>
-                            Celulares
-                        </a>
-                    </div>
+                    @if (auth()->user()->hasRole('admin'))
+                        <div class="grid_itens">
+                            <a href="{{ route('celulares.index') }}" class="underline text-gray-900 ">
+                                <i class="fas fa-mobile-alt mr-2"></i>
+                                Celulares
+                            </a>
+                        </div>
+                    @endif
+
 
                     {{-- @if (auth()->user()->hasRole('rh') ||
     auth()->user()->hasRole('admin'))
@@ -529,13 +532,15 @@
                         </a>
                     </div>
 
-                    <div class="grid_itens">
-                        <a href="{{ route('etd.index') }}" class="underline text-gray-900 ">
-                            <i class="fas fa-file-invoice mr-2"></i>
-                            ETD's
-                        </a>
-                    </div>
-
+                    @if (auth()->user()->hasRole('etds') ||
+                            auth()->user()->hasRole('admin'))
+                        <div class="grid_itens">
+                            <a href="{{ route('etd.index') }}" class="underline text-gray-900 ">
+                                <i class="fas fa-file-invoice mr-2"></i>
+                                ETD's
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -14,7 +14,8 @@ use App\Models\{
     File,
     Obra,
     ObraFinanceiro,
-    ObraEtapa
+    ObraEtapa,
+    User
 };
 use App\Models\RSDE\Handswork;
 use App\Models\RSDE\RdseServices;
@@ -34,6 +35,7 @@ use App\Observers\{
     HandworkObserver,
     ObraEtapaObserver,
     RdseServicesObserver,
+    UserObserver,
 };
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +88,7 @@ class AppServiceProvider extends ServiceProvider
         RdseServices::observe(RdseServicesObserver::class);
         Handswork::observe(HandworkObserver::class);
         File::observe(FileObserver::class);
+        User::observe(UserObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

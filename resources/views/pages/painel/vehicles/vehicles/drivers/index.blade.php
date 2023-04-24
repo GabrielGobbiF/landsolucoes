@@ -14,8 +14,10 @@
                 <div id="toolbar">
                     <div class="form-inline" role="form">
                         <div class="btn-group mr-2">
-                            <a href="{{ route('vehicles.drivers.create') }}" data-toggle="tooltip" data-placement="top" title="Novo" class="btn btn-dark"><i class="fas fa-truck"></i>
-                                Novo</a>
+                            <a href="{{ route('vehicles.drivers.create') }}" data-toggle="tooltip" data-placement="top"
+                                title="Novo" class="btn btn-dark"><i class="fas fa-truck"></i>
+                                Novo
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -24,10 +26,14 @@
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>
                             <th data-field="name" data-sortable="true">Nome</th>
-                            <th data-field="username" data-halign="center" data-align="center" data-sortable="true">Username</th>
-                            <th data-field="cnh_number" data-halign="center" data-align="center" data-visible="false">CNH Nº</th>
-                            <th data-field="cnh_validity" data-halign="center" data-align="center" data-visible="false">CNH Validade</th>
-                            <th data-field="cnh_category" data-halign="center" data-align="center" data-visible="false">CNH Categoria</th>
+                            <th data-field="username" data-halign="center" data-align="center" data-sortable="true">Username
+                            </th>
+                            <th data-field="cnh_number" data-halign="center" data-align="center" data-visible="false">CNH Nº
+                            </th>
+                            <th data-field="cnh_validity" data-halign="center" data-align="center" data-visible="false">CNH
+                                Validade</th>
+                            <th data-field="cnh_category" data-halign="center" data-align="center" data-visible="false">CNH
+                                Categoria</th>
                             <th data-field="status" data-halign="center" data-align="center">Status</th>
                             <th data-field="statusButton" data-halign="center" data-align="center">Ação</th>
                         </tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateUser;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,28 +43,32 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //$roles = Role::get()->toArray();
-        //
-        //return view('pages.painel.administrador.users.create', [
-        //    'roles' => $roles
-        //]);
+        $roles = Role::get()->toArray();
+
+        return view('pages.painel.administrador.users.create', [
+            'roles' => $roles
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateUser $request)
     {
-        $columns = $request->all();
+        $columns = $request->validated();
 
-        $this->repository->create($columns);
+        $roles = $columns['roles'] ?? '';
+
+        $user = $this->repository->create($columns);
+
+        if (!empty($roles)) {
+            $user->roles()->sync($roles);
+        }
 
         return redirect()
             ->route('users.index')
@@ -74,7 +79,6 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Admin\Users  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($uuid)
     {
@@ -104,7 +108,6 @@ class UsersController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Admin\Users  $users
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $uuid)
     {
@@ -120,9 +123,9 @@ class UsersController extends Controller
 
             $roles = $columns['roles'] ?? '';
 
-            if(!empty($columns['password'])){
+            if (!empty($columns['password'])) {
                 $columns['password'] = Hash::make($columns['password']);
-            }else {
+            } else {
                 unset($columns['password']);
             }
 
@@ -148,7 +151,6 @@ class UsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Admin\Users  $users
-     * @return \Illuminate\Http\Response
      */
     public function destroy($uuid)
     {

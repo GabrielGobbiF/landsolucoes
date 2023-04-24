@@ -346,19 +346,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     Route::get('portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'create'])->name('vehicles.portaria.register');
     Route::post('portaria/register', [App\Http\Controllers\Painel\PortariaController::class, 'store'])->name('vehicles.portaria.create');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Usuarios
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('users', App\Http\Controllers\Painel\UsersController::class);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Roles
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
 
     /*
     |--------------------------------------------------------------------------
@@ -448,7 +435,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'index'])->name('etd.files.index');
             Route::get('{etdId}', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'show'])->name('etd.files.show');
             Route::get('{etdId}/{folder}', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'folderFiles'])->name('etd.folder.files.show');
-
         });
 
         Route::prefix('etds')->group(function () {
@@ -469,6 +455,22 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('/deleteDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'deleteDocAuditory'])->name('dev.delete.doc.auditory');
             Route::post('/alterDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'alterDocAuditory'])->name('dev.alter.doc.auditory');
         });
+    });
+
+    Route::group(['middleware' => 'role:admin'], function () {
+        /*
+        |--------------------------------------------------------------------------
+        | Usuarios
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('users', App\Http\Controllers\Painel\UsersController::class);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Roles
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
     });
 });
 
