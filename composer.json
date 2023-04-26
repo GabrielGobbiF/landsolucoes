@@ -17,6 +17,7 @@
         "laravel/passport": "^10.1",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.5",
+        "pion/laravel-chunk-upload": "^1.5",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-backup": "^6.16"

@@ -105,8 +105,6 @@ Route::prefix('/v1/api')->group(function () {
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
-
-
     Route::prefix('rdse/files')->group(function () {
         Route::get('register', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'register'])->name('rdse.files.register');
         Route::post('register', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'registerStore'])->name('rdse.files.register.store');

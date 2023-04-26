@@ -77,29 +77,44 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="images">Fotos</label>
-                                <input type="file" class="form-control-file" id="images" name="attachments[]"
-                                    multiple accept='image/*'>
+                        {{--
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="images">Fotos</label>
+                                    <input type="file" class="form-control-file" id="images" name="attachments[]"
+                                        multiple accept='image/*'>
+                                </div>
                             </div>
-                        </div>
+                        --}}
+                    </div>
+                    <div class="upload d-none">
+                        <div class="row">
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group">
+                                    <label for="observations">Observações</label>
+                                    <textarea name="observations" id="observations" cols="30" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div style="display: none" class="progress mt-3" style="height: 25px">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 75%; height: 100%">75%</div>
+                                </div>
+                            </div>
 
-                        <div class="col-md-12 mt-4">
-                            <div class="form-group">
-                                <label for="observations">Observações</label>
-                                <textarea name="observations" id="observations" cols="30" rows="4" class="form-control"></textarea>
+                            <div class="col-md-12 mt-4">
+                                <div id="upload-container" class="text-center mb-5">
+                                    <button type="button" id="browseFile" class="btn btn-primary">Adicionar
+                                        Arquivo</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row justify-content-center mt-2" id="div--button-submit">
-                        <button type="submit" class="btn btn-success">Enviar</button>
-                    </div>
-
                 </form>
-
-                <div class="table-responsive mt-4">
+            </main>
+            <div class="row">
+                <div class="table-responsive mt-5">
                     <div class="header">
                         <h4>Registros de hoje</h4>
                     </div>
@@ -125,10 +140,87 @@
                         </tbody>
                     </table>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
+<script type="text/javascript">
+    $('#etd').on('select2:select', function(e) {
+        init();
+    });
+    const init = () => {
+        let etdValue = $('#etd').val();
+        if (etdValue) {
+            $('.upload').removeClass('d-none');
+
+            let browseFile = $('#browseFile');
+            let resumable = new Resumable({
+                target: '{{ route('etd.files.register.store') }}',
+                query: {
+                    _token: '{{ csrf_token() }}',
+                    etd: $('#etd').val(),
+                    observations: $('#observations').val()
+                }, // CSRF token
+                fileType: ['jpeg', 'jpg', 'png'],
+                chunkSize: 10 * 1024 * 1024 *
+                    2048, // default is 1*1024*1024, this should be less than your maximum limit in php.ini
+                headers: {
+                    'Accept': 'application/json'
+                },
+                testChunks: false,
+                throttleProgressCallbacks: 1,
+            });
+
+            resumable.assignBrowse(browseFile[0]);
+
+            resumable.on('fileAdded', function(file) { // trigger when file picked
+                showProgress();
+                resumable.upload() // to actually start uploading.
+            });
+
+            resumable.on('fileProgress', function(file) { // trigger when file progress update
+                updateProgress(Math.floor(file.progress() * 100));
+            });
+
+            resumable.on('fileSuccess', function(file, response) { // trigger when file upload complete
+                //window.location.reload();
+            });
+
+            resumable.on('complete', function(file, response) { // trigger when file upload complete
+                window.location.reload();
+            });
+
+            resumable.on('fileError', function(file, response) { // trigger when there is any error
+                alert('file uploading error.')
+            });
+
+            let progress = $('.progress');
+
+            function showProgress() {
+                progress.find('.progress-bar').css('width', '0%');
+                progress.find('.progress-bar').html('0%');
+                progress.find('.progress-bar').removeClass('bg-success');
+                progress.show();
+            }
+
+            function updateProgress(value) {
+                progress.find('.progress-bar').css('width', `${value}%`)
+                progress.find('.progress-bar').html(`${value}%`)
+            }
+
+            function hideProgress() {
+                progress.hide();
+            }
+
+        } else {
+            $('.upload').addClass('d-none');
+        }
+    }
+    init();
+</script>
+
 <script>
     $(document).ready(function() {
         setInterval(relogio, 1000);

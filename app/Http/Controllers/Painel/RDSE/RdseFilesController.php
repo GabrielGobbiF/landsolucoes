@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\RDSE;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEtdFile;
+use App\Jobs\UploadFile;
 use App\Models\Etd;
 use App\Models\File;
 use Carbon\Carbon;
@@ -114,6 +115,7 @@ class RdseFilesController extends Controller
      */
     public function registerStore(StoreEtdFile $request)
     {
+
         $rows = $request->validated();
         $observation = $rows['observations'];
         $rdseId = $rows['rdse'];
