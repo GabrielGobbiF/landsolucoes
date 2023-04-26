@@ -215,6 +215,11 @@ return [
                 'icon' =>  'fas fa-pallet',
                 'route' => 'handswork.index',
             ],
+            [
+                'name' =>  'Arquivos',
+                'icon' =>  'fas fa-file',
+                'route' => 'rdse.files.index',
+            ],
         ],
         'epi' => [
             [

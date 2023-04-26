@@ -380,6 +380,14 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
+
+            Route::prefix('/files')->group(function () {
+                Route::get('', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'index'])->name('rdse.files.index');
+                Route::get('{rdseId}', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'show'])->name('rdse.files.show');
+                Route::get('{rdseId}/{folder}', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'folderFiles'])->name('rdse.folder.files.show');
+            });
+
+
             Route::put('rdse/{rdseId}/att/services', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'AttServicesAll'])->name('rdse.att.services');
             Route::post('rdse/{rdseId}/add-service-by-model', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'addServiceByModel'])->name('rdse.add.service.by.model');
             Route::get('rdse/lotesByStatus', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'getLotesByStatus'])->name('rdse.lotes.by.status');
@@ -430,8 +438,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:etd'], function () {
         Route::prefix('etds/files')->group(function () {
-            Route::get('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'register'])->name('etd.files.register');
-            Route::post('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'registerStore'])->name('etd.files.register.store');
+
             Route::get('', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'index'])->name('etd.files.index');
             Route::get('{etdId}', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'show'])->name('etd.files.show');
             Route::get('{etdId}/{folder}', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'folderFiles'])->name('etd.folder.files.show');
@@ -471,6 +478,17 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         |--------------------------------------------------------------------------
         */
         Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
+    });
+
+
+    Route::prefix('rdse/files')->group(function () {
+        Route::get('register', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'register'])->name('rdse.files.register');
+        Route::post('register', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'registerStore'])->name('rdse.files.register.store');
+    });
+
+    Route::prefix('etds/files')->group(function () {
+        Route::get('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'register'])->name('etd.files.register');
+        Route::post('register', [App\Http\Controllers\Painel\ETD\EtdFilesController::class, 'registerStore'])->name('etd.files.register.store');
     });
 });
 
