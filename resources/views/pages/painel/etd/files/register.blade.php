@@ -43,11 +43,7 @@
                 <div class="justify-content-between d-flex mb-4">
                     <span>{{ Auth::user()->name }} </span>
                     <span class="time"> </span>
-                    @if (session('message'))
-                        <div class="bg-success p-1">
-                            <span class="text-light">{{ session('message') }}</span>
-                        </div>
-                    @endif
+
                 </div>
                 <div class="text-center">
                     <h4 class="cover-heading "></h4>
@@ -111,6 +107,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="bg-success p-3 d-none">
+                        <span class="text-light">Sucesso</span>
+                    </div>
                 </form>
             </main>
 
@@ -151,9 +150,18 @@
 <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 <script type="text/javascript">
     $('#etd').on('select2:select', function(e) {
+        $(".bg-success").addClass('d-none');
         init();
     });
     const init = () => {
+        let message = localStorage.getItem('success');
+        if (message == 'true') {
+            $(".bg-success").removeClass('d-none');
+            localStorage.setItem("success", "false");
+        }
+
+        $('.upload').addClass('d-none');
+
         let etdValue = $('#etd').val();
         if (etdValue) {
             $('.upload').removeClass('d-none');
@@ -192,7 +200,12 @@
             });
 
             resumable.on('complete', function(file, response) { // trigger when file upload complete
+                localStorage.setItem("success", "true");
                 window.location.reload();
+                //$(".bg-success").removeClass('d-none');
+                //$('.upload').addClass('d-none');
+                //$('#etd').val('').trigger('change');
+                hideProgress();
             });
 
             resumable.on('fileError', function(file, response) { // trigger when there is any error

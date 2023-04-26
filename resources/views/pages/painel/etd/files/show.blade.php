@@ -31,9 +31,9 @@
                 <hr class="mg-y-40 bd-0">
                 <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Pastas</label>
                 <div class="row">
-                    @foreach ($pastasPorData as $pasta)
+                    @foreach ($pastasPorData as $item => $pasta)
                         <div class="col-3 mg-t-5">
-                            <a href="{{ route('etd.folder.files.show', [$etd->id, $pasta->FolderPastName]) }}"
+                            <a href="{{ route('etd.folder.files.show', [$etd->id, $item]) }}"
                                 class="link-02">
                                 <div class="media media-folder">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -46,7 +46,7 @@
 
                                     <div class="media-body">
                                         <h6>
-                                            {{ $pasta->FolderPastName }}
+                                            {{ $item }}
                                         </h6>
                                     </div>
                                     <div class="dropdown-file">

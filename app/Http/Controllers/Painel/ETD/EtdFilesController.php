@@ -62,8 +62,10 @@ class EtdFilesController extends Controller
         $pastasPorData = File::select('created_at')
             ->where('service_type', 'App\Models\Etd')
             ->where('service_id', $etd->id)
-            ->groupBy('created_at')
+            #->groupBy('created_at')
             ->get();
+
+        $pastasPorData = $pastasPorData->groupBy('FolderPastName');
 
         #dd($pastasPorData);
 
@@ -108,7 +110,7 @@ class EtdFilesController extends Controller
 
         return view('pages.painel.etd.files.register', [
             'etds' => $etds,
-            'filesNow' => []#$filesNow
+            'filesNow' => [] #$filesNow
         ]);
     }
 
@@ -160,11 +162,7 @@ class EtdFilesController extends Controller
 
             // delete chunked file
             unlink($file->getPathname());
-            return [
-                'path' => asset('storage/files/' . $path),
-                'filename' => $fileName
-            ];
+            return redirect()->back()->with('message', 'Sucesso');
         }
-
     }
 }

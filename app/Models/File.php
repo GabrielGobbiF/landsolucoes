@@ -40,7 +40,7 @@ class File extends Model
         'path' => FileStorage::class,
     ];
 
-    protected $appends = ['FolderPastName'];
+    protected $appends = ['FolderPastName', 'createdAtFolder'];
 
     public function user()
     {
@@ -58,6 +58,11 @@ class File extends Model
     }
 
     public function getFolderPastNameAttribute()
+    {
+        return Carbon::parse($this->create_at)->format('d-m-Y');
+    }
+
+    public function getCreatedAtFolderAttribute()
     {
         return Carbon::parse($this->create_at)->format('d-m-Y');
     }
