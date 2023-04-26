@@ -104,11 +104,11 @@ class EtdFilesController extends Controller
     {
         $etds = Etd::get();
 
-        $filesNow = File::whereDate('created_at', now())->get();
+        #$filesNow = File::whereDate('created_at', now())->get();
 
         return view('pages.painel.etd.files.register', [
             'etds' => $etds,
-            'filesNow' => $filesNow
+            'filesNow' => []#$filesNow
         ]);
     }
 

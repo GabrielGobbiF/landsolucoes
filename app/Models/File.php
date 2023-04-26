@@ -6,10 +6,11 @@ use App\Casts\FileStorage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
 class File extends Model
 {
-    use HasFactory;
+    use HasFactory, Cachable;
 
     protected $with = ['user', 'etd'];
 

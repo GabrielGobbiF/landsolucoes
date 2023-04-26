@@ -113,6 +113,8 @@
                     </div>
                 </form>
             </main>
+
+            {{--
             <div class="row">
                 <div class="table-responsive mt-5">
                     <div class="header">
@@ -141,6 +143,7 @@
                     </table>
                 </div>
             </div>
+            --}}
         </div>
     </div>
 </body>

@@ -99,7 +99,7 @@
 
                 </form>
 
-                <div class="table-responsive mt-4">
+                <div class="table-responsive mt-4 d-none">
                     <div class="header">
                         <h4>Registros de hoje</h4>
                     </div>
