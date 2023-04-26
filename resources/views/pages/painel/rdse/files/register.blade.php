@@ -77,13 +77,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="images">Fotos</label>
-                                <input type="file" class="form-control-file" id="images" name="attachments[]"
-                                    multiple accept='image/*'>
-                            </div>
-                        </div>
 
                         <div class="col-md-12 mt-4">
                             <div class="form-group">
@@ -91,11 +84,43 @@
                                 <textarea name="observations" id="observations" cols="30" rows="4" class="form-control"></textarea>
                             </div>
                         </div>
+
+                        <style>
+                            .picker-content {
+                                height: 300px;
+                                width: 200px;
+                            }
+                        </style>
+                        <script src="//static.filestackapi.com/filestack-js/2.x.x/filestack.min.js"></script>
+                        <script type="text/javascript">
+                            document.addEventListener("DOMContentLoaded", function(event) {
+                                const client = filestack.init('AqTLajjHeT2i0atkpmEgEz');
+
+                                let options = {
+                                    "displayMode": "inline",
+                                    "container": ".picker-content",
+                                    "accept": [
+                                        "image/jpeg",
+                                        "image/jpg",
+                                        "image/png"
+                                    ],
+                                    "fromSources": [
+                                        "local_file_system"
+                                    ],
+                                    "uploadInBackground": false,
+                                    "onUploadDone": (res) => console.log(res),
+                                };
+
+                                picker = client.picker(options);
+                                picker.open();
+                            });
+                        </script>
+                        <div class="col-md-12 mt-4">
+
+                            <div class="picker-content"></div>
+                        </div>
                     </div>
 
-                    <div class="row justify-content-center mt-2" id="div--button-submit">
-                        <button type="submit" class="btn btn-success">Enviar</button>
-                    </div>
 
                 </form>
 
