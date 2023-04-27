@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Epi Registro de Arquivo</title>
+    <title>ETD Registro de Arquivo</title>
 
     <link href="{{ asset('mobile/css/app.css') }}" rel="stylesheet">
 
@@ -113,7 +113,7 @@
                 </form>
             </main>
 
-            {{--
+
             <div class="row">
                 <div class="table-responsive mt-5">
                     <div class="header">
@@ -142,7 +142,7 @@
                     </table>
                 </div>
             </div>
-            --}}
+
         </div>
     </div>
 </body>
