@@ -158,7 +158,6 @@ class FinanceiroController extends Controller
 
         $etapas_faturamento = $obra->etapas_financeiro()->with('faturamento')->get();
 
-
         foreach ($etapas_faturamento as $etapa_faturamento) {
             $r = $etapa_faturamento->aReceber();
             $d = $etapa_faturamento->vencidas();
