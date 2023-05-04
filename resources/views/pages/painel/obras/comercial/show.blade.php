@@ -337,6 +337,7 @@
             @endif
         </div>
     </div>
+    @endsection
 
 @section('scripts')
     <script src="{{ asset('panel/js/pages/comercial.js') }}"></script>
