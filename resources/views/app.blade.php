@@ -30,7 +30,8 @@
     <!-- todoFazer  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/jquery-datetimepicker"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css"
+        rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -95,7 +96,9 @@
                             </a>
                         </div>
 
-                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav no-print" data-toggle="collapse" data-target="#topnav-menu-content">
+                        <button type="button"
+                            class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav no-print"
+                            data-toggle="collapse" data-target="#topnav-menu-content">
                             <i class="ri-menu-2-line align-middle"></i>
                         </button>
                     </div>
@@ -108,8 +111,9 @@
 
                     <div class="d-flex no-print">
                         <div class="dropdown d-inline-block d-lg-none ml-2">
-                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn header-item noti-icon waves-effect"
+                                id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                 <i class="ri-search-line"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
@@ -119,7 +123,8 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Buscar ...">
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit"><i class="ri-search-line"></i></button>
+                                                <button class="btn btn-primary" type="submit"><i
+                                                        class="ri-search-line"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -131,8 +136,9 @@
 
                         @if (auth()->check())
                             <div class="dropdown d-inline-block user-dropdown no-print">
-                                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="btn header-item waves-effect"
+                                    id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
                                     @include('pages.painel._partials.avatar', [
                                         'avatar' => auth()->user()->avatar,
                                         'name' => auth()->user()->name,
@@ -145,7 +151,8 @@
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         <i class="fas fa-sign-out-alt"></i>
                                         Sair
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
                                             @csrf
                                         </form>
                                     </a>
@@ -200,12 +207,14 @@
 
             <div class="p-4">
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch" checked />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch"
+                        checked />
                     <label class="custom-control-label" for="light-mode-switch">Light Mode</label>
                 </div>
 
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css"
+                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch"
+                        data-bsStyle="assets/css/bootstrap-dark.min.css"
                         data-appStyle="assets/css/app-dark.min.css" />
                     <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
@@ -223,7 +232,8 @@
     <script src="{{ asset('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
-    <script src="https://cdn.tiny.cloud/1/rxt6gu66oa6gavl0hljt0k37ibd9qw3l0fev1vtpsexwx573/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/rxt6gu66oa6gavl0hljt0k37ibd9qw3l0fev1vtpsexwx573/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     @include('pages.painel._partials.modals.modal-search-global')
@@ -240,7 +250,8 @@
 
             $('select').on('select2:open', (event) => {
                 if (!event.target.multiple) {
-                    $('.select2-container--open .select2-search--dropdown .select2-search__field').last()[0].focus()
+                    $('.select2-container--open .select2-search--dropdown .select2-search__field').last()[0]
+                        .focus()
                 }
             });
 
@@ -266,24 +277,20 @@
                 countClique = 0
             }, 5000);
 
-            function btn_delete(v) {
-        var href = $(v).attr('data-href');
-        var title = $(v).attr('data-title');
-        var text = $(v).attr('data-original-title');
-        if (text != null && title != null) {
-            $('.modal-title').html(title);
-            $('#modal-confirm').html(text);
-            $('.modal-text-body').html('Tem certeza que deseja ' + text + '?');
-        }
-        $('#form-modal-action').attr('action', href)
-        $('#modal-delete').modal('show');
-    }
+            window.btn_delete = (v) => {
+                var href = $(v).attr('data-href');
+                var title = $(v).attr('data-title');
+                var text = $(v).attr('data-original-title');
+                if (text != null && title != null) {
+                    $('.modal-title').html(title);
+                    $('#modal-confirm').html(text);
+                    $('.modal-text-body').html('Tem certeza que deseja ' + text + '?');
+                }
+                $('#form-modal-action').attr('action', href)
+                $('#modal-delete').modal('show');
+            }
 
         })
-
-
-
-
     </script>
 
 </body>
