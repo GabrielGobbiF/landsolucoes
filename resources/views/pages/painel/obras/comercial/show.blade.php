@@ -337,7 +337,7 @@
             @endif
         </div>
     </div>
-    @endsection
+@endsection
 
 @section('scripts')
     <script src="{{ asset('panel/js/pages/comercial.js') }}"></script>
@@ -443,11 +443,8 @@
                             $('#totalFaturar').val(j.totalFaturar)
                         }
                         $('#row-table-historico').html(options);
-                    },
-                });
-            }
 
-            function btn_delete(v) {
+                        function btn_delete(v) {
                 var href = $(v).attr('data-href');
                 var title = $(v).attr('data-title');
                 var text = $(v).attr('data-original-title');
@@ -459,6 +456,11 @@
                 $('#form-modal-action').attr('action', href)
                 $('#modal-delete').modal('show');
             }
+                    },
+                });
+            }
+
+
 
         });
     </script>
