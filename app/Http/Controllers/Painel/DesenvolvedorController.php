@@ -128,4 +128,9 @@ class DesenvolvedorController extends Controller
     {
         return view('pages.enel.download');
     }
+
+    public function sesmtEnel(){
+        return view('pages.enel.sesmt');
+
+    }
 }

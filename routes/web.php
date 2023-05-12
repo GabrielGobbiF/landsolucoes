@@ -498,6 +498,7 @@ Route::get('/cron', function () {
     Artisan::call("schedule:run");
 });
 
+Route::get('/sesmt', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'sesmtEnel']);
 Route::get('/enel', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'downloadEnel']);
 Route::get('v1/api/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
 #Route::get('v1/api/getObraByNumberNota/{nNota}', [App\Http\Controllers\Api\BaseController::class, 'getObraByNumberNota']);
