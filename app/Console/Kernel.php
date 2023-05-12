@@ -30,9 +30,13 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('telescope:prune --hours=48')->daily();
 
-        #$schedule->command('backup:clean')->dailyAt('22:00');
-        #
-        #$schedule->command('backup:run --disable-notifications')->dailyAt('23:00');
+        $schedule->command('backup:clean --disable-notifications')->daily()->at('01:00')->onFailure(function () {
+            slack(['Erro ao limpar o backup']);
+        });
+
+        $schedule->command('backup:run --disable-notifications')->daily()->at('01:30')->onFailure(function () {
+            slack(['Erro ao fazer o backup']);
+        });
     }
 
     /**
