@@ -428,11 +428,11 @@
                                 options += '    <td>' + value.metodo_pagamento + '</td>';
                                 options += '    <td>R$ ' + value.valor_receber + '</td>';
                                 options += '    <td>';
-                                options += '        <a href="javascript:void(0)" data-href="' +
+                                options += '        <a href="javascript:void(0)" data-route="' +
                                     BASE_URL + '/l/comercial/etapasFinanceiro/' + value.id +
                                     '/destroy"';
                                 options +=
-                                    '            class="btn btn-xs btn-danger btn-delete" data-text="Deletar" onclick="btn_delete(this)">';
+                                    '            class="btn btn-xs btn-danger btn-delete" data-action="delete" data-btnText="Deletar" onclick="btn_delete(this)">';
                                 options += '            <i class="fa fa-times"></i>';
                                 options += '        </a>';
                                 options += '    </td>';
