@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\Obra;
 use App\Models\Pasta;
 use App\Models\Tipo;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -246,5 +247,38 @@ class ObrasController extends Controller
             ->paginate();
 
         return view('pages.obra.index', compact('obra', 'filters'));
+    }
+
+    public function obrasVencidas()
+    {
+        $obrasEtapasVencidas = [];
+        $obras = Obra::with('etapas')->where('status', 'aprovada')->get();
+
+        foreach ($obras as $obra) {
+            $etapas = $obra->etapas;
+
+            foreach ($etapas as $etapa) {
+                if ($etapa->check != 'C' && ($etapa->data_abertura != '' || $etapa->data_iniciada != '') && ($etapa->prazo_atendimento != '' || $etapa->tempo_atividade)) {
+                    $in = $etapa->data_abertura != '' ? $etapa->data_abertura : $etapa->data_iniciada;
+                    $out = $etapa->prazo_atendimento != '' ? $etapa->prazo_atendimento : $etapa->tempo_atividade;
+                    $prazoTotal = somarData($out, $in);
+                    $date = Carbon::parse($prazoTotal);
+                    $dateP = Carbon::parse($prazoTotal)->format('Y-m-d');
+                    $now = Carbon::now()->format('Y-m-d');
+                    if ($now > $date) {
+                        $obrasEtapasVencidas[] = [
+                            'obra_id' => $obra->id,
+                            'etapa_id' => $etapa->id,
+                            'obra_name' => $obra->razao_social,
+                            'etapa_name' => $etapa->nome,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return view('pages.painel.obras.obras.obrasEtapasVencidas', [
+            'obrasEtapasVencidas' => $obrasEtapasVencidas
+        ]);
     }
 }

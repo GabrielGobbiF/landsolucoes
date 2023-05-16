@@ -78,10 +78,6 @@ class ObraEtapasResource extends JsonResource
             'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
         ]);
 
-        #if($this->nome == 'Pedido do Custo de rede e Corrente de Curto Circuito'){
-        #    dd($now);
-        #}
-
         if ($now > $date) {
             $check = 'danger';
             $atraso = 'danger';
@@ -99,6 +95,10 @@ class ObraEtapasResource extends JsonResource
             'check' => $check,
             'atraso' => $atraso
         ];
+
+        #if($this->nome == 'Pedido do Custo de rede e Corrente de Curto Circuito'){
+        #    dd($now);
+        #}
     }
 
     public function buttons()

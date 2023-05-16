@@ -237,6 +237,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             */
             Route::post('obras/{obraId}/favorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'favorite'])->name('obras.favorite');
             Route::post('obras/{obraId}//unfavorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'unfavorite'])->name('obras.unfavorite');
+            Route::get('obras/etapas/vencidas', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'obrasVencidas'])->name('obras.etapas.vencidas');
             Route::get('obras/{obraId}/finance', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'show'])->name('obras.finance');
             Route::delete('obras/{obraId}/concluir', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'concluir'])->name('obras.concluir');
             Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
