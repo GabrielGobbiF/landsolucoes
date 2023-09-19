@@ -33,6 +33,7 @@ class Celular extends Model
         'linha',
         'departamento',
         'centro_custo',
+        'imai',
     ];
 
     protected $table = 'celulares';

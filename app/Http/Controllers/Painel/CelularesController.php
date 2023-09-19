@@ -70,6 +70,10 @@ class CelularesController extends Controller
     {
         $columns = $request->all();
 
+        if(auth()->user()->id != '5'){
+            unset($columns['imai']);
+        }
+
         if (!$celular = $this->repository->where('id', $identify)->first()) {
             return redirect()
                 ->route('celulares')
