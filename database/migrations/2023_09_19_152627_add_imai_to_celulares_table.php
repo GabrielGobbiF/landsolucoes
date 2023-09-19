@@ -14,7 +14,7 @@ class AddImaiToCelularesTable extends Migration
     public function up()
     {
         Schema::table('celulares', function (Blueprint $table) {
-            $table->string('imai');
+            $table->string('imei');
 
         });
     }
@@ -27,7 +27,7 @@ class AddImaiToCelularesTable extends Migration
     public function down()
     {
         Schema::table('celulares', function (Blueprint $table) {
-            $table->dropColumn('imai');
+            $table->dropColumn('imei');
 
         });
     }

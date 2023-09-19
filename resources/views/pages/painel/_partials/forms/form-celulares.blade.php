@@ -53,9 +53,9 @@
 
     <div class="col-12 col-md-12">
         <div class="form-group">
-            <label for="input--imai">IMAI</label>
-            <input type="text" name="imai" class="form-control @error('imai') is-invalid @enderror" id="input--imai"
-                value="{{ $celular->imai ?? old('imai') }}"
+            <label for="input--imei">IMEI</label>
+            <input type="text" name="imei" class="form-control @error('imei') is-invalid @enderror" id="input--imei"
+                value="{{ $celular->imei ?? old('imei') }}"
                 autocomplete="off">
         </div>
     </div>
