@@ -44,7 +44,7 @@
     </div>
     <div class="col-12 col-md-12">
         <div class="form-group">
-            <label for="input--centro_custo">Centro de Custo</label>
+            <label for="input--centro_custo">Modelo</label>
             <input type="text" name="centro_custo" class="form-control @error('centro_custo') is-invalid @enderror" id="input--centro_custo"
                 value="{{ $celular->centro_custo ?? old('centro_custo') }}"
                 autocomplete="off">

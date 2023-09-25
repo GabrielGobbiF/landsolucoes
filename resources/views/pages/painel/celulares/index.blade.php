@@ -42,6 +42,7 @@
                                 <th data-field="usuario" data-sortable="true">Usuario</th>
                                 <th data-field="equipe" data-sortable="true">Equipe</th>
                                 <th data-field="departamento" data-sortable="true">Departamento</th>
+                                <th data-field="imei" data-sortable="true" data-visible="false">Imei</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

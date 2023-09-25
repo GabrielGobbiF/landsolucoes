@@ -70,17 +70,15 @@ class CelularesController extends Controller
     {
         $columns = $request->all();
 
-        if(auth()->user()->id != '5'){
-            unset($columns['imei']);
-        }
+        if (auth()->user()->id != '5') {
+            if (!$celular = $this->repository->where('id', $identify)->first()) {
+                return redirect()
+                    ->route('celulares')
+                    ->with('message', 'Registro não encontrado!');
+            }
 
-        if (!$celular = $this->repository->where('id', $identify)->first()) {
-            return redirect()
-                ->route('celulares')
-                ->with('message', 'Registro não encontrado!');
+            $celular->update($columns);
         }
-
-        $celular->update($columns);
 
         return redirect()
             ->back()
