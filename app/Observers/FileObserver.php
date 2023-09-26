@@ -15,7 +15,7 @@ class FileObserver
      */
     public function creating(File $file)
     {
-        $file->token = token();
+        $file->token = md5(time());
         $file->user_Id = auth()->user()->id;
     }
 }

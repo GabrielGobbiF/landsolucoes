@@ -52,4 +52,9 @@ class Celular extends Model
     {
         $this->attributes['responsavel'] = maiusculo($value, '');
     }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'service');
+    }
 }

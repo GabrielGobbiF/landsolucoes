@@ -363,6 +363,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     | Celulares
     |--------------------------------------------------------------------------
     */
+    Route::delete('celulares/{celularId}/file/{fileId}', [App\Http\Controllers\Painel\CelularesController::class, 'fileDelete'])->name('celular.file.destroy');
+    Route::post('celulares/{celularId}/file/upload', [App\Http\Controllers\Painel\CelularesController::class, 'file'])->name('celular.file');
     Route::resource('celulares', App\Http\Controllers\Painel\CelularesController::class);
 
     /*
@@ -489,7 +491,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         */
         Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
     });
-
 });
 
 
