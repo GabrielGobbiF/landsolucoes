@@ -252,6 +252,7 @@ return [
         'Land MO',
         'Materiais',
         'Terceiros',
+        'Distrato',
     ],
 
     'atuacao' => [
