@@ -24,9 +24,11 @@
                                             $veiId = $vehicle->id;
                                         @endphp
 
+{{--
                                         <img src="data:image/png;base64, {!! base64_encode(
     QrCode::format('png')->size(150)->generate("app.landsolucoes.com.br/v/$veiId/qr"),
 ) !!} ">
+--}}
 
                                     @endif
                                     <div class="mt-2">
