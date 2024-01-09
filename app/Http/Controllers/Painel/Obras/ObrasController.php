@@ -28,7 +28,7 @@ class ObrasController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function index()
     {
@@ -48,7 +48,7 @@ class ObrasController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function create()
     {
@@ -59,7 +59,7 @@ class ObrasController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function store(Request $request)
     {
@@ -76,7 +76,7 @@ class ObrasController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\obra  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function show($id)
     {
@@ -125,7 +125,7 @@ class ObrasController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\obra  $obra
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function update(Request $request, $id)
     {
@@ -157,7 +157,7 @@ class ObrasController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\obra  $obra
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function destroy($id)
     {
@@ -178,7 +178,7 @@ class ObrasController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\obra  $obra
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function concluir($id)
     {
@@ -231,7 +231,7 @@ class ObrasController extends Controller
      * Search results
      *
      * @param  Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function search(Request $request)
     {

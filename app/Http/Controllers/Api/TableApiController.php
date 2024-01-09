@@ -255,8 +255,8 @@ class TableApiController extends Controller
                     [$date_to, $date_from] = explode(' - ', $filters['daterange']);
                     $date_to = return_format_date($date_to, 'en');
                     $date_from = return_format_date($date_from, 'en');
-                    $query->whereDate('rdses.created_at', '>=',$date_to);
-                    $query->whereDate('rdses.created_at', '<=',$date_from);
+                    $query->whereDate('rdses.created_at', '>=', $date_to);
+                    $query->whereDate('rdses.created_at', '<=', $date_from);
                 }
             })
             ->where('modelo', 0)
@@ -479,8 +479,6 @@ class TableApiController extends Controller
                     $query->where('obras.obr_urgence', 'Y');
                 }
             })
-            ->where('obras.status', 'aprovada')
-            ->where('obras.status', '<>', 'concluida')
             ->whereNull('obras.deleted_at')
             ->where('obras.deleted_at', NULL)
             ->where(function ($query) use ($filters) {
@@ -489,9 +487,17 @@ class TableApiController extends Controller
                     $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
                 }
             })
+            ->where(function ($query) use ($filters) {
+                if (isset($filters['arq']) && !empty($filters['arq'])) {
+                    $query->where('status', 'concluida');
+                } else {
+                    $query->where('obras.status', '<>', 'concluida');
+                    $query->where('obras.status', 'aprovada');
+                }
+            })
             ->groupBy('obras.id')
             ->orderBy($this->sort, $this->order)
-            ->paginate($this->limit);
+            ->get($this->limit);
 
         return ObraResource::collection($obras);
     }

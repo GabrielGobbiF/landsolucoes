@@ -59,6 +59,10 @@
                                         <input class="form-check-input wd-15 ht-15" name="fav" type="checkbox" value="favorites">
                                         <label class="form-check-label" for="metodo_porcent">Meus Favoritos</label>
                                     </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input wd-15 ht-15" name="arq" type="checkbox" value="arquivadas">
+                                        <label class="form-check-label" for="arquivadas">Arquivadas</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
