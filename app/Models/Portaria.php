@@ -25,6 +25,9 @@ class Portaria extends Model
         'observations',
         'files',
         'type',
+        'controlador',
+        'departamento',
+        'km'
     ];
 
     protected static $logAttributes = [

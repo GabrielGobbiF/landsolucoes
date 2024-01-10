@@ -15,7 +15,6 @@
 
     <script>
         var BASE = `{{ env('APP_URL') }}`;
-
     </script>
 
     <script src="{{ asset('mobile/js/app.js') }}"></script>
@@ -32,7 +31,6 @@
         .select2-selection__arrow {
             height: 34px !important;
         }
-
     </style>
 
 </head>
@@ -57,17 +55,49 @@
             </header>
 
             <main role="main">
-                <form id="form-register" role="form" class="needs-validation" action="{{ route('vehicles.portaria.create') }}" method="POST" enctype="multipart/form-data">
+                <form id="form-register" role="form" class="needs-validation" action="{{ route('vehicles.portaria.create') }}" method="POST"
+                      enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-12 text-center mb-4">
                             CONTROLE DE ENTRADA E SAÍDA DE VEÍCULO
                         </div>
 
+                        <div class="col-md-12 mb-3">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input id="" class="form-check-input" type="radio" name="controlador" value="controlador_a" required />
+                                        <label class="form-check-label" for=""> CONTROLADOR A </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="" class="form-check-input" type="radio" name="controlador" value="controlador_b" required />
+                                        <label class="form-check-label" for="">
+                                            CONTROLADOR B
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input id="" class="form-check-input" type="radio" name="controlador" value="controlador_c" required />
+                                        <label class="form-check-label" for=""> CONTROLADOR C </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="" class="form-check-input" type="radio" name="controlador" value="controlador_d" required />
+                                        <label class="form-check-label" for="">
+                                            CONTROLADOR D
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Veiculo</label>
-                                <select name="vehicle_id" id="vehicle_id" class="select2" required>
+                                <select id="vehicle_id" name="vehicle_id" class="select2" required>
                                     <option value="">Selecione</option>
                                     @foreach ($vehicles as $vehicle)
                                         <option required value="{{ $vehicle->id }}">{{ $vehicle->name }} - {{ $vehicle->board }}</option>
@@ -78,8 +108,17 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Kilometragem</label>
+                                    <input id="" type="text" class="form-control" name="km" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label>Motorista</label>
-                                <select name="motorista_id" id="motorista_id" class="select2" required>
+                                <select id="motorista_id" name="motorista_id" class="select2" required>
                                     <option value="">Selecione</option>
                                     @foreach ($drivers as $drive)
                                         <option required value="{{ $drive->id }}">{{ $drive->name }}</option>
@@ -91,7 +130,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="images">Fotos</label>
-                                <input type="file" class="form-control-file" id="images" name="attachments[]" multiple accept='image/*'>
+                                <input id="images" type="file" class="form-control-file" name="attachments[]" multiple accept='image/*'>
                             </div>
                         </div>
 
@@ -99,7 +138,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input type="radio" name="type" id="typeOption" value="saida" checked="checked">
+                                        <input id="typeOption" type="radio" name="type" value="saida" checked="checked">
                                     </div>
                                 </div>
                                 <span class="form-control">Saida</span>
@@ -108,22 +147,38 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input type="radio" name="type" id="typeOption" value="retorno">
+                                        <input id="typeOption" type="radio" name="type" value="retorno">
                                     </div>
                                 </div>
                                 <span class="form-control">Retorno</span>
                             </div>
                         </div>
 
+
+                        <div class="col-md-12 mt-5 mb-4">
+                            <label for="" class="">Departamento</label>
+                            <div class="row" style="    gap: 1rem;">
+                                @foreach (config('admin.departamentos_veiculos') as $depVeic)
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                            <input id="" class="form-check-input" type="radio" name="departamento" value="{{ $depVeic }}"
+                                                   required />
+                                            <label class="form-check-label" for=""> {{ $depVeic }} </label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
                         <div class="col-md-12 mt-4">
                             <div class="form-group">
                                 <label for="observations">Observações</label>
-                                <textarea name="observations" id="observations" cols="30" rows="4" class="form-control"></textarea>
+                                <textarea id="observations" name="observations" cols="30" rows="4" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row justify-content-center mt-2" id="div--button-submit">
+                    <div id="div--button-submit" class="row justify-content-center mt-2">
                         <button type="submit" class="btn btn-success">Enviar</button>
                     </div>
 
@@ -170,11 +225,11 @@
 
     function relogio() {
         const now = new Date();
-        const dataHora = zeroFill(now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' +
+        const dataHora = zeroFill(now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' +
+            zeroFill(now.getMinutes()) + ':' +
             zeroFill(now.getSeconds());
         $('.time').html(dataHora)
     }
-
 </script>
 
 </html>

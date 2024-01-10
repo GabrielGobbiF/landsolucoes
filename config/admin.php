@@ -329,5 +329,15 @@ return [
                 'codigo' => '4610003728'
             ],
         ]
+    ],
+
+    'departamentos_veiculos' => [
+        'AMD',
+        'CENA OBRAS',
+        'TMA',
+        'HV(ETD)',
+        'RDSC',
+        'RDSE',
+        'DIVERSOS'
     ]
 ];

@@ -32,7 +32,7 @@ class PortariaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function index()
     {
@@ -44,7 +44,7 @@ class PortariaController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function create()
     {
@@ -81,7 +81,7 @@ class PortariaController extends Controller
     /**
      * Store
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -119,7 +119,7 @@ class PortariaController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\vehicles  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function show($id)
     {
@@ -171,7 +171,7 @@ class PortariaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\vehicles  $vehicles
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function update(Request $request, $id)
     {
@@ -200,7 +200,7 @@ class PortariaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\vehicles  $vehicles
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function destroy($id)
     {
@@ -221,7 +221,7 @@ class PortariaController extends Controller
      * Search results
      *
      * @param  Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|
      */
     public function search(Request $request)
     {
