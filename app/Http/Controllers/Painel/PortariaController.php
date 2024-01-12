@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use App\Models\Portaria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterPortaria;
 use App\Http\Requests\StoreUpdateUser;
 use App\Models\Role;
 use App\Models\User;
@@ -83,9 +84,9 @@ class PortariaController extends Controller
      *
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(RegisterPortaria $request)
     {
-        $columns = $request->all();
+        $columns = $request->validated();
 
         $columns['user_id'] = Auth::id();
 

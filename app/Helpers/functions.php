@@ -58,6 +58,7 @@ function removeParseContentBar($string, $charSe = 'data-id=')
 
 function titleCase($string, $delimiters = array(" ", "-", "O'"), $exceptions = array("to", "a", "the", "of", "by", "and", "with", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"))
 {
+    $string = maiusculo($string);
     foreach ($delimiters as $delimiter) {
         $words = explode($delimiter, $string);
         $newwords = array();

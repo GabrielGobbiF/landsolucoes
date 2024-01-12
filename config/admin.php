@@ -46,6 +46,20 @@ return [
                 'icon' =>  'ri-file-list-3-line',
                 'route' => 'arquivos.index',
             ],
+            [
+                'name' =>  'Relatórios',
+                'atc' =>  'arquivos',
+                'icon' =>  'ri-file-edit-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Etapas Vencidas',
+                        'atc' =>  'arquivos',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'obras.etapas.vencidas',
+                    ],
+                ]
+            ],
         ],
         'dev' => [
             [
@@ -332,7 +346,7 @@ return [
     ],
 
     'departamentos_veiculos' => [
-        'AMD',
+        'ADM',
         'CENA OBRAS',
         'TMA',
         'HV(ETD)',
