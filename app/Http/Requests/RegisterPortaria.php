@@ -33,7 +33,7 @@ class RegisterPortaria extends FormRequest
             'type' => ['required'],
             'departamento' => ['required'],
             'observations' => ['nullable'],
-            'attachments' => ['required'],
+            'attachments' => ['nullable'],
         ];
     }
 }
