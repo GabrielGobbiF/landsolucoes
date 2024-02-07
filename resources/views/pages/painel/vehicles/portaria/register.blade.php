@@ -80,16 +80,14 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                        {{ old('controlador') == 'leandro freire dos santos' ? 'checked' : '' }}
-                                        id="" class="form-check-input" type="radio" name="controlador" value="leandro freire dos santos"
-                                               required />
+                                               id="" {{ old('controlador') == 'leandro freire dos santos' ? 'checked' : '' }} class="form-check-input"
+                                               type="radio" name="controlador" value="leandro freire dos santos" required />
                                         <label class="form-check-label" for=""> {{ titleCase('LEANDRO FREIRE DOS SANTOS') }} </label>
                                     </div>
                                     <div class="form-check">
                                         <input
-                                        {{ old('controlador') == 'liliany ferreira de jesus' ? 'checked' : '' }}
-                                        id="" class="form-check-input" type="radio" name="controlador" value="liliany ferreira de jesus"
-                                               required />
+                                               id="" {{ old('controlador') == 'liliany ferreira de jesus' ? 'checked' : '' }} class="form-check-input"
+                                               type="radio" name="controlador" value="liliany ferreira de jesus" required />
                                         <label class="form-check-label" for="">
                                             {{ titleCase('LILIANY FERREIRA DE JESUS') }}
                                         </label>
@@ -99,17 +97,15 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                        {{ old('controlador') == 'jose barbosa de menezes' ? 'checked' : '' }}
-                                        id="" class="form-check-input" type="radio" name="controlador" value="jose barbosa de menezes"
-                                               required />
+                                               id="" {{ old('controlador') == 'jose barbosa de menezes' ? 'checked' : '' }} class="form-check-input"
+                                               type="radio" name="controlador" value="jose barbosa de menezes" required />
                                         <label class="form-check-label" for=""> {{ titleCase('JOSE BARBOSA DE MENEZES') }}</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input
-                                        {{ old('controlador') == 'fabiano valentim dos santos' ? 'checked' : '' }}
-                                        id="" class="form-check-input" type="radio" name="controlador" value="fabiano valentim dos santos"
-                                               required />
+                                               id="" {{ old('controlador') == 'fabiano valentim dos santos' ? 'checked' : '' }}
+                                               class="form-check-input" type="radio" name="controlador" value="fabiano valentim dos santos" required />
                                         <label class="form-check-label" for="">
                                             {{ titleCase('FABIANO VALENTIM DOS SANTOS') }}
                                         </label>
@@ -119,9 +115,8 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                        {{ old('controlador') == 'ramon monteiro da silva santana' ? 'checked' : '' }}
-                                        id="" class="form-check-input" type="radio" name="controlador" value="ramon monteiro da silva santana"
-                                               required />
+                                               id="" {{ old('controlador') == 'ramon monteiro da silva santana' ? 'checked' : '' }}
+                                               class="form-check-input" type="radio" name="controlador" value="ramon monteiro da silva santana" required />
                                         <label class="form-check-label" for="">
                                             {{ titleCase('RAMON MONTEIRO DA SILVA SANTANA') }}
                                         </label>
@@ -160,7 +155,9 @@
                                     @foreach ($drivers as $drive)
                                         <option
                                                 {{ old('motorista_id') == $drive->id ? 'selected' : '' }} required value="{{ $drive->id }}">
-                                            {{ $drive->name }}</option>
+                                            {{ $drive->re }} - {{ $drive->name }}
+
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -178,8 +175,8 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <input
-                                        {{ old('type') == 'saida' ? 'checked' : '' }}
-                                        id="typeOption" type="radio" name="type" value="saida" checked="checked">
+                                               id="typeOption" {{ old('type') == 'saida' ? 'checked' : '' }} type="radio" name="type" value="saida"
+                                               checked="checked">
                                     </div>
                                 </div>
                                 <span class="form-control">Saida</span>
@@ -189,9 +186,8 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <input
-                                        {{ old('type') == 'retorno' ? 'checked' : '' }}
-
-                                        id="typeOption" type="radio" name="type" value="retorno">
+                                               id="typeOption" {{ old('type') == 'retorno' ? 'checked' : '' }} type="radio" name="type"
+                                               value="retorno">
                                     </div>
                                 </div>
                                 <span class="form-control">Retorno</span>

@@ -31,7 +31,8 @@ class User extends Authenticatable
         'cnh_number',
         'cnh_category',
         'username',
-        'password_verified'
+        'password_verified',
+        're'
     ];
 
     protected static $logAttributes = [
