@@ -75,7 +75,7 @@ class CelularesController extends Controller
     {
         $columns = $request->all();
 
-        if (auth()->user()->id == '5') {
+        if (auth()->user()->id == '5' || auth()->user()->id == '246') {
             if (!$celular = $this->repository->where('id', $identify)->first()) {
                 return redirect()
                     ->route('celulares')
