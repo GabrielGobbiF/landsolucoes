@@ -34,7 +34,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="input--re">re</label>
+                            <label for="input--re">RE</label>
                             <input type="text" name="re" class="form-control @error('re') is-invalid @enderror" id="input--re" value="{{ $user->re ?? old('re') }}" autocomplete="off">
                         </div>
                     </div>
