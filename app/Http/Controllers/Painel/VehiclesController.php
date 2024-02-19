@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateDriver;
 use App\Http\Requests\StoreUpdateUser;
 use App\Http\Requests\StoreUpdateVehicle;
 use App\Models\Role;
@@ -286,7 +287,7 @@ class VehiclesController extends Controller
         return view('pages.painel.vehicles.vehicles.drivers.create');
     }
 
-    public function drivers_store(StoreUpdateUser $request)
+    public function drivers_store(StoreUpdateDriver $request)
     {
         $user = User::create([
             'name' => $request['name'],
@@ -295,6 +296,7 @@ class VehiclesController extends Controller
             'uuid' => Str::uuid(),
             'username' => strtolower(mb_convert_case($request['username'], MB_CASE_TITLE, "UTF-8")),
             'password_verified' => 'N',
+            're' => $request['re'],
         ]);
 
         $dev_role = Role::where('slug', 'driver')->first();

@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Cadastrar Veiculo')
+@section('title', 'Cadastrar Motorista')
 
 @section('content')
     <h1 class="text-center">Novo Motorista</h1>
@@ -30,6 +30,13 @@
                         <div class="form-group">
                             <label for="input--email">Email</label>
                             <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="input--email" value="{{ $vehicle->email ?? old('email') }}" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="input--re">RE</label>
+                            <input type="text" name="re" class="form-control @error('re') is-invalid @enderror" id="input--re" value="{{ $user->re ?? old('re') }}" autocomplete="off">
                         </div>
                     </div>
 
