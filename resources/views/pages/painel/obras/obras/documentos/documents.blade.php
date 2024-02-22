@@ -13,7 +13,12 @@
                     <a href="javascript:void(0);" onclick="fileUpdate(this)" data-id="{{ $doc->uuid }}" data-name="{{ $doc->name }}" class="dropdown-item file__change-name">Mudar Nome</a>
                     <a href="javascript:void(0);" onclick="fileMove(this)" data-id="{{ $doc->uuid }}" data-name="{{ $doc->name }}" class="dropdown-item">Mover</a>
 
-                    <a href="javascript:void(0);" data-text="Deletar" data-href="{{ route('arquivos.destroy', $doc->uuid) }}" onclick="btn_delete(this)" class="dropdown-item"><i class="tx-danger fas fa-trash"></i>
+                    <a href="javascript:void(0);"
+                    data-btn-class="btn btn-warning"
+                    data-action="delete"
+                    data-text="Deletar"
+                    data-route="{{ route('arquivos.destroy', $doc->uuid) }}"
+                    onclick="btn_delete(this)" class="dropdown-item"><i class="tx-danger fas fa-trash"></i>
                         Excluir
                     </a>
                 </div>
