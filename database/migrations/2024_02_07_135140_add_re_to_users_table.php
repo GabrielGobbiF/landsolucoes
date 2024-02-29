@@ -26,7 +26,7 @@ class AddReToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('re');
+            $table->dropColumn('re');
         });
     }
 }

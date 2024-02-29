@@ -34,5 +34,6 @@ return [
     'handswork' => 'Mão de Obra',
     'rdse' => 'RDSE',
     'modelo-rdse' => 'Modelo RDSE',
+    'visitor' => 'Visitante',
 
 ];

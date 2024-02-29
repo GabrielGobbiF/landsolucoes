@@ -415,7 +415,7 @@
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             @auth
                 <a class="text-sm text-gray-200 underline" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     {{ __('Sair') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -428,6 +428,15 @@
             <div class="mt-8 overflow-hidden text-center">
                 <div class="grid grid-cols-1 md:grid-cols-2">
 
+                    @if (auth()->user()->hasRole('frotas') || auth()->user()->hasRole('admin'))
+                        <div class="grid_itens">
+                            <a href="{{ route('vehicles.index') }}" class="underline text-gray-900 ">
+                                <i class="fas fa-truck mr-2"></i>
+                                Frotas
+                            </a>
+                        </div>
+                    @endif
+
                     @if (auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('users.index') }}" class="underline text-gray-900 ">
@@ -437,8 +446,7 @@
                         </div>
                     @endif
 
-                    @if (auth()->user()->hasRole('builds') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('builds') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('obras.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-city mr-2"></i>
@@ -447,8 +455,7 @@
                         </div>
                     @endif
 
-                    @if (auth()->user()->hasRole('portaria') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('portaria') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('vehicles.portaria.register') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-door-open mr-2"></i>
@@ -457,8 +464,7 @@
                         </div>
                     @endif
 
-                    @if (auth()->user()->hasRole('vehicles') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('vehicles') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('vehicles.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-truck mr-2"></i>
@@ -467,8 +473,7 @@
                         </div>
                     @endif
 
-                    @if (auth()->user()->hasRole('financer') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('financer') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('finances.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-wallet mr-2"></i>
@@ -477,8 +482,7 @@
                         </div>
                     @endif
 
-                    @if (auth()->user()->hasRole('rh') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('rh') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('employees.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-file-signature mr-2"></i>
@@ -497,8 +501,7 @@
                     @endif
 
 
-                    {{-- @if (auth()->user()->hasRole('rh') ||
-    auth()->user()->hasRole('admin'))
+                    {{-- @if (auth()->user()->hasRole('rh') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('fornecedor.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-wallet mr-2"></i>
@@ -507,8 +510,7 @@
                         </div>
                     @endif --}}
 
-                    @if (auth()->user()->hasRole('rdse') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('rdse') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('rdse.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-file-invoice mr-2"></i>
@@ -532,8 +534,7 @@
                         </a>
                     </div>
 
-                    @if (auth()->user()->hasRole('etds') ||
-                            auth()->user()->hasRole('admin'))
+                    @if (auth()->user()->hasRole('etds') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
                             <a href="{{ route('etd.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-file-invoice mr-2"></i>

@@ -6,6 +6,12 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+function validateDate($date, $format = 'd/m/Y')
+{
+    $d = \DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
+
 function token($size = 10, $charsAlphabetic = true)
 {
     $chars = "0123456789";
@@ -287,6 +293,10 @@ function minusculo($value)
 {
     return mb_strtolower($value, 'utf-8');
 }
+function __minusculo($value)
+{
+    return mb_strtolower($value, 'utf-8');
+}
 
 function maiusculo($value)
 {
@@ -316,4 +326,11 @@ function slug($value, $caracter = '_')
 function getEpi($id)
 {
     return Epi::where('id', $id)->first();
+}
+
+function array_not_null($array = [])
+{
+    return collect($array)->filter(function ($request) {
+        return is_string($request) && !empty($request) || is_array($request) && count($request);
+    })->toArray();
 }

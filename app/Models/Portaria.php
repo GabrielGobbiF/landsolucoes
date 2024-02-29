@@ -27,7 +27,8 @@ class Portaria extends Model
         'type',
         'controlador',
         'departamento',
-        'km'
+        'km',
+        'finality',
     ];
 
     protected static $logAttributes = [

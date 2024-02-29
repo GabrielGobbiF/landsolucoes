@@ -22,6 +22,7 @@ use App\Http\Resources\RdseResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiclesResource;
+use App\Http\Resources\VisitorResource;
 use App\Models\Celular;
 use App\Models\Client;
 use App\Models\Compras\Category;
@@ -42,6 +43,7 @@ use App\Models\RSDE\Rdse;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\Visitor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -75,6 +77,15 @@ class TableApiController extends Controller
         })->paginate($this->limit);
 
         return DriversResource::collection($drivers);
+    }
+
+    public function visitors()
+    {
+        $search = $this->search;
+
+        $visitor = Visitor::filtered(request()->all())->orderby('id', 'desc')->paginate($this->limit);
+
+        return VisitorResource::collection($visitor);
     }
 
     public function epi()

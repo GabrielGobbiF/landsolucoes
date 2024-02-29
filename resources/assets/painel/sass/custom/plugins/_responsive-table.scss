@@ -2,6 +2,11 @@
 // Responsive Table
 //
 
+.table-responsive {
+    overflow: inherit !important;
+}
+
+
 .table-responsive  {
     table.table-normal {
         th:nth-last-child(1) {

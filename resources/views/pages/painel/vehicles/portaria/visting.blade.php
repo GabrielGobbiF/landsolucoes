@@ -70,57 +70,12 @@
                       enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-md-12 text-center mb-4">
-                            CONTROLE DE ENTRADA E SAÍDA DE VEÍCULO
-                        </div>
 
-                        <div class="col-md-12 mb-3">
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-check">
-                                        <input
-                                               id="" {{ old('controlador') == 'leandro freire dos santos' ? 'checked' : '' }} class="form-check-input"
-                                               type="radio" name="controlador" value="leandro freire dos santos" required />
-                                        <label class="form-check-label" for=""> {{ titleCase('LEANDRO FREIRE DOS SANTOS') }} </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                               id="" {{ old('controlador') == 'liliany ferreira de jesus' ? 'checked' : '' }} class="form-check-input"
-                                               type="radio" name="controlador" value="liliany ferreira de jesus" required />
-                                        <label class="form-check-label" for="">
-                                            {{ titleCase('LILIANY FERREIRA DE JESUS') }}
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="form-check">
-                                        <input
-                                               id="" {{ old('controlador') == 'jose barbosa de menezes' ? 'checked' : '' }} class="form-check-input"
-                                               type="radio" name="controlador" value="jose barbosa de menezes" required />
-                                        <label class="form-check-label" for=""> {{ titleCase('JOSE BARBOSA DE MENEZES') }}</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input
-                                               id="" {{ old('controlador') == 'fabiano valentim dos santos' ? 'checked' : '' }}
-                                               class="form-check-input" type="radio" name="controlador" value="fabiano valentim dos santos" required />
-                                        <label class="form-check-label" for="">
-                                            {{ titleCase('FABIANO VALENTIM DOS SANTOS') }}
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="form-check">
-                                        <input
-                                               id="" {{ old('controlador') == 'ramon monteiro da silva santana' ? 'checked' : '' }}
-                                               class="form-check-input" type="radio" name="controlador" value="ramon monteiro da silva santana" required />
-                                        <label class="form-check-label" for="">
-                                            {{ titleCase('RAMON MONTEIRO DA SILVA SANTANA') }}
-                                        </label>
-                                    </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Nome do Visitante</label>
+                                    <input id="" type="text" class="form-control" name="name" required value="{{ old('name') }}" />
                                 </div>
                             </div>
                         </div>
@@ -143,15 +98,6 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label">Kilometragem</label>
                                     <input id="" type="number" class="form-control" name="km" required value="{{ old('km') }}" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Finalidade</label>
-                                    <input id="" type="text" class="form-control" name="finality" required value="{{ old('finality') }}"  required/>
                                 </div>
                             </div>
                         </div>
@@ -233,32 +179,7 @@
 
                 </form>
 
-                <div class="table-responsive mt-4">
-                    <div class="header">
-                        <h4>Registros de hoje</h4>
-                    </div>
-                    <table class='table table-hover'>
-                        <thead>
-                            <tr>
-                                <th>Motorista</th>
-                                <th>Veiculo</th>
-                                <th>Data</th>
-                                <th>Tipo</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($portarias as $portaria)
-                                <tr>
-                                    <td>{{ $portaria['motorista'] }}</td>
-                                    <td>{{ $portaria['veiculo'] }}</td>
-                                    <td>{{ $portaria['data'] }}</td>
-                                    <td>{{ $portaria['type'] }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
             </main>
         </div>
     </div>

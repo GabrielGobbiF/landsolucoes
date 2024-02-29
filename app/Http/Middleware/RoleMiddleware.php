@@ -21,6 +21,10 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
+        if ($request->user()->hasRole('developer')) {
+            return $next($request);
+        }
+
         if (!$request->user()->hasRole('admin')) {
             if (!$request->user()->hasRole($role)) {
                 abort(404);

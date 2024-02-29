@@ -1,5 +1,8 @@
 
+window.feather = require('feather-icons');
+
 (function ($) {
+
 
     'use strict';
 
@@ -243,13 +246,10 @@
         initSettings();
         initPreloader();
 
-        const feather = require('feather-icons');
         feather.replace()
 
         //Waves.init()
     }
-
-    console.log('app')
 
     init();
 

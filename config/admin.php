@@ -89,6 +89,26 @@ return [
                 'icon' =>  'fas fa-mobile-alt',
                 'route' => 'celulares.index',
             ],
+            [
+                'name' =>  'Visitantes',
+                'atc' =>  'portaria',
+                'icon' =>  'ri-profile-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Todos',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'visitors.index',
+                    ],
+                    [
+                        'name' =>  'Lista',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'visitors.list',
+                    ],
+                ]
+            ],
         ],
         'portaria' => [
             [
@@ -101,10 +121,46 @@ return [
                 'icon' =>  'ri-shield-user-fill',
                 'route' => 'vehicles.drivers',
             ],
+
             [
                 'name' =>  'Portaria',
-                'icon' =>  ' ri-profile-fill',
-                'route' => 'vehicles.portaria',
+                'atc' =>  'portaria',
+                'icon' =>  'ri-profile-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Lista',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'vehicles.portaria',
+                    ],
+                    [
+                        'name' =>  'Liberação de Saída',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'vehicles.portaria.register',
+                    ],
+                ]
+            ],
+            [
+                'name' =>  'Visitantes',
+                'atc' =>  'portaria',
+                'icon' =>  'ri-profile-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Todos',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'visitors.index',
+                    ],
+                    [
+                        'name' =>  'Lista',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'visitors.list',
+                    ],
+                ]
             ],
         ],
         'notifications' => [

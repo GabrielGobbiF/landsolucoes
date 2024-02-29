@@ -21,6 +21,10 @@
     }
 }
 
+.table-responsive {
+    overflow: inherit !important;
+}
+
 @media (max-width: 767px) {
     .table-responsive {
         overflow-x: auto;
@@ -29,7 +33,7 @@
 }
 @media (min-width: 767px) {
     .table-responsive {
-       // overflow: inherit !important; /* Sometimes needs !important */
+        // overflow: inherit !important; /* Sometimes needs !important */
     }
 }
 

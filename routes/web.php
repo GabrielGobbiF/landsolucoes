@@ -54,6 +54,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
         Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
         Route::get('/etd', [App\Http\Controllers\Api\TableApiController::class, 'etd'])->name('etd.all');
+        Route::get('visitors', [App\Http\Controllers\Api\TableApiController::class, 'visitors'])->name('visitors.all');
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
         Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
@@ -100,6 +101,9 @@ Route::prefix('/v1/api')->group(function () {
         */
         Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
         Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
+
+        Route::get('visitors/all', [App\Http\Controllers\Api\Frotas\VisitorsApiController::class, 'all'])->name('api.visitors.all');
+        Route::PUT('visitors/{visitorId}/updateStatus', [App\Http\Controllers\Api\Frotas\VisitorsApiController::class, 'updateStatus'])->name('api.visitors.update.status');
     });
 });
 
@@ -347,6 +351,14 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         |--------------------------------------------------------------------------
         */
         Route::get('portaria', [App\Http\Controllers\Painel\PortariaController::class, 'index'])->name('vehicles.portaria');
+
+        /*
+        |--------------------------------------------------------------------------
+        | visitors
+        |--------------------------------------------------------------------------
+        */
+        Route::get('portaria/visitors/list', [App\Http\Controllers\Painel\Frotas\VisitorsController::class, 'list'])->name('visitors.list');
+        Route::resource('portaria/visitors', App\Http\Controllers\Painel\Frotas\VisitorsController::class);
     });
 
 
