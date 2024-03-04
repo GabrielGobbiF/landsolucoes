@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -9,6 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Portaria extends Model
 {
     use HasFactory, LogsActivity;
+
 
     protected static $logName = 'Portaria';
 

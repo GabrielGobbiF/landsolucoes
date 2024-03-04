@@ -37,8 +37,16 @@ class PortariaController extends Controller
      */
     public function index()
     {
+        $drivers = User::whereHas('roles', function ($query) {
+            return $query->where('slug', 'driver');
+        })->orderby('users.name')->get();
+
+        $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
+
+
         return view('pages.painel.vehicles.portaria.index', [
-            #'portarias' => $portarias
+            'drivers' => $drivers,
+            'vehicles' => $vehicles
         ]);
     }
 

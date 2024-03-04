@@ -130,6 +130,18 @@ class TableApiController extends Controller
                     $query->orWhere('users.username', 'LIKE', '%' . $filters['search'] . '%');
                     $query->orWhere('users.email', 'LIKE', '%' . $filters['search'] . '%');
                 }
+
+                if (isset($filters['driver_id']) && $filters['driver_id'] != '') {
+                    $query->where('users.id',  $filters['driver_id']);
+                }
+
+                if (isset($filters['vehicle_id']) && $filters['vehicle_id'] != '') {
+                    $query->where('vehicles.id',  $filters['vehicle_id']);
+                }
+
+                if (isset($filters['at']) && $filters['at'] != '') {
+                    $query->whereDate('portarias.created_at',  $filters['at']);
+                }
             })
             ->orderBy('portarias.created_at', 'desc')
             ->paginate($this->limit);
