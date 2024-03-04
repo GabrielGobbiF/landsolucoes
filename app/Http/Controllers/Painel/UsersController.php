@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateUser;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -165,5 +166,18 @@ class UsersController extends Controller
         return redirect()
             ->route('users.index')
             ->with('message', 'Deletado com sucesso!');
+    }
+
+    public function userAuth($userId)
+    {
+        if (!$user = $this->repository->where('id', $userId)->first()) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        Auth::login($user);
+
+        return redirect()->route('home');
     }
 }

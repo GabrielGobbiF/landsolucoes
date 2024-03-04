@@ -97,4 +97,6 @@
             <i class='fas fa-edit'></i> Salvar
         </button>
     @endif
+
+    <a href="{{ route('user.auth', $user->id) }}" class="btn btn-outline-secondary">Visualizar conta</a>
 </div>
