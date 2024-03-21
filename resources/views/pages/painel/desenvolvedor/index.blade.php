@@ -123,13 +123,24 @@
             <div class="col-6">
                 <div class="card text-start">
                     <div class="card-body">
-                        <h4 class="card-title">Subir Planilha Condutores</h4>
-                        <a class="btn btn-secondary" href="{{ route('dev.script.condutores') }}" target="_blank">
-                            Subir
-                        </a>
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="card-title">Subir Planilha Condutores</h4>
+                                <a class="btn btn-secondary" href="{{ route('dev.script.condutores') }}" target="_blank">
+                                    Subir
+                                </a>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <h4 class="card-title">Subir Planilha Veiculos</h4>
+                                <a class="btn btn-secondary" href="{{ route('dev.script.vehicles') }}" target="_blank">
+                                    Subir
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

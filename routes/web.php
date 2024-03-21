@@ -489,6 +489,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('/deleteDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'deleteDocAuditory'])->name('dev.delete.doc.auditory');
             Route::post('/alterDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'alterDocAuditory'])->name('dev.alter.doc.auditory');
             Route::get('script-condutores', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptCondutores'])->name('dev.script.condutores');
+            Route::get('script-vehicles', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptVehicles'])->name('dev.script.vehicles');
             Route::get('users/{userId}/auth', [App\Http\Controllers\Painel\UsersController::class, 'userAuth'])->name('user.auth');
         });
     });

@@ -38,7 +38,7 @@ class PortariaController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::get();
+        $drivers = Driver::orderBy('name')->get();
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 
@@ -57,7 +57,7 @@ class PortariaController extends Controller
     {
         $portariasByNow = [];
 
-        $drivers = Driver::get();
+        $drivers = Driver::orderBy('name')->get();
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 

@@ -17,9 +17,11 @@ class CreateVehiclesTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
+            $table->string('model')->nullable();
             $table->string('board');
             $table->string('observation')->nullable();
             $table->string('year');
+            $table->string('centro_custo')->nullable();
             $table->enum('secure', ['1', '0'])->default('0');
 
             $table->string('name_company_secure')->nullable();

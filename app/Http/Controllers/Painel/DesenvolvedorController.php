@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Driver;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +42,30 @@ class DesenvolvedorController extends Controller
             ];
 
             Driver::create($columns);
+        }
+
+        dd($url);
+    }
+
+    public function scriptVehicles(Request $request)
+    {
+        DB::table('vehicles')->truncate();
+
+        $url = file_get_contents(config_path('jsons/vehicles.json'));
+        $url = json_decode($url, true);
+
+        foreach ($url as $vehicle) {
+
+            $columns = [
+                'board' => ($vehicle['board']),
+                'renavam' => $vehicle['renavam'],
+                'name' =>  $vehicle['name'],
+                'year' => $vehicle['year'],
+                'model' => $vehicle['model'],
+                'centro_custo' => $vehicle['centro_custo'],
+            ];
+
+            Vehicle::create($columns);
         }
 
         dd($url);

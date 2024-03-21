@@ -37,7 +37,7 @@ class CreateVehicleActivitiesTable extends Migration
 
             $table->string('nota_fiscal')->nullable();
 
-            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
+            #$table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
 
             $table->timestamps();
         });

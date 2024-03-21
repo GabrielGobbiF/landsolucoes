@@ -352,7 +352,7 @@ class VehiclesController extends Controller
 
     public function drivers_show($driver_id)
     {
-        if (!$user = User::where('id', $driver_id)->first()) {
+        if (!$user = Driver::where('id', $driver_id)->first()) {
             return redirect()
                 ->route('vehicles.drivers')
                 ->with('message', 'Registro não encontrado!');

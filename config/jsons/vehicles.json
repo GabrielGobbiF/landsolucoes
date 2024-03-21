@@ -1,0 +1,650 @@
+[
+    {
+        "board": "RFI8F28",
+        "renavam": "1235603390",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI",
+        "centro_custo": "ADM"
+    },
+    {
+        "board": "PVI6511",
+        "renavam": "1033518295",
+        "name": "FIAT",
+        "year": "2015",
+        "model": "PALIO",
+        "centro_custo": "CENA OBRAS"
+    },
+    {
+        "board": "RFI8F31",
+        "renavam": "1235603420",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI",
+        "centro_custo": "CENA OBRAS"
+    },
+    {
+        "board": "BEX3C96",
+        "renavam": "1255435973",
+        "name": "CHEVROLET",
+        "year": "2021",
+        "model": "S10",
+        "centro_custo": "CENA OBRAS"
+    },
+    {
+        "board": "EHG4C27",
+        "renavam": "1265861029",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "FIORINO",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "EVK7B61",
+        "renavam": "1264618392",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "FIORINO",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "FVD2D34",
+        "renavam": "1264618961",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "MOBI",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "RFI8F32",
+        "renavam": "1235603439",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "GFC5G60",
+        "renavam": "1089582940",
+        "name": "IVECO",
+        "year": "2017",
+        "model": "DAILY",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "RFF9F73",
+        "renavam": "1232744813",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "DOBLO",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "RFI8F21",
+        "renavam": "1235603307",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "DOBLO",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "DSV4E46",
+        "renavam": "1264851992",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "Doblo",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "RFI8F22",
+        "renavam": "1235603315",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "DOBLO",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "ELU5I80",
+        "renavam": "1213909004",
+        "name": "HYUNDAI",
+        "year": "2020",
+        "model": "HR",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "RFD9D55",
+        "renavam": "1230977608",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "STRADA",
+        "centro_custo": "ETD"
+    },
+    {
+        "board": "BVM5A14",
+        "renavam": "642335257",
+        "name": "FORD",
+        "year": "1995",
+        "model": "CARGO 3530",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "BWN1H16",
+        "renavam": "604651333",
+        "name": "VOLKS",
+        "year": "1993",
+        "model": "14200",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "ELW9H76",
+        "renavam": "461520796",
+        "name": "VOLVO",
+        "year": "2011",
+        "model": "VM-270 (PRANCHA)",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "AQE0A96",
+        "renavam": null,
+        "name": "VOLVO",
+        "year": "2013",
+        "model": "VOLVO VM 270 6X2R",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "EMU1I11",
+        "renavam": null,
+        "name": "FORD",
+        "year": "2012",
+        "model": "CARGO 815 N",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RVZ1J27",
+        "renavam": "1333790551",
+        "name": "FIAT",
+        "year": "2023",
+        "model": "MOBI",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RVZ1I47",
+        "renavam": "1333788611",
+        "name": "FIAT",
+        "year": "2023",
+        "model": "MOBI",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RFT9I75",
+        "renavam": "1242199621",
+        "name": "HYUNDAI",
+        "year": "2021",
+        "model": "HB 20",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "SUV5I44",
+        "renavam": "1378579469",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "STD4A54",
+        "renavam": "1378579477",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "STD6F85",
+        "renavam": "1378579442",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "SSU6I96",
+        "renavam": "1378579493",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "STO2I74",
+        "renavam": "1378579531",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "STY0A08",
+        "renavam": "1378579515",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "STL3B55",
+        "renavam": "1378579523",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RFC6G72",
+        "renavam": "1230230871",
+        "name": "HYUNDAI",
+        "year": "2020",
+        "model": "HR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RFC6G63",
+        "renavam": "1230191094",
+        "name": "HYUNDAI",
+        "year": "2020",
+        "model": "HR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RFC6G89",
+        "renavam": "1230228346",
+        "name": "HYUNDAI",
+        "year": "2020",
+        "model": "HR",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "RFC6G62",
+        "renavam": "1230191663",
+        "name": "HYUNDAI",
+        "year": "2020",
+        "model": "HR",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "STM0C57",
+        "renavam": "1378579507",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2024",
+        "model": "EXPRESS",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FIJ8C21",
+        "renavam": "1276063536",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2022",
+        "model": "EXPRESS",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FDF8H35",
+        "renavam": "1267633104",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2022",
+        "model": "EXPRESS",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FRV8J53",
+        "renavam": "1267633279",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2022",
+        "model": "EXPRESS",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FJF0E28",
+        "renavam": "1268067170",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2022",
+        "model": "EXPRESS",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FVM8I32",
+        "renavam": "1264619810",
+        "name": "FIAT",
+        "year": "2021",
+        "model": "MOBI",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "RFI8F33",
+        "renavam": "1235603447",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "AZG3027",
+        "renavam": "1035170334",
+        "name": "FIAT",
+        "year": "2015",
+        "model": "STRADA",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FEH5J86",
+        "renavam": "472045482",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2012",
+        "model": "17190",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "GHP5I56",
+        "renavam": "1086235344",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2015",
+        "model": "24280",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FXR5G51",
+        "renavam": "1278534870",
+        "name": "VW-VOLKSWAGEN",
+        "year": "2022",
+        "model": "24260",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "RFI8F34",
+        "renavam": "1235603455",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI",
+        "centro_custo": "SEMT"
+    },
+    {
+        "board": "CTH4H56",
+        "renavam": "1264619313",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "FIAT/MOBI LIKE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RFI8F30",
+        "renavam": "1235603412",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI Like 1.0 Fire Flex 5p.",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RFI8F29",
+        "renavam": "1235603404",
+        "name": "FIAT",
+        "year": "2020",
+        "model": "MOBI",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "SHH7G63",
+        "renavam": null,
+        "name": "FIAT",
+        "year": "2024",
+        "model": "FIORINO",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RVJ7A73",
+        "renavam": null,
+        "name": "FIAT",
+        "year": "2023",
+        "model": "FIORINO",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "SIH7B58",
+        "renavam": null,
+        "name": "FIAT",
+        "year": "2024",
+        "model": "FIORINO",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RVJ7A89",
+        "renavam": null,
+        "name": "FIAT",
+        "year": "2023",
+        "model": "FIORINO",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ5J85",
+        "renavam": "1288605134",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTP6F36",
+        "renavam": "1287807540",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTP6F35",
+        "renavam": "1287792046",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTP6F37",
+        "renavam": "1287807566",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D60",
+        "renavam": "1288724044",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D61",
+        "renavam": "1288724052",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D63",
+        "renavam": "1288724079",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D64",
+        "renavam": "1288724087",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D65",
+        "renavam": "1288724095",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D57",
+        "renavam": "1288724010",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D67",
+        "renavam": "1288724117",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D54",
+        "renavam": "1288723986",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RTQ7D55",
+        "renavam": "1288723994",
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RNU4E61",
+        "renavam": null,
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "RNU4E65",
+        "renavam": null,
+        "name": "MERCEDES BENZ",
+        "year": "2021",
+        "model": "ACCELO 1016 CE",
+        "centro_custo": "TMA"
+    },
+    {
+        "board": "S / PLACA",
+        "renavam": null,
+        "name": "FIAT",
+        "year": "2024",
+        "model": "FIORINO",
+        "centro_custo": "OUTFIT"
+    },
+    {
+        "board": "S / PLACA",
+        "renavam": null,
+        "name": "FIAT",
+        "year": "2024",
+        "model": "FIORINO",
+        "centro_custo": "OUTFIT"
+    },
+    {
+        "board": "RTO02C3",
+        "renavam": null,
+        "name": "CASE",
+        "year": "2013",
+        "model": "CX75SR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RTO01C2",
+        "renavam": null,
+        "name": "CASE",
+        "year": "2022",
+        "model": "580N 4x4",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RTO02C4",
+        "renavam": null,
+        "name": "YANMAR",
+        "year": "2018",
+        "model": "VIO 80",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "RTO02C5",
+        "renavam": null,
+        "name": "BOB CAT",
+        "year": "2024",
+        "model": "E 35Z",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "GKI8F13",
+        "renavam": "1254977810",
+        "name": "KAESER",
+        "year": "2021",
+        "model": "COMPRESSOR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "GCX8F28",
+        "renavam": "1254979058",
+        "name": "KAESER",
+        "year": "2021",
+        "model": "COMPRESSOR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "GDA1B53",
+        "renavam": "1254977225",
+        "name": "KAESER",
+        "year": "2021",
+        "model": "COMPRESSOR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "GGO5H27",
+        "renavam": "1287127182",
+        "name": "KAESER",
+        "year": "2021",
+        "model": "COMPRESSOR",
+        "centro_custo": "RDSC"
+    },
+    {
+        "board": "SUM5I60",
+        "renavam": "1379265891",
+        "name": "LUCAR",
+        "year": "2024",
+        "model": "CARRETINHA",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "BYJ5D27",
+        "renavam": "1282339254",
+        "name": "EMPRETEC",
+        "year": "2021",
+        "model": "CARRETINHA",
+        "centro_custo": "RDSE"
+    },
+    {
+        "board": "FZK4D46",
+        "renavam": "1274524285",
+        "name": "EMPRETEC",
+        "year": "2021",
+        "model": "CARRETINHA",
+        "centro_custo": "RDSE"
+    }
+]

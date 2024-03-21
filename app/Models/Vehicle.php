@@ -12,6 +12,8 @@ class Vehicle extends Model
 
     protected $fillable = [
         'name',
+        'centro_custo',
+        'model',
         'board',
         'observation',
         'year',
@@ -36,6 +38,8 @@ class Vehicle extends Model
 
     protected static $logAttributes = [
         'name',
+        'model',
+        'centro_custo',
         'board',
         'observation',
         'year',

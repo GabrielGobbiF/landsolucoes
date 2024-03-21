@@ -3,12 +3,20 @@
 <h4 class="header mt-0 pt-3 pl-3">Dados</h4>
 <div class="card-body">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3">
             <div class="form-group">
                 <label for="input--name">Nome</label>
                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="input--name" value="{{ $vehicle->name ?? old('name') }}" autocomplete="off" required>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="input--name">Modelo</label>
+                <input type="text" name="model" class="form-control @error('model') is-invalid @enderror" id="input--model" value="{{ $vehicle->model ?? old('model') }}" autocomplete="off" required>
+            </div>
+        </div>
+
         <div class="col-md-3">
             <div class="form-group">
                 <label for="input--board">Placa</label>
@@ -65,6 +73,14 @@
                         </option>
                     @endforeach
                 </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="input--centro_custo">Centro de Custo</label>
+                <input type="text" name="centro_custo" class="form-control @error('centro_custo') is-invalid @enderror" id="input--centro_custo" value="{{ $vehicle->centro_custo ?? old('centro_custo') }}"
+                    autocomplete="off">
             </div>
         </div>
 
