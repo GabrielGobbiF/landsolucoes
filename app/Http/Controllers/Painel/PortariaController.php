@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterPortaria;
 use App\Http\Requests\StoreUpdateUser;
+use App\Models\Driver;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -37,12 +38,9 @@ class PortariaController extends Controller
      */
     public function index()
     {
-        $drivers = User::whereHas('roles', function ($query) {
-            return $query->where('slug', 'driver');
-        })->orderby('users.name')->get();
+        $drivers = Driver::get();
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
-
 
         return view('pages.painel.vehicles.portaria.index', [
             'drivers' => $drivers,
@@ -59,9 +57,7 @@ class PortariaController extends Controller
     {
         $portariasByNow = [];
 
-        $drivers = User::whereHas('roles', function ($query) {
-            return $query->where('slug', 'driver');
-        })->orderby('users.name')->get();
+        $drivers = Driver::get();
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 

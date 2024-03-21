@@ -320,14 +320,17 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         | Veiculos Motoristas
         |--------------------------------------------------------------------------
         */
-        Route::get('vehicles/drivers/all', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('drivers.index');
-        Route::get('vehicles/drivers', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('vehicles.drivers');
-        Route::get('vehicles/drivers/create', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_create'])->name('vehicles.drivers.create');
-        Route::get('vehicles/drivers/{driver_id}', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_show'])->name('vehicles.drivers.show');
-        Route::put('vehicles/drivers/{driver_id}/update', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_update'])->name('vehicles.drivers.update');
-        Route::post('vehicles/drivers/store', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_store'])->name('vehicles.drivers.store');
-        Route::delete('vehicles/drivers/{driver_id}/active-or-desactive', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_activeOrdesactive'])->name('vehicles.drivers.activeOrdesactive');
-        Route::delete('vehicles/drivers/{driver_id}/reset-password', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_reset_password'])->name('vehicles.drivers.password.reset');
+        Route::resource('vehicles/drivers', App\Http\Controllers\Painel\Frotas\DriversController::class);
+
+
+        #Route::get('vehicles/drivers/all', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('drivers.index');
+        #Route::get('vehicles/drivers', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('vehicles.drivers');
+        #Route::get('vehicles/drivers/create', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_create'])->name('vehicles.drivers.create');
+        #Route::get('vehicles/drivers/{driver_id}', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_show'])->name('vehicles.drivers.show');
+        #Route::put('vehicles/drivers/{driver_id}/update', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_update'])->name('vehicles.drivers.update');
+        #Route::post('vehicles/drivers/store', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_store'])->name('vehicles.drivers.store');
+        #Route::delete('vehicles/drivers/{driver_id}/active-or-desactive', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_activeOrdesactive'])->name('vehicles.drivers.activeOrdesactive');
+        #Route::delete('vehicles/drivers/{driver_id}/reset-password', [App\Http\Controllers\Painel\VehiclesController::class, 'driver_reset_password'])->name('vehicles.drivers.password.reset');
 
 
         /*
@@ -485,7 +488,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('/deleteAllEmployee', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'deleteAllEmployees'])->name('dev.delete.name.all.employee');
             Route::post('/deleteDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'deleteDocAuditory'])->name('dev.delete.doc.auditory');
             Route::post('/alterDocAuditory', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'alterDocAuditory'])->name('dev.alter.doc.auditory');
-
+            Route::get('script-condutores', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptCondutores'])->name('dev.script.condutores');
             Route::get('users/{userId}/auth', [App\Http\Controllers\Painel\UsersController::class, 'userAuth'])->name('user.auth');
         });
     });

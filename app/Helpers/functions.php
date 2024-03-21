@@ -63,26 +63,22 @@ function removeParseContentBar($string, $charSe = 'data-id=')
     return $arr;
 }
 
-function titleCase($string, $delimiters = array(" ", "-", "O'"), $exceptions = array("to", "a", "the", "of", "by", "and", "with", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"))
+
+function titleCase($string)
 {
-    $string = maiusculo($string);
-    foreach ($delimiters as $delimiter) {
-        $words = explode($delimiter, $string);
-        $newwords = array();
-        foreach ($words as $word) {
-            if (in_array(strtoupper($word), $exceptions)) {
-                // check exceptions list for any words that should be in upper case
-                $word = strtoupper($word);
-            } elseif (!in_array($word, $exceptions)) {
-                // convert to uppercase
-                $word = ucfirst($word);
-            }
-            array_push($newwords, $word);
+    $string = mb_strtolower($string, 'UTF-8');
+    $explode = explode(" ", $string);
+    $in = '';
+    foreach ($explode as $str) {
+        if (strlen($str) > 2) {
+            $in .= mb_convert_case($str, MB_CASE_TITLE, "UTF-8") . ' ';
+        } else {
+            $in .= $str . ' ';
         }
-        $string = join($delimiter, $newwords);
     }
-    return $string;
+    return trim(ucfirst($in));
 }
+
 
 function limit($string, $limit = 30)
 {
@@ -347,4 +343,11 @@ function _log($modelName, Model $model, $causer, $logDescription = '', $attribut
         ->causedBy($causer)
         ->withProperties($attributes)
         ->log($logDescription);
+}
+
+function __date_format($date, $format = 'd/m/Y')
+{
+    $value = str_replace('/', '-', $date);
+
+    return Carbon::parse($value)->format($format);
 }

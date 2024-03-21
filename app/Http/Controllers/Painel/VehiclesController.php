@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateDriver;
 use App\Http\Requests\StoreUpdateUser;
 use App\Http\Requests\StoreUpdateVehicle;
+use App\Models\Driver;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -248,7 +249,7 @@ class VehiclesController extends Controller
 
         $drivers = Role::where('slug', 'driver')->first();
 
-        $usersDrivers = $drivers->users()->get();
+        $usersDrivers = Driver::get() ;
 
         //Verificar se existe status em aberto desse Motorista
         $activityStatusOpen = $vehicle->activitys()

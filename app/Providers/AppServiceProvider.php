@@ -8,6 +8,7 @@ use App\Models\{
     Pasta,
     Client,
     Concessionaria,
+    Driver,
     Service,
     Tipo,
     Etapa,
@@ -31,6 +32,7 @@ use App\Observers\{
     TipoObserver,
     EtapaObserver,
     ComercialObserver,
+    DriverObserver,
     FileObserver,
     ObraFinanceiroObserver,
     HandworkObserver,
@@ -92,6 +94,7 @@ class AppServiceProvider extends ServiceProvider
         File::observe(FileObserver::class);
         User::observe(UserObserver::class);
         Visitor::observe(VisitorObserver::class);
+        Driver::observe(DriverObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

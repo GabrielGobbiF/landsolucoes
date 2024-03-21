@@ -77,7 +77,7 @@ return [
             [
                 'name' =>  'Motorista',
                 'icon' =>  'ri-shield-user-fill',
-                'route' => 'vehicles.drivers',
+                'route' => 'drivers.index',
             ],
             [
                 'name' =>  'Portaria',
@@ -119,7 +119,7 @@ return [
             [
                 'name' =>  'Motorista',
                 'icon' =>  'ri-shield-user-fill',
-                'route' => 'vehicles.drivers',
+                'route' => 'drivers.index',
             ],
 
             [
@@ -409,5 +409,32 @@ return [
         'RDSC',
         'RDSE',
         'DIVERSOS'
+    ],
+
+    'cnh_categories' => [
+        [
+            'name' => 'A',
+            'value' => 'A',
+        ],
+        [
+            'name' => 'B',
+            'value' => 'B',
+        ],
+        [
+            'name' => 'C',
+            'value' => 'C',
+        ],
+        [
+            'name' => 'D',
+            'value' => 'D',
+        ],
+        [
+            'name' => 'E',
+            'value' => 'E',
+        ],
+        [
+            'name' => 'A',
+            'value' => 'A',
+        ],
     ]
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,30 @@ class DesenvolvedorController extends Controller
     public function index()
     {
         return view('pages.painel.desenvolvedor.index');
+    }
+
+    public function scriptCondutores(Request $request)
+    {
+        DB::table('drivers')->truncate();
+
+        $url = file_get_contents(config_path('jsons/condutores.json'));
+        $url = json_decode($url, true);
+
+        foreach ($url as $driver) {
+
+            $columns = [
+                'name' => ($driver['nome']),
+                'cnh_category' => $driver['cnh_category'],
+                'cnh_validity' =>  __date_format($driver['cnh_validity'], 'Y-m-d'),
+                'cnh_number' => $driver['cnh_number'],
+                'cpf' => $driver['cpf'],
+                're' => $driver['re'],
+            ];
+
+            Driver::create($columns);
+        }
+
+        dd($url);
     }
 
     public function alterNameAllEmployees(Request $request)
@@ -129,8 +154,8 @@ class DesenvolvedorController extends Controller
         return view('pages.enel.download');
     }
 
-    public function sesmtEnel(){
+    public function sesmtEnel()
+    {
         return view('pages.enel.sesmt');
-
     }
 }

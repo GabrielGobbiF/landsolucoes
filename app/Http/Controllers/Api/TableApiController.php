@@ -30,6 +30,7 @@ use App\Models\Compras\Fornecedor;
 use App\Models\Compras\Orcamento;
 use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
+use App\Models\Driver;
 use App\Models\Employee;
 use App\Models\Epi;
 use App\Models\Etd;
@@ -66,15 +67,17 @@ class TableApiController extends Controller
     {
         $search = $this->search;
 
-        $drivers = User::whereHas('roles', function ($query) {
-            return $query->where('slug', 'driver');
-        })->where(function ($query) use ($search) {
-            if ($search != '') {
-                $query->orWhere('name', 'LIKE', '%' . $search . '%');
-                $query->orWhere('username', 'LIKE', '%' . $search . '%');
-                $query->orWhere('email', 'LIKE', '%' . $search . '%');
-            }
-        })->paginate($this->limit);
+        #$drivers = User::whereHas('roles', function ($query) {
+        #    return $query->where('slug', 'driver');
+        #})->where(function ($query) use ($search) {
+        #    if ($search != '') {
+        #        $query->orWhere('name', 'LIKE', '%' . $search . '%');
+        #        $query->orWhere('username', 'LIKE', '%' . $search . '%');
+        #        $query->orWhere('email', 'LIKE', '%' . $search . '%');
+        #    }
+        #})->paginate($this->limit);
+
+        $drivers = Driver::filtered(request()->all())->orderby('id', 'desc')->paginate($this->limit);
 
         return DriversResource::collection($drivers);
     }

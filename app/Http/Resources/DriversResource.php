@@ -17,11 +17,12 @@ class DriversResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "username" => $this->username,
             "cnh_number" => $this->cnh_number,
             "cnh_validity" => $this->cnh_validity,
             "cnh_category" => $this->cnh_category,
-            "statusButton" => $this->getButtons(),
+            "cpf" => $this->cpf,
+            "re" => $this->re,
+            #"statusButton" => $this->getButtons(),
             "status" => $this->is_active == 0
                 ? '<span class="badge badge-soft-success font-size-12">Ativo</span>'
                 : '<span class="badge badge-soft-danger font-size-12">Desativado</span>'

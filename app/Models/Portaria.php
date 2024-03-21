@@ -61,7 +61,7 @@ class Portaria extends Model
 
     public function motorista()
     {
-        return $this->belongsTo(User::class, 'motorista_id', 'id');
+        return $this->belongsTo(Driver::class, 'motorista_id', 'id');
     }
 
     public function porteiro()

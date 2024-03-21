@@ -35,5 +35,6 @@ return [
     'rdse' => 'RDSE',
     'modelo-rdse' => 'Modelo RDSE',
     'visitor' => 'Visitante',
+    'driver' => 'Motorista',
 
 ];
