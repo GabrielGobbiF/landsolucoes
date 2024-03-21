@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Casts\DateTime;
 use App\Supports\Enums\Frota\VisitorsStatus;
+use App\Traits\LogTrait;
 use App\Traits\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Visitor extends Model
 {
-    use HasFactory, SearchableTrait;
+    use HasFactory, SearchableTrait, LogTrait;
 
     public $searchable = ['name', 'company_name', 'vehicle_plate', 'document', 'id'];
 

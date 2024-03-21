@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel\Frotas;
 use App\Http\Requests\Frotas\StoreUpdateVisitors;
 use App\Models\Visitor;
 use App\Http\Controllers\Controller;
+use App\Supports\Enums\Frota\VisitorsStatus;
 use Illuminate\Http\Request;
 
 class VisitorsController extends Controller

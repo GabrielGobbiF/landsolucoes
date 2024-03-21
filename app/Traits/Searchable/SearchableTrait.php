@@ -32,6 +32,10 @@ trait SearchableTrait
             $query = json_decode($query['filters'], true);
         }
 
+        if (isset($query['filter'])) {
+            $query = $query['filter'];
+        }
+
         $this->validateFieldNames($query);
 
         $mode = $this->getQueryMode($query);
@@ -46,6 +50,16 @@ trait SearchableTrait
     protected function applySearch(Builder $builder, $query)
     {
         foreach ($query as $field => $value) {
+            if (str_contains($field, 'at')) {
+                $builder->where(function (Builder $builder) use ($field, $value) {
+                    if (!empty($value)) {
+                        $builder->whereDate($field,  formatDateAndTime($value, 'Y-m-d'));
+                    }
+
+                });
+                continue;
+            }
+
             if ($field == 'search') {
                 if (!empty($value)) {
                     $searchable = collect($this->_getSearchableAttributes($builder))->filter(function ($request) {

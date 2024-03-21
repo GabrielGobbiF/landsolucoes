@@ -6,6 +6,25 @@
 
     <div class="card">
         <div class="card-body">
+            <div class="row">
+
+                <div class="col-auto align-self-center">
+                    <span class="pos-relative t-10">Agrupar por: </span>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="fl_art_nome">Data</label>
+                    <input id="input--at" type="date" name="visitor_at" class="form-control search-input">
+                </div>
+
+                <div class="col-md-3 justify-content-end align-self-center mg-t-25">
+                    <a href="{{ route('visitors.index') }}" class="btn btn-dark btn-empty-search">Limpar </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body">
             <div class="table table-api">
                 <div id="toolbar">
                     <div class="form-inline" role="form">
@@ -39,3 +58,15 @@
     @include('pages.painel._partials.modals.modal-add', ['redirect'=>'visitors.index', 'type' => 'visitors'])
 
 @endsection
+
+@section('scripts')
+    <script>
+        $(function() {
+            $('.search-input').on('change keyup', function() {
+                time = setTimeout(function() {
+                    initTable();
+                }, 1200);
+            });
+        })
+    </script>
+@append

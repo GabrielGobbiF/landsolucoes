@@ -4,9 +4,6 @@
 
 @section('content')
     <div class="card">
-
-
-
         <div class="card-body">
             <div class="row">
                 <div class="col-12 mb-3">
@@ -32,4 +29,7 @@
             </form>
         </div>
     </div>
+
+    <x-cards.card-history-log :logs="$visitor->logs()" :user="true" />
+
 @endsection

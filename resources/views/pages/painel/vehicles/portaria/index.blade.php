@@ -58,7 +58,6 @@
                                 <th data-field="tipo">Tipo</th>
                                 <th data-field="observacoes" data-visible="false">Observações</th>
                                 <th data-field="files" data-formatter="filesFormatter">Files</th>
-
                             </tr>
                         </thead>
                         <tbody></tbody>

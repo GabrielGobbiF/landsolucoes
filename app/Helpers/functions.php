@@ -3,6 +3,7 @@
 use App\Models\Epi;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -280,13 +281,17 @@ function clear($v)
  *
  * @return array|\Illuminate\Contracts\Translation\Translator|null|string
  */
-function __trans(string $key, ?string $fallback = null, ?string $locale = null, ?array $replace = [])
+function __trans($key = '', ?array $replace = [], ?string $fallback = null, ?string $locale = 'pt-BR')
 {
-    if (\Illuminate\Support\Facades\Lang::has($key, $locale)) {
-        return trans($key, $replace, $locale);
+    $keyM = ($key);
+    if (\Illuminate\Support\Facades\Lang::has($keyM, $locale) && !empty($keyM)) {
+        if (gettype(trans($keyM, $replace, $locale)) == 'array') {
+            return trans($keyM, $replace, $locale)[0];
+        }
+        return trans($keyM, $replace, $locale);
     }
 
-    return $fallback;
+    return ltrim($key);
 }
 
 function minusculo($value)
@@ -333,4 +338,13 @@ function array_not_null($array = [])
     return collect($array)->filter(function ($request) {
         return is_string($request) && !empty($request) || is_array($request) && count($request);
     })->toArray();
+}
+
+function _log($modelName, Model $model, $causer, $logDescription = '', $attributes = [])
+{
+    activity($modelName)
+        ->performedOn($model)
+        ->causedBy($causer)
+        ->withProperties($attributes)
+        ->log($logDescription);
 }
