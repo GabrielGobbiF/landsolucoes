@@ -240,6 +240,7 @@
                     <table class='table table-hover'>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Motorista</th>
                                 <th>Veiculo</th>
                                 <th>Data</th>
@@ -250,6 +251,7 @@
                         <tbody>
                             @foreach ($portarias as $portaria)
                                 <tr>
+                                    <td>{{ $portaria['id'] }}</td>
                                     <td>{{ $portaria['motorista'] }}</td>
                                     <td>{{ $portaria['veiculo'] }}</td>
                                     <td>{{ $portaria['data'] }}</td>
