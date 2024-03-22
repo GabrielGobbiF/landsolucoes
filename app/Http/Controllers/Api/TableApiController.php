@@ -130,7 +130,6 @@ class TableApiController extends Controller
                     $query->orWhere('vehicles.name', 'LIKE', '%' . $filters['search'] . '%');
                     $query->orWhere('vehicles.board', 'LIKE', '%' . $filters['search'] . '%');
                     $query->orWhere('drivers.name', 'LIKE', '%' . $filters['search'] . '%');
-                    $query->orWhere('drivers.email', 'LIKE', '%' . $filters['search'] . '%');
                 }
 
                 if (isset($filters['driver_id']) && $filters['driver_id'] != '') {
