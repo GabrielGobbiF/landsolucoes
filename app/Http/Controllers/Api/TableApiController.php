@@ -122,20 +122,20 @@ class TableApiController extends Controller
         $filters['search'] =  $this->search;
 
         $portaria = DB::table('portarias')
-            ->select('portarias.*', 'users.name as userName', 'vehicles.name as vehicleName', 'vehicles.board as vehicleBoard')
+            ->select('portarias.*', 'drivers.name as userName', 'vehicles.name as vehicleName', 'vehicles.board as vehicleBoard')
             ->join('vehicles', 'portarias.vehicle_id', '=', 'vehicles.id')
-            ->join('users', 'portarias.motorista_id', '=', 'users.id')
+            ->join('drivers', 'portarias.motorista_id', '=', 'drivers.id')
             ->where(function ($query) use ($filters) {
                 if (isset($filters['search']) && $filters['search'] != '') {
                     $query->orWhere('vehicles.name', 'LIKE', '%' . $filters['search'] . '%');
                     $query->orWhere('vehicles.board', 'LIKE', '%' . $filters['search'] . '%');
-                    $query->orWhere('users.name', 'LIKE', '%' . $filters['search'] . '%');
-                    $query->orWhere('users.username', 'LIKE', '%' . $filters['search'] . '%');
-                    $query->orWhere('users.email', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('drivers.name', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('drivers.username', 'LIKE', '%' . $filters['search'] . '%');
+                    $query->orWhere('drivers.email', 'LIKE', '%' . $filters['search'] . '%');
                 }
 
                 if (isset($filters['driver_id']) && $filters['driver_id'] != '') {
-                    $query->where('users.id',  $filters['driver_id']);
+                    $query->where('drivers.id',  $filters['driver_id']);
                 }
 
                 if (isset($filters['vehicle_id']) && $filters['vehicle_id'] != '') {
