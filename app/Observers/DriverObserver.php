@@ -20,6 +20,7 @@ class DriverObserver
         $driver->name = titleCase($driver->name);
         $driver->cnh_category = mb_strtoupper($driver->cnh_category);
         $driver->cpf = clear($driver->cpf);
+        $driver->re =  str_pad($driver->re, 3, "0", STR_PAD_LEFT);
     }
 
     /**
@@ -33,5 +34,6 @@ class DriverObserver
         $driver->name = titleCase($driver->name);
         $driver->cnh_category = mb_strtoupper($driver->cnh_category);
         $driver->cpf = clear($driver->cpf);
+        $driver->re =  str_pad($driver->re, 3, "0", STR_PAD_LEFT);
     }
 }
