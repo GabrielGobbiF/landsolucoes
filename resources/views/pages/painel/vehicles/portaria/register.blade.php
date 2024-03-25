@@ -20,6 +20,10 @@
     <script src="{{ asset('mobile/js/app.js') }}"></script>
 
     <style>
+        body {
+            font-size: 1.1rem !important;
+        }
+
         .select2-selection__rendered {
             line-height: 31px !important;
         }
@@ -80,15 +84,15 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                               id="" {{ old('controlador') == 'leandro freire dos santos' ? 'checked' : '' }} class="form-check-input"
+                                               id="op1" {{ old('controlador') == 'leandro freire dos santos' ? 'checked' : '' }} class="form-check-input"
                                                type="radio" name="controlador" value="leandro freire dos santos" required />
-                                        <label class="form-check-label" for=""> {{ titleCase('LEANDRO FREIRE DOS SANTOS') }} </label>
+                                        <label class="form-check-label" for="op1"> {{ titleCase('LEANDRO FREIRE DOS SANTOS') }} </label>
                                     </div>
                                     <div class="form-check">
                                         <input
-                                               id="" {{ old('controlador') == 'liliany ferreira de jesus' ? 'checked' : '' }} class="form-check-input"
+                                               id="op2" {{ old('controlador') == 'liliany ferreira de jesus' ? 'checked' : '' }} class="form-check-input"
                                                type="radio" name="controlador" value="liliany ferreira de jesus" required />
-                                        <label class="form-check-label" for="">
+                                        <label class="form-check-label" for="op2">
                                             {{ titleCase('LILIANY FERREIRA DE JESUS') }}
                                         </label>
                                     </div>
@@ -97,16 +101,16 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                               id="" {{ old('controlador') == 'jose barbosa de menezes' ? 'checked' : '' }} class="form-check-input"
+                                               id="op3" {{ old('controlador') == 'jose barbosa de menezes' ? 'checked' : '' }} class="form-check-input"
                                                type="radio" name="controlador" value="jose barbosa de menezes" required />
-                                        <label class="form-check-label" for=""> {{ titleCase('JOSE BARBOSA DE MENEZES') }}</label>
+                                        <label class="form-check-label" for="op3"> {{ titleCase('JOSE BARBOSA DE MENEZES') }}</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input
-                                               id="" {{ old('controlador') == 'fabiano valentim dos santos' ? 'checked' : '' }}
+                                               id="op4" {{ old('controlador') == 'fabiano valentim dos santos' ? 'checked' : '' }}
                                                class="form-check-input" type="radio" name="controlador" value="fabiano valentim dos santos" required />
-                                        <label class="form-check-label" for="">
+                                        <label class="form-check-label" for="op4">
                                             {{ titleCase('FABIANO VALENTIM DOS SANTOS') }}
                                         </label>
                                     </div>
@@ -115,13 +119,36 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                               id="" {{ old('controlador') == 'ramon monteiro da silva santana' ? 'checked' : '' }}
+                                               id="op5" {{ old('controlador') == 'ramon monteiro da silva santana' ? 'checked' : '' }}
                                                class="form-check-input" type="radio" name="controlador" value="ramon monteiro da silva santana" required />
-                                        <label class="form-check-label" for="">
+                                        <label class="form-check-label" for="op5">
                                             {{ titleCase('RAMON MONTEIRO DA SILVA SANTANA') }}
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 my-4 d-flex justify-content-between">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input id="typeOption" {{ old('type') == 'saida' ? 'checked' : '' }} type="radio" name="type" value="saida"
+                                               required>
+                                    </div>
+                                </div>
+                                <label class="form-control" for="typeOption">Saida</label>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input
+                                               id="typeOption2" {{ old('type') == 'retorno' ? 'checked' : '' }} type="radio" name="type" value="retorno"
+                                               required>
+                                    </div>
+                                </div>
+                                <label class="form-control" for="typeOption2">Retorno</label>
                             </div>
                         </div>
 
@@ -135,24 +162,6 @@
                                             {{ $vehicle->name }} - {{ $vehicle->board }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Kilometragem</label>
-                                    <input id="" type="number" class="form-control" name="km" required value="{{ old('km') }}" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Finalidade</label>
-                                    <input id="" type="text" class="form-control" name="finality" required value="{{ old('finality') }}"  required/>
-                                </div>
                             </div>
                         </div>
 
@@ -174,48 +183,42 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="images">Fotos</label>
-                                <input id="images" type="file" class="form-control-file" name="attachments[]" multiple accept='image/*'>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Kilometragem</label>
+                                    <input id="" type="number" class="form-control" name="km" required value="{{ old('km') }}" />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12 mt-3 d-flex justify-content-between">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input
-                                               id="typeOption" {{ old('type') == 'saida' ? 'checked' : '' }} type="radio" name="type" value="saida"
-                                               checked="checked">
-                                    </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Finalidade</label>
+                                    <input id="" type="text" class="form-control" name="finality" required value="{{ old('finality') }}"
+                                           required />
                                 </div>
-                                <span class="form-control">Saida</span>
-                            </div>
-
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input
-                                               id="typeOption" {{ old('type') == 'retorno' ? 'checked' : '' }} type="radio" name="type"
-                                               value="retorno">
-                                    </div>
-                                </div>
-                                <span class="form-control">Retorno</span>
                             </div>
                         </div>
 
-
-                        <div class="col-md-12 mt-5 mb-4">
+                        <div class="col-md-12 mt-3 mb-4">
                             <label for="" class="">Departamento</label>
                             <div class="row" style="    gap: 1rem;">
                                 @foreach (config('admin.departamentos_veiculos') as $depVeic)
                                     <div class="col-3">
                                         <div class="form-check">
-                                            <input id="" {{ old('departamento') == $depVeic ? 'checked' : '' }} class="form-check-input"
+                                            <input id="dep{{ $depVeic }}" {{ old('departamento') == $depVeic ? 'checked' : '' }} class="form-check-input"
                                                    type="radio" name="departamento" value="{{ $depVeic }}" required />
-                                            <label class="form-check-label" for=""> {{ $depVeic }} </label>
+                                            <label class="form-check-label" for="dep{{ $depVeic }}"> {{ $depVeic }} </label>
                                         </div>
                                     </div>
                                 @endforeach
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="images">Fotos</label>
+                                <input id="images" type="file" class="form-control-file" name="attachments[]" multiple accept='image/*'>
                             </div>
                         </div>
 
