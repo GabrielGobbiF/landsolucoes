@@ -81,8 +81,23 @@ return [
             ],
             [
                 'name' =>  'Portaria',
-                'icon' =>  ' ri-profile-fill',
-                'route' => 'vehicles.portaria',
+                'atc' =>  'portaria',
+                'icon' =>  'ri-profile-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Lista',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'vehicles.portaria',
+                    ],
+                    [
+                        'name' =>  'Liberação de Saída',
+                        'atc' =>  'portaria',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'vehicles.portaria.register',
+                    ],
+                ]
             ],
             [
                 'name' =>  'Celulares',
