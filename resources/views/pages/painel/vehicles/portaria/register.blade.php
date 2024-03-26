@@ -148,7 +148,7 @@
                                                required>
                                     </div>
                                 </div>
-                                <label class="form-control" for="typeOption2">Retorno</label>
+                                <label class="form-control" for="typeOption2">Entrada</label>
                             </div>
                         </div>
 
