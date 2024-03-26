@@ -84,16 +84,16 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                               id="op1" {{ old('controlador') == 'leandro freire dos santos' ? 'checked' : '' }} class="form-check-input"
-                                               type="radio" name="controlador" value="leandro freire dos santos" required />
-                                        <label class="form-check-label" for="op1"> {{ titleCase('LEANDRO FREIRE DOS SANTOS') }} </label>
+                                               id="op1" {{ old('controlador') == 'josue augusto de oliveira' ? 'checked' : '' }} class="form-check-input"
+                                               type="radio" name="controlador" value="josue augusto de oliveira" required />
+                                        <label class="form-check-label" for="op1"> {{ titleCase('josue augusto de oliveira') }} </label>
                                     </div>
                                     <div class="form-check">
                                         <input
-                                               id="op2" {{ old('controlador') == 'liliany ferreira de jesus' ? 'checked' : '' }} class="form-check-input"
-                                               type="radio" name="controlador" value="liliany ferreira de jesus" required />
+                                               id="op2" {{ old('controlador') == 'carlos alberto fernandes dos santos' ? 'checked' : '' }} class="form-check-input"
+                                               type="radio" name="controlador" value="carlos alberto fernandes dos santos" required />
                                         <label class="form-check-label" for="op2">
-                                            {{ titleCase('LILIANY FERREIRA DE JESUS') }}
+                                            {{ titleCase('carlos alberto fernandes dos santos') }}
                                         </label>
                                     </div>
                                 </div>
@@ -108,10 +108,10 @@
 
                                     <div class="form-check">
                                         <input
-                                               id="op4" {{ old('controlador') == 'fabiano valentim dos santos' ? 'checked' : '' }}
-                                               class="form-check-input" type="radio" name="controlador" value="fabiano valentim dos santos" required />
+                                               id="op4" {{ old('controlador') == 'magna calasans sousa' ? 'checked' : '' }}
+                                               class="form-check-input" type="radio" name="controlador" value="magna calasans sousa" required />
                                         <label class="form-check-label" for="op4">
-                                            {{ titleCase('FABIANO VALENTIM DOS SANTOS') }}
+                                            {{ titleCase('magna calasans sousa') }}
                                         </label>
                                     </div>
                                 </div>
@@ -119,10 +119,10 @@
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input
-                                               id="op5" {{ old('controlador') == 'ramon monteiro da silva santana' ? 'checked' : '' }}
-                                               class="form-check-input" type="radio" name="controlador" value="ramon monteiro da silva santana" required />
+                                               id="op5" {{ old('controlador') == 'magna calasans sousa' ? 'checked' : '' }}
+                                               class="form-check-input" type="radio" name="controlador" value="magna calasans sousa" required />
                                         <label class="form-check-label" for="op5">
-                                            {{ titleCase('RAMON MONTEIRO DA SILVA SANTANA') }}
+                                            {{ titleCase('magna calasans sousa') }}
                                         </label>
                                     </div>
                                 </div>
