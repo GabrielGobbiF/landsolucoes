@@ -108,10 +108,10 @@
 
                                     <div class="form-check">
                                         <input
-                                               id="op4" {{ old('controlador') == 'magna calasans sousa' ? 'checked' : '' }}
-                                               class="form-check-input" type="radio" name="controlador" value="magna calasans sousa" required />
+                                               id="op4" {{ old('controlador') == 'anderson de brito passos' ? 'checked' : '' }}
+                                               class="form-check-input" type="radio" name="controlador" value="anderson de brito passos" required />
                                         <label class="form-check-label" for="op4">
-                                            {{ titleCase('magna calasans sousa') }}
+                                            {{ titleCase('anderson de brito passos') }}
                                         </label>
                                     </div>
                                 </div>
