@@ -380,6 +380,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::delete('celulares/{celularId}/file/{fileId}', [App\Http\Controllers\Painel\CelularesController::class, 'fileDelete'])->name('celular.file.destroy');
     Route::post('celulares/{celularId}/file/upload', [App\Http\Controllers\Painel\CelularesController::class, 'file'])->name('celular.file');
+
+    Route::get('celulares/{celularId}/signature', [App\Http\Controllers\Painel\CelularesController::class, 'signature'])->name('celular.signature');
+    Route::put('celulares/{celularId}/signature', [App\Http\Controllers\Painel\CelularesController::class, 'signatureUpdate'])->name('celulares.signature.update');
     Route::resource('celulares', App\Http\Controllers\Painel\CelularesController::class);
 
     /*

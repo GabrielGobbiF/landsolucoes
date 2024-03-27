@@ -19,6 +19,7 @@ class Celular extends Model
         'linha',
         'departamento',
         'centro_custo',
+        'assinatura',
     ];
 
     /**
@@ -34,6 +35,7 @@ class Celular extends Model
         'departamento',
         'centro_custo',
         'imei',
+        'assinatura',
     ];
 
     protected $table = 'celulares';

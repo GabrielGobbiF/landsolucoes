@@ -204,4 +204,39 @@ class CelularesController extends Controller
             ->route('celulares.show', $celular->id)
             ->with('error', 'Sem permissão');
     }
+
+    public function signature($celularId)
+    {
+        if (!$celular = $this->repository->with('files')->where('id', $celularId)->first()) {
+            return redirect()
+                ->route('celulares.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        return view('pages.painel.celulares.signature', [
+            'celular' => $celular,
+        ]);
+    }
+    public function signatureUpdate(Request $request, $celularId)
+    {
+        if (!$celular = $this->repository->with('files')->where('id', $celularId)->first()) {
+            return redirect()
+                ->route('celulares.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $signatureData = explode(',', $request->signature)[1]; // Remove o prefixo da string base64
+        $signatureData = base64_decode($signatureData);
+
+        $fileName = 'celulares/signatures/signature-' . time() . '.png';
+
+        Storage::disk('public')->put($fileName, $signatureData);
+
+        $celular->assinatura = $fileName;
+        $celular->save();
+
+        return redirect()
+            ->route('celulares.show', $celular->id)
+            ->with('message', 'Assinatura salva com sucesso');
+    }
 }

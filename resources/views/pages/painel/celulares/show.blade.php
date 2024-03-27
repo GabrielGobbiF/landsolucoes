@@ -13,12 +13,12 @@
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-primary btn-submit">Salvar</button>
-
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalId">
+                        <a href="{{ route('celular.signature', $celular->id) }}" type="button" class="btn btn-outline-light">
+                            Assinatura
+                        </a>
+                        <button type="button" class="btn btn-outline-primary d-none" data-toggle="modal" data-target="#modalId">
                             Novo arquivo
                         </button>
-
-
                     </div>
                 </div>
             </form>
@@ -108,6 +108,9 @@
 @stop
 
 @section('scripts')
+
+    <script class=""></script>
+
     <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 
     <script type="text/javascript">
