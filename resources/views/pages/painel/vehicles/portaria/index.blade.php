@@ -37,6 +37,17 @@
                     <input id="input--at" type="date" name="at" class="form-control search-input">
                 </div>
 
+                <div class="col-md-3 mt-3">
+                    <label for="fl_art_nome">Tipo de Veiculo</label>
+                    <select id="obra-select_veiculo_tipo" name="veiculo_tipo" class="form-control select2 search-input">
+                        <option value="" selected>Selecione</option>
+                        <option value="cena" >Cena</option>
+                        <option value="terceiro" >Terceiro</option>
+                    </select>
+                </div>
+
+
+
                 <div class="col-md-3 justify-content-end align-self-center mg-t-25">
                     <a href="{{ route('vehicles.portaria') }}" class="btn btn-dark btn-empty-search">Limpar </a>
                 </div>
@@ -56,8 +67,9 @@
                                 <th data-field="veiculo">Veiculo</th>
                                 <th data-field="data">Data</th>
                                 <th data-field="tipo">Tipo</th>
+                                <th data-field="tipo_veiculo">Tipo Veiculo</th>
                                 <th data-field="observacoes" data-visible="false">Observações</th>
-                                <th data-field="files" data-formatter="filesFormatter">Files</th>
+                                <th data-field="files" data-formatter="filesFormatter" data-visible="false">Files</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

@@ -31,6 +31,11 @@ class Portaria extends Model
         'departamento',
         'km',
         'finality',
+
+        'veiculo_tipo',
+        'veiculo_nome',
+        'veiculo_placa',
+        'motorista',
     ];
 
     protected static $logAttributes = [
@@ -42,7 +47,12 @@ class Portaria extends Model
         'files',
         'type',
         'created_at',
-        'updated_at'
+        'updated_at',
+
+        'veiculo_tipo',
+        'veiculo_nome',
+        'veiculo_placa',
+        'motorista',
     ];
 
     /**

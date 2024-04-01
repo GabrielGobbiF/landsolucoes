@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RegisterPortaria extends FormRequest
+class RegisterVisitorPortaria extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,10 @@ class RegisterPortaria extends FormRequest
     {
         return [
             'controlador' => ['required'],
-            'vehicle_id' => ['required'],
-            'km' => ['required', 'gt:0'],
-            'motorista_id' => ['required'],
+            'veiculo_placa' => ['required'],
+            'veiculo_nome' => ['required'],
+            'motorista' => ['required'],
             'type' => ['required'],
-            'departamento' => ['required'],
             'observations' => ['nullable'],
             'attachments' => ['nullable'],
             'finality' => ['required'],

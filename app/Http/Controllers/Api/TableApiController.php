@@ -123,8 +123,8 @@ class TableApiController extends Controller
 
         $portaria = DB::table('portarias')
             ->select('portarias.*', 'drivers.name as userName', 'vehicles.name as vehicleName', 'vehicles.board as vehicleBoard')
-            ->join('vehicles', 'portarias.vehicle_id', '=', 'vehicles.id')
-            ->join('drivers', 'portarias.motorista_id', '=', 'drivers.id')
+            ->leftJoin('vehicles', 'portarias.vehicle_id', '=', 'vehicles.id')
+            ->leftJoin('drivers', 'portarias.motorista_id', '=', 'drivers.id')
             ->where(function ($query) use ($filters) {
                 if (isset($filters['search']) && $filters['search'] != '') {
                     $query->orWhere('vehicles.name', 'LIKE', '%' . $filters['search'] . '%');
@@ -142,6 +142,11 @@ class TableApiController extends Controller
 
                 if (isset($filters['at']) && $filters['at'] != '') {
                     $query->whereDate('portarias.created_at',  $filters['at']);
+                }
+
+
+                if (isset($filters['veiculo_tipo']) && $filters['veiculo_tipo'] != '') {
+                    $query->where('portarias.veiculo_tipo',  $filters['veiculo_tipo']);
                 }
             })
             ->orderBy('portarias.created_at', 'desc')

@@ -6,6 +6,7 @@ use App\Models\Portaria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterPortaria;
+use App\Http\Requests\RegisterVisitorPortaria;
 use App\Http\Requests\StoreUpdateUser;
 use App\Models\Driver;
 use App\Models\Role;
@@ -61,7 +62,12 @@ class PortariaController extends Controller
 
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 
-        $portarias = $this->repository->with('veiculo')->with('motorista')->where('created_at', 'like', '%' . date('Y-m-d') . '%')->orderby('id', 'DESC')->paginate(40);
+        $portarias = $this->repository->with('veiculo')
+            ->with('motorista')
+            ->where('created_at', 'like', '%' . date('Y-m-d') . '%')
+            ->orderby('id', 'DESC')
+            ->where('veiculo_tipo', 'cena')
+            ->paginate(40);
 
         foreach ($portarias as $portaria) {
             if ($portaria->veiculo) {
@@ -81,6 +87,74 @@ class PortariaController extends Controller
             'vehicles' => $vehicles,
             'portarias' => collect($portariasByNow)
         ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Contracts\View\View|
+     */
+    public function visitorsCreate()
+    {
+        $portariasByNow = [];
+
+        $portarias = $this->repository
+            ->where('created_at', 'like', '%' . date('Y-m-d') . '%')
+            ->orderby('id', 'DESC')
+            ->where('veiculo_tipo', 'terceiro')
+            ->paginate(40);
+
+        foreach ($portarias as $portaria) {
+            $portariasByNow[] = [
+                "id" => $portaria->id,
+                "motorista" => $portaria->motorista,
+                "veiculo" => $portaria->veiculo_nome . ' ' . $portaria->veiculo_placa,
+                "data" => Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s'),
+                "observacoes" => $portaria->observacoes,
+                "type" => $portaria->type,
+            ];
+        }
+
+        return view('pages.painel.vehicles.portaria.visitors_register', [
+            'portarias' => collect($portariasByNow)
+        ]);
+    }
+
+    /**
+     * Store
+     *
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function visitorStore(RegisterVisitorPortaria $request)
+    {
+        $columns = $request->validated();
+
+        $columns['user_id'] = Auth::id();
+
+        $attachmentsSave = [];
+
+        $date = date('d_m_Y_h_i_s');
+
+        $localSaveAttachment = "portaria/visitors/veiculos/" . $columns['veiculo_placa'] . '/' . $date;
+
+        if (isset($columns['attachments'])) {
+            foreach ($columns['attachments'] as $attachment) {
+                if ($attachment->isValid()) {
+                    $path = Storage::put($localSaveAttachment, $attachment);
+                    $attachmentsSave[] = $path;
+                }
+            }
+
+            $attachments = implode(', ', $attachmentsSave);
+
+            $columns['files'] = $attachments;
+        }
+
+        $this->repository->create($columns);
+
+        return redirect()
+            ->route('vehicles.portaria.visitors.register')
+            ->with('message', 'Criado com sucesso');
     }
 
     /**
