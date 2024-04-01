@@ -21,7 +21,7 @@ class PortariaResource extends JsonResource
             "id" => $this->id,
             "porteiro" => 'portaria',
             "motorista" => isset($this->userName) ? $this->userName : $this->motorista,
-            "veiculo" => isset($this->vehicleName) ? $this->vehicleName . ' - ' . $this->vehicleBoard : $this->motorista . ' - ' . $this->veiculo_placa,
+            "veiculo" => isset($this->vehicleName) ? $this->vehicleName . ' - ' . $this->vehicleBoard : $this->veiculo_nome . ' - ' . $this->veiculo_placa,
             "data" => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
             "observacoes" => $this->observations,
             "tipo" => $this->type,
