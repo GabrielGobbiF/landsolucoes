@@ -264,7 +264,7 @@
                                     <td>{{ $portaria['motorista'] }}</td>
                                     <td>{{ $portaria['veiculo'] }}</td>
                                     <td>{{ $portaria['data'] }}</td>
-                                    <td>{{ $portaria['type'] }}</td>
+                                    <td>{{ $portaria['type'] == 'retorno' ? 'entrada' : 'saida' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
