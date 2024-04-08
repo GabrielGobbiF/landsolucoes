@@ -12,6 +12,7 @@ use App\Models\Driver;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -115,8 +116,13 @@ class PortariaController extends Controller
             ];
         }
 
+        $visitors = Visitor::orderby('id', 'desc')
+        ->whereDate('visitor_at', today())
+        ->get();
+
         return view('pages.painel.vehicles.portaria.visitors_register', [
-            'portarias' => collect($portariasByNow)
+            'portarias' => collect($portariasByNow),
+            'visitors' => $visitors
         ]);
     }
 
