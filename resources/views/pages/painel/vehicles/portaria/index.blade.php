@@ -47,7 +47,6 @@
                 </div>
 
 
-
                 <div class="col-md-3 justify-content-end align-self-center mg-t-25">
                     <a href="{{ route('vehicles.portaria') }}" class="btn btn-dark btn-empty-search">Limpar </a>
                 </div>

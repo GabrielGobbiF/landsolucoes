@@ -64,11 +64,11 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="container">
 
-        <div class="p-3 row gap-5">
+        <div class="row">
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-12">
                 @if ($errors->any())
                     @foreach ($errors->all() as $errors)
                         <div class="bg-danger p-1">
@@ -99,10 +99,7 @@
             </div>
 
 
-            <div class="col-1"></div>
-
-
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-12">
 
                 <div class="row">
 

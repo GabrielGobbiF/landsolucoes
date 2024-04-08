@@ -64,17 +64,18 @@ class PortariaController extends Controller
         $vehicles = Vehicle::where('is_active', 'Y')->orderby('name')->get();
 
         $portarias = $this->repository->with('veiculo')
-            ->with('motorista')
+            ->with('driver')
             ->where('created_at', 'like', '%' . date('Y-m-d') . '%')
             ->orderby('id', 'DESC')
             ->where('veiculo_tipo', 'cena')
             ->paginate(40);
 
         foreach ($portarias as $portaria) {
+
             if ($portaria->veiculo) {
                 $portariasByNow[] = [
                     "id" => $portaria->id,
-                    "motorista" => isset($portaria->motorista) ? $portaria->motorista->name : null,
+                    "motorista" => $portaria->driver->name,
                     "veiculo" => $portaria->veiculo ? $portaria->veiculo->name . ' - ' . $portaria->veiculo->board : null,
                     "data" => Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s'),
                     "observacoes" => $portaria->observacoes,

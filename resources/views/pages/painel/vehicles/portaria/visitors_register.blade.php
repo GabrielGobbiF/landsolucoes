@@ -159,33 +159,6 @@
 
         </form>
 
-        <div class="table-responsive mt-4">
-            <div class="header">
-                <h4>Registros de hoje</h4>
-            </div>
-            <table class='table table-hover'>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Motorista</th>
-                        <th>Veiculo</th>
-                        <th>Data</th>
-                        <th>Tipo</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($portarias as $portaria)
-                        <tr>
-                            <td>{{ $portaria['id'] }}</td>
-                            <td>{{ $portaria['motorista'] }}</td>
-                            <td>{{ $portaria['veiculo'] }}</td>
-                            <td>{{ $portaria['data'] }}</td>
-                            <td>{{ $portaria['type'] == 'retorno' ? 'entrada' : 'saida' }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
     </main>
 @endsection
