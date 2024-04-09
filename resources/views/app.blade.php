@@ -15,8 +15,8 @@
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
-    <link href="{{ asset('panel/css/bootstrap.css') }}" rel="stylesheet" id="bootstrap-style">
-    <link href="{{ asset('panel/css/app.css') }}" rel="stylesheet" id="app-style">
+    <link id="bootstrap-style" href="{{ asset('panel/css/bootstrap.css') }}" rel="stylesheet">
+    <link id="app-style" href="{{ asset('panel/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
 
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
@@ -30,8 +30,7 @@
     <!-- todoFazer  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/jquery-datetimepicker"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css"
-        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -96,9 +95,8 @@
                             </a>
                         </div>
 
-                        <button type="button"
-                            class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav no-print"
-                            data-toggle="collapse" data-target="#topnav-menu-content">
+                        <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item btn-topnav no-print" data-toggle="collapse"
+                                data-target="#topnav-menu-content">
                             <i class="ri-menu-2-line align-middle"></i>
                         </button>
                     </div>
@@ -109,26 +107,62 @@
                         </div>
                     </div>
 
+
+
                     <div class="d-flex no-print">
-                        <div class="dropdown d-inline-block d-lg-none ml-2">
-                            <button type="button" class="btn header-item noti-icon waves-effect"
-                                id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="ri-search-line"></i>
+
+                        <div class="dropdown d-inline-block no-print">
+                            <button id="page-header-menu-dropdown" type="button" class="btn header-item  waves-effect" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                Atalhos
+                                <i class="mdi mdi-chevron-down"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
-                                aria-labelledby="page-header-search-dropdown">
-                                <form class="p-3">
-                                    <div class="form-group m-0">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Buscar ...">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit"><i
-                                                        class="ri-search-line"></i></button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" style="width: 481px" aria-labelledby="page-header-menu-dropdown">
+                                <div class="row p-4">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 class="font-size-22 tx-bold">Obras</h5>
+                                                <ul class="list-unstyled megamenu-list">
+                                                    <li>
+                                                        <a href="{{ route('obras.index') }}">Todas</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="{{ route('clients.index') }}">Clientes</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="{{ route('finances.index') }}">Financeiro</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="{{ route('services.index') }}">Serviço</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <h5 class="font-size-22 tx-bold">Frotas</h5>
+                                                <ul class="list-unstyled megamenu-list">
+                                                    <li>
+                                                        <a href="{{route('visitors.index')}}">Novo Visitante</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{route('vehicles.portaria.visitors.create')}}">Controle de Acesso</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{route('vehicles.create')}}">Novo Veiculo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{route('drivers.index')}}">Novo Motorista</a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+
+                                </div>
                             </div>
                         </div>
 
@@ -136,9 +170,8 @@
 
                         @if (auth()->check())
                             <div class="dropdown d-inline-block user-dropdown no-print">
-                                <button type="button" class="btn header-item waves-effect"
-                                    id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
+                                <button id="page-header-user-dropdown" type="button" class="btn header-item waves-effect" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
                                     @include('pages.painel._partials.avatar', [
                                         'avatar' => auth()->user()->avatar,
                                         'name' => auth()->user()->name,
@@ -148,11 +181,10 @@
                                     <a class="dropdown-item" href="#"><i class="fas fa-user mr-1"></i> Perfil</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         <i class="fas fa-sign-out-alt"></i>
                                         Sair
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
                                     </a>
@@ -207,15 +239,13 @@
 
             <div class="p-4">
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch"
-                        checked />
+                    <input id="light-mode-switch" type="checkbox" class="custom-control-input theme-choice" checked />
                     <label class="custom-control-label" for="light-mode-switch">Light Mode</label>
                 </div>
 
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch"
-                        data-bsStyle="assets/css/bootstrap-dark.min.css"
-                        data-appStyle="assets/css/app-dark.min.css" />
+                    <input id="dark-mode-switch" type="checkbox" class="custom-control-input theme-choice" data-bsStyle="assets/css/bootstrap-dark.min.css"
+                           data-appStyle="assets/css/app-dark.min.css" />
                     <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
@@ -233,7 +263,7 @@
     <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
     <script src="https://cdn.tiny.cloud/1/rxt6gu66oa6gavl0hljt0k37ibd9qw3l0fev1vtpsexwx573/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+            referrerpolicy="origin"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     @include('pages.painel._partials.modals.modal-search-global')
@@ -311,7 +341,7 @@
                 document.body.insertAdjacentHTML('beforeend', htmlModalEl);
 
                 //let actionModalEl = new bootstrap.Modal(document.querySelector('#modal-delete'))
-                let modalEl =  $('#modal-delete');
+                let modalEl = $('#modal-delete');
 
                 $('.modal-title').html(text);
                 $('.modal-text-body').html(`Tem certeza que deseja ${text}?`);
