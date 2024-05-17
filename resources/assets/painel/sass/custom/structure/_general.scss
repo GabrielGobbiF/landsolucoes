@@ -1,0 +1,38 @@
+body::-webkit-scrollbar {
+    width: 6px;
+    min-height: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+    height: 8px;
+    background-clip: padding-box;
+    border-right: 10px solid rgba(0, 0, 0, 0);
+    border-top: 10px solid rgba(0, 0, 0, 0);
+    border-bottom: 10px solid rgba(0, 0, 0, 0);
+}
+
+body::-webkit-scrollbar-thumb {
+    position: absolute;
+    content: "";
+    background: #a2adb7;
+    border-radius: 7px;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+
+body::-webkit-scrollbar-button {
+    display: none;
+}
+
+label {
+    font-weight: 400;
+}
+
+.input-group-text {
+    padding: 0.27rem 0.55rem !important;
+}
+
+

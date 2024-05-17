@@ -1,0 +1,464 @@
+[
+  {
+    "LINHA": "11 9-1309-5689",
+    "USUARIO": "JEFFERSON CUNHA",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5705",
+    "USUARIO": "ANSELMO VIEIRA",
+    "DEPARTAMENTO": "TMA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5716",
+    "USUARIO": "JOSÉ DIMAS",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5807",
+    "USUARIO": "ALEXANDRE LINO",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5826",
+    "USUARIO": "SILVIO SINO",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5877",
+    "USUARIO": "WAGNER PEREIRA",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5910",
+    "USUARIO": "JONATHAN CUNHA",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-5977",
+    "USUARIO": "RENATO DE OLIVEIRA",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-6030",
+    "USUARIO": "SERGIO FREITAS",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-6045",
+    "USUARIO": "EDIR DONIZETE",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-6056",
+    "USUARIO": "OLINDO RAMOS",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-6068",
+    "USUARIO": "POLICARPO SANTOS",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-6143",
+    "USUARIO": "RAFAEL SOARES",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-1309-6154",
+    "USUARIO": "CLEBER PEREIRA",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4014-2994",
+    "USUARIO": "WILSON SILVA",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-3809",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-3865",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-3959",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-3997",
+    "USUARIO": "RENATO ANDRADE",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-4034",
+    "USUARIO": "MARCIO CERQUEIRA",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-4133",
+    "USUARIO": "JOSE HENRIQUE",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-5712",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-5725",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-5869",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4077-5919",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4711-6273",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4712-0542",
+    "USUARIO": "LEOCENE",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4712-5507",
+    "USUARIO": "JOSE BEZERRA",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4787-2882",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-4789-0057",
+    "USUARIO": "CLEITON LIMPEZA",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-6383-5632",
+    "USUARIO": "LUANA VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-6457-0458",
+    "USUARIO": "JANETE ROSSI",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-6597-7475",
+    "USUARIO": "ALEXANDRE PENA",
+    "DEPARTAMENTO": "OBRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-6597-8933",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-6928-6907",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7085-1002",
+    "USUARIO": "FLAVIO EVANGELISTA",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7617-9624",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7661-3734",
+    "USUARIO": "EDEVALDO SANTOS",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7661-3941",
+    "USUARIO": "ETERVANIO SANTOS",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7661-4006",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7663-7285",
+    "USUARIO": "Flávio Roques",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7663-7439",
+    "USUARIO": "PAULO ANANIAS",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7663-8127",
+    "USUARIO": "RICARDO SOARES",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7663-8623",
+    "USUARIO": "Eliaquim",
+    "DEPARTAMENTO": "Civil (ETD's)",
+    "RESPONSAVEL": "Marcos Pereira"
+  },
+  {
+    "LINHA": "11 9-7663-9148",
+    "USUARIO": "Idalan Souza",
+    "DEPARTAMENTO": "Elétrica",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7663-9657",
+    "USUARIO": "GEOVANE SILVA",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7665-3277",
+    "USUARIO": "MARCELINO SANTOS",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7665-3496",
+    "USUARIO": "SIDNEI NOGUEIRA",
+    "DEPARTAMENTO": "INFRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7665-3543",
+    "USUARIO": "RODOLFO",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7666-9880",
+    "USUARIO": "MARCOS PEREIRA",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-1561",
+    "USUARIO": "JOSE MEDEIROS",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-2799",
+    "USUARIO": "GLAUCIO MOLINA",
+    "DEPARTAMENTO": "OBRA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-3436",
+    "USUARIO": "RENER GOMES",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-4490",
+    "USUARIO": "MARCIA",
+    "DEPARTAMENTO": "RH/DP",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-6272",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-7770",
+    "USUARIO": "CAMILA",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-7799",
+    "USUARIO": "VANESSA",
+    "DEPARTAMENTO": "RH/DP",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-9469",
+    "USUARIO": "FELIPE TORRES",
+    "DEPARTAMENTO": "ADM",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-9867",
+    "USUARIO": "PAULO RICARDO",
+    "DEPARTAMENTO": "ETD",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7667-9981",
+    "USUARIO": "José Candido",
+    "DEPARTAMENTO": "Serralheria (ETD's)",
+    "RESPONSAVEL": "Marcos Pereira"
+  },
+  {
+    "LINHA": "11 9-7671-1194",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-7683-0449",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8376-9000",
+    "USUARIO": "MARCOS VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8430-8000",
+    "USUARIO": "TIAGO VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8688-7777",
+    "USUARIO": "NELLY VARELLA",
+    "DEPARTAMENTO": "DIRETORIA",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8802-8701",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8878-1985",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8883-3966",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8895-2181",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8901-5316",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8915-5306",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8969-1063",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-8994-3035",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-9026-6584",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-9190-5204",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-9426-1284",
+    "USUARIO": "TMA",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  },
+  {
+    "LINHA": "11 9-9431-2234",
+    "USUARIO": "",
+    "DEPARTAMENTO": "",
+    "RESPONSAVEL": ""
+  }
+]

@@ -1,0 +1,3221 @@
+[{
+    "code": "I-0325508",
+    "description": "MO INSTAL FECHO DE A#O INOXID#VEL DE 19M",
+    "price_ups": "0.10",
+    "price": "15.52"
+}, {
+    "code": "R-0325508",
+    "description": "MO RETIRA FECHO DE A#O INOXID#VEL DE 19M",
+    "price_ups": "0.10",
+    "price": "15.52"
+}, {
+    "code": "I-BTS103",
+    "description": "MO INSTAL IDENTIFICAC CHAVE (C.A.) CT/PI",
+    "price_ups": "0.15",
+    "price": "23.28"
+}, {
+    "code": "R-BTS103",
+    "description": "MO RETIRA IDENTIFICAC CHAVE (C.A.) CT/PI",
+    "price_ups": "0.15",
+    "price": "23.28"
+}, {
+    "code": "I-GS83.389",
+    "description": "PASS LADRILHO HIDRÁULICO GRAMADO",
+    "price_ups": "0.19",
+    "price": "29.6"
+}, {
+    "code": "I-8000661",
+    "description": "MO INSTAL MO PUXAMENTO DE CABO ARM",
+    "price_ups": "0.38",
+    "price": "58.96"
+}, {
+    "code": "I-8000662",
+    "description": "MO INSTAL MO PUXAMENTO CB.ARMAFLEX",
+    "price_ups": "0.38",
+    "price": "58.96"
+}, {
+    "code": "I-GS83.443",
+    "description": "CANALETA SOLO PASS - SEÇÃO 0,40 X 0,40M",
+    "price_ups": "0.38",
+    "price": "59.04"
+}, {
+    "code": "I-GS83.445",
+    "description": "CANALETA SOLO CALÇ - SEÇÃO 0,40 X 0,40M",
+    "price_ups": "0.38",
+    "price": "58.35"
+}, {
+    "code": "R-8000661",
+    "description": "MO RETIRA MO PUXAMENTO DE CABO ARM",
+    "price_ups": "0.38",
+    "price": "58.96"
+}, {
+    "code": "R-8000662",
+    "description": "MO RETIRA MO PUXAMENTO CB.ARMAFLEX",
+    "price_ups": "0.38",
+    "price": "58.96"
+}, {
+    "code": "R-8000467",
+    "description": "MO RETIRA OPERACAO EM DESCONECTAVEIS",
+    "price_ups": "0.40",
+    "price": "191.82"
+}, {
+    "code": "I-8000467",
+    "description": "OPERACAO EM DESCONECTAVEIS",
+    "price_ups": "0.40",
+    "price": "191.82"
+}, {
+    "code": "R-8000467",
+    "description": "OPERACAO EM DESCONECTAVEIS",
+    "price_ups": "0.40",
+    "price": "62.068"
+}, {
+    "code": "I-GS83.380",
+    "description": "PASS REPOSIÇÃO DE PASSEIOS CONCRETO",
+    "price_ups": "0.42",
+    "price": "64.49"
+}, {
+    "code": "I-GS83.444",
+    "description": "CANALETA SOLO PASS - SEÇÃO 0,60 X 0,40M",
+    "price_ups": "0.42",
+    "price": "64.83"
+}, {
+    "code": "I-8000523",
+    "description": "MO INSTAL ABERTURA E FECHAMENTO DE VALA",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "I-AS02FE",
+    "description": "MO INSTAL COLOC SUPOR CABO SEM EMEN P.I",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "I-AS03FE",
+    "description": "MO INSTAL COLOC SUPORT P/ CAB C/ EMEN PI",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "I-AS14FE",
+    "description": "MO INSTAL COLOC SUPORTE CABO MINI POCO",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "I-GS83.381",
+    "description": "PASS REPOSIÇÃO CONCRETO ESTAMPADO",
+    "price_ups": "0.50",
+    "price": "76.91"
+}, {
+    "code": "R-8000670",
+    "description": "MO RETIRA MO PUXAM.CIRCN 1 A 70M",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "R-8000706",
+    "description": "MO RETIRADA DE SUBTAMPA COM TRAVA",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "R-AS02FE",
+    "description": "MO RETIRA COLOC SUPOR CABO SEM EMEN P.I",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "R-AS03FE",
+    "description": "MO RETIRA COLOC SUPORT P/ CAB C/ EMEN PI",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "R-AS09FE",
+    "description": "MO RETIRA CONFEC ATER TRANSF 300/500 KVA",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "R-AS14FE",
+    "description": "MO RETIRA COLOC SUPORTE CABO MINI POCO",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "R-AS16FE",
+    "description": "MO RETIRA SUPOR CAB PRIM CT 1000 KVA",
+    "price_ups": "0.50",
+    "price": "77.59"
+}, {
+    "code": "I-BTS130",
+    "description": "CONEX. CABO AO BARRAMENTO MOLE BT",
+    "price_ups": "0.50",
+    "price": "77.585"
+}, {
+    "code": "I-GS83.382",
+    "description": "PASS REPOSIÇÃO PISO DE ALTA RESISTÊNCIA",
+    "price_ups": "0.51",
+    "price": "78.51"
+}, {
+    "code": "I-GS83.383",
+    "description": "PASS LADRILHO HIDRÁUL PADRÃO 20 X 20 CM",
+    "price_ups": "0.55",
+    "price": "84.94"
+}, {
+    "code": "I-GS83.388",
+    "description": "PASS LADRILHO HIDRÁULICO PISO CERÂMICO",
+    "price_ups": "0.56",
+    "price": "86.79"
+}, {
+    "code": "I-GS83.385",
+    "description": "PASS LADRILHO HIDRÁULICO PISO TÁTIL",
+    "price_ups": "0.59",
+    "price": "90.88"
+}, {
+    "code": "I-GS83.386",
+    "description": "PASS LADRILHO HIDRÁUL PEDRAS NATURAIS",
+    "price_ups": "0.70",
+    "price": "108.34"
+}, {
+    "code": "I-GS83.387",
+    "description": "PASS LADRILHO HIDRÁUL MOSAICO PORTUGUÊS",
+    "price_ups": "0.70",
+    "price": "108.68"
+}, {
+    "code": "I-8000690",
+    "description": "MO INSTAL NUMERAR CIRCUITO / EQUIPAMENTO",
+    "price_ups": "0.75",
+    "price": "116.38"
+}, {
+    "code": "I-GS79.095",
+    "description": "ABERT FECH VAL CABO PRIMÁRIO PASS",
+    "price_ups": "0.75",
+    "price": "115.74"
+}, {
+    "code": "R-8000669",
+    "description": "MO RETIRA MO PUX CIRC N. 71 A 120M",
+    "price_ups": "0.75",
+    "price": "116.38"
+}, {
+    "code": "I-GS83.384",
+    "description": "PASS LADRILHO HIDRÁUL PADRÃO ESPECÍFICO",
+    "price_ups": "0.80",
+    "price": "124.55"
+}, {
+    "code": "R-AS22FE",
+    "description": "MO RETIRA INS ANEL TERRA CT SUSP 1000KVA",
+    "price_ups": "0.80",
+    "price": "124.14"
+}, {
+    "code": "I-GS83.460",
+    "description": "NIVEL TAMP GRELH CX BT -BOX MOBIL 5 UN",
+    "price_ups": "0.87",
+    "price": "134.78"
+}, {
+    "code": "I-GS79.025",
+    "description": "LINHA DUTO DIR-ENT 63MM 1-D P-1,50M",
+    "price_ups": "0.94",
+    "price": "145.79"
+}, {
+    "code": "I-8000706",
+    "description": "MO INSTALAR SUBTAMPA COM TRAVA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-AS11FE",
+    "description": "MO INSTAL CONFEC ATERRAM TRANSF 750 KVA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS33",
+    "description": "MO INSTAL LIG CONS QGERAL 1X120MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS42",
+    "description": "MO INSTAL LIG CONS QGERAL 4X120MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS43",
+    "description": "MO INSTAL LIG CONS QGERAL 4X35MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS44",
+    "description": "MO INSTAL LIG CONS ALIN QDRO GER 1X240MM",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS53",
+    "description": "MO INSTAL LIG CONS ALINH QDRO GER 1X400",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS63",
+    "description": "MO INSTAL LIG CONS QGERAL 4X35MM2 AL XLP",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS72",
+    "description": "MO INSTAL LIG CONS Q GERAL 1X185MM2 AL",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS80",
+    "description": "MO INSTAL LIG CONS QGERAL 4X95MM2 AL XLP",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-BTS93",
+    "description": "ATERRAMENTO SECUND BUS / SPADE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-GS10.040",
+    "description": "UPS SUBTERRÂNEA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-8000529",
+    "description": "MO ELASTIMOLD 750-L2CB.500",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-8000536",
+    "description": "MO RETIRA MO TER 3F3X1X500 CONJ BL 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-8000542",
+    "description": "MO RETIRA CONF TERMINAL COTOVELO",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-8000668",
+    "description": "MO RETIRA MO PUX CIRC N. 121 A 170M",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-8000702",
+    "description": "MO RETIRADA DE ILUMINAÇÃO EM CT",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS05FE",
+    "description": "MO RETIRA AL DE ANEL TERRA POCO INSP",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS06FE",
+    "description": "MO RETIRA AL DE ANEL TERRA RING BUS",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS07FE",
+    "description": "MO RETIRA ANEL TER ABER CT 1000KVA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS08FE",
+    "description": "MO RETIRA ANEL TER ABER CT 2000KVA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS10FE",
+    "description": "MO RETIRA CONFEC ATERRAM TRANSF 500 KVA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS11FE",
+    "description": "MO RETIRA CONFEC ATERRAM TRANSF 750 KVA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS12FE",
+    "description": "MO RETIRA CONF ATER TRANSF 2000 KVA (NI)",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AS15FE",
+    "description": "MO RETIRA ANEL TERRA EM MINI POCO",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASQ02TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASQ04TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CU 3X1X35MM2",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASQTDC",
+    "description": "MO RETIRA CONF TER DESCON TDC 15/25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST02ED",
+    "description": "MO RETIRA CONF EMEN 6FAS DESCON TIPO 2",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST03ED",
+    "description": "MO RETIRA CONF EMEN 9FAS DESCON TIPO 3",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST04ED",
+    "description": "MO RETIRA CONF EMEN 12FAS DESCON TIPO 4",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST05ED",
+    "description": "MO RETIRA CONF EMEN 6FAS DESCON TIPO 5",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST06ED",
+    "description": "MO RETIRA CONF EMEN 9FAS DESCON TIPO 6",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST07ED",
+    "description": "MO RETIRA CONF EMEN 9FAS DESC TIP 7 35KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-AST08ED",
+    "description": "MO RETIRA CONF EMEN 12F DESC TIP 8 35KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV02ED",
+    "description": "MO RETIRA CONF EMEN 6FAS DESC TIP 2 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV03ED",
+    "description": "MO RETIRA CONF EMEN 9FAS DESC TIP 3 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV04ED",
+    "description": "MO RETIRA CONF EMEN 12F DESC TIP 4 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV04TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV05ED",
+    "description": "MO RETIRA CONF EMEN 6FAS DESC TIP 5 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV06ED",
+    "description": "MO RETIRA CONF EMEN 9FAS DESC TIP 6 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV06TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB AL EPR",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV07ED",
+    "description": "MO RETIRA CONF EMEN 9FAS DESC TIP 7 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV08ED",
+    "description": "MO RETIRA CONF EMEN 12FA DESC TIP 8 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV09ED",
+    "description": "MO RETIRA CONF EMEN 9FA DESC TIP 9 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASV10ED",
+    "description": "MO RETIRA EMENDA DESC T-10 15/25KV V9",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASVBLE",
+    "description": "MO RETIRA CONF TER 3FAS DESC TIP BLE CPR",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASVBTX",
+    "description": "MO RETIRA CONF EMEN 3F DESC TIP BTX 25KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASVSF6",
+    "description": "MO RETIRA CONF TERM DESC 6FAS EM CH SECC",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-ASVTDR",
+    "description": "MO RETIRA CONF TER 3F DESC TIP TDR TR CH",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS100",
+    "description": "MO RETIRA LIG CHAVE HIBRIDO CAB 4X185MM2",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS18",
+    "description": "MO RETIRA EM. RETA 4X35MM2-4X35MM2 AL/CU",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS19",
+    "description": "MO RETIRA EM RET 4X250MCM-4X250MCM IPCCA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS20",
+    "description": "MO RETIRA EM RET 4X2 AWG -4X35MM2 XLPE-A",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS27",
+    "description": "MO RETIRA EMENDA TIPO LEQUE 4 CONDUTORES",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS33",
+    "description": "MO RETIRA LIG CONS QGERAL 1X120MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS34",
+    "description": "MO RETIRA TER EXT 4X35MM2 CU/AL EM POSTE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS35",
+    "description": "MO RETIRA TE EXT 4X120MM2/4X185MM2 POSTE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS36",
+    "description": "MO RETIRA TERM EM CABO IPCCA OU XLPEA",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS40",
+    "description": "MO RETIRA CONF.TEXT CABO ARMX EM POSTE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS42",
+    "description": "MO RETIRA LIG CONS QGERAL 4X120MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS43",
+    "description": "MO RETIRA LIG CONS QGERAL 4X35MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS44",
+    "description": "MO RETIRA LIG CONS ALIN QDRO GER 1X240MM",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS47",
+    "description": "MO RETIRA EMEND RET CABO 4X120MM2 XLPE-A",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS48",
+    "description": "MO RETIRA EMEND RET 4X250MCM C/4X120XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS49",
+    "description": "MO RETIRA EMENDA DERIV TERMOC CABO OLEO",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS50",
+    "description": "MO RETIRA CORTE CABO EM CX CONCRETO",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS51",
+    "description": "MO RETIRA CAIXA CONCRETO PRE-MOLD BT T 2",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS53",
+    "description": "MO RETIRA LIG CONS ALINH QDRO GER 1X400",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS54",
+    "description": "MO RETIRA EMENDA DPL DERIV 120/35MM 1KV",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS58",
+    "description": "MO RETIRA EMENDA DERIV TERMOC CABO SECO",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS59",
+    "description": "MO RETIRA TERM.EXT 4X35MM2 CU/AL PAREDE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS60",
+    "description": "MO RETIRA TERM.EXT 4X120/4X185-MM2 PARED",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS61",
+    "description": "MO RETIRA EMEN DE BT C/CONEC C 120MM2",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS62",
+    "description": "MO RETIRA LIG CONS QGERAL 4X185MM2 XLPE",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS63",
+    "description": "MO RETIRA LIG CONS QGERAL 4X35MM2 AL XLP",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS64",
+    "description": "MO RETIRA EMEND RETA CABO 4X185MM2 AL",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS65",
+    "description": "MO RETIRA EMEN. DER.TERMO/RESIN 185MM2AL",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS72",
+    "description": "MO RETIRA LIG CONS Q GERAL 1X185MM2 AL",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS77",
+    "description": "MO RETIRA EMEND RETA 4X250MCM X 4X185MM2",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS78",
+    "description": "MO RETIRA EMEND DERIVAC TERMO/RESINA CAS",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS79",
+    "description": "MO RETIRA EM.RETA 4X95MM2-4X95MM2 AL XLP",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS80",
+    "description": "MO RETIRA LIG CONS QGERAL 4X95MM2 AL XLP",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "R-BTS99",
+    "description": "MO RETIRA LIG CHAVE HIBRID TERM EXT POST",
+    "price_ups": "1.00",
+    "price": "155.17"
+}, {
+    "code": "I-GS79.089",
+    "description": "PASS PADRÃO CALÇADÃO STO ANDRÉ",
+    "price_ups": "1.06",
+    "price": "165.11"
+}, {
+    "code": "I-GS79.028",
+    "description": "LINHA DUTO DIR-ENT 63MM 2-D P-1,50M",
+    "price_ups": "1.07",
+    "price": "165.95"
+}, {
+    "code": "I-GS79.031",
+    "description": "LINHA DUTO DIR-ENT 63MM 3-D P-1,50M",
+    "price_ups": "1.07",
+    "price": "166.36"
+}, {
+    "code": "I-GS79.034",
+    "description": "LINHA DUTO DIR-ENT 63MM 4-D P-1,50M",
+    "price_ups": "1.07",
+    "price": "165.5"
+}, {
+    "code": "I-GS79.088",
+    "description": "PASS PADRÃO OSCAR FREIRE",
+    "price_ups": "1.20",
+    "price": "185.64"
+}, {
+    "code": "I-GS79.026",
+    "description": "LINHA DUTO DIR-ENT 63MM 1-D P-2,50M",
+    "price_ups": "1.21",
+    "price": "188.43"
+}, {
+    "code": "I-GS79.029",
+    "description": "LINHA DUTO DIR-ENT 63MM 2-D P-2,50M",
+    "price_ups": "1.21",
+    "price": "188.23"
+}, {
+    "code": "I-GS79.035",
+    "description": "LINHA DUTO DIR-ENT 63MM 4-D P-2,50M",
+    "price_ups": "1.21",
+    "price": "187.78"
+}, {
+    "code": "I-GS79.032",
+    "description": "LINHA DUTO DIR-ENT 63MM 3-D P-2,50M",
+    "price_ups": "1.22",
+    "price": "188.63"
+}, {
+    "code": "I-GS79.258",
+    "description": "PASS REPOSIÇÃO PASSEIOS TIPO LGO BATATA",
+    "price_ups": "1.24",
+    "price": "191.79"
+}, {
+    "code": "I-GS79.240",
+    "description": "LINHA DUTO DIR-ENT 100MM 1-D P-1,50M",
+    "price_ups": "1.30",
+    "price": "201.71"
+}, {
+    "code": "I-GS79.246",
+    "description": "LINHA DUTO DIR-ENT 125MM 1-D P-1,50M",
+    "price_ups": "1.30",
+    "price": "201.7"
+}, {
+    "code": "I-GS83.446",
+    "description": "CANALETA SOLO CALÇ - SEÇÃO 0,60 X 0,40M",
+    "price_ups": "1.32",
+    "price": "204.23"
+}, {
+    "code": "I-BTS61",
+    "description": "MO INSTAL EMEN DE BT C/CONEC C 120MM2",
+    "price_ups": "1.33",
+    "price": "206.38"
+}, {
+    "code": "I-GS83.302",
+    "description": "LINHA DUTO DIR-ENT 100MM 2-D P-1,50M",
+    "price_ups": "1.33",
+    "price": "206.63"
+}, {
+    "code": "I-GS83.323",
+    "description": "LINHA DUTO DIR-ENT 125MM 2-D P-1,50M",
+    "price_ups": "1.33",
+    "price": "207.04"
+}, {
+    "code": "I-GS79.243",
+    "description": "LINHA DUTO DIR-ENT 100MM 3-D P-1,50M",
+    "price_ups": "1.34",
+    "price": "208.06"
+}, {
+    "code": "I-GS79.249",
+    "description": "LINHA DUTO DIR-ENT 125MM 3-D P-1,50M",
+    "price_ups": "1.34",
+    "price": "208.05"
+}, {
+    "code": "I-GS83.305",
+    "description": "LINHA DUTO DIR-ENT 100MM 4-D P-1,50M",
+    "price_ups": "1.34",
+    "price": "208.35"
+}, {
+    "code": "I-GS83.326",
+    "description": "LINHA DUTO DIR-ENT 125MM 4-D P-1,50M",
+    "price_ups": "1.34",
+    "price": "208.29"
+}, {
+    "code": "R-TA06D4",
+    "description": "MO RETIRA CR TROL DPL 0X6 4 COND PC",
+    "price_ups": "1.44",
+    "price": "223.44"
+}, {
+    "code": "I-GS79.241",
+    "description": "LINHA DUTO DIR-ENT 100MM 1-D P-2,50M",
+    "price_ups": "1.46",
+    "price": "226.36"
+}, {
+    "code": "I-GS79.247",
+    "description": "LINHA DUTO DIR-ENT 125MM 1-D P-2,50M",
+    "price_ups": "1.46",
+    "price": "226.35"
+}, {
+    "code": "I-GS83.379",
+    "description": "PASS REPOSIÇÃO DE PASSEIOS CALÇADÃO",
+    "price_ups": "1.46",
+    "price": "226.5"
+}, {
+    "code": "I-8000665",
+    "description": "MO INSTAL MO A/F VAL.-EM.RETA-CX.2S/12KW",
+    "price_ups": "1.50",
+    "price": "232.76"
+}, {
+    "code": "I-8000666",
+    "description": "MO INSTAL MO VALETA(2X1.5X0.6)POSTE",
+    "price_ups": "1.50",
+    "price": "232.76"
+}, {
+    "code": "I-8000731",
+    "description": "Lançamento de GUIA em duto de 1 a 70 m",
+    "price_ups": "1.50",
+    "price": "232.76"
+}, {
+    "code": "I-GS83.303",
+    "description": "LINHA DUTO DIR-ENT 100MM 2-D P-2,50M",
+    "price_ups": "1.50",
+    "price": "232.72"
+}, {
+    "code": "I-GS83.324",
+    "description": "LINHA DUTO DIR-ENT 125MM 2-D P-2,50M",
+    "price_ups": "1.50",
+    "price": "233.13"
+}, {
+    "code": "R-8000665",
+    "description": "MO RETIRA MO A/F VAL.-EM.RETA-CX.2S/12KW",
+    "price_ups": "1.50",
+    "price": "232.76"
+}, {
+    "code": "R-AS19FE",
+    "description": "MO RETIRA INS SUP CB PR CT 2000KVA 1 E 2",
+    "price_ups": "1.50",
+    "price": "232.76"
+}, {
+    "code": "R-AS23FE",
+    "description": "MO RETIRA CONFEC ATERRAM CHAV SECCI SF6",
+    "price_ups": "1.50",
+    "price": "232.76"
+}, {
+    "code": "I-GS79.244",
+    "description": "LINHA DUTO DIR-ENT 100MM 3-D P-2,50M",
+    "price_ups": "1.51",
+    "price": "234.62"
+}, {
+    "code": "I-GS79.250",
+    "description": "LINHA DUTO DIR-ENT 125MM 3-D P-2,50M",
+    "price_ups": "1.51",
+    "price": "234.61"
+}, {
+    "code": "I-GS83.306",
+    "description": "LINHA DUTO DIR-ENT 100MM 4-D P-2,50M",
+    "price_ups": "1.51",
+    "price": "234.45"
+}, {
+    "code": "I-GS83.327",
+    "description": "LINHA DUTO DIR-ENT 125MM 4-D P-2,50M",
+    "price_ups": "1.51",
+    "price": "234.38"
+}, {
+    "code": "I-GS79.245",
+    "description": "LINHA DUTO DIR-ENT 100MM 3-D P-3,50M",
+    "price_ups": "1.65",
+    "price": "255.79"
+}, {
+    "code": "I-GS79.251",
+    "description": "LINHA DUTO DIR-ENT 125MM 3-D P-3,50M",
+    "price_ups": "1.65",
+    "price": "255.78"
+}, {
+    "code": "I-GS83.304",
+    "description": "LINHA DUTO DIR-ENT 100MM 2-D P-3,50M",
+    "price_ups": "1.67",
+    "price": "258.81"
+}, {
+    "code": "I-GS83.308",
+    "description": "LINHA DUTO DIR-ENT 100MM 6-D P-1,50M",
+    "price_ups": "1.67",
+    "price": "258.79"
+}, {
+    "code": "I-GS83.325",
+    "description": "LINHA DUTO DIR-ENT 125MM 2-D P-3,50M",
+    "price_ups": "1.67",
+    "price": "259.22"
+}, {
+    "code": "I-GS83.307",
+    "description": "LINHA DUTO DIR-ENT 100MM 4-D P-3,50M",
+    "price_ups": "1.68",
+    "price": "260.54"
+}, {
+    "code": "I-GS83.328",
+    "description": "LINHA DUTO DIR-ENT 125MM 4-D P-3,50M",
+    "price_ups": "1.68",
+    "price": "260.47"
+}, {
+    "code": "I-GS79.087",
+    "description": "PASS PADRÃO AVENIDA PAULISTA",
+    "price_ups": "1.71",
+    "price": "265.87"
+}, {
+    "code": "I-GS79.260",
+    "description": "PASS REPOSIÇÃO PASSEIO TIPO FARIA LIMA",
+    "price_ups": "1.71",
+    "price": "265.87"
+}, {
+    "code": "I-GS79.080",
+    "description": "LINHA DUTO PEAD EMBOC CP PRÉ-MOLD EXIST",
+    "price_ups": "1.79",
+    "price": "278.23"
+}, {
+    "code": "I-GS83.309",
+    "description": "LINHA DUTO DIR-ENT 100MM 6-D P-2,50M",
+    "price_ups": "1.89",
+    "price": "293.79"
+}, {
+    "code": "I-8000734",
+    "description": "TEMPO DE ESPERA SOLICITA. DIST. EQ LEVE",
+    "price_ups": "1.90",
+    "price": "911.145"
+}, {
+    "code": "I-GS83.329",
+    "description": "LINHA DUTO DIR-ENT 125MM 6-D P-1,50M",
+    "price_ups": "1.96",
+    "price": "304.67"
+}, {
+    "code": "I-8000542",
+    "description": "CONF TERMINAL COTOVELO",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-8000653",
+    "description": "MO INSTAL MO DESCOBRIR LATERAL",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-8000667",
+    "description": "MO INSTAL MO VALETA(CX.4 SAIDAS)",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-8000670",
+    "description": "MO INSTAL MO PUXAM.CIRCN 1 A 70M",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-8000681",
+    "description": "DESCONECTAR TERMINAIS INTERNOS",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-8000682",
+    "description": "MO INSTAL CONECTAR TERMINAIS INTERNOS",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-8000732",
+    "description": "Lançamento de GUIA dm duto de 71 a 120 m",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-AS09FE",
+    "description": "MO INSTAL CONFEC ATER TRANSF 300/500 KVA",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-8000703",
+    "description": "MO RETIRADA DE BOMBA E BOIA EM CT",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-AS13FE",
+    "description": "MO RETIRA SUPORTE VERTIC MINI POCO",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-ASTMOD1",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-ASTMOD4",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-ASVMOD1",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-ASVMOD4",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS10",
+    "description": "MO RETIRA LIG. BANCA JORN CT/PI CAB 16MM",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS104",
+    "description": "MO RETIRA EMEND RET 1X185 AL X 4X250MCM",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS11",
+    "description": "MO RETIRA LIG BANCA JORNAL C/ C.T OU P.I",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS21",
+    "description": "MO RETIRA EM RETA 1X120MM2-1X120MM2 XLPE",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS22",
+    "description": "MO RETIRA EM RETA 1X240MM2-1X240MM2-XLPE",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS38",
+    "description": "MO RETIRA CONEXAO AO PI OU AO BUS DA CT",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS39",
+    "description": "CONEX PI(RIN.BUS)/BUS CT 400MM",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS45",
+    "description": "MO RETIRA CONEXAO BUS DA CT/PI CABO XLPE",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS52",
+    "description": "MO RETIRA EMENDA RETA CABO 1X35MM2 AL/CU",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS66",
+    "description": "MO RETIRA LIG BANCA JORNAL C/CT OU PI AL",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS69",
+    "description": "MO RETIRA EM RETA 1X185MM2-1X185MM2 AL",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS70",
+    "description": "MO RETIRA EM RET 1X185MM2 AL-1X120MM2 CU",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS8",
+    "description": "MO RETIRA CON.BUS CT/PI C.120MM2-PICC3F",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS81",
+    "description": "MO RETIRA EM RETA 1X95MM2-1X95MM2 AL XLP",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS88",
+    "description": "MO RETIRA CONEX PI.RING-BUS/BUS CT 400MM",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS9",
+    "description": "MO RETIRA CON.PI CB 240MM2 - XLPE (3F)",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-BTS92",
+    "description": "MO RETIRA EMEND RET 4X120MM2 X 4X185MM2",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "R-IPASE",
+    "description": "MO RETIRA CJ ALIM.SUBT.(1 UN.)ELET.",
+    "price_ups": "2.00",
+    "price": "310.34"
+}, {
+    "code": "I-GS79.094",
+    "description": "ABERT FECH VAL CABO PASS SONDAGEM",
+    "price_ups": "2.02",
+    "price": "314.18"
+}, {
+    "code": "I-IPASE",
+    "description": "MO INSTAL CJ ALIM.SUBT.(1 UN.)ELET.",
+    "price_ups": "2.15",
+    "price": "333.62"
+}, {
+    "code": "I-GS83.331",
+    "description": "LINHA DUTO DIR-ENT 125MM 6-D P-3,50M",
+    "price_ups": "2.16",
+    "price": "334.9"
+}, {
+    "code": "I-GS83.330",
+    "description": "LINHA DUTO DIR-ENT 125MM 6-D P-2,50M",
+    "price_ups": "2.19",
+    "price": "339.67"
+}, {
+    "code": "I-8000735",
+    "description": "TEMPO DE ESPERA SOLICITA. DIST. EQ MEDIA",
+    "price_ups": "2.40",
+    "price": "1152.35865"
+}, {
+    "code": "I-GS83.310",
+    "description": "LINHA DUTO DIR-ENT 100MM 6-D P-3,50M",
+    "price_ups": "2.41",
+    "price": "374.62"
+}, {
+    "code": "I-8000733",
+    "description": "Lançamento de GUIA em duto > 121 m",
+    "price_ups": "2.50",
+    "price": "387.93"
+}, {
+    "code": "I-AS10FE",
+    "description": "MO INSTAL CONFEC ATERRAM TRANSF 500 KVA",
+    "price_ups": "2.50",
+    "price": "387.93"
+}, {
+    "code": "R-AS01FE",
+    "description": "MO RETIRA SUPORT VERT POCO INSPEC",
+    "price_ups": "2.50",
+    "price": "387.93"
+}, {
+    "code": "I-8000717",
+    "description": "MO INST INSPEÇÃO CAIXA DE 2 E 4 SAÍDAS",
+    "price_ups": "2.51",
+    "price": "389.48"
+}, {
+    "code": "R-8000717",
+    "description": "MO RET INSPEÇÃO CAIXA DE 2 E 4 SAÍDAS",
+    "price_ups": "2.51",
+    "price": "389.48"
+}, {
+    "code": "I-8000736",
+    "description": "TEMPO DE ESPERA SOLICITA. DIST. EQ PESAD",
+    "price_ups": "2.56",
+    "price": "1225.25025"
+}, {
+    "code": "I-8009995",
+    "description": "MO INSTAL MO TUR EMERG B-2 DIURNA INCOMP",
+    "price_ups": "2.57",
+    "price": "398.79"
+}, {
+    "code": "I-8009994",
+    "description": "MO INSTAL MO TUR EMERG. B-2 NOTUR INCOMP",
+    "price_ups": "2.75",
+    "price": "426.72"
+}, {
+    "code": "I-GS83.458",
+    "description": "NIVEL TAMP GRELH CX BT - BOX CONCR",
+    "price_ups": "2.76",
+    "price": "429.01"
+}, {
+    "code": "I-GS83.459",
+    "description": "NIVEL TAMP GRELH CX BT - BOX FºFº",
+    "price_ups": "2.76",
+    "price": "429.01"
+}, {
+    "code": "I-8000669",
+    "description": "MO INSTAL MO PUX CIRC N. 71 A 120M",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-8000702",
+    "description": "MO INSTALAÇÃO DE ILUMINAÇÃO EM CT",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-8000712",
+    "description": "MO INSPEÇÃO EM CAMARA E POÇO DE INSPEÇÃO",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-8001374",
+    "description": "MO INSTAL MUDANCA DE TAP-TRANSFORMADOR",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS100",
+    "description": "LIG CHAVE HIBRIDO CAB 4X185MM2",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS102",
+    "description": "MO INSTAL LIG CHAVE HIBRI DERIVAND CT/PI",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS104",
+    "description": "MO INSTAL EMEND RET 1X185 AL X 4X250MCM",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS21",
+    "description": "EM RETA 1X120MM2-1X120MM2 XLPE",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS22",
+    "description": "MO INSTAL EM RETA 1X240MM2-1X240MM2-XLPE",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS39",
+    "description": "CONEX PI(RIN.BUS)/BUS CT 400MM",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS40",
+    "description": "MO INSTAL CONF.TEXT CABO ARMX EM POSTE",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS48",
+    "description": "MO INSTAL EMEND RET 4X250MCM C/4X120XLPE",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS50",
+    "description": "MO INSTAL CORTE CABO EM CX CONCRETO",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS51",
+    "description": "MO INSTAL CAIXA CONCRETO PRE-MOLD BT T 2",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS52",
+    "description": "EMENDA RETA CABO 1X35MM2 AL/CU",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS54",
+    "description": "MO INSTAL EMENDA DPL DERIV 120/35MM 1KV",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS58",
+    "description": "MO INSTAL EMENDA DERIV TERMOC CABO SECO",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS65",
+    "description": "MO INSTAL EMEN. DER.TERMO/RESIN 185MM2AL",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS69",
+    "description": "MO INSTAL EM RETA 1X185MM2-1X185MM2 AL",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS70",
+    "description": "MO INSTAL EM RET 1X185MM2 AL-1X120MM2 CU",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS78",
+    "description": "MO INSTAL EMEND DERIVAC TERMO/RESINA CAS",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS8",
+    "description": "MO INSTAL CON.BUS CT/PI C.120MM2-PICC3F",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS81",
+    "description": "MO INSTAL EM RETA 1X95MM2-1X95MM2 AL XLP",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS87",
+    "description": "MO INST CONEXAO.PI CB.240MM2-XLPE (3F)",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS88",
+    "description": "MO INSTAL CONEX PI.RING-BUS/BUS CT 400MM",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS9",
+    "description": "MO INSTAL CON.PI CB 240MM2 - XLPE (3F)",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS92",
+    "description": "MO INSTAL EMEND RET 4X120MM2 X 4X185MM2",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-BTS99",
+    "description": "MO INSTAL LIG CHAVE HIBRID TERM EXT POST",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-8000672",
+    "description": "MO RETIRA MO PUX.CIRC.1 DT.3-15M-AL.QGER",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-8000697",
+    "description": "MO RETIRA MO PUX.1 CIRC. SEC. ATE 15 MTS",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-8000705",
+    "description": "MO RET QUADRO PARA MOTOR E BOMBA EM CT",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS101",
+    "description": "MO RETIRA LIG CHAVE HIBRI BAR MOLE 3 VIA",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS102",
+    "description": "MO RETIRA LIG CHAVE HIBRI DERIVAND CT/PI",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS105",
+    "description": "MO RETIRA CONFEC EMEND DESATIV CX 2 SAID",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS13",
+    "description": "MO RETIRA CONF BUS FC 4X1X35MM2 XLPE 5M",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS14",
+    "description": "MO RETIRA CJ.CX.CNC.2S P12KW C.3X10 ARMF",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS17",
+    "description": "MO RETIRA MTG.CX.D.1 C.AL.1X120MM2 XLPE",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS29",
+    "description": "MO RETIRA LIG BCA DE JORNALCABO4X250MCM",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS30",
+    "description": "MO RETIRA LIG BCA JNAL DER CABO PASSEIO",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS31",
+    "description": "MO RETIRA LIG BCA JORNAL CABO 4X250MCM",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS32",
+    "description": "MO RETIRA LIG BCA JORNAL CABO 4X120MM2",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS67",
+    "description": "MO RETIRA CONF BUS FC 4X1X35 AL 5M",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS68",
+    "description": "MO RETIRA MTG.CX.DIST. C. AL 1X185MM2 AL",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS71",
+    "description": "MO RETIRA LIG BANC JORN PASSEIO 4X185 AL",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS87",
+    "description": "MO RET CONEXAO.PI CB.240MM2-XLPE (3F)",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS94",
+    "description": "MO RETIRA EMEND DERIV CAB 4X250MCM CONSU",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS95",
+    "description": "MO RETIRA EMEND DERIV CABO 4X120MM2 XLPE",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS96",
+    "description": "MO RETIRA CONFEC EMEND DESATIV CX 4 SAID",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS97",
+    "description": "MO RETIRA LIG CHAVE HIBRIDO CAB 4X250MCM",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "R-BTS98",
+    "description": "MO RETIRA LIG CHAVE HIBRIDO CAB 4X120MM2",
+    "price_ups": "3.00",
+    "price": "465.51"
+}, {
+    "code": "I-8000709",
+    "description": "MO EXECUTAR TERMOVISÃO",
+    "price_ups": "3.01",
+    "price": "467.06"
+}, {
+    "code": "I-GS50.033",
+    "description": "EQPE LDS 3 HOMEM A DISP-IMPED TRAB",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.034",
+    "description": "EQPE LDS 4 HOMEM A DISP-IMPED TRAB",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.035",
+    "description": "EQPE LDS 7 HOMEM A DISP-IMPED TRAB",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.036",
+    "description": "EQPE LDS 3 HOMEM ACRÉSC 4 HORAS ADICION",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.037",
+    "description": "EQPE LDS 4 HOMEM ACRÉSC 4 HORAS ADICION",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.038",
+    "description": "EQPE LDS 7 HOMEM ACRÉSC 4 HORAS ADICION",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.039",
+    "description": "EQPE LDS 3 HOMEM ACIMA DE 4HS ADC+SÁBADO",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.045",
+    "description": "EQPE LDS 4 HOMEM ACIMA DE 4HS ADC+SÁBADO",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.046",
+    "description": "EQPE LDS 7 HOMEM ACIMA DE 4HS ADC+SÁBADO",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.047",
+    "description": "EQPE LDS 3 HOMEM H.ADC DOMINGO E FERIADO",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.048",
+    "description": "EQPE LDS 4 HOMEM H.ADC DOMINGO E FERIADO",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-GS50.049",
+    "description": "EQPE LDS 7 HOMEM H.ADC DOMINGO E FERIADO",
+    "price_ups": "3.09",
+    "price": "479.55"
+}, {
+    "code": "I-8009997",
+    "description": "MO INSTAL MO TURMA EMERG. B-2 DIURNO",
+    "price_ups": "3.21",
+    "price": "498.1"
+}, {
+    "code": "I-BTS49",
+    "description": "MO INSTAL EMENDA DERIV TERMOC CABO OLEO",
+    "price_ups": "3.37",
+    "price": "522.92"
+}, {
+    "code": "I-8009996",
+    "description": "MO INSTAL MO TURMA EMERG. B-2 NOTURNO",
+    "price_ups": "3.44",
+    "price": "533.78"
+}, {
+    "code": "I-AS16FE",
+    "description": "MO INSTAL INS SUPOR CAB PRIM CT 1000 KVA",
+    "price_ups": "3.50",
+    "price": "543.1"
+}, {
+    "code": "I-8000718",
+    "description": "MO MANUT PREVEN VENTIL / BOMBA DE RECALQ",
+    "price_ups": "3.57",
+    "price": "553.96"
+}, {
+    "code": "I-GS79.092",
+    "description": "ABERT FECH VAL CABO PASS MOB ATÉ 3LOCAIS",
+    "price_ups": "3.75",
+    "price": "582.42"
+}, {
+    "code": "I-GS79.093",
+    "description": "ABERT FECH VAL CABO CALÇ MOB ATÉ 3LOCAIS",
+    "price_ups": "3.75",
+    "price": "582.42"
+}, {
+    "code": "I-GS79.096",
+    "description": "CANALETA SOLO PASS-0,40X0,40M",
+    "price_ups": "3.76",
+    "price": "582.81"
+}, {
+    "code": "I-8000694",
+    "description": "MO INSTAL ABERTURA CAB POTENC. ENERGIZAD",
+    "price_ups": "3.85",
+    "price": "597.4"
+}, {
+    "code": "I-8000668",
+    "description": "MO INSTAL MO PUX CIRC N. 121 A 170M",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "I-8000677",
+    "description": "MO INSTAL ENERGIZACAO DE CT RADIAL NOVA",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "I-8000680",
+    "description": "REMANJ CABO PRIMARIO PORAO ETD",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "I-8000698",
+    "description": "MO MEDIÇÃO DE CARGA EM CT",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "I-8000711",
+    "description": "MO MEDIÇÃO DE CARGA",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-AS04FE",
+    "description": "MO RETIRA AL FERRAG PORAO ETD",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-ASTMOD2",
+    "description": "MO RETIRA MOD.EMEN 3FAS DESC:1P/3 E 2P/4",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-ASTMOD5",
+    "description": "MO RETIRA MOD.EMEN 3FAS DESC:1P/6 E 2P/8",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-ASTMOD6",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC:1/7!5/8",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-ASVMOD2",
+    "description": "MO RETIRA MOD.EMEN 3FAS DESC:1P/3 E 2P/4",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-ASVMOD5",
+    "description": "MO RETIRA MOD.EMEN 3F DESC:1P/6 E 2P/8",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-ASVMOD6",
+    "description": "MO RETIRA MOD.EMEN 3F DESC:1P/7 E 5P/8",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "R-BTS57",
+    "description": "MO RETIRA EMENDA DE BT C/CONEC C 35MM2",
+    "price_ups": "4.00",
+    "price": "620.68"
+}, {
+    "code": "I-BTS62",
+    "description": "MO INSTAL LIG CONS QGERAL 4X185MM2 XLPE",
+    "price_ups": "4.03",
+    "price": "625.34"
+}, {
+    "code": "I-8000703",
+    "description": "MO INSTALAÇÃO DE BOMBA E BOIA EM CT",
+    "price_ups": "4.60",
+    "price": "713.78"
+}, {
+    "code": "I-AS15FE",
+    "description": "MO INSTAL INST ANEL TERRA EM MINI POCO",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-AS19FE",
+    "description": "MO INSTAL INS SUP CB PR CT 2000KVA 1 E 2",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS18",
+    "description": "MO INSTAL EM. RETA 4X35MM2-4X35MM2 AL/CU",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS19",
+    "description": "EM RET 4X250MCM-4X250MCM IPCCA",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS20",
+    "description": "MO INSTAL EM RET 4X2 AWG -4X35MM2 XLPE-A",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS38",
+    "description": "MO INSTAL CONEXAO AO PI OU AO BUS DA CT",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS45",
+    "description": "MO INSTAL CONEXAO BUS DA CT/PI CABO XLPE",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS47",
+    "description": "MO INSTAL EMEND RET CABO 4X120MM2 XLPE-A",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS64",
+    "description": "MO INSTAL EMEND RETA CABO 4X185MM2 AL",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS73",
+    "description": "MO INSTAL CONEX AO PI OU BUS DA CT 4X185",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS75",
+    "description": "MO INSTAL CONEX. AO BUS DA CT OU PI CAS",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS79",
+    "description": "EM.RETA 4X95MM2-4X95MM2 AL XLP",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS82",
+    "description": "MO INSTAL CONEX. AO PI OU BUS CT 95MM AL",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS84",
+    "description": "MO INSTAL CONEX AO BUS CT/PI C.ARMA SECO",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS89",
+    "description": "MO INSTAL CONEX PI OU BUS DA CT 4X120 CU",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-BTS91",
+    "description": "MO INSTAL CONEX AO BUS DA CT OU PI CAS",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASQ02TI",
+    "description": "MO RETIRA CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASQ03TI",
+    "description": "MO RETIRA CONF. TERM. INT. CABO 500 MM2",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASQ04ES",
+    "description": "MO RETIRA CONF EMEN RETA CABO 500 MM2",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASQ04TI",
+    "description": "MO RETIRA CONF. TERM. INT. CABO 400 MM2",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASQ05TE",
+    "description": "MO RETIRA CONF. TERM. EXT. CABO 500 MM2",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-AST01TI",
+    "description": "MO RETIRA CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-AST02TI",
+    "description": "MO RETIRA CONF TER INT UNIP CAB 400MM AL",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASV04TI",
+    "description": "MO RETIRA CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASV05TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASV05TI",
+    "description": "MO RETIRA CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-ASV06TI",
+    "description": "MO RETIRA CONF TERM INT UNIP CAB 400MM2",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS23",
+    "description": "MO RETIRA EMEN T 4X120MM2-4X35MM2-PICCA",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS55",
+    "description": "MO RETIRA EMENDA DPL DERIV 120/10MM 1KV",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS73",
+    "description": "MO RETIRA CONEX AO PI OU BUS DA CT 4X185",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS75",
+    "description": "MO RETIRA CONEX. AO BUS DA CT OU PI CAS",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS82",
+    "description": "MO RETIRA CONEX. AO PI OU BUS CT 95MM AL",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS84",
+    "description": "MO RETIRA CONEX AO BUS CT/PI C.ARMA SECO",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS89",
+    "description": "MO RETIRA CONEX PI OU BUS DA CT 4X120 CU",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "R-BTS91",
+    "description": "MO RETIRA CONEX AO BUS DA CT OU PI CAS",
+    "price_ups": "5.00",
+    "price": "775.85"
+}, {
+    "code": "I-8000699",
+    "description": "MO COLETA DE ÓLEO EM CT",
+    "price_ups": "5.01",
+    "price": "777.4"
+}, {
+    "code": "R-8001459",
+    "description": "MO RETIRA EP SUBTERRANEA",
+    "price_ups": "5.36",
+    "price": "831.71"
+}, {
+    "code": "I-GS37.005",
+    "description": "INST CHAVE SECCIONADORA VERT 400A",
+    "price_ups": "5.47",
+    "price": "848.2"
+}, {
+    "code": "I-GS83.184",
+    "description": "INST ELETRODUT CORRUG GERAL 2\" 3\" 4\"",
+    "price_ups": "5.76",
+    "price": "894.12"
+}, {
+    "code": "I-BTS27",
+    "description": "MO INSTAL EMENDA TIPO LEQUE 4 CONDUTORES",
+    "price_ups": "5.91",
+    "price": "917.05"
+}, {
+    "code": "I-8000652",
+    "description": "MO INSTAL MO LIMPEZA DE POCO OU CT",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-8000663",
+    "description": "MO INSTAL MO INST. TRAFO EM CT.SUBT.",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-8000664",
+    "description": "MO INSTAL MO INSTALACAO DE PROTETOR",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-8000672",
+    "description": "MO INSTAL MO PUX.CIRC.1 DT.3-15M-AL.QGER",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-8000684",
+    "description": "MO INSTAL CONECTAR CABO SECUNDARIO TRAFO",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-8000685",
+    "description": "DESCONECTAR CABO SECUND TRAFO",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-8000697",
+    "description": "MO INSTAL MO PUX.1 CIRC. SEC. ATE 15 MTS",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-AS05FE",
+    "description": "MO INSTAL INSTAL DE ANEL TERRA POCO INSP",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-AS06FE",
+    "description": "MO INSTAL INSTAL DE ANEL TERRA RING BUS",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-AS12FE",
+    "description": "MO INSTAL CONF ATER TRANSF 2000 KVA (NI)",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-ASQTDC",
+    "description": "MO INSTAL CONF TER DESCON TDC 15/25KV",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-ASTMOD4",
+    "description": "MO INSTAL MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-ASVMOD4",
+    "description": "MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-ASVTDR",
+    "description": "MO INSTAL CONF TER 3F DESC TIP TDR TR CH",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS13",
+    "description": "MO INSTAL CONF BUS FC 4X1X35MM2 XLPE 5M",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS34",
+    "description": "MO INSTAL TER EXT 4X35MM2 CU/AL EM POSTE",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS35",
+    "description": "MO INSTAL TE EXT 4X120MM2/4X185MM2 POSTE",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS57",
+    "description": "MO INSTAL EMENDA DE BT C/CONEC C 35MM2",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS59",
+    "description": "MO INSTAL TERM.EXT 4X35MM2 CU/AL PAREDE",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS60",
+    "description": "TERM.EXT 4X120/4X185-MM2 PARED",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-BTS67",
+    "description": "MO INSTAL CONF BUS FC 4X1X35 AL 5M",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-GS83.183",
+    "description": "INST CX \"E\" E ELETRODUT AÇO EM BANCA",
+    "price_ups": "6.00",
+    "price": "930.63"
+}, {
+    "code": "R-8000663",
+    "description": "MO RETIRA TRAFO EM CT.SUBT.",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-8000664",
+    "description": "MO RETIRA DE PROTETOR",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-ASTMOD3",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC:1/4",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-ASTMOD7",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC:1/8",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-ASVMOD3",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC:1/4",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-ASVMOD7",
+    "description": "MO RETIRA MODIF EMEN 3FAS DESC: 1/8",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-BTS15",
+    "description": "MO RETIRA CX 2S 4X120MM2 / 4X35MM2 PICCA",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-BTS3",
+    "description": "MO RETIRA ILUM. E VENT.P/CT ATE 1000 KVA",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "R-BTS4",
+    "description": "MO RETIRA ILUM.E VENT.CT DE 2000 KVA",
+    "price_ups": "6.00",
+    "price": "931.02"
+}, {
+    "code": "I-GS79.268",
+    "description": "AD CONS INST CX E C/ POSTE E DUTO AÇO 2",
+    "price_ups": "6.31",
+    "price": "978.83"
+}, {
+    "code": "I-GS79.023",
+    "description": "CAIXA CS2 PRÉ-MOLD S/FORN",
+    "price_ups": "6.40",
+    "price": "993.09"
+}, {
+    "code": "I-8000705",
+    "description": "MO INST QUADRO PARA MOTOR E BOMBA EM CT",
+    "price_ups": "6.50",
+    "price": "1,008.61"
+}, {
+    "code": "I-GS79.079",
+    "description": "LINHA DUTO PEAD EMB CT/PI PRÉ-MOLD EXIST",
+    "price_ups": "6.83",
+    "price": "1,059.58"
+}, {
+    "code": "I-AS13FE",
+    "description": "MO INSTAL INST SUPORTE VERTIC MINI POCO",
+    "price_ups": "7.00",
+    "price": "1,086.19"
+}, {
+    "code": "R-8000704",
+    "description": "MO RET CONJUNTO MOTO VENTILADOR EM CT",
+    "price_ups": "7.00",
+    "price": "1,086.19"
+}, {
+    "code": "I-8000719",
+    "description": "MO MANUT CORRET VENTIL / BOMBA DE RECALQ",
+    "price_ups": "7.16",
+    "price": "1,111.02"
+}, {
+    "code": "I-GS37.007",
+    "description": "INST CAIXA DE PASSAGEM EM PAREDE",
+    "price_ups": "7.47",
+    "price": "1,158.67"
+}, {
+    "code": "I-AS22FE",
+    "description": "MO INSTAL INS ANEL TERRA CT SUSP 1000KVA",
+    "price_ups": "7.50",
+    "price": "1,163.78"
+}, {
+    "code": "I-0325501",
+    "description": "MO INSTAL CH.SECCION. ABRIG. 24 KV",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-0325502",
+    "description": "MO INSTAL CH. SECCION.C/FUS?VEL ABRIG. 2",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-0325503",
+    "description": "MO INSTAL CH. SECCION.C/DISJUNTOR ABRIG.",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-8000553",
+    "description": "MO INSTAL TRANSPORTE EQUIP. TRAFO/CHAVE",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-AST01ED",
+    "description": "MO INSTAL CONF EMEN 3FAS DESCON TIPO 1",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-ASTMOD1",
+    "description": "MO INSTAL MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-ASV01ED",
+    "description": "MO INSTAL CONF EMEN 3FAS DESC TIP 1 25KV",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-ASVMOD1",
+    "description": "MO INSTAL MODIF EMEN 3FAS DESC VAR TIPOS",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "R-0325500",
+    "description": "MO RETIRA CJ 2CH.SECCION.ABRIG 24 KV",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "R-0325501",
+    "description": "MO RETIRA CH.SECCION. ABRIG. 24 KV",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "R-0325502",
+    "description": "MO RETIRA CH. SECCION.C/FUS?VEL ABRIG. 2",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "R-0325503",
+    "description": "MO RETIRA CH. SECCION.C/DISJUNTOR ABRIG.",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "R-8000553",
+    "description": "MO RETIRA TRANSPORTE EQUIP. TRAFO/CHAVE",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "R-ASQ06ES",
+    "description": "MO RETIRA CONF EMEND RET 3FAS CAB 400MM2",
+    "price_ups": "8.00",
+    "price": "1,241.36"
+}, {
+    "code": "I-GS79.078",
+    "description": "LINHA DUTO PEAD EMB CT/PI MOLD LOC EXIST",
+    "price_ups": "8.28",
+    "price": "1,285.38"
+}, {
+    "code": "I-GS79.263",
+    "description": "AD CONS INST CX E C/ INSTAL DUTO PEAD 2",
+    "price_ups": "8.32",
+    "price": "1,290.74"
+}, {
+    "code": "I-GS83.182",
+    "description": "SUBST CX \"E\" INST POSTE ELETRODUT AÇO 2\"",
+    "price_ups": "8.41",
+    "price": "1,304.53"
+}, {
+    "code": "I-AS01FE",
+    "description": "MO INSTAL INST SUPORT VERT POCO INSPEC",
+    "price_ups": "8.50",
+    "price": "1,318.95"
+}, {
+    "code": "I-ASQ03TI",
+    "description": "MO INSTAL CONF. TERM. INT. CABO 500 MM2",
+    "price_ups": "8.74",
+    "price": "1,356.19"
+}, {
+    "code": "I-GS37.006",
+    "description": "INST CAIXA DE PASSAGEM EM PISO",
+    "price_ups": "8.79",
+    "price": "1,364.45"
+}, {
+    "code": "I-8000657",
+    "description": "MO INSTAL MO LIMPAR 1 DUTO 1A 70M",
+    "price_ups": "9.00",
+    "price": "1,396.53"
+}, {
+    "code": "I-AS07FE",
+    "description": "MO INSTAL INST ANEL TER ABER CT 1000KVA",
+    "price_ups": "9.00",
+    "price": "1,396.53"
+}, {
+    "code": "I-AS08FE",
+    "description": "MO INSTAL INST ANEL TER ABER CT 2000KVA",
+    "price_ups": "9.00",
+    "price": "1,396.53"
+}, {
+    "code": "R-8000660",
+    "description": "MO LIG.1 CIRC.BARR.CT/ANEL",
+    "price_ups": "9.00",
+    "price": "1,396.53"
+}, {
+    "code": "I-BTS15",
+    "description": "MO INSTAL CX 2S 4X120MM2 / 4X35MM2 PICCA",
+    "price_ups": "9.09",
+    "price": "1,410.50"
+}, {
+    "code": "I-GS83.179",
+    "description": "SUBST CX \"E\" INST ELETRODUTO CORRUG 2\"",
+    "price_ups": "9.23",
+    "price": "1,431.98"
+}, {
+    "code": "I-BTS55",
+    "description": "MO INSTAL EMENDA DPL DERIV 120/10MM 1KV",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "I-BTS95",
+    "description": "MO INSTAL EMEND DERIV CABO 4X120MM2 XLPE",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-ASQ03TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-AST01TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-AST03TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB 70MM2 AL",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-AST05ES",
+    "description": "MO RETIRA CONF EMEND RET 3 FAS 70MM 35KV",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-ASV05ET",
+    "description": "MO RETIRA CONF EMEN RETA 3F CU IPCC/EPR",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-ASV07TE",
+    "description": "MO RETIRA CONF TERM EXT UNIP CABO AL EPR",
+    "price_ups": "10.00",
+    "price": "1,551.70"
+}, {
+    "code": "R-8000710",
+    "description": "MO RETIRA DE CX DE AUTOMAÇÃO",
+    "price_ups": "10.12",
+    "price": "1,570.32"
+}, {
+    "code": "I-BTS77",
+    "description": "MO INSTAL EMEND RETA 4X250MCM X 4X185MM2",
+    "price_ups": "10.79",
+    "price": "1,674.28"
+}, {
+    "code": "I-8000695",
+    "description": "MO INSTAL INSTALACAO CHAVE TRANSFERENCIA",
+    "price_ups": "11.00",
+    "price": "1,706.87"
+}, {
+    "code": "I-GS37.004",
+    "description": "INST CAIXA SECCIONADORA COMPACTA",
+    "price_ups": "11.24",
+    "price": "1,744.63"
+}, {
+    "code": "I-BTS94",
+    "description": "MO INSTAL EMEND DERIV CAB 4X250MCM CONSU",
+    "price_ups": "11.36",
+    "price": "1,762.73"
+}, {
+    "code": "I-GS83.451",
+    "description": "NIVEL TAMP GRELH TAMPA CONCR CT C/SUBST",
+    "price_ups": "11.55",
+    "price": "1,792.51"
+}, {
+    "code": "I-8001459",
+    "description": "MO INSTALAÇÃO EP SUBTERRANEA",
+    "price_ups": "11.61",
+    "price": "1,801.52"
+}, {
+    "code": "I-8000658",
+    "description": "MO INSTAL MO LIMPAR 1 DUTO 70A120M",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-ASTMOD5",
+    "description": "MOD.EMEN 3FAS DESC:1P/6 E 2P/8",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-ASVMOD5",
+    "description": "MOD.EMEN 3F DESC:1P/6 E 2P/8",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS10",
+    "description": "MO INSTAL LIG. BANCA JORN CT/PI CAB 16MM",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS101",
+    "description": "LIG CHAVE HIBRI BAR MOLE 3 VIA",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS11",
+    "description": "LIG BANCA JORNAL C/ C.T OU P.I",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS110",
+    "description": "MO SUBST CX 2 SAIDA 1X120/1X185MM2 MOLE",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS17",
+    "description": "MO INSTAL MTG.CX.D.1 C.AL.1X120MM2 XLPE",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS41",
+    "description": "CONEX.120MM2 XLPE TRAFO RADIAL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS66",
+    "description": "MO INSTAL LIG BANCA JORNAL C/CT OU PI AL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS68",
+    "description": "MO INSTAL MTG.CX.DIST. C. AL 1X185MM2 AL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS7",
+    "description": "MO INSTAL CON.CB.XLPE PRT. T 2000 KVA 3",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS74",
+    "description": "MO INSTAL CONEX.185MM2 XLPE TRAFO RADIAL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS76",
+    "description": "MO INSTAL CON.CB.XLPE PRT. T 2000 KVA 3F",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS83",
+    "description": "MO INSTAL CONEX. 95MM2 AL XLPE TRAFO RAD",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-BTS90",
+    "description": "MO INST CONEX.120MM2 XLPE TRAFO RADIAL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-8000673",
+    "description": "MO RETIRA MO REM.TERM.TERC.PT.EL.CB.XLPE",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-ASQ00LB",
+    "description": "MO RETIRA LIG CHAV 200A PONT ATERRA 70MM",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-ASQ01LB",
+    "description": "MO RETIRA LIG CHAV 200A PONT ATERR 400MM",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-ASQ02LB",
+    "description": "MO RETIRA LIG CHAV 200A PONT ATERRA 35MM",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS110",
+    "description": "MO SUBST CX 2 SAIDA 1X120/1X185MM2 MOLE",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS37",
+    "description": "MO RETIRA REMOC TERM TERC POSTE CAB XLPE",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS41",
+    "description": "CONEX.120MM2 XLPE TRAFO RADIAL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS5",
+    "description": "MO RETIRA INT.PROT/BUS SPADE T 500 KVA",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS6",
+    "description": "MO RETIRA INT.PRT/BUS SPADE T750/1000 KV",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS7",
+    "description": "MO RETIRA CON.CB.XLPE PRT. T 2000 KVA 3",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS74",
+    "description": "MO RETIRA CONEX.185MM2 XLPE TRAFO RADIAL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS76",
+    "description": "MO RETIRA CON.CB.XLPE PRT. T 2000 KVA 3F",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS83",
+    "description": "MO RETIRA CONEX. 95MM2 AL XLPE TRAFO RAD",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "R-BTS90",
+    "description": "MO RET CONEX.120MM2 XLPE TRAFO RADIAL",
+    "price_ups": "12.00",
+    "price": "1,862.04"
+}, {
+    "code": "I-GS79.024",
+    "description": "CAIXA CS2 PRÉ-MOLD C/FORN",
+    "price_ups": "12.04",
+    "price": "1,867.60"
+}, {
+    "code": "I-AS04FE",
+    "description": "MO INSTAL INSTAL FERRAG PORAO ETD",
+    "price_ups": "13.00",
+    "price": "2,017.21"
+}, {
+    "code": "I-ASVBLE",
+    "description": "CONF TER 3FAS DESC TIP BLE CPR",
+    "price_ups": "13.00",
+    "price": "2,017.21"
+}, {
+    "code": "I-BTS36",
+    "description": "MO INSTAL TERM EM CABO IPCCA OU XLPEA",
+    "price_ups": "13.50",
+    "price": "2,094.80"
+}, {
+    "code": "I-GS79.262",
+    "description": "AD CONS INST CX T C/ INSTAL DUTO PEAD 4",
+    "price_ups": "13.59",
+    "price": "2,108.26"
+}, {
+    "code": "I-8000704",
+    "description": "MO INST CONJUNTO MOTO VENTILADOR EM CT",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "I-AST05ED",
+    "description": "CONF EMEN 6FAS DESCON TIPO 5",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "I-ASTMOD6",
+    "description": "MODIF EMEN 3FAS DESC:1/7!5/8",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "I-ASVMIB",
+    "description": "MO INSTAL CONF EMEN 3FA DESC:TDR+MIB+TDR",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "I-ASVMOD6",
+    "description": "MOD.EMEN 3F DESC:1P/7 E 5P/8",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "I-BTS105",
+    "description": "MO INSTAL CONFEC EMEND DESATIV CX 2 SAID",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "R-ASV06ET",
+    "description": "MO RETIRA CONF EMEN DUP 3 FAS CU/IPC/EPR",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "R-ASV07ET",
+    "description": "MO RETIRA CONF EMEN DUP 3FAS CU IPCC/EPR",
+    "price_ups": "14.00",
+    "price": "2,172.38"
+}, {
+    "code": "I-BTS29",
+    "description": "MO INSTAL LIG BCA DE JORNALCABO4X250MCM",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-BTS30",
+    "description": "MO INSTAL LIG BCA JNAL DER CABO PASSEIO",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-BTS31",
+    "description": "MO INSTAL LIG BCA JORNAL CABO 4X250MCM",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-BTS32",
+    "description": "MO INSTAL LIG BCA JORNAL CABO 4X120MM2",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-BTS71",
+    "description": "LIG BANC JORN PASSEIO 4X185 AL",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-BTS97",
+    "description": "MO INSTAL LIG CHAVE HIBRIDO CAB 4X250MCM",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-BTS98",
+    "description": "MO INSTAL LIG CHAVE HIBRIDO CAB 4X120MM2",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-8000654",
+    "description": "MO RETIRA MO PUXAR CB. DUTO 120A170M",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASQ03LB",
+    "description": "MO RETIRA MONTAG BARRAMENT PI 01 DERIVAC",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASQ05ES",
+    "description": "MO RETIRA CONF EMEN RET 3FAS CAB 240X400",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASQ05LB",
+    "description": "MO RETIRA MONT",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASQ06LB",
+    "description": "MO RETIRA MONT",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASQ08LB",
+    "description": "MO RETIRA MONT",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-AST01LB",
+    "description": "MO RETIRA MONTAG BARRAM PI 01 DERIV 35KV",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASV03LB",
+    "description": "MO RETIRA MONTAG BARRAM PI 01 DERIV 25KV",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "R-ASV04LB",
+    "description": "MO RETIRA MONTAG BARRAM PI 02 DERIV 25KV",
+    "price_ups": "15.00",
+    "price": "2,327.55"
+}, {
+    "code": "I-GS37.010",
+    "description": "SUBST CAIXA T E INST ELETRODUTO 4''",
+    "price_ups": "15.18",
+    "price": "2,355.25"
+}, {
+    "code": "R-8000655",
+    "description": "MO RETIRA MO PUXAR CB. DUTO 70 A 120 MET",
+    "price_ups": "15.49",
+    "price": "2,403.58"
+}, {
+    "code": "I-AST02ED",
+    "description": "MO INSTAL CONF EMEN 6FAS DESCON TIPO 2",
+    "price_ups": "16.00",
+    "price": "2,482.72"
+}, {
+    "code": "I-ASTMOD2",
+    "description": "MOD.EMEN 3FAS DESC:1P/3 E 2P/4",
+    "price_ups": "16.00",
+    "price": "2,482.72"
+}, {
+    "code": "I-ASV02ED",
+    "description": "MO INSTAL CONF EMEN 6FAS DESC TIP 2 25KV",
+    "price_ups": "16.00",
+    "price": "2,482.72"
+}, {
+    "code": "I-ASVMOD2",
+    "description": "MOD.EMEN 3FAS DESC:1P/3 E 2P/4",
+    "price_ups": "16.00",
+    "price": "2,482.72"
+}, {
+    "code": "R-ASQ04LB",
+    "description": "MO RETIRA MONTAG BARRAMENT PI 02 DERIVAC",
+    "price_ups": "16.00",
+    "price": "2,482.72"
+}, {
+    "code": "R-AST02LB",
+    "description": "MO RETIRA MONTAG BARRAM PI 02 DERIV 35KV",
+    "price_ups": "16.00",
+    "price": "2,482.72"
+}, {
+    "code": "I-GS79.261",
+    "description": "AD CONS INST CX H C/ INSTAL DUTO PEAD 4",
+    "price_ups": "16.33",
+    "price": "2,534.18"
+}, {
+    "code": "I-GS79.264",
+    "description": "AD CONS INST CX L C/ INSTAL DUTO PEAD 3",
+    "price_ups": "16.70",
+    "price": "2,592.08"
+}, {
+    "code": "I-8000660",
+    "description": "MO LIG.1 CIRC.BARR.CT/ANEL",
+    "price_ups": "17.00",
+    "price": "2,637.89"
+}, {
+    "code": "I-BTS14",
+    "description": "CJ.CX.CNC.2S P12KW C.3X10 ARMF",
+    "price_ups": "17.50",
+    "price": "2,715.48"
+}, {
+    "code": "I-ASQ06ES",
+    "description": "MO INSTAL CONF EMEND RET 3FAS CAB 400MM2",
+    "price_ups": "17.88",
+    "price": "2,774.44"
+}, {
+    "code": "I-8000659",
+    "description": "MO INSTAL MO LIMPAR 1 DUTO 120A170M",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-8000602",
+    "description": "MO EQU.CT.VENT.NAT. RETIC.",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-8000603",
+    "description": "MO EQU.CT.VENT.FORC.RADIAL",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-8000604",
+    "description": "MO EQU.CT.VENT.NAT. RADIAL",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-ASQ07LB",
+    "description": "MO RETIRA MONT",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-ASQ09LB",
+    "description": "MO RETIRA MONT",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-OMC2",
+    "description": "MO RETIRA MO EQUIP CT. VENT. NAT. RETIC.",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-OMC3",
+    "description": "MO RETIRA MO EQUIP CT VENT FORC RADIAL",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "R-OMC4",
+    "description": "MO RETIRA MO EQUIP CT VENT NAT RADIAL",
+    "price_ups": "18.00",
+    "price": "2,793.06"
+}, {
+    "code": "I-BTS2",
+    "description": "MO INSTAL CONSTR. BARRAM. POCO INSPECAO",
+    "price_ups": "19.07",
+    "price": "2,959.09"
+}, {
+    "code": "I-BTS1",
+    "description": "MO INSTAL CONSTR.DE BARRAMENTO EM CT",
+    "price_ups": "19.13",
+    "price": "2,968.40"
+}, {
+    "code": "R-8000656",
+    "description": "MO RETIRA MO PUXAR CB. DUTO 1 A 70 METRO",
+    "price_ups": "19.23",
+    "price": "2,983.92"
+}, {
+    "code": "I-ASV05ED",
+    "description": "MO INSTAL CONF EMEN 6FAS DESC TIP 5 25KV",
+    "price_ups": "19.26",
+    "price": "2,988.57"
+}, {
+    "code": "I-GS37.009",
+    "description": "SUBST CAIXA H E INST ELETRODUTO 4''",
+    "price_ups": "19.57",
+    "price": "3,037.28"
+}, {
+    "code": "I-GS83.180",
+    "description": "SUBST CX \"L\" INST ELETRODUTO CORRUG 3\"",
+    "price_ups": "19.81",
+    "price": "3,073.58"
+}, {
+    "code": "I-8000701",
+    "description": "MO SUBSTITUIÇÃO DE CAIXA 2 SAIDAS",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASQ02TE",
+    "description": "MO INSTAL CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASQ02TI",
+    "description": "MO INSTAL CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASQ04TE",
+    "description": "MO INSTAL CONF TER EXT UNIP CU 3X1X35MM2",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASQ04TI",
+    "description": "MO INSTAL CONF. TERM. INT. CABO 400 MM2",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-AST01TI",
+    "description": "MO INSTAL CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-AST02TI",
+    "description": "MO INSTAL CONF TER INT UNIP CAB 400MM AL",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-AST06ED",
+    "description": "CONF EMEN 9FAS DESCON TIPO 6",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASTMOD7",
+    "description": "MODIF EMEN 3FAS DESC:1/8",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASV04TI",
+    "description": "MO INSTAL CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASV05TI",
+    "description": "CONF TER INT UNIP CAB CU EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASV06ED",
+    "description": "MO INSTAL CONF EMEN 9FAS DESC TIP 6 25KV",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASV06TI",
+    "description": "MO INSTAL CONF TERM INT UNIP CAB 400MM2",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASV09ED",
+    "description": "MO INSTAL CONF EMEN 9FA DESC TIP 9 25KV",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASV10ED",
+    "description": "MO INSTAL EMENDA DESC T-10 15/25KV V9",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASVBTX",
+    "description": "CONF EMEN 3F DESC TIP BTX 25KV",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASVMOD7",
+    "description": "MODIF EMEN 3FAS DESC: 1/8",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-ASVSF6",
+    "description": "MO INSTAL CONF TERM DESC 6FAS EM CH SECC",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-AST02ES",
+    "description": "MO RETIRA CONF EMEN RET 3FAS CAB AL EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-AST02TE",
+    "description": "MO RETIRA CONF TER EXT UNIP CAB 400MM2",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-AST03ES",
+    "description": "MO RETIRA CONF EMEN RET 3FAS CAB AL EPR",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-AST04ES",
+    "description": "MO RETIRA CONF EMEN RET 3FAS CAB 240X400",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-ASV04ES",
+    "description": "MO RETIRA CONF EMEN RET 3FAS CAB 240X400",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-ASV05ES",
+    "description": "MO RETIRA CONF EMEND RET 3F CAB 400MM AL",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "R-BTS16",
+    "description": "MO RETIRA CX 4S 4X120MM2 PICCA",
+    "price_ups": "20.00",
+    "price": "3,103.40"
+}, {
+    "code": "I-8000710",
+    "description": "MO INSTAL INSTALAÃ?O DE CX DE AUTOMAÃ?O",
+    "price_ups": "20.25",
+    "price": "3,142.19"
+}, {
+    "code": "I-ASQ04ES",
+    "description": "MO INSTAL CONF EMEN RETA CABO 500 MM2",
+    "price_ups": "21.73",
+    "price": "3,371.84"
+}, {
+    "code": "I-AST07ED",
+    "description": "MO INSTAL CONF EMEN 9FAS DESC TIP 7 35KV",
+    "price_ups": "22.00",
+    "price": "3,413.74"
+}, {
+    "code": "I-ASV07ED",
+    "description": "MO INSTAL CONF EMEN 9FAS DESC TIP 7 25KV",
+    "price_ups": "22.00",
+    "price": "3,413.74"
+}, {
+    "code": "I-BTS96",
+    "description": "MO INSTAL CONFEC EMEND DESATIV CX 4 SAID",
+    "price_ups": "22.01",
+    "price": "3,415.29"
+}, {
+    "code": "I-GS79.265",
+    "description": "AD CONS INST CX M C/ INSTAL DUTO PEAD 4",
+    "price_ups": "22.31",
+    "price": "3,461.36"
+}, {
+    "code": "I-GS79.266",
+    "description": "AD CONS INST CX N C/ INSTAL DUTO PEAD 4",
+    "price_ups": "23.19",
+    "price": "3,598.75"
+}, {
+    "code": "I-8000673",
+    "description": "MO INSTAL MO REM.TERM.TERC.PT.EL.CB.XLPE",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASQ00LB",
+    "description": "MO INSTAL LIG CHAV 200A PONT ATERRA 70MM",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASQ01ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASQ01LB",
+    "description": "MO INSTAL LIG CHAV 200A PONT ATERR 400MM",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASQ02LB",
+    "description": "MO INSTAL LIG CHAV 200A PONT ATERRA 35MM",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASQ03ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-AST03ED",
+    "description": "MO INSTAL CONF EMEN 9FAS DESCON TIPO 3",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASTMOD3",
+    "description": "MODIF EMEN 3FAS DESC:1/4",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASV03ED",
+    "description": "MO INSTAL CONF EMEN 9FAS DESC TIP 3 25KV",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASV11ED",
+    "description": "MO INST CONF EMEN 6FAS DESC TIP 11 25KV",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-ASVMOD3",
+    "description": "MODIF EMEN 3FAS DESC:1/4",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-BTS37",
+    "description": "REMOC TERM TERC POSTE CAB XLPE",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "R-8000601",
+    "description": "MO EQU.CT.VENT.FORC.RETIC.",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "R-ASV11ED",
+    "description": "MO RET CONF EMEN 6FAS DESC TIP 11 25KV",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "R-BTS1",
+    "description": "MO RETIRA CONSTR.DE BARRAMENTO EM CT",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "R-OMC1",
+    "description": "MO RETIRA TRAFO EM CT SUBT",
+    "price_ups": "24.00",
+    "price": "3,724.08"
+}, {
+    "code": "I-GS83.181",
+    "description": "SUBST CX \"M\" INST ELETRODUTO CORRUG 4\"",
+    "price_ups": "24.10",
+    "price": "3,738.95"
+}, {
+    "code": "I-ASQ05TE",
+    "description": "MO INSTAL CONF. TERM. EXT. CABO 500 MM2",
+    "price_ups": "24.53",
+    "price": "3,806.32"
+}, {
+    "code": "I-8000656",
+    "description": "MO INSTAL MO PUXAR CB. DUTO 1 A 70 METRO",
+    "price_ups": "24.61",
+    "price": "3,818.73"
+}, {
+    "code": "I-GS79.267",
+    "description": "AD CONS SUBST CX N C/ INST DUTO PEAD 4",
+    "price_ups": "26.49",
+    "price": "4,110.78"
+}, {
+    "code": "I-8000655",
+    "description": "MO INSTAL MO PUXAR CB. DUTO 70 A 120 MET",
+    "price_ups": "26.97",
+    "price": "4,184.93"
+}, {
+    "code": "I-8000696",
+    "description": "MO INSTAL SUBST E INST COMAND MOTO VENTI",
+    "price_ups": "27.07",
+    "price": "4,200.45"
+}, {
+    "code": "I-AST08ED",
+    "description": "MO INSTAL CONF EMEN 12F DESC TIP 8 35KV",
+    "price_ups": "28.00",
+    "price": "4,344.76"
+}, {
+    "code": "I-ASV01ET",
+    "description": "MO INSTAL CONF EMEN RET TRAN 3FAS CU EPR",
+    "price_ups": "28.00",
+    "price": "4,344.76"
+}, {
+    "code": "I-ASV08ED",
+    "description": "MO INSTAL CONF EMEN 12FA DESC TIP 8 25KV",
+    "price_ups": "28.00",
+    "price": "4,344.76"
+}, {
+    "code": "I-8000602",
+    "description": "MO EQU.CT.VENT.NAT. RETIC.",
+    "price_ups": "29.00",
+    "price": "4,499.93"
+}, {
+    "code": "I-8000700",
+    "description": "MO SUBSTITUIÇÃO DE CAIXA 4 SAIDAS",
+    "price_ups": "29.00",
+    "price": "4,499.93"
+}, {
+    "code": "I-OMC2",
+    "description": "MO INSTAL MO EQUIP CT. VENT. NAT. RETIC.",
+    "price_ups": "29.00",
+    "price": "4,499.93"
+}, {
+    "code": "I-0325504",
+    "description": "MO INSTAL CHAVE DE MANOBRA SUBMERS#VEL 4",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-AS23FE",
+    "description": "MO INSTAL CONFEC ATERRAM CHAV SECCI SF6",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ03LB",
+    "description": "MO INSTAL MONTAG BARRAMENT PI 01 DERIVAC",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ03TE",
+    "description": "MO INSTAL CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ05ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB 240X400",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ05LB",
+    "description": "MO INSTAL MONT",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ06LB",
+    "description": "MO INSTAL MONT",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ06TE",
+    "description": "MO INSTAL CONF. TERM. EXT. CABO 400 MM2",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASQ08LB",
+    "description": "MO INSTAL MONT",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-AST01LB",
+    "description": "MO INSTAL MONTAG BARRAM PI 01 DERIV 35KV",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASV02ET",
+    "description": "MO INSTAL CONF EMEN RET TRAN 3FAS CU EPR",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASV03LB",
+    "description": "MO INSTAL MONTAG BARRAM PI 01 DERIV 25KV",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASV04LB",
+    "description": "MO INSTAL MONTAG BARRAM PI 02 DERIV 25KV",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-ASV06TE",
+    "description": "CONF TER EXT UNIP CAB AL EPR",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "R-0325504",
+    "description": "MO RETIRA CHAVE DE MANOBRA SUBMERS#VEL 4",
+    "price_ups": "30.00",
+    "price": "4,655.10"
+}, {
+    "code": "I-8000654",
+    "description": "MO INSTAL MO PUXAR CB. DUTO 120A170M",
+    "price_ups": "30.46",
+    "price": "4,726.48"
+}, {
+    "code": "I-ASQ04LB",
+    "description": "MO INSTAL MONTAG BARRAMENT PI 02 DERIVAC",
+    "price_ups": "32.00",
+    "price": "4,965.44"
+}, {
+    "code": "I-AST02LB",
+    "description": "MO INSTAL MONTAG BARRAM PI 02 DERIV 35KV",
+    "price_ups": "32.00",
+    "price": "4,965.44"
+}, {
+    "code": "I-AST04ED",
+    "description": "CONF EMEN 12FAS DESCON TIPO 4",
+    "price_ups": "32.00",
+    "price": "4,965.44"
+}, {
+    "code": "I-ASV04ED",
+    "description": "MO INSTAL CONF EMEN 12F DESC TIP 4 25KV",
+    "price_ups": "32.00",
+    "price": "4,965.44"
+}, {
+    "code": "I-8000603",
+    "description": "MO EQU.CT.VENT.FORC.RADIAL",
+    "price_ups": "35.00",
+    "price": "5,430.95"
+}, {
+    "code": "I-8000604",
+    "description": "MO EQU.CT.VENT.NAT. RADIAL",
+    "price_ups": "35.00",
+    "price": "5,430.95"
+}, {
+    "code": "I-OMC3",
+    "description": "MO INSTAL MO EQUIP CT VENT FORC RADIAL",
+    "price_ups": "35.00",
+    "price": "5,430.95"
+}, {
+    "code": "I-OMC4",
+    "description": "MO INSTAL MO EQUIP CT VENT NAT RADIAL",
+    "price_ups": "35.00",
+    "price": "5,430.95"
+}, {
+    "code": "I-8000536",
+    "description": "MO TER 3F3X1X500 CONJ BL 25KV",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-ASQ07LB",
+    "description": "MO INSTAL MONT",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-ASQ09LB",
+    "description": "MO INSTAL MONT",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-ASV04TE",
+    "description": "CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-ASV05TE",
+    "description": "CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-ASV07TE",
+    "description": "MO INSTAL CONF TERM EXT UNIP CABO AL EPR",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-BTS5",
+    "description": "MO INSTAL INT.PROT/BUS SPADE T 500 KVA",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-BTS6",
+    "description": "MO INSTAL INT.PRT/BUS SPADE T750/1000 KV",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-BTS85",
+    "description": "MO INST INTERL PROT/BUS \"SPADE\" T 500KV",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-BTS86",
+    "description": "MO INST INTERL PROT/BUS \"SPADE\" T 1000KV",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "R-BTS85",
+    "description": "MO RETIR INTERL PROT/BUS \"SPADE\" T 500KV",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "R-BTS86",
+    "description": "MO RET INTERL PROT/BUS \"SPADE\" T 1000KV",
+    "price_ups": "36.00",
+    "price": "5,586.12"
+}, {
+    "code": "I-ASQ02ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "39.00",
+    "price": "6,051.63"
+}, {
+    "code": "I-AST01TE",
+    "description": "MO INSTAL CONF TER EXT UNIP CAB CU EPR",
+    "price_ups": "39.00",
+    "price": "6,051.63"
+}, {
+    "code": "I-AST02ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB AL EPR",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-AST02TE",
+    "description": "MO INSTAL CONF TER EXT UNIP CAB 400MM2",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-AST03ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB AL EPR",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-AST03TE",
+    "description": "MO INSTAL CONF TER EXT UNIP CAB 70MM2 AL",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-AST04ES",
+    "description": "CONF EMEN RET 3FAS CAB 240X400",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-AST05ES",
+    "description": "CONF EMEND RET 3 FAS 70MM 35KV",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-ASV01ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-ASV02ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-ASV03ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-ASV04ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB 240X400",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-ASV05ES",
+    "description": "MO INSTAL CONF EMEND RET 3F CAB 400MM AL",
+    "price_ups": "40.00",
+    "price": "6,206.80"
+}, {
+    "code": "I-AST01ES",
+    "description": "MO INSTAL CONF EMEN RET 3FAS CAB CU EPR",
+    "price_ups": "41.00",
+    "price": "6,361.97"
+}, {
+    "code": "I-8000529",
+    "description": "MO ELASTIMOLD 750-L2CB.500",
+    "price_ups": "42.00",
+    "price": "6,517.14"
+}, {
+    "code": "I-8000601",
+    "description": "MO EQU.CT.VENT.FORC.RETIC.",
+    "price_ups": "48.00",
+    "price": "7,448.16"
+}, {
+    "code": "I-BTS3",
+    "description": "MO INSTAL ILUM. E VENT.P/CT ATE 1000 KVA",
+    "price_ups": "48.00",
+    "price": "7,448.16"
+}, {
+    "code": "I-BTS4",
+    "description": "MO INSTAL ILUM.E VENT.CT DE 2000 KVA",
+    "price_ups": "48.00",
+    "price": "7,448.16"
+}, {
+    "code": "I-OMC1",
+    "description": "MO INSTAL MO INST TRAFO EM CT SUBT",
+    "price_ups": "48.00",
+    "price": "7,448.16"
+}, {
+    "code": "R-BTS2",
+    "description": "MO RETIRA CONSTR. BARRAM. POCO INSPECAO",
+    "price_ups": "48.00",
+    "price": "7,448.16"
+}, {
+    "code": "R-ASQ06TE",
+    "description": "MO RETIRA CONF. TERM. EXT. CABO 400 MM2",
+    "price_ups": "50.00",
+    "price": "7,758.50"
+}, {
+    "code": "I-ASV03ET",
+    "description": "MO INSTAL CONF EMEN DUP 3 FAS CU IPC/EPR",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "I-ASV04ET",
+    "description": "MO INSTAL CONFE EME SU-DU 3FA CU IPC/EPR",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "I-ASV05ET",
+    "description": "MO INSTAL CONF EMEN RETA 3F CU IPCC/EPR",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "I-ASV08ET",
+    "description": "EMENDA TRANSI##O PARA 3.8 KV",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "R-ASV03ET",
+    "description": "MO RETIRA CONF EMEN DUP 3 FAS CU IPC/EPR",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "R-ASV04ET",
+    "description": "MO RETIRA CONFE EME SU-DU 3FA CU IPC/EPR",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "R-ASV08ET",
+    "description": "MO RETIRA EMENDA TRANSI##O PARA 3.8 KV",
+    "price_ups": "66.00",
+    "price": "10,241.22"
+}, {
+    "code": "I-ASV06ET",
+    "description": "MO INSTAL CONF EMEN DUP 3 FAS CU/IPC/EPR",
+    "price_ups": "70.00",
+    "price": "10,861.90"
+}, {
+    "code": "I-ASV07ET",
+    "description": "MO INSTAL CONF EMEN DUP 3FAS CU IPCC/EPR",
+    "price_ups": "70.00",
+    "price": "10,861.90"
+}]
