@@ -12,7 +12,6 @@
                 @method('put')
                 @include('pages.painel._partials.forms.form-drivers')
                 <div class="row">
-
                     <div class="col-md-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-primary btn-submit">Salvar</button>
 
@@ -20,8 +19,6 @@
                             Novo arquivo
                         </button>
                     </div>
-
-
                 </div>
             </form>
         </div>
@@ -113,6 +110,7 @@
 
 @endsection
 
+
 @section('scripts')
 
     <script class=""></script>
@@ -174,3 +172,4 @@
         }
     </script>
 @append
+

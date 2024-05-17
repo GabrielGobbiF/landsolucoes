@@ -62,7 +62,6 @@ class DriversController extends Controller
 
         $files = $driver->files;
 
-
         return view('pages.painel.frotas.drivers.show', [
             'driver' => $driver,
             'files' => $files,
@@ -203,5 +202,4 @@ class DriversController extends Controller
             ->route('vehicles.drivers.show', $drive->id)
             ->with('error', 'Sem permissão');
     }
-
 }

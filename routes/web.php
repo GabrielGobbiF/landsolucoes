@@ -335,7 +335,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         Route::post('vehicles/drivers/{driveId}/files/upload', [App\Http\Controllers\Painel\Frotas\DriversController::class, 'file'])->name('vehicles.drivers.files');
         Route::resource('vehicles/drivers', App\Http\Controllers\Painel\Frotas\DriversController::class);
 
-
         #Route::get('vehicles/drivers/all', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('drivers.index');
         #Route::get('vehicles/drivers', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers'])->name('vehicles.drivers');
         #Route::get('vehicles/drivers/create', [App\Http\Controllers\Painel\VehiclesController::class, 'drivers_create'])->name('vehicles.drivers.create');

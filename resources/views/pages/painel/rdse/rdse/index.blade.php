@@ -31,11 +31,12 @@
             <div class="row mb-4 no-print">
                 <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
                     <label>Status</label>
-                    <select name="status" id="rdse-select_status" class="form-control select2 search-input-rdse" multiple>
+                    <select id="rdse-select_status" name="status" class="form-control select2 search-input-rdse" multiple>
                         @foreach (trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
-                                {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
-                                {{ __trans('rdses.status_label'.$text) }}
+                                    {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
+                                {{ __trans('rdses.status_label' . $text) }}
+
                             </option>
                         @endforeach
                     </select>
@@ -43,10 +44,10 @@
 
                 <div class="col-12 col-md-auto" style="min-width: 180px">
                     <label>Status de Execução</label>
-                    <select name="status_execution" id="rdse-select_status_execution" class="form-control select2 search-input-rdse" multiple>
+                    <select id="rdse-select_status_execution" name="status_execution" class="form-control select2 search-input-rdse" multiple>
                         @foreach (trans('rdses.status_execution') as $status_execution)
                             <option value='{{ $status_execution }}'
-                                {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
+                                    {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
                                 {{ $status_execution }}
                             </option>
                         @endforeach
@@ -55,20 +56,20 @@
 
                 <div class="col-12 col-md-3">
                     <label>Tipo</label>
-                    <select name="type" id="rdse-select--type" class="form-control select2 search-input-rdse">
+                    <select id="rdse-select--type" name="type" class="form-control select2 search-input-rdse">
                         <option value="">Selecione</option>
                         @foreach (config('admin.rdse.type') as $type)
                             <option value='{{ $type['name'] }}'
-                                {{ (!request()->filled('type') && $type['name'] == 'Em Medição' ? ' selected="selected"' : request()->filled('type') && request()->input('type') == $type['name']) ? ' selected="selected"' : '' }}>
+                                    {{ (!request()->filled('type') && $type['name'] == 'Em Medição' ? ' selected="selected"' : request()->filled('type') && request()->input('type') == $type['name']) ? ' selected="selected"' : '' }}>
                                 {{ $type['name'] }}
                             </option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="col-12 col-md-3" id="div-search_lote">
+                <div id="div-search_lote" class="col-12 col-md-3">
                     <label>Lote</label>
-                    <select name="lote" id="rdse-select--lote" class="form-control select2 search-input-rdse">
+                    <select id="rdse-select--lote" name="lote" class="form-control select2 search-input-rdse">
                         <option value="">Selecione</option>
                         @foreach ($lotes as $lote)
                             <option value='{{ $lote->lote }}'>{{ $lote->lote }}</option>
@@ -79,14 +80,14 @@
                 <div class="col-12 col-md-3">
                     <label>Data</label>
                     <input type="text" class="form-control search-input-rdse" name="daterange"
-                        @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
+                           @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
-                <input type="hidden" id="totalTable">
-                <input type="hidden" id="totalP1">
-                <input type="hidden" id="totalP2">
-                <input type="hidden" id="totalP3">
-                <input type="hidden" id="totalUpsTable">
+                <input id="totalTable" type="hidden">
+                <input id="totalP1" type="hidden">
+                <input id="totalP2" type="hidden">
+                <input id="totalP3" type="hidden">
+                <input id="totalUpsTable" type="hidden">
             </div>
 
             <div class="table table-api">
@@ -100,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <table data-toggle="table" id="ttable" data-table="rdses" data-on-click="true">
+                    <table id="ttable" data-toggle="table" data-table="rdses" data-on-click="true">
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
@@ -132,7 +133,7 @@
         </div>
     </div>
 
-    <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form id="form-rdse_change_status" role="form" class="needs-validation" action="" method="POST">
@@ -146,7 +147,7 @@
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btn-submit-rdse_change_status">Enviar</button>
+                        <button id="btn-submit-rdse_change_status" type="button" class="btn btn-primary">Enviar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </div>
                 </form>
@@ -154,16 +155,16 @@
         </div>
     </div>
 
-    <div class="pos-fixed b-10 r-10 z-index-200 d-none" id="rdses-downloading">
+    <div id="rdses-downloading" class="pos-fixed b-10 r-10 z-index-200 d-none">
         <div class='card'>
             <form id='form-download-rdse' role='form' class='needs-validation' action='' method='POST'>
-                <input type="hidden" id="rdse--input" name="rdse">
+                <input id="rdse--input" type="hidden" name="rdse">
                 <input id="rdse--id" name="rdseId" class="d-none">
                 @csrf
                 <div class='card-header bg-primary'>
                     <h6 class="tx-white mg-b-0 mg-r-auto">Selecionados</h6>
                 </div>
-                <div class='card-body pd-15' id="rdses-row"></div>
+                <div id="rdses-row" class='card-body pd-15'></div>
                 <div class="card-footer">
                     <button type='button' class='btn btn-primary mr-3 d-none btn-save-lote' data-toggle='modal' data-target='#modal-update_lote'>
                         <i class="fas fa-save"></i> Alterar Lote
@@ -174,7 +175,7 @@
         </div>
     </div>
 
-    <div class='modal' id='modal-update_lote' tabindex='-1' role='dialog'>
+    <div id='modal-update_lote' class='modal' tabindex='-1' role='dialog'>
         <div class='modal-dialog' role='document'>
             <div class='modal-content'>
                 <form id='form-update_rdse_lote' role='form' class='needs-validation' action='{{ route('rdse.update.lote') }}' method='POST'>
@@ -188,8 +189,8 @@
                     <div class='modal-body'>
                         <div class='form-group'>
                             <label for='input--lote'>Lote</label>
-                            <input type="hidden" name="alterLote" id="input-lote-update">
-                            <select class="form-control" name="lote" id="select--lotes"></select>
+                            <input id="input-lote-update" type="hidden" name="alterLote">
+                            <select id="select--lotes" class="form-control" name="lote"></select>
                         </div>
                     </div>
                     <div class='modal-footer'>

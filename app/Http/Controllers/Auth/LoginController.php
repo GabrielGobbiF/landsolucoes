@@ -51,7 +51,6 @@ class LoginController extends Controller
             $login_type => mb_strtolower($request->input('email_or_username'), 'UTF-8')
         ]);
 
-        #dd($request->only($login_type, 'password'));
         if (Auth::attempt($request->only($login_type, 'password'))) {
 
             if (Auth::check() && Auth::user()->password_verified == 'N') {
@@ -74,19 +73,5 @@ class LoginController extends Controller
 
         return redirect('/login')
             ->with('error', 'Login ou senha incorretos.');
-
-        //$field = filter_var($request->input('email_or_username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        //$request->merge([$field => $request->input('email_or_username')]);
-        //if (Auth::attempt($request->only($login_type, 'password'))) {
-        //    return redirect()->intended($this->redirectPath());
-        //}
-        //$attemptLogin = $this->guard()->attempt(
-        //    $this->credentials($request),
-        //    $request->filled('remember')
-        //);
-        //if ($attemptLogin) {
-        //    return $this->sendLoginResponse($request);
-        //}
-
     }
 }
