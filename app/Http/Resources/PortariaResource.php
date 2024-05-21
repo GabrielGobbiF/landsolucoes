@@ -27,6 +27,7 @@ class PortariaResource extends JsonResource
             "tipo" => $this->type,
             "tipo_veiculo" => 'Veiculo: ' . $this->veiculo_tipo,
             "files" => $images,
+            "km" => $this->km,
         ];
     }
 }

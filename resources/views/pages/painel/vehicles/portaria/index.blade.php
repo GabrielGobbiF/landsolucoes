@@ -66,6 +66,7 @@
                                 <th data-field="veiculo">Veiculo</th>
                                 <th data-field="data">Data</th>
                                 <th data-field="tipo">Tipo</th>
+                                <th data-field="km">KM</th>
                                 <th data-field="tipo_veiculo">Tipo Veiculo</th>
                                 <th data-field="observacoes" data-visible="false">Observações</th>
                                 <th data-field="files" data-formatter="filesFormatter" data-visible="false">Files</th>
