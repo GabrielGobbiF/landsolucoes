@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasPermissionsTrait;
+use App\Traits\LogTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasPermissionsTrait, LogsActivity;
+    use HasFactory, Notifiable, HasPermissionsTrait, LogTrait,LogsActivity;
 
     /**
      * The attributes that are mass assignable.

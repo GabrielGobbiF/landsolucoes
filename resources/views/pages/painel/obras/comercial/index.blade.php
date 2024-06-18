@@ -1,11 +1,11 @@
-@extends("app")
+@extends('app')
 
 @section('title', 'Comercial')
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="text-center" id="preloader-content">
+            <div id="preloader-content" class="text-center">
                 <div class="spinner-border text-primary m-1 align-self-center" role="status">
                     <span class="sr-only"></span>
                 </div>
@@ -13,7 +13,7 @@
             <div class="row mb-4">
                 <div class="col-12 col-md-5">
                     <label for="fl_art_nome">Status</label>
-                    <select name="status" id="select--status" multiple class="form-control select2 search-input">
+                    <select id="select--status" name="status" multiple class="form-control select2 search-input">
                         @foreach (config('constants.status_build') as $status)
                             <option value="{{ $status }}"> {{ ucfirst($status) }}</option>
                         @endforeach
@@ -22,7 +22,7 @@
 
                 <div class="col-md-3">
                     <label for="fl_art_nome">Cliente</label>
-                    <select name="client_id" id="select--client_id" class="form-control select2 search-input">
+                    <select id="select--client_id" name="client_id" class="form-control select2 search-input">
                         <option value="" selected>Selecione</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}"> {{ $client->username }}</option>
@@ -32,7 +32,7 @@
 
                 <div class="col-md-3">
                     <label for="fl_art_nome">Concessionarias</label>
-                    <select name="concessionaria_id" id="select--concessionaria_id" class="form-control select2 search-input">
+                    <select id="select--concessionaria_id" name="concessionaria_id" class="form-control select2 search-input">
                         <option value="" selected>Selecione</option>
                         @foreach ($concessionarias as $concessionaria)
                             <option value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}</option>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <table data-toggle="table" id="table-api" data-table="comercial">
+                <table id="table-api" data-toggle="table" data-table="comercial">
                     <thead>
                         <tr>
                             <th data-field="id" data-sortable="true" data-visible="false">#</th>
@@ -64,6 +64,7 @@
                             <th data-sortable="true" data-field="clients.company_name">Cliente</th>
                             <th data-sortable="true" data-field="concessionaria_name">Concessionaria</th>
                             <th data-sortable="true" data-field="service_name">Serviço</th>
+                            <th data-field="created_at">Data Criação</th>
                             <th data-field="statusButton" data-align="center" data-formatter="nameFormatter">Status</th>
                         </tr>
                     </thead>
@@ -73,11 +74,11 @@
         </div>
     </div>
 
-    <div class="modal" data-backdrop="static" id="modal-approved-comercial" tabindex="-1" role="dialog">
+    <div id="modal-approved-comercial" class="modal" data-backdrop="static" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form id="form-approved-comercial" role="form" class="needs-validation" action="{{ route('comercial.approved') }}" method="POST">
-                    <input type="hidden" name="comercial_id" id="comercial_id">
+                    <input id="comercial_id" type="hidden" name="comercial_id">
                     @csrf
                     <div class="modal-header text-center">
                         <h5 class="modal-title">Aprovação de Proposta</h5>
@@ -86,7 +87,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="users">Mandar notificação para: </label>
-                                <select name="users[]" id="users" class="form-control select--users" placeholder="o" multiple> </select>
+                                <select id="users" name="users[]" class="form-control select--users" placeholder="o" multiple> </select>
                             </div>
                         </div>
                     </div>
@@ -179,7 +180,8 @@
                 'concluida',
             ];
 
-            html += '<select class="form-control select2" onchange="updateStatus(this)" data-value="' + row.statusButton + '" data-name="' + row.razao_social + '" data-id="' + row.id + '" >';
+            html += '<select class="form-control select2" onchange="updateStatus(this)" data-value="' + row.statusButton + '" data-name="' + row.razao_social +
+                '" data-id="' + row.id + '" >';
             $.each(data, function(k, field) {
                 var selected = value == field ? "selected='selected'" : "";
                 const capitalized = field[0].toUpperCase() + field.substr(1);

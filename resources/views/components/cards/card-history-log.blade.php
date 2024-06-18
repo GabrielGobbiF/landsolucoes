@@ -24,11 +24,19 @@
                                     {{ __trans($log->description, ['attribute' => __($log->log_name)]) }}
                                 </small>
                             </a>
+
                             <p class="mb-0 pb-2">
-                                <small class="text-muted">
-                                    {{ date_format($log->created_at, 'd/m/Y H:s') }}
+                                <small class="text-muted d-grid">
+                                    <span class="">{{ date_format($log->created_at, 'd/m/Y H:s') }}</span>
+                                    @if (!empty($log->causer_id))
+                                        <a class="fw-semibold" href="#!">
+                                            id: {{ $log->id }} - U: {{ $log->causer->name }}
+                                        </a>
+                                    @endif
                                 </small>
                             </p>
+
+
                             @if (isset($user))
                                 <p class="mb-0 pb-2">
                                     <small class="text-muted">

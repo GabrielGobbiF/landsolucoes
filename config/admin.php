@@ -40,12 +40,12 @@ return [
                 'icon' =>  'ri-file-list-3-line',
                 'route' => 'finances.index',
             ],
-            [
-                'name' =>  'Arquivos',
-                'atc' =>  'arquivos',
-                'icon' =>  'ri-file-list-3-line',
-                'route' => 'arquivos.index',
-            ],
+            //[
+            //    'name' =>  'Arquivos',
+            //    'atc' =>  'arquivos',
+            //    'icon' =>  'ri-file-list-3-line',
+            //    'route' => 'arquivos.index',
+            //],
             [
                 'name' =>  'Relatórios',
                 'atc' =>  'arquivos',

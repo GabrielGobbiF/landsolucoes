@@ -48,6 +48,34 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="input--requester">Solicitante</label>
+                                            <input type="text" name="requester" class="form-control @error('requester') is-invalid @enderror" id="input--requester"
+                                                value="{{ $comercial->requester ?? old('requester') }}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="input--requester_email">Email</label>
+                                            <input type="text" name="requester_email" class="form-control @error('requester_email') is-invalid @enderror" id="input--requester_email"
+                                                value="{{ $comercial->requester_email ?? old('requester_email') }}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="input--requester_phone">Telefone</label>
+                                            <input type="text" name="requester_phone" class="form-control @error('requester_phone') is-invalid @enderror" id="input--requester_phone"
+                                                value="{{ $comercial->requester_phone ?? old('requester_phone') }}" required>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

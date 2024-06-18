@@ -178,8 +178,8 @@ return [
 
         App\Providers\PermissionsServiceProvider::class,
 
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-        jeremykenedy\Slack\Laravel\ServiceProvider::class,
+        //SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        //jeremykenedy\Slack\Laravel\ServiceProvider::class,
         #Barryvdh\Debugbar\ServiceProvider::class,
 
     ],

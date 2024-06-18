@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Casts\Date;
 use App\Models\RSDE\Rdse;
+use App\Supports\Enums\Comercial\ComercialStatus;
+use App\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Obra extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogTrait;
 
 
     /**
@@ -34,12 +37,25 @@ class Obra extends Model
         'status',
         'obr_urgence',
         'build_at',
-        'cno'
+        'cno',
+        'requester',
+        'requester_email',
+        'requester_phone',
     ];
 
     protected $dates = ['deleted_at'];
 
     protected $appends = ['AddressComplete'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => Date::class,
+        'status' => ComercialStatus::class,
+    ];
 
     public function getAddressCompleteAttribute()
     {

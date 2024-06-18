@@ -122,6 +122,20 @@
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <h5 class="font-size-22 tx-bold">Arquivos</h5>
+                                                <ul class="list-unstyled megamenu-list">
+                                                    <li>
+                                                        <a href="{{ route('arquivos.index') }}">Todos</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="{{ route('arquivos.my.favorites') }}">Favoritos</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-md-6">
                                                 <h5 class="font-size-22 tx-bold">Obras</h5>
                                                 <ul class="list-unstyled megamenu-list">
                                                     <li>

@@ -35,7 +35,6 @@ class ComercialController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -54,7 +53,6 @@ class ComercialController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -76,8 +74,6 @@ class ComercialController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreUpdateComercial $request)
     {
@@ -154,12 +150,10 @@ class ComercialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comercial  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Obra  $id
      */
     public function show($id)
     {
-
         if (!$comercial = $this->repository->where('id', $id)->with('service')->with('concessionaria')->with('viabilizacao')->first()) {
             return redirect()
                 ->route('comercial.index')
@@ -313,8 +307,6 @@ class ComercialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Test  $id
-     * @return \Illuminate\Http\Response
      */
     public function updateStatus(Request $request, $id)
     {

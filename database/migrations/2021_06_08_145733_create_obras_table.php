@@ -64,6 +64,10 @@ class CreateObrasTable extends Migration
                 ->references('id')
                 ->on('obras_viabilizations')
                 ->onDelete('cascade');
+
+            $table->string('requester')->nullable(); //Solicitante
+            $table->string('requester_email')->nullable(); //Solicitante Email
+            $table->string('requester_phone', 20)->nullable(); //Solicitante Telefone
         });
     }
 

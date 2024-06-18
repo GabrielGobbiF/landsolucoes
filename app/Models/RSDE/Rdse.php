@@ -2,6 +2,7 @@
 
 namespace App\Models\RSDE;
 
+use App\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Rdse extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, SoftDeletes, LogTrait,LogsActivity;
 
     protected static $logName = 'RDSE';
 
@@ -77,7 +78,7 @@ class Rdse extends Model
         'croqui_finalizado_data',
         'croqui_finalizado_responsavel',
         'observations_execution',
-        
+
         'parcial_1_at',
         'parcial_2_at',
         'parcial_3_at',

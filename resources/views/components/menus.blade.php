@@ -24,7 +24,7 @@
                         @if (isset($menu['collapse']))
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="javascript:void(0)" id="topnav-apps" role="button">
-                                    <i class="{{ $menu['icon'] }} mr-2"></i>{{ __($menu['name']) }} <div class="arrow-down"></div>
+                                    <i class="{{ $menu['icon'] }} mr-2"></i>{{ __trans($menu['name']) }} <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-apps">
                                     @foreach ($menu['sub-menus'] as $subMenu)
@@ -38,7 +38,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route($menu['route']) }}">
                                     <i class="{{ $menu['icon'] }} mr-2"></i>
-                                    <span style="vertical-align: top;">{{ __($menu['name']) }}</span>
+                                    <span style="vertical-align: top;">{{ __trans($menu['name']) }}</span>
                                 </a>
                             </li>
                         @endif

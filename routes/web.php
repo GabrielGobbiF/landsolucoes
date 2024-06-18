@@ -520,6 +520,20 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         */
         Route::resource('roles', App\Http\Controllers\Painel\RolesController::class);
     });
+
+    Route::group(['middleware' => 'role:developer'], function () {
+        Route::get('dev', [App\Http\Controllers\Admin\DeveloperController::class, 'index'])->name('dev.index');
+        Route::put('dev/clear-cache', [App\Http\Controllers\Admin\DeveloperController::class, 'clear_cache'])->name('clear.cache');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Logs
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('logs', LogsController::class, [
+            'only' => ['index', 'show']
+        ]);
+    });
 });
 
 

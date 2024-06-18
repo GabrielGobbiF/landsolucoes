@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\Comercial\ComercialStatusChange;
 use App\Events\Frotas\Visitor\VisitorStatusChange;
+use App\Listeners\Comercial\HandleComercialStatusChange;
 use App\Listeners\Frotas\Visitor\HandleVisitorStatusChange;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,10 @@ class EventServiceProvider extends ServiceProvider
 
         VisitorStatusChange::class => [
             HandleVisitorStatusChange::class,
+        ],
+
+        ComercialStatusChange::class => [
+            HandleComercialStatusChange::class,
         ],
     ];
 
