@@ -134,6 +134,11 @@ class Obra extends Model
         return $this->hasOne(Pasta::class, 'type_id', 'id')->orderBy('id', 'asc');
     }
 
+    public function activities()
+    {
+        return $this->morphMany(Activitie::class, 'tipyssable');
+    }
+
     public function favorited(): bool
     {
         return (bool) Favorite::where('user_id', Auth::id())

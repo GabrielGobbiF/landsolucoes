@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->middleware('auth:web')->group(function () {
 
+    Route::post('comercial/{comercialId}/activities', [App\Http\Controllers\Api\ActivitiesApiController::class, 'store'])->name('api.activities.store');
+    Route::get('comercial/{comercialId}/activities', [App\Http\Controllers\Api\ActivitiesApiController::class, 'index'])->name('api.activities.index');
+
+
     Route::get('categories/{category_name}', [App\Http\Controllers\Api\CategoriesApiController::class, 'show'])->name('api.categorie.show');
     Route::post('categories/store', [App\Http\Controllers\Api\CategoriesApiController::class, 'store'])->name('api.categories.store');
 
@@ -23,7 +27,6 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      * Mão De obra
      */
     Route::get('handswork', [App\Http\Controllers\Painel\RDSE\Api\HandsworkApiController::class, 'index'])->name('api.handswork.all');
-
 
     /**
      * RDSE

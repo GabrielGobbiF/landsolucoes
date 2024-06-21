@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'www2.app.landsolucoes.com.br/v1/api/tasks'
+        'www2.app.landsolucoes.com.br/v1/api/tasks',
+        'api/*'
     ];
 }

@@ -161,10 +161,8 @@ class ComercialController extends Controller
         }
 
         $etapasFinanceiro = $comercial->etapas()->whereDoesntHave('financeiro')->get();
-
         $etapasAll = $comercial->etapas()->with('variables')->get();
         $etapasCompras = $etapasAll->where('tipo_id', '4');
-
         $financeiro = $comercial->financeiro()->first();
         $financeiro = $this->financeiroResource($financeiro);
         $financeiro = is_array($financeiro) ? false : $financeiro->toArray($financeiro);
@@ -175,6 +173,10 @@ class ComercialController extends Controller
             $totalFaturado = $etapasFinaneiroSoma;
         }
 
+        $activities = $comercial->activities()->get();
+
+        #dd($activities);
+
         return view('pages.painel.obras.comercial.show', [
             'comercial' => $comercial,
             'etapasCompras' => $etapasCompras,
@@ -182,6 +184,7 @@ class ComercialController extends Controller
             'etapasAll' => $etapasAll,
             'totalFaturar' => $totalFaturar ??  0,
             'etapasFinanceiro' => $etapasFinanceiro,
+            'activities' => $activities,
             'totalFaturado' => isset($totalFaturado) ? number_format($totalFaturado, 2, ',', ',') : 0
         ]);
     }
