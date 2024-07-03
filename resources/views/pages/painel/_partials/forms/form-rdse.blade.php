@@ -17,7 +17,7 @@
 
     <div class="col-12 col-md-12">
         <div class="form-group">
-            <label for="input--description">Descrição</label>
+            <label for="input--description">Descrição / Endereço</label>
             <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" id="input--description"
                 value="{{ $rdse->description ?? old('description') }}"
                 autocomplete="off" required>
@@ -42,7 +42,7 @@
 
     <div class="col-12 col-md-6">
         <div class="form-group">
-            <label for="input--equipe">Equipe</label>
+            <label for="input--equipe">Nº de Nota</label>
             <input type="text" name="equipe" class="form-control @error('equipe') is-invalid @enderror" id="input--equipe" value="{{ $rdse->equipe ?? old('equipe') }}" autocomplete="off">
         </div>
     </div>

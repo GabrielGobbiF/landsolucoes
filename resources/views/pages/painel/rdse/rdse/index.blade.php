@@ -107,8 +107,8 @@
                                 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true" data-width="150">Nº Ordem</th>
-                                <th data-field="description" data-width="150">Descrição</th>
-                                <th data-field="equipe" data-sortable="true" data-visible="false">Equipe</th>
+                                <th data-field="description" data-width="150">Descrição / Endereço</th>
+                                <th data-field="equipe" data-sortable="true" data-visible="false">Nº nota</th>
                                 <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
