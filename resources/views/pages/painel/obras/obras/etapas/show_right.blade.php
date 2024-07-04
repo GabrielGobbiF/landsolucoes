@@ -157,7 +157,7 @@
                            aria-selected="true">Observações do Sistema</a>
                     </li>
                     @if (!auth()->guard('clients')->check())
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item d-none" role="presentation">
                             <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab"
                                aria-controls="pills-profile" aria-selected="false">Pendências</a>
                         </li>
