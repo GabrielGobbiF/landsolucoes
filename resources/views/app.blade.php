@@ -19,7 +19,7 @@
     <link id="app-style" href="{{ _mix('panel/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
 
-    <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
+    <script src="{{ _mix('panel/js/bootstrap.js') }}"></script>
 
     <script>
         const base_url = $('meta[name="js-base_url"]').attr('content');
@@ -272,8 +272,8 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
-    <script src="{{ asset('panel/js/all.js') }}"></script>
-    <script src="{{ asset('panel/js/app.js') }}"></script>
+    <script src="{{ _mix('panel/js/all.js') }}"></script>
+    <script src="{{ _mix('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
     <script src="https://cdn.tiny.cloud/1/rxt6gu66oa6gavl0hljt0k37ibd9qw3l0fev1vtpsexwx573/tinymce/5/tinymce.min.js"
