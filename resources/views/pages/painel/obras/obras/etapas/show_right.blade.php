@@ -1,7 +1,7 @@
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" aria-modal="true" role="dialog">
-    <input type="hidden" id="js-etapa-id">
+<div id="offcanvasRight" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasRightLabel" aria-modal="true" role="dialog">
+    <input id="js-etapa-id" type="hidden">
 
-    <div class="col-md-12 etp" id="div--etp">
+    <div id="div--etp" class="col-md-12 etp">
         <div class="box-header with-border mg-t-10">
             <h3 class="box-title"></h3>
             <div class="float-right">
@@ -20,20 +20,20 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Nome</label>
-                            <input type="text" class="form-control" name="nome" id="input--name" autocomplete="off">
+                            <input id="input--name" type="text" class="form-control" name="nome" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label class="tx-green">Data Meta</label>
-                            <input type="text" class="form-control date" name="meta_etapa" id="input--meta_etapa" autocomplete="off">
+                            <input id="input--meta_etapa" type="text" class="form-control date" name="meta_etapa" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Responsável</label>
-                            <input type="text" class="form-control" name="responsavel" id="input--responsavel" autocomplete="off">
+                            <input id="input--responsavel" type="text" class="form-control" name="responsavel" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -43,14 +43,14 @@
                         <div class="col-12 col-md-3">
                             <div class="form-group">
                                 <label>Nº Nota</label>
-                                <input type="text" class="form-control" name="nota_numero" id="input--n_nota" autocomplete="off">
+                                <input id="input--n_nota" type="text" class="form-control" name="nota_numero" autocomplete="off">
                             </div>
                         </div>
 
                         <div class="col-12 col-md-3">
                             <div class="form-group">
                                 <label>Data de Abertura</label>
-                                <input type="text" class="form-control date" name="data_abertura" id="input--data_abertura" autocomplete="off">
+                                <input id="input--data_abertura" type="text" class="form-control date" name="data_abertura" autocomplete="off">
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label>Prazo de Atendimento</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="prazo_atendimento" id="input--prazo_atendimento" autocomplete="off">
+                                    <input id="input--prazo_atendimento" type="text" class="form-control" name="prazo_atendimento" autocomplete="off">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Dias</span>
                                     </div>
@@ -80,14 +80,14 @@
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Data do Pedido</label>
-                            <input type="text" class="form-control date" name="data_pedido" id="input--data_pedido" autocomplete="off">
+                            <input id="input--data_pedido" type="text" class="form-control date" name="data_pedido" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Cliente Responsável</label>
-                            <input type="text" class="form-control" name="cliente_responsavel" id="input--cliente_responsavel" autocomplete="off">
+                            <input id="input--cliente_responsavel" type="text" class="form-control" name="cliente_responsavel" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -97,21 +97,21 @@
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Data Programada</label>
-                            <input type="text" class="form-control date" name="data_programada" id="input--data_programada" autocomplete="off">
+                            <input id="input--data_programada" type="text" class="form-control date" name="data_programada" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Data Iniciada</label>
-                            <input type="text" class="form-control date" name="data_iniciada" id="input--data_iniciada" autocomplete="off">
+                            <input id="input--data_iniciada" type="text" class="form-control date" name="data_iniciada" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Tempo de atividade</label>
-                            <input type="text" class="form-control" name="tempo_atividade" id="input--tempo_atividade" autocomplete="off">
+                            <input id="input--tempo_atividade" type="text" class="form-control" name="tempo_atividade" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -120,21 +120,21 @@
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Quantidade</label>
-                            <input type="text" class="form-control" name="quantidade" id="input--quantidade" autocomplete="off">
+                            <input id="input--quantidade" type="text" class="form-control" name="quantidade" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Preço</label>
-                            <input type="text" class="form-control money" name="preco" id="input--preco" autocomplete="off">
+                            <input id="input--preco" type="text" class="form-control money" name="preco" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="form-group">
                             <label>Tipo</label>
-                            <input type="text" class="form-control" name="unidade" id="input--unidade" autocomplete="off">
+                            <input id="input--unidade" type="text" class="form-control" name="unidade" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -151,32 +151,35 @@
             <hr class="my-5">
 
             <div>
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <ul id="pills-tab" class="nav nav-pills mb-3" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Observações do Sistema</a>
+                        <a id="pills-home-tab" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+                           aria-selected="true">Observações do Sistema</a>
                     </li>
                     @if (!auth()->guard('clients')->check())
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pendências</a>
+                            <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab"
+                               aria-controls="pills-profile" aria-selected="false">Pendências</a>
                         </li>
                     @endif
                 </ul>
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div id="pills-tabContent" class="tab-content">
+                    <div id="pills-home" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="row mt-4">
                             <div class="col-12">
                                 <div class="media mb-4">
                                     @include('pages.painel._partials.avatar', [
-                                    'avatar' => '',
-                                    'name' => Auth::user()->name ?? auth()->guard('clients')->user()->username,
+                                        'avatar' => '',
+                                        'name' => Auth::user()->name ?? auth()->guard('clients')->user()->username,
                                     ])
                                     <div class="media-body align-self-center ml-2">
-                                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="comment-div">
+                                        <div id="comment-div" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                                             <div class="wd-100p d-none">
                                                 <p contenteditable="true" style="height: auto !important;" class="form-control js-new-comment"></p>
                                             </div>
-                                            <input type="text" class="form-control" name="obs_texto" id="input-new-comment">
-                                            <button type="submit" class="btn btn-primary js-btn-new-comment align-self-start" onclick="newComment()">Enviar</button>
+                                            <input id="input-new-comment" type="text" class="form-control" name="obs_texto">
+                                            <button type="submit" class="btn btn-primary js-btn-new-comment align-self-start"
+                                                    onclick="newComment()">Enviar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -185,8 +188,8 @@
                         </div>
                     </div>
                     @if (!auth()->guard('clients')->check())
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div id="pills-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div id="pills-home" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <div class="row mt-4">
                                     <h6 class="">Desenvolvendo</h6>
                                 </div>
@@ -198,3 +201,5 @@
         </div>
     </div>
 </div>
+
+<div class="rightbar-etp-overlay" id="rightbar-etp-overlay"></div>

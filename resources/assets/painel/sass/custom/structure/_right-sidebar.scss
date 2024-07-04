@@ -52,6 +52,15 @@
     }
 }
 
+.right-etapa-obra-enabled {
+    .right-etapa-obra-bar {
+        right: 0;
+    }
+    .rightbar-etapa-obra-overlay {
+        display: block;
+    }
+}
+
 @include media-breakpoint-down(sm) {
     .right-bar {
         overflow: auto;
@@ -128,11 +137,23 @@ $rightbar-etp-width: 55%;
     transition: all 0.2s ease-out;
 }
 
+.rightbar-etp-overlay {
+    background-color: rgba($dark, 0.55);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    z-index: 9998;
+    transition: all 0.2s ease-out;
+}
+
 .right-bar-etp-enabled {
     .right-bar-etp {
         right: 0;
     }
-    .rightbar-overlay {
+    .rightbar-etp-overlay {
         display: block;
     }
 }
@@ -173,3 +194,5 @@ $rightbar-etp-width: 55%;
         }
     }
 }
+
+

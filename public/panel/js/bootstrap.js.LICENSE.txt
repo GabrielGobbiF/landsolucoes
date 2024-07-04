@@ -1,6 +1,6 @@
 /*!
-  * Bootstrap v4.6.0 (https://getbootstrap.com/)
-  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap v4.6.2 (https://getbootstrap.com/)
+  * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 
@@ -13,43 +13,24 @@
  */
 
 /*!
- * Sizzle CSS Selector Engine v2.3.6
- * https://sizzlejs.com/
- *
- * Copyright JS Foundation and other contributors
- * Released under the MIT license
- * https://js.foundation/
- *
- * Date: 2021-02-16
- */
-
-/*!
- * jQuery JavaScript Library v3.6.0
+ * jQuery JavaScript Library v3.7.1
  * https://jquery.com/
- *
- * Includes Sizzle.js
- * https://sizzlejs.com/
  *
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2021-03-02T17:08Z
+ * Date: 2023-08-28T13:37Z
  */
+
+/*! @orchidjs/unicode-variants | https://github.com/orchidjs/unicode-variants | Apache License (v2) */
 
 /*! X-editable - v1.5.1 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 * http://github.com/vitalets/x-editable
 * Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
 
-/**
-  * bootstrap-table - An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)
-  *
-  * @version v1.18.3
-  * @homepage https://bootstrap-table.com
-  * @author wenzhixin <wenzhixin2010@gmail.com> (http://wenzhixin.net.cn/)
-  * @license MIT
-  */
+/*! sifter.js | https://github.com/orchidjs/sifter.js | Apache License (v2) */
 
 /**
  * @license
@@ -61,17 +42,9 @@
  */
 
 /**
- * @preserve tableExport.jquery.plugin
- *
- * Version 1.26.0
- *
- * Copyright (c) 2015-2022 hhurz,
- *   https://github.com/hhurz/tableExport.jquery.plugin
- *
- * Based on https://github.com/kayalshri/tableExport.jquery.plugin
- *
- * Licensed under the MIT License
- **/
+ * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
+ * Released under MIT license, http://github.com/requirejs/almond/LICENSE
+ */
 
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.

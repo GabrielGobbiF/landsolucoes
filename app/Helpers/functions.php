@@ -353,3 +353,8 @@ function __date_format($date, $format = 'd/m/Y')
 
     return Carbon::parse($value)->format($format);
 }
+
+function _mix($path)
+{
+    return config('app.env') == 'production' ? url(asset(mix($path))) : asset($path);
+}

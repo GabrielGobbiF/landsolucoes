@@ -107,7 +107,13 @@ window.feather = require('feather-icons');
                 return;
             }
 
+            if ($(e.target).closest('.offcanvas').length > 0) {
+                return;
+            }
+
             $('body').removeClass('right-bar-enabled');
+            $('#offcanvasRight').removeClass('show');
+            $('#rightbar-etp-overlay').removeClass('show');
             return;
         });
     }

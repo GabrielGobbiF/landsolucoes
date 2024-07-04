@@ -15,8 +15,8 @@
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
-    <link id="bootstrap-style" href="{{ asset('panel/css/bootstrap.css') }}" rel="stylesheet">
-    <link id="app-style" href="{{ asset('panel/css/app.css') }}" rel="stylesheet">
+    <link id="bootstrap-style" href="{{ _mix('panel/css/bootstrap.css') }}" rel="stylesheet">
+    <link id="app-style" href="{{ _mix('panel/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
 
     <script src="{{ asset('panel/js/bootstrap.js') }}"></script>
@@ -81,7 +81,7 @@
 
 </head>
 
-<body data-topbar="dark" data-layout="horizontal">
+<body data-topbar="dark" data-layout="horizontal" class="">
     <div id="layout-wrapper">
         <header id="page-topbar">
             <div class="container pd-0">

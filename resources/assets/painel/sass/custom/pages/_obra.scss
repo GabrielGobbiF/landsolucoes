@@ -4,6 +4,11 @@
         transform: none;
         visibility: visible;
         overflow: auto;
+        z-index: 9999;
+    }
+
+    .rightbar-etp-overlay.show {
+        display: block !important;
     }
 
     .offcanvas-end {
@@ -18,25 +23,21 @@
     .offcanvas {
         position: fixed;
         bottom: 0;
-        top: 126px;
+        /* top: 126px; */
         z-index: 999;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
+        /* display: flex; */
+        /* flex-direction: column; */
         max-width: 100%;
-        width: 74%;
+        width: 50%;
         visibility: hidden;
         background-color: #fff;
         background-clip: padding-box;
         outline: 0;
-        -webkit-transition: -webkit-transform 0.3s ease-in-out;
-        transition: -webkit-transform 0.3s ease-in-out;
-        transition: transform 0.3s ease-in-out;
-        transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-out;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        border-radius: 1rem;
+        margin-right: 2rem;
     }
 
     .offcanvas::-webkit-scrollbar {
