@@ -52,12 +52,11 @@ class RdseApiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rdse  $identify
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, int $identify)
     {
         $columns = $request->input('collumn');
+
         $value = $request->input('value');
 
         if (!$rdse = $this->repository->where('id', $identify)->first()) {

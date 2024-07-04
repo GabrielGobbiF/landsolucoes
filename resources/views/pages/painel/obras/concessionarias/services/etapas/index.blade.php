@@ -1,4 +1,4 @@
-@extends("app")
+@extends('app')
 
 @section('title', $concessionaria->name . ' x ' . $service->name)
 
@@ -12,20 +12,21 @@
             <div class="box-body">
                 <div class="col-md-3">
                     <label for="">Selecione o Tipo</label>
-                    <select name="tipo" id="tipo" class="form-control select2">
+                    <select id="tipo" name="tipo" class="form-control select2">
                         <option value="" selected>Selecione</option>
                         @foreach ($tipos as $tipo)
-                            <option {{ Request::input('tipo') == $tipo->id ? ' selected="selected"' : '' }} value="{{ $tipo->id }}">{{ ucfirst(mb_strtolower($tipo->name, 'UTF-8')) }}</option>
+                            <option {{ Request::input('tipo') == $tipo->id ? ' selected="selected"' : '' }} value="{{ $tipo->id }}">
+                                {{ ucfirst(mb_strtolower($tipo->name, 'UTF-8')) }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-            <div class="box-body d-none" id="div-etapas">
+            <div id="div-etapas" class="box-body d-none">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control form-group" name="search-etapa" id="search-etapa" value="" placeholder="Pesquisar">
+                            <input id="search-etapa" type="text" class="form-control form-group" name="search-etapa" value="" placeholder="Pesquisar">
                         </div>
                     </div>
                     <div class="col-md-3 mb-2" style="text-align: -webkit-right;">
@@ -51,10 +52,10 @@
         </div>
     </div>
 
-    <div class="mg-0 d-none" style="display: inline-flex;overflow-x: scroll; width: 100%;" id="div-etapas-in-con-sev"></div>
+    <div id="div-etapas-in-con-sev" class="mg-0 d-none" style="display: inline-flex;overflow-x: scroll; width: 100%;"></div>
 
-    @include("pages.painel._partials.modals.modal-new-etapa", [
-    'redirect' => route('concessionaria.service', [$concessionaria->slug, $service->slug])
+    @include('pages.painel._partials.modals.modal-new-etapa', [
+        'redirect' => route('concessionaria.service', [$concessionaria->slug, $service->slug]),
     ])
 
 
@@ -123,13 +124,15 @@
                 html += '    <div class="col-md-6">'
                 html += '        <div class="form-group" style="margin-right: 26px;margin-left: -10px;">'
                 html += '            <label>Nome da Variavel</label>'
-                html += '            <input type="text" class="form-control" value="" name="variavel[nome_variavel][]" id="nome_variavel" autocomplete="off">'
+                html +=
+                    '            <input type="text" class="form-control" value="" name="variavel[nome_variavel][]" id="nome_variavel" autocomplete="off">'
                 html += '        </div>'
                 html += '    </div>'
                 html += '    <div class="col-md-2">'
                 html += '        <div class="form-group"  style="margin-right: 26px;margin-left: -10px;">'
                 html += '            <label>Preço</label>'
-                html += '            <input type="text" class="form-control money" name="variavel[preco_variavel][]" value="" id="preco_variavel" autocomplete="off">'
+                html +=
+                    '            <input type="text" class="form-control money" name="variavel[preco_variavel][]" value="" id="preco_variavel" autocomplete="off">'
                 html += '        </div>'
                 html += '    </div>'
                 $('#new_variavel_edit').append(html);
@@ -153,6 +156,7 @@
                     contentType: false,
                     dataType: 'json',
                     success: function(response) {
+                        console.log('resposne:' + response);
                         if (response.success) {
                             $('.btn-primary').attr('disabled', false);
                             if (response.edit) {
@@ -239,11 +243,14 @@
                             $.each(value, function(index, value) {
                                 options += '                        <li id="' + value.id + '">'
                                 options += '                            <i class="fa fa-ellipsis-v"></i>'
-                                options += '                            <span data-toggle="tooltip" data-placement="top" title="' + value.name + '" class="text">' + value
+                                options += '                            <span data-toggle="tooltip" data-placement="top" title="' +
+                                    value.name + '" class="text">' + value
                                     .name_max + '</span>'
                                 options += '                            <div class="tools">'
-                                options += '                                <i class="fa fa-edit" onclick="edit_etapa(' + value.id + ')"></i>'
-                                options += '                                <i class="fas fa-trash" onclick="destroy_to_conService(' + value.id + ')"></i>'
+                                options += '                                <i class="fa fa-edit" onclick="edit_etapa(' + value.id +
+                                    ')"></i>'
+                                options += '                                <i class="fas fa-trash" onclick="destroy_to_conService(' +
+                                    value.id + ')"></i>'
                                 options += '                            </div>'
                                 options += '                        </li>'
                             });
@@ -380,6 +387,9 @@
         }
 
         function edit_etapa(id) {
+
+            console.log('EDIT');
+
             $.ajax({
                 url: BASE_URL + '/l/etapas/' + id,
                 type: 'GET',
@@ -387,6 +397,8 @@
                 dataType: 'JSON',
                 success: function(data) {
                     var j = data.data
+
+                    console.log(j);
 
                     var $modal = $('#modal-add-update-etapa');
                     $modal.find('#form-add-update-etapa').attr('action', BASE_URL + '/l/etapas/' + id)
@@ -404,7 +416,7 @@
                         $modal.find('#input--' + index).val(value)
                     })
 
-                    if (j.categoria != '') {
+                    if (j.categoria != '' && j.categoria != null) {
                         selectCategoria.val(j.categoria);
                         selectCategoria.trigger('change');
                     }
@@ -418,19 +430,22 @@
                             html += '    <div class="col-md-6">'
                             html += '        <div class="form-group" style="margin-right: 26px;margin-left: -10px;">'
                             html += '            <label>Nome da Variavel</label>'
-                            html += '            <input type="text" class="form-control" value="' + value.name + '" name="variavel[nome_variavel][]" id="nome_variavel_' + value.id +
+                            html += '            <input type="text" class="form-control" value="' + value.name +
+                                '" name="variavel[nome_variavel][]" id="nome_variavel_' + value.id +
                                 '" autocomplete="off">'
                             html += '        </div>'
                             html += '    </div>'
                             html += '    <div class="col-md-2">'
                             html += '        <div class="form-group"  style="margin-right: 26px;margin-left: -10px;">'
                             html += '            <label>Preço</label>'
-                            html += '            <input type="text" class="form-control money" name="variavel[preco_variavel][]" value="' + value.price + '" id="preco_variavel_' +
+                            html += '            <input type="text" class="form-control money" name="variavel[preco_variavel][]" value="' +
+                                value.price + '" id="preco_variavel_' +
                                 value.id + '" autocomplete="off">'
                             html += '        </div>'
                             html += '    </div>'
                             html += '   <div class="col-md-2 align-self-center">';
-                            html += '       <i style="cursor: pointer" class="fas fa-trash" onclick="destroy_variable(' + value.id + ', ' + j.id + ')"></i>';
+                            html += '       <i style="cursor: pointer" class="fas fa-trash" onclick="destroy_variable(' + value.id + ', ' + j
+                                .id + ')"></i>';
                             html += '   </div>';
 
                             $('#variavel_etapa').append(html);
@@ -472,7 +487,7 @@
         function categoria(sub_categoria) {
             var categoria = selectCategoria.val();
 
-            if (categoria != '') {
+            if (categoria != '' && categoria != null) {
                 $.ajax({
                     url: `${base_url}/api/v1/categories/${categoria}?sub-categories=1`,
                     type: "GET",

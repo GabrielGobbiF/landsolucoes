@@ -84,7 +84,7 @@
     <!-- Nav tabs -->
     <div class="container">
         <div class="d-flex ">
-            <ul class="nav nav-pills nav-justified" role="tablist" id="nav-links-rdse">
+            <ul id="nav-links-rdse" class="nav nav-pills nav-justified" role="tablist">
                 <li class="nav-item waves-effect waves-light">
                     <a class="nav-link" data-toggle="tab" href="#rdse-dados_tab" role="tab">
                         <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -112,67 +112,122 @@
 
     <div class="tab-content pt-4 text-muted">
 
-        <div class="tab-pane" id="rdse-dados_tab" role="tabpanel">
+        <div id="rdse-dados_tab" class="tab-pane" role="tabpanel">
             <div class="container">
                 <div class='card'>
                     <div class='card-body'>
-                        <form role="form" class="needs-validation" novalidate id="form-rdse" autocomplete="off" action="{{ route('rdse.update', $rdse->id) }}" method="POST">
+                        <form id="form-rdse" role="form" class="needs-validation" novalidate autocomplete="off" action="{{ route('rdse.update', $rdse->id) }}"
+                              method="POST">
                             @csrf
                             @method('put')
                             @include('pages.painel._partials.forms.form-rdse')
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
-                            <button type="button" class="btn btn-primary js-btn-delete float-left"
-                                data-text="Excluir RDSE" data-href="{{ route('rdse.destroy', $rdse->id) }}"><i class="fas fa-trash"></i>
+                            <button type="button" class="btn btn-primary js-btn-delete float-left" data-text="Excluir RDSE"
+                                    data-href="{{ route('rdse.destroy', $rdse->id) }}"><i class="fas fa-trash"></i>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane active show" id="rdse-services_tab" role="tabpanel">
+        <div id="rdse-services_tab" class="tab-pane active show" role="tabpanel">
             <div class='card'>
                 <div class='card-body' style="padding: 1rem 1rem 0 1rem;">
-                    <div class="d-flex justify-content-between mb-2" style="align-items: end;">
-                        <div>
-                            <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Atualizado Sigeo</h5>
-                            <div class="d-flex flex-wrap">
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control form-control-sm input-update date" name="croqui_atualizado_data" placeholder="Data"
-                                        value="{{ !empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data, 'pt') : '' }}">
-                                </div>
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control form-control-sm input-update" name="croqui_atualizado_responsavel" placeholder="Responsável"
-                                        value="{{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Validado</h5>
-                            <div class="d-flex flex-wrap">
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control form-control-sm input-update date" name="croqui_validado_data" placeholder="Data"
-                                        value="{{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }}">
-                                </div>
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control form-control-sm input-update" name="croqui_validado_responsavel" placeholder="Responsável"
-                                        value="{{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}">
+
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Atualizado Sigeo</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="croqui_atualizado_data"
+                                                       placeholder="Data"
+                                                       value="{{ !empty($rdse->croqui_atualizado_data) ? return_format_date($rdse->croqui_atualizado_data, 'pt') : '' }}">
+                                            </div>
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update" name="croqui_atualizado_responsavel"
+                                                       placeholder="Responsável"
+                                                       value="{{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <h5 class="font-size-12"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
-                            <div class="d-flex flex-wrap">
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control form-control-sm input-update date" name="croqui_finalizado_data" placeholder="Data"
-                                        value="{{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }}">
+                        <div class="col-12 col-md-2">
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Croqui Validado</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="croqui_validado_data"
+                                                       placeholder="Data"
+                                                       value="{{ !empty($rdse->croqui_validado_data) ? return_format_date($rdse->croqui_validado_data, 'pt') : '' }}">
+                                            </div>
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update" name="croqui_validado_responsavel"
+                                                       placeholder="Responsável"
+                                                       value="{{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="input-group mb-3 w-auto">
-                                    <input type="text" class="form-control form-control-sm input-update" name="croqui_finalizado_responsavel" placeholder="Responsável"
-                                        value="{{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Obra Finalizada</h5>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="croqui_finalizado_data"
+                                                       placeholder="Data"
+                                                       value="{{ !empty($rdse->croqui_finalizado_data) ? return_format_date($rdse->croqui_finalizado_data, 'pt') : '' }}">
+                                            </div>
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update" name="croqui_finalizado_responsavel"
+                                                       placeholder="Responsável"
+                                                       value="{{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Status APR </h5>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="apr_at"
+                                                       placeholder="Data da APR"
+                                                       value="{{ !empty($rdse->apr_at) ? return_format_date($rdse->apr_at, 'pt') : '' }}">
+                                            </div>
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update" name="apr_id" placeholder="APR ID"
+                                                       value="{{ !empty($rdse->apr_id) ? $rdse->apr_id : '' }}">
+                                            </div>
+
+                                            <span>
+
+                                                <div class='badge badge-soft-{{ $rdse->StatusAPR['badge'] }} font-size-18'>
+                                                    {{ $rdse->StatusAPR['status'] }}
+                                                </div>
+
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="d-flex justify-content-between" style="align-items: end;">
                         <div class="d-grid float-right mb-2" style="display: grid">
@@ -252,51 +307,41 @@
                                 </thead>
                                 <tbody id="services-row">
                                     @foreach ($rdseServices as $service)
-                                        <tr class="service-row" data-id="{{ $service->id }}" id="services_{{ $service->id }}">
+                                        <tr id="services_{{ $service->id }}" class="service-row" data-id="{{ $service->id }}">
                                             <th class="d-none">
                                                 <input type="hidden" name="serviceId[]" value="{{ $service->id }}">
                                             </th>
                                             <th>
                                                 <div class="form-group">
-                                                    <input type="time" class="form-control form-control-sm chegada_obra"
-                                                        id="chegada_obra_{{ $service->id }}"
-                                                        name="chegada[]"
-                                                        data-id="{{ $service->id }}"
-                                                        value="{{ $service->chegada }}" />
+                                                    <input id="chegada_obra_{{ $service->id }}" type="time"
+                                                           class="form-control form-control-sm chegada_obra" name="chegada[]" data-id="{{ $service->id }}"
+                                                           value="{{ $service->chegada }}" />
                                                 </div>
                                             </th>
                                             <th>
                                                 <div class="form-group ">
-                                                    <input min="0" type="number" class="form-control form-control-sm qnt_minutos"
-                                                        id="qnt_minutos_{{ $service->id }}"
-                                                        name="minutos[]"
-                                                        data-id="{{ $service->id }}"
-                                                        value="{{ $service->minutos }}" />
+                                                    <input id="qnt_minutos_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm qnt_minutos" name="minutos[]" data-id="{{ $service->id }}"
+                                                           value="{{ $service->minutos }}" />
                                                 </div>
                                             </th>
 
                                             <th>
                                                 <div class="form-group ">
-                                                    <input class="form-control form-control-sm saida_obra"
-                                                        name="saida[]"
-                                                        required readonly tabindex="-1"
-                                                        value="{{ !empty($service->saida) ? $service->saida : '' }}" />
+                                                    <input class="form-control form-control-sm saida_obra" name="saida[]" required readonly tabindex="-1"
+                                                           value="{{ !empty($service->saida) ? $service->saida : '' }}" />
                                                 </div>
                                             </th>
 
                                             <th>
-                                                <input class="form-control form-control-sm hours"
-                                                    name="horas[]"
-                                                    id="hours_{{ $service->id }}" readonly
-                                                    data-id="{{ $service->id }}"
-                                                    value="{{ !empty($service->horas) ? $service->horas : '' }}"
-                                                    tabindex="-1" />
+                                                <input id="hours_{{ $service->id }}" class="form-control form-control-sm hours" name="horas[]" readonly
+                                                       data-id="{{ $service->id }}" value="{{ !empty($service->horas) ? $service->horas : '' }}"
+                                                       tabindex="-1" />
                                             </th>
 
                                             <th>
-                                                <select name="codigo_sap[]" class="form-control form-control-sm select2 codigo_sap"
-                                                    placeholder="Código SAP"
-                                                    data-id="{{ $service->id }}">
+                                                <select name="codigo_sap[]" class="form-control form-control-sm select2 codigo_sap" placeholder="Código SAP"
+                                                        data-id="{{ $service->id }}">
                                                     @if (!empty($service->codigo_sap))
                                                         <option value="{{ $service->codigo_sap }}">
                                                             {{ !empty($service->handswork) ? $service->handswork->code : '' }}
@@ -308,95 +353,76 @@
                                             </th>
 
                                             <th>
-                                                <input class="form-control form-control-sm description_sap"
-                                                    name="description[]"
-                                                    id="description_sap_{{ $service->id }}"
-                                                    value="{{ !empty($service->description) ? $service->description : (!empty($service->handswork) ? $service->handswork->description : '') }}" />
+                                                <input id="description_sap_{{ $service->id }}" class="form-control form-control-sm description_sap"
+                                                       name="description[]"
+                                                       value="{{ !empty($service->description) ? $service->description : (!empty($service->handswork) ? $service->handswork->description : '') }}" />
                                             </th>
 
                                             <th>
-                                                <input type="hidden" id="price_ups_{{ $service->id }}" value="{{ !empty($service->handswork) ? $service->handswork->price_ups : '0' }}">
+                                                <input id="price_ups_{{ $service->id }}" type="hidden"
+                                                       value="{{ !empty($service->handswork) ? $service->handswork->price_ups : '0' }}">
                                                 <input
-                                                    min="0"
-                                                    type="number"
-                                                    class="form-control form-control-sm conversion"
-                                                    name="qnt_atividade[]" id="conversion_{{ $service->id }}"
-                                                    data-id="{{ $service->id }}"
-                                                    value="{{ !empty($service->qnt_atividade) ? $service->qnt_atividade : '0' }}" />
+                                                       id="conversion_{{ $service->id }}" min="0" type="number"
+                                                       class="form-control form-control-sm conversion" name="qnt_atividade[]" data-id="{{ $service->id }}"
+                                                       value="{{ !empty($service->qnt_atividade) ? $service->qnt_atividade : '0' }}" />
                                             </th>
                                             <th>
-                                                <input class="form-control form-control-sm price_total_hours money"
-                                                    name="preco[]"
-                                                    id="price_total_hours_{{ $service->id }}"
-                                                    value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
+                                                <input id="price_total_hours_{{ $service->id }}" class="form-control form-control-sm price_total_hours money"
+                                                       name="preco[]" value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
                                             </th>
 
                                             @if ($rdse->parcial_1)
                                                 <th>
                                                     <input
-                                                        min="0"
-                                                        type="number"
-                                                        class="form-control form-control-sm quantidade_parcial"
-                                                        name="p_quantidade1[]" id="p_quantidade1_{{ $service->id }}"
-                                                        data-id="{{ $service->id }}"
-                                                        data-parcial="1"
-                                                        value="{{ !empty($service->p_quantidade1) ? $service->p_quantidade1 : '0' }}" />
+                                                           id="p_quantidade1_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm quantidade_parcial" name="p_quantidade1[]"
+                                                           data-id="{{ $service->id }}" data-parcial="1"
+                                                           value="{{ !empty($service->p_quantidade1) ? $service->p_quantidade1 : '0' }}" />
                                                 </th>
                                                 <th>
-                                                    <input class="form-control form-control-sm price_parcial price_parcial1 money"
-                                                        name="p_preco1[]"
-                                                        id="price_total_parcial1_{{ $service->id }}"
-                                                        data-parcial="1"
-                                                        data-id="{{ $service->id }}"
-                                                        value="{{ !empty($service->p_preco1) ? $service->p_preco1 : '0' }}" />
+                                                    <input id="price_total_parcial1_{{ $service->id }}"
+                                                           class="form-control form-control-sm price_parcial price_parcial1 money" name="p_preco1[]"
+                                                           data-parcial="1" data-id="{{ $service->id }}"
+                                                           value="{{ !empty($service->p_preco1) ? $service->p_preco1 : '0' }}" />
                                                 </th>
                                             @endif
 
                                             @if ($rdse->parcial_2)
                                                 <th>
                                                     <input
-                                                        min="0"
-                                                        type="number"
-                                                        class="form-control form-control-sm quantidade_parcial"
-                                                        name="p_quantidade2[]" id="p_quantidade2_{{ $service->id }}"
-                                                        data-id="{{ $service->id }}"
-                                                        data-parcial="2"
-                                                        value="{{ !empty($service->p_quantidade2) ? $service->p_quantidade2 : '0' }}" />
+                                                           id="p_quantidade2_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm quantidade_parcial" name="p_quantidade2[]"
+                                                           data-id="{{ $service->id }}" data-parcial="2"
+                                                           value="{{ !empty($service->p_quantidade2) ? $service->p_quantidade2 : '0' }}" />
                                                 </th>
                                                 <th>
-                                                    <input class="form-control form-control-sm price_parcial price_parcial2 money"
-                                                        name="p_preco2[]"
-                                                        id="price_total_parcial2_{{ $service->id }}"
-                                                        data-parcial="2"
-                                                        data-id="{{ $service->id }}"
-                                                        value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" />
+                                                    <input id="price_total_parcial2_{{ $service->id }}"
+                                                           class="form-control form-control-sm price_parcial price_parcial2 money" name="p_preco2[]"
+                                                           data-parcial="2" data-id="{{ $service->id }}"
+                                                           value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" />
                                                 </th>
                                             @endif
 
                                             @if ($rdse->parcial_3)
                                                 <th>
                                                     <input
-                                                        min="0"
-                                                        type="number"
-                                                        class="form-control form-control-sm quantidade_parcial"
-                                                        name="p_quantidade3[]" id="p_quantidade3_{{ $service->id }}"
-                                                        data-id="{{ $service->id }}"
-                                                        data-parcial="3"
-                                                        value="{{ !empty($service->p_quantidade3) ? $service->p_quantidade3 : '0' }}" />
+                                                           id="p_quantidade3_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm quantidade_parcial" name="p_quantidade3[]"
+                                                           data-id="{{ $service->id }}" data-parcial="3"
+                                                           value="{{ !empty($service->p_quantidade3) ? $service->p_quantidade3 : '0' }}" />
                                                 </th>
                                                 <th>
-                                                    <input class="form-control form-control-sm price_parcial price_parcial3 money"
-                                                        name="p_preco3[]"
-                                                        id="price_total_parcial3_{{ $service->id }}"
-                                                        data-id="{{ $service->id }}"
-                                                        data-parcial="3"
-                                                        value="{{ !empty($service->p_preco3) ? $service->p_preco3 : '0' }}" />
+                                                    <input id="price_total_parcial3_{{ $service->id }}"
+                                                           class="form-control form-control-sm price_parcial price_parcial3 money" name="p_preco3[]"
+                                                           data-id="{{ $service->id }}" data-parcial="3"
+                                                           value="{{ !empty($service->p_preco3) ? $service->p_preco3 : '0' }}" />
                                                 </th>
                                             @endif
 
                                             @if ($rdse->status == 'pending' || $rdse->status == 'approval')
                                                 <th>
-                                                    <a type="button" href="javascript:void(0)" onclick="deleteService(`{{ $service->id }}`)" class="" tabindex="-1">
+                                                    <a type="button" href="javascript:void(0)" onclick="deleteService(`{{ $service->id }}`)" class=""
+                                                       tabindex="-1">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </th>
@@ -447,13 +473,12 @@
 
                                         <!-- Tab panes -->
                                         <div class="tab-content mt-2 text-muted">
-                                            <div class="tab-pane active" id="observations-1" role="tabpanel">
-                                                <textarea style="height:auto !important" name="observations" id="textarea-observations" cols="5" rows="4"
-                                                    class="form-control input-update">{{ $rdse->observations }}</textarea>
+                                            <div id="observations-1" class="tab-pane active" role="tabpanel">
+                                                <textarea id="textarea-observations" style="height:auto !important" name="observations" cols="5" rows="4" class="form-control input-update">{{ $rdse->observations }}</textarea>
                                             </div>
-                                            <div class="tab-pane" id="observations_execution-1" role="tabpanel">
-                                                <textarea style="height:auto !important" name="observations_execution" id="textarea-observations_execution" cols="5" rows="4"
-                                                    class="form-control input-update">{{ $rdse->observations_execution }}</textarea>
+                                            <div id="observations_execution-1" class="tab-pane" role="tabpanel">
+                                                <textarea id="textarea-observations_execution" style="height:auto !important" name="observations_execution" cols="5" rows="4"
+                                                          class="form-control input-update">{{ $rdse->observations_execution }}</textarea>
                                             </div>
                                         </div>
 
@@ -462,27 +487,25 @@
                                     <div class="col-4">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                                    <a class="nav-link mb-2 active" id="v-pills-total-tab" data-toggle="pill" href="#v-pills-total" role="tab" aria-controls="v-pills-total"
-                                                        aria-selected="true">Total</a>
+                                                <div id="v-pills-tab" class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                                                    <a id="v-pills-total-tab" class="nav-link mb-2 active" data-toggle="pill" href="#v-pills-total"
+                                                       role="tab" aria-controls="v-pills-total" aria-selected="true">Total</a>
 
                                                     @if ($rdse->parcial_1 == 1)
-                                                        <a class="nav-link mb-2" id="v-pills-parcial_1-tab" data-toggle="pill" href="#v-pills-parcial_1" role="tab"
-                                                            aria-controls="v-pills-parcial_1"
-                                                            aria-selected="false">Parcial 2
+                                                        <a id="v-pills-parcial_1-tab" class="nav-link mb-2" data-toggle="pill" href="#v-pills-parcial_1"
+                                                           role="tab" aria-controls="v-pills-parcial_1" aria-selected="false">Parcial 2
                                                         </a>
                                                     @endif
 
                                                     @if ($rdse->parcial_2 == 1)
-                                                        <a class="nav-link mb-2" id="v-pills-parcial_2-tab" data-toggle="pill" href="#v-pills-parcial_2" role="tab"
-                                                            aria-controls="v-pills-parcial_2"
-                                                            aria-selected="false">Parcial 3
+                                                        <a id="v-pills-parcial_2-tab" class="nav-link mb-2" data-toggle="pill" href="#v-pills-parcial_2"
+                                                           role="tab" aria-controls="v-pills-parcial_2" aria-selected="false">Parcial 3
                                                         </a>
                                                     @endif
 
                                                     @if ($rdse->parcial_3 == 1)
-                                                        <a class="nav-link" id="v-pills-parcial_3-tab" data-toggle="pill" href="#v-pills-parcial_3" role="tab" aria-controls="v-pills-parcial_3"
-                                                            aria-selected="false">Parcial 4
+                                                        <a id="v-pills-parcial_3-tab" class="nav-link" data-toggle="pill" href="#v-pills-parcial_3"
+                                                           role="tab" aria-controls="v-pills-parcial_3" aria-selected="false">Parcial 4
                                                         </a>
                                                     @endif
 
@@ -490,8 +513,9 @@
                                             </div>
 
                                             <div class="col-md-8">
-                                                <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
-                                                    <div class="tab-pane fade show active" id="v-pills-total" role="tabpanel" aria-labelledby="v-pills-total-tab">
+                                                <div id="v-pills-tabContent" class="tab-content text-muted mt-4 mt-md-0">
+                                                    <div id="v-pills-total" class="tab-pane fade show active" role="tabpanel"
+                                                         aria-labelledby="v-pills-total-tab">
 
                                                         <div class="row row-xs no-gutters">
                                                             <dt class="col-sm-6">Total Espera</dt>
@@ -508,8 +532,8 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="tab-pane fade" id="v-pills-parcial_1" role="tabpanel" aria-labelledby="v-pills-parcial_1-tab">
-                                                        <div class="row row-xs no-gutters" id="row-total_parcial_1">
+                                                    <div id="v-pills-parcial_1" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_1-tab">
+                                                        <div id="row-total_parcial_1" class="row row-xs no-gutters">
                                                             <dt class="col-sm-6">Total Espera</dt>
                                                             <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
 
@@ -523,8 +547,8 @@
                                                             <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="v-pills-parcial_2" role="tabpanel" aria-labelledby="v-pills-parcial_2-tab">
-                                                        <div class="row row-xs no-gutters" id="row-total_parcial_2">
+                                                    <div id="v-pills-parcial_2" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_2-tab">
+                                                        <div id="row-total_parcial_2" class="row row-xs no-gutters">
                                                             <dt class="col-sm-6">Total Espera</dt>
                                                             <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
 
@@ -538,8 +562,8 @@
                                                             <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="v-pills-parcial_3" role="tabpanel" aria-labelledby="v-pills-parcial_3-tab">
-                                                        <div class="row row-xs no-gutters" id="row-total_parcial_3">
+                                                    <div id="v-pills-parcial_3" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_3-tab">
+                                                        <div id="row-total_parcial_3" class="row row-xs no-gutters">
                                                             <dt class="col-sm-6">Total Espera</dt>
                                                             <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
 
@@ -578,7 +602,7 @@
                     </form>
 
                     <div class="mb-2">
-                        <button type="button" class="btn btn-primary" id="button_modal-rdse-codigo">
+                        <button id="button_modal-rdse-codigo" type="button" class="btn btn-primary">
                             Visualizar Códigos
                         </button>
 
@@ -597,9 +621,10 @@
                                 Adicionar Serviços de Modelo
                             </button>
 
-                            <div class='modal' id='addServicesByModel' tabindex='-1' role='dialog'>
+                            <div id='addServicesByModel' class='modal' tabindex='-1' role='dialog'>
                                 <div class='modal-dialog' role='document'>
-                                    <form id='form-add-services-byModel' role='form' class='needs-validation' action='{{ route('rdse.add.service.by.model', $rdse->id) }}' method='POST'>
+                                    <form id='form-add-services-byModel' role='form' class='needs-validation'
+                                          action='{{ route('rdse.add.service.by.model', $rdse->id) }}' method='POST'>
                                         @csrf
                                         <div class='modal-content'>
                                             <div class='modal-header'>
@@ -623,11 +648,11 @@
 
                         @if (auth()->user()->id == 8 || auth()->user()->id == 1)
                             <a class="btn btn-info btn-confirm" href="#"
-                                onclick="event.preventDefault();document.getElementById('form-attServices').submit();">
+                               onclick="event.preventDefault();document.getElementById('form-attServices').submit();">
                                 <i class="fas fa-sign-out-alt"></i>
                                 Atualizar Todos os Valores
-                                <form id="form-attServices" onSubmit="if(!confirm('Tem certeza que deseja atualizar os valores?')){return false;}" action="{{ route('rdse.att.services', $rdse->id) }}"
-                                    method="POST" class="d-none">
+                                <form id="form-attServices" onSubmit="if(!confirm('Tem certeza que deseja atualizar os valores?')){return false;}"
+                                      action="{{ route('rdse.att.services', $rdse->id) }}" method="POST" class="d-none">
                                     @method('PUT')
                                     @csrf
                                 </form>
@@ -636,7 +661,7 @@
 
                     </div>
 
-                    <div class="modal" id="modal-rdse-codigo" tabindex="-1" role="dialog">
+                    <div id="modal-rdse-codigo" class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -648,7 +673,7 @@
                                 <div class="modal-body">
                                     <div class="row row-sm no-gutters">
                                         <div class="col-md-6">
-                                            <table class="table table-hover" id="table-codigos-rdse">
+                                            <table id="table-codigos-rdse" class="table table-hover">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th>#</th>
@@ -659,7 +684,7 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <table class="table table-hover" id="table-qnt-rdse">
+                                            <table id="table-qnt-rdse" class="table table-hover">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th>Qnt</th>
@@ -905,7 +930,7 @@
                 let chegada_obra_line = $(`#chegada_obra_${line}`);
                 let hours = $(this).find(`.hours`);
 
-                //add minutes 
+                //add minutes
                 var chegada_obra_date = moment(chegada_obra, "HH:mm:ss")
                 var saida_obra_date = chegada_obra_date.add(minute, 'minutes');
 
@@ -1053,36 +1078,36 @@
                     id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
                 </div>
             </th>
-        
+
             <th>
                 <div class="form-group ">
                     <input class="form-control form-control-sm  saida_obra" name="saida[]" required readonly tabindex="-1"/>
                 </div>
             </th>
-        
+
             <th>
                 <input class="form-control form-control-sm  hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
             </th>
-        
+
             <th>
                 <select name="codigo_sap[]" class="form-control form-control-sm  select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
-                    <option value="" selected> Selecione  </option>  
+                    <option value="" selected> Selecione  </option>
                 </select>
             </th>
-        
+
             <th>
                 <input class="form-control form-control-sm  description_sap" name="description[]" id="description_sap_${line}" />
             </th>
-        
+
             <th>
                 <input type="hidden" id="price_ups_${line}">
-                <input class="form-control form-control-sm  conversion" 
-                name="qnt_atividade[]" id="conversion_${line}" 
+                <input class="form-control form-control-sm  conversion"
+                name="qnt_atividade[]" id="conversion_${line}"
                 data-id="${line}"
-                tabindex="-1" 
+                tabindex="-1"
                 value="0" />
             </th>
-        
+
             <th>
                 <input class="form-control form-control-sm  price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
             </th>`;
@@ -1351,9 +1376,9 @@
         });
     </script>
 
-    <script class="">
+    <script>
         let timeUpdateColumns
-        $('.input-update').on('keyup', function() {
+        $('.input-update').on('change', function() {
             let collumn = $(this).attr('name');
             let value = $(this).val();
             $('.input-update ').not(this).attr('disabled', true);

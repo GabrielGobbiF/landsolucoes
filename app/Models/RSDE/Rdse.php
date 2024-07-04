@@ -2,7 +2,9 @@
 
 namespace App\Models\RSDE;
 
+use App\Casts\Date;
 use App\Traits\LogTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Rdse extends Model
 {
-    use HasFactory, SoftDeletes, LogTrait,LogsActivity;
+    use HasFactory, SoftDeletes, LogTrait, LogsActivity;
 
     protected static $logName = 'RDSE';
 
@@ -48,9 +50,41 @@ class Rdse extends Model
         'parcial_2_at',
         'parcial_3_at',
         'status_execution',
+
+        'apr_at',
+        'apr_id',
     ];
 
-    protected $appends = ['StatusLabel'];
+    protected $appends = ['StatusLabel', 'StatusAPR'];
+
+    public function getStatusAPRAttribute()
+    {
+        $date = Carbon::parse(formatDateAndTime($this->apr_at, 'Y-m-d'));
+
+        $now = Carbon::now();
+
+        $diffInDays = $date->diffInDays($now);
+
+        if ($diffInDays <= 10) {
+            return [
+                'status' => 'Em Validação',
+                'color' => 'red',
+                'badge' => 'info',
+            ];
+        } elseif ($diffInDays > 10 && $diffInDays <= 45) {
+            return [
+                'status' => 'Aprovada',
+                'badge' => 'success',
+                'color' => 'success',
+            ];
+        } else {
+            return [
+                'status' => 'Vencida',
+                'badge' => 'danger',
+                'color' => 'danger',
+            ];
+        }
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -83,6 +117,18 @@ class Rdse extends Model
         'parcial_2_at',
         'parcial_3_at',
         'status_execution',
+
+        'apr_at',
+        'apr_id',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'apr_at' => Date::class,
     ];
 
     public function services()

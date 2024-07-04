@@ -52,7 +52,6 @@ class RdseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreUpdateRdse $request)
     {
@@ -75,7 +74,6 @@ class RdseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Rdse  $identify
-     * @return \Illuminate\Http\Response
      */
     public function show(int $identify)
     {

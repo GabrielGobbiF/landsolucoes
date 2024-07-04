@@ -28,20 +28,30 @@ class CreateRdsesTable extends Migration
             $table->string('type');                             // Emergencia, LDS, Manutenção, Futurabilit, Civil
             $table->string('status')->default('pending');       // pending, review, approved, approval
             $table->string('modelo')->default(false);           // 1 true = é um modelo
-            $table->longtext('observations')->nullable();   
-            $table->longtext('observations_execution')->nullable();   
-            
-            $table->integer('parcial_1')->default('0')->nullable();          
-            $table->integer('parcial_2')->default('0')->nullable();          
-            $table->integer('parcial_3')->default('0')->nullable();    
-            
-            $table->timestamp('parcial_1_at')->nullable();          
-            $table->timestamp('parcial_2_at')->nullable();          
-            $table->timestamp('parcial_3_at')->nullable();          
-            
-            
-            $table->string('nf')->nullable();          
-            $table->timestamp('date_nfe_at')->nullable();          
+            $table->longtext('observations')->nullable();
+            $table->longtext('observations_execution')->nullable();
+
+            $table->integer('parcial_1')->default('0')->nullable();
+            $table->integer('parcial_2')->default('0')->nullable();
+            $table->integer('parcial_3')->default('0')->nullable();
+
+            $table->timestamp('parcial_1_at')->nullable();
+            $table->timestamp('parcial_2_at')->nullable();
+            $table->timestamp('parcial_3_at')->nullable();
+
+            $table->string('nf')->nullable();
+            $table->timestamp('date_nfe_at')->nullable();
+
+            $table->string('croqui_atualizado_data')->nullable();
+            $table->string('croqui_atualizado_responsavel')->nullable();
+            $table->string('croqui_validado_data')->nullable();
+            $table->string('croqui_validado_responsavel')->nullable();
+            $table->string('croqui_finalizado_data')->nullable();
+            $table->string('croqui_finalizado_responsavel')->nullable();
+            $table->string('status_execution')->nullable();
+
+            $table->string('apr_at')->nullable();
+            $table->string('apr_id')->nullable();
 
             $table->timestamps();
 
