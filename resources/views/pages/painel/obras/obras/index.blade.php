@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table data-toggle="table" id="table-api" data-table="obras" data-search-text="nº nota, razão social" data-target="true">
+                        <table data-toggle="table" id="table-api" data-table="obras" data-search-text="" data-target="true">
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true" data-visible="false">#</th>
