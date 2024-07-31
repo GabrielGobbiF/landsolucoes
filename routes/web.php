@@ -257,6 +257,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('comercial/{comercial_id}/updateStatus', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateStatus'])->name('comercial.update.status');
             Route::post('comercial/{comercial_id}/updateFinanceiro', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateOrCreateFinanceiro'])->name('comercial.update.financeiro');
             Route::post('comercial/approved', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'approved'])->name('comercial.approved');
+
+            Route::put('comercial/{comercialId}/edit-data', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateData'])->name('comercial.updata.data');
+            Route::get('comercial/{comercialId}/edit-data', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'edit'])->name('comercial.edit');
             Route::resource('comercial', App\Http\Controllers\Painel\Obras\ComercialController::class);
 
             /*

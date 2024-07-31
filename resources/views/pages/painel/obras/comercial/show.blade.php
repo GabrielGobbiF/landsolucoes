@@ -55,9 +55,13 @@
                                 <div class="col-md-12">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Dados</h3>
+                                        @if ($comercial->status->value == 'elaboração')
+                                            <a href="{{ route('comercial.edit', $comercial->id) }}" class="btn btn-primary float-right">
+                                                Atualizar Dados
+                                            </a>
+                                        @endif
                                     </div>
                                     <div class="box-body">
-
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -381,6 +385,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')

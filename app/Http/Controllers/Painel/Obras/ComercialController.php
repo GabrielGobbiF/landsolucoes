@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel\Obras;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Comercial\UpdateData;
 use App\Http\Requests\StoreUpdateComercial;
 use App\Http\Resources\ObraFinanceiroResource;
 use App\Models\Addres;
@@ -20,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class ComercialController extends Controller
 {
@@ -69,6 +71,57 @@ class ComercialController extends Controller
             'services' => $services,
             'concessionarias' => $concessionarias,
         ]);
+    }
+
+    public function edit($comercialId)
+    {
+        if (!$comercial = $this->repository->where('id', $comercialId)->with('service')->with('concessionaria')->with('viabilizacao')->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $clients = Client::all();
+        $services = Service::all();
+        $concessionarias = Concessionaria::all();
+
+        return view('pages.painel.obras.comercial.edit', [
+            'comercial' => $comercial,
+            'clients' => $clients,
+            'services' => $services,
+            'concessionarias' => $concessionarias,
+        ]);
+    }
+
+    public function updateData(UpdateData $request, $comercialId)
+    {
+        if (!$comercial = $this->repository->where('id', $comercialId)->with('service')->with('concessionaria')->with('viabilizacao')->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        throw_if(
+            $comercial->status->value != 'elaboração',
+            ValidationException::withMessages(['message' => 'Só é possivel alterar um comercial com status em Elaboração'])
+        );
+
+        $comercial->etapas()->delete();
+        $concessionaria_id = $request->input('concessionaria_id');
+        $service_id = $request->input('service_id');
+        if (!$concessionaria = Concessionaria::where('id', $concessionaria_id)->first()) {
+            return redirect()
+                ->route('comercial.index')
+                ->with('error', 'Registro Concessionaria não encontrado!');
+        }
+        $etapas = $concessionaria->etapas($service_id)->get();
+        $this->storeEtapasComercial($etapas, $comercial->id);
+
+        $comercial->update($request->validated());
+
+        return redirect()
+            ->route('comercial.show', $comercial->id)
+            ->with('message', 'Atualizado!');
     }
 
     /**
@@ -242,8 +295,6 @@ class ComercialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Test  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdateComercial $request, $id)
     {

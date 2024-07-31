@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Comercial;
 
 use App\Models\Client;
 use Illuminate\Foundation\Http\FormRequest;
 use Validator as Validator;
 
-class StoreUpdateComercial extends FormRequest
+class UpdateData extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,14 +37,6 @@ class StoreUpdateComercial extends FormRequest
             'requester_email' => ['required'],
             'requester_phone' => ['required'],
         ];
-
-        if ($this->method() == 'PUT') {
-            $rules = [
-                'client_id' => ['nullable'],
-                'service_id' => ['nullable'],
-                'concessionaria_id' => ['nullable'],
-            ];
-        }
 
         return $rules;
     }
