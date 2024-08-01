@@ -10,10 +10,10 @@ return [
             'aprovada' => 'Aprovada',
             'recusada' => 'Recusada',
             'concluida' => 'Concluida',
+
+            'email_reminder_elaboracao' => 'Enviado um email de lembrete para o Responsável CENA'
         ],
 
-        'label' => [
-
-        ]
+        'label' => []
     ]
 ];

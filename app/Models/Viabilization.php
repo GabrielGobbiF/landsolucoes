@@ -23,6 +23,7 @@ class Viabilization extends Model
         'elaboracao',
         'elaboracao_comentario',
         'viavel',
+        'responsavel_id',
     ];
 
     protected $table = 'obras_viabilizations';

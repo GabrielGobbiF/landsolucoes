@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Epi;
+use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -357,4 +358,9 @@ function __date_format($date, $format = 'd/m/Y')
 function _mix($path)
 {
     return config('app.env') == 'production' ? url(asset(mix($path))) : asset($path);
+}
+
+function users()
+{
+    return User::all();
 }

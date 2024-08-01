@@ -300,8 +300,20 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Responsável</label>
-                                                    <input id="responsavel" type="text" class="form-control" name="viabilizacao[responsavel]"
+                                                    <input id="responsavel" type="hidden" class="form-control" name="viabilizacao[responsavel]"
                                                            value="{{ isset($comercial) && isset($comercial->viabilizacao) ? $comercial->viabilizacao->responsavel : old('viabilizacao.responsavel') }}">
+
+                                                    <select id="select--reponsavel_id" name="viabilizacao[responsavel_id]"
+                                                            class="form-control select2 select--reponsavel_id @error('reponsavel_id') is-invalid @enderror">
+                                                        <option value="" selected>Selecione</option>
+                                                        @foreach (users() as $user)
+                                                            <option {{ isset($comercial) && $comercial->viabilizacao->responsavel_id == $user->id ? 'selected' : '' }}
+                                                                    {{ old('viabilizacao[reponsavel_id]') == $user->id ? 'selected' : '' }}
+                                                                    {{ Request::input('viabilizacao[reponsavel_id]') == $user->id ? 'selected' : '' }}
+                                                                    value="{{ $user->id }}"> {{ $user->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
 
