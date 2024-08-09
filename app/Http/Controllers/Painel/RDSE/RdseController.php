@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Painel\RDSE;
 
+use App\Exports\MedicaoExport;
 use App\Models\RSDE\Rdse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateRdse;
@@ -10,6 +11,7 @@ use App\Models\RSDE\RdseServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RdseController extends Controller
 {
@@ -504,5 +506,30 @@ class RdseController extends Controller
         return redirect()
             ->back()
             ->with('message', 'Serviços atualizados com sucesso');
+    }
+
+    public function excel($rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdsee) não encontrado!');
+        }
+
+        $services = DB::select('SELECT
+            handsworks.code,
+            rdse_services.description,
+            handsworks.price_ups,
+            rdse_services.qnt_atividade
+
+            FROM rdse_services
+
+            INNER JOIN handsworks on handsworks.id = rdse_services.codigo_sap
+            where rdse_services.rdse_id = ?
+            ;', [$rdse->id]);
+
+        $services = collect($services);
+
+        return Excel::download(new MedicaoExport($services), slug($rdse->n_order, '_') . '.xlsx');
     }
 }

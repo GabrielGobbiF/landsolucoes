@@ -610,6 +610,11 @@
                             <i class="fas fa-pdf"></i> Visualizar PDF
                         </a>
 
+                        <a type="button" class="btn btn-outline-success" target="_blank" href="{{ route('rdse.excel', $rdse->id) }}">
+                            <i class="fa fa-file-excel"></i>
+                            Exportar Excel
+                        </a>
+
                         @if ($rdse->status != 'invoice')
                             <a href="{{ route('rdse.duplicate', $rdse->id) }}" type="button" class="btn btn-info btn-confirm">
                                 Duplicar RDSE
