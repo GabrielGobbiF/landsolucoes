@@ -164,27 +164,5 @@ class BaseController extends Controller
         }
     }
 
-    public function getServicesByConcessionaria(Request $request, $concessionariaId)
-    {
-        $searchColumns = ['name'];
 
-        $q = json_decode($request->input('filters', null))?->search;
-
-        if (!$concessionaria = Concessionaria::where('id', $concessionariaId)->first()) {
-            return response(['resource not found'], 404);
-        }
-
-        $services = $concessionaria->services()
-            ->where(function ($query) use ($searchColumns, $q) {
-                $search = $q;
-                if ($search != '' && !is_null($searchColumns)) {
-                    foreach ($searchColumns as $searchColumn) {
-                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
-                    }
-                }
-            })
-            ->orderBy('name')->get() ?? [];
-
-        return ServiceResource::collection($services);
-    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Api\ObraApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,5 +45,5 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     /**
      * Concessionaria X Service
      */
-    Route::get('concessionarias/{concessionariaId}/services', [BaseController::class, 'getServicesByConcessionaria'])->name('api.concessionaria.services');
+    Route::get('concessionarias/{concessionariaId}/services', [ObraApiController::class, 'getServicesByConcessionaria'])->name('api.concessionaria.services');
 });
