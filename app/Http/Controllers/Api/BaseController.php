@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 use App\Http\Resources\EtapasFaturamento;
+use App\Http\Resources\ServiceResource;
 use App\Models\Comment;
 use App\Models\Compras\Atuacao;
+use App\Models\Concessionaria;
 use App\Models\Etapa;
 use App\Models\EtapasFaturamento as ModelsEtapasFaturamento;
 use App\Models\Obra;
@@ -160,5 +162,29 @@ class BaseController extends Controller
 
             return response()->json($obra->razao_social . '  - ' . route('obras.show', $obra->id));
         }
+    }
+
+    public function getServicesByConcessionaria(Request $request, $concessionariaId)
+    {
+        $searchColumns = ['name'];
+
+        $q = json_decode($request->input('filters', null))?->search;
+
+        if (!$concessionaria = Concessionaria::where('id', $concessionariaId)->first()) {
+            return response(['resource not found'], 404);
+        }
+
+        $services = $concessionaria->services()
+            ->where(function ($query) use ($searchColumns, $q) {
+                $search = $q;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy('name')->get() ?? [];
+
+        return ServiceResource::collection($services);
     }
 }

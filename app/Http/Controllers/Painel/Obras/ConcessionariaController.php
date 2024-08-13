@@ -69,7 +69,7 @@ class ConcessionariaController extends Controller
 
         $departments = $concessionaria->departments ?? [];
 
-        $services = $concessionaria->services ?? [];
+        $services = $concessionaria->services()->orderBy('name')->get() ?? [];
 
         $id_concessionaria = $concessionaria->id;
 

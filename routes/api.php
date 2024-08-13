@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,10 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     Route::post('rdse/{rdseId}/services', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'storeService'])->name('api.rdse.service.store');
     Route::put('rdse/{rdseId}/services/all', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateServices'])->name('api.rdse.services.update');
     Route::delete('rdse/{rdseId}/services/{serviceId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'deleteService'])->name('api.rdse.service.store');
+
+
+    /**
+     * Concessionaria X Service
+     */
+    Route::get('concessionarias/{concessionariaId}/services', [BaseController::class, 'getServicesByConcessionaria'])->name('api.concessionaria.services');
 });
