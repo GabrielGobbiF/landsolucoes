@@ -172,7 +172,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
+                            <div class="d-flex justify-content-between">
+
+                                <button type="button" onclick="btn_delete(this)" data-route="{{ route('comercial.duplicate', $comercial->id) }}"
+                                        data-action="put" data-text="Duplicar" class="btn btn-outline-primary">
+                                    Duplicar
+                                </button>
+
+                                <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
+                            </div>
                         </form>
                     </div>
 

@@ -117,7 +117,8 @@
                                 Atalhos
                                 <i class="mdi mdi-chevron-down"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" style="width: 481px" aria-labelledby="page-header-menu-dropdown">
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" style="width: 481px"
+                                 aria-labelledby="page-header-menu-dropdown">
                                 <div class="row p-4">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -160,16 +161,16 @@
                                                 <h5 class="font-size-22 tx-bold">Frotas</h5>
                                                 <ul class="list-unstyled megamenu-list">
                                                     <li>
-                                                        <a href="{{route('visitors.index')}}">Novo Visitante</a>
+                                                        <a href="{{ route('visitors.index') }}">Novo Visitante</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{route('vehicles.portaria.visitors.create')}}">Controle de Acesso</a>
+                                                        <a href="{{ route('vehicles.portaria.visitors.create') }}">Controle de Acesso</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{route('vehicles.create')}}">Novo Veiculo</a>
+                                                        <a href="{{ route('vehicles.create') }}">Novo Veiculo</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{route('drivers.index')}}">Novo Motorista</a>
+                                                        <a href="{{ route('drivers.index') }}">Novo Motorista</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -324,34 +325,34 @@
             const addModalConfirmInTheDom = btn => {
                 let token = document.querySelector('meta[name="csrf-token"]').content;
                 let route = btn.dataset.route;
-                let text = btn.dataset.btnText || 'Deletar';
+                let text = btn.dataset.text || 'Deletar';
                 let action = btn.dataset.action || 'POST';
                 let btnClass = btn.dataset.btnClass || btn.getAttribute('class');
 
                 let htmlModalEl = `
-    <div class="modal fade effect-scale" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-            <div class="modal-content">
-                <form id="form-confirm" role="form" class="needs-validation" action="${route}" method="POST">
-                    <div class="modal-header">
-                        <h6 class="modal-title"></h6>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <span class="mg-b-0 modal-text-body"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="modal-cancel" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <input type="hidden" name="_token" value="${token}">
-                        <input type="hidden" name="_method" value="${action}">
-                        <button type="submit" data-btn-text="" class="btn-modal ${btnClass}">
-                            Deletar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>`
+                    <div class="modal fade effect-scale" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                            <div class="modal-content">
+                                <form id="form-confirm" role="form" class="needs-validation" action="${route}" method="POST">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title"></h6>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <span class="mg-b-0 modal-text-body"></span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="modal-cancel" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <input type="hidden" name="_token" value="${token}">
+                                        <input type="hidden" name="_method" value="${action}">
+                                        <button type="submit" data-btn-text="" class="btn-modal ${btnClass}">
+                                            ${text}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>`
                 document.body.insertAdjacentHTML('beforeend', htmlModalEl);
 
                 //let actionModalEl = new bootstrap.Modal(document.querySelector('#modal-delete'))

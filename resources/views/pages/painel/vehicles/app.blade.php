@@ -133,9 +133,6 @@
     $('.btn-delete').on('click',function(){
         alert('oi');
     })
-
-
-
 </script>
 
 </html>

@@ -254,6 +254,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Comercial
             |--------------------------------------------------------------------------
             */
+            Route::put('comercial/{comercial_id}/duplicate', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'duplicate'])->name('comercial.duplicate');
             Route::post('comercial/{comercial_id}/updateStatus', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateStatus'])->name('comercial.update.status');
             Route::post('comercial/{comercial_id}/updateFinanceiro', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateOrCreateFinanceiro'])->name('comercial.update.financeiro');
             Route::post('comercial/approved', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'approved'])->name('comercial.approved');

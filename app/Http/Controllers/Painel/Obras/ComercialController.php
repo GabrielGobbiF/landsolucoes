@@ -382,7 +382,7 @@ class ComercialController extends Controller
 
     public function duplicate(Request $request, $id)
     {
-        $name = $request->input('name');
+        $name = $request->input('name', null);
 
         if (!$comercial = $this->repository->where('id', $id)->first()) {
             return redirect()
@@ -412,20 +412,21 @@ class ComercialController extends Controller
 
                 if (!is_bool($relationRecord)) {
                     $newRelationship = $relationRecord->replicate();
-                    $newRelationship->id = $newRecord->id;
+
+
+                    $newRelationship->id_obra = $newRecord->id;
                     $newRelationship->push();
                 }
             }
         }
 
-        $newRecord->razao_social = $name;
+        $newRecord->razao_social = $name ?? $comercial->razao_social . '_copy';
         $newRecord->save();
         $newRecord->update();
 
-        #dd($comercial->load('financeiro')->load('etapas')->load('etapas_financeiro'));
-
-        #$financeiro = $comercial->financeiro()->get();
-        #$etapas = $comercial->etapas()->get();
-        #$etapas_financeiro = $comercial->etapas_financeiro()->get();
+        return redirect()
+            ->route('comercial.show', $newRecord->id)
+            ->with('message', 'Sucesso');
     }
+
 }
