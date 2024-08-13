@@ -1,6 +1,6 @@
 @csrf
-<input type="hidden" id="concessionaria_id" value="{{ $concessionaria->id }}">
-<input type="hidden" id="concessionaria_slug" value="{{ $concessionaria->slug }}">
+<input type="hidden" id="concessionaria_id" value="{{ $concessionaria->id ?? '' }}">
+<input type="hidden" id="concessionaria_slug" value="{{ $concessionaria->slug ?? '' }}">
 <div class="box box-default box-solid">
     <div class="col-md-12">
         <div class="box-header with-border">
