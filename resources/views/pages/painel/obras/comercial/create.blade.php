@@ -254,7 +254,7 @@
                                                     class="form-control select2 select--reponsavel_id @error('reponsavel_id') is-invalid @enderror">
                                                 <option value="" selected>Selecione</option>
                                                 @foreach (users() as $user)
-                                                    <option {{ isset($comercial) && $comercial->viabilizacao->responsavel_id == $user->id ? 'selected' : '' }}
+                                                    <option {{ isset($comercial) && $comercial->viabilizacao?->responsavel_id == $user->id ? 'selected' : '' }}
                                                             {{ old('viabilizacao[reponsavel_id]') == $user->id ? 'selected' : '' }}
                                                             {{ Request::input('viabilizacao[reponsavel_id]') == $user->id ? 'selected' : '' }}
                                                             value="{{ $user->id }}"> {{ $user->name }}
