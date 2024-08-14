@@ -526,7 +526,7 @@ class TableApiController extends Controller
             })
             ->groupBy('obras.id')
             ->orderBy($this->sort, $this->order)
-            ->get($this->limit);
+            ->paginate($this->limit);
 
         return ObraResource::collection($obras);
     }
