@@ -35,7 +35,7 @@
                         @foreach (trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
                                     {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
-                                {{ __trans('rdses.status_label.' . $text) }}
+                                {{ __trans('rdses.status_label.' . $status) }}
 
                             </option>
                         @endforeach
