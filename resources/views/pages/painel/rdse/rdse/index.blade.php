@@ -2,7 +2,7 @@
 
 @section('title', "RDSE'S")
 
-@section('content')
+@section('content-max-fluid')
 
     <style>
         @media print {
@@ -30,25 +30,35 @@
         <div class="card-body">
             <div class="row mb-4 no-print">
                 <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
-                    <label>Status</label>
+                    <label>Status de Medição</label>
                     <select id="rdse-select_status" name="status" class="form-control select2 search-input-rdse" multiple>
                         @foreach (trans('rdses.status_label') as $status => $text)
                             <option value='{{ $status }}'
                                     {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
                                 {{ __trans('rdses.status_label.' . $status) }}
-
                             </option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-12 col-md-auto" style="min-width: 180px">
-                    <label>Status de Execução</label>
+                    <label>Status de Programação</label>
                     <select id="rdse-select_status_execution" name="status_execution" class="form-control select2 search-input-rdse" multiple>
                         @foreach (trans('rdses.status_execution') as $status_execution)
                             <option value='{{ $status_execution }}'
                                     {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
                                 {{ $status_execution }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-auto" style="min-width: 180px">
+                    <label>Status de Encerramento</label>
+                    <select id="rdse-select_status_closing" name="status_closing" class="form-control select2 search-input-rdse" multiple>
+                        @foreach (\App\Supports\Enums\Rdse\RdseClosingStatus::options() as $status_closing)
+                            <option value='{{ $status_closing['value'] }}' >
+                                {{ $status_closing['label_translate'] }}
                             </option>
                         @endforeach
                     </select>
@@ -122,8 +132,10 @@
                                 {{ --}}
 
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
-                                <th data-field="status_label" data-width="150">Status</th>
-                                <th data-field="status_execution" data-formatter="statusExecution">Status de Execução</th>
+
+                                <th data-field="status_label" data-width="150">Status de Medição</th>
+                                <th data-field="status_closing_label" data-width="150">Status de Encerramento</th>
+                                <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -228,6 +240,10 @@
 
         if (localStorage.getItem('rdse-select_status_execution')) {
             $('#rdse-select_status_execution').val(JSON.parse(localStorage.getItem('rdse-select_status_execution'))).trigger('change');
+        }
+
+        if (localStorage.getItem('rdse-select_status_closing')) {
+            $('#rdse-select_status_closing').val(JSON.parse(localStorage.getItem('rdse-select_status_closing'))).trigger('change');
         }
 
         if (localStorage.getItem('rdse-select_status')) {

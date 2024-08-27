@@ -47,6 +47,9 @@ class RdseResource extends JsonResource
             'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
             'status_execution' => $this->status_execution,
+
+            'status_closing_label' => $this->status_closing->getLabelHTML(),
+
         ];
     }
 
@@ -57,10 +60,7 @@ class RdseResource extends JsonResource
             </div>";
     }
 
-    private function getLabelStatusExecution()
-    {
-        
-    }
+    private function getLabelStatusExecution() {}
 
     private function getValorTotalAndUps()
     {

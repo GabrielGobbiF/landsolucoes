@@ -279,7 +279,13 @@ class TableApiController extends Controller
                 if (!empty($filters['status_execution'])) {
                     $query->whereIn('rdses.status_execution', $filters['status_execution']);
                 }
-            })->where(function ($query) use ($filters) {
+            })
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['status_closing'])) {
+                    $query->whereIn('rdses.status_closing', $filters['status_closing']);
+                }
+            })
+            ->where(function ($query) use ($filters) {
                 if (!empty($filters['daterange'])) {
                     [$date_to, $date_from] = explode(' - ', $filters['daterange']);
                     $date_to = return_format_date($date_to, 'en');

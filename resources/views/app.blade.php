@@ -232,7 +232,7 @@
                         @yield('content')
                     </div>
                 @else
-                    <div class="container-max-fluid">
+                    <div class="container-fluid">
                         @yield('content-max-fluid')
                     </div>
                 @endif

@@ -121,6 +121,51 @@
                             @csrf
                             @method('put')
                             @include('pages.painel._partials.forms.form-rdse')
+
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <h4 class="card-title">Status</h4>
+                                    <div class="row">
+                                        <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
+                                            <label>Status de Medição</label>
+                                            <select id="rdse-select_status" name="status" class="form-control select2 search-input-rdse">
+                                                @foreach (trans('rdses.status_label') as $status => $text)
+                                                    <option value='{{ $status }}' {{ $rdse->status == $status ? 'selected="selected"' : null }}>
+                                                        {{ __trans('rdses.status_label.' . $status) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-auto" style="min-width: 180px">
+                                            <label>Status de Programação</label>
+                                            <select id="rdse-select_status_execution" name="status_execution" class="form-control select2 search-input-rdse">
+                                                @foreach (trans('rdses.status_execution') as $status_execution)
+                                                    <option value='{{ $status_execution }}'
+                                                            {{ $rdse->status_execution == $status_execution ? 'selected="selected"' : null }}>
+                                                        {{ $status_execution }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-auto" style="min-width: 180px">
+                                            <label>Status de Encerramento</label>
+                                            <select id="rdse-select_status_closing" name="status_closing" class="form-control select2 search-input-rdse">
+                                                @foreach (\App\Supports\Enums\Rdse\RdseClosingStatus::options() as $status_closing)
+                                                    <option
+                                                            {{ $rdse->status_closing->value == $status_closing['value'] ? 'selected="selected"' : null }}
+                                                            value='{{ $status_closing['value'] }}'>
+                                                        {{ $status_closing['label_translate'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                             <button type="button" class="btn btn-primary js-btn-delete float-left" data-text="Excluir RDSE"
                                     data-href="{{ route('rdse.destroy', $rdse->id) }}"><i class="fas fa-trash"></i>
@@ -221,6 +266,42 @@
                                                 </div>
 
                                             </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-2">
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Entrega Programada Obra  </h5>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="enel_deadline"
+                                                       placeholder="Data Limite ENEL"
+                                                       value="{{ !empty($rdse->enel_deadline) ? return_format_date($rdse->enel_deadline, 'pt') : '' }}">
+                                            </div>
+
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="viability_execution_date"
+                                                       placeholder="Data Execução Viabilização"
+                                                       value="{{ !empty($rdse->viability_execution_date) ? return_format_date($rdse->viability_execution_date, 'pt') : '' }}">
+                                            </div>
+
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="work_start_date"
+                                                       placeholder="Data Inicio"
+                                                       value="{{ !empty($rdse->work_start_date) ? return_format_date($rdse->work_start_date, 'pt') : '' }}">
+                                            </div>
+
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="work_end_date"
+                                                       placeholder="Data Final"
+                                                       value="{{ !empty($rdse->work_end_date) ? return_format_date($rdse->work_end_date, 'pt') : '' }}">
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

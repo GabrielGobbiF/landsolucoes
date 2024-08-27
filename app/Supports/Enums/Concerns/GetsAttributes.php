@@ -59,7 +59,7 @@ trait GetsAttributes
                 #'case' => $case->name,
                 'value' => $case->value,
                 'label' => Str::title($label),
-                'label_translate' => ucfirst(__trans(__minusculo($label)))
+                'label_translate' => static::labelText($case)
             ];
         }
 

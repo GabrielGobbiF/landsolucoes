@@ -33,6 +33,7 @@ class RdseController extends Controller
         $date = Carbon::now()->format('d/m/Y');
 
         $status = $request->has('status') ? $request->input('status') : ['pending'];
+
         [$date_to, $date_from] = $request->has('daterange') ? explode(' - ', $request->input('daterange')) : [null, null];
 
         $request->merge(['status' => $status, 'date_to' => $date_to, 'date_from' => $date_from]);
@@ -59,6 +60,8 @@ class RdseController extends Controller
     {
         $columns = $request->all();
         $columns['modelo'] = false;
+
+        $columns['description'] = formatNameRDSE($columns['description']);
 
         $rdse = $this->repository->create($columns);
 

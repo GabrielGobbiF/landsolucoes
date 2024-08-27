@@ -364,3 +364,14 @@ function users()
 {
     return User::all();
 }
+
+function formatNameRDSE($input)
+{
+    // Remover todos os caracteres não alfanuméricos do input
+    $cleaned = preg_replace('/[^a-zA-Z0-9]/', '', $input);
+
+    // Usar expressões regulares para formatar a string conforme o padrão desejado
+    $formatted = preg_replace('/^([A-Z]{3})([A-Z])([A-Z]{3})(\d{2})(\d+)$/', '$1/$2.$3.$4.$5', $cleaned);
+
+    return $formatted;
+}

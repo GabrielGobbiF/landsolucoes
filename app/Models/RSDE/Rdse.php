@@ -3,6 +3,7 @@
 namespace App\Models\RSDE;
 
 use App\Casts\Date;
+use App\Supports\Enums\Rdse\RdseClosingStatus;
 use App\Traits\LogTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,11 @@ class Rdse extends Model
 
         'apr_at',
         'apr_id',
+
+        'enel_deadline',
+        'viability_execution_date',
+        'work_start_date',
+        'work_end_date',
     ];
 
     protected $appends = ['StatusLabel', 'StatusAPR'];
@@ -99,7 +105,6 @@ class Rdse extends Model
         'at',
         'type',
         'modelo',
-        'status',
         'obra_id',
         'lote',
         'observations',
@@ -116,10 +121,18 @@ class Rdse extends Model
         'parcial_1_at',
         'parcial_2_at',
         'parcial_3_at',
-        'status_execution',
 
         'apr_at',
         'apr_id',
+
+        'status',
+        'status_execution',
+        'status_closing',
+
+        'enel_deadline',
+        'viability_execution_date',
+        'work_start_date',
+        'work_end_date',
     ];
 
     /**
@@ -128,7 +141,13 @@ class Rdse extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'enel_deadline' => Date::class,
+        'viability_execution_date' => Date::class,
+        'work_start_date' => Date::class,
+        'work_end_date' => Date::class,
+
         'apr_at' => Date::class,
+        'status_closing' => RdseClosingStatus::class,
     ];
 
     public function services()
