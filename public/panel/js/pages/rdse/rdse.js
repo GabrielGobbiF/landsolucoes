@@ -36,7 +36,7 @@ const listRdsesGroupInDom = (data, status) => {
             } else {
                 html += `
                 <input type="hidden" name="rdses[${type}][itens][]" value="${rdses.id}"/>
-                    <li class="nav-item">${rdses.description}
+                    <li class="nav-item">${rdses.n_order}
                 </li>`
             }
 
