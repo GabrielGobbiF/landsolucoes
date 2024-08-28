@@ -385,32 +385,32 @@ return [
         'type' => [
             [
                 'name' => 'Emergencial',
-                'value' => '341.19',
+                'value' => '365.00',
                 'codigo' => '4610003674'
             ],
             [
                 'name' => 'LDS',
-                'value' => '176.49',
+                'value' => '205.70',
                 'codigo' => '4610003729'
             ],
             [
                 'name' => 'Manutenção',
-                'value' => '176.49',
+                'value' => '205.70',
                 'codigo' => '4610003730'
             ],
             [
                 'name' => 'Futurabilit',
-                'value' => '176.49',
+                'value' => '205.70',
                 'codigo' => '4610003673'
             ],
             [
                 'name' => 'Civil',
-                'value' => '176.49',
+                'value' => '205.70',
                 'codigo' => '4610003675'
             ],
             [
                 'name' => 'Atendimento ao cliente',
-                'value' => '176.49',
+                'value' => '205.70',
                 'codigo' => '4610003728'
             ],
         ]
