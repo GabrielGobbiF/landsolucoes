@@ -60,8 +60,7 @@ class RdseController extends Controller
     {
         $columns = $request->all();
         $columns['modelo'] = false;
-
-        $columns['description'] = formatNameRDSE($columns['description']);
+        $columns['n_order'] = formatNameRDSE($columns['n_order']);
 
         $rdse = $this->repository->create($columns);
 
@@ -117,6 +116,7 @@ class RdseController extends Controller
     public function update(StoreUpdateRdse $request, int $identify)
     {
         $columns = $request->all();
+        $columns['n_order'] = formatNameRDSE($columns['n_order']);
 
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
