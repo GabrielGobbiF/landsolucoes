@@ -133,6 +133,11 @@ class Rdse extends Model
         'viability_execution_date',
         'work_start_date',
         'work_end_date',
+
+        'enviado_enel',
+        'aprovado_enel',
+        'fiscalizado_satel',
+        'liberado_medicao',
     ];
 
     /**

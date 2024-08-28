@@ -8,6 +8,10 @@ enum RdseClosingStatus: string
 {
     use GetsAttributes;
 
+    case INEXECUTION = 'in_execution';
+
+    case PENDING = 'pending';
+
     case INCLOSING = 'in_closing';
 
     case CLOSED = 'closed';
@@ -19,6 +23,8 @@ enum RdseClosingStatus: string
     public function getIcon(): string
     {
         return match ($this) {
+            self::INEXECUTION => '',
+            self::PENDING => '',
             self::INCLOSING => '',
             self::CLOSED => '',
             self::BILLING_RELEASED => '',
@@ -29,6 +35,8 @@ enum RdseClosingStatus: string
     public function getLabelText(): string
     {
         return match ($this) {
+            self::INEXECUTION => 'Em Execução',
+            self::PENDING => 'Pendente',
             self::INCLOSING => 'Em Encerramento',
             self::CLOSED => 'Encerrado',
             self::BILLING_RELEASED => 'Liberado Faturamento',
@@ -39,6 +47,8 @@ enum RdseClosingStatus: string
     public static function labelText($value): string
     {
         return match ($value) {
+            self::INEXECUTION => 'Em Execução',
+            self::PENDING => 'Pendente',
             self::INCLOSING => 'Em Encerramento',
             self::CLOSED => 'Encerrado',
             self::BILLING_RELEASED => 'Liberado Faturamento',
@@ -49,6 +59,8 @@ enum RdseClosingStatus: string
     public function getLabelColor(): string
     {
         return match ($this) {
+            self::INEXECUTION => 'info',
+            self::PENDING => 'info',
             self::INCLOSING => 'info',
             self::CLOSED => 'dark',
             self::BILLING_RELEASED => 'success',

@@ -307,6 +307,43 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="col-12 col-md-2">
+                            <div class="card text-start">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Inventário  </h5>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="enviado_enel"
+                                                       placeholder="Enviado Enel"
+                                                       value="{{ !empty($rdse->enviado_enel) ? return_format_date($rdse->enviado_enel, 'pt') : '' }}">
+                                            </div>
+
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="aprovado_enel"
+                                                       placeholder="Aprovado Enel"
+                                                       value="{{ !empty($rdse->aprovado_enel) ? return_format_date($rdse->aprovado_enel, 'pt') : '' }}">
+                                            </div>
+
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="fiscalizado_satel"
+                                                       placeholder="Fiscalizado Satel"
+                                                       value="{{ !empty($rdse->fiscalizado_satel) ? return_format_date($rdse->fiscalizado_satel, 'pt') : '' }}">
+                                            </div>
+
+                                            <div class="input-group mb-3 w-auto">
+                                                <input type="text" class="form-control form-control-sm input-update date" name="liberado_medicao"
+                                                       placeholder="Liberado Medição"
+                                                       value="{{ !empty($rdse->liberado_medicao) ? return_format_date($rdse->liberado_medicao, 'pt') : '' }}">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
