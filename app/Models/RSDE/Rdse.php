@@ -153,6 +153,7 @@ class Rdse extends Model
         'viability_execution_date' => Date::class,
         'work_start_date' => Date::class,
         'work_end_date' => Date::class,
+        'data_pagamento_projeto' => Date::class,
 
         'apr_at' => Date::class,
         'status_closing' => RdseClosingStatus::class,
