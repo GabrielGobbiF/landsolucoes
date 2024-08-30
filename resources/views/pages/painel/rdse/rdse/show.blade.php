@@ -347,7 +347,7 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="form-label">Liberado Medição</label>
+                                                <label class="form-label">Data de Pagamento Projeto</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="data_pagamento_projeto"
                                                 value="{{ !empty($rdse->data_pagamento_projeto) ? return_format_date($rdse->data_pagamento_projeto, 'pt') : '' }}">
                                             </div>
