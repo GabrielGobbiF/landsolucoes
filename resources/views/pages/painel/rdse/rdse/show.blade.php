@@ -67,6 +67,10 @@
             content: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cg%20id%3D%22checklist-checked%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20id%3D%22Rectangle%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%234099FF%22%20fill-rule%3D%22nonzero%22%20rx%3D%222%22%2F%3E%3Cpath%20id%3D%22Path%22%20fill%3D%22%23FFF%22%20fill-rule%3D%22nonzero%22%20d%3D%22M11.5703186%2C3.14417309%20C11.8516238%2C2.73724603%2012.4164781%2C2.62829933%2012.83558%2C2.89774797%20C13.260121%2C3.17069355%2013.3759736%2C3.72932262%2013.0909105%2C4.14168582%20L7.7580587%2C11.8560195%20C7.43776896%2C12.3193404%206.76483983%2C12.3852142%206.35607322%2C11.9948725%20L3.02491697%2C8.8138662%20C2.66090143%2C8.46625845%202.65798871%2C7.89594698%203.01850234%2C7.54483354%20C3.373942%2C7.19866177%203.94940006%2C7.19592841%204.30829608%2C7.5386474%20L6.85276923%2C9.9684299%20L11.5703186%2C3.14417309%20Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A");
         }
 
+        .d-grid {
+            display: grid;
+        }
+
         @media print {
 
             #button_modal-rdse-codigo,
@@ -276,29 +280,31 @@
                             <div class="card text-start">
                                 <div class="card-body">
                                     <div>
-                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Entrega Programada Obra  </h5>
-                                        <div class="d-flex flex-wrap">
-                                            <div class="input-group mb-3 w-auto">
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Entrega Programada Obra </h5>
+                                        <div class="d-flex flex-wrap align-items-center">
+
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Data Limite ENEL</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="enel_deadline"
-                                                       placeholder="Data Limite ENEL"
                                                        value="{{ !empty($rdse->enel_deadline) ? return_format_date($rdse->enel_deadline, 'pt') : '' }}">
                                             </div>
 
-                                            <div class="input-group mb-3 w-auto">
+                                            <div class="mb-3">
+                                                <label class="form-label">Data Execução Viabilização</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="viability_execution_date"
-                                                       placeholder="Data Execução Viabilização"
                                                        value="{{ !empty($rdse->viability_execution_date) ? return_format_date($rdse->viability_execution_date, 'pt') : '' }}">
                                             </div>
 
-                                            <div class="input-group mb-3 w-auto">
+                                            <div class="mb-3">
+                                                <label class="form-label">Data Inicio</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="work_start_date"
-                                                       placeholder="Data Inicio"
                                                        value="{{ !empty($rdse->work_start_date) ? return_format_date($rdse->work_start_date, 'pt') : '' }}">
                                             </div>
 
-                                            <div class="input-group mb-3 w-auto">
+                                            <div class="mb-3">
+                                                <label class="form-label">Data Final</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="work_end_date"
-                                                       placeholder="Data Final"
                                                        value="{{ !empty($rdse->work_end_date) ? return_format_date($rdse->work_end_date, 'pt') : '' }}">
                                             </div>
 
@@ -313,30 +319,31 @@
                             <div class="card text-start">
                                 <div class="card-body">
                                     <div>
-                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Inventário  </h5>
+                                        <h5 class="font-size-12"><i class="mdi mdi-location"></i> Inventário </h5>
                                         <div class="d-flex flex-wrap">
-                                            <div class="input-group mb-3 w-auto">
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Enviado Enel</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="enviado_enel"
-                                                       placeholder="Enviado Enel"
                                                        value="{{ !empty($rdse->enviado_enel) ? return_format_date($rdse->enviado_enel, 'pt') : '' }}">
                                             </div>
 
-                                            <div class="input-group mb-3 w-auto">
+                                            <div class="mb-3">
+                                                <label class="form-label">Aprovado Enel</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="aprovado_enel"
-                                                       placeholder="Aprovado Enel"
-                                                       value="{{ !empty($rdse->aprovado_enel) ? return_format_date($rdse->aprovado_enel, 'pt') : '' }}">
+                                                value="{{ !empty($rdse->aprovado_enel) ? return_format_date($rdse->aprovado_enel, 'pt') : '' }}">
                                             </div>
 
-                                            <div class="input-group mb-3 w-auto">
+                                            <div class="mb-3">
+                                                <label class="form-label">Fiscalizado Satel</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="fiscalizado_satel"
-                                                       placeholder="Fiscalizado Satel"
-                                                       value="{{ !empty($rdse->fiscalizado_satel) ? return_format_date($rdse->fiscalizado_satel, 'pt') : '' }}">
+                                                value="{{ !empty($rdse->fiscalizado_satel) ? return_format_date($rdse->fiscalizado_satel, 'pt') : '' }}">
                                             </div>
 
-                                            <div class="input-group mb-3 w-auto">
+                                            <div class="mb-3">
+                                                <label class="form-label">Liberado Medição</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="liberado_medicao"
-                                                       placeholder="Liberado Medição"
-                                                       value="{{ !empty($rdse->liberado_medicao) ? return_format_date($rdse->liberado_medicao, 'pt') : '' }}">
+                                                value="{{ !empty($rdse->liberado_medicao) ? return_format_date($rdse->liberado_medicao, 'pt') : '' }}">
                                             </div>
 
                                         </div>

@@ -17,6 +17,8 @@ class Rdse extends Model
 
     protected static $logName = 'RDSE';
 
+    protected $with = ['services'];
+
     #protected static $ignoreChangedAttributes   =  ['observations'];
 
     #protected static $logAttributesToIgnore  =  ['observations'];
@@ -138,6 +140,7 @@ class Rdse extends Model
         'aprovado_enel',
         'fiscalizado_satel',
         'liberado_medicao',
+        'data_pagamento_projeto'
     ];
 
     /**
@@ -162,7 +165,10 @@ class Rdse extends Model
 
     public function getServicesTotal()
     {
+        $services = $this->services();
+
         $column = 'preco';
+
         if ($this->parcial_1 == true) {
             $column = 'p_preco1';
         }
@@ -175,7 +181,10 @@ class Rdse extends Model
             $column = 'p_preco3';
         }
 
-        return $this->services()->sum($column);
+        return [
+            'p' => $services->sum($column),
+            'total' => $services->sum('preco'),
+        ];
     }
 
     public function getStatusLabelAttribute()

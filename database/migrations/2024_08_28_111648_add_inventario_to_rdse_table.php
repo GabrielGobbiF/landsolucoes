@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('aprovado_enel')->nullable();
             $table->timestamp('fiscalizado_satel')->nullable();
             $table->timestamp('liberado_medicao')->nullable();
+            $table->timestamp('data_pagamento_projeto')->nullable();
         });
     }
 
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->dropColumn('aprovado_enel');
             $table->dropColumn('fiscalizado_satel');
             $table->dropColumn('liberado_medicao');
+            $table->dropColumn('data_pagamento_projeto');
         });
     }
 };

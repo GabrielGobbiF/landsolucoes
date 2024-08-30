@@ -18,7 +18,7 @@ class RdseResource extends JsonResource
         $valorTotal = $this->getServicesTotal();
 
         $typeRdse = $this->type;
-        $valorUps = $valorTotal / collect(config("admin.rdse.type", []))->where('name', $typeRdse)->first()['value'];
+        $valorUps = $valorTotal['p'] / collect(config("admin.rdse.type", []))->where('name', $typeRdse)->first()['value'];
 
         if ($this->parcial_1 == true) {
             $p = 'P2';
@@ -42,8 +42,8 @@ class RdseResource extends JsonResource
             'type' => $this->type,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
-            'valor_total' => $p . ' R$ ' . maskPrice($valorTotal),
-            'valor' => $valorTotal,
+            'valor_total' => $p . ' R$ ' . maskPrice($valorTotal['p']),
+            'valor' => 'R$ ' . maskPrice($valorTotal['total']),
             'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
             'status_execution' => $this->status_execution,

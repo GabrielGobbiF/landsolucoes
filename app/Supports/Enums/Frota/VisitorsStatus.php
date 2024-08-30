@@ -23,6 +23,15 @@ enum VisitorsStatus: string
         };
     }
 
+    public static function labelText($value): string
+    {
+        return match ($value) {
+            self::CREATED => 'Created',
+            self::RELEASED => 'Released',
+            self::CLOSED => 'Closed',
+        };
+    }
+
     public function getLabelColor(): string
     {
         return match ($this) {

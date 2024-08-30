@@ -122,15 +122,16 @@
                                 <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
+                                <th data-field="valor" >Valor</th>
                                 <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Total</th>
+
 
                                 {{-- }}
                                 <th data-field="total_p1" data-visible="false" data-footer-formatter="valor_totalp1">Valor P2</th>
                                 <th data-field="total_p2" data-visible="false" data-footer-formatter="valor_totalp2">Valor P3</th>
                                 <th data-field="total_p3" data-visible="false" data-footer-formatter="valor_totalp3">Valor P4</th>
                                 <th data-field="parcial">Parcial</th>
-                                {{ --}}
-
+                            --}}
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
 
                                 <th data-field="status_label" data-width="150">Status de Medição</th>
