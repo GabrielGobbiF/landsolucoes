@@ -28,7 +28,16 @@ class MedicaoExport implements FromCollection, WithHeadings, WithStyles, WithMap
         return [
             ['SAT\'R:', '', '', '', '', '', ''],
             ['Ficha de Medição', '', '', '', '', '', ''],
-            ['Código', 'Descrição', 'Vlr UPS', 'Planej.', 'Tot. UPS ENEL', 'Tot. Aplic.', 'Tot. UPS']
+            ['Código', 'Descrição', 'Vlr UPS', 'Planej.', 'Tot. UPS ENEL', 'Tot. Aplic.', 'Tot. UPS',
+
+            'Parcial 1 Quantidade',
+            'Parcial 1 Valor',
+            'Parcial 2 Quantidade',
+            'Parcial 2 Valor',
+
+            'Parcial 3 Quantidade',
+            'Parcial 3 Valor'
+            ]
         ];
     }
 
@@ -42,6 +51,15 @@ class MedicaoExport implements FromCollection, WithHeadings, WithStyles, WithMap
             '',
             $medicao->qnt_atividade,
             '',
+
+            $medicao->p_quantidade1,
+            $medicao->p_preco1,
+
+            $medicao->p_quantidade2,
+            $medicao->p_preco2,
+
+            $medicao->p_quantidade3,
+            $medicao->p_preco3,
         ];
     }
 

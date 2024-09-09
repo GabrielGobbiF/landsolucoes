@@ -351,14 +351,12 @@
                                                 <input type="text" class="form-control form-control-sm input-update date" name="data_pagamento_projeto"
                                                 value="{{ !empty($rdse->data_pagamento_projeto) ? return_format_date($rdse->data_pagamento_projeto, 'pt') : '' }}">
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
 
                     <div class="d-flex justify-content-between" style="align-items: end;">
                         <div class="d-grid float-right mb-2" style="display: grid">

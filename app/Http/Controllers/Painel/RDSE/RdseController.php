@@ -520,10 +520,18 @@ class RdseController extends Controller
         }
 
         $services = DB::select('SELECT
-            handsworks.code,
+             handsworks.code,
             rdse_services.description,
             handsworks.price_ups,
-            rdse_services.qnt_atividade
+            rdse_services.qnt_atividade,
+
+            rdse_services.p_quantidade1,
+            rdse_services.p_quantidade2,
+            rdse_services.p_quantidade3,
+
+            rdse_services.p_preco1,
+            rdse_services.p_preco2,
+            rdse_services.p_preco3
 
             FROM rdse_services
 
