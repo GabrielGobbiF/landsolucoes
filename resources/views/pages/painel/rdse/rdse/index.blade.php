@@ -57,7 +57,7 @@
                     <label>Status de Encerramento</label>
                     <select id="rdse-select_status_closing" name="status_closing" class="form-control select2 search-input-rdse" multiple>
                         @foreach (\App\Supports\Enums\Rdse\RdseClosingStatus::options() as $status_closing)
-                            <option value='{{ $status_closing['value'] }}' >
+                            <option value='{{ $status_closing['value'] }}'>
                                 {{ $status_closing['label_translate'] }}
                             </option>
                         @endforeach
@@ -122,7 +122,7 @@
                                 <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
-                                <th data-field="valor" >Valor</th>
+                                <th data-field="valor">Valor</th>
                                 <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Total</th>
 
 
@@ -370,6 +370,14 @@
                 }
             });
 
+            window.parseCurrency = (value) => {
+                if (value === null || value === undefined || value === '') {
+                    return 0;
+                }
+                return parseFloat(value.replace(' meses', '').replace('%', '').replace('R$', '').replace('R$ ', '').replace(/\./g, '').replace(',', '.'));
+            }
+
+
             if ($table.length > 0) {
                 var paginate = $table.attr('data-paginate') != undefined ? false : true;
                 var eExport = $table.attr('data-export') != undefined ? false : true;
@@ -420,20 +428,11 @@
                         var valorP3 = 0;
                         var valorUpsTotal = 0;
                         $.each(res.data, function(index, value) {
-
-                            console.log([
-                                value.total_p1,
-                                value.total_p2,
-                                value.total_p3,
-                                value.valor,
-                                value.ups,
-                            ])
-
                             valorP1 += parseFloat(value.total_p1)
                             valorP2 += parseFloat(value.total_p2)
                             valorP3 += parseFloat(value.total_p3)
 
-                            valorTotal += parseFloat(value.valor)
+                            valorTotal += parseCurrency(value.valor)
                             valorUpsTotal += parseFloat(value.ups)
 
                             console.log([
@@ -446,7 +445,6 @@
                                 valorUpsTotal,
 
                                 parseFloat(value.ups),
-
                             ])
                         });
 
