@@ -431,21 +431,8 @@
                             valorP1 += parseFloat(value.total_p1)
                             valorP2 += parseFloat(value.total_p2)
                             valorP3 += parseFloat(value.total_p3)
-
                             valorTotal += parseCurrency(value.valor)
                             valorUpsTotal += parseFloat(value.ups)
-
-                            console.log([
-                                value.total_p1,
-                                value.total_p2,
-                                value.total_p3,
-                                value.valor,
-                                value.ups,
-                                valorTotal,
-                                valorUpsTotal,
-
-                                parseFloat(value.ups),
-                            ])
                         });
 
                         $('#totalP1').val(valorP1.toLocaleString('pt-br', {
