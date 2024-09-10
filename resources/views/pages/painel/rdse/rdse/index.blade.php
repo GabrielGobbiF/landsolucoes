@@ -234,6 +234,7 @@
             if (value === null || value === undefined || value === '') {
                 return 0;
             }
+            console.log(value);
             return parseFloat(value.replace(' meses', '').replace('%', '').replace('R$', '').replace(/\./g, '').replace(',', '.'));
         }
 
