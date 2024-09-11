@@ -331,25 +331,25 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Aprovado Enel</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="aprovado_enel"
-                                                value="{{ !empty($rdse->aprovado_enel) ? return_format_date($rdse->aprovado_enel, 'pt') : '' }}">
+                                                       value="{{ !empty($rdse->aprovado_enel) ? return_format_date($rdse->aprovado_enel, 'pt') : '' }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="form-label">Fiscalizado Satel</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="fiscalizado_satel"
-                                                value="{{ !empty($rdse->fiscalizado_satel) ? return_format_date($rdse->fiscalizado_satel, 'pt') : '' }}">
+                                                       value="{{ !empty($rdse->fiscalizado_satel) ? return_format_date($rdse->fiscalizado_satel, 'pt') : '' }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="form-label">Liberado Medição</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="liberado_medicao"
-                                                value="{{ !empty($rdse->liberado_medicao) ? return_format_date($rdse->liberado_medicao, 'pt') : '' }}">
+                                                       value="{{ !empty($rdse->liberado_medicao) ? return_format_date($rdse->liberado_medicao, 'pt') : '' }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="form-label">Data de Pagamento Projeto</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="data_pagamento_projeto"
-                                                value="{{ !empty($rdse->data_pagamento_projeto) ? return_format_date($rdse->data_pagamento_projeto, 'pt') : '' }}">
+                                                       value="{{ !empty($rdse->data_pagamento_projeto) ? return_format_date($rdse->data_pagamento_projeto, 'pt') : '' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -600,18 +600,24 @@
                                             </li>
                                         </ul>
 
+
                                         <!-- Tab panes -->
                                         <div class="tab-content mt-2 text-muted">
                                             <div id="observations-1" class="tab-pane active" role="tabpanel">
-                                                <textarea id="textarea-observations" style="height:auto !important" name="observations" cols="5" rows="4" class="form-control input-update">{{ $rdse->observations }}</textarea>
+                                                <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal" data-editor="observations">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <span id="spanObservations">{!! $rdse->observations !!}</span>
                                             </div>
                                             <div id="observations_execution-1" class="tab-pane" role="tabpanel">
-                                                <textarea id="textarea-observations_execution" style="height:auto !important" name="observations_execution" cols="5" rows="4"
-                                                          class="form-control input-update">{{ $rdse->observations_execution }}</textarea>
+                                                <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal"
+                                                   data-editor="observations_execution">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <span id="spanObservationsExecution">{!! $rdse->observations_execution !!}</span>
                                             </div>
                                         </div>
-
-
+                                        @include('pages.painel.rdse._partials.modal')
                                     </div>
                                     <div class="col-4">
                                         <div class="row">
@@ -1461,6 +1467,8 @@
         })
     </script>
 
+
+    {{--
     <script>
         var alreadyVisited = localStorage.getItem("is_visited");
         tinymce.init({
@@ -1509,6 +1517,7 @@
             }
         });
     </script>
+--}}
 
     <script>
         let timeUpdateColumns

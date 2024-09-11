@@ -111,7 +111,6 @@ class RdseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Rdse  $identify
-     * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdateRdse $request, int $identify)
     {
@@ -135,7 +134,6 @@ class RdseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
