@@ -47,9 +47,12 @@ class RdseResource extends JsonResource
             'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
             'status_execution' => $this->status_execution,
-
             'status_closing_label' => $this->status_closing->getLabelHTML(),
-
+            'enel_deadline' => $this->enel_deadline,
+            'viability_execution_date' => $this->viability_execution_date,
+            'apr_at' => $this->apr_at,
+            'work_start_date' => $this->work_start_date,
+            'work_end_date' => $this->work_end_date,
         ];
     }
 

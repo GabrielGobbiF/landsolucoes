@@ -291,13 +291,13 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="form-label">Data Execução Viabilização</label>
+                                                <label class="form-label">Data Execução Viabilidade</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="viability_execution_date"
                                                        value="{{ !empty($rdse->viability_execution_date) ? return_format_date($rdse->viability_execution_date, 'pt') : '' }}">
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="form-label">Data Inicio</label>
+                                                <label class="form-label">Programada Início</label>
                                                 <input type="text" class="form-control form-control-sm input-update date" name="work_start_date"
                                                        value="{{ !empty($rdse->work_start_date) ? return_format_date($rdse->work_start_date, 'pt') : '' }}">
                                             </div>

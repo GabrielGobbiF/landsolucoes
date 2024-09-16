@@ -9,6 +9,7 @@ return [
         'approved' => 'Aprovado(a)',
         #'review' => 'Em Análise',
         'invoice' => 'Faturada',
+        'underbilled' => 'Faturado a Menor',
         #'inventariando' => 'Inventariando',
         #'inventariado' => 'Inventariado',
     ],

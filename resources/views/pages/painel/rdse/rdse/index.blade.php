@@ -122,8 +122,18 @@
                                 <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
-                                <th data-field="valor">Valor</th>
-                                <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Total</th>
+                                <th data-field="valor">Valor Total</th>
+                                <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Parcial</th>
+                                <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
+                                <th data-field="status_label" data-width="150">Status de Medição</th>
+                                <th data-field="status_closing_label" data-width="150">Status de Encerramento</th>
+                                <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
+
+                                <th data-field="enel_deadline" >Data Limite</th>
+                                <th data-field="viability_execution_date" >Data Viabilidade</th>
+                                <th data-field="apr_at" >Data Pré APR</th>
+                                <th data-field="work_start_date" >Inicio Programad</th>
+                                <th data-field="work_end_date" >Data Final</th>
 
 
                                 {{-- }}
@@ -132,11 +142,8 @@
                                 <th data-field="total_p3" data-visible="false" data-footer-formatter="valor_totalp3">Valor P4</th>
                                 <th data-field="parcial">Parcial</th>
                             --}}
-                                <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
 
-                                <th data-field="status_label" data-width="150">Status de Medição</th>
-                                <th data-field="status_closing_label" data-width="150">Status de Encerramento</th>
-                                <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
+
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -540,10 +547,13 @@
         function statusExecution(value, row) {
             return `
             <select name="" class="form-control" id="select-status_execution" onchange="updateStatusExecution(this, ${row.id})">
-                <option value="Pré APR"> Pré APR</option>
-                <option ${value == 'Programação' ? 'selected' : ''} value="Programação">  Programação </option>
-                <option ${value == 'Revisar' ? 'selected' : ''} value="Revisar">  Revisar </option>
-                <option ${value == 'Impedimento' ? 'selected' : ''} value="Impedimento"> Impedimento</option>
+                <option value="Carteira"> Carteira</option>
+
+                <option ${value == 'Impedimento' ? 'selected' : ''} value="Impedimento">  Impedimento </option>
+                <option ${value == 'Cancelada' ? 'selected' : ''} value="Cancelada">  Cancelada </option>
+                <option ${value == 'Viabilidade' ? 'selected' : ''} value="Viabilidade">  Viabilidade </option>
+                <option ${value == 'Liberada' ? 'selected' : ''} value="Liberada">  Liberada </option>
+                <option ${value == 'Programada' ? 'selected' : ''} value="Programada">  Programada </option>
                 <option ${value == 'Execução 25%' ? 'selected' : ''} value="Execução 25%"> Execução 25%</option>
                 <option ${value == 'Execução 50%' ? 'selected' : ''} value="Execução 50%"> Execução 50%</option>
                 <option ${value == 'Execução 75%' ? 'selected' : ''} value="Execução 75%"> Execução 75%</option>
