@@ -158,6 +158,7 @@ class RdseController extends Controller
 
     public function updateStatus(Request $request, $status)
     {
+
         if ($status) {
 
             $rdsesByGroup = $request->input('rdses', false);
@@ -173,10 +174,26 @@ class RdseController extends Controller
 
                     if (isset($itens['nf'])) {
                         for ($i = 0; $i < count($itens['itens']); $i++) {
-                            Rdse::where('id', $itens['itens'][$i])->update([
-                                'nf' => $itens['nf'][$i] ?? 0,
-                                'date_nfe_at' => return_format_date($itens['date'][$i], 'en'),
-                            ]);
+
+                            $rdse = Rdse::where('id', $itens['itens'][$i])->first();
+
+                            $rdse->nf = $itens['nf'][$i] ?? 0;
+                            $rdse->date_nfe_at = return_format_date($itens['date'][$i], 'en');
+
+                            if ($rdse->parcial_1 == 0) {
+                                $dataAt = 'parcial_1_at';
+                            }
+
+                            if ($rdse->parcial_1 == 1) {
+                                $dataAt = 'parcial_2_at';
+                            }
+
+                            if ($rdse->parcial_2 == 1) {
+                                $dataAt = 'parcial_3_at';
+                            }
+
+                            $rdse->$dataAt = now();
+                            $rdse->update();
                         }
                     }
                 }

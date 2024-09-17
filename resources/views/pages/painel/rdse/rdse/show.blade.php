@@ -3,6 +3,7 @@
 @section('title', 'Editar - ' . ucfirst($rdse->n_order) . ' - ' . ucfirst($rdse->description))
 
 @section('content-max-fluid')
+
     <style>
         .form-group {
             margin-right: 8px;
@@ -389,13 +390,28 @@
                                     @if ($rdse->parcial_1)
                                         <tr>
                                             <th colspan="6"></th>
-                                            <th colspan="2" class="text-center">Parcial 1</th>
+                                            <th colspan="2" class="text-center">
+                                                <div class=" d-grid">
+                                                    <span>Parcial 1</span>
+                                                    <span>{{ !empty($rdse->parcial_1_at) ? formatDateAndTime($rdse->parcial_1_at) : 'Sem Data' }}</span>
+                                                </div>
+                                            </th>
                                             @if ($rdse->parcial_1)
-                                                <th colspan="2" class="text-center">Parcial 2</th>
+                                                <th colspan="2" class="text-center">
+                                                    <div class=" d-grid">
+                                                        <span>Parcial 2</span>
+                                                        <span>{{ !empty($rdse->parcial_2_at) ? formatDateAndTime($rdse->parcial_2_at) : 'Sem Data' }}</span>
+                                                    </div>
+                                                </th>
                                             @endif
 
                                             @if ($rdse->parcial_2)
-                                                <th colspan="2" class="text-center">Parcial 3</th>
+                                                <th colspan="2" class="text-center">
+                                                    <div class=" d-grid">
+                                                        <span>Parcial 3</span>
+                                                        <span>{{ !empty($rdse->parcial_3_at) ? formatDateAndTime($rdse->parcial_3_at) : 'Sem Data' }}</span>
+                                                    </div>
+                                                </th>
                                             @endif
 
                                             @if ($rdse->parcial_3)
@@ -497,7 +513,10 @@
                                             </th>
                                             <th>
                                                 <input id="price_total_hours_{{ $service->id }}" class="form-control form-control-sm price_total_hours money"
-                                                       name="preco[]" value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
+                                                       name="preco[]" data-toggle="tooltip" data-placement="top"
+                                                       title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->qnt_atividade : '' }}"
+                                                       value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
+
                                             </th>
 
                                             @if ($rdse->parcial_1)
@@ -511,8 +530,11 @@
                                                 <th>
                                                     <input id="price_total_parcial1_{{ $service->id }}"
                                                            class="form-control form-control-sm price_parcial price_parcial1 money" name="p_preco1[]"
-                                                           data-parcial="1" data-id="{{ $service->id }}"
+                                                           data-parcial="1" data-id="{{ $service->id }}" data-toggle="tooltip" data-placement="top"
+                                                           title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->p_quantidade1 : '' }}"
                                                            value="{{ !empty($service->p_preco1) ? $service->p_preco1 : '0' }}" />
+
+
                                                 </th>
                                             @endif
 
@@ -528,7 +550,9 @@
                                                     <input id="price_total_parcial2_{{ $service->id }}"
                                                            class="form-control form-control-sm price_parcial price_parcial2 money" name="p_preco2[]"
                                                            data-parcial="2" data-id="{{ $service->id }}"
-                                                           value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" />
+                                                           value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" data-toggle="tooltip"
+                                                           data-placement="top"
+                                                           title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->p_quantidade2 : '' }}" />
                                                 </th>
                                             @endif
 
@@ -544,7 +568,9 @@
                                                     <input id="price_total_parcial3_{{ $service->id }}"
                                                            class="form-control form-control-sm price_parcial price_parcial3 money" name="p_preco3[]"
                                                            data-id="{{ $service->id }}" data-parcial="3"
-                                                           value="{{ !empty($service->p_preco3) ? $service->p_preco3 : '0' }}" />
+                                                           value="{{ !empty($service->p_preco3) ? $service->p_preco3 : '0' }}" data-toggle="tooltip"
+                                                           data-placement="top"
+                                                           title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->p_quantidade3 : '' }}" />
                                                 </th>
                                             @endif
 
@@ -1538,6 +1564,20 @@
                 });
             }, 900);
         });
+
+        $(function() {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+
+            <
+            script src = "https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin = "anonymous" >
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     </script>
 
 @append
