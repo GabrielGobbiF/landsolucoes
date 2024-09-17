@@ -514,7 +514,7 @@
                                             <th>
                                                 <input id="price_total_hours_{{ $service->id }}" class="form-control form-control-sm price_total_hours money"
                                                        name="preco[]" data-toggle="tooltip" data-placement="top"
-                                                       title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->qnt_atividade : '' }}"
+                                                       title="{{ !empty($service->handswork) ? 'UPS: ' .$service->handswork->price_ups * $service->qnt_atividade : '' }}"
                                                        value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
 
                                             </th>
@@ -531,7 +531,7 @@
                                                     <input id="price_total_parcial1_{{ $service->id }}"
                                                            class="form-control form-control-sm price_parcial price_parcial1 money" name="p_preco1[]"
                                                            data-parcial="1" data-id="{{ $service->id }}" data-toggle="tooltip" data-placement="top"
-                                                           title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->p_quantidade1 : '' }}"
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade1 : '' }}"
                                                            value="{{ !empty($service->p_preco1) ? $service->p_preco1 : '0' }}" />
 
 
@@ -552,7 +552,7 @@
                                                            data-parcial="2" data-id="{{ $service->id }}"
                                                            value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" data-toggle="tooltip"
                                                            data-placement="top"
-                                                           title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->p_quantidade2 : '' }}" />
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' .$service->handswork->price_ups * $service->p_quantidade2 : '' }}" />
                                                 </th>
                                             @endif
 
@@ -570,7 +570,7 @@
                                                            data-id="{{ $service->id }}" data-parcial="3"
                                                            value="{{ !empty($service->p_preco3) ? $service->p_preco3 : '0' }}" data-toggle="tooltip"
                                                            data-placement="top"
-                                                           title="{{ !empty($service->handswork) ? $service->handswork->price_ups * $service->p_quantidade3 : '' }}" />
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade3 : '' }}" />
                                                 </th>
                                             @endif
 
