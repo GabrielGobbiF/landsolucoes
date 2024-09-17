@@ -272,9 +272,12 @@ class TableApiController extends Controller
                     $query->where('rdses.type', $filters['type']);
                 }
             })->where(function ($query) use ($filters) {
-                if (!empty($filters['lote']) && $filters['status'] != '' && $filters['status'] !=  'pending') {
-                    $query->where('rdses.lote', $filters['lote']);
+                if(isset($filters['status'])){
+                    if (!empty($filters['lote']) && $filters['status'] != '' && $filters['status'] !=  'pending') {
+                        $query->where('rdses.lote', $filters['lote']);
+                    }
                 }
+
             })->where(function ($query) use ($filters) {
                 if (!empty($filters['status_execution'])) {
                     $query->whereIn('rdses.status_execution', $filters['status_execution']);
@@ -283,6 +286,11 @@ class TableApiController extends Controller
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['status_closing'])) {
                     $query->whereIn('rdses.status_closing', $filters['status_closing']);
+                }
+            })
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['nfe'])) {
+                    $query->where('rdses.nf', $filters['nfe']);
                 }
             })
             ->where(function ($query) use ($filters) {

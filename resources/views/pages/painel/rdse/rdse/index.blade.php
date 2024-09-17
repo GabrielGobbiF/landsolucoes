@@ -93,6 +93,11 @@
                            @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
+                <div class="col-12 col-md-1">
+                    <label>NFE</label>
+                    <input type="text" class="form-control search-input-rdse" name="nfe" value="" />
+                </div>
+
                 <input id="totalTable" type="hidden">
                 <input id="totalP1" type="hidden">
                 <input id="totalP2" type="hidden">
@@ -129,11 +134,11 @@
                                 <th data-field="status_closing_label" data-width="150">Status de Encerramento</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
 
-                                <th data-field="enel_deadline" >Data Limite</th>
-                                <th data-field="viability_execution_date" >Data Viabilidade</th>
-                                <th data-field="apr_at" >Data Pré APR</th>
-                                <th data-field="work_start_date" >Inicio Programad</th>
-                                <th data-field="work_end_date" >Data Final</th>
+                                <th data-field="enel_deadline" data-visible="false">Data Limite</th>
+                                <th data-field="viability_execution_date" data-visible="false">Data Viabilidade</th>
+                                <th data-field="apr_at" data-visible="false">Data Pré APR</th>
+                                <th data-field="work_start_date" data-visible="false">Inicio Programad</th>
+                                <th data-field="work_end_date" data-visible="false">Data Final</th>
 
 
                                 {{-- }}
