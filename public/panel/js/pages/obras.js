@@ -125,11 +125,17 @@ function getEtapas() {
                                     <label for="chk_danger${value.id}" class="toggle"></label>
                                 </div>
 
-                                <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">${value.name} ${date_abertura} </a>
+                                <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">
+
+                                    ${value.name} ${value.finance != null ? value.finance.state + ' ' + value.finance.total_a_faturar : ''} ${date_abertura}
+
+                                </a>
+
+
                             </div>
                             <div class="col-mail col-mail-2">
                                 <span class="teaser badge-success badge">${meta}</span>
-                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''} </span><span> ${comments??''}</span>
+                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''} </span><span> ${comments ?? ''}</span>
                             </div>
                         </li>`;
                 });
@@ -436,7 +442,7 @@ $("#deleteSelectionEtapa").on("click", function () {
             getEtapas();
             toastr.success(response.data);
         }).catch(e => {
-            toastr.error('Erro contate o administrador');
+            toastr.error(e.response?.data?.message ? e.response.data.message : 'Erro contate o administrador');
         })
     } else {
         toastr.error('selecione alguma etapa')

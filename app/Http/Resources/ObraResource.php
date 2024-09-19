@@ -28,6 +28,7 @@ class ObraResource extends JsonResource
             "concessionaria.service" => Str::of($this->concessionaria_name)->append(' - ' . $this->service_name),
             "service.name" => $this->service_name,
             "last_note" => $this->last_note,
+            "created_at" => formatDateAndTime($this->created_at),
             "progressEtapas" => $progressEtapas
         ];
     }

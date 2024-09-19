@@ -77,6 +77,7 @@
                                     <th data-field="concessionaria.service" data-visible="false">Concessionaria - Serviço</th>
                                     <th data-field="client.concessionaria.service" data-visible="false">Cliente - Concessionaria - Serviço</th>
                                     <th data-field="last_note" data-visible="false">Nº nota</th>
+                                    <th data-field="created_at" >Data de Criação</th>
                                     <th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>
                                 </tr>
                             </thead>

@@ -48,6 +48,7 @@ class ObraEtapasResource extends JsonResource
             "tipo" => $this->tipo ? $this->tipo->slug : null,
             "prazo" => isset($prazo) ? $prazo : '',
             "comments" => $this->getComments(),
+            "finance" => $this->etapaFinanceiro($this->id_obra),
         ];
 
         return $data;

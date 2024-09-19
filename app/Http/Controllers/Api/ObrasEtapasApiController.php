@@ -8,12 +8,14 @@ use App\Http\Resources\CommentsResource;
 use App\Http\Resources\ObraEtapasResource;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
+use App\Models\ObraEtapasFinanceiro;
 use App\Models\User;
 use App\Notifications\EtapaMencionUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\ValidationException;
 
 class ObrasEtapasApiController extends Controller
 {
@@ -44,6 +46,7 @@ class ObrasEtapasApiController extends Controller
                     $query->where('nome', 'LIKE', '%' . $filters['term'] . '%');
                 }
             })
+            #->with('financeiro')
             ->with('tipo')->orderBy('ordem')->get();
 
         if ($etapas) {
@@ -219,7 +222,20 @@ class ObrasEtapasApiController extends Controller
 
         if ($etapas && count($etapas) > 0) {
             foreach ($etapas as $etp) {
+
                 $etapa = $obra->etapas()->where('id', $etp)->first();
+
+                $verifyEtapaFinance = ObraEtapasFinanceiro::where('etapa_id', $etapa->id_etapa)
+                    ->where('obra_id', $obra->id)
+                    ->exists();
+
+                throw_if(
+                    $verifyEtapaFinance,
+                    ValidationException::withMessages(['message' => 'Não é possivel deletar essa etapa, pois ela é uma etapa de financeiro'])
+                );
+
+                $etapa = $obra->etapas()->where('id', $etp)->first();
+
                 if ($etapa) {
                     $etapa->delete();
                 }

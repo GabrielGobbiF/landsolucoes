@@ -63,5 +63,62 @@ class ObraEtapa extends Model
         return $this->hasMany(Comment::class, 'etapa_id', 'id');
     }
 
+    public function etapaFinanceiro($obra_id)
+    {
+        $etapa_faturamento = ObraEtapasFinanceiro::where('etapa_id', $this->id_etapa)
+            ->where('obra_id', $obra_id)
+            ->with('faturamento')
+            ->first();
 
+        if ($etapa_faturamento) {
+
+            $r = $etapa_faturamento->aReceber();
+            $d = $etapa_faturamento->vencidas();
+
+            $etapa = $etapa_faturamento->StatusEtapa;
+
+            $valor_etapa = $etapa_faturamento->valor_receber;
+
+            $etapaFaturado = $etapa_faturamento->faturado();
+            $etapaRecebido = $etapa_faturamento->recebido();
+            $qntVencidas = $d->qnt;
+            $dataVencimento = $r->data_vencimento;
+            $totalAReceber = $r->sum;
+
+            $ary =  [
+                'id' => $etapa_faturamento->id,
+                'nome_etapa' => $etapa['nome'],
+                'valor_etapa' => $valor_etapa,
+                'total_faturado' => $etapaFaturado,
+                'total_a_faturar' => $valor_etapa != '0' ? 'R$ ' . maskPrice($valor_etapa - $etapaFaturado) : '0',
+                'qnt_vencidas' => $qntVencidas,
+                'dataVencimento' => $dataVencimento,
+                'total_receber' => $totalAReceber,
+                'status' => $etapa['text'],
+                'label' => $etapa['label'],
+                'recebido' => $etapaRecebido,
+            ];
+
+            if ($ary['total_faturado'] != '0' && $ary['total_faturado'] == $ary['valor_etapa']) {
+                if ($ary['total_receber'] != 0) {
+
+                    if ($ary['dataVencimento'] <= date('Y-m-d')) {
+                        $state = 'Receber';
+                    } else {
+                        $state = 'Faturado';
+                    }
+                } else {
+                    $state = 'Recebido';
+                }
+            } else {
+                $state = __('etapa.status.' . $ary['status']);
+            }
+
+            $ary['state'] =  "<div class='badge badge-soft-" . $etapa['label'] . "'>" . $state . "</div>";
+
+            return $ary;
+        }
+
+        return null;
+    }
 }
