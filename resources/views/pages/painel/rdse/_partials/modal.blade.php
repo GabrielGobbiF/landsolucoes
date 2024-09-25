@@ -91,6 +91,9 @@
                 // Obtenha o conteúdo dos spans
                 let observationsContent = document.getElementById('spanObservations').innerHTML;
                 let observationsExecutionContent = document.getElementById('spanObservationsExecution').innerHTML;
+                let observationsViabilidadeContent = document.getElementById('spanObservationsViabilidade').innerHTML;
+                let observationsProgramacaoContent = document.getElementById('spanObservationsProgramacao').innerHTML;
+                let observationsAdicionaisContent = document.getElementById('spanObservationsAdicionais').innerHTML;
 
                 // Variável para rastrear qual editor está aberto (observations ou observations_execution)
                 let currentEditor = '';
@@ -105,8 +108,40 @@
 
                 function saveContent(content) {
                     // Definir a URL para o campo correto com base no editor atual
-                    var url = currentEditor === 'observations' ? 'observations' : 'observations_execution';
-                    var span = currentEditor === 'observations' ? 'spanObservations' : 'spanObservationsExecution';
+                    var url = '';
+                    var span = '';
+
+                    if (currentEditor === 'observations') {
+                        url = 'observations'
+                    } else if (currentEditor === 'observations_execution') {
+                        url = 'observations_execution'
+
+                    } else if (currentEditor === 'observations_viabilidade') {
+                        url = 'observations_viabilidade'
+
+                    } else if (currentEditor === 'observations_programacao') {
+                        url = 'observations_programacao'
+
+                    } else if (currentEditor === 'observations_adicionais') {
+                        url = 'observations_adicionais'
+                    }
+
+                    if (currentEditor === 'observations') {
+                        span = 'spanObservations'
+                    } else if (currentEditor === 'observations_execution') {
+                        span = 'spanObservationsExecution'
+
+                    } else if (currentEditor === 'observations_viabilidade') {
+                        span = 'spanObservationsViabilidade'
+
+                    } else if (currentEditor === 'observations_programacao') {
+                        span = 'spanObservationsProgramacao'
+
+                    } else if (currentEditor === 'observations_adicionais') {
+                        span = 'spanObservationsAdicionais'
+                    }
+
+
 
                     // Enviar o conteúdo via Axios para o backend
                     axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
@@ -114,11 +149,21 @@
                             value: content,
                         })
                         .then(function(response) {
+
+
                             if (currentEditor === 'observations') {
                                 document.getElementById('spanObservations').innerHTML = content;
-                            } else {
+
+                            } else if (currentEditor === 'observations_execution') {
                                 document.getElementById('spanObservationsExecution').innerHTML = content;
+                            } else if (currentEditor === 'observations_viabilidade') {
+                                document.getElementById('spanObservationsViabilidade').innerHTML = content;
+                            } else if (currentEditor === 'observations_programacao') {
+                                document.getElementById('spanObservationsProgramacao').innerHTML = content;
+                            } else if (currentEditor === 'observations_adicionais') {
+                                document.getElementById('spanObservationsAdicionais').innerHTML = content;
                             }
+
                         })
                         .catch(error => {
                             toastr.error(error)
@@ -137,14 +182,20 @@
                     currentEditor = editorType; // Atualizar o editor atual para salvar corretamente
 
                     // Alterar o título da modal dinamicamente
-                    var modalTitle = editorType === 'observations' ? 'Editar Observations' : 'Editar Observations Execution';
-                    $('#editorModalLabel').text(modalTitle);
+                    //var modalTitle = editorType === 'observations' ? 'Editar Observations' : 'Editar Observations Execution';
+                    $('#editorModalLabel').text('Editar');
 
-                    // Carregar o conteúdo correto no editor Quill baseado no botão clicado
+
                     if (editorType === 'observations') {
                         quill.root.innerHTML = observationsContent;
-                    } else {
+                    } else if (editorType === 'observations_execution') {
                         quill.root.innerHTML = observationsExecutionContent;
+                    } else if (editorType === 'observations_viabilidade') {
+                        quill.root.innerHTML = observationsViabilidadeContent;
+                    } else if (editorType === 'observations_programacao') {
+                        quill.root.innerHTML = observationsProgramacaoContent;
+                    } else if (editorType === 'observations_adicionais') {
+                        quill.root.innerHTML = observationsAdicionaisContent;
                     }
                 });
 

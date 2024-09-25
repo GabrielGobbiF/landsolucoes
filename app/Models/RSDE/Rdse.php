@@ -118,7 +118,11 @@ class Rdse extends Model
         'croqui_validado_responsavel',
         'croqui_finalizado_data',
         'croqui_finalizado_responsavel',
+
         'observations_execution',
+        'observations_viabilidade',
+        'observations_programacao',
+        'observations_adicionais',
 
         'parcial_1_at',
         'parcial_2_at',

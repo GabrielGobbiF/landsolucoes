@@ -514,7 +514,7 @@
                                             <th>
                                                 <input id="price_total_hours_{{ $service->id }}" class="form-control form-control-sm price_total_hours money"
                                                        name="preco[]" data-toggle="tooltip" data-placement="top"
-                                                       title="{{ !empty($service->handswork) ? 'UPS: ' .$service->handswork->price_ups * $service->qnt_atividade : '' }}"
+                                                       title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->qnt_atividade : '' }}"
                                                        value="{{ !empty($service->preco) ? $service->preco : '0' }}" />
 
                                             </th>
@@ -552,7 +552,7 @@
                                                            data-parcial="2" data-id="{{ $service->id }}"
                                                            value="{{ !empty($service->p_preco2) ? $service->p_preco2 : '0' }}" data-toggle="tooltip"
                                                            data-placement="top"
-                                                           title="{{ !empty($service->handswork) ? 'UPS: ' .$service->handswork->price_ups * $service->p_quantidade2 : '' }}" />
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade2 : '' }}" />
                                                 </th>
                                             @endif
 
@@ -624,6 +624,27 @@
                                                     <span class="d-none d-sm-block">Documentos Execução</span>
                                                 </a>
                                             </li>
+
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link" data-toggle="tab" href="#observations_viabilidade-1" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                    <span class="d-none d-sm-block">Viabilidade</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link" data-toggle="tab" href="#observations_programacao-1" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                    <span class="d-none d-sm-block">Programação</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link" data-toggle="tab" href="#observations_adicionais-1" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                    <span class="d-none d-sm-block">Adicionais</span>
+                                                </a>
+                                            </li>
                                         </ul>
 
 
@@ -641,6 +662,27 @@
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <span id="spanObservationsExecution">{!! $rdse->observations_execution !!}</span>
+                                            </div>
+                                            <div id="observations_viabilidade-1" class="tab-pane" role="tabpanel">
+                                                <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal"
+                                                   data-editor="observations_viabilidade">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <span id="spanObservationsViabilidade">{!! $rdse->observations_viabilidade !!}</span>
+                                            </div>
+                                            <div id="observations_programacao-1" class="tab-pane" role="tabpanel">
+                                                <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal"
+                                                   data-editor="observations_programacao">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <span id="spanObservationsProgramacao">{!! $rdse->observations_programacao !!}</span>
+                                            </div>
+                                            <div id="observations_adicionais-1" class="tab-pane" role="tabpanel">
+                                                <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal"
+                                                   data-editor="observations_adicionais">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <span id="spanObservationsAdicionais">{!! $rdse->observations_adicionais !!}</span>
                                             </div>
                                         </div>
                                         @include('pages.painel.rdse._partials.modal')
@@ -1566,14 +1608,10 @@
         });
 
         $(function() {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-
-            <
-            script src = "https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin = "anonymous" >
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
             integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"

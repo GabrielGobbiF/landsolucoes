@@ -29,8 +29,12 @@ class CreateRdsesTable extends Migration
             $table->string('status')->default('pending');       // pending, review, approved, approval
             $table->string('status_closing')->default('in_closing');       // in_closing
             $table->string('modelo')->default(false);           // 1 true = é um modelo
+
             $table->longtext('observations')->nullable();
             $table->longtext('observations_execution')->nullable();
+            $table->longtext('observations_viabilidade')->nullable();
+            $table->longtext('observations_programacao')->nullable();
+            $table->longtext('observations_adicionais')->nullable();
 
             $table->integer('parcial_1')->default('0')->nullable();
             $table->integer('parcial_2')->default('0')->nullable();
