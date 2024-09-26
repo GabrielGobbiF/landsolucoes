@@ -48,10 +48,10 @@
                             </div>
                             <div class="form-check">
                                 <input
-                                       id="op2" {{ old('controlador') == 'carlos alberto fernandes dos santos' ? 'checked' : '' }} class="form-check-input"
-                                       type="radio" name="controlador" value="carlos alberto fernandes dos santos" required />
+                                       id="op2" {{ old('controlador') == 'valnei de almeida' ? 'checked' : '' }} class="form-check-input"
+                                       type="radio" name="controlador" value="valnei de almeida" required />
                                 <label class="form-check-label" for="op2">
-                                    {{ titleCase('carlos alberto fernandes dos santos') }}
+                                    {{ titleCase('valnei de almeida') }}
                                 </label>
                             </div>
                         </div>
@@ -66,10 +66,10 @@
 
                             <div class="form-check">
                                 <input
-                                       id="op4" {{ old('controlador') == 'phillyp santos da silva' ? 'checked' : '' }} class="form-check-input"
-                                       type="radio" name="controlador" value="phillyp santos da silva" required />
+                                       id="op4" {{ old('controlador') == 'valdivino da silva' ? 'checked' : '' }} class="form-check-input"
+                                       type="radio" name="controlador" value="valdivino da silva" required />
                                 <label class="form-check-label" for="op4">
-                                    {{ titleCase('phillyp santos da silva') }}
+                                    {{ titleCase('valdivino da silva') }}
                                 </label>
                             </div>
                         </div>
