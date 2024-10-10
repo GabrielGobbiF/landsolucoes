@@ -118,7 +118,7 @@ class FinanceiroController extends Controller
             $finances[$obra->id]['saldo'] = $valorNegociadoObra - $totalFaturado;
             $finances[$obra->id]['vencidas'] = $vencidas;
             $finances[$obra->id]['data_vencimento'] = $data_vencimento;
-            $finances[$obra->id]['client_name'] = $obra->client->company_name;
+            $finances[$obra->id]['client_name'] = limit($obra->client->company_name);
         }
 
         $finances =  collect($finances);
