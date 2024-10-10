@@ -220,7 +220,6 @@
 
         document.querySelectorAll('.open-activities').forEach(item => {
             item.addEventListener('click', function(e) {
-                $('.etapas-activities').html('');
                 let obraId = e.target.getAttribute('data-obraid');
 
                 getActivitiesEtapa(obraId);
@@ -228,13 +227,13 @@
         })
 
         function getActivitiesEtapa(obraId) {
-            console.log(obraId);
             $.ajax({
                 url: `${BASE_URL_API}/api/v1/comercial/${obraId}/activities`,
                 type: "GET",
                 ajax: true,
                 dataType: "JSON",
                 beforeSend: (jqXHR, settings) => {
+                    $('.etapas-activities').html('');
                     $('#button-submit').attr('data-obraid', `${obraId}`);
                     //modal.find('.etapas-activities').html(preload('preload-activities'));
                 },
