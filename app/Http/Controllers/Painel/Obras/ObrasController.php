@@ -279,4 +279,22 @@ class ObrasController extends Controller
             'obrasEtapasVencidas' => $obrasEtapasVencidas
         ]);
     }
+
+    public function removeFinance($obraId)
+    {
+        if (!$obra = $this->repository->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $time = empty($obra->remove_finance) ? now() : null;
+
+        $obra->remove_finance = $time;
+        $obra->save();
+
+        return redirect()
+            ->route('obras.show', $obraId)
+            ->with('message', 'Removido do Financeiro!');
+    }
 }

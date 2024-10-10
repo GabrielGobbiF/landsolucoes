@@ -34,6 +34,7 @@ class CreateObrasTable extends Migration
             $table->enum('obr_urgence', ['Y', 'N'])->default('N');
 
             $table->timestamp('build_at')->nullable();  //usado como data de criação
+            $table->timestamp('remove_finance')->nullable();  //usado como data para remover do financeiro
             $table->timestamps();
             $table->softDeletes();
 

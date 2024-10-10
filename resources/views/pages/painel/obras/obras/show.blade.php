@@ -126,6 +126,19 @@
                             @endif
 
                             <nav class="nav nav-icon-only mg-l-auto">
+
+                                @if (empty($obra->remove_finance))
+                                    <a href="javascript:void(0)" data-text="Remover do Financeiro" data-href="{{ route('obras.remove.finance', $obra->id) }}"
+                                       rel="tooltip" title="Remover do Financeiro" class="nav-link d-none d-sm-block js-btn-delete">
+                                        <i data-feather="dollar-sign"></i>
+                                    </a>
+                                @else
+                                    <a href="javascript:void(0)" data-text="Voltar para o Financeiro" data-href="{{ route('obras.remove.finance', $obra->id) }}"
+                                       rel="tooltip" title="Voltar para o Financeiro" class="nav-link d-none d-sm-block js-btn-delete">
+                                        <i data-feather="dollar-sign"></i>
+                                    </a>
+                                @endif
+
                                 <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip"
                                    title="Concluir Obra" class="nav-link d-none d-sm-block js-btn-delete">
                                     <i data-feather="archive"></i>
