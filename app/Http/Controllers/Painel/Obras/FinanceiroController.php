@@ -36,15 +36,20 @@ class FinanceiroController extends Controller
             if (isset($filter['obr_name']) && $filter['obr_name'] != '') {
                 return $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
             }
-        })->whereHas('client', static function ($query) use ($filter) {
+        })->where(function ($query) use ($filter) {
             if (!empty($filter['clients'])) {
-                $query->where('clients.id', $filter['clients']);
+                $query->where('client_id', $filter['clients']);
             }
         })
-            ->where('status', 'aprovada')
-            ->orWhere('status', 'concluida')
-            ->with('financeiro')
-            ->get(['razao_social', 'id', 'last_note', 'status']);
+
+            ->where(function ($query) use ($filter) {
+                $query->where('status', 'aprovada');
+                $query->orWhere('status', 'concluida');
+            })
+            ->with('financeiro', 'client')
+            //->limit(200)
+            ->get(['razao_social', 'id', 'last_note', 'status', 'client_id']);
+
 
         foreach ($obras as $obra) {
             if (!$obra->financeiro) {
@@ -113,6 +118,7 @@ class FinanceiroController extends Controller
             $finances[$obra->id]['saldo'] = $valorNegociadoObra - $totalFaturado;
             $finances[$obra->id]['vencidas'] = $vencidas;
             $finances[$obra->id]['data_vencimento'] = $data_vencimento;
+            $finances[$obra->id]['client_name'] = $obra->client->company_name;
         }
 
         $finances =  collect($finances);

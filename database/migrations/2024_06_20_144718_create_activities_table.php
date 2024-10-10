@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('fixed')->default(false);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

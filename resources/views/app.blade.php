@@ -266,11 +266,9 @@
 
             </div>
 
-        </div> <!-- end slimscroll-menu-->
+        </div>
     </div>
-    <!-- /Right-bar -->
 
-    <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
     <script src="{{ _mix('panel/js/all.js') }}"></script>

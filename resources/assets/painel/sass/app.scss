@@ -85,3 +85,8 @@
 //@import "custom/components/widgets";
 //@import "custom/components/demos";
 //@import "custom/components/print";
+
+
+.no-click {
+    pointer-events: none; /* Desativa a capacidade de clicar no <i> */
+}

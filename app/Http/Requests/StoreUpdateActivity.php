@@ -25,6 +25,7 @@ class StoreUpdateActivity extends FormRequest
     {
         return [
             'text' => 'required',
+            'type' => 'nullable'
         ];
     }
 }

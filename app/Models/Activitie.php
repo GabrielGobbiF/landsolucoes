@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activitie extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,7 @@ class Activitie extends Model
         'title',
         'text',
         'fixed',
+        'type',
     ];
 
     protected $casts = [
@@ -52,5 +54,14 @@ class Activitie extends Model
         static::creating(function ($model) {
             $model->user_id = auth()->id();
         });
+    }
+
+    public function canDelete()
+    {
+        if (auth()->user()->id != $this->user_id) {
+            return false;
+        }
+
+        return true;
     }
 }

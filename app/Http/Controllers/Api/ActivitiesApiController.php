@@ -7,15 +7,15 @@ use App\Http\Requests\StoreUpdateActivity;
 use App\Http\Requests\StoreUpdateCategory;
 use App\Http\Resources\ActivitiesResource;
 use App\Http\Resources\CategoriesResource;
+use App\Models\Activitie;
 use App\Models\Compras\Category;
 use App\Models\Obra;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ActivitiesApiController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Display a listing of the resource.
@@ -47,5 +47,20 @@ class ActivitiesApiController extends Controller
         $activities = $comercial->activities()->create($attributes);
 
         return new ActivitiesResource($activities);
+    }
+
+    public function delete($activityId)
+    {
+
+        if (!$activity = Activitie::where('id', $activityId)->first()) {
+            return response()->json('Object not found in scope', 404);
+        }
+
+        throw_if(
+            !$activity->canDelete(),
+            ValidationException::withMessages(['message' => 'Não é possivel deletar essa atividade'])
+        );
+
+        return response()->json($activity->delete(), 200);
     }
 }

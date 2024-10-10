@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->middleware('auth:web')->group(function () {
 
+    Route::delete('activities/{id}', [App\Http\Controllers\Api\ActivitiesApiController::class, 'delete'])->name('api.activities.delete');
     Route::post('comercial/{comercialId}/activities', [App\Http\Controllers\Api\ActivitiesApiController::class, 'store'])->name('api.activities.store');
     Route::get('comercial/{comercialId}/activities', [App\Http\Controllers\Api\ActivitiesApiController::class, 'index'])->name('api.activities.index');
 
