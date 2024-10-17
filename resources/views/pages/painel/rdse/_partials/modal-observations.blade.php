@@ -146,8 +146,6 @@
                             value: content,
                         })
                         .then(function(response) {
-                            toastr.success('Alterado');
-
                         })
                         .catch(error => {
                             toastr.error(error)
