@@ -125,6 +125,7 @@
                                 <th data-field="description">Descrição / Endereço</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
+                                <th data-field="work_start_date" >Data Programada</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="is_civil" data-width="100" data-formatter="isCivil">Civil</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
