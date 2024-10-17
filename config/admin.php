@@ -296,6 +296,11 @@ return [
                 'route' => 'rdse.index',
             ],
             [
+                'name' =>  'Programação',
+                'icon' =>  'fas fa-file',
+                'route' => 'rdse.programacao.index',
+            ],
+            [
                 'name' =>  'Mãos de Obra',
                 'icon' =>  'fas fa-pallet',
                 'route' => 'handswork.index',
@@ -305,6 +310,7 @@ return [
                 'icon' =>  'fas fa-file',
                 'route' => 'rdse.files.index',
             ],
+
         ],
         'epi' => [
             [

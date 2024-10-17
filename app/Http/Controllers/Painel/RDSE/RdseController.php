@@ -52,6 +52,35 @@ class RdseController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function programacao(Request $request)
+    {
+        # $rdses = Rdse::all();
+        $date = Carbon::now()->format('d/m/Y');
+
+        $status = $request->has('status') ? $request->input('status') : ['pending'];
+
+        [$date_to, $date_from] = $request->has('daterange') ? explode(' - ', $request->input('daterange')) : [null, null];
+
+        $request->merge(['status' => $status, 'date_to' => $date_to, 'date_from' => $date_from]);
+
+        $lotes = DB::table('rdses')
+            ->select('lote')
+            ->whereNotNull('lote')
+            ->where('lote', '<>', '0')
+            ->where('modelo', 0)
+            ->groupBy('lote')
+            ->get();
+
+        return view('pages.painel.rdse.rdse.programacao', [
+            'lotes' => $lotes
+        ])->with($request->only('status', 'date_to', 'date_from'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -144,7 +144,8 @@ class Rdse extends Model
         'aprovado_enel',
         'fiscalizado_satel',
         'liberado_medicao',
-        'data_pagamento_projeto'
+        'data_pagamento_projeto',
+        'is_civil'
     ];
 
     /**
@@ -161,6 +162,7 @@ class Rdse extends Model
 
         'apr_at' => Date::class,
         'status_closing' => RdseClosingStatus::class,
+        'is_civil' => 'boolean',
     ];
 
     public function services()

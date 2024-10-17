@@ -425,6 +425,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
 
+            Route::get('programacao', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'programacao'])->name('rdse.programacao.index');
+            Route::get('programacao/{rdseId}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'show'])->name('rdse.programacao.show');
+
             Route::prefix('/files')->group(function () {
                 Route::get('', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'index'])->name('rdse.files.index');
                 Route::get('{rdseId}', [App\Http\Controllers\Painel\RDSE\RdseFilesController::class, 'show'])->name('rdse.files.show');

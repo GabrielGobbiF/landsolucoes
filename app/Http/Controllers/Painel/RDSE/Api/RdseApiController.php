@@ -20,14 +20,29 @@ class RdseApiController extends Controller
     {
         $this->repository = $rdses;
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request) {}
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, $rdseId)
     {
+        if (!$rdse = $this->repository->select('observations')->where('id', $rdseId)->first()) {
+            return response()->json('Object RDSE not found in scope', 404);
+        }
+
+        return response()->json($rdse, 200);
     }
+
 
     public function storeService(Request $request, $rdseId)
     {
@@ -58,7 +73,6 @@ class RdseApiController extends Controller
         $columns = $request->input('collumn');
 
         $value = $request->input('value');
-
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return response()->json('Object RDSE not found in scope', 404);
         }

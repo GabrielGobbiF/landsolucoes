@@ -53,6 +53,9 @@ class RdseResource extends JsonResource
             'apr_at' => $this->apr_at,
             'work_start_date' => $this->work_start_date,
             'work_end_date' => $this->work_end_date,
+
+            'apr_at_input' => $this->apr_at,
+            'is_civil' => $this->is_civil,
         ];
     }
 
