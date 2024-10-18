@@ -93,6 +93,29 @@
                            @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
+                @php
+                    $year = year();
+                @endphp
+
+                <div class="col-12 col-md-2">
+                    <label>Data Mês</label>
+                    <select id="mes" name="month_date" class="form-control search-input-rdse">
+                        <option selected value="">Selecione</option>
+                        <option value="01">Janeiro / {{ $year }}</option>
+                        <option value="02">Fevereiro / {{ $year }}</option>
+                        <option value="03">Março / {{ $year }}</option>
+                        <option value="04">Abril / {{ $year }}</option>
+                        <option value="05">Maio / {{ $year }}</option>
+                        <option value="06">Junho / {{ $year }}</option>
+                        <option value="07">Julho / {{ $year }}</option>
+                        <option value="08">Agosto / {{ $year }}</option>
+                        <option value="09">Setembro / {{ $year }}</option>
+                        <option value="10">Outubro / {{ $year }}</option>
+                        <option value="11">Novembro / {{ $year }}</option>
+                        <option value="12">Dezembro / {{ $year }}</option>
+                    </select>
+                </div>
+
                 <div class="col-12 col-md-1">
                     <label>NFE</label>
                     <input type="text" class="form-control search-input-rdse" name="nfe" value="" />
@@ -130,7 +153,7 @@
                                 <th data-field="is_civil" data-width="100" data-formatter="isCivil">Civil</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
-
+                                <th data-field="month">Mês</th>
 
                                 {{-- }}
                                 <th data-field="total_p1" data-visible="false" data-footer-formatter="valor_totalp1">Valor P2</th>

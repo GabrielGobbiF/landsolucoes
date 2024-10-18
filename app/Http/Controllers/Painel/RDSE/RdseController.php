@@ -91,6 +91,10 @@ class RdseController extends Controller
         $columns['modelo'] = false;
         $columns['n_order'] = formatNameRDSE($columns['n_order']);
 
+        $mes = $request->input('month_date');
+        $ano = Carbon::now()->format('Y');
+        $columns['month_date'] = Carbon::createFromFormat('Y-m-d', "$ano-$mes-01");
+
         $rdse = $this->repository->create($columns);
 
         /* TODO  */
@@ -142,12 +146,15 @@ class RdseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rdse  $identify
      */
     public function update(StoreUpdateRdse $request, int $identify)
     {
         $columns = $request->all();
         $columns['n_order'] = formatNameRDSE($columns['n_order']);
+
+        $mes = $request->input('month_date');
+        $ano = Carbon::now()->format('Y');
+        $columns['month_date'] = Carbon::createFromFormat('Y-m-d', "$ano-$mes-01");
 
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()

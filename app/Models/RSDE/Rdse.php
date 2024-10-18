@@ -29,7 +29,7 @@ class Rdse extends Model
 
     protected static $logAttributes = ['*'];
 
-    protected $appends = ['StatusLabel', 'StatusAPR'];
+    protected $appends = ['StatusLabel', 'StatusAPR', 'Month'];
 
     public function getStatusAPRAttribute()
     {
@@ -112,7 +112,8 @@ class Rdse extends Model
         'liberado_medicao',
         'data_pagamento_projeto',
         'is_civil',
-        'observation_status'
+        'observation_status',
+        'month_date'
     ];
 
     /**
@@ -135,6 +136,15 @@ class Rdse extends Model
     public function services()
     {
         return $this->hasMany(RdseServices::class, 'rdse_id', 'id');
+    }
+
+    public function getMonthAttribute()
+    {
+        if (empty($this->month_date) || $this->month_date == '0000-00-00 00:00:00') {
+            return null;
+        }
+
+        return Carbon::parse($this->month_date)->format('m');
     }
 
     public function getServicesTotal()

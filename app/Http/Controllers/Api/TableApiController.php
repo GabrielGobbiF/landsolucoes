@@ -272,12 +272,11 @@ class TableApiController extends Controller
                     $query->where('rdses.type', $filters['type']);
                 }
             })->where(function ($query) use ($filters) {
-                if(isset($filters['status'])){
+                if (isset($filters['status'])) {
                     if (!empty($filters['lote']) && $filters['status'] != '' && $filters['status'] !=  'pending') {
                         $query->where('rdses.lote', $filters['lote']);
                     }
                 }
-
             })->where(function ($query) use ($filters) {
                 if (!empty($filters['status_execution'])) {
                     $query->whereIn('rdses.status_execution', $filters['status_execution']);
@@ -300,6 +299,12 @@ class TableApiController extends Controller
                     $date_from = return_format_date($date_from, 'en');
                     $query->whereDate('rdses.created_at', '>=', $date_to);
                     $query->whereDate('rdses.created_at', '<=', $date_from);
+                }
+            })
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['month_date'])) {
+                    $query->whereMonth('month_date', $filters['month_date']);
+                    $query->whereYear('month_date', year());
                 }
             })
             ->where('modelo', 0)

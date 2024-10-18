@@ -375,3 +375,27 @@ function formatNameRDSE($input)
 
     return $formatted;
 }
+
+function monthDate($date)
+{
+    if (empty($date)) return null;
+
+    $date = empty($date) ? Carbon::now() :  Carbon::parse($date);
+
+    return $date->translatedFormat('F/Y');
+}
+
+function year()
+{
+    return Carbon::now()->format('Y');
+}
+
+function monthByFormat($month)
+{
+    if ($month < 1 || $month > 12) {
+        return 'Mês inválido';
+    }
+
+    $data = Carbon::createFromFormat('m', $month);
+    return ucfirst($data->translatedFormat('F'));
+}

@@ -62,6 +62,8 @@ class CreateRdsesTable extends Migration
             $table->string('apr_at')->nullable();
             $table->string('apr_id')->nullable();
 
+            $table->timestamp('month_date')->nullable();
+
             $table->timestamps();
 
             $table->softDeletes();

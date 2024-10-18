@@ -14,6 +14,8 @@ class RdseResource extends JsonResource
      */
     public function toArray($request)
     {
+        $year = year();
+
         $p = '';
         $valorTotal = $this->getServicesTotal();
 
@@ -55,6 +57,7 @@ class RdseResource extends JsonResource
             'work_end_date' => $this->work_end_date,
             'apr_at_input' => $this->apr_at,
             'is_civil' => $this->is_civil,
+            'month' => monthByFormat($this->Month) . "/" . $year,
         ];
     }
 

@@ -48,16 +48,18 @@
 <div class="timeline">
     @foreach ($logs as $log)
         @if (isset($log->properties['attributes']['status_execution']))
-            <div class="timeline-item">
-                <h4>Status Saiu de
-                    <span class="text-danger">{{ $log->properties['old']['status_execution'] }}</span>
-                    para:
-                    <span class="text-success">{{ $log->properties['attributes']['status_execution'] }}</span>
-                </h4>
-                <p>Observação: {{ $log->properties['attributes']['observation_status'] ?? null }}</p>
-                <p>Por: {{ $log->causer->name }}</p>
-                <time>{{ $log->created_at->format('d/m/Y h:i') }}</time>
-            </div>
+            @if ($log->description != 'logs.events.badge.created')
+                <div class="timeline-item">
+                    <h4>Status Saiu de
+                        <span class="text-danger">{{ $log->properties['old']['status_execution'] }}</span>
+                        para:
+                        <span class="text-success">{{ $log->properties['attributes']['status_execution'] }}</span>
+                    </h4>
+                    <p>Observação: {{ $log->properties['attributes']['observation_status'] ?? null }}</p>
+                    <p>Por: {{ $log->causer->name }}</p>
+                    <time>{{ $log->created_at->format('d/m/Y h:i') }}</time>
+                </div>
+            @endif
         @endif
     @endforeach
 </div>
