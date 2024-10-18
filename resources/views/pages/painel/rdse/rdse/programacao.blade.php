@@ -2,7 +2,7 @@
 
 @section('title', "RDSE'S")
 
-@section('content')
+@section('content-max-fluid')
 
     <style>
         @media print {
