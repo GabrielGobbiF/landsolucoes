@@ -248,6 +248,8 @@ class RdseApiController extends Controller
     {
         $statusExecution = $request->input('status_execution', null);
 
+        $statusExecutionObservation = $request->input('status_observation', null);
+
         if (!$statusExecution) {
             return response()->json('Select one status', 404);
         }
@@ -256,9 +258,9 @@ class RdseApiController extends Controller
             return response()->json('Object RDSE not found in scope', 404);
         }
 
-        $rdse->update([
-            'status_execution' => $statusExecution
-        ]);
+        $rdse->status_execution = $statusExecution;
+        $rdse->observation_status = $statusExecutionObservation;
+        $rdse->save();
 
         return response()->json(true, 200);
     }

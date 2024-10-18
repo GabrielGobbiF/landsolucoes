@@ -111,6 +111,12 @@
                     </li>
                 @endif
 
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link " data-toggle="tab" href="#rdse-history_tab" role="tab">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Histórico</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -142,6 +148,7 @@
                                             </select>
                                         </div>
 
+                                        {{--
                                         <div class="col-12 col-md-auto" style="min-width: 180px">
                                             <label>Status de Programação</label>
                                             <select id="rdse-select_status_execution" name="status_execution" class="form-control select2 search-input-rdse">
@@ -153,7 +160,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
+--}}
                                         <div class="col-12 col-md-auto" style="min-width: 180px">
                                             <label>Status de Encerramento</label>
                                             <select id="rdse-select_status_closing" name="status_closing" class="form-control select2 search-input-rdse">
@@ -911,7 +918,17 @@
         </div>
 
 
+        <div id="rdse-history_tab" class="tab-pane" role="tabpanel">
+            <div class="container">
+                <div class='card'>
+                    <div class='card-body'>
+                        @include('pages.painel.rdse._partials.rdse_history')
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 
 @stop
 
@@ -925,8 +942,6 @@
         let unsaved = true;
 
         window.addEventListener('load', () => {
-
-
 
             initInputs();
 

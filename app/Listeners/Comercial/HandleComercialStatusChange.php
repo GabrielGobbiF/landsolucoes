@@ -19,9 +19,7 @@ class HandleComercialStatusChange implements ShouldQueue
     /**
      * Create the event listener.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Handle the event.
@@ -31,15 +29,14 @@ class HandleComercialStatusChange implements ShouldQueue
         $this->comercial = $event->comercial;
 
         match ($event->status) {
-                ComercialStatus::ELABORACAO => $this->comercialElaboracao(),
-                ComercialStatus::ENVIADA => $this->comercialEnviada(),
-                ComercialStatus::APROVADA => $this->comercialAprovada(),
-                ComercialStatus::RECUSADA => $this->comercialRecusada(),
-                ComercialStatus::CONCLUIDA => $this->comercialConcluida(),
+            ComercialStatus::ELABORACAO => $this->comercialElaboracao(),
+            ComercialStatus::ENVIADA => $this->comercialEnviada(),
+            ComercialStatus::APROVADA => $this->comercialAprovada(),
+            ComercialStatus::RECUSADA => $this->comercialRecusada(),
+            ComercialStatus::CONCLUIDA => $this->comercialConcluida(),
 
             default => null
         };
-
     }
 
     private function comercialElaboracao()

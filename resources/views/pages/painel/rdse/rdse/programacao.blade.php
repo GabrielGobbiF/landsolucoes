@@ -125,7 +125,7 @@
                                 <th data-field="description">Descrição / Endereço</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
-                                <th data-field="work_start_date" >Data Programada</th>
+                                <th data-field="work_start_date">Data Programada</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="is_civil" data-width="100" data-formatter="isCivil">Civil</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
@@ -250,6 +250,8 @@
 --}}
 
     @include('pages.painel.rdse._partials.modal-observations')
+
+    @include('pages.painel.rdse._partials.modal-updateStatus')
 
 @endsection
 
@@ -650,16 +652,37 @@
         }
 
         function updateStatusExecution(select, rdseId) {
+            $('#modalUpdateStatus input[name="status"]').val($(select).val());
+            $('#modalUpdateStatus input[name="rdse_id"]').val(rdseId);
+            $('#modalUpdateStatus').modal('show');
+
+            //axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
+            //        _method: 'PUT',
+            //        status_execution: $(select).val(),
+            //    }).then(function(error) {
+            //        toastr.success('Alterado')
+            //    })
+            //    .catch(function(error) {
+            //        toastr.error(error)
+            //    });
+        }
+
+        $('#form-updateStatusRdse').submit(function(event) {
+            event.preventDefault();
+            let rdseId = $('#modalUpdateStatus input[name="rdse_id"]').val();
+
             axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
                     _method: 'PUT',
-                    status_execution: $(select).val(),
+                    status_execution: $('#modalUpdateStatus input[name="status"]').val(),
+                    status_observation: $('#modalUpdateStatus #form-updateStatusRdse textarea[name="status_observation"]').val(),
                 }).then(function(error) {
-                    toastr.success('Alterado')
+                    toastr.success('Alterado');
+                    $('#modalUpdateStatus').modal('hide');
                 })
                 .catch(function(error) {
-                    toastr.error(error)
+                    toastr.error(error);
                 });
-        }
+        });
 
         let timeUpdateColumns
 

@@ -27,41 +27,7 @@ class Rdse extends Model
 
     #protected static $submitEmptyLogs = false;
 
-    protected static $logAttributes = [
-        'description',
-        'n_order',
-        'equipe',
-        'solicitante',
-        'at',
-        'type',
-        'modelo',
-        'status',
-        'obra_id',
-        'lote',
-        'observations',
-        'observations_execution',
-        'nf',
-        'date_nfe_at',
-        'croqui_atualizado_data',
-        'croqui_atualizado_responsavel',
-        'croqui_validado_data',
-        'croqui_validado_responsavel',
-        'croqui_finalizado_data',
-        'croqui_finalizado_responsavel',
-
-        'parcial_1_at',
-        'parcial_2_at',
-        'parcial_3_at',
-        'status_execution',
-
-        'apr_at',
-        'apr_id',
-
-        'enel_deadline',
-        'viability_execution_date',
-        'work_start_date',
-        'work_end_date',
-    ];
+    protected static $logAttributes = ['*'];
 
     protected $appends = ['StatusLabel', 'StatusAPR'];
 
@@ -145,7 +111,8 @@ class Rdse extends Model
         'fiscalizado_satel',
         'liberado_medicao',
         'data_pagamento_projeto',
-        'is_civil'
+        'is_civil',
+        'observation_status'
     ];
 
     /**

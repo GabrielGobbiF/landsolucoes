@@ -127,11 +127,14 @@ class RdseController extends Controller
 
         $rdseServices = $rdse->services()->with('handswork')->get();
 
+        $logs = $rdse->logs();
+
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
             'rdseServices' => $rdseServices,
             'priceUps' => $priceUps,
-            'codigoType' => $codigoType
+            'codigoType' => $codigoType,
+            'logs' => $logs,
         ]);
     }
 

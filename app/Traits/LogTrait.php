@@ -18,7 +18,7 @@ trait LogTrait
             ->logOnly($this->getFillable())
             ->logOnlyDirty()
             ->useLogName(singular($this->getTable()))
-            ->setDescriptionForEvent(fn (string $eventName) => "logs.events.badge.{$eventName}")
+            ->setDescriptionForEvent(fn(string $eventName) => "logs.events.badge.{$eventName}")
             ->dontSubmitEmptyLogs();
     }
 
@@ -40,7 +40,8 @@ trait LogTrait
                 'routes' => [
                     'admin' => config('app.url') . request()->getPathInfo(),
                     #'web' => $routeWeb
-                ]
+                ],
+                'observations' => $message['observations'] ?? null,
             ]
         );
     }

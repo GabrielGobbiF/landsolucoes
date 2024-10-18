@@ -230,7 +230,9 @@
 
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
-@endsection
+    @include('pages.painel.rdse._partials.modal-updateStatus')
+
+    @endsection
 
 @section('scripts')
     <script src="{{ asset('panel/js/pages/rdse/rdse.js') }}"></script>
@@ -578,16 +580,38 @@
         }
 
         function updateStatusExecution(select, rdseId) {
+            $('#modalUpdateStatus input[name="status"]').val($(select).val());
+            $('#modalUpdateStatus input[name="rdse_id"]').val(rdseId);
+            $('#modalUpdateStatus').modal('show');
+
+            //axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
+            //        _method: 'PUT',
+            //        status_execution: $(select).val(),
+            //    }).then(function(error) {
+            //        toastr.success('Alterado')
+            //    })
+            //    .catch(function(error) {
+            //        toastr.error(error)
+            //    });
+        }
+
+        $('#form-updateStatusRdse').submit(function(event) {
+            event.preventDefault();
+            let rdseId = $('#modalUpdateStatus input[name="rdse_id"]').val();
+
             axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
                     _method: 'PUT',
-                    status_execution: $(select).val(),
+                    status_execution: $('#modalUpdateStatus input[name="status"]').val(),
+                    status_observation: $('#modalUpdateStatus #form-updateStatusRdse textarea[name="status_observation"]').val(),
                 }).then(function(error) {
-                    toastr.success('Alterado')
+                    toastr.success('Alterado');
+                    $('#modalUpdateStatus #form-updateStatusRdse textarea[name="status_observation"]').val('')
+                    $('#modalUpdateStatus').modal('hide');
                 })
                 .catch(function(error) {
-                    toastr.error(error)
+                    toastr.error(error);
                 });
-        }
+        });
     </script>
 
     <script>

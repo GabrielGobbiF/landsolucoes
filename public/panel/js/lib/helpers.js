@@ -323,7 +323,7 @@ function resetDiv() {
     $('.table-epi').addClass('d-none');
 }
 
-const txHeight = 50;
+const txHeight = 100;
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {
     if (tx[i].value == '') {
