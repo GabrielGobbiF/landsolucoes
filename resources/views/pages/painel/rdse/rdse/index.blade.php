@@ -99,7 +99,7 @@
 
                 <div class="col-12 col-md-2">
                     <label>Data Mês</label>
-                    <select id="mes" name="month_date" class="form-control search-input-rdse">
+                    <select id="mes" name="month_date" class="form-control search-input-rdse" required>
                         <option selected value="">Selecione</option>
                         <option value="01">Janeiro / {{ $year }}</option>
                         <option value="02">Fevereiro / {{ $year }}</option>
@@ -180,7 +180,7 @@
         </div>
     </div>
 
-    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+    <div id="changeStatus" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form id="form-rdse_change_status" role="form" class="needs-validation" action="" method="POST">

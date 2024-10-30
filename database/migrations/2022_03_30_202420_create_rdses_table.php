@@ -41,7 +41,6 @@ class CreateRdsesTable extends Migration
             $table->integer('parcial_2')->default('0')->nullable();
             $table->integer('parcial_3')->default('0')->nullable();
 
-            $table->integer('parcial_3')->default('0')->nullable();
             $table->boolean('is_civil')->default('0')->nullable();
 
             $table->timestamp('parcial_1_at')->nullable();

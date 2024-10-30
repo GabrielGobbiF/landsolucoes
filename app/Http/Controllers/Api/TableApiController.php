@@ -33,6 +33,7 @@ use App\Models\Concessionaria;
 use App\Models\Driver;
 use App\Models\Employee;
 use App\Models\Epi;
+use App\Models\Equipe;
 use App\Models\Etd;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
@@ -113,7 +114,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function portarias()
     {
@@ -158,7 +158,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function vehicles()
     {
@@ -186,7 +185,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function categories()
     {
@@ -216,6 +214,27 @@ class TableApiController extends Controller
             ->paginate($this->limit);
 
         return HandsworksResource::collection($handsworks);
+    }
+
+    public function equipes()
+    {
+        $equipes = new Equipe();
+
+        $searchColumns = ['id', 'name'];
+
+        $equipes = $equipes
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return response()->json($equipes);
     }
 
     public function ModelosRdses()
@@ -319,7 +338,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function orcamentos()
     {
@@ -333,7 +351,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function produtos()
     {
@@ -347,7 +364,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function employees()
     {
@@ -361,7 +377,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function celulares()
     {
@@ -375,7 +390,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function clients()
     {
@@ -389,7 +403,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function fornecedores()
     {
@@ -403,7 +416,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function services()
     {
@@ -417,7 +429,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function concessionarias()
     {
@@ -431,7 +442,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function comercial()
     {
@@ -487,7 +497,6 @@ class TableApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function obras()
     {
@@ -607,7 +616,6 @@ class TableApiController extends Controller
      * @param  \Illuminate\Http\Model  $model
      * @param  array  $searchColumns colunas que podem ser pesquisadas
      * @param  array  $withCount
-     * @return \Illuminate\Http\Response
      */
     public function get($model, array $searchColumns, array $withCount = [])
     {

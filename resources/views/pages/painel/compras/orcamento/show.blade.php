@@ -39,7 +39,7 @@
                         <div class="col-md-12">
                             <div class="search-table-outter wrapper scrollbox table-responsive" style="overflow: auto;">
                                 <div class="float-right">
-                                    <a href="javascript:void(0)" class="" data-toggle='modal' data-target='#exampleModal'>Editar fornecedores</a>
+                                    <a href="javascript:void(0)" class="" data-toggle='modal' data-target='#editSupplier'>Editar fornecedores</a>
 
 
                                 </div>
@@ -195,7 +195,7 @@
         @endif
     </div>
 
-    <div class='modal' id='exampleModal' tabindex='-1' role='dialog'>
+    <div class='modal' id='editSupplier' tabindex='-1' role='dialog'>
         <div class='modal-dialog' role='document'>
             <div class='modal-content'>
                 <div class='modal-header'>

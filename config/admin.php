@@ -306,6 +306,11 @@ return [
                 'route' => 'handswork.index',
             ],
             [
+                'name' =>  'Equipes',
+                'icon' =>  'fas fa-pallet',
+                'route' => 'equipes.index',
+            ],
+            [
                 'name' =>  'Arquivos',
                 'icon' =>  'fas fa-file',
                 'route' => 'rdse.files.index',

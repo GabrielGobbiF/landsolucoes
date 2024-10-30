@@ -1,6 +1,6 @@
 'use strict';
 
-const modalRdseChangeStatus = $('#exampleModal');
+const modalRdseChangeStatus = $('#changeStatus');
 const bodyModal = modalRdseChangeStatus.find('.modal-body');
 
 const listRdsesGroupInDom = (data, status) => {
@@ -68,7 +68,7 @@ const listRdsesGroupInDom = (data, status) => {
         let selectId = $(this).attr('id');
 
         $(this).select2({
-            dropdownParent: $('#exampleModal  .modal-content'),
+            dropdownParent: $('#changeStatus  .modal-content'),
             width: '100%',
             placeholder: 'Selecione',
             language: {

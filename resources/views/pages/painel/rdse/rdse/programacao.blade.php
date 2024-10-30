@@ -128,6 +128,7 @@
                 <input id="totalUpsTable" type="hidden">
             </div>
 
+
             <div class="table table-api">
                 <div class="table-responsive d-none">
                     <div id="toolbar" class="no-print">
@@ -144,11 +145,11 @@
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
-                                <th data-field="n_order" data-sortable="true" data-width="150">Nº Ordem</th>
+                                <th data-field="n_order" data-sortable="true" data-width="10">Nº Ordem</th>
                                 <th data-field="description">Descrição / Endereço</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
-                                <th data-field="work_start_date">Data Programada</th>
+                                <th data-field="atividades" data-formatter="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="is_civil" data-width="100" data-formatter="isCivil">Civil</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
@@ -171,7 +172,7 @@
         </div>
     </div>
 
-    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+    <div id="changeStatus" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form id="form-rdse_change_status" role="form" class="needs-validation" action="" method="POST">

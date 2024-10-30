@@ -58,6 +58,7 @@ class RdseResource extends JsonResource
             'apr_at_input' => $this->apr_at,
             'is_civil' => $this->is_civil,
             'month' => monthByFormat($this->Month) . "/" . $year,
+            'atividades' => ""
         ];
     }
 
