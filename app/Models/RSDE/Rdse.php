@@ -29,7 +29,7 @@ class Rdse extends Model
 
     protected static $logAttributes = ['*'];
 
-    protected $appends = ['StatusLabel', 'StatusAPR', 'Month'];
+    protected $appends = ['StatusLabel', 'StatusAPR', 'Month', 'AtividadesDescriptions'];
 
     public function getStatusAPRAttribute()
     {
@@ -138,6 +138,11 @@ class Rdse extends Model
         return $this->hasMany(RdseServices::class, 'rdse_id', 'id');
     }
 
+    public function activities()
+    {
+        return $this->hasMany(RdseActivity::class, 'rdse_id', 'id');
+    }
+
     public function getMonthAttribute()
     {
         if (empty($this->month_date) || $this->month_date == '0000-00-00 00:00:00') {
@@ -145,6 +150,25 @@ class Rdse extends Model
         }
 
         return Carbon::parse($this->month_date)->format('m');
+    }
+
+    public function getAtividadesDescriptionsAttribute()
+    {
+        $html = '';
+
+        $atividades = $this->activities;
+
+        if ($this->activities->count() == 0) {
+            return  $html = 'Sem atividades';
+        }
+
+        foreach ($this->activities as $atividade) {
+            $text = $atividade->atividade . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . '<br>';
+
+            $html .= $text;
+        }
+
+        return $html;
     }
 
     public function getServicesTotal()

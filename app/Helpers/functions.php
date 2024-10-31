@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Epi;
+use App\Models\Equipe;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
@@ -398,4 +399,9 @@ function monthByFormat($month)
 
     $data = Carbon::createFromFormat('m', $month);
     return ucfirst($data->translatedFormat('F'));
+}
+
+function equipes()
+{
+    return Equipe::all();
 }

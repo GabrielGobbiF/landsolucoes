@@ -97,7 +97,7 @@
                     </a>
                 </li>
                 <li class="nav-item waves-effect waves-light">
-                    <a class="nav-link active" data-toggle="tab" href="#rdse-services_tab" role="tab">
+                    <a class="nav-link " data-toggle="tab" href="#rdse-services_tab" role="tab">
                         <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                         <span class="d-none d-sm-block">Serviços</span>
                     </a>
@@ -115,6 +115,13 @@
                     <a class="nav-link " data-toggle="tab" href="#rdse-history_tab" role="tab">
                         <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                         <span class="d-none d-sm-block">Histórico</span>
+                    </a>
+                </li>
+
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link active" data-toggle="tab" href="#rdse-activities_tab" role="tab">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Atividades</span>
                     </a>
                 </li>
             </ul>
@@ -187,7 +194,7 @@
                 </div>
             </div>
         </div>
-        <div id="rdse-services_tab" class="tab-pane active show" role="tabpanel">
+        <div id="rdse-services_tab" class="tab-pane " role="tabpanel">
             <div class='card'>
                 <div class='card-body' style="padding: 1rem 1rem 0 1rem;">
 
@@ -923,6 +930,16 @@
                 <div class='card'>
                     <div class='card-body'>
                         @include('pages.painel.rdse._partials.rdse_history')
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rdse-activities_tab" class="tab-pane active show" role="tabpanel">
+            <div class="container">
+                <div class='card'>
+                    <div class='card-body'>
+                        @include('pages.painel.rdse._partials.rdse_activities')
                     </div>
                 </div>
             </div>

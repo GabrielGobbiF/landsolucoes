@@ -18,9 +18,11 @@ class HandsworksResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'description' => $this->description,
+            'name' => $this->code . ' - ' . $this->description,
             'price_ups' => $this->price_ups,
             'price_format' => 'R$ ' . maskPrice($this->price),
             'price' => $this->price,
+            'search' => $this->code . ' - ' . $this->description,
         ];
     }
 }

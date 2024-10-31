@@ -422,6 +422,12 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
 
+            Route::prefix('atividades')->group(function () {
+                Route::put('/{atividadeId}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateAtividade'])->name('rdse.atividades.update');
+                Route::post('/{rdseId}/store', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'storeAtividade'])->name('rdse.atividades.store');
+                Route::get('/{atividadeId}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'showAtividade'])->name('rdse.atividades.show');
+            });
+
             Route::get('programacao', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'programacao'])->name('rdse.programacao.index');
             Route::get('programacao/{rdseId}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'show'])->name('rdse.programacao.show');
 
@@ -537,10 +543,11 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         |--------------------------------------------------------------------------
         | Logs
         |--------------------------------------------------------------------------
-        */
+
         Route::resource('logs', LogsController::class, [
             'only' => ['index', 'show']
         ]);
+        */
     });
 });
 

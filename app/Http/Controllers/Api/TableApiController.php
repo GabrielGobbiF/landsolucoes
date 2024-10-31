@@ -210,8 +210,9 @@ class TableApiController extends Controller
                     }
                 }
             })
-            ->orderBy($this->sort, $this->order)
-            ->paginate($this->limit);
+            ->orderBy($this->sort, $this->order);
+
+        $handsworks = $this->limit == 'all' ? $handsworks->get() : $handsworks->paginate($this->limit);
 
         return HandsworksResource::collection($handsworks);
     }

@@ -6,11 +6,15 @@ use App\Exports\MedicaoExport;
 use App\Models\RSDE\Rdse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateRdse;
+use App\Models\Equipe;
 use App\Models\Obra;
+use App\Models\RSDE\RdseActivity;
+use App\Models\RSDE\RdseActivityItens;
 use App\Models\RSDE\RdseServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RdseController extends Controller
@@ -109,8 +113,6 @@ class RdseController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Rdse  $identify
      */
     public function show(int $identify)
     {
@@ -128,10 +130,10 @@ class RdseController extends Controller
         $typeRdseArray = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first();
         $priceUps = $typeRdseArray['value'];
         $codigoType = $typeRdseArray['codigo'];
-
         $rdseServices = $rdse->services()->with('handswork')->get();
-
         $logs = $rdse->logs();
+
+        $atividades = $rdse->activities()->with('equipe')->get();
 
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
@@ -139,6 +141,8 @@ class RdseController extends Controller
             'priceUps' => $priceUps,
             'codigoType' => $codigoType,
             'logs' => $logs,
+            'atividades' => $atividades,
+            'equipes' => Equipe::all(),
         ]);
     }
 
@@ -371,7 +375,6 @@ class RdseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Rdse  $identify
-     * @return \Illuminate\Http\Response
      */
     public function pdf(int $identify)
     {
@@ -419,7 +422,6 @@ class RdseController extends Controller
         $totalP4 = $rdseServices->sum(function ($service) {
             return clearNumber($service->p_preco3);
         });
-
 
         return view('pages.painel.rdse.rdse.pdf', [
             'rdse' => $rdse,
@@ -596,5 +598,93 @@ class RdseController extends Controller
         $services = collect($services);
 
         return Excel::download(new MedicaoExport($services), slug($rdse->n_order, '_') . '.xlsx');
+    }
+
+    public function storeAtividade(Request $request, $rdseId)
+    {
+        $request->validate([
+            'equipe_id' => 'required',
+            'status_execution' => 'required',
+            'data' => 'required|date',
+            'inicio' => 'required|date_format:H:i',
+            'fim' => 'required|date_format:H:i',
+        ]);
+
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        #$data = Carbon::createFromFormat('Y-m-d', $request->input('data'));
+
+        $rdseAtividade = RdseActivity::create([
+            'rdse_id' => $rdse->id,
+            'equipe_id' => $request->input('equipe_id'),
+            'data' => $request->input('data'),
+            'data_inicio' => $request->input('inicio'),
+            'data_fim' => $request->input('fim'),
+            'atividade' => $request->input('status_execution')
+        ]);
+
+        foreach ($request->input('itens') as $item) {
+            RdseActivityItens::create([
+                'rdse_atividade_id' => $rdseAtividade->id,
+                'rdse_id' => $rdse->id,
+                'handsworks_id' => $item['id'],
+            ]);
+        }
+
+        return redirect()
+            ->route('rdse.show', $rdse->id)
+            ->with('message', 'Criado com sucesso');
+    }
+
+    public function showAtividade(Request $request, $atividadeId)
+    {
+        if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->with('atividades', 'atividades.handswork')->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $itens = $rdseAtividade->atividades;
+
+        return view('pages.painel.rdse.rdse.atividade.show', [
+            'rdseAtividade' => $rdseAtividade,
+            'equipes' => Equipe::all(),
+            'itens' => $itens,
+        ]);
+    }
+
+    public function updateAtividade(Request $request, $atividadeId)
+    {
+        if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $rdseAtividade->update([
+            'equipe_id' => $request->input('equipe_id'),
+            'data' => $request->input('data'),
+            'data_inicio' => $request->input('inicio'),
+            'data_fim' => $request->input('fim'),
+            'atividade' => $request->input('status_execution')
+        ]);
+
+        $rdseAtividade->atividades()->delete();
+
+        foreach ($request->input('itens') as $item) {
+            RdseActivityItens::create([
+                'rdse_atividade_id' => $rdseAtividade->id,
+                'rdse_id' => $rdseAtividade->rdse_id,
+                'handsworks_id' => $item['id'],
+            ]);
+        }
+
+        return redirect()
+            ->route('rdse.atividades.show', $rdseAtividade->id)
+            ->with('message', 'Atualizado com sucesso');
     }
 }

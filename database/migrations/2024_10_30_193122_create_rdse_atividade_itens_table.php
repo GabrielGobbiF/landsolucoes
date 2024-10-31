@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rdse_atividades', function (Blueprint $table) {
+        Schema::create('rdse_atividade_itens', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('rdse_atividade_id');
+            $table->unsignedBigInteger('rdse_id');
+            $table->unsignedBigInteger('handsworks_id');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rdse_atividades');
+        Schema::dropIfExists('rdse_atividade_itens');
     }
 };

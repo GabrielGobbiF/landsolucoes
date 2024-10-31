@@ -149,7 +149,7 @@
                                 <th data-field="description">Descrição / Endereço</th>
                                 <th data-field="type" data-sortable="true">Tipo</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
-                                <th data-field="atividades" data-formatter="atividades" data-width="500">Atividades Programação</th>
+                                <th data-field="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="is_civil" data-width="100" data-formatter="isCivil">Civil</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
@@ -277,6 +277,8 @@
 
     @include('pages.painel.rdse._partials.modal-updateStatus')
 
+    @include('pages.painel.rdse.rdse.atividade.modal_add_atividade')
+
 @endsection
 
 @section('scripts')
@@ -289,6 +291,13 @@
             initButtons();
             initTable();
         });
+
+        function openModaladdItemsModal(row) {
+            let id = $(row).data("id");
+            $('#modalrdseId').val(id)
+            $('#modaladdItemsModal').modal('show');
+        }
+
 
         //$('#rdse-select_status').on('change', function() {
         //let state = $(this).val();
@@ -519,7 +528,7 @@
                     },
                     onClickCell: function(field, value, row, $element) {
                         if (click == 'false' || field == 'state' || field == 'status_execution' || field == 'apr_at' || field == 'is_civil' ||
-                            field == 'enel_deadline' || field == 'observations'
+                            field == 'enel_deadline' || field == 'observations' || field == 'atividades'
 
                         ) {
                             return;
@@ -619,6 +628,15 @@
         }
 
         function isCivil(value, row) {
+            return `
+            <select name="is_civil" class="form-control form-control-sm" id="select-is_civil" onchange="updateRdse(this, ${row.id})">
+                <option ${value == 0 ? 'selected' : ''} value="0">  Não </option>
+                <option ${value == 1 ? 'selected' : ''} value="1">  Sim </option>
+            </select>
+            `
+        }
+
+        function atividades(value, row) {
             return `
             <select name="is_civil" class="form-control form-control-sm" id="select-is_civil" onchange="updateRdse(this, ${row.id})">
                 <option ${value == 0 ? 'selected' : ''} value="0">  Não </option>
