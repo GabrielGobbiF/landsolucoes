@@ -113,7 +113,7 @@
                                     <tr>
                                         <td>
                                             <select id="select--itens-1" name="itens[1][id]" class="form-control select-item select-itens-1 t-select "
-                                                    data-request="handswork" data-value-field="id" placeholder="Digite para pesquisar">
+                                                    data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                                             </select>
                                         </td>
                                         <td style="text-align: end">
@@ -155,7 +155,7 @@
             <tr>
                 <td>
                     <select id="select--itens-${rowCount}" name="itens[${rowCount}][id]" class="form-control select-item select-itens-${rowCount} t-select "
-                            data-request="handswork" data-value-field="id" placeholder="Digite para pesquisar">
+                            data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                     </select>
                 </td>
                 <td style="text-align: end">

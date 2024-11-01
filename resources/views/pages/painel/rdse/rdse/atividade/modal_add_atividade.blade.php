@@ -101,7 +101,7 @@
                                         <tr>
                                             <td>
                                                 <select id="select--itens-1" name="itens[1][id]" class="form-control select-item select-itens-1 t-select "
-                                                        data-request="handswork" data-value-field="id" placeholder="Digite para pesquisar">
+                                                        data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                                                 </select>
                                             </td>
                                             <td style="text-align: end">
@@ -110,7 +110,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="adicionarLinha()">Adicionar Nova Linha</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm mt-3" id="addItemLine" >Adicionar Nova Linha</button>
                             </div>
                         </div>
 
@@ -162,7 +162,7 @@
                             // Adicionar a nova linha com os dados
                             const $linha = $(`
                             <tr>
-                              <th scope="row">${index + 1}</th>
+                              <th scope="row">${atividade.id}</th>
                               <td>${atividade.atividade}</td>
                               <td>${atividade.data}</td>
                               <td>${atividade.data_inicio}</td>
@@ -262,7 +262,7 @@
             <tr>
                 <td>
                     <select id="select--itens-${rowCount}" name="itens[${rowCount}][id]" class="form-control select-item select-itens-${rowCount} t-select "
-                            data-request="handswork" data-value-field="id" placeholder="Digite para pesquisar">
+                            data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                     </select>
                 </td>
                 <td style="text-align: end">
@@ -313,6 +313,8 @@
             $('#toggleBtn').on('click', toggleForm);
 
             $('#submitForm').on('click', submitForm);
+
+            $('#addItemLine').on('click', adicionarLinha);
 
         });
     </script>

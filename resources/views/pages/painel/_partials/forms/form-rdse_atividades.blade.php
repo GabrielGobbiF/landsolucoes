@@ -59,7 +59,7 @@
                     <tr>
                         <td>
                             <select id="select--itens-{{ $item->id }}" name="itens[{{ $item->id }}][id]"
-                                    class="form-control select-item select-itens-{{ $item->id }} t-select " data-request="handswork" data-value-field="id"
+                                    class="form-control select-item select-itens-{{ $item->id }} t-select " data-request="{{ route('handswork.all') }}" data-value-field="id"
                                     placeholder="{{ $item->handswork->description }}">
                                 <option selected value="{{ $item->handswork->id }}">{{ $item->handswork->description }}</option>
                             </select>
@@ -111,7 +111,7 @@
             <tr>
                 <td>
                     <select id="select--itens-${rowCount}" name="itens[${rowCount}][id]" class="form-control select-item select-itens-${rowCount} t-select "
-                            data-request="handswork" data-value-field="id" placeholder="Digite para pesquisar">
+                            data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                     </select>
                 </td>
                 <td style="text-align: end">
