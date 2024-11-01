@@ -114,7 +114,7 @@ class RdseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $identify)
+    public function show( $identify)
     {
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
@@ -151,7 +151,7 @@ class RdseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function update(StoreUpdateRdse $request, int $identify)
+    public function update(StoreUpdateRdse $request,  $identify)
     {
         $columns = $request->all();
         $columns['n_order'] = formatNameRDSE($columns['n_order']);
@@ -176,7 +176,7 @@ class RdseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param    $id
      */
     public function destroy($id)
     {
