@@ -48,6 +48,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      * RDSE atividade
      */
     Route::post('rdses/{rdseId}/atividades', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'storeAtividade'])->name('api.rdse.atividades.store');
+    Route::get('rdses/{rdseId}/atividades', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'atividades'])->name('api.rdse.atividades.all');
 
 
     /**

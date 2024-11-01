@@ -163,7 +163,9 @@ class Rdse extends Model
         }
 
         foreach ($this->activities as $atividade) {
-            $text = $atividade->atividade . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . '<br>';
+            $exec = !empty($atividade->execucao) ? 'Executado' : 'Não Executado';
+
+            $text = $atividade->atividade . ' ' . $atividade->equipe->name . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . ' - ' . $exec . '<br>';
 
             $html .= $text;
         }

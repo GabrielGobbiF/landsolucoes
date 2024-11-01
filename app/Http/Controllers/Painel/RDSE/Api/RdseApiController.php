@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel\RDSE\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\HandsworksResource;
+use App\Http\Resources\RdseAtividadesResource;
 use App\Http\Resources\RdseResource;
 use App\Models\RSDE\Handswork;
 use App\Models\RSDE\Rdse;
@@ -275,6 +276,7 @@ class RdseApiController extends Controller
             'data' => 'required|date',
             'inicio' => 'required|date_format:H:i',
             'fim' => 'required|date_format:H:i',
+            'executado' => 'nullable',
         ]);
 
         if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
@@ -285,14 +287,18 @@ class RdseApiController extends Controller
 
         #$data = Carbon::createFromFormat('Y-m-d', $request->input('data'));
 
-        $rdseAtividade = RdseActivity::create([
+        $data = [
             'rdse_id' => $rdse->id,
             'equipe_id' => $request->input('equipe_id'),
             'data' => $request->input('data'),
             'data_inicio' => $request->input('inicio'),
             'data_fim' => $request->input('fim'),
             'atividade' => $request->input('status_execution')
-        ]);
+        ];
+
+        $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
+
+        $rdseAtividade = RdseActivity::create($data);
 
         foreach ($request->input('itens') as $item) {
             RdseActivityItens::create([
@@ -303,5 +309,18 @@ class RdseApiController extends Controller
         }
 
         return response()->json(true, 200);
+    }
+
+    public function atividades($rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $atividades = $rdse->activities()->get();
+
+        return RdseAtividadesResource::collection($atividades);
     }
 }

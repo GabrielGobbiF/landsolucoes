@@ -77,6 +77,20 @@
     </div>
 </div>
 
+<div class="col-12 col-md-12 mt-4">
+    <label>Executação</label>
+
+    <div class="form-check">
+        <input id="ex" class="form-check-input" type="radio" name="executado" value="true" {{ !empty($rdseAtividade->execucao) ? 'checked' : null }} required />
+        <label class="form-check-label" for="ex"> Executado </label>
+    </div>
+    <div class="form-check">
+        <input id="nex" class="form-check-input" value="false" type="radio" name="executado" {{ empty($rdseAtividade->execucao) ? 'checked' : null }} required />
+        <label class="form-check-label" for="nex" >
+            Não Executado
+        </label>
+    </div>
+</div>
 
 @section('scripts')
 
@@ -126,4 +140,3 @@
         }
     </script>
 @append
-
