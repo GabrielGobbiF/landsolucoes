@@ -52,7 +52,7 @@ class HandsworkController extends Controller
      * @param  \App\Models\Handswork  $identify
      * @return \Illuminate\Http\Response
      */
-    public function show(int $identify)
+    public function show($identify)
     {
         if (!$handswork = $this->repository->where('id', $identify)->first()) {
             return redirect()
