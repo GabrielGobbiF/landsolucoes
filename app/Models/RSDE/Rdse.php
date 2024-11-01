@@ -156,19 +156,21 @@ class Rdse extends Model
     {
         $html = '';
 
-        $atividades = $this->activities;
+        $atividades = $this->activities()->limit(4)->get();
 
-        if ($this->activities->count() == 0) {
+        if ($atividades->count() == 0) {
             return  $html = 'Sem atividades';
         }
 
-        foreach ($this->activities as $atividade) {
+        foreach ($atividades as $atividade) {
             $exec = !empty($atividade->execucao) ? 'Executado' : 'Não Executado';
 
             $text = $atividade->atividade . ' ' . $atividade->equipe->name . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . ' - ' . $exec . '<br>';
 
             $html .= $text;
         }
+
+        $html .= '...';
 
         return $html;
     }

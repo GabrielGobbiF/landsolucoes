@@ -185,14 +185,11 @@
 
             carregarAtividades();
 
-
-
             document.querySelectorAll('.removeRowBtn').forEach(button => {
                 addRemoveEvent(button);
             });
 
             function submitForm() {
-
 
                 const form = document.getElementById('itensForNewAtividade');
 
