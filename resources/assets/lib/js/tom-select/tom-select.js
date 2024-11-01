@@ -27,6 +27,7 @@ const selectAxOption = (request, valueField) => {
 }
 
 window.newSelect = (item) => {
+    let i_url = document.querySelector('meta[ref="url"]').content
     let createIn = item.dataset.create ? true : false;
     let request = item.dataset.request;
     let valueField = item.dataset.valueField ?? 'id';
