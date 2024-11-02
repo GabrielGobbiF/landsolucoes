@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div id="addItemForm" style="display: none;">
+                <div id="addItemForm" class="d-none">
                     <form id="itensForNewAtividade" action="" method="POST">
                         @csrf
                         <div class="col-12 col-md-12">
@@ -110,7 +110,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-outline-primary btn-sm mt-3" id="addItemLine" >Adicionar Nova Linha</button>
+                                <button id="addItemLine" type="button" class="btn btn-outline-primary btn-sm mt-3">Adicionar Nova Linha</button>
                             </div>
                         </div>
 
@@ -142,9 +142,33 @@
 @section('scripts')
 
     <script>
+        $('#toggleBtn').on('click', toggleForm);
+
+
+        function toggleForm() {
+            const isFormVisible = $('#addItemForm').hasClass('d-none');
+            console.log(isFormVisible);
+
+            if (isFormVisible) {
+                $('#itemList').addClass('d-none');
+                $('#addItemForm').removeClass('d-none');
+                $('#toggleBtn').text('Cancelar');
+            } else {
+                $('#addItemForm').addClass('d-none');
+                $('#itemList').removeClass('d-none');
+                $('#toggleBtn').text('Adicionar Item');
+
+            }
+        }
+
         $('#modaladdItemsModal').on('shown.bs.modal', function() {
             const route = $('#routeAddAtividade').val();
             const id = $('#modalrdseId').val();
+
+            $('#addItemForm').addClass('d-none');
+            $('#itemList').removeClass('d-none');
+            $('#toggleBtn').text('Adicionar Item');
+
 
             function carregarAtividades() {
 
@@ -295,27 +319,19 @@
             }
 
 
-            function toggleForm() {
-                const isFormVisible = $('#addItemForm').is(':visible');
-
-                if (isFormVisible) {
-                    $('#addItemForm').hide();
-                    $('#itemList').show();
-                    $('#toggleBtn').text('Adicionar Item');
-                } else {
-                    $('#itemList').hide();
-                    $('#addItemForm').show();
-                    $('#toggleBtn').text('Cancelar');
-                }
-            }
 
             // Evento para alternar entre o formulário e a lista de itens ao clicar no botão
-            $('#toggleBtn').on('click', toggleForm);
 
             $('#submitForm').on('click', submitForm);
 
             $('#addItemLine').on('click', adicionarLinha);
 
+        });
+
+        $('#modaladdItemsModal').on('hide.bs.modal', function() {
+            $('#addItemForm').addClass('d-none');
+            $('#itemList').removeClass('d-none');
+            $('#toggleBtn').text('Adicionar Item');
         });
     </script>
 @append
