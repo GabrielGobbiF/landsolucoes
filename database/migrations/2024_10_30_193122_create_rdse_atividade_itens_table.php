@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rdse_atividade_id');
             $table->unsignedBigInteger('rdse_id');
             $table->unsignedBigInteger('handsworks_id');
+            $table->string('name');
             $table->timestamps();
         });
     }

@@ -11,18 +11,14 @@ use App\Models\RSDE\Rdse;
 use App\Models\RSDE\RdseActivity;
 use App\Models\RSDE\RdseActivityItens;
 use App\Models\RSDE\RdseServices;
+use App\Services\Rdse\RdseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class RdseApiController extends Controller
 {
-    protected $repository;
-
-    public function __construct(Rdse $rdses)
-    {
-        $this->repository = $rdses;
-    }
+    public function __construct(private Rdse $repository, private RdseService $rdseService) {}
 
     /**
      * Display a listing of the resource.
@@ -285,28 +281,7 @@ class RdseApiController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        #$data = Carbon::createFromFormat('Y-m-d', $request->input('data'));
-
-        $data = [
-            'rdse_id' => $rdse->id,
-            'equipe_id' => $request->input('equipe_id'),
-            'data' => $request->input('data'),
-            'data_inicio' => $request->input('inicio'),
-            'data_fim' => $request->input('fim'),
-            'atividade' => $request->input('status_execution')
-        ];
-
-        $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
-
-        $rdseAtividade = RdseActivity::create($data);
-
-        foreach ($request->input('itens') as $item) {
-            RdseActivityItens::create([
-                'rdse_atividade_id' => $rdseAtividade->id,
-                'rdse_id' => $rdse->id,
-                'handsworks_id' => $item['id'],
-            ]);
-        }
+        $this->rdseService->adicionarAtividade($request, $rdse);
 
         return response()->json(true, 200);
     }

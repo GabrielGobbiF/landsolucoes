@@ -100,9 +100,13 @@
                                     <tbody>
                                         <tr>
                                             <td>
+                                                {{--
                                                 <select id="select--itens-1" name="itens[1][id]" class="form-control select-item select-itens-1 t-select "
                                                         data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                                                 </select>
+                                                --}}
+
+                                                <input type="text" name="itens[1][id]" class="form-control" placeholder="Nome da Atividade">
                                             </td>
                                             <td style="text-align: end">
                                                 <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
@@ -157,7 +161,6 @@
                 $('#addItemForm').addClass('d-none');
                 $('#itemList').removeClass('d-none');
                 $('#toggleBtn').text('Adicionar Item');
-
             }
         }
 
@@ -285,9 +288,7 @@
                 newRow.innerHTML = `
             <tr>
                 <td>
-                    <select id="select--itens-${rowCount}" name="itens[${rowCount}][id]" class="form-control select-item select-itens-${rowCount} t-select "
-                            data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
-                    </select>
+                    <input type="text" name="itens[1][id]" class="form-control" placeholder="Nome da Atividade">
                 </td>
                 <td style="text-align: end">
                     <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
@@ -304,7 +305,7 @@
                 const newButton = newRow.querySelector('.removeRowBtn');
                 addRemoveEvent(newButton);
 
-                newSelect(document.getElementById(`select--itens-${rowCount}`));
+                //newSelect(document.getElementById(`select--itens-${rowCount}`));
             }
 
             function addRemoveEvent(button) {

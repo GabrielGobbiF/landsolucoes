@@ -11,6 +11,7 @@ use App\Models\Obra;
 use App\Models\RSDE\RdseActivity;
 use App\Models\RSDE\RdseActivityItens;
 use App\Models\RSDE\RdseServices;
+use App\Services\Rdse\RdseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,12 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class RdseController extends Controller
 {
-    protected $repository;
-
-    public function __construct(Rdse $rdses)
-    {
-        $this->repository = $rdses;
-    }
+    public function __construct(private Rdse $repository, private RdseService $rdseService) {}
 
     /**
      * Display a listing of the resource.
@@ -114,7 +110,7 @@ class RdseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( $identify)
+    public function show($identify)
     {
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return redirect()
@@ -617,28 +613,7 @@ class RdseController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        #$data = Carbon::createFromFormat('Y-m-d', $request->input('data'));
-
-        $data = [
-            'rdse_id' => $rdse->id,
-            'equipe_id' => $request->input('equipe_id'),
-            'data' => $request->input('data'),
-            'data_inicio' => $request->input('inicio'),
-            'data_fim' => $request->input('fim'),
-            'atividade' => $request->input('status_execution')
-        ];
-
-        $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
-
-        $rdseAtividade = RdseActivity::create($data);
-
-        foreach ($request->input('itens') as $item) {
-            RdseActivityItens::create([
-                'rdse_atividade_id' => $rdseAtividade->id,
-                'rdse_id' => $rdse->id,
-                'handsworks_id' => $item['id'],
-            ]);
-        }
+        $this->rdseService->adicionarAtividade($request, $rdse);
 
         return redirect()
             ->route('rdse.show', $rdse->id)
@@ -683,27 +658,7 @@ class RdseController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        $data = [
-            'equipe_id' => $request->input('equipe_id'),
-            'data' => $request->input('data'),
-            'data_inicio' => $request->input('inicio'),
-            'data_fim' => $request->input('fim'),
-            'atividade' => $request->input('status_execution')
-        ];
-
-        $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
-
-        $rdseAtividade->update($data);
-
-        $rdseAtividade->atividades()->delete();
-
-        foreach ($request->input('itens') as $item) {
-            RdseActivityItens::create([
-                'rdse_atividade_id' => $rdseAtividade->id,
-                'rdse_id' => $rdseAtividade->rdse_id,
-                'handsworks_id' => $item['id'],
-            ]);
-        }
+        $this->rdseService->atualizarAtividade($request, $rdseAtividade);
 
         return redirect()
             ->route('rdse.atividades.show', $rdseAtividade->id)

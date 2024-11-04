@@ -20,6 +20,7 @@ class RdseActivityItens extends Model
         'rdse_atividade_id',
         'rdse_id',
         'handsworks_id',
+        'description',
     ];
 
     public function handswork()
