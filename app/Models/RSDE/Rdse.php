@@ -156,7 +156,7 @@ class Rdse extends Model
     {
         $html = '';
 
-        $atividades = $this->activities()->orderBy('id', 'desc')->limit(4)->get();
+        $atividades = $this->activities()->orderBy('data')->limit(4)->get();
 
         if ($atividades->count() == 0) {
             return  $html = 'Sem atividades';

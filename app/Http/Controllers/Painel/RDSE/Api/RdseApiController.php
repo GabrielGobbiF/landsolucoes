@@ -294,7 +294,7 @@ class RdseApiController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        $atividades = $rdse->activities()->orderBy('id','desc')->get();
+        $atividades = $rdse->activities()->orderBy('data')->get();
 
         return RdseAtividadesResource::collection($atividades);
     }
