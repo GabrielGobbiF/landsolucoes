@@ -5,7 +5,7 @@
         <select id="rdse-select_status_execution" name="status_execution" class="form-control" required tabindex="1">
             <option value="">Selecione </option>
             @foreach (trans('rdses.status_execution') as $status_execution)
-                <option {{ $rdseAtividade->atividade == $status_execution ? 'selected' : null }} value='{{ $status_execution }}'>
+                <option {{ $rdseAtividade->atividade_descricao == $status_execution ? 'selected' : null }} value='{{ $status_execution }}'>
                     {{ $status_execution }}
                 </option>
             @endforeach
@@ -44,6 +44,12 @@
     </div>
 </div>
 
+<div class="col-12 mt-4">
+    <label for="atividades" class="form-label">Atividades</label>
+    <textarea name="atividades" id="atividades" cols="30" rows="10" class="form-control">{{$rdseAtividade->atividades}}</textarea>
+</div>
+
+{{--
 <div class="card text-start">
     <div class="card-body">
         <h4 class="card-title mb-4">Adicionar Atividades</h4>
@@ -58,11 +64,7 @@
                 @foreach ($itens as $item)
                     <tr>
                         <td>
-                            <select id="select--itens-{{ $item->id }}" name="itens[{{ $item->id }}][id]"
-                                    class="form-control select-item select-itens-{{ $item->id }} t-select " data-request="{{ route('handswork.all') }}" data-value-field="id"
-                                    placeholder="{{ $item->handswork->description }}">
-                                <option selected value="{{ $item->handswork->id }}">{{ $item->handswork->description }}</option>
-                            </select>
+                            <input type="text" name="itens[{{ $item->id }}][id]" class="form-control" value="{{ $item->description }}">
                         </td>
                         <td style="text-align: end">
                             <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
@@ -73,20 +75,25 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="adicionarLinha()">Adicionar Nova Linha</button>
+        @if ($rdseAtividade->canUpdate())
+            <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="adicionarLinha()">Adicionar Nova Linha</button>
+        @endif
     </div>
 </div>
+--}}
 
 <div class="col-12 col-md-12 mt-4">
     <label>Executação</label>
 
     <div class="form-check">
-        <input id="ex" class="form-check-input" type="radio" name="executado" value="true" {{ !empty($rdseAtividade->execucao) ? 'checked' : null }} required />
+        <input id="ex" class="form-check-input" type="radio" name="executado" value="true" {{ !empty($rdseAtividade->execucao) ? 'checked' : null }}
+               required />
         <label class="form-check-label" for="ex"> Executado </label>
     </div>
     <div class="form-check">
-        <input id="nex" class="form-check-input" value="false" type="radio" name="executado" {{ empty($rdseAtividade->execucao) ? 'checked' : null }} required />
-        <label class="form-check-label" for="nex" >
+        <input id="nex" class="form-check-input" value="false" type="radio" name="executado" {{ empty($rdseAtividade->execucao) ? 'checked' : null }}
+               required />
+        <label class="form-check-label" for="nex">
             Não Executado
         </label>
     </div>
@@ -94,6 +101,7 @@
 
 @section('scripts')
 
+    {{--
     <script>
         document.querySelectorAll('.removeRowBtn').forEach(button => {
             addRemoveEvent(button);
@@ -110,9 +118,7 @@
             newRow.innerHTML = `
             <tr>
                 <td>
-                    <select id="select--itens-${rowCount}" name="itens[${rowCount}][id]" class="form-control select-item select-itens-${rowCount} t-select "
-                            data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
-                    </select>
+                    <input type="text" name="itens[${rowCount}][id]" class="form-control" >
                 </td>
                 <td style="text-align: end">
                     <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
@@ -139,4 +145,5 @@
             });
         }
     </script>
+    --}}
 @append

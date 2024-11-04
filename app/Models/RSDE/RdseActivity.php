@@ -20,14 +20,15 @@ class RdseActivity extends Model
     protected $fillable = [
         'rdse_id',
         'equipe_id',
-        'atividade',
+        'atividade_descricao',
+        'atividades',
         'data',
         'data_inicio',
         'data_fim',
         'execucao'
     ];
 
-     /**
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
@@ -50,5 +51,10 @@ class RdseActivity extends Model
     public function atividades()
     {
         return $this->hasMany(RdseActivityItens::class, 'rdse_atividade_id');
+    }
+
+    public function canUpdate()
+    {
+        return empty($this->execucao);
     }
 }

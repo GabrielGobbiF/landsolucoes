@@ -8,7 +8,7 @@
         <div class='card-body'>
 
             <div class="mb-3">
-                <a href="{{ route('rdse.show', $rdseAtividade->rdse_id) }}" >
+                <a href="{{ route('rdse.show', $rdseAtividade->rdse_id) }}">
                     <i class="fa-solid fa-arrow-left-long"></i>
                     Voltar
                 </a>
@@ -20,7 +20,10 @@
                     @csrf
                     @method('put')
                     @include('pages.painel._partials.forms.form-rdse_atividades')
-                    <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
+
+                    @if ($rdseAtividade->canUpdate())
+                        <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
+                    @endif
                 </div>
             </form>
         </div>

@@ -9,6 +9,7 @@ use App\Models\RSDE\RdseActivityItens;
 use App\Repositories\TableRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class RdseService
 {
@@ -19,6 +20,7 @@ class RdseService
         $request->validate([
             'equipe_id' => 'required',
             'status_execution' => 'required',
+            'atividades' => 'required',
             'data' => 'required|date',
             'inicio' => 'required|date_format:H:i',
             'fim' => 'required|date_format:H:i',
@@ -31,13 +33,15 @@ class RdseService
             'data' => $request->input('data'),
             'data_inicio' => $request->input('inicio'),
             'data_fim' => $request->input('fim'),
-            'atividade' => $request->input('status_execution')
+            'atividade_descricao' => $request->input('status_execution'),
+            'atividades' => $request->input('atividades'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
 
         $rdseAtividade = RdseActivity::create($data);
 
+        /*
         foreach ($request->input('itens') as $item) {
 
             #$description = Handswork::where('id', $item['id'])->dd()?->description;
@@ -49,24 +53,32 @@ class RdseService
                 'description' => $item['id'],
             ]);
         }
+        */
 
         return;
     }
 
     public function atualizarAtividade(Request $request, RdseActivity $rdseAtividade)
     {
+        throw_if(
+            !$rdseAtividade->canUpdate(),
+            ValidationException::withMessages(['message' => 'Não é Possivel Atualizar ja Executado'])
+        );
+
         $data = [
             'equipe_id' => $request->input('equipe_id'),
             'data' => $request->input('data'),
             'data_inicio' => $request->input('inicio'),
             'data_fim' => $request->input('fim'),
-            'atividade' => $request->input('status_execution')
+            'atividade_descricao' => $request->input('status_execution'),
+            'atividades' => $request->input('atividades'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
 
         $rdseAtividade->update($data);
 
+        /*
         $rdseAtividade->atividades()->delete();
 
         foreach ($request->input('itens') as $item) {
@@ -74,8 +86,10 @@ class RdseService
                 'rdse_atividade_id' => $rdseAtividade->id,
                 'rdse_id' => $rdseAtividade->rdse_id,
                 'handsworks_id' => $item['id'],
+                'description' => $item['id'],
             ]);
         }
+        */
 
         return;
     }

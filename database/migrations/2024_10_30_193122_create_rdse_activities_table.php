@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('equipe_id');
             $table->unsignedBigInteger('user_created');
 
-            $table->string('atividade');
+            $table->string('atividade_descricao');
+            $table->longText('atividades');
             $table->timestamp('data');
             $table->string('data_inicio');
             $table->string('data_fim');

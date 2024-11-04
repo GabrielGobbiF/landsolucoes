@@ -87,6 +87,12 @@
                             </div>
                         </div>
 
+                        <div class="col-12 mt-4">
+                            <label for="atividades" class="form-label">Atividades</label>
+                            <textarea id="atividades" name="atividades" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+
+                        {{--
                         <div class="card text-start">
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Adicionar Atividades</h4>
@@ -104,7 +110,6 @@
                                                 <select id="select--itens-1" name="itens[1][id]" class="form-control select-item select-itens-1 t-select "
                                                         data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
                                                 </select>
-                                                --}}
 
                                                 <input type="text" name="itens[1][id]" class="form-control" placeholder="Nome da Atividade">
                                             </td>
@@ -117,7 +122,7 @@
                                 <button id="addItemLine" type="button" class="btn btn-outline-primary btn-sm mt-3">Adicionar Nova Linha</button>
                             </div>
                         </div>
-
+                        --}}
                         <div class="col-12 col-md-12 mt-4">
                             <label>Executação</label>
 
@@ -172,7 +177,6 @@
             $('#itemList').removeClass('d-none');
             $('#toggleBtn').text('Adicionar Item');
 
-
             function carregarAtividades() {
 
                 axios.get(`${route}/${id}/atividades`) // Substitua 'URL_DA_SUA_API' pela URL da sua API
@@ -190,15 +194,14 @@
                             const $linha = $(`
                             <tr>
                               <th scope="row">${atividade.id}</th>
-                              <td>${atividade.atividade}</td>
+                              <td>${atividade.atividade_descricao}</td>
                               <td>${atividade.data}</td>
                               <td>${atividade.data_inicio}</td>
                               <td>${atividade.data_fim}</td>
                               <td>${atividade.equipe}</td>
                               <td>${atividade.execucao}</td>
-                              <td class="d-none">
-                                <button class="btn btn-sm btn-outline-secondary">Editar</button>
-                                <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                              <td>
+                                ${atividade.btn_edit}
                               </td>
                             </tr>
                         `);
@@ -224,24 +227,24 @@
 
                 let data = {};
                 formData.forEach((value, key) => {
-                    if (key.includes('itens')) {
-                        const [_, index, field] = key.match(/itens\[(\d+)]\[(.*)]/);
-
-                        if (!data.itens) {
-                            data.itens = [];
-                        }
-                        if (!data.itens[index]) {
-                            data.itens[index] = {};
-                        }
-                        data.itens[index][field] = value;
-                    } else {
-                        data[key] = value;
-                    }
+                    //if (key.includes('itens')) {
+                    //    const [_, index, field] = key.match(/itens\[(\d+)]\[(.*)]/);
+                    //
+                    //    if (!data.itens) {
+                    //        data.itens = [];
+                    //    }
+                    //    if (!data.itens[index]) {
+                    //        data.itens[index] = {};
+                    //    }
+                    //    data.itens[index][field] = value;
+                    //} else {
+                    data[key] = value;
+                    //}
                 });
 
-                if (data.itens) {
-                    data.itens = data.itens.filter(item => item !== null && item !== undefined);
-                }
+                //if (data.itens) {
+                //    data.itens = data.itens.filter(item => item !== null && item !== undefined);
+                //}
 
                 axios.post(`${route}/${id}/atividades`, data)
                     .then(function(response) {
@@ -271,61 +274,15 @@
                 form.reset();
 
                 // Seleciona todos os campos de itens e mantém apenas o primeiro (poderia remover todos e adicionar um vazio, depende do contexto)
-                const itensContainer = document.querySelector('#itemsTable tbody');
-                itensContainer.innerHTML = '';
-                adicionarLinha();
+                //const itensContainer = document.querySelector('#itemsTable tbody');
+                //itensContainer.innerHTML = '';
+                //adicionarLinha();
                 carregarAtividades();
             }
-
-            function adicionarLinha() {
-
-                const tableBody = document.querySelector('#itemsTable tbody');
-                const rowCount = tableBody.rows.length + 1;
-
-                const newRow = document.createElement('tr');
-                newRow.setAttribute('data-id', rowCount);
-
-                newRow.innerHTML = `
-            <tr>
-                <td>
-                    <input type="text" name="itens[1][id]" class="form-control" placeholder="Nome da Atividade">
-                </td>
-                <td style="text-align: end">
-                    <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
-                </td>
-            </tr>`;
-
-                if (tableBody.rows.length == 0) {
-                    tableBody.insertBefore(newRow, tableBody.children[0]);
-                } else {
-                    tableBody.appendChild(newRow); // Caso não tenha linha alguma, apenas adiciona ao fim
-                }
-
-                // Adiciona o evento de remoção ao novo botão
-                const newButton = newRow.querySelector('.removeRowBtn');
-                addRemoveEvent(newButton);
-
-                //newSelect(document.getElementById(`select--itens-${rowCount}`));
-            }
-
-            function addRemoveEvent(button) {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const tr = this.closest('tr');
-                    if (tr) {
-                        tr.remove();
-                        calculateSubTotal(); // Recalcula o subtotal após remover a linha
-                    }
-                });
-            }
-
-
 
             // Evento para alternar entre o formulário e a lista de itens ao clicar no botão
 
             $('#submitForm').on('click', submitForm);
-
-            $('#addItemLine').on('click', adicionarLinha);
 
         });
 

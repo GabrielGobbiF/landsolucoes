@@ -25,7 +25,7 @@
                     @foreach ($atividades as $atividade)
                         <tr>
                             <td>{{ $atividade->id }}</td>
-                            <td>{{ $atividade->atividade }}</td>
+                            <td>{{ $atividade->atividade_descricao }}</td>
                             <td>{{ $atividade->data }}</td>
                             <td>{{ $atividade->data_inicio }}</td>
                             <td>{{ $atividade->data_fim }}</td>
@@ -99,6 +99,7 @@
                         </div>
                     </div>
 
+                    {{--
                     <div class="card text-start">
                         <div class="card-body">
                             <h4 class="card-title mb-4">Adicionar Atividades</h4>
@@ -112,9 +113,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <select id="select--itens-1" name="itens[1][id]" class="form-control select-item select-itens-1 t-select "
-                                                    data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
-                                            </select>
+                                            <input type="text" name="itens[1][id]" class="form-control" placeholder="Nome da Atividade">
                                         </td>
                                         <td style="text-align: end">
                                             <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
@@ -125,8 +124,9 @@
 
                             <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="adicionarLinha()">Adicionar Nova Linha</button>
                         </div>
-
                     </div>
+                    --}}
+
                     <div class="col-12 col-md-12 mt-4">
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
@@ -137,7 +137,7 @@
 </div>
 
 @section('scripts')
-
+    {{--
     <script>
         document.querySelectorAll('.removeRowBtn').forEach(button => {
             addRemoveEvent(button);
@@ -154,9 +154,7 @@
             newRow.innerHTML = `
             <tr>
                 <td>
-                    <select id="select--itens-${rowCount}" name="itens[${rowCount}][id]" class="form-control select-item select-itens-${rowCount} t-select "
-                            data-request="{{ route('handswork.all') }}" data-value-field="id" placeholder="Digite para pesquisar">
-                    </select>
+                    <input type="text" name="itens[${rowCount}][id]" class="form-control" placeholder="Nome da Atividade">
                 </td>
                 <td style="text-align: end">
                     <button type="button" class="btn btn-danger removeRowBtn">&times;</button>
@@ -183,4 +181,5 @@
             });
         }
     </script>
+    --}}
 @append

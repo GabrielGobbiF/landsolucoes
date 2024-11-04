@@ -156,7 +156,7 @@ class Rdse extends Model
     {
         $html = '';
 
-        $atividades = $this->activities()->limit(4)->get();
+        $atividades = $this->activities()->orderBy('id', 'desc')->limit(4)->get();
 
         if ($atividades->count() == 0) {
             return  $html = 'Sem atividades';
@@ -165,7 +165,7 @@ class Rdse extends Model
         foreach ($atividades as $atividade) {
             $exec = !empty($atividade->execucao) ? 'Executado' : 'Não Executado';
 
-            $text = $atividade->atividade . ' ' . $atividade->equipe->name . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . ' - ' . $exec . '<br>';
+            $text = $atividade->atividade_descricao . ' ' . $atividade->equipe->name . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . ' - ' . $exec . '<br>';
 
             $html .= $text;
         }

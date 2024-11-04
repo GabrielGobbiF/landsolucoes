@@ -598,15 +598,6 @@ class RdseController extends Controller
 
     public function storeAtividade(Request $request, $rdseId)
     {
-        $request->validate([
-            'equipe_id' => 'required',
-            'status_execution' => 'required',
-            'data' => 'required|date',
-            'inicio' => 'required|date_format:H:i',
-            'fim' => 'required|date_format:H:i',
-            'executado' => 'nullable',
-        ]);
-
         if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
             return redirect()
                 ->back()
@@ -624,7 +615,7 @@ class RdseController extends Controller
     {
         if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->with('atividades', 'atividades.handswork')->first()) {
             return redirect()
-                ->back()
+                ->route('rdse.programacao.index')
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
@@ -646,6 +637,7 @@ class RdseController extends Controller
         $request->validate([
             'equipe_id' => 'required',
             'status_execution' => 'required',
+            'atividades' => 'required',
             'data' => 'required|date',
             'inicio' => 'required|date_format:H:i',
             'fim' => 'required|date_format:H:i',
