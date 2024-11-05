@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Encarregado;
 use App\Models\Epi;
 use App\Models\Equipe;
+use App\Models\Supervisor;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
@@ -404,4 +406,14 @@ function monthByFormat($month)
 function equipes()
 {
     return Equipe::all();
+}
+
+function supervisores()
+{
+    return Supervisor::all();
+}
+
+function encarregados()
+{
+    return Encarregado::all();
 }

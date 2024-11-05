@@ -19,6 +19,10 @@ class RdseService
     {
         $request->validate([
             'equipe_id' => 'required',
+            'veiculo_id' => 'required',
+            'supervisor_id' => 'required',
+            'encarregado_id' => 'required',
+            'diretoria' => 'required',
             'status_execution' => 'required',
             'atividades' => 'required',
             'data' => 'required|date',
@@ -30,11 +34,14 @@ class RdseService
         $data = [
             'rdse_id' => $rdse->id,
             'equipe_id' => $request->input('equipe_id'),
+            'veiculo_id' => $request->input('veiculo_id'),
+            'supervisor_id' => $request->input('supervisor_id'),
+            'encarregado_id' => $request->input('encarregado_id'),
             'data' => $request->input('data'),
             'data_inicio' => $request->input('inicio'),
             'data_fim' => $request->input('fim'),
             'atividade_descricao' => $request->input('status_execution'),
-            'atividades' => $request->input('atividades'),
+            'diretoria' => $request->input('diretoria'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
@@ -60,6 +67,20 @@ class RdseService
 
     public function atualizarAtividade(Request $request, RdseActivity $rdseAtividade)
     {
+        $request->validate([
+            'equipe_id' => 'required',
+            'veiculo_id' => 'required',
+            'supervisor_id' => 'required',
+            'encarregado_id' => 'required',
+            'diretoria' => 'required',
+            'status_execution' => 'required',
+            'atividades' => 'required',
+            'data' => 'required|date',
+            'inicio' => 'required|date_format:H:i',
+            'fim' => 'required|date_format:H:i',
+            'executado' => 'nullable',
+        ]);
+
         throw_if(
             !$rdseAtividade->canUpdate(),
             ValidationException::withMessages(['message' => 'Não é Possivel Atualizar ja Executado'])
@@ -67,11 +88,15 @@ class RdseService
 
         $data = [
             'equipe_id' => $request->input('equipe_id'),
+            'veiculo_id' => $request->input('veiculo_id'),
+            'supervisor_id' => $request->input('supervisor_id'),
+            'encarregado_id' => $request->input('encarregado_id'),
             'data' => $request->input('data'),
             'data_inicio' => $request->input('inicio'),
             'data_fim' => $request->input('fim'),
             'atividade_descricao' => $request->input('status_execution'),
             'atividades' => $request->input('atividades'),
+            'diretoria' => $request->input('diretoria'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();

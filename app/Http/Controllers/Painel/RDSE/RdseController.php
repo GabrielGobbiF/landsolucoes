@@ -634,16 +634,6 @@ class RdseController extends Controller
             'data' => Carbon::createFromFormat('d/m/Y', $request->input('data'))->format('Y-m-d'),
         ]);
 
-        $request->validate([
-            'equipe_id' => 'required',
-            'status_execution' => 'required',
-            'atividades' => 'required',
-            'data' => 'required|date',
-            'inicio' => 'required|date_format:H:i',
-            'fim' => 'required|date_format:H:i',
-            'executado' => 'nullable',
-        ]);
-
         if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->first()) {
             return redirect()
                 ->back()

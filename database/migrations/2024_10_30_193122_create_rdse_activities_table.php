@@ -18,8 +18,12 @@ return new class extends Migration
             $table->unsignedBigInteger('rdse_id');
             $table->unsignedBigInteger('equipe_id');
             $table->unsignedBigInteger('user_created');
+            $table->unsignedBigInteger('veiculo_id');
+            $table->unsignedBigInteger('supervisor_id');
+            $table->unsignedBigInteger('encarregado_id');
 
             $table->string('atividade_descricao');
+            $table->string('diretoria');
             $table->longText('atividades');
             $table->timestamp('data');
             $table->string('data_inicio');

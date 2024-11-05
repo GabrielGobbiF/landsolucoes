@@ -266,15 +266,6 @@ class RdseApiController extends Controller
 
     public function storeAtividade(Request $request, $rdseId)
     {
-        $request->validate([
-            'equipe_id' => 'required',
-            'status_execution' => 'required',
-            'data' => 'required|date',
-            'inicio' => 'required|date_format:H:i',
-            'fim' => 'required|date_format:H:i',
-            'executado' => 'nullable',
-        ]);
-
         if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
             return redirect()
                 ->back()

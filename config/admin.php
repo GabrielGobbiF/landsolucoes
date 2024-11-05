@@ -301,15 +301,38 @@ return [
                 'route' => 'rdse.programacao.index',
             ],
             [
-                'name' =>  'Mãos de Obra',
+                'name' =>  'Mão de Obra',
                 'icon' =>  'fas fa-pallet',
                 'route' => 'handswork.index',
             ],
+
+
             [
-                'name' =>  'Equipes',
-                'icon' =>  'fas fa-pallet',
-                'route' => 'equipes.index',
+                'name' =>  'Gestão',
+                'atc' =>  'rdse',
+                'icon' =>  'ri-file-edit-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Equipes',
+                        'icon' =>  'fas fa-pallet',
+                        'route' => 'equipes.index',
+                    ],
+
+                    [
+                        'name' =>  'Supervisores',
+                        'icon' =>  'fas fa-pallet',
+                        'route' => 'supervisores.index',
+                    ],
+
+                    [
+                        'name' =>  'Encarregados',
+                        'icon' =>  'fas fa-pallet',
+                        'route' => 'encarregados.index',
+                    ],
+                ]
             ],
+
             [
                 'name' =>  'Arquivos',
                 'icon' =>  'fas fa-file',

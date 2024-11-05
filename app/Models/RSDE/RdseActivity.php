@@ -4,7 +4,10 @@ namespace App\Models\RSDE;
 
 use App\Casts\Date;
 use App\Models\Activitie;
+use App\Models\Encarregado;
 use App\Models\Equipe;
+use App\Models\Supervisor;
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +23,10 @@ class RdseActivity extends Model
     protected $fillable = [
         'rdse_id',
         'equipe_id',
+        'veiculo_id',
+        'supervisor_id',
+        'diretoria',
+        'encarregado_id',
         'atividade_descricao',
         'atividades',
         'data',
@@ -51,6 +58,21 @@ class RdseActivity extends Model
     public function atividades()
     {
         return $this->hasMany(RdseActivityItens::class, 'rdse_atividade_id');
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(Supervisor::class, 'supervisor_id', 'id');
+    }
+
+    public function encarregado()
+    {
+        return $this->belongsTo(Encarregado::class, 'encarregado_id', 'id');
+    }
+
+    public function veiculo()
+    {
+        return $this->belongsTo(Vehicle::class, 'veiculo_id', 'id');
     }
 
     public function canUpdate()

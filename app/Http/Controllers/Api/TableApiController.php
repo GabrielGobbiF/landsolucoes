@@ -14,6 +14,7 @@ use App\Http\Resources\EpiResource;
 use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\HandsworksResource;
 use App\Http\Resources\ModeloRdseResource;
+use App\Http\Resources\NameResource;
 use App\Http\Resources\ObraResource;
 use App\Http\Resources\OrcamentoResource;
 use App\Http\Resources\PortariaResource;
@@ -32,6 +33,7 @@ use App\Models\Compras\Produto;
 use App\Models\Concessionaria;
 use App\Models\Driver;
 use App\Models\Employee;
+use App\Models\Encarregado;
 use App\Models\Epi;
 use App\Models\Equipe;
 use App\Models\Etd;
@@ -43,6 +45,7 @@ use App\Models\RSDE\Handswork;
 use App\Models\RSDE\ModeloRdse;
 use App\Models\RSDE\Rdse;
 use App\Models\Service;
+use App\Models\Supervisor;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Visitor;
@@ -235,7 +238,49 @@ class TableApiController extends Controller
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
 
-        return response()->json($equipes);
+        return NameResource::collection($equipes);
+    }
+
+    public function supervisores()
+    {
+        $supervisores = new Supervisor();
+
+        $searchColumns = ['id', 'name'];
+
+        $supervisores = $supervisores
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return NameResource::collection($supervisores);
+    }
+
+    public function encarregados()
+    {
+        $encarregados = new Encarregado();
+
+        $searchColumns = ['id', 'name'];
+
+        $encarregados = $encarregados
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return NameResource::collection($encarregados);
     }
 
     public function ModelosRdses()

@@ -16,7 +16,7 @@ class VehiclesResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "name" => $this->name,
+            "name" => $this->board . ' - ' . $this->name,
             "year" => $this->year,
             "board" => $this->board,
             "renavam" => $this->renavam,
@@ -25,7 +25,9 @@ class VehiclesResource extends JsonResource
             "statusButton" => $this->getButtons(),
             "tracker" => $this->tracker == 1
                 ? '<span class="badge badge-soft-success font-size-12">Seguro</span>'
-                : '<span class="badge badge-soft-danger font-size-12">Sem seguro</span>'
+                : '<span class="badge badge-soft-danger font-size-12">Sem seguro</span>',
+
+            "search" => $this->board . $this->name,
         ];
     }
 

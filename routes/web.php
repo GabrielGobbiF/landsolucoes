@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\EquipeController;
+use App\Http\Controllers\Painel\RDSE\EncarregadoController;
+use App\Http\Controllers\Painel\RDSE\SupervisorController;
 use App\Models\Compras\Category;
+use App\Models\Supervisor;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -52,6 +55,8 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
         Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
         Route::get('/equipes', [App\Http\Controllers\Api\TableApiController::class, 'equipes'])->name('equipes.all');
+        Route::get('/supervisores', [App\Http\Controllers\Api\TableApiController::class, 'supervisores'])->name('supervisores.all');
+        Route::get('/encarregados', [App\Http\Controllers\Api\TableApiController::class, 'encarregados'])->name('encarregados.all');
         Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
         Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
         Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
@@ -450,6 +455,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
 
             Route::resource('equipes', EquipeController::class);
+            Route::resource('supervisores', SupervisorController::class);
+            Route::resource('encarregados', EncarregadoController::class);
 
             Route::get('modelo-rdse/{modeloId}/create-rdse', [App\Http\Controllers\Painel\RDSE\ModelosRdseController::class, 'createRdseByModelo'])->name('modelo.rdse.create');
             Route::post('rdse/obra/{obraId}/store', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'createRdseByObra'])->name('rdse.obra.create');
