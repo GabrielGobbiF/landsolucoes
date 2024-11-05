@@ -47,7 +47,7 @@
 
 <div class="timeline">
     @foreach ($logs as $log)
-        @if (isset($log->properties['attributes']['status_execution']))
+        @if (isset($log->properties['attributes']['status_execution']) && isset($log->properties['old']))
             @if ($log->description != 'logs.events.badge.created')
                 <div class="timeline-item">
                     <h4>Status Saiu de
