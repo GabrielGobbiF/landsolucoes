@@ -93,6 +93,16 @@
                            @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
+                <div id="div-eqipe" class="col-12 col-md-3">
+                    <label>Equipe</label>
+                    <select id="rdse-equipe" name="equipe_id" class="form-control select2 search-input-rdse">
+                        <option value="">Selecione</option>
+                        @foreach (equipes() as $equipe)
+                            <option value='{{ $equipe->id }}'>{{ $equipe->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 @php
                     $year = year();
                 @endphp

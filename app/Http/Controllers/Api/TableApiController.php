@@ -358,6 +358,13 @@ class TableApiController extends Controller
                 }
             })
             ->where(function ($query) use ($filters) {
+                if (!empty($filters['equipe_id'])) {
+                    $query->whereHas('activities', function ($query) use ( $filters) {
+                        $query->where('equipe_id',  $filters['equipe_id']);
+                    });
+                }
+            })
+            ->where(function ($query) use ($filters) {
                 if (!empty($filters['daterange'])) {
                     [$date_to, $date_from] = explode(' - ', $filters['daterange']);
                     $date_to = return_format_date($date_to, 'en');
