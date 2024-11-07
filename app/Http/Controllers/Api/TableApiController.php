@@ -362,8 +362,11 @@ class TableApiController extends Controller
                     [$date_to, $date_from] = explode(' - ', $filters['daterange']);
                     $date_to = return_format_date($date_to, 'en');
                     $date_from = return_format_date($date_from, 'en');
-                    $query->whereDate('rdses.created_at', '>=', $date_to);
-                    $query->whereDate('rdses.created_at', '<=', $date_from);
+
+                    $query->whereHas('activities', function ($query) use ($date_from, $date_to) {
+                        $query->whereDate('activities.data', '>=', $date_to);
+                        $query->whereDate('activities.data', '<=', $date_from);
+                    });
                 }
             })
             ->where(function ($query) use ($filters) {
