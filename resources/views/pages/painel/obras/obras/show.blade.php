@@ -4,6 +4,30 @@
 
 @section('content-max-fluid')
 
+    <style class="">
+        .icon-pulse {
+            color: #e74c3c;
+            animation: pulse 1s infinite;
+        }
+
+        /* Animação de pulsar */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
     <div class="page--obra">
 
         <div class="sidenav">
@@ -142,8 +166,8 @@
                                 <a href="javascript:void(0)" data-text="{{ $obra->obr_urgence == 'Y' ? 'Desmarcar Urgencia' : 'Marcar Urgencia' }}"
                                    data-href="{{ route('obras.urgence', $obra->id) }}" rel="tooltip"
                                    title="{{ $obra->obr_urgence == 'Y' ? 'Desmarcar Urgencia' : 'Marcar Urgencia' }}"
-                                   class="nav-link d-none d-sm-block js-btn-delete" style="{{ $obra->obr_urgence == 'Y' ? '' : 'color: #71e61b !important;' }}"
-                                   data-action="PUT">
+                                   class="nav-link d-none d-sm-block js-btn-delete {{ $obra->obr_urgence == 'Y' ? 'icon-pulse' : '' }}"
+                                   style="{{ $obra->obr_urgence == 'Y' ? '' : 'color: #71e61b !important;' }}" data-action="PUT">
                                     @if ($obra->obr_urgence == 'Y')
                                         <i data-feather="alert-triangle"></i>
                                     @else
