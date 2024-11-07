@@ -251,6 +251,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('obras/etapas/vencidas', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'obrasVencidas'])->name('obras.etapas.vencidas');
             Route::get('obras/{obraId}/finance', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'show'])->name('obras.finance');
             Route::delete('obras/{obraId}/concluir', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'concluir'])->name('obras.concluir');
+            Route::put('obras/{obraId}/urgence', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'urgence'])->name('obras.urgence');
             Route::delete('obras/{obraId}/remove-finance', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'removeFinance'])->name('obras.remove.finance');
             Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
             Route::get('finances', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'index'])->name('finances.index');

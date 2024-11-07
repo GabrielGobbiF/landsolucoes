@@ -297,4 +297,20 @@ class ObrasController extends Controller
             ->route('obras.show', $obraId)
             ->with('message', 'Removido do Financeiro!');
     }
+
+    public function urgence(Request $request, $obraId)
+    {
+        if (!$obra = $this->repository->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $obra->obr_urgence = $obra->obr_urgence == 'N' ? 'Y' : 'N';
+        $obra->save();
+
+        return redirect()
+            ->route('obras.show', $obraId)
+            ->with('message', 'Feito!');
+    }
 }

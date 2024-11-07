@@ -139,6 +139,18 @@
                                     </a>
                                 @endif
 
+                                <a href="javascript:void(0)" data-text="{{ $obra->obr_urgence == 'Y' ? 'Desmarcar Urgencia' : 'Marcar Urgencia' }}"
+                                   data-href="{{ route('obras.urgence', $obra->id) }}" rel="tooltip"
+                                   title="{{ $obra->obr_urgence == 'Y' ? 'Desmarcar Urgencia' : 'Marcar Urgencia' }}"
+                                   class="nav-link d-none d-sm-block js-btn-delete" style="{{ $obra->obr_urgence == 'Y' ? '' : 'color: #71e61b !important;' }}"
+                                   data-action="PUT">
+                                    @if ($obra->obr_urgence == 'Y')
+                                        <i data-feather="alert-triangle"></i>
+                                    @else
+                                        <i data-feather="alert-triangle"></i>
+                                    @endif
+                                </a>
+
                                 <a href="javascript:void(0)" data-text="Arquivar" data-href="{{ route('obras.concluir', $obra->id) }}" rel="tooltip"
                                    title="Concluir Obra" class="nav-link d-none d-sm-block js-btn-delete">
                                     <i data-feather="archive"></i>

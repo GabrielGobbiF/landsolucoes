@@ -24,7 +24,15 @@
 
 
     $('.js-btn-delete').on('click', function () {
+
+        //let route = btn.target.dataset.route;
+        let text = $(this).attr('data-text') || 'Deletar';
+        let action = $(this).attr('data-action') || 'DELETE';
+        //let btnClass = btn.target.dataset.btnClass || btn.target.getAttribute('class');
+        //let btnHtml = btn.target.innerHTML;
+
         var token = $('meta[name="csrf-token"]').attr('content');
+
         var html = `<div class="modal fade effect-scale" id="modal-confirm-delete" tabindex="-1" role="dialog" aria-hidden="true">`;
         html += `       <div class="modal-dialog modal-dialog-centered modal-sm" role="document">`;
         html += `           <div class="modal-content">`;
@@ -41,7 +49,7 @@
         html += `                   <button type="button" id="modal-cancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>`;
         html += `                      <form id="form-delete" role="form" class="needs-validation" action="" method="POST">`
         html += `                          <input type="hidden" name="_token" value="${token}"> `
-        html += `                          <input type="hidden" name="_method" value="DELETE"> `
+        html += `                          <input type="hidden" name="_method" value="${action}"> `
         html += `                          <button type="submit" id="modal-confirm"`
         html += `                              data-btn-text="Deletando" `
         html += `                              class="btn btn-danger `
@@ -58,7 +66,6 @@
 
         var $modal = $("#modal-confirm-delete")
         var href = $(this).attr('data-href');
-        var text = $(this).attr('data-text');
 
         if (text != null) {
             $modal.find('.modal-title').html(`${text}`);
