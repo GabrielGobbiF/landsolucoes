@@ -62,7 +62,7 @@
             <div class="tab-content mt-3 text-muted">
 
                 <div class="tab-pane" id="info" role="tabpanel">
-                    <form role="form" class="needs-validation" novalidate id="form-rdse" autocomplete="off" action="{{ route('rdse.update', $rdse->id) }}" method="POST">
+                    <form role="form" class="needs-validation" novalidate id="form-rdse" autocomplete="off" action="{{ route('modelo-rdse.update', $rdse->id) }}" method="POST">
                         @csrf
                         @method('put')
                         @include('pages.painel._partials.forms.form-modelo-rdse')
@@ -415,7 +415,7 @@
                 let chegada_obra_line = $(`#chegada_obra_${line}`);
                 let hours = $(this).find(`.hours`);
 
-                //add minutes 
+                //add minutes
                 var chegada_obra_date = moment(chegada_obra, "HH:mm:ss")
                 var saida_obra_date = chegada_obra_date.add(minute, 'minutes');
 
@@ -516,40 +516,40 @@
                                     id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
                                 </div>
                             </th>
-                        
+
                             <th>
                                 <div class="form-group ">
                                     <input class="form-control saida_obra" name="saida[]" required readonly tabindex="-1"/>
                                 </div>
                             </th>
-                        
+
                             <th>
                                 <input class="form-control hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
                             </th>
-                        
+
                             <th>
                                 <select name="codigo_sap[]" class="form-control select2 codigo_sap" placeholder="Código SAP" id="codigo_sap_${line}" data-id="${line}">
-                                    <option value="" selected> Selecione  </option>  
+                                    <option value="" selected> Selecione  </option>
                                 </select>
                             </th>
-                        
+
                             <th>
                                 <input class="form-control description_sap" name="description[]" id="description_sap_${line}" />
                             </th>
-                        
+
                             <th>
                                 <input type="hidden" id="price_ups_${line}">
-                                <input class="form-control conversion" 
-                                name="qnt_atividade[]" id="conversion_${line}" 
+                                <input class="form-control conversion"
+                                name="qnt_atividade[]" id="conversion_${line}"
                                 data-id="${line}"
-                                tabindex="-1" 
+                                tabindex="-1"
                                 value="0" />
                             </th>
-                        
+
                             <th>
                                 <input class="form-control price_total_hours money" name="preco[]" id="price_total_hours_${line}"  value="0" />
                             </th>
-                        
+
                             <th>
                                 <a type="button" href="javascript:void(0)" onclick="deleteService(${line})" tabindex="-1">
                                     <i class="fas fa-trash"></i>
