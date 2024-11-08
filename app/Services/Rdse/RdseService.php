@@ -42,6 +42,7 @@ class RdseService
             'data_fim' => $request->input('fim'),
             'atividade_descricao' => $request->input('status_execution'),
             'diretoria' => $request->input('diretoria'),
+            'atividades' => $request->input('atividades'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
