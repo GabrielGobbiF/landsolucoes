@@ -12,5 +12,9 @@
 </div>
 
 @section('scripts')
-    <script class=""></script>
+    <script>
+        $('#modaladdItemsModal').on('shown.bs.modal', function() {
+            init();
+        });
+    </script>
 @append

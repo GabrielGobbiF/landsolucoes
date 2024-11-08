@@ -304,7 +304,7 @@
 
         function openModaladdItemsModal(row) {
             let id = $(row).data("id");
-            $('#modalrdseId').val(id)
+            $('#modalrdseId').val(id);
             $('#modaladdItemsModal').modal('show');
         }
 

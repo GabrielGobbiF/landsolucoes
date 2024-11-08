@@ -37,20 +37,23 @@
 @section('scripts')
 
     <script>
-        const route = $('#routeAddAtividade').val();
+        $('#toggleBtn').on('click', toggleForm);
 
-        const id = $('#modalrdseId').val();
+        $('#submitForm').on('click', submitForm);
 
         function init() {
-
-            $('#toggleBtn').on('click', toggleForm);
-
-            $('#submitForm').on('click', submitForm);
 
             carregarAtividades();
         }
 
         function carregarAtividades() {
+            const route = $('#routeAddAtividade').val();
+
+            const id = $('#modalrdseId').val();
+
+            if (id == undefined || id == '') {
+                return;
+            }
 
             axios.get(`${route}/${id}/atividades`) // Substitua 'URL_DA_SUA_API' pela URL da sua API
                 .then(function(response) {
@@ -92,6 +95,10 @@
         }
 
         function submitForm() {
+
+            const route = $('#routeAddAtividade').val();
+
+            const id = $('#modalrdseId').val();
 
             const form = document.getElementById('itensForNewAtividade');
 
@@ -164,6 +171,10 @@
         }
 
         function deletarAtividade(rdseId, atvId) {
+
+            const route = $('#routeAddAtividade').val();
+
+            const id = $('#modalrdseId').val();
 
             if (confirm("Tem certeza de que deseja deletar este item?")) {
                 axios.delete(`${route}/${id}/atividades/${atvId}`)
