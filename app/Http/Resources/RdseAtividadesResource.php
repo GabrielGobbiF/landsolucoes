@@ -18,6 +18,7 @@ class RdseAtividadesResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'rdse_id' => $this->rdse_id,
             'atividade_descricao' => $this->atividade_descricao,
             //'atividades' => $this->atividades,
             'data' => $this->data,

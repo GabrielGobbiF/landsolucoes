@@ -289,4 +289,17 @@ class RdseApiController extends Controller
 
         return RdseAtividadesResource::collection($atividades);
     }
+
+    public function deleteAtividade($rdseId, $rdseAtividadeId)
+    {
+        if (!$rdseAtividade = RdseActivity::where('id', $rdseAtividadeId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $rdseAtividade->delete();
+
+        return response()->json(true, 200);
+    }
 }

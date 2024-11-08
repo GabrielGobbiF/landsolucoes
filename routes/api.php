@@ -47,6 +47,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     /**
      * RDSE atividade
      */
+    Route::delete('rdses/{rdseId}/atividades/{rdseAtividadeId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'deleteAtividade'])->name('api.rdse.atividades.delete');
     Route::post('rdses/{rdseId}/atividades', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'storeAtividade'])->name('api.rdse.atividades.store');
     Route::get('rdses/{rdseId}/atividades', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'atividades'])->name('api.rdse.atividades.all');
 

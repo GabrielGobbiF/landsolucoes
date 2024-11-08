@@ -8,12 +8,15 @@ use App\Models\Encarregado;
 use App\Models\Equipe;
 use App\Models\Supervisor;
 use App\Models\Vehicle;
+use App\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class RdseActivity extends Model
 {
-    use HasFactory;
+    use HasFactory, LogTrait, LogsActivity, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('data_fim');
             $table->timestamp('execucao')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
