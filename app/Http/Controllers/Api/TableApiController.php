@@ -383,6 +383,11 @@ class TableApiController extends Controller
                 }
             })
             ->where(function ($query) use ($filters) {
+                if (!empty($filters['tipo_obra'])) {
+                    $query->where('rdses.tipo_obra', $filters['tipo_obra']);
+                }
+            })
+            ->where(function ($query) use ($filters) {
                 if (!empty($filters['equipe_id'])) {
                     $query->whereHas('activities', function ($query) use ( $filters) {
                         $query->where('equipe_id',  $filters['equipe_id']);

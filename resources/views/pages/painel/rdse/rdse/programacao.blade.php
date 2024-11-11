@@ -112,6 +112,13 @@
                     </select>
                 </div>
 
+                <div id="div-eqipe" class="col-12 col-md-2">
+                    <label for="rdse-tipo_obra">Tipo de Obra</label>
+                    <select id="select--tipo_obra" name="tipo_obra" class="form-control select-tipo_obra t-select  search-input-rdse"
+                            data-request="{{ route('tipos_obra.all') }}" data-value-field="id" required>
+                    </select>
+                </div>
+
                 @php
                     $year = year();
                 @endphp
