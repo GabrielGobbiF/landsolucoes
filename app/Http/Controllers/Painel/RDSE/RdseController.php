@@ -646,4 +646,17 @@ class RdseController extends Controller
             ->route('rdse.atividades.show', $rdseAtividade->id)
             ->with('message', 'Atualizado com sucesso');
     }
+
+    public function rsbe($rdseId)
+    {
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        return view('pages.painel.rdse.rdse.rsbe.rsbe_executavel', [
+            'rdse' => $rdse
+        ]);
+    }
 }

@@ -149,7 +149,7 @@
                                 <th data-field="equipe" data-sortable="true" data-visible="false">Nº nota</th>
                                 <th data-field="solicitante" data-sortable="true" data-visible="false">Solicitante</th>
                                 <th data-field="at" data-sortable="true">Data</th>
-                                <th data-field="type" data-sortable="true">Tipo</th>
+                                <th data-field="type" data-sortable="true" data-formatter="tipo_obra">Tipo</th>
                                 <th data-field="valor">Valor Total</th>
                                 <th data-field="valor_total" data-footer-formatter="valor_total_sum">Valor Parcial</th>
                                 <th data-field="valor_ups" data-footer-formatter="valor_ups_sum">Valor Ups</th>
@@ -589,6 +589,10 @@
                 <option ${value == 'Execução 100%' ? 'selected' : ''} value="Execução 100%">Execução 100%</option>
             </select>
             `
+        }
+
+        function tipo_obra(value, row) {
+            return `${value} `
         }
 
         function preload() {

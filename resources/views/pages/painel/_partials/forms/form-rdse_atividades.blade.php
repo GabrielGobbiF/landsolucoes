@@ -80,6 +80,17 @@
         </div>
     </div>
 
+    <div class="col-12 col-md-4">
+        <div class="form-group">
+            <label for="rdse-civil">Civil</label>
+            <select id="rdse-civil" name="civil" class="form-control" required tabindex="1">
+                <option value="">Selecione </option>
+                <option {{ $rdseAtividade->civil == '1' ? 'selected' : null }} value='1'>Sim </option>
+                <option {{ $rdseAtividade->civil == '0' ? 'selected' : null }} value='0'>Não </option>
+            </select>
+        </div>
+    </div>
+
     <div class="col-12 col-md-12">
         <div class="row g-3 align-items-center">
             <div class="col-md-4">
@@ -139,21 +150,47 @@
         <label>Executação</label>
 
         <div class="form-check">
-            <input id="ex" class="form-check-input" type="radio" name="executado" value="true"
+            <input id="ex" class="form-check-input form-exec" type="radio" name="executado" value="true"
                    {{ !empty($rdseAtividade->execucao) ? 'checked' : null }} required />
             <label class="form-check-label" for="ex"> Executado </label>
         </div>
-        <div class="form-check">
-            <input id="nex" class="form-check-input" value="false" type="radio" name="executado"
+        <div class="form-check mb-3">
+            <input id="nex" class="form-check-input form-exec" value="false" type="radio" name="executado"
                    {{ empty($rdseAtividade->execucao) ? 'checked' : null }} required />
             <label class="form-check-label" for="nex">
                 Não Executado
             </label>
         </div>
+        <span class="tx-danger mt-3 d-none mgs-exc">*Se você confirmar essa operação essa atividade não poderá ser mais alterada</span>
     </div>
 </div>
 @section('scripts')
 
+    <script class="">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleciona os radios e a mensagem
+            const radios = document.querySelectorAll('.form-exec');
+            const message = document.querySelector('.mgs-exc');
+
+            // Função para mostrar ou ocultar a mensagem
+            function toggleMessage() {
+                const isExecuted = document.querySelector('input[name="executado"]:checked').value === 'true';
+                if (isExecuted) {
+                    message.classList.remove('d-none');
+                } else {
+                    message.classList.add('d-none');
+                }
+            }
+
+            // Adiciona o evento de mudança nos radios
+            radios.forEach(radio => {
+                radio.addEventListener('change', toggleMessage);
+            });
+
+            // Executa a função ao carregar a página para definir o estado inicial da mensagem
+            toggleMessage();
+        });
+    </script>
     {{--
     <script>
         document.querySelectorAll('.removeRowBtn').forEach(button => {

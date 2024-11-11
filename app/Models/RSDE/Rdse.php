@@ -113,7 +113,9 @@ class Rdse extends Model
         'data_pagamento_projeto',
         'is_civil',
         'observation_status',
-        'month_date'
+        'month_date',
+
+        'tipo_obra'
     ];
 
     /**

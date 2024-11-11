@@ -29,6 +29,7 @@ class RdseService
             'inicio' => 'required|date_format:H:i',
             'fim' => 'required|date_format:H:i',
             'executado' => 'nullable',
+            'civil' => 'required|boolean',
         ]);
 
         $data = [
@@ -43,6 +44,7 @@ class RdseService
             'atividade_descricao' => $request->input('status_execution'),
             'diretoria' => $request->input('diretoria'),
             'atividades' => $request->input('atividades'),
+            'civil' => $request->input('civil'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
@@ -80,6 +82,7 @@ class RdseService
             'inicio' => 'required|date_format:H:i',
             'fim' => 'required|date_format:H:i',
             'executado' => 'nullable',
+            'civil' => 'required|boolean',
         ]);
 
         throw_if(
@@ -98,6 +101,7 @@ class RdseService
             'atividade_descricao' => $request->input('status_execution'),
             'atividades' => $request->input('atividades'),
             'diretoria' => $request->input('diretoria'),
+            'civil' => $request->input('civil'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();

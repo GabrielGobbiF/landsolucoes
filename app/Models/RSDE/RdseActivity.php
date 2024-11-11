@@ -35,7 +35,8 @@ class RdseActivity extends Model
         'data',
         'data_inicio',
         'data_fim',
-        'execucao'
+        'execucao',
+        'civil',
     ];
 
     /**
@@ -46,6 +47,7 @@ class RdseActivity extends Model
     protected $casts = [
         'data' => Date::class,
         'execucao' => Date::class,
+        'civil' => 'boolean',
     ];
 
     public function equipe()

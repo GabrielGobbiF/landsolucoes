@@ -77,81 +77,78 @@
 
 
 @section('scripts')
+
     @once
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <script>
+            //document.addEventListener('DOMContentLoaded', function() {
+            //    init();
+            //});
 
-        @section('scripts')
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-            <script>
-                //document.addEventListener('DOMContentLoaded', function() {
-                //    init();
-                //});
+            const quill = new Quill('#quillEditor', {
+                modules: {
+                    syntax: true,
+                    toolbar: '#toolbar-container',
+                },
+                placeholder: 'Compose an epic...',
+                theme: 'snow',
+            });
 
-                const quill = new Quill('#quillEditor', {
-                    modules: {
-                        syntax: true,
-                        toolbar: '#toolbar-container',
-                    },
-                    placeholder: 'Compose an epic...',
-                    theme: 'snow',
+
+            function init() {
+                let observationsContent = $("#modal-row_value").val();
+
+                quill.root.innerHTML = observationsContent
+
+                quill.on('text-change', function(delta, oldDelta, source) {
+                    var content = quill.root.innerHTML;
+                    if (content != $("#modal-row_value").val()) {
+                        debouncedSaveContent(content);
+                    }
                 });
 
+                $("#modalObservations").modal('show');
 
-                function init() {
-                    let observationsContent = $("#modal-row_value").val();
+            }
 
-                    quill.root.innerHTML = observationsContent
+            const debouncedSaveContent = debounce(function(content) {
+                saveContent(content);
+            }, 1500);
 
-                    quill.on('text-change', function(delta, oldDelta, source) {
-                        var content = quill.root.innerHTML;
-                        if (content != $("#modal-row_value").val()) {
-                            debouncedSaveContent(content);
-                        }
+            function openObservationModal(rdseId, row) {
+                quill.off('text-change');
+
+                $("#modal-row_value").val('')
+                $("#modal-row").val('')
+                $("#modal-rdseId").val('')
+
+                axios.get(`${base_url}/api/v1/rdses/${rdseId}`)
+                    .then(function(response) {
+                        $("#modal-row_value").val(response.data.observations)
+                        $("#modal-row").val(row)
+                        $("#modal-rdseId").val(rdseId)
+                        init();
+                    })
+            }
+
+            function saveContent(content) {
+                // Definir a URL para o campo correto com base no editor atual
+                var url = $("#modal-row").val();
+                var span = '';
+                let rdseId = $("#modal-rdseId").val();
+
+                // Enviar o conteúdo via Axios para o backend
+                axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
+                        collumn: url,
+                        value: content,
+                    })
+                    .then(function(response) {})
+                    .catch(error => {
+                        toastr.error(error)
                     });
-
-                    $("#modalObservations").modal('show');
-
-                }
-
-                const debouncedSaveContent = debounce(function(content) {
-                    saveContent(content);
-                }, 1500);
-
-                function openObservationModal(rdseId, row) {
-                    quill.off('text-change');
-
-                    $("#modal-row_value").val('')
-                    $("#modal-row").val('')
-                    $("#modal-rdseId").val('')
-
-                    axios.get(`${base_url}/api/v1/rdses/${rdseId}`)
-                        .then(function(response) {
-                            $("#modal-row_value").val(response.data.observations)
-                            $("#modal-row").val(row)
-                            $("#modal-rdseId").val(rdseId)
-                            init();
-                        })
-                }
-
-                function saveContent(content) {
-                    // Definir a URL para o campo correto com base no editor atual
-                    var url = $("#modal-row").val();
-                    var span = '';
-                    let rdseId = $("#modal-rdseId").val();
-
-                    // Enviar o conteúdo via Axios para o backend
-                    axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
-                            collumn: url,
-                            value: content,
-                        })
-                        .then(function(response) {
-                        })
-                        .catch(error => {
-                            toastr.error(error)
-                        });
-                }
-            </script>
-        @append
+            }
+        </script>
     @endonce
 @append

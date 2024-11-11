@@ -46,6 +46,7 @@ use App\Models\RSDE\ModeloRdse;
 use App\Models\RSDE\Rdse;
 use App\Models\Service;
 use App\Models\Supervisor;
+use App\Models\TiposObra;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Visitor;
@@ -220,6 +221,28 @@ class TableApiController extends Controller
         return HandsworksResource::collection($handsworks);
     }
 
+    public function tiposObras()
+    {
+        $tiposObra = new TiposObra();
+
+        $searchColumns = ['id', 'name'];
+
+        $tiposObra = $tiposObra
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return NameResource::collection($tiposObra);
+    }
+
+
     public function equipes()
     {
         $equipes = new Equipe();
@@ -364,6 +387,14 @@ class TableApiController extends Controller
                     });
                 }
             })
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['diretoria'])) {
+                    $query->whereHas('activities', function ($query) use ( $filters) {
+                        $query->where('diretoria',  $filters['diretoria']);
+                    });
+                }
+            })
+
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['daterange'])) {
                     [$date_to, $date_from] = explode(' - ', $filters['daterange']);

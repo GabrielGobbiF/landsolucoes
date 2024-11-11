@@ -81,6 +81,18 @@
             </div>
         </div>
 
+
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label for="rdse-civil">Civil</label>
+                <select id="rdse-civil" name="civil" class="form-control" required tabindex="1">
+                    <option value="">Selecione </option>
+                    <option value='1'>Sim </option>
+                    <option value='0'>Não </option>
+                </select>
+            </div>
+        </div>
+
         <div class="col-12 col-md-12">
             <div class="row g-3 align-items-center">
                 <div class="col-md-4">

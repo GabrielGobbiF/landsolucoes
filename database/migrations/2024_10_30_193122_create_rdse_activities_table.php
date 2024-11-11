@@ -24,6 +24,7 @@ return new class extends Migration
 
             $table->string('atividade_descricao');
             $table->string('diretoria');
+            $table->boolean('civil');
             $table->longText('atividades');
             $table->timestamp('data');
             $table->string('data_inicio');

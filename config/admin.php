@@ -330,6 +330,12 @@ return [
                         'icon' =>  'fas fa-pallet',
                         'route' => 'encarregados.index',
                     ],
+
+                    [
+                        'name' =>  'Tipo de Obra',
+                        'icon' =>  'fas fa-pallet',
+                        'route' => 'tipos_obra.index',
+                    ],
                 ]
             ],
 

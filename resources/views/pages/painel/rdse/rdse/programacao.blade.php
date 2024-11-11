@@ -103,6 +103,15 @@
                     </select>
                 </div>
 
+                <div id="div-eqipe" class="col-12 col-md-1">
+                    <label for="rdse-diretoria">Diretoria</label>
+                    <select id="rdse-diretoria" name="diretoria" class="form-control search-input-rdse" required tabindex="1">
+                        <option value="">Selecione </option>
+                        <option value='PM'>PM </option>
+                        <option value='HV'>HV </option>
+                    </select>
+                </div>
+
                 @php
                     $year = year();
                 @endphp
@@ -157,11 +166,10 @@
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true" data-width="10">Nº Ordem</th>
                                 <th data-field="description">Descrição / Endereço</th>
-                                <th data-field="type" data-sortable="true">Tipo</th>
+                                <th data-field="tipo_obra" data-formatter="tipo_obra">Tipo</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
-                                <th data-field="is_civil" data-width="100" data-formatter="isCivil">Civil</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
                                 <th data-field="month">Mês</th>
@@ -250,7 +258,6 @@
             </div>
         </div>
     </div>
-
 
     @include('pages.painel._partials.modals.modal-add', ['redirect' => 'rdse.index', 'type' => 'rdse'])
 
@@ -363,7 +370,10 @@
                 $("#buttons-alter-status").addClass('d-none')
         }
 
-        function initTable() {
+        async function initTable() {
+            await buscarItens();
+
+
             /**
              * Rdse Selecionados
              */
@@ -538,7 +548,7 @@
                     },
                     onClickCell: function(field, value, row, $element) {
                         if (click == 'false' || field == 'state' || field == 'status_execution' || field == 'apr_at' || field == 'is_civil' ||
-                            field == 'enel_deadline' || field == 'observations' || field == 'atividades'
+                            field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field == 'tipo_obra'
 
                         ) {
                             return;
@@ -637,16 +647,62 @@
             `
         }
 
-        function isCivil(value, row) {
-            return `
-            <select name="is_civil" class="form-control form-control-sm" id="select-is_civil" onchange="updateRdse(this, ${row.id})">
-                <option ${value == 0 ? 'selected' : ''} value="0">  Não </option>
-                <option ${value == 1 ? 'selected' : ''} value="1">  Sim </option>
-            </select>
-            `
+        let opcoesTipoObra = [];
+
+        // Função para buscar as opções (executada apenas uma vez)
+        async function buscarItens() {
+            try {
+                // Fazendo a requisição com axios
+                const resposta = await axios.get('{{ route('tipos_obra.all') }}'); // URL da API
+
+                // Verificando se a resposta contém dados
+                if (resposta.data.data && Array.isArray(resposta.data.data)) {
+                    opcoesTipoObra = resposta.data.data; // Armazenando as opções na variável global
+                } else {
+                    console.log('Nenhum dado encontrado');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar as opções:', error);
+            }
         }
 
-        function atividades(value, row) {
+        function tipo_obra(value, row) {
+            // Chama a função de criação do select com as opções pré-carregadas
+            return criarSelect(value, row.id);
+        }
+
+        function criarSelect(value, rowId) {
+            const select = document.createElement('select');
+            select.classList.add('form-control', 'form-control-sm');
+            select.setAttribute('onchange', `updateRdse(this, ${rowId})`);
+            select.setAttribute('name', `tipo_obra`);
+
+            if (value == null) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Nenhum Selecionado';
+                option.setAttribute('selected', 'selected');
+                select.appendChild(option);
+            }
+
+            // Popula o <select> com as opções de `opcoesTipoObra`
+            opcoesTipoObra.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item.name;
+
+                // Seleciona a opção correspondente ao valor atual
+                if (value == item.id) {
+                    option.setAttribute('selected', 'selected');
+                }
+                select.appendChild(option);
+            });
+
+            return select.outerHTML;
+        }
+
+
+        function isCivil(value, row) {
             return `
             <select name="is_civil" class="form-control form-control-sm" id="select-is_civil" onchange="updateRdse(this, ${row.id})">
                 <option ${value == 0 ? 'selected' : ''} value="0">  Não </option>

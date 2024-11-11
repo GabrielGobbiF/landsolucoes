@@ -36,6 +36,7 @@ class CreateRdsesTable extends Migration
             $table->longtext('observations_programacao')->nullable();
             $table->longtext('observations_adicionais')->nullable();
             $table->longtext('observation_status')->nullable();
+            $table->integer('tipo_obra')->nullable();
 
             $table->integer('parcial_1')->default('0')->nullable();
             $table->integer('parcial_2')->default('0')->nullable();

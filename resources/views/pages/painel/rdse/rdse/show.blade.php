@@ -215,6 +215,13 @@
                                                        placeholder="Responsável"
                                                        value="{{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}">
                                             </div>
+                                            {{--
+                                            <div class="">
+                                                <a href="{{ route('rdse.rsbe', $rdse->id) }}" class="btn btn-danger">
+                                                    RSBE Enel
+                                                </a>
+                                            </div>
+                                            --}}
                                         </div>
                                     </div>
                                 </div>

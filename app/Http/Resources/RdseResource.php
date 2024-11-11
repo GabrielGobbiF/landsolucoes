@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\TiposObra;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RdseResource extends JsonResource
@@ -42,6 +43,7 @@ class RdseResource extends JsonResource
             'solicitante' => $this->solicitante,
             'at' => !empty($this->at) ? return_format_date($this->at) : '',
             'type' => $this->type,
+            'tipo_obra' => $this->tipo_obra,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
             'valor_total' => $p . ' R$ ' . maskPrice($valorTotal['p']),
@@ -62,6 +64,19 @@ class RdseResource extends JsonResource
             {$this->AtividadesDescriptions}
             </a>"
         ];
+    }
+
+    private function getTipoObraSelect()
+    {
+        $tiposObra = TiposObra::all();
+
+        $html = "<select id='select-tipo_obra' name='' class='form-control form-control-sm' onchange='updateStatusExecution(this, row.id)'>";
+        foreach ($tiposObra as $item) {
+            $html .= "<option value='" . $item->id . "' " . $item->id == $this->tipo_obra?->id ? 'selected' : null . "> " . $item->id . " </option>";
+        }
+        $html .= "</select>";
+
+        return $html;
     }
 
     private function getStatusLabel()
