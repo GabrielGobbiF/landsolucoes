@@ -653,7 +653,11 @@
         async function buscarItens() {
             try {
                 // Fazendo a requisição com axios
-                const resposta = await axios.get('{{ route('tipos_obra.all') }}'); // URL da API
+                const resposta = await axios.get('{{ route('tipos_obra.all') }}', {
+                    headers: {
+                        'limit': 'all'
+                    }
+                });
 
                 // Verificando se a resposta contém dados
                 if (resposta.data.data && Array.isArray(resposta.data.data)) {
@@ -672,33 +676,42 @@
         }
 
         function criarSelect(value, rowId) {
-            const select = document.createElement('select');
-            select.classList.add('form-control', 'form-control-sm');
-            select.setAttribute('onchange', `updateRdse(this, ${rowId})`);
-            select.setAttribute('name', `tipo_obra`);
+            // Criando o elemento select como string e depois adicionando ao DOM
+            const selectId = `select-${rowId}`;
+            const selectHtml = `<select class="form-control form-control-sm" id="${selectId}" name="tipo_obra" onchange="updateRdse(this, ${rowId})"></select>`;
 
-            if (value == null) {
-                const option = document.createElement('option');
-                option.value = '';
-                option.textContent = 'Nenhum Selecionado';
-                option.setAttribute('selected', 'selected');
-                select.appendChild(option);
-            }
+            // Retorna o HTML do select (será adicionado ao DOM pela tabela)
+            setTimeout(() => {
+                const select = document.getElementById(selectId);
 
-            // Popula o <select> com as opções de `opcoesTipoObra`
-            opcoesTipoObra.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.name;
-
-                // Seleciona a opção correspondente ao valor atual
-                if (value == item.id) {
+                if (value == null) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Nenhum Selecionado';
                     option.setAttribute('selected', 'selected');
+                    select.appendChild(option);
                 }
-                select.appendChild(option);
-            });
 
-            return select.outerHTML;
+                // Popula o select com as opções
+                opcoesTipoObra.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = item.name;
+
+                    if (value == item.id) {
+                        option.setAttribute('selected', 'selected');
+                    }
+                    select.appendChild(option);
+                });
+
+                // Inicializa o Tom Select após adicionar as opções
+                new TomSelect(select, {
+                    placeholder: "Selecione uma opção",
+                    allowEmptyOption: true
+                });
+            }, 100); // Timeout para garantir que o elemento está no DOM
+
+            return selectHtml;
         }
 
 
@@ -797,6 +810,9 @@
         function updateRdse(select, rdseId) {
             let collumn = $(select).attr('name');
             let value = $(select).val();
+            if (value == null || value == '') {
+                return;
+            }
             clearTimeout(timeUpdateColumns);
             timeUpdateColumns = setTimeout(function() {
                 axios.put(`${base_url}/api/v1/rdse/${rdseId}`, {
