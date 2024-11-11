@@ -166,7 +166,7 @@
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true" data-width="10">Nº Ordem</th>
                                 <th data-field="description">Descrição / Endereço</th>
-                                <th data-field="tipo_obra" data-formatter="tipo_obra">Tipo</th>
+                                <th data-field="tipo_obra" data-formatter="tipo_obra">Tipo de Obra</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
