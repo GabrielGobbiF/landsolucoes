@@ -236,8 +236,10 @@ class TableApiController extends Controller
                     }
                 }
             })
-            ->orderBy($this->sort, $this->order)
-            ->paginate($this->limit);
+            ->orderBy($this->sort, $this->order);
+
+        $tiposObra = $this->limit == 'all' ? $tiposObra->get() : $tiposObra->paginate($this->limit);
+
 
         return NameResource::collection($tiposObra);
     }

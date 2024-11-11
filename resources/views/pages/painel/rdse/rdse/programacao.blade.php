@@ -654,8 +654,8 @@
             try {
                 // Fazendo a requisição com axios
                 const resposta = await axios.get('{{ route('tipos_obra.all') }}', {
-                    headers: {
-                        'limit': 'all'
+                    params: {
+                        pageSize: 'all'
                     }
                 });
 
