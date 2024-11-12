@@ -336,6 +336,12 @@ return [
                         'icon' =>  'fas fa-pallet',
                         'route' => 'tipos_obra.index',
                     ],
+
+                    [
+                        'name' =>  'Inventario',
+                        'icon' =>  'fas fa-pallet',
+                        'route' => 'inventories.index',
+                    ],
                 ]
             ],
 
@@ -491,5 +497,45 @@ return [
             'name' => 'A',
             'value' => 'A',
         ],
+    ],
+
+    'unidade' => [
+        ["name" => "Barra (BR)", "is_active" => true],
+        ["name" => "Quilograma (KG)", "is_active" => true],
+        ["name" => "Unidade (UN)", "is_active" => true],
+        ["name" => "Rolo (RL)", "is_active" => true],
+        ["name" => "Saco (SC)", "is_active" => true],
+        ["name" => "Metro Cúbico (M3)", "is_active" => true],
+        ["name" => "Metro Quadrado (M2)", "is_active" => true],
+        ["name" => "Material (MT)", "is_active" => true],
+        ["name" => "Balde (LA)", "is_active" => true],
+        ["name" => "Verba (VB)", "is_active" => true],
+        ["name" => "Tonelada (T)", "is_active" => true],
+        ["name" => "Quilograma (KILO)", "is_active" => true],
+        ["name" => "Cento (CE)", "is_active" => true],
+        ["name" => "Peça (PC)", "is_active" => true],
+        ["name" => "Tambor (TB)", "is_active" => true],
+        ["name" => "Caixa (CX)", "is_active" => true],
+        ["name" => "Saco (SACO)", "is_active" => true],
+        ["name" => "Metro (M)", "is_active" => true],
+        ["name" => "Pacote (PCT)", "is_active" => true],
+        ["name" => "Bloco (BL)", "is_active" => true],
+        ["name" => "Quilate (CT)", "is_active" => true],
+        ["name" => "Cartela (CTL)", "is_active" => true],
+        ["name" => "Galão (GL)", "is_active" => true],
+        ["name" => "Par (PAR)", "is_active" => true],
+        ["name" => "Par (PR)", "is_active" => true],
+        ["name" => "Conjunto (CJ)", "is_active" => true],
+        ["name" => "Kit (KIT)", "is_active" => true],
+        ["name" => "Kit (KI)", "is_active" => true],
+        ["name" => "Máquina (MQ)", "is_active" => true],
+        ["name" => "Jogo (JG)", "is_active" => true],
+        ["name" => "Litro (LT)", "is_active" => true],
+        ["name" => "Unidade (UNID)", "is_active" => true],
+        ["name" => "Unidade (UND)", "is_active" => true],
+        ["name" => "Litro (L)", "is_active" => true],
+        ["name" => "Mililitro (ML)", "is_active" => true],
+        ["name" => "Fardo (FD)", "is_active" => true],
     ]
+
 ];

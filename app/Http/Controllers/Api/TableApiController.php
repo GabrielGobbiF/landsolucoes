@@ -13,6 +13,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\EpiResource;
 use App\Http\Resources\FornecedoresResource;
 use App\Http\Resources\HandsworksResource;
+use App\Http\Resources\InventoryResource;
 use App\Http\Resources\ModeloRdseResource;
 use App\Http\Resources\NameResource;
 use App\Http\Resources\ObraResource;
@@ -37,6 +38,7 @@ use App\Models\Encarregado;
 use App\Models\Epi;
 use App\Models\Equipe;
 use App\Models\Etd;
+use App\Models\Inventory;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
@@ -265,6 +267,28 @@ class TableApiController extends Controller
 
         return NameResource::collection($equipes);
     }
+
+    public function inventories()
+    {
+        $inventories = new Inventory();
+
+        $searchColumns = ['id', 'name'];
+
+        $inventories = $inventories
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return InventoryResource::collection($inventories);
+    }
+
 
     public function supervisores()
     {

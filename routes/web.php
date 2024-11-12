@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EquipeController;
+use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\Painel\RDSE\EncarregadoController;
 use App\Http\Controllers\Painel\RDSE\SupervisorController;
 use App\Http\Controllers\TiposObraController;
@@ -56,6 +57,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
         Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
         Route::get('/equipes', [App\Http\Controllers\Api\TableApiController::class, 'equipes'])->name('equipes.all');
+        Route::get('/inventories', [App\Http\Controllers\Api\TableApiController::class, 'inventories'])->name('inventories.all');
         Route::get('/tipos_obra', [App\Http\Controllers\Api\TableApiController::class, 'tiposObras'])->name('tipos_obra.all');
         Route::get('/supervisores', [App\Http\Controllers\Api\TableApiController::class, 'supervisores'])->name('supervisores.all');
         Route::get('/encarregados', [App\Http\Controllers\Api\TableApiController::class, 'encarregados'])->name('encarregados.all');
@@ -458,6 +460,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::resource('modelo-rdse', App\Http\Controllers\Painel\RDSE\ModelosRdseController::class);
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);
 
+            Route::resource('inventories', InventarioController::class);
             Route::resource('equipes', EquipeController::class);
             Route::resource('tipos_obra', TiposObraController::class);
             Route::resource('supervisores', SupervisorController::class);

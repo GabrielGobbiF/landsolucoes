@@ -417,3 +417,13 @@ function encarregados()
 {
     return Encarregado::all();
 }
+
+function uuid()
+{
+    return Str::uuid();
+}
+
+function __singular($text)
+{
+    return Str::singular($text);
+}
