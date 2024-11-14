@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('sku')->nullable();
             $table->string('code_omie')->nullable();
             $table->string('code_ncm')->nullable();
+            $table->string('cod_material')->nullable();
             $table->string('unit')->nullable();
 
             $table->string('length')->nullable();

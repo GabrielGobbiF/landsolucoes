@@ -42,6 +42,7 @@ class Inventory extends Model
         'sku',
         'code_omie',
         'code_ncm',
+        'cod_material',
         'unit',
         'length',
         'width',

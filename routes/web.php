@@ -455,7 +455,13 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('rdse/{rdseId}/duplicate', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'duplicateRdse'])->name('rdse.duplicate');
             Route::get('rdse/{rdseId}/pdf', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'pdf'])->name('rdse.pdf');
             Route::get('rdse/{rdseId}/excel', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'excel'])->name('rdse.excel');
+
+
+            Route::delete('rdse/{rdseId}/resb', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'rsbeReset'])->name('rdse.rsbe.reset');
+            Route::put('rdse/{rdseId}/resb', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'rsbeSave'])->name('rdse.rsbe.save');
+            Route::put('rdse/{rdseId}/resb/requisicao', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'rsbeNovaRequisicao'])->name('rdse.rsbe.store.requisicao');
             Route::get('rdse/{rdseId}/resb', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'rsbe'])->name('rdse.rsbe');
+
             Route::resource('rdse', App\Http\Controllers\Painel\RDSE\RdseController::class);
             Route::resource('modelo-rdse', App\Http\Controllers\Painel\RDSE\ModelosRdseController::class);
             Route::resource('handswork', App\Http\Controllers\Painel\RDSE\HandsworkController::class);

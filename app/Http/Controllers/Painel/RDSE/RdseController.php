@@ -8,9 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateRdse;
 use App\Models\Equipe;
 use App\Models\Obra;
+use App\Models\ResbRequisicao;
 use App\Models\RSDE\RdseActivity;
 use App\Models\RSDE\RdseActivityItens;
 use App\Models\RSDE\RdseServices;
+use App\Models\RSDE\Resb;
 use App\Services\Rdse\RdseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -130,6 +132,7 @@ class RdseController extends Controller
         $logs = $rdse->logs();
 
         $atividades = $rdse->activities()->with('equipe')->orderBy('data')->get();
+        $itensResb = Resb::where('rdse_id', $rdse->id)->get();
 
         return view('pages.painel.rdse.rdse.show', [
             'rdse' => $rdse,
@@ -139,6 +142,7 @@ class RdseController extends Controller
             'logs' => $logs,
             'atividades' => $atividades,
             'equipes' => Equipe::all(),
+            'itensResb' => $itensResb,
         ]);
     }
 
@@ -647,7 +651,36 @@ class RdseController extends Controller
             ->with('message', 'Atualizado com sucesso');
     }
 
-    public function rsbe($rdseId)
+    public function rsbeNovaRequisicao(Request $request, $rdseId)
+    {
+        if (!$rdse = Rdse::where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $itensResb = Resb::where('rdse_id', $rdse->id)->get();
+
+        $requisitions = ResbRequisicao::where('rdse_id', $rdse->id)->groupBy('rdse_id')->count() + 1;
+
+        foreach ($itensResb as $item) {
+
+            ResbRequisicao::create([
+                'user_id' => auth()->user()->id,
+                'item_id' => $item->item_id,
+                'resb_id' => $item->id,
+                'rdse_id' => $rdse->id,
+                'at' => now(),
+                'unique' => $requisitions,
+            ]);
+        }
+
+        return redirect()
+            ->back()
+            ->with('message', 'Atualizado com sucesso');
+    }
+
+    public function rsbe(Request $request, $rdseId)
     {
         if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
             return redirect()
@@ -655,8 +688,152 @@ class RdseController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
+        $requisicoes = ResbRequisicao::where('rdse_id', $rdse->id)->get();
+
+        $type = $request->query('type', 'enel');
+
+        $columns = ['#', 'Cód. Mat', 'UND', 'Descrição', 'Quant. Plan'];
+
+        if ($type === 'viabilidade') {
+            $columns[] = 'Quant. Viabilidade';
+        }
+
+        if ($type === 'executada') {
+            $columns[] = 'Quant. Viabilidade';
+            $columns[] = 'Quant. Executada';
+
+            if ($requisicoes->count() > 0) {
+                foreach ($requisicoes->groupBy('unique') as $unique => $value) {
+                    $columns[] = 'Requisição: ' . '<br>' . $value->where('unique', $unique)->first()?->at;
+                }
+            }
+
+        }
+
+        if ($type === 'requisicao') {
+            $columns[] = 'Quant. Viabilidade';
+
+            if ($requisicoes->count() > 0) {
+                foreach ($requisicoes->groupBy('unique') as $unique => $value) {
+                    $columns[] = 'Requisição: ' . '<br>' . $value->where('unique', $unique)->first()?->at;
+                }
+            }
+        }
+
+        $itensResb = Resb::where('rdse_id', $rdse->id)->get();
+
+        $rows = [];
+
+        if ($itensResb->isNotEmpty()) {
+            #$columns = ['#', 'Cód. Mat', 'UND', 'Descrição', 'Quant. Plan'];
+
+            foreach ($itensResb as $item) {
+                $row = [
+                    $item->id,
+                    $item->inventory->cod_material,
+                    $item->inventory->unit,
+                    $item->inventory->name,
+                    $item->qnt_planejada,
+                ];
+
+                if ($type === 'viabilidade') {
+                    $row[] = $item->qnt_viabilidade;
+                }
+
+                if ($type === 'executada') {
+                    $row[] = $item->qnt_viabilidade;
+                    $row[] = $item->qnt_executada;
+
+                    foreach ($requisicoes->groupBy('unique') as $unique => $value) {
+                        $values =  $value->where('unique', $unique);
+
+                        $itemReq = $values->where('resb_id', $item->id)->first();
+
+                        $row[] = $itemReq?->qnt;
+                    }
+
+                }
+
+                if ($type === 'requisicao' && $requisicoes->count() > 0) {
+                    $row[] = $item->qnt_viabilidade;
+
+                    foreach ($requisicoes->groupBy('unique') as $unique => $value) {
+                        $values =  $value->where('unique', $unique);
+
+                        $itemReq = $values->where('resb_id', $item->id)->first();
+
+                        $row[] = $itemReq?->qnt;
+                    }
+                }
+
+                $rows[] = $row;
+            }
+        } else {
+
+            $row = [
+                '',
+                '',
+                '',
+                '',
+                '',
+            ];
+
+            if ($type === 'viabilidade') {
+                $row[] = '';
+            }
+
+            if ($type === 'executada') {
+                $row[] = '';
+                $row[] = '';
+            }
+
+            $rows[] = $row;
+        }
+
         return view('pages.painel.rdse.rdse.rsbe.rsbe_executavel', [
-            'rdse' => $rdse
+            'rdse' => $rdse,
+            'columns' => $columns,
+            'rows' => $rows,
+            'type' => $type,
+            'itensResb' => $itensResb,
         ]);
+    }
+
+    public function rsbeSave(Request $request, $rdseId)
+    {
+        $col = $request->input('col', 'resb_enel');
+
+        if (!empty($col)) {
+            if (!$rdse = Rdse::where('id', $rdseId)->first()) {
+                return redirect()
+                    ->back()
+                    ->with('message', 'Registro (Rdse) não encontrado!');
+            }
+
+            $rdse->$col  = now();
+            $rdse->resb_status = str_replace('resb_', '', $col);
+            $rdse->save();
+        }
+
+        return redirect()->back();
+    }
+
+    public function rsbeReset(Request $request, $rdseId)
+    {
+        if (!$rdse = Rdse::where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $rdse->resbs()->delete();
+
+        $rdse->resb_enel = null;
+        $rdse->resb_viabilidade = null;
+        $rdse->resb_execucao = null;
+        $rdse->resb_status = null;
+        $rdse->save();
+
+        return redirect()->back();
     }
 }

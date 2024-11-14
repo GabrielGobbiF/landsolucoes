@@ -53,6 +53,12 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
 
 
     /**
+     * RDSE RESB
+     */
+    Route::put('rdses/{rdseId}/resb', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateRdseResb'])->name('api.rdse.resb.update');
+
+
+    /**
      * Concessionaria X Service
      */
     Route::get('concessionarias/{concessionariaId}/services', [ObraApiController::class, 'getServicesByConcessionaria'])->name('api.concessionaria.services');

@@ -184,7 +184,6 @@
                                 </div>
                             </div>
 
-
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
                             <button type="button" class="btn btn-primary js-btn-delete float-left" data-text="Excluir RDSE"
                                     data-href="{{ route('rdse.destroy', $rdse->id) }}"><i class="fas fa-trash"></i>
@@ -215,13 +214,13 @@
                                                        placeholder="Responsável"
                                                        value="{{ !empty($rdse->croqui_atualizado_responsavel) ? $rdse->croqui_atualizado_responsavel : '' }}">
                                             </div>
-                                            {{--
+
                                             <div class="">
-                                                <a href="{{ route('rdse.rsbe', $rdse->id) }}" class="btn btn-danger">
+                                                <a href="{{ route('rdse.rsbe', [$rdse->id, "type"=>"enel"]) }}" class="btn btn-outline-danger btn-sm">
                                                     RSBE Enel
                                                 </a>
                                             </div>
-                                            --}}
+
                                         </div>
                                     </div>
                                 </div>
@@ -243,6 +242,14 @@
                                                        placeholder="Responsável"
                                                        value="{{ !empty($rdse->croqui_validado_responsavel) ? $rdse->croqui_validado_responsavel : '' }}">
                                             </div>
+
+                                            @if ($itensResb->isNotEmpty())
+                                                <div class="">
+                                                    <a href="{{ route('rdse.rsbe', [$rdse->id, "type"=>"viabilidade"]) }}" class="btn btn-outline-danger btn-sm">
+                                                        RSBE Viabilidade
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -264,6 +271,14 @@
                                                        placeholder="Responsável"
                                                        value="{{ !empty($rdse->croqui_finalizado_responsavel) ? $rdse->croqui_finalizado_responsavel : '' }}">
                                             </div>
+
+                                            @if ($itensResb->isNotEmpty())
+                                                <div class="">
+                                                    <a href="{{ route('rdse.rsbe', [$rdse->id, "type"=>"executada"]) }}" class="btn btn-outline-danger btn-sm">
+                                                        RSBE Executada
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

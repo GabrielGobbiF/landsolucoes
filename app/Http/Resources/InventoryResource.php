@@ -25,7 +25,7 @@ class InventoryResource extends JsonResource
             'stock_going' => $this->getCountStockGoing(),
             'market_price' => $this->market_price,
             'code_ncm' => $this->code_ncm,
-            'cod_item' => $this->code_omie,
+            'cod_item' => $this->cod_material,
         ];
     }
 }

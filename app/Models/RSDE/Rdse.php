@@ -140,6 +140,11 @@ class Rdse extends Model
         return $this->hasMany(RdseServices::class, 'rdse_id', 'id');
     }
 
+    public function resbs()
+    {
+        return $this->hasMany(Resb::class, 'rdse_id', 'id');
+    }
+
     public function activities()
     {
         return $this->hasMany(RdseActivity::class, 'rdse_id', 'id');
@@ -256,5 +261,10 @@ class Rdse extends Model
     public function setAtAttribute($value)
     {
         $this->attributes['at'] = return_format_date($value, 'en');
+    }
+
+    public function canResetResb()
+    {
+        return auth()->user()->id === 1;
     }
 }

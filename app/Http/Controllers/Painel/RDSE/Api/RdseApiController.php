@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HandsworksResource;
 use App\Http\Resources\RdseAtividadesResource;
 use App\Http\Resources\RdseResource;
+use App\Models\Inventory;
+use App\Models\ResbRequisicao;
 use App\Models\RSDE\Handswork;
 use App\Models\RSDE\Rdse;
 use App\Models\RSDE\RdseActivity;
 use App\Models\RSDE\RdseActivityItens;
 use App\Models\RSDE\RdseServices;
+use App\Models\RSDE\Resb;
 use App\Services\Rdse\RdseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -301,5 +304,87 @@ class RdseApiController extends Controller
         $rdseAtividade->delete();
 
         return response()->json(true, 200);
+    }
+
+    public function updateRdseResb(Request $request, $rdseId)
+    {
+        if (!$rdse = Rdse::where('id', $rdseId)->first()) {
+            return redirect()
+                ->back()
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        # $rdse->resbs()->delete();
+
+        $type = $request->query('type');
+
+        $data = $request->input('data');
+
+        #$columns = [
+        #    'id' => 0,
+        #    'Cód. Mat' => 1,
+        #    'UND' => 2,
+        #    'Descrição' => 3,
+        #    'Quant. Plan' => 4,
+        #    'Quant. Viabilidade' => 5,
+        #    'Quant. Executada' => 6,
+        #];
+
+        #if ($type === 'viabilidade') {
+        #    $columns['Quant. Viabilidade'] = 5;
+        #}
+
+        $requisicoes = ResbRequisicao::where('rdse_id', $rdse->id)->get();
+
+        foreach ($requisicoes->groupBy('unique') as $unique => $value) {
+            $columns[] = $value->where('unique', $unique)->first()?->unique;
+        }
+
+
+        foreach ($data as $row) {
+            $f = 1;
+
+            $itemData = [];
+
+            $inventario = Inventory::where('cod_material', $row[1])->firstOrCreate([
+                'cod_material' => $row[1],
+                'unit' => $row[2],
+                'name' => $row[3],
+            ]);
+
+
+            foreach ($columns as $columnName => $index) {
+                // Adiciona os dados mapeados por nome da coluna
+                $itemData[$columnName] = $row[$index] ?? null;
+            }
+
+            Resb::updateOrCreate(
+                ['id' => $row[0]],
+                [
+                    'rdse_id' => $rdse->id,
+                    'item_id' => $inventario->id,
+                    'qnt_planejada' => $row[4] ?? 0,
+                    'qnt_viabilidade' => $row[5] ?? 0,
+                    'qnt_executada' => $row[6] ?? 0,
+                ]
+            );
+
+
+            foreach ($columns as $unique => $value) {
+                $posicao = 6 + $f;
+
+                $reqItem = $requisicoes->where('unique', $value)->where('resb_id', $row[0])->first()?->id;
+
+                if ($reqItem) {
+                    $r = ResbRequisicao::where('id', $reqItem)->first();
+                    $r->qnt = $row[$posicao];
+                    $r->save();
+                }
+
+                $f++;
+            }
+        }
+
+        return response()->json(['success' => true]);
     }
 }

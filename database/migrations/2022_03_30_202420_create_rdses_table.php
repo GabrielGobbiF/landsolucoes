@@ -38,6 +38,12 @@ class CreateRdsesTable extends Migration
             $table->longtext('observation_status')->nullable();
             $table->integer('tipo_obra')->nullable();
 
+            /*resb*/
+            $table->timestamp('resb_enel')->nullable();
+            $table->timestamp('resb_viabilidade')->nullable();
+            $table->timestamp('resb_execucao')->nullable();
+            $table->string('resb_status')->nullable();
+
             $table->integer('parcial_1')->default('0')->nullable();
             $table->integer('parcial_2')->default('0')->nullable();
             $table->integer('parcial_3')->default('0')->nullable();

@@ -23,6 +23,12 @@
             table tfoot tr th:first-child {
                 display: none !important;
             }
+
+        }
+
+
+        .fixed-table-body {
+            overflow: visible !important;
         }
     </style>
 
