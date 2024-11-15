@@ -106,6 +106,17 @@
         </div>
     </div>
 
+    {{--
+     @if (!empty($rdse->resb_enel))
+                var contextMenu = {
+                    items: {
+                        'insert_row': false,
+                        'remove_row': false,
+                        'insert_col': false,
+                        'remove_col': false
+                    }
+                };
+            @endif--}}
 @endsection
 
 @section('scripts')
@@ -123,16 +134,7 @@
 
             var contextMenu = true;
 
-            @if (!empty($rdse->resb_enel))
-                var contextMenu = {
-                    items: {
-                        'insert_row': false,
-                        'remove_row': false,
-                        'insert_col': false,
-                        'remove_col': false
-                    }
-                };
-            @endif
+
 
             const hot = new Handsontable(container, {
 
