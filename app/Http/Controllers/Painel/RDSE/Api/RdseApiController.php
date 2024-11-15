@@ -340,7 +340,6 @@ class RdseApiController extends Controller
             $columns[] = $value->where('unique', $unique)->first()?->unique;
         }
 
-
         foreach ($data as $row) {
             $f = 1;
 
@@ -353,11 +352,11 @@ class RdseApiController extends Controller
             ]);
 
 
-            foreach ($columns as $columnName => $index) {
-                // Adiciona os dados mapeados por nome da coluna
-                $itemData[$columnName] = $row[$index] ?? null;
-            }
-
+            #foreach ($columns as $columnName => $index) {
+            #    // Adiciona os dados mapeados por nome da coluna
+            #    $itemData[$columnName] = $row[$index] ?? null;
+            #}
+            #
             Resb::updateOrCreate(
                 ['id' => $row[0]],
                 [
@@ -369,19 +368,20 @@ class RdseApiController extends Controller
                 ]
             );
 
+            if (isset($columns)) {
+                foreach ($columns as $unique => $value) {
+                    $posicao = 6 + $f;
 
-            foreach ($columns as $unique => $value) {
-                $posicao = 6 + $f;
+                    $reqItem = $requisicoes->where('unique', $value)->where('resb_id', $row[0])->first()?->id;
 
-                $reqItem = $requisicoes->where('unique', $value)->where('resb_id', $row[0])->first()?->id;
+                    if ($reqItem) {
+                        $r = ResbRequisicao::where('id', $reqItem)->first();
+                        $r->qnt = $row[$posicao];
+                        $r->save();
+                    }
 
-                if ($reqItem) {
-                    $r = ResbRequisicao::where('id', $reqItem)->first();
-                    $r->qnt = $row[$posicao];
-                    $r->save();
+                    $f++;
                 }
-
-                $f++;
             }
         }
 
