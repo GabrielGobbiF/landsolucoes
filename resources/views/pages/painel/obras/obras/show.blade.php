@@ -458,6 +458,11 @@
     <script>
         $(document).ready(function() {
 
+            $('#select__pasta').on('dragenter dragover drop', function(e) {
+                e.stopPropagation(); // Impede que o evento alcance o Select2
+                e.preventDefault(); // Impede o comportamento padrão do navegador
+            });
+
             $('#select__pasta').select2({
                 dropdownParent: $("#modal-add-documento"),
             });
