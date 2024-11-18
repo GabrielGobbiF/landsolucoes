@@ -287,7 +287,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Selecione a Pasta</label>
-                                        <select id="select__pasta" class="form-control select2">
+                                        <select id="select__pasta" class="form-control ">
                                             @foreach ($pastas as $pasta)
                                                 <option value="{{ $pasta->uuid }}">
                                                     {{ mb_strtolower($pasta->name) == mb_strtolower($obra->razao_social) ? 'Na Raiz da obra' : $pasta->name }}
@@ -457,6 +457,10 @@
 
     <script>
         $(document).ready(function() {
+
+            $('#select__pasta').select2({
+                dropdownParent: $("#modal-add-documento"),
+            });
 
             $('.search-input__sales').each(function() {
                 const id = $(this).attr('id');
