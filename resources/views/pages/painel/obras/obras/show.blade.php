@@ -459,7 +459,6 @@
         $(document).ready(function() {
 
             $('#modal-add-documento').on('dragenter dragover drop', function(e) {
-                alert('oi');
                 e.stopPropagation(); // Impede que o evento alcance o Select2
                 e.preventDefault(); // Impede o comportamento padrão do navegador
             });
