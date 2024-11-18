@@ -38,6 +38,14 @@ function init() {
         addRemoveLinks: true,
         maxFilesize: 500, // MB
         url: `${base_url}/l/arquivos`,
+        init: function () {
+            this.on("dragover", function (event) {
+                event.stopPropagation(); // Evitar propagação para o Select2
+            });
+            this.on("drop", function (event) {
+                event.stopPropagation(); // Evitar propagação para o Select2
+            });
+        },
         success: function () {
             this.removeAllFiles();
             $('#modal-add-documento').modal('hide');
