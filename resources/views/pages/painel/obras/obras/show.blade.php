@@ -284,7 +284,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-12 div_select-pasta">
+                                <div class="col-md-12 div_select-pasta" id="div_select-pasta">
                                     <div class="form-group">
                                         <label>Selecione a Pasta</label>
                                         <select id="select__pasta" class="form-control ">
@@ -461,21 +461,19 @@
             let isDragging = false;
 
             $('#modal-add-documento').on('dragenter dragover', function(e) {
-                $('#select__pasta').addClass('d-none'); // Esconde o select
-                isDragging = true; // Define que o arrasto está ativo
+                $('#select__pasta').select2('close');
+            });
+
+            $('#modal-add-documento').on('dragleave drop', function(e) {
+                $('#select__pasta').select2('close');
+                isDragging = true;
                 e.stopPropagation();
                 e.preventDefault();
             });
 
-            $('#modal-add-documento').on('dragleave drop', function(e) {
-                isDragging = false;
-                setTimeout(function() {
-                    if (!isDragging) {
-                        $('#select__pasta').removeClass('d-none');
-                    }
-                }, 100);
-                e.stopPropagation();
-                e.preventDefault();
+            $('#modal-add-documento').on('hidden.bs.modal', function(e) {
+                $('#div_select-pasta').removeClass('d-none'); // Esconde o select
+
             });
 
             $('#select__pasta').select2({
