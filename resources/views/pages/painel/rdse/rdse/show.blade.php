@@ -671,7 +671,7 @@
                                             <li class="nav-item waves-effect waves-light">
                                                 <a class="nav-link" data-toggle="tab" href="#observations_programacao-1" role="tab">
                                                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                                    <span class="d-none d-sm-block">Programação</span>
+                                                    <span class="d-none d-sm-block">Relatório de Execução</span>
                                                 </a>
                                             </li>
 
