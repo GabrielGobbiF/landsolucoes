@@ -5,7 +5,7 @@
 @if (isset($atividadesRdseProgramacao))
     <ul class="">
         @foreach ($atividadesRdseProgramacao as $desc)
-            <li class="">{{ $desc }}</li>
+            <li style="margin-bottom: 1.5rem;">{{ $desc }}</li>
         @endforeach
     </ul>
 @endif
