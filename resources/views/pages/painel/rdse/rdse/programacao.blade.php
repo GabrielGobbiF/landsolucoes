@@ -311,6 +311,9 @@
 @endsection
 
 @section('scripts')
+    @yield('modal-scripts')
+
+
     <script src="{{ asset('panel/js/pages/rdse/rdse.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
@@ -901,4 +904,5 @@
         //        })
         //});
     </script>
+
 @append

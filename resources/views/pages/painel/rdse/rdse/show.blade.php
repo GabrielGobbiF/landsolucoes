@@ -707,11 +707,16 @@
                                                 <span id="spanObservationsViabilidade">{!! $rdse->observations_viabilidade !!}</span>
                                             </div>
                                             <div id="observations_programacao-1" class="tab-pane" role="tabpanel">
+                                                {{--
                                                 <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal"
                                                    data-editor="observations_programacao">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <span id="spanObservationsProgramacao">{!! $rdse->observations_programacao !!}</span>
+                                                --}}
+
+                                                @include('pages.painel.rdse.rdse.progamacao-atividades')
+
                                             </div>
                                             <div id="observations_adicionais-1" class="tab-pane" role="tabpanel">
                                                 <a type="button" class="mb-2" data-toggle="modal" data-target="#editorModal"
