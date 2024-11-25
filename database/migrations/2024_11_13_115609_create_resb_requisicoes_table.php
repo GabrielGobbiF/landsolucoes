@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('unique');
 
             $table->decimal('qnt', 10, 2)->default(0);
+            $table->decimal('qnt_executada', 10, 2)->default(0);
 
             $table->foreign('resb_id')->references('id')->on('resbs')->onDelete('cascade');
             $table->timestamp('at');
