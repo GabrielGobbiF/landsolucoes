@@ -314,7 +314,7 @@ class RdseApiController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        # $rdse->resbs()->delete();
+        $rdse->resbs()->delete();
 
         $type = $request->query('type');
 
@@ -341,15 +341,24 @@ class RdseApiController extends Controller
         }
 
         foreach ($data as $row) {
+            if (empty($row[1])) {
+                Resb::where('id', $row[0])?->delete();
+                continue;
+            }
+
             $f = 1;
 
             $itemData = [];
 
-            $inventario = Inventory::where('cod_material', $row[1])->firstOrCreate([
-                'cod_material' => $row[1],
-                'unit' => $row[2],
-                'name' => $row[3],
-            ]);
+            $inventario = Inventory::where('cod_material', $row[1])->firstOrCreate(
+                [
+                    'cod_material' => $row[1],
+                ],
+                [
+                    'unit' => $row[2],
+                    'name' => $row[3],
+                ]
+            );
 
 
             #foreach ($columns as $columnName => $index) {
@@ -368,21 +377,21 @@ class RdseApiController extends Controller
                 ]
             );
 
-            if (isset($columns)) {
-                foreach ($columns as $unique => $value) {
-                    $posicao = 6 + $f;
-
-                    $reqItem = $requisicoes->where('unique', $value)->where('resb_id', $row[0])->first()?->id;
-
-                    if ($reqItem) {
-                        $r = ResbRequisicao::where('id', $reqItem)->first();
-                        $r->qnt = $row[$posicao];
-                        $r->save();
-                    }
-
-                    $f++;
-                }
-            }
+            #if (isset($columns)) {
+            #    foreach ($columns as $unique => $value) {
+            #        $posicao = 6 + $f;
+            #
+            #        $reqItem = $requisicoes->where('unique', $value)->where('resb_id', $row[0])->first()?->id;
+            #
+            #        if ($reqItem) {
+            #            $r = ResbRequisicao::where('id', $reqItem)->first();
+            #            $r->qnt = $row[$posicao];
+            #            $r->save();
+            #        }
+            #
+            #        $f++;
+            #    }
+            #}
         }
 
         return response()->json(['success' => true]);
