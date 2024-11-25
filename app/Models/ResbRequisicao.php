@@ -23,6 +23,7 @@ class ResbRequisicao extends Model
         'rdse_id',
         'resb_id',
         'qnt',
+        'qnt_executada',
         'at',
         'unique',
     ];

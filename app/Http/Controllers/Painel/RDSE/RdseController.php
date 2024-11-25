@@ -661,7 +661,8 @@ class RdseController extends Controller
 
         $itensResb = Resb::where('rdse_id', $rdse->id)->get();
 
-        $requisitions = ResbRequisicao::where('rdse_id', $rdse->id)->groupBy('rdse_id')->count() + 1;
+        $ultimaRequisicaoIndex = ResbRequisicao::where('rdse_id', $rdse->id)->max('unique');
+        $novoRequisicaoIndex = is_null($ultimaRequisicaoIndex) ? 1 : $ultimaRequisicaoIndex + 1;
 
         foreach ($itensResb as $item) {
 
@@ -671,7 +672,7 @@ class RdseController extends Controller
                 'resb_id' => $item->id,
                 'rdse_id' => $rdse->id,
                 'at' => now(),
-                'unique' => $requisitions,
+                'unique' => $novoRequisicaoIndex,
             ]);
         }
 
@@ -689,6 +690,8 @@ class RdseController extends Controller
         }
 
         $requisicoes = ResbRequisicao::where('rdse_id', $rdse->id)->get();
+        $requisicoesAgrupadas = $requisicoes->groupBy('unique');
+        $qntRequisicao = $requisicoes->count();
 
         $type = $request->query('type', 'enel');
 
@@ -696,26 +699,11 @@ class RdseController extends Controller
 
         if ($type === 'viabilidade') {
             $columns[] = 'Quant. Viabilidade';
-        }
 
-        if ($type === 'executada') {
-            $columns[] = 'Quant. Viabilidade';
-            $columns[] = 'Quant. Executada';
-
-            if ($requisicoes->count() > 0) {
-                foreach ($requisicoes->groupBy('unique') as $unique => $value) {
+            if ($qntRequisicao > 0) {
+                foreach ($requisicoesAgrupadas as $unique => $value) {
                     $columns[] = 'Requisição: ' . '<br>' . $value->where('unique', $unique)->first()?->at;
-                }
-            }
-
-        }
-
-        if ($type === 'requisicao') {
-            $columns[] = 'Quant. Viabilidade';
-
-            if ($requisicoes->count() > 0) {
-                foreach ($requisicoes->groupBy('unique') as $unique => $value) {
-                    $columns[] = 'Requisição: ' . '<br>' . $value->where('unique', $unique)->first()?->at;
+                    $columns[] = 'Execução: ';
                 }
             }
         }
@@ -738,11 +726,6 @@ class RdseController extends Controller
 
                 if ($type === 'viabilidade') {
                     $row[] = $item->qnt_viabilidade;
-                }
-
-                if ($type === 'executada') {
-                    $row[] = $item->qnt_viabilidade;
-                    $row[] = $item->qnt_executada;
 
                     foreach ($requisicoes->groupBy('unique') as $unique => $value) {
                         $values =  $value->where('unique', $unique);
@@ -750,19 +733,7 @@ class RdseController extends Controller
                         $itemReq = $values->where('resb_id', $item->id)->first();
 
                         $row[] = $itemReq?->qnt;
-                    }
-
-                }
-
-                if ($type === 'requisicao' && $requisicoes->count() > 0) {
-                    $row[] = $item->qnt_viabilidade;
-
-                    foreach ($requisicoes->groupBy('unique') as $unique => $value) {
-                        $values =  $value->where('unique', $unique);
-
-                        $itemReq = $values->where('resb_id', $item->id)->first();
-
-                        $row[] = $itemReq?->qnt;
+                        $row[] = $itemReq?->qnt_executada;
                     }
                 }
 
@@ -779,11 +750,6 @@ class RdseController extends Controller
             ];
 
             if ($type === 'viabilidade') {
-                $row[] = '';
-            }
-
-            if ($type === 'executada') {
-                $row[] = '';
                 $row[] = '';
             }
 

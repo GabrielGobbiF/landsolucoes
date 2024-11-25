@@ -28,6 +28,7 @@
                     </button>
                 @endif
 
+                {{--
                 @if (!empty($rdse->resb_enel))
                     <button onclick="redirectToType('requisicao')" class="btn btn-{{ request('type') === 'requisicao' ? '' : 'outline-' }}danger btn-sm">
                         Requisição de Material
@@ -41,7 +42,7 @@
                     </button>
                 @endif
 
-
+--}}
             </div>
 
             <h4 class="card-title"></h4>
@@ -72,6 +73,12 @@
                     </button>
                 @endif
 
+                @if (request('type') === 'viabilidade')
+                    <button data-text="Criar Nova Requisição" data-action="put" data-href="{{ route('rdse.rsbe.store.requisicao', $rdse->id) }}" type="button"
+                            class="btn btn-sm btn-outline-info js-btn-delete">
+                        Nova Requisição de Compra
+                    </button>
+                @endif
 
                 @if (empty($rdse->resb_execucao) && request('type') === 'executada')
                     <button data-text="Salvar RESB Execução" data-action="put" data-href="{{ route('rdse.rsbe.save', ['col' => 'resb_execucao', $rdse->id]) }}"
@@ -116,7 +123,7 @@
                         'remove_col': false
                     }
                 };
-            @endif--}}
+            @endif --}}
 @endsection
 
 @section('scripts')
@@ -134,9 +141,20 @@
 
             var contextMenu = true;
 
-
-
             const hot = new Handsontable(container, {
+
+
+                @if (!empty($rdse->resb_enel) )
+                    cells: function(row, col) {
+                        const cellProperties = {};
+
+                        if (col === 4 ) {
+                            cellProperties.readOnly = true;
+                        }
+
+                        return cellProperties;
+                    },
+                @endif
 
                 @if ($rdse->resb_status == 'viabilidade')
                     cells: function(row, col) {
@@ -155,7 +173,7 @@
                     cells: function(row, col) {
                         const cellProperties = {};
 
-                        if (col === 1 || col === 2 || col === 3 || col === 4 || col === 5 ) {
+                        if (col === 1 || col === 2 || col === 3 || col === 4 || col === 5) {
                             cellProperties.readOnly = true;
                         }
 

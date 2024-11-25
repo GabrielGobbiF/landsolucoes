@@ -18,6 +18,7 @@ use App\Services\Rdse\RdseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RdseApiController extends Controller
 {
@@ -314,7 +315,9 @@ class RdseApiController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        $rdse->resbs()->delete();
+        if (empty($rdse->resb_enel)) {
+            $rdse->resbs()->delete();
+        }
 
         $type = $request->query('type');
 
@@ -335,18 +338,48 @@ class RdseApiController extends Controller
         #}
 
         $requisicoes = ResbRequisicao::where('rdse_id', $rdse->id)->get();
+        $requisicoesAgrupadas = $requisicoes->groupBy('unique');
+        $qntRequisicao = $requisicoes->count();
 
         foreach ($requisicoes->groupBy('unique') as $unique => $value) {
             $columns[] = $value->where('unique', $unique)->first()?->unique;
         }
 
+        if ($qntRequisicao > 0) {
+
+            foreach ($data as $linhaIndex => $linha) {
+                $itemId = $linha[0]; // Obtém o `item_id` (que está na coluna índice 1)
+
+                // Para cada requisição, temos duas colunas (qnt e qnt_executada)
+                for ($i = 0; $i < $qntRequisicao; $i++) {
+                    // Calcula os índices das colunas
+                    $posicaoQnt = 6 + ($i * 2); // Começa em 6 e avança de 2 em 2
+                    $posicaoQntExecutada = $posicaoQnt + 1; // A próxima coluna é `qnt_executada`
+
+                    if (!array_key_exists($posicaoQnt, $linha) || !array_key_exists($posicaoQntExecutada, $linha)) {
+                        continue; // Pula para a próxima iteração, já que as colunas não existem
+                    }
+
+                    $qnt = $linha[$posicaoQnt];
+                    $qntExecutada = $linha[$posicaoQntExecutada];
+
+
+                    ResbRequisicao::where('rdse_id', $rdse->id)->where('resb_id', $itemId)->where('unique', $i + 1)?->update(
+                        [
+                            'qnt' => $qnt,
+                            'qnt_executada' => $qntExecutada
+                        ]
+                    );
+                }
+            }
+        }
+
         foreach ($data as $row) {
+
             if (empty($row[1])) {
                 Resb::where('id', $row[0])?->delete();
                 continue;
             }
-
-            $f = 1;
 
             $itemData = [];
 
@@ -377,7 +410,15 @@ class RdseApiController extends Controller
                 ]
             );
 
-            #if (isset($columns)) {
+            #if ($qntRequisicao > 0) {
+            #
+            #    for ($i=0; $i < $qntRequisicao; $i++) {
+            #        $posicao = 6 + $f;
+            #        Log::info($posicao);
+            #
+            #    }
+            #
+            #
             #    foreach ($columns as $unique => $value) {
             #        $posicao = 6 + $f;
             #
