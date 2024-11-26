@@ -272,7 +272,7 @@ class TableApiController extends Controller
     {
         $inventories = new Inventory();
 
-        $searchColumns = ['id', 'name'];
+        $searchColumns = ['id', 'name', 'cod_material'];
 
         $inventories = $inventories
             ->where(function ($query) use ($searchColumns) {

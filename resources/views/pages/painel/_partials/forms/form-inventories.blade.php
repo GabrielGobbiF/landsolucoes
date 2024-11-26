@@ -20,9 +20,9 @@
                 <div class="mb-3 row"></div>
             </div>
 
-            <label class="col-sm-2 col-form-label" for="code_omie">Código</label>
+            <label class="col-sm-2 col-form-label" for="cod_material">Código</label>
             <div class="col-sm-10">
-                <input id="input-code_omie" class="form-control" type="text" name="code_omie" value="{{ isset($inventory) ? $inventory->code_omie : old('code_omie') }}" />
+                <input id="input-cod_material" class="form-control" type="text" name="cod_material" value="{{ isset($inventory) ? $inventory->cod_material : old('cod_material') }}" />
                 <div class="mb-3 row"></div>
             </div>
 
