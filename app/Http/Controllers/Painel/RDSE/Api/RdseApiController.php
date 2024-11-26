@@ -383,56 +383,25 @@ class RdseApiController extends Controller
 
             $itemData = [];
 
-            $inventario = Inventory::where('cod_material', $row[1])->firstOrCreate(
-                [
-                    'cod_material' => $row[1],
-                ],
-                [
-                    'unit' => $row[2],
-                    'name' => $row[3],
-                ]
-            );
+            $inventario = Inventory::where('cod_material', $row[1])->first();
 
-
-            #foreach ($columns as $columnName => $index) {
-            #    // Adiciona os dados mapeados por nome da coluna
-            #    $itemData[$columnName] = $row[$index] ?? null;
-            #}
-            #
-            Resb::updateOrCreate(
-                ['id' => $row[0]],
-                [
-                    'rdse_id' => $rdse->id,
-                    'item_id' => $inventario->id,
-                    'qnt_planejada' => $row[4] ?? 0,
-                    'qnt_viabilidade' => $row[5] ?? 0,
-                    'qnt_executada' => $row[6] ?? 0,
-                ]
-            );
-
-            #if ($qntRequisicao > 0) {
-            #
-            #    for ($i=0; $i < $qntRequisicao; $i++) {
-            #        $posicao = 6 + $f;
-            #        Log::info($posicao);
-            #
-            #    }
-            #
-            #
-            #    foreach ($columns as $unique => $value) {
-            #        $posicao = 6 + $f;
-            #
-            #        $reqItem = $requisicoes->where('unique', $value)->where('resb_id', $row[0])->first()?->id;
-            #
-            #        if ($reqItem) {
-            #            $r = ResbRequisicao::where('id', $reqItem)->first();
-            #            $r->qnt = $row[$posicao];
-            #            $r->save();
-            #        }
-            #
-            #        $f++;
-            #    }
-            #}
+            if ($inventario) {
+                #foreach ($columns as $columnName => $index) {
+                #    // Adiciona os dados mapeados por nome da coluna
+                #    $itemData[$columnName] = $row[$index] ?? null;
+                #}
+                #
+                Resb::updateOrCreate(
+                    ['id' => $row[0]],
+                    [
+                        'rdse_id' => $rdse->id,
+                        'item_id' => $inventario->id,
+                        'qnt_planejada' => $row[4] ?? 0,
+                        'qnt_viabilidade' => $row[5] ?? 0,
+                        'qnt_executada' => $row[6] ?? 0,
+                    ]
+                );
+            }
         }
 
         return response()->json(['success' => true]);
