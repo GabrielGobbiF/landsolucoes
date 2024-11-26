@@ -183,7 +183,7 @@
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
-                                <th data-field="observations" data-formatter="observationInput">Obs</th>
+                                {{--<th data-field="observations" data-formatter="observationInput">Obs</th>--}}
                                 <th data-field="month">Mês</th>
 
                                 {{-- }}
