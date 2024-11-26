@@ -14,7 +14,7 @@
 @section('scripts')
     <script>
         $('#modaladdItemsModal').on('shown.bs.modal', function() {
-            init();
+            initAddItemsModal();
         });
     </script>
 @append

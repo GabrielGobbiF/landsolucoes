@@ -41,12 +41,15 @@
 
         $('#submitForm').on('click', submitForm);
 
-        function init() {
+        function initAddItemsModal() {
 
             carregarAtividades();
         }
 
         function carregarAtividades() {
+            const $tbody = $('.divAtividadesRdse').closest('.divAtividadesRdse').find('tbody');
+            $tbody.empty();
+
             const route = $('#routeAddAtividade').val();
 
             const id = $('#modalrdseId').val();
@@ -58,10 +61,6 @@
             axios.get(`${route}/${id}/atividades`) // Substitua 'URL_DA_SUA_API' pela URL da sua API
                 .then(function(response) {
                     const atividades = response.data.data;
-
-                    // Obter referência ao tbody da tabela mais próxima de divAtividadesRdse
-                    const $tbody = $('.divAtividadesRdse').closest('.divAtividadesRdse').find('tbody');
-                    $tbody.empty(); // Limpar conteúdo atual do tbody
 
                     // Iterar sobre os dados e adicionar cada atividade como uma linha na tabela
                     atividades.forEach(function(atividade, index) {
@@ -197,6 +196,6 @@
 
         }
 
-        init();
+        initAddItemsModal();
     </script>
 @append
