@@ -22,8 +22,8 @@ class StoreUpdateInventory extends FormRequest
 
         $rules = [
             'name' => ['required', 'string', 'max:255', Rule::unique('inventories')->ignore($id)->whereNull('deleted_at')],
-            'code_omie' => ['nullable', "required", Rule::unique('inventories', 'code_omie')->ignore($id)->whereNull('deleted_at')],
-            'cod_material' => ['nullable', "required", Rule::unique('inventories', 'cod_material')->ignore($id)->whereNull('deleted_at')],
+            'code_omie' => ['nullable',  Rule::unique('inventories', 'code_omie')->ignore($id)->whereNull('deleted_at')],
+            'cod_material' => ["required", Rule::unique('inventories', 'cod_material')->ignore($id)->whereNull('deleted_at')],
 
             'sku' => ['nullable'],
             #'unit' => ['required'],
