@@ -265,6 +265,6 @@ class Rdse extends Model
 
     public function canResetResb()
     {
-        return auth()->user()->id === 1;
+        return auth()->user()->id === 1 || auth()->user()->id === 8;
     }
 }
