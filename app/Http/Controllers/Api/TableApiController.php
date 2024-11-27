@@ -650,11 +650,11 @@ class TableApiController extends Controller
             ->join('obras_etapas', 'obras.id', '=', 'obras_etapas.id_obra')
             ->when(isset($filters['obras_etapas_a_vencer']), function ($query) use ($hoje) {
                 // obras_etapas a vencer (vencimento é hoje)
-                $query->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) = ?', [$hoje]);
+                $query->where('obras_etapas.check', '<>', 'C')->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) = ?', [$hoje]);
             })
             ->when(isset($filters['obras_etapas_vencidas']), function ($query) use ($hoje) {
                 // obras_etapas vencidas (vencimento passou)
-                $query->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) < ?', [$hoje]);
+                $query->where('obras_etapas.check', '<>', 'C')->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) < ?', [$hoje]);
             })
             ->whereNull('obras.deleted_at')
             ->when(!empty($filters['search']), function ($query) use ($filters) {
