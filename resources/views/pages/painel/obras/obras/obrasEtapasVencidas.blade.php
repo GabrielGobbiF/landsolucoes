@@ -25,9 +25,7 @@
                                             <td scope="row">{{ $obra['obra_name'] }}</td>
                                             <td>{{ $obra['etapa_name'] }}</td>
                                             <td>
-                                                <a target="_blank"
-                                                    href="{{ route('obras.show', $obra['obra_id']) . '?etp=20462' }}"
-                                                    class="">
+                                                <a target="_blank" href="{{ route('obras.show', $obra['obra_id']) . '?etp=' . $obra['etapa_id'] }}" class="">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </td>

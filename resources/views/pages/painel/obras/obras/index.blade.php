@@ -15,7 +15,7 @@
 
                         <div class="col-md-3">
                             <label for="fl_art_nome">Cliente</label>
-                            <select name="client_id" id="obra-select_client_id" class="form-control select2 search-input">
+                            <select id="obra-select_client_id" name="client_id" class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
                                 @foreach ($clients as $client)
                                     <option value="{{ $client->id }}"> {{ $client->username }}</option>
@@ -25,7 +25,7 @@
 
                         <div class="col-md-3">
                             <label for="fl_art_nome">Concessionarias</label>
-                            <select name="concessionaria_id" id="obra-select_concessionaria_id" class="form-control select2 search-input">
+                            <select id="obra-select_concessionaria_id" name="concessionaria_id" class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
                                 @foreach ($concessionarias as $concessionaria)
                                     <option value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}</option>
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="text-center" id="preloader-content">
+                    <div id="preloader-content" class="text-center">
                         <div class="spinner-border text-primary m-1 align-self-center" role="status">
                             <span class="sr-only"></span>
                         </div>
@@ -52,21 +52,31 @@
                             <div class="form-inline" role="form">
                                 <div class="form-group mg-t-5">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input wd-15 ht-15" name="urgence" type="checkbox" value="urgence">
-                                        <label class="form-check-label" for="metodo_real">Com Urgência</label>
+                                        <input id="form-check-metodo_real" class="form-check-input wd-15 ht-15" name="urgence" type="checkbox" value="urgence">
+                                        <label class="form-check-label" for="form-check-metodo_real">Com Urgência</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input wd-15 ht-15" name="fav" type="checkbox" value="favorites">
-                                        <label class="form-check-label" for="metodo_porcent">Meus Favoritos</label>
+                                        <input id="form-check-metodo_porcent" class="form-check-input wd-15 ht-15" name="fav" type="checkbox" value="favorites">
+                                        <label class="form-check-label" for="form-check-metodo_porcent">Meus Favoritos</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input wd-15 ht-15" name="arq" type="checkbox" value="arquivadas">
-                                        <label class="form-check-label" for="arquivadas">Arquivadas</label>
+                                        <input id="form-check-arquivadas" class="form-check-input wd-15 ht-15" name="arq" type="checkbox" value="arquivadas">
+                                        <label class="form-check-label" for="form-check-arquivadas">Arquivadas</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input id="obras_etapas_a_vencer" class="form-check-input wd-15 ht-15" name="obras_etapas_a_vencer" type="checkbox"
+                                               value="true">
+                                        <label class="form-check-label" for="obras_etapas_a_vencer">Etapas a Vencer</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input id="obras_etapas_vencidas" class="form-check-input wd-15 ht-15" name="obras_etapas_vencidas" type="checkbox"
+                                               value="true">
+                                        <label class="form-check-label" for="obras_etapas_vencidas">Etapas Vencidadas</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <table data-toggle="table" id="table-api" data-table="obras" data-search-text="" data-target="true">
+                        <table id="table-api" data-toggle="table" data-table="obras" data-search-text="" data-target="true">
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true" data-visible="false">#</th>
@@ -77,8 +87,8 @@
                                     <th data-field="concessionaria.service" data-visible="false">Concessionaria - Serviço</th>
                                     <th data-field="client.concessionaria.service" data-visible="false">Cliente - Concessionaria - Serviço</th>
                                     <th data-field="last_note" data-visible="false">Nº nota</th>
-                                    <th data-field="created_at" >Data de Criação</th>
-                                    <th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>
+                                    <th data-field="created_at">Data de Criação</th>
+                                    {{--<th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>--}}
                                 </tr>
                             </thead>
                             <tbody></tbody>

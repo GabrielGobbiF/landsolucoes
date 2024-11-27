@@ -64,7 +64,9 @@ class ObrasEtapasApiController extends Controller
             return response()->json('Object Obra not found', 404);
         }
 
-        $etapa = $obra->etapas()->where('id', $etapa_id)->first();
+        if (!$etapa = $obra->etapas()->where('id', $etapa_id)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
 
         return new ObraEtapasResource($etapa);
     }

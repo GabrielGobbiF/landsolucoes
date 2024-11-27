@@ -35,7 +35,7 @@ class ObraResource extends JsonResource
 
     public function getCountEtapas($idObra)
     {
-        $html = '';
+        return '';
 
         $soma_etapa = 0;
 

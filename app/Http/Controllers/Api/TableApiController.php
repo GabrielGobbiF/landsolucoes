@@ -52,6 +52,7 @@ use App\Models\TiposObra;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Visitor;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -413,14 +414,14 @@ class TableApiController extends Controller
             })
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['equipe_id'])) {
-                    $query->whereHas('activities', function ($query) use ( $filters) {
+                    $query->whereHas('activities', function ($query) use ($filters) {
                         $query->where('equipe_id',  $filters['equipe_id']);
                     });
                 }
             })
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['diretoria'])) {
-                    $query->whereHas('activities', function ($query) use ( $filters) {
+                    $query->whereHas('activities', function ($query) use ($filters) {
                         $query->where('diretoria',  $filters['diretoria']);
                     });
                 }
@@ -620,55 +621,43 @@ class TableApiController extends Controller
     {
         $filters = $this->filter;
         $filters['search'] =  $this->search;
+        $hoje = Carbon::today();
 
         $obras = DB::table('obras')
-            ->select('obras.*', 'services.name as service_name', 'concessionarias.name as concessionaria_name', 'clients.username')
-            ->join('clients', function ($join) use ($filters) {
-                $join->on('obras.client_id', '=', 'clients.id')
-                    ->where(function ($query) use ($filters) {
-                        if (isset($filters['client_id']) && $filters['client_id'] != '') {
-                            $query->where('clients.id',  $filters['client_id']);
-                        }
-                    });
+            ->select(
+                'obras.*',
+                'services.name as service_name',
+                'concessionarias.name as concessionaria_name',
+                'clients.username'
+            )
+            ->join('clients', 'obras.client_id', '=', 'clients.id')
+            ->when(isset($filters['client_id']) && $filters['client_id'] != '', function ($query) use ($filters) {
+                $query->where('clients.id', $filters['client_id']);
             })
-            ->join('concessionarias', function ($join) use ($filters) {
-                $join->on('obras.concessionaria_id', '=', 'concessionarias.id')
-                    ->where(function ($query) use ($filters) {
-                        if (isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '') {
-                            $query->where('concessionarias.id',  $filters['concessionaria_id']);
-                        }
-                    });
-            })
-            ->when($filters, function ($query, $filters) {
-                if (isset($filters['fav'])) {
-                    return $query->join('favoritables', 'obras.id', '=', 'favoritables.favoritable_id')
-                        ->where(function ($query) {
-                            $query->where('favoritables.user_id', auth()->user()->id);
-                            $query->where('favoritables.favoritable_type', 'App\Models\Obra');
-                        });
-                }
+            ->join('concessionarias', 'obras.concessionaria_id', '=', 'concessionarias.id')
+            ->when(isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '', function ($query) use ($filters) {
+                $query->where('concessionarias.id', $filters['concessionaria_id']);
             })
             ->join('services', 'obras.service_id', '=', 'services.id')
-            ->where(function ($query) use ($filters) {
-                if (isset($filters['urgence'])) {
-                    $query->where('obras.obr_urgence', 'Y');
-                }
+            ->join('obras_etapas', 'obras.id', '=', 'obras_etapas.id_obra')
+            ->when(isset($filters['obras_etapas_a_vencer']), function ($query) use ($hoje) {
+                // obras_etapas a vencer (vencimento é hoje)
+                $query->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) = ?', [$hoje]);
+            })
+            ->when(isset($filters['obras_etapas_vencidas']), function ($query) use ($hoje) {
+                // obras_etapas vencidas (vencimento passou)
+                $query->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) < ?', [$hoje]);
             })
             ->whereNull('obras.deleted_at')
-            ->where('obras.deleted_at', NULL)
-            ->where(function ($query) use ($filters) {
-                if ($filters['search'] != '') {
-                    $query->orWhere('last_note', 'LIKE', '%' . $filters['search'] . '%');
-                    $query->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
-                }
+            ->when(!empty($filters['search']), function ($query) use ($filters) {
+                $query->where('last_note', 'LIKE', '%' . $filters['search'] . '%')
+                    ->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
             })
-            ->where(function ($query) use ($filters) {
-                if (isset($filters['arq']) && !empty($filters['arq'])) {
-                    $query->where('status', 'concluida');
-                } else {
-                    $query->where('obras.status', '<>', 'concluida');
-                    $query->where('obras.status', 'aprovada');
-                }
+            ->when(isset($filters['arq']) && !empty($filters['arq']), function ($query) {
+                $query->where('status', 'concluida');
+            }, function ($query) {
+                $query->whereIn('obras.status', ['aprovada'])
+                    ->where('obras.status', '<>', 'concluida');
             })
             ->groupBy('obras.id')
             ->orderBy($this->sort, $this->order)
