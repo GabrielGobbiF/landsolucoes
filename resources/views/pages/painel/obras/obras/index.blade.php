@@ -33,6 +33,16 @@
                             </select>
                         </div>
 
+                        <div class="col-md-3">
+                            <label for="fl_art_nome">Serviço</label>
+                            <select id="obra-select_service_id" name="service_id" class="form-control select2 search-input">
+                                <option value="" selected>Selecione</option>
+                                @foreach ($services as $service)
+                                    <option value="{{ $service->id }}"> {{ $service->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="col-md-3 justify-content-end align-self-center mg-t-25">
                             <button class="btn btn-dark btn-empty-search">Limpar </button>
                         </div>

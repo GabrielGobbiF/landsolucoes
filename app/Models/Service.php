@@ -23,4 +23,9 @@ class Service extends Model
     {
         return $this->belongsToMany(Concessionaria::class);
     }
+
+    public function obras()
+    {
+        return $this->belongsTo(Obra::class, 'id', 'service_id');
+    }
 }

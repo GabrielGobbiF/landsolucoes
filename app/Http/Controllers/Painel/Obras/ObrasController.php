@@ -9,6 +9,7 @@ use App\Models\Concessionaria;
 use App\Models\Department;
 use App\Models\Obra;
 use App\Models\Pasta;
+use App\Models\Service;
 use App\Models\Tipo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -37,10 +38,12 @@ class ObrasController extends Controller
         })->get(['id', 'username']);
 
         $concessionarias = Concessionaria::whereHas('obras')->get(['id', 'name']);
+        $services = Service::whereHas('obras')->get(['id', 'name']);
 
         return view('pages.painel.obras.obras.index', [
             'clients' => $clients,
-            'concessionarias' => $concessionarias
+            'concessionarias' => $concessionarias,
+            'services' => $services
         ]);
     }
 

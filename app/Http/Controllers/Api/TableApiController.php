@@ -638,7 +638,15 @@ class TableApiController extends Controller
             ->when(isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '', function ($query) use ($filters) {
                 $query->where('concessionarias.id', $filters['concessionaria_id']);
             })
-            ->join('services', 'obras.service_id', '=', 'services.id')
+            ->join('services', function ($join) use ($filters) {
+                $join->on('obras.service_id', '=', 'services.id')
+                    ->where(function ($query) use ($filters) {
+                        if (isset($filters['service_id']) && $filters['service_id'] != '') {
+                            $query->where('obras.service_id',  $filters['service_id']);
+                        }
+                    });
+            })
+
             ->join('obras_etapas', 'obras.id', '=', 'obras_etapas.id_obra')
             ->when(isset($filters['obras_etapas_a_vencer']), function ($query) use ($hoje) {
                 // obras_etapas a vencer (vencimento é hoje)
