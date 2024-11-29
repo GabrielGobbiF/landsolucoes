@@ -83,6 +83,11 @@
                                                value="true">
                                         <label class="form-check-label" for="obras_etapas_vencidas">Etapas Vencidadas</label>
                                     </div>
+                                    <div class="form-check form-check-inline">
+                                        <input id="updated_at" class="form-check-input wd-15 ht-15" name="updated_at" type="checkbox"
+                                               value="true">
+                                        <label class="form-check-label" for="updated_at">Não Atualizadas</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +103,8 @@
                                     <th data-field="client.concessionaria.service" data-visible="false">Cliente - Concessionaria - Serviço</th>
                                     <th data-field="last_note" data-visible="false">Nº nota</th>
                                     <th data-field="created_at">Data de Criação</th>
-                                    {{--<th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>--}}
+                                    <th data-field="updated_at">Ultima Atualização</th>
+                                    <th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>

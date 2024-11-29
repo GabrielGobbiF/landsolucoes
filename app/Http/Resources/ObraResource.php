@@ -28,6 +28,7 @@ class ObraResource extends JsonResource
             "concessionaria.service" => Str::of($this->concessionaria_name)->append(' - ' . $this->service_name),
             "service.name" => $this->service_name,
             "last_note" => $this->last_note,
+            "updated_at" => formatDateAndTime($this->updated_at, 'd/m/Y H:i:s'),
             "created_at" => formatDateAndTime($this->created_at),
             "progressEtapas" => $progressEtapas
         ];
@@ -35,7 +36,7 @@ class ObraResource extends JsonResource
 
     public function getCountEtapas($idObra)
     {
-        return '';
+        $html = '';
 
         $soma_etapa = 0;
 

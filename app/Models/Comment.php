@@ -24,4 +24,20 @@ class Comment extends Model
             ? $this->belongsTo(User::class, 'user_id')
             : $this->belongsTo(Client::class, 'user_id');
     }
+
+    public function etapa()
+    {
+        return $this->belongsTo(ObraEtapa::class, 'etapa_id', 'id');
+    }
+
+    protected static function booted()
+    {
+        static::saved(function ($observacao) {
+            $observacao->etapa->obra->touch(); // Atualiza o `updated_at` da obra
+        });
+
+        static::deleted(function ($observacao) {
+            $observacao->etapa->obra->touch(); // Atualiza o `updated_at` da obra
+        });
+    }
 }

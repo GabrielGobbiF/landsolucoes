@@ -35,6 +35,7 @@ class CreateObrasTable extends Migration
 
             $table->timestamp('build_at')->nullable();  //usado como data de criação
             $table->timestamp('remove_finance')->nullable();  //usado como data para remover do financeiro
+            $table->timestamp('ultima_atualizacao')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -656,6 +656,10 @@ class TableApiController extends Controller
                 // obras_etapas vencidas (vencimento passou)
                 $query->where('obras_etapas.check', '<>', 'C')->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) < ?', [$hoje]);
             })
+            ->when(isset($filters['updated_at']), function ($query) use ($hoje) {
+                $doisDiasAtrasInicio = Carbon::now()->subDays(2)->startOfDay();
+                $query->where('obras.updated_at', '<', $doisDiasAtrasInicio);
+            })
             ->whereNull('obras.deleted_at')
             ->when(!empty($filters['search']), function ($query) use ($filters) {
                 $query->where('last_note', 'LIKE', '%' . $filters['search'] . '%')

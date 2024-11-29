@@ -43,6 +43,11 @@ class ObraEtapa extends Model
         return $this->belongsTo(Tipo::class, 'tipo_id');
     }
 
+    public function obra()
+    {
+        return $this->belongsTo(Obra::class, 'id_obra', 'id');
+    }
+
     public function etapa()
     {
         return $this->belongsTo(Etapa::class, 'id_etapa');
@@ -120,5 +125,16 @@ class ObraEtapa extends Model
         }
 
         return null;
+    }
+
+    protected static function booted()
+    {
+        static::saved(function ($etapa) {
+            $etapa->obra->touch(); // Atualiza o `updated_at` da obra
+        });
+
+        static::deleted(function ($etapa) {
+            $etapa->obra->touch(); // Atualiza o `updated_at` da obra
+        });
     }
 }
