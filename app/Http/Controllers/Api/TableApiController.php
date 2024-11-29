@@ -660,6 +660,9 @@ class TableApiController extends Controller
                 $doisDiasAtrasInicio = Carbon::now()->subDays(2)->startOfDay();
                 $query->where('obras.updated_at', '<', $doisDiasAtrasInicio);
             })
+            ->when(isset($filters['last_note']), function ($query) {
+                $query->whereNull('obras.last_note');
+            })
             ->whereNull('obras.deleted_at')
             ->when(!empty($filters['search']), function ($query) use ($filters) {
                 $query->where('last_note', 'LIKE', '%' . $filters['search'] . '%')

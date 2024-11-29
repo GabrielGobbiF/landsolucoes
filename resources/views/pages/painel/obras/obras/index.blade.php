@@ -88,6 +88,11 @@
                                                value="true">
                                         <label class="form-check-label" for="updated_at">Não Atualizadas</label>
                                     </div>
+                                    <div class="form-check form-check-inline">
+                                        <input id="last_note" class="form-check-input wd-15 ht-15" name="last_note" type="checkbox"
+                                               value="true">
+                                        <label class="form-check-label" for="last_note">Sem N' Nota</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
