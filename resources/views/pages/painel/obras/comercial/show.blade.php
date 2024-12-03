@@ -158,6 +158,18 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label for="select-diretoria">Diretoria</label>
+                                                        <select id="select-diretoria" class="form-control select2" name="diretoria">
+                                                            <option {{ isset($comercial) && $comercial->diretoria == 'PM' ? 'selected' : '' }} selected>PM</option>
+                                                            <option {{ isset($comercial) && $comercial->diretoria == 'HV' ? 'selected' : '' }}>HV</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12 d-none">
                                                 <div class="form-group">
                                                     <label for="participantes">Participantes</label>

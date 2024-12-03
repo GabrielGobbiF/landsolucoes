@@ -1,4 +1,5 @@
 const obraId = document.getElementById('input--obra_id').value;
+const BASE_URL = document.querySelector('meta[name=js-base_url]').getAttribute('content');
 const BASE_URL_API = document.querySelector('meta[name=js-base_url_api]').getAttribute('content');
 const BASE_URL_API_OBRA = `${BASE_URL_API}obra/${obraId}/`
 const modal = $('#div--etp');
@@ -16,6 +17,7 @@ $('.search-input').on('keyup', function () {
 });
 
 $('#select--type').on('change', function () {
+    modoExit();
     getEtapas();
 });
 
@@ -109,7 +111,7 @@ function getEtapas() {
                     let meta = value.meta_etapa != '' ? `Meta: ${value.meta_etapa}` : ''
 
 
-                    html += `<li>
+                    html += `<li data-id="${value.id}" data-tipo-id="${value.tipo_id}">
                             <div class="col-mail col-mail-1">
                                 <div class="checkbox-wrapper-mail">
                                     <input type="checkbox" class="js-btn-status" ${checked} onclick="updateStatus(this)"
@@ -127,7 +129,7 @@ function getEtapas() {
 
                                 <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">
 
-                                    ${value.name} ${value.finance != null ? value.finance.state + ' ' + value.finance.total_a_faturar : ''} ${date_abertura}
+                                 ${value.name} ${value.finance != null ? value.finance.state + ' ' + value.finance.total_a_faturar : ''} ${date_abertura}
 
                                 </a>
 
@@ -156,6 +158,9 @@ function getEtapas() {
 }
 
 function showEtapa(etpId) {
+    $('#pills-tab a[href="#pills-home"]').tab('show');
+
+    document.querySelector('.table-activitiesTableBody').classList.add('d-none');
 
     const divEtp = document.getElementById('div--etp');
 
@@ -198,6 +203,28 @@ function showEtapa(etpId) {
             document.getElementById('rightbar-etp-overlay').classList.add('show');
             document.getElementById('preloader-content-etp').remove();
             $('#preloader-content-etp').remove();
+
+
+            const activities = data.activities;
+            const activitiesTableBody = document.getElementById('activitiesTableBody');
+            activitiesTableBody.innerHTML = ''; // Limpa os dados anteriores
+
+            if (activities.length > 0) {
+                document.querySelector('.table-activitiesTableBody').classList.remove('d-none');
+                // Popula os dados na tabela
+                activities.forEach(activity => {
+                    const row = `
+                <tr>
+                    <td>${activity.user_name}</td>
+                    <td>${activity.translate}</td>
+                    <td>${activity.date}</td>
+                </tr>
+            `;
+                    activitiesTableBody.innerHTML += row;
+                });
+
+            }
+
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -407,22 +434,91 @@ function updateObra(collumn, value) {
     });
 }
 
-$('.mode-edition').on('click', function () {
-    $('.mode-edition').removeClass('d-none');
+$('#modoEdicaoBtn').on('click', function () {
     $(this).addClass('d-none');
+
+    $('#etapas-list').sortable({
+        placeholder: "ui-state-highlight",
+        update: function (event, ui) {
+
+            const ordemEtapas = [];
+            $('#etapas-list li').each(function (index, element) {
+                const etapaId = $(element).data('id');
+                const tipoId = $(element).data('tipo-id');
+                ordemEtapas.push({
+                    id: etapaId,
+                    tipo_id: tipoId,
+                    ordem: index + 1 // Começar a ordem em 1
+                });
+            });
+
+
+            axios.post(`${BASE_URL_API_OBRA}etapa/reordenar`, {
+                ordem: ordemEtapas
+            }).then(function (response) {
+                console.log('Nova ordem salva com sucesso!');
+            }).catch(function (error) {
+                console.error('Erro ao salvar a nova ordem:', error);
+                alert('Ocorreu um erro ao salvar a nova ordem. Tente novamente.');
+            });
+
+        }
+    }).disableSelection();
+
+    modoActive();
+});
+
+$('#sairModoEdicaoBtn').on('click', function () {
+    $('#etapas-list').sortable("destroy");
+    $('#editModeButtons').addClass('d-none');
+    $('#modoEdicaoBtn').removeClass('d-none');
     $('.checkbox-wrapper-mail').toggleClass('d-none');
-    let type = $(this).attr('data-type');
-    type == 'active' ? modoActive() : modoExit();
-})
+});
+
+//$('.mode-edition').on('click', function () {
+//    $('.mode-edition').removeClass('d-none');
+//    $(this).addClass('d-none');
+//    $('.checkbox-wrapper-mail').toggleClass('d-none');
+//    let type = $(this).attr('data-type');
+//    type == 'active' ? modoActive() : modoExit();
+//})
+//
 
 function modoActive() {
-    toastr.warning('modo edição ativado')
-    $('.mode').removeClass('d-none')
+    $('.checkbox-wrapper-mail').toggleClass('d-none');
+
+    $('#editModeButtons').removeClass('d-none');
 }
 
 function modoExit() {
-    $('.mode').toggleClass('d-none');
+    $('#editModeButtons').addClass('d-none');
+    $('#modoEdicaoBtn').removeClass('d-none');
 }
+
+$("#addSelectionEtapa").on("click", function () {
+    let arr = [];
+    $(".js-btn-mode-input:checked").each(function () {
+        arr.push($(this).val());
+    });
+
+    if (arr != '') {
+        axios({
+            method: 'get',
+            url: `${BASE_URL_API_OBRA}etapas`,
+            data: {
+                id_etapa: arr,
+            },
+        }).then(response => {
+            modoExit();
+            getEtapas();
+            toastr.success(response.data);
+        }).catch(e => {
+            toastr.error(e.response?.data?.message ? e.response.data.message : 'Erro contate o administrador');
+        })
+    } else {
+        toastr.error('selecione alguma etapa')
+    }
+});
 
 $("#deleteSelectionEtapa").on("click", function () {
     let arr = [];
@@ -522,7 +618,33 @@ function userSelected(userId) {
 }
 
 
+$('#addEtapaModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+});
 
+document.getElementById('salvarEtapaBtn')?.addEventListener('click', function () {
 
+    const etapasSelecionadas = document.getElementById('select--etapas_not_in_obra').tomselect.getValue();
 
+    if (etapasSelecionadas.length === 0) {
+        alert('Por favor, selecione ao menos uma etapa.');
+        return;
+    }
 
+    // Fazer uma requisição POST com Axios
+    axios.post(`${BASE_URL_API_OBRA}etapa/adicionar-etapas`, {
+        obra_id: obraId,
+        etapas: etapasSelecionadas
+    })
+        .then(function (response) {
+            alert('Etapas adicionadas com sucesso!');
+            $('#addEtapaModal').modal('hide');
+            modoExit();
+            getEtapas();
+            document.getElementById('select--etapas_not_in_obra').tomselect.clear()
+        })
+        .catch(function (error) {
+            console.error('Erro ao adicionar as etapas:', error);
+            alert('Ocorreu um erro ao adicionar as etapas. Por favor, tente novamente.');
+        });
+});

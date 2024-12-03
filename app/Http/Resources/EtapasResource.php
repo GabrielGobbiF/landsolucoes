@@ -15,6 +15,7 @@ class EtapasResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "search" =>  $this->name . $this->id,
             "id" => $this->id,
             "name" => $this->name,
             "quantidade" => $this->quantidade,
@@ -25,6 +26,7 @@ class EtapasResource extends JsonResource
             "unidade" => $this->unidade,
             "name_max" => ucfirst(mb_strtolower(mb_strimwidth($this->name, 0, 48, "..."), 'utf-8')),
             "tipo" => $this->tipo->name,
+            "tipo_id" => $this->tipo_id,
             "order" => $this->pivot->order ?? 0,
             'variables' => isset($this->variables) ? VariableResource::collection($this->variables) : [],
         ];

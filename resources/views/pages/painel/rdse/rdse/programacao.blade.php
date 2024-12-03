@@ -181,6 +181,7 @@
                                 <th data-field="tipo_obra" data-formatter="tipo_obra">Tipo de Obra</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
+                                <th data-field="sigeo" data-formatter="sigeo">Viab Sigeo</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
@@ -563,7 +564,7 @@
                     },
                     onClickCell: function(field, value, row, $element) {
                         if (click == 'false' || field == 'state' || field == 'status_execution' || field == 'apr_at' || field == 'is_civil' ||
-                            field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field == 'tipo_obra'
+                            field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field == 'tipo_obra' || field == 'sigeo'
 
                         ) {
                             return;
@@ -662,6 +663,7 @@
             `
         }
 
+
         let opcoesTipoObra = [];
 
         // Função para buscar as opções (executada apenas uma vez)
@@ -741,8 +743,9 @@
 
         function observationInput(value, row) {
             let rowValue = value === null ? '' : value;
+            let haveClass = row.observations != null ? 'text-success' : 'text-primary';
             return `
-                <a name="observations" type="button" class=""
+                <a name="observations" type="button" class="${haveClass}"
                     onclick="openObservationModal(${row.id}, 'observations')">
                     <i class="fas fa-edit"></i>
                 </a>
@@ -775,6 +778,15 @@
 
             // Retorna o HTML com o input
             return inputHtml;
+        }
+
+        function sigeo(value, row) {
+            return `
+            <select name="sigeo" class="form-control form-control-sm" id="select-sigeo" onchange="updateRdse(this, ${row.id})">
+                <option ${value == 0 ? 'selected' : ''} value="0">  Não </option>
+                <option ${value == 1 ? 'selected' : ''} value="1">  Sim </option>
+            </select>
+            `
         }
 
         function preload() {

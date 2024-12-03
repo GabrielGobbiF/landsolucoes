@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Supports\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ObraEtapa extends Model
 {
-    use HasFactory;
+    use HasFactory, LogTrait, LogsActivity;
 
     protected $fillable = [
         'id',
@@ -132,6 +134,15 @@ class ObraEtapa extends Model
         static::saved(function ($etapa) {
             $etapa->obra->touch(); // Atualiza o `updated_at` da obra
         });
+
+        static::updating(function ($etapa) {
+            if ($etapa->isDirty('check') && $etapa->check === 'C') {
+                // Registre o log
+                $user = auth()->user();
+                $etapa->setLog(['message' => 'concluido']);
+            }
+        });
+
 
         static::deleted(function ($etapa) {
             $etapa->obra->touch(); // Atualiza o `updated_at` da obra

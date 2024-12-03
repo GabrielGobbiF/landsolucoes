@@ -29,6 +29,7 @@ class CreateObrasTable extends Migration
             $table->string('last_note')->nullable();
             $table->string('cnpj')->nullable();
             $table->string('razao_social_obra_cliente')->nullable();
+            $table->string('diretoria', '2')->nullable();
             $table->longText('obr_informacoes')->nullable();
             $table->enum('status', ['elaboração', 'enviada', 'aprovada', 'recusada', 'concluida'])->default('elaboração');
             $table->enum('obr_urgence', ['Y', 'N'])->default('N');

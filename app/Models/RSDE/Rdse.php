@@ -115,7 +115,8 @@ class Rdse extends Model
         'observation_status',
         'month_date',
 
-        'tipo_obra'
+        'tipo_obra',
+        'sigeo'
     ];
 
     /**

@@ -26,6 +26,8 @@ class ObraEtapasResource extends JsonResource
         }
 
         $data = [
+            "search" => $this->nome . $this->id,
+
             "id" => $this->id,
             "name" => limit($this->nome, 50),
             "observacao" => $this->observacao,
@@ -43,12 +45,13 @@ class ObraEtapasResource extends JsonResource
             "preco" => $this->preco,
             "quantidade" => $this->quantidade,
             "unidade" => $this->unidade,
-            "prazo_atendimento" => $this->prazo_atendimento,
             "tempo_atividade" => $this->tempo_atividade,
             "tipo" => $this->tipo ? $this->tipo->slug : null,
+            "tipo_id" => $this->tipo_id,
             "prazo" => isset($prazo) ? $prazo : '',
             "comments" => $this->getComments(),
             "finance" => $this->etapaFinanceiro($this->id_obra),
+            "activities" => LogResource::collection($this->activities->sortByDesc('id')),
         ];
 
         return $data;

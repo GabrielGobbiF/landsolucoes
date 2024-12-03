@@ -11,10 +11,12 @@ const selectAxOption = (request, valueField) => {
         searchField: 'search',
         preload: true,
         firstUrl: function (query) {
-            return `${request}` + encodeURIComponent(query) + '&pageSize=30';
+            // Corrigir a URL para evitar misturar os parâmetros
+            return `${request}&search=${encodeURIComponent(query)}&pageSize=30`;
         },
         load: function (query, callback) {
-            var url = `${request}?search=` + encodeURIComponent(query) + '&pageSize=30';
+            var url = `${request}&search=${encodeURIComponent(query)}&pageSize=30`;
+
             fetch(url)
                 .then(response => response.json())
                 .then(response => {
@@ -23,6 +25,9 @@ const selectAxOption = (request, valueField) => {
                     callback();
                 });
         },
+        onItemAdd: function (value, item) {
+            this.setTextboxValue('');
+        }
     }
 }
 

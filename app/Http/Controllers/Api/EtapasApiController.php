@@ -12,6 +12,7 @@ use App\Models\Service;
 use App\Models\Tipo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EtapasApiController extends Controller
 {
@@ -22,10 +23,34 @@ class EtapasApiController extends Controller
         $this->repository = $etapas;
     }
 
+    public function getAll(Request $request)
+    {
+        $etapas = Etapa::where(function ($query) use ($request) {
+            if ($request->tipo) {
+                $query->where('tipo_id', $request->tipo);
+            }
+            if ($request->search) {
+                $query->where('name', 'LIKE', '%' . $request->search . '%');
+            }
+        })->when($request->input('not_in_obra_id'), function ($query) use ($request) {
+            $obraId = $request->input('not_in_obra_id');
+
+            $etapasAssociadasIds = DB::table('obras_etapas')
+                ->where('id_obra', $obraId)
+                ->pluck('id_etapa')
+                ->toArray();
+
+            $query->whereNotIn('id', $etapasAssociadasIds);
+        })
+            ->orderBy('name')
+            ->paginate($request->limit ?? 30);
+
+        return EtapasResource::collection($etapas);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function all(Request $request)
     {

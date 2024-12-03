@@ -181,6 +181,7 @@ class ComercialController extends Controller
                 'unidade' => $etapa->unidade,
                 'quantidade' => $etapa->quantidade ?? 0,
             ])->id;
+
             $variables = $etapa->variables()->get();
 
             if (count($variables) > 0) {

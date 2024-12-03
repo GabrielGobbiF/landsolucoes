@@ -43,7 +43,8 @@ class Obra extends Model
         'requester_phone',
         'last_reminder_sent_at',
         'remove_finance',
-        'ultima_atualizacao'
+        'ultima_atualizacao',
+        'diretoria',
     ];
 
     protected $dates = ['deleted_at'];

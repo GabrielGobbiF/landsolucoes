@@ -21,14 +21,14 @@ class ObraResource extends JsonResource
 
         return [
             "id" => $this->id,
-            "razao_social" => limit($this->razao_social, 40),
+            "razao_social" => limit($this->razao_social, 28),
             "clients.username" => $this->username,
             "client.concessionaria.service" => Str::of($this->username)->append(' - ' . $this->concessionaria_name)->append(' - ' . $this->service_name),
             "concessionaria_name" => $this->concessionaria_name,
             "concessionaria.service" => Str::of($this->concessionaria_name)->append(' - ' . $this->service_name),
-            "service.name" => $this->service_name,
+            "service.name" => limit(__minusculo($this->service_name),30),
             "last_note" => $this->last_note,
-            "updated_at" => formatDateAndTime($this->updated_at, 'd/m/Y H:i:s'),
+            "updated_at" => formatDateAndTime($this->updated_at, 'd/m/Y'),
             "created_at" => formatDateAndTime($this->created_at),
             "progressEtapas" => $progressEtapas
         ];

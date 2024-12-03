@@ -150,11 +150,17 @@
 
             <hr class="my-5">
 
+
             <div>
                 <ul id="pills-tab" class="nav nav-pills mb-3" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a id="pills-home-tab" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
                            aria-selected="true">Observações do Sistema</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a id="pills-history-tab" class="nav-link " data-toggle="pill" href="#pills-history" role="tab"
+                           aria-controls="pills-history" aria-selected="true">Histórico</a>
                     </li>
                     @if (!auth()->guard('clients')->check())
                         <li class="nav-item d-none" role="presentation">
@@ -196,10 +202,30 @@
                             </div>
                         </div>
                     @endif
+
+                    <div id="pills-history" class="tab-pane fade " role="tabpanel" aria-labelledby="pills-history-tab">
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="table-activitiesTableBody d-none">
+                                    <table class="table table-striped ">
+                                        <thead>
+                                            <tr>
+                                                <th>Usuário</th>
+                                                <th>Ação</th>
+                                                <th>Data/Hora</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="activitiesTableBody"></tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="rightbar-etp-overlay" id="rightbar-etp-overlay"></div>
+<div id="rightbar-etp-overlay" class="rightbar-etp-overlay"></div>

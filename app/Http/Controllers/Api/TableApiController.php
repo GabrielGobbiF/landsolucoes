@@ -657,7 +657,7 @@ class TableApiController extends Controller
                 $query->where('obras_etapas.check', '<>', 'C')->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) < ?', [$hoje]);
             })
             ->when(isset($filters['updated_at']), function ($query) use ($hoje) {
-                $doisDiasAtrasInicio = Carbon::now()->subDays(2)->startOfDay();
+                $doisDiasAtrasInicio = Carbon::now()->subDays(5)->startOfDay();
                 $query->where('obras.updated_at', '<', $doisDiasAtrasInicio);
             })
             ->when(isset($filters['last_note']), function ($query) {

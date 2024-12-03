@@ -36,6 +36,7 @@ class StoreUpdateComercial extends FormRequest
             'requester' => ['required'],
             'requester_email' => ['required'],
             'requester_phone' => ['required'],
+            'diretoria' => ['required'],
         ];
 
         if ($this->method() == 'PUT') {

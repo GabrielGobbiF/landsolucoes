@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEtapaObra;
 use App\Http\Resources\CommentsResource;
 use App\Http\Resources\ObraEtapasResource;
+use App\Models\Etapa;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class ObrasEtapasApiController extends Controller
@@ -47,15 +49,12 @@ class ObrasEtapasApiController extends Controller
                 }
             })
             #->with('financeiro')
-            ->with('tipo')->orderBy('ordem')->get();
+            ->with('tipo')
+            ->orderBy('tipo_id')
+            ->orderBy('ordem')
+            ->get();
 
-        if ($etapas) {
-            $etapas = $etapas->groupBy('tipo_id')->all();
-            ksort($etapas);
-            $etapasAll = Arr::collapse($etapas);
-        }
-
-        return ObraEtapasResource::collection($etapasAll);
+        return ObraEtapasResource::collection($etapas);
     }
 
     public function get($obra_id, $etapa_id)
@@ -64,7 +63,7 @@ class ObrasEtapasApiController extends Controller
             return response()->json('Object Obra not found', 404);
         }
 
-        if (!$etapa = $obra->etapas()->where('id', $etapa_id)->first()) {
+        if (!$etapa = $obra->etapas()->with('activities')->where('id', $etapa_id)->first()) {
             return response()->json('Object Obra not found', 404);
         }
 
@@ -269,5 +268,79 @@ class ObrasEtapasApiController extends Controller
         return redirect()
             ->back()
             ->with('Atualizado com sucesso');
+    }
+
+    public function addEtapas(Request $request, $obraId)
+    {
+        if (!$obra = $this->obra->where('id', $obraId)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        $etapas = $request->input('etapas');
+
+        $etapasModel = Etapa::whereIn('id', $etapas)->get();
+
+        $etapasGroupModel = $etapasModel->groupBy('tipo_id');
+
+        foreach ($etapasGroupModel as $tipo => $etapa) {
+
+            foreach ($etapa as $etp) {
+                $ordem = $this->reordenarObraEtapas($obra, $tipo, count($etapa));
+
+                $etapaInModel = $etapasModel->where('id', $etp->id)->first();
+
+                $obraEtapa = ObraEtapa::create([
+                    'id_obra' => $obra->id,
+                    'id_etapa' => $etapaInModel->id,
+                    'tipo_id' => $etapaInModel->tipo_id,
+                    'nome' => $etapaInModel->name,
+                    'ordem' => is_int($ordem) ? $ordem : $ordem->order - 1,
+                    'preco' => $etapaInModel->preco,
+                    'unidade' => $etapaInModel->unidade,
+                    'quantidade' => $etapaInModel->quantidade ?? 0,
+                ]);
+            }
+        }
+    }
+
+    private function reordenarObraEtapas($obra, $tipoId, $quantidadeEtapas)
+    {
+        // Pegar todas as etapas do mesmo tipo e ordenar por 'ordem' em ordem crescente
+        $etapas = $obra->etapas()
+            ->where('tipo_id', $tipoId)
+            ->orderBy('ordem', 'asc')
+            ->get();
+
+        // Incrementar a ordem das etapas existentes para abrir espaço para as novas etapas
+        foreach ($etapas as $etapa) {
+            $etapa->ordem += $quantidadeEtapas;
+            $etapa->save();
+        }
+
+        return $etapas->first() ?? 0;
+    }
+
+    public function reordenarEtapas(Request $request, $obraId)
+    {
+        if (!$obra = $this->obra->where('id', $obraId)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        $ordemEtapas = $request->input('ordem');
+
+        // Organizar as etapas por tipo_id
+        $etapasPorTipo = collect($ordemEtapas)->groupBy('tipo_id');
+
+        // Atualizar a ordem de cada tipo separadamente
+        foreach ($etapasPorTipo as $tipoId => $etapas) {
+            foreach ($etapas as $etapa) {
+                DB::table('obras_etapas')
+                    ->where('id', $etapa['id'])
+                    ->update(['ordem' => $etapa['ordem']]);
+            }
+        }
+
+        return response()->json('', 200);
+
     }
 }

@@ -215,14 +215,35 @@
                         <div class="col-md-12">
                             <div class="box-header with-border">
                                 <h3 class="box-title text-center my-2">Etapas</h3>
-                                <button type="button" data-type="active" class="btn btn-box-tool mode-edition"><i class="fa fa-plus-circle"></i> Modo
-                                    Edição</button>
-                                <button type="button" data-type="exit" class="btn btn-box-tool mode-edition d-none"><i class="fa fa-plus-circle"></i> Sair modo
-                                    Edição</button>
-                                <button id="deleteSelectionEtapa" type="button" data-type="deleteall" class="btn btn-box-tool mode d-none"><i
-                                       class="fa fa-trash"></i> Deletar Selecionados</button>
-                                <button id="updateSelectionEtapa" type="button" data-type="updateall" class="btn btn-box-tool mode d-none"><i
-                                       class="fa fa-edit"></i> Atualizar Selecionados</button>
+
+                                <div id="editModeButtons" class="d-none">
+
+                                    <button id="sairModoEdicaoBtn" type="button" data-type="exit" class="btn btn-box-tool">
+                                        Sair modo Edição
+                                    </button>
+
+                                    <button id="addEtapa" data-toggle="modal" data-target="#addEtapaModal" type="button" data-type="addall"
+                                            class="btn btn-box-tool mode">
+                                        <i class="fa fa-plus-circle"></i>
+                                        Adicionar Etapa
+                                    </button>
+
+                                    <button id="deleteSelectionEtapa" type="button" data-type="deleteall" class="btn btn-box-tool mode "><i
+                                           class="fa fa-trash"></i>
+                                        Deletar Selecionados
+                                    </button>
+                                    <button id="updateSelectionEtapa" type="button" data-type="updateall" class="btn btn-box-tool mode "><i
+                                           class="fa fa-edit"></i>
+                                        Atualizar Selecionados
+                                    </button>
+                                </div>
+
+
+                                <button id="modoEdicaoBtn" type="button" data-type="active" class="btn btn-box-tool  mode-edition">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Modo Edição
+                                </button>
+
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         <select id="select--type" name="type" class="form-control select2 search-input search-input__sales">
@@ -284,7 +305,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-12 div_select-pasta" id="div_select-pasta">
+                                <div id="div_select-pasta" class="col-md-12 div_select-pasta">
                                     <div class="form-group">
                                         <label>Selecione a Pasta</label>
                                         <select id="select__pasta" class="form-control ">
@@ -441,7 +462,34 @@
         </div>
     </div>
 
-
+    <div id="addEtapaModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalTitleId" class="modal-title">
+                        Adicionar Etapa na Modal
+                    </h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adicionarEtapaForm">
+                        <div class="form-group">
+                            <label for="etapaSelect">Selecione uma Etapa</label>
+                            <select id="select--etapas_not_in_obra" name="etapas" class="form-control select-users_name t-select"
+                                    data-request="{{ route('api.etapas.all', ['not_in_obra' => $obra->id]) }}" multiple required>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button id="salvarEtapaBtn" type="button" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @stop
 @section('scripts')

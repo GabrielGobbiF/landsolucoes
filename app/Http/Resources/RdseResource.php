@@ -37,6 +37,7 @@ class RdseResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'observations' => limit($this->observations, 30),
             'description' => $this->description,
             'n_order' => $this->n_order ?? '',
             'equipe' => $this->equipe,
@@ -59,6 +60,7 @@ class RdseResource extends JsonResource
             'work_end_date' => $this->work_end_date,
             'apr_at_input' => $this->apr_at,
             'is_civil' => $this->is_civil,
+            'sigeo' => $this->sigeo,
             'month' => monthByFormat($this->Month) . "/" . $year,
             'atividades' => "<a href='javascript:void(0)' onclick='openModaladdItemsModal(this)' data-id='{$this->id}' class='atividades'>
             {$this->AtividadesDescriptions}

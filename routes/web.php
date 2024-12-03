@@ -75,6 +75,8 @@ Route::prefix('/v1/api')->group(function () {
          * Etapas
          */
 
+        Route::post('obra/{obra_id}/etapa/reordenar', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'reordenarEtapas'])->name('obra.etapa.update.status');
+        Route::post('obra/{obra_id}/etapa/adicionar-etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'addEtapas'])->name('obra.etapa.update.status');
         Route::delete('obra/{obra_id}/etapa/deleteSelected', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'deleteSelected'])->name('obra.etapa.destroy.selected');
         Route::post('obra/{obra_id}/update', [App\Http\Controllers\Api\ObraApiController::class, 'update'])->name('api.obra.update');
         Route::post('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateSelecteds'])->name('obra.etapa.update.selecteds');
