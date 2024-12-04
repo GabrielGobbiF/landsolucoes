@@ -442,7 +442,7 @@ class TableApiController extends Controller
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['month_date'])) {
                     $query->whereMonth('month_date', $filters['month_date']);
-                    $query->whereYear('month_date', year());
+                    $query->whereYear('month_date', $filters['year']);
                 }
             })
             ->where('modelo', 0)

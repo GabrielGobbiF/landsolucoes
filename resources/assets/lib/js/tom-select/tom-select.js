@@ -12,10 +12,12 @@ const selectAxOption = (request, valueField) => {
         preload: true,
         firstUrl: function (query) {
             // Corrigir a URL para evitar misturar os parâmetros
-            return `${request}&search=${encodeURIComponent(query)}&pageSize=30`;
+            const delimiter = request.includes('?') ? '&' : '?';
+            return `${request}${delimiter}search=${encodeURIComponent(query)}&pageSize=30`;
         },
         load: function (query, callback) {
-            var url = `${request}&search=${encodeURIComponent(query)}&pageSize=30`;
+            const delimiter = request.includes('?') ? '&' : '?';
+            var url = `${request}${delimiter}search=${encodeURIComponent(query)}&pageSize=30`;
 
             fetch(url)
                 .then(response => response.json())

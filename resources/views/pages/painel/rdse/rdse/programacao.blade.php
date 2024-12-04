@@ -124,26 +124,31 @@
                     </select>
                 </div>
 
-                @php
-                    $year = year();
-                @endphp
 
-                <div class="col-12 col-md-2">
-                    <label>Data Mês</label>
+                <div class="col-12 col-md-1">
+                    <label>Mês</label>
                     <select id="mes" name="month_date" class="form-control search-input-rdse">
                         <option selected value="">Selecione</option>
-                        <option value="01">Janeiro / {{ $year }}</option>
-                        <option value="02">Fevereiro / {{ $year }}</option>
-                        <option value="03">Março / {{ $year }}</option>
-                        <option value="04">Abril / {{ $year }}</option>
-                        <option value="05">Maio / {{ $year }}</option>
-                        <option value="06">Junho / {{ $year }}</option>
-                        <option value="07">Julho / {{ $year }}</option>
-                        <option value="08">Agosto / {{ $year }}</option>
-                        <option value="09">Setembro / {{ $year }}</option>
-                        <option value="10">Outubro / {{ $year }}</option>
-                        <option value="11">Novembro / {{ $year }}</option>
-                        <option value="12">Dezembro / {{ $year }}</option>
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Março</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-1">
+                    <label>Ano</label>
+                    <select id="year" name="year" class="form-control search-input-rdse">
+                        <option {{ request()->input('year') == '2024' ? 'selected' : null }} value="2024">2024</option>
+                        <option {{ request()->input('year') == '2025' ? 'selected' : null }} value="2025">2025</option>
                     </select>
                 </div>
 
@@ -564,7 +569,8 @@
                     },
                     onClickCell: function(field, value, row, $element) {
                         if (click == 'false' || field == 'state' || field == 'status_execution' || field == 'apr_at' || field == 'is_civil' ||
-                            field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field == 'tipo_obra' || field == 'sigeo'
+                            field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field ==
+                            'tipo_obra' || field == 'sigeo'
 
                         ) {
                             return;

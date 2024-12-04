@@ -60,8 +60,10 @@ class RdseController extends Controller
      */
     public function programacao(Request $request)
     {
-        # $rdses = Rdse::all();
         $date = Carbon::now()->format('d/m/Y');
+
+        $year = $request->has('year') ? $request->input('year') : Carbon::now()->format('Y');
+        $request->merge(['year' => $year]);
 
         $status = $request->has('status') ? $request->input('status') : ['pending'];
 
@@ -78,8 +80,9 @@ class RdseController extends Controller
             ->get();
 
         return view('pages.painel.rdse.rdse.programacao', [
-            'lotes' => $lotes
-        ])->with($request->only('status', 'date_to', 'date_from'));
+            'lotes' => $lotes,
+            'year' => $year,
+        ])->with($request->only('status', 'date_to', 'date_from', 'year'));
     }
 
     /**
