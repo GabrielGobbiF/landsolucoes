@@ -160,6 +160,15 @@ class Rdse extends Model
         return Carbon::parse($this->month_date)->format('m');
     }
 
+    public function getYearAttribute()
+    {
+        if (empty($this->month_date) || $this->month_date == '0000-00-00 00:00:00') {
+            return null;
+        }
+
+        return Carbon::parse($this->month_date)->format('Y');
+    }
+
     public function getAtividadesDescriptionsAttribute()
     {
         $html = '';

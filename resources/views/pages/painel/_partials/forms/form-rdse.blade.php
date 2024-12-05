@@ -54,30 +54,34 @@
         </div>
     </div>
 
-    @php
-        $year = year();
-    @endphp
-
     <div class="col-12 col-md-6">
         <div class="form-group">
             <label for="input--at">Data Mês</label>
             <select id="mes" name="month_date" class="form-control" required>
                 <option>Selecione</option>
-
-                <option {{ isset($rdse) && $rdse->Month == '01' ? 'selected' : null }} value="01">Janeiro / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '02' ? 'selected' : null }} value="02">Fevereiro / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '03' ? 'selected' : null }} value="03">Março / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '04' ? 'selected' : null }} value="04">Abril / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '05' ? 'selected' : null }} value="05">Maio / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '06' ? 'selected' : null }} value="06">Junho / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '07' ? 'selected' : null }} value="07">Julho / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '08' ? 'selected' : null }} value="08">Agosto / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '09' ? 'selected' : null }} value="09">Setembro / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '10' ? 'selected' : null }} value="10">Outubro / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '11' ? 'selected' : null }} value="11">Novembro / {{ $year }}</option>
-                <option {{ isset($rdse) && $rdse->Month == '12' ? 'selected' : null }} value="12">Dezembro / {{ $year }}</option>
+                <option {{ isset($rdse) && $rdse->Month == '01' ? 'selected' : null }} value="01">Janeiro </option>
+                <option {{ isset($rdse) && $rdse->Month == '02' ? 'selected' : null }} value="02">Fevereiro </option>
+                <option {{ isset($rdse) && $rdse->Month == '03' ? 'selected' : null }} value="03">Março </option>
+                <option {{ isset($rdse) && $rdse->Month == '04' ? 'selected' : null }} value="04">Abril </option>
+                <option {{ isset($rdse) && $rdse->Month == '05' ? 'selected' : null }} value="05">Maio </option>
+                <option {{ isset($rdse) && $rdse->Month == '06' ? 'selected' : null }} value="06">Junho </option>
+                <option {{ isset($rdse) && $rdse->Month == '07' ? 'selected' : null }} value="07">Julho </option>
+                <option {{ isset($rdse) && $rdse->Month == '08' ? 'selected' : null }} value="08">Agosto </option>
+                <option {{ isset($rdse) && $rdse->Month == '09' ? 'selected' : null }} value="09">Setembro </option>
+                <option {{ isset($rdse) && $rdse->Month == '10' ? 'selected' : null }} value="10">Outubro </option>
+                <option {{ isset($rdse) && $rdse->Month == '11' ? 'selected' : null }} value="11">Novembro </option>
+                <option {{ isset($rdse) && $rdse->Month == '12' ? 'selected' : null }} value="12">Dezembro </option>
             </select>
         </div>
+    </div>
+
+    <div class="col-12 col-md-2">
+        <label>Ano </label>
+        <select id="mes" name="year" class="form-control " required>
+            <option selected value="">Selecione</option>
+            <option {{ isset($rdse) && $rdse->Year == '2024' ? 'selected' : null }} value="2024">2024 </option>
+            <option {{ isset($rdse) && $rdse->Year == '2025' ? 'selected' : null }} value="2025">2025 </option>
+        </select>
     </div>
 
     <div class="col-12 col-md-6">

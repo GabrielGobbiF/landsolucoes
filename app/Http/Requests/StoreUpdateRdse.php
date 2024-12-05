@@ -28,7 +28,8 @@ class StoreUpdateRdse extends FormRequest
         $rules = [
             'n_order' => "required|max:255|unique:rdses,n_order,{$id},id,modelo,0,deleted_at,null",
             'date_nfe_at' => 'nullable|date_format:d/m/Y',
-            'month_date' => 'required'
+            'month_date' => 'required',
+            'year' => 'required'
         ];
 
         return $rules;
