@@ -14,7 +14,7 @@
     <input id="parcial_3" type="hidden" value="{{ $rdse->parcial_3 ?? 0 }}">
     <input id="rdse-status" type="hidden" value="{{ $rdse->status ?? '' }}">
 
-    <div class="col-12 col-md-12">
+    <div class="col-12 col-md-6">
         <div class="form-group">
             <label for="input--description">Descrição / Endereço</label>
             <input id="input--description" type="text" name="description" class="form-control @error('description') is-invalid @enderror"
@@ -22,7 +22,21 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-12">
+    <div class="col-12 col-md-6">
+        <div class="form-group">
+            <label for="input--type">Tipo</label>
+            <select name='type' class='form-control select2'>
+                @foreach (config('admin.rdse.type') as $status)
+                    <option
+                            {{ isset($rdse) && $rdse->type == $status['name'] ? 'selected="selected"' : '' }} value='{{ $status['name'] }}'>
+                        {{ $status['name'] }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
         <div class="form-group">
             <label for="input--solicitante">Solicitante</label>
             <input id="input--solicitante" type="text" name="solicitante" class="form-control @error('solicitante') is-invalid @enderror"
@@ -30,7 +44,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-4">
         <div class="form-group">
             <label for="input--n_order">Nº de Ordem</label>
             <input id="input--n_order" type="text" name="n_order" class="form-control @error('n_order') is-invalid @enderror"
@@ -38,7 +52,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-4">
         <div class="form-group">
             <label for="input--equipe">Nº de Nota</label>
             <input id="input--equipe" type="text" name="equipe" class="form-control @error('equipe') is-invalid @enderror"
@@ -46,15 +60,18 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-6">
+
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-3">
         <div class="form-group">
             <label for="input--at">Data</label>
             <input id="input--at" type="text" name="at" class="form-control @error('at') is-invalid @enderror date"
                    value="{{ !empty($rdse->at) ? dataLimpa($rdse->at) : old('at') ?? date('d/m/Y') }}" autocomplete="off">
         </div>
     </div>
-
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-3">
         <div class="form-group">
             <label for="input--at">Data Mês</label>
             <select id="mes" name="month_date" class="form-control" required>
@@ -83,20 +100,10 @@
             <option {{ isset($rdse) && $rdse->Year == '2025' ? 'selected' : null }} value="2025">2025 </option>
         </select>
     </div>
+</div>
 
-    <div class="col-12 col-md-6">
-        <div class="form-group">
-            <label for="input--type">Tipo</label>
-            <select name='type' class='form-control select2'>
-                @foreach (config('admin.rdse.type') as $status)
-                    <option
-                            {{ isset($rdse) && $rdse->type == $status['name'] ? 'selected="selected"' : '' }} value='{{ $status['name'] }}'>
-                        {{ $status['name'] }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-    </div>
+<div class="row">
+
 
     @if (!empty($rdse->nf))
         <div class="col-12">
