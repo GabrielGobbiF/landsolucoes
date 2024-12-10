@@ -210,7 +210,7 @@ class DocumentosController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        Storage::delete(str_replace('storage/', '', $documento->url));
+        #Storage::delete(str_replace('storage/', '', $documento->url));
 
         $documento->delete();
 

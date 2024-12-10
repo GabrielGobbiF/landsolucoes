@@ -23,6 +23,7 @@ class CreateDocumentosTable extends Migration
             $table->uuid('folder')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
