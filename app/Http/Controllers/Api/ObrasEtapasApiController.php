@@ -31,7 +31,7 @@ class ObrasEtapasApiController extends Controller
 
     public function all(Request $request, $obra_id)
     {
-        $filters = $request->only(['term', 'type']);
+        $filters = $request->only(['term', 'type', 'nconcluidas']);
 
         if (!$obra = $this->obra->where('id', $obra_id)->first()) {
             return response()->json('Object Obra not found', 404);
@@ -46,6 +46,10 @@ class ObrasEtapasApiController extends Controller
                 }
                 if ($filters['term'] != '') {
                     $query->where('nome', 'LIKE', '%' . $filters['term'] . '%');
+                }
+
+                if (isset($filters['nconcluidas'])) {
+                    $query->where('check', 'EM');
                 }
             })
             #->with('financeiro')

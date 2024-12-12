@@ -259,6 +259,17 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="form-check">
+                                            <input id="nao-concluidas" class="form-check-input search-input" name="nconcluidas" type="checkbox" value="true" />
+                                            <label class="form-check-label" for="nao-concluidas"> Somente Não Concluidas </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="box-body mg-0 pd-0">
                                 <ul id="etapas-list" class="message-list" style="padding: 5px 0px 0px 1px;"></ul>
@@ -532,6 +543,10 @@
                 const id = $(this).attr('id');
                 $(`#${id}`).val(JSON.parse(localStorage.getItem(id))).trigger('change');
             })
+
+            $('#nao-concluidas').on('change', function() {
+                getEtapas();
+            });
 
             $('.search-input__sales').on('change keyup', function() {
                 const value = $(this).val();
