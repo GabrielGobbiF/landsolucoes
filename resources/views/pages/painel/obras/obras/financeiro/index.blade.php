@@ -1,8 +1,19 @@
-@extends("app")
+@extends('app')
 
 @section('title', ucfirst($obra->razao_social) . ' - ' . $obra->last_note)
 
 @section('content')
+    <style class="">
+        .badge-soft-receber {
+            color: #5c6119;
+            background-color: #ffad1169 !important;
+        }
+
+        .badge-soft-faturar {
+            color: #b34e4e;
+            background-color: rgb(211 22 22 / 28%);
+        }
+    </style>
     <section class="invoice">
 
         <div class="d-flex justify-content-between">
@@ -64,19 +75,23 @@
                                     <th>R$ {{ maskPrice($etapa['valor_etapa']) }}</th>
                                     <th>R$ {{ maskPrice($etapa['total_faturado']) }}</th>
                                     <th>{{ $etapa['qnt_vencidas'] }} vencida(s) </th>
-                                    <th>R$ {{ $etapa['valor_etapa'] != '0' && $etapa['status'] == 'C'? maskPrice($etapa['valor_etapa'] - $etapa['total_faturado']): '0' }}</th>
+                                    <th>R$
+                                        {{ $etapa['valor_etapa'] != '0' && $etapa['status'] == 'C' ? maskPrice($etapa['valor_etapa'] - $etapa['total_faturado']) : '0' }}
+                                    </th>
 
                                     <th>
                                         @if ($etapa['total_faturado'] != '0' && $etapa['total_faturado'] == $etapa['valor_etapa'])
                                             @if ($etapa['total_receber'] != 0)
                                                 @if ($etapa['dataVencimento'] <= date('Y-m-d'))
-                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
-                                                        <div class="badge badge-soft-info">
+                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}"
+                                                       data-id="{{ $etapa['id'] }}">
+                                                        <div class="badge badge-soft-receber">
                                                             Receber
                                                         </div>
                                                     </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
+                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}"
+                                                       data-id="{{ $etapa['id'] }}">
                                                         <div class="badge badge-soft-success">
                                                             Faturado
                                                         </div>
@@ -90,7 +105,8 @@
                                                 </a>
                                             @endif
                                         @else
-                                            <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}" data-id="{{ $etapa['id'] }}">
+                                            <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}"
+                                               data-id="{{ $etapa['id'] }}">
                                                 <div class="badge badge-soft-{{ $etapa['label'] }}">
                                                     {{ __('etapa.status.' . $etapa['status']) }}
                                                 </div>
@@ -144,7 +160,7 @@
 
 @stop
 @section('scripts')
-    @yield("scripts")
+    @yield('scripts')
     <script src="{{ asset('panel/js/pages/obras/financeiro.js') }}"></script>
     @if ($input = Request::input('etp'))
         <script>

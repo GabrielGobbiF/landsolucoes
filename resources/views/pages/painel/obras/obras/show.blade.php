@@ -238,7 +238,6 @@
                                     </button>
                                 </div>
 
-
                                 <button id="modoEdicaoBtn" type="button" data-type="active" class="btn btn-box-tool  mode-edition">
                                     <i class="fa fa-plus-circle"></i>
                                     Modo Edição

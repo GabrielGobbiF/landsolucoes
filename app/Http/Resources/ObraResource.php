@@ -30,7 +30,8 @@ class ObraResource extends JsonResource
             "last_note" => $this->last_note,
             "updated_at" => formatDateAndTime($this->updated_at, 'd/m/Y'),
             "created_at" => formatDateAndTime($this->created_at),
-            "progressEtapas" => $progressEtapas
+            "progressEtapas" => $progressEtapas,
+            "observations" => $this->obr_informacoes ,
         ];
     }
 

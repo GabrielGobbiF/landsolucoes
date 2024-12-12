@@ -94,7 +94,7 @@ class ObraEtapasFinanceiro extends Model
                 break;
             case 'C':
             case 'campaign_started':
-                $label = 'success';
+                $label = 'faturar';
                 break;
             default:
                 $label = 'info';

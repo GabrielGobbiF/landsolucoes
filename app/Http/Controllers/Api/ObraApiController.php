@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateEtapaObra;
+use App\Http\Resources\ObraResource;
 use App\Http\Resources\ServiceResource;
 use App\Models\Concessionaria;
 use App\Models\Obra;
@@ -18,6 +19,15 @@ class ObraApiController extends Controller
     public function __construct(Obra $obra)
     {
         $this->obra = $obra;
+    }
+
+    public function show(Request $request, $obra_id)
+    {
+        if (!$obra = $this->obra->where('id', $obra_id)->first()) {
+            return response()->json('Object Obra not found', 404);
+        }
+
+        return new ObraResource($obra);
     }
 
     public function update(StoreUpdateEtapaObra $request, $obra_id)

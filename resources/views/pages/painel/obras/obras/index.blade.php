@@ -66,8 +66,8 @@
                                         <label class="form-check-label" for="form-check-metodo_real">Com Urgência</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input id="form-check-metodo_porcent" class="form-check-input wd-15 ht-15" name="fav" type="checkbox" value="favorites">
-                                        <label class="form-check-label" for="form-check-metodo_porcent">Meus Favoritos</label>
+                                        <input id="form-check-favorites" class="form-check-input wd-15 ht-15" name="fav" type="checkbox" value="favorites">
+                                        <label class="form-check-label" for="form-check-favorites">Meus Favoritos</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input id="form-check-arquivadas" class="form-check-input wd-15 ht-15" name="arq" type="checkbox" value="arquivadas">
@@ -84,13 +84,11 @@
                                         <label class="form-check-label" for="obras_etapas_vencidas">Etapas Vencidadas</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input id="updated_at" class="form-check-input wd-15 ht-15" name="updated_at" type="checkbox"
-                                               value="true">
+                                        <input id="updated_at" class="form-check-input wd-15 ht-15" name="updated_at" type="checkbox" value="true">
                                         <label class="form-check-label" for="updated_at">Não Atualizadas</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input id="last_note" class="form-check-input wd-15 ht-15" name="last_note" type="checkbox"
-                                               value="true">
+                                        <input id="last_note" class="form-check-input wd-15 ht-15" name="last_note" type="checkbox" value="true">
                                         <label class="form-check-label" for="last_note">Sem N' Nota</label>
                                     </div>
                                 </div>
@@ -110,6 +108,8 @@
                                     <th data-field="created_at">Data de Criação</th>
                                     <th data-field="updated_at">Ultima Att</th>
                                     <th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>
+                                    <th data-field="observations" data-formatter="observationInput">Obs</th>
+
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -119,6 +119,8 @@
             </div>
         </div>
         @include('components.myToDo')
+
+        @include('pages.painel.obras._partials.modal-observations')
     </div>
 
 @section('scripts')
@@ -166,7 +168,20 @@
         function progressFormatter(value, row) {
             return value;
         }
+
+        function observationInput(value, row) {
+            let rowValue = value === null ? '' : value;
+            let haveClass = row.observations != null ? 'text-success' : 'text-primary';
+            return `
+                <a name="observations" type="button" class="${haveClass}"
+                    onclick="openObservationModal(${row.id}, 'observations')">
+                    <i class="fas fa-edit"></i>
+                </a>
+            `;
+        }
     </script>
+    @yield('modal-scripts')
+
 @endsection
 
 @yield('scripts_task')

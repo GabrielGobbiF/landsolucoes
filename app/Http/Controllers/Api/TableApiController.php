@@ -593,11 +593,7 @@ class TableApiController extends Controller
                     });
             })
             ->join('services', 'obras.service_id', '=', 'services.id')
-            ->where(function ($query) use ($filters) {
-                if (isset($filters['urgence'])) {
-                    $query->where('obras.obr_urgence', 'Y');
-                }
-            })
+
             ->whereNull('obras.deleted_at')
             ->where(function ($query) use ($filters) {
                 if ($filters['search'] != '') {
@@ -646,6 +642,11 @@ class TableApiController extends Controller
                         }
                     });
             })
+            ->leftJoin('favoritables', function ($join) {
+                $join->on('favoritables.favoritable_id', '=', 'obras.id')
+                    ->where('favoritables.favoritable_type', 'App\\Models\\Obra')
+                    ->where('favoritables.user_id', '=', auth()->user()->id);
+            })
 
             ->join('obras_etapas', 'obras.id', '=', 'obras_etapas.id_obra')
             ->when(isset($filters['obras_etapas_a_vencer']), function ($query) use ($hoje) {
@@ -669,10 +670,19 @@ class TableApiController extends Controller
                     ->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
             })
             ->when(isset($filters['arq']) && !empty($filters['arq']), function ($query) {
-                $query->where('status', 'concluida');
+                $query->where('obras.status', 'concluida');
             }, function ($query) {
                 $query->whereIn('obras.status', ['aprovada'])
                     ->where('obras.status', '<>', 'concluida');
+            })
+
+            ->when(isset($filters['fav']), function ($query) {
+                $query->whereNotNull('favoritables.id'); // Filtra somente obras marcadas como favoritas
+            })
+
+
+            ->when(isset($filters['urgence']), function ($query) {
+                $query->where('obras.obr_urgence', 'Y');
             })
             ->groupBy('obras.id')
             ->orderBy($this->sort, $this->order)

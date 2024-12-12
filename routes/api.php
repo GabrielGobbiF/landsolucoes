@@ -69,5 +69,12 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      * Etapas
      */
 
-     Route::get('etapas', [EtapasApiController::class, 'getAll'])->name('api.etapas.all');
+    Route::get('etapas', [EtapasApiController::class, 'getAll'])->name('api.etapas.all');
+
+
+    /**
+     * Etapas
+     */
+    Route::put('obras/{obraId}', [ObraApiController::class, 'update'])->name('api.obras.update');
+    Route::get('obras/{obraId}', [ObraApiController::class, 'show'])->name('api.obras.show');
 });
