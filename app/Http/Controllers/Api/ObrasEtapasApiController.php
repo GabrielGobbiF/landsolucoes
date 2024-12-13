@@ -48,7 +48,7 @@ class ObrasEtapasApiController extends Controller
                     $query->where('nome', 'LIKE', '%' . $filters['term'] . '%');
                 }
 
-                if (isset($filters['nconcluidas'])) {
+                if (isset($filters['nconcluidas']) && $filters['nconcluidas']) {
                     $query->where('check', 'EM');
                 }
             })

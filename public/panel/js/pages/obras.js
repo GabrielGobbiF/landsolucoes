@@ -85,8 +85,16 @@ function getEtapas() {
     var filter = {};
 
     $.each($('.search-input'), function () {
-        if ($(this).attr('name') != undefined) {
-            filter[$(this).attr('name')] = $(this).val() ?? '';
+        if ($(this).attr('name') !== undefined) {
+            if ($(this).is(':checkbox')) {
+                // Adiciona ao filtro somente se o checkbox estiver marcado
+                if ($(this).is(':checked')) {
+                    filter[$(this).attr('name')] = $(this).val();
+                }
+            } else {
+                // Para outros inputs, adiciona o valor normalmente
+                filter[$(this).attr('name')] = $(this).val() ?? '';
+            }
         }
     });
 
