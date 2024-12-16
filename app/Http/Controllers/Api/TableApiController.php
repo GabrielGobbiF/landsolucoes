@@ -59,7 +59,7 @@ use Illuminate\Support\Facades\DB;
 
 class TableApiController extends Controller
 {
-    protected $limit, $offset, $order, $search, $sort, $filter;
+    protected $limit, $offset, $order, $search, $sort, $filter, $request;
 
     public function __construct(Request $request)
     {
@@ -69,6 +69,7 @@ class TableApiController extends Controller
         $this->search = $request->input('search') ?? '';
         $this->sort = $request->input('sort') ?? 'id';
         $this->filter = $request->input('filter') ?? [];
+        $this->request = $request->all();
     }
 
     public function drivers()
@@ -445,6 +446,15 @@ class TableApiController extends Controller
                     $query->whereYear('month_date', $filters['year']);
                 }
             })
+
+            ->where(function ($query) use ($filters) {
+                if (isset($this->request['obra_id'])) {
+                    if ($this->request['obra_id'] == 'empty') {
+                        $query->whereNull('obra_id');
+                    }
+                }
+            })
+
             ->where('modelo', 0)
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);

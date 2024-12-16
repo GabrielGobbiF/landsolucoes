@@ -9,7 +9,9 @@ use App\Http\Resources\ServiceResource;
 use App\Models\Concessionaria;
 use App\Models\Obra;
 use App\Models\Pasta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ObraApiController extends Controller
@@ -19,6 +21,80 @@ class ObraApiController extends Controller
     public function __construct(Obra $obra)
     {
         $this->obra = $obra;
+    }
+
+    public function all(Request $request)
+    {
+        $filters = $request->all();
+
+        $hoje = Carbon::today();
+
+        $obras = DB::table('obras')
+            ->select(
+                'obras.*',
+                'services.name as service_name',
+                'concessionarias.name as concessionaria_name',
+                'clients.username'
+            )
+            ->join('clients', 'obras.client_id', '=', 'clients.id')
+            ->when(isset($filters['client_id']) && $filters['client_id'] != '', function ($query) use ($filters) {
+                $query->where('clients.id', $filters['client_id']);
+            })
+            ->join('concessionarias', 'obras.concessionaria_id', '=', 'concessionarias.id')
+            ->when(isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '', function ($query) use ($filters) {
+                $query->where('concessionarias.id', $filters['concessionaria_id']);
+            })
+            ->join('services', function ($join) use ($filters) {
+                $join->on('obras.service_id', '=', 'services.id')
+                    ->where(function ($query) use ($filters) {
+                        if (isset($filters['service_id']) && $filters['service_id'] != '') {
+                            $query->where('obras.service_id',  $filters['service_id']);
+                        }
+                    });
+            })
+            ->leftJoin('favoritables', function ($join) {
+                $join->on('favoritables.favoritable_id', '=', 'obras.id')
+                    ->where('favoritables.favoritable_type', 'App\\Models\\Obra')
+                    ->where('favoritables.user_id', '=', auth()->user()->id);
+            })
+
+            ->join('obras_etapas', 'obras.id', '=', 'obras_etapas.id_obra')
+            ->when(isset($filters['obras_etapas_a_vencer']), function ($query) use ($hoje) {
+                // obras_etapas a vencer (vencimento é hoje)
+                $query->where('obras_etapas.check', '<>', 'C')->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) = ?', [$hoje]);
+            })
+            ->when(isset($filters['obras_etapas_vencidas']), function ($query) use ($hoje) {
+                // obras_etapas vencidas (vencimento passou)
+                $query->where('obras_etapas.check', '<>', 'C')->whereRaw('DATE_ADD(obras_etapas.data_abertura, INTERVAL obras_etapas.prazo_atendimento DAY) < ?', [$hoje]);
+            })
+            ->when(isset($filters['updated_at']), function ($query) use ($hoje) {
+                $doisDiasAtrasInicio = Carbon::now()->subDays(5)->startOfDay();
+                $query->where('obras.updated_at', '<', $doisDiasAtrasInicio);
+            })
+            ->when(isset($filters['last_note']), function ($query) {
+                $query->whereNull('obras.last_note');
+            })
+            ->whereNull('obras.deleted_at')
+            ->when(!empty($filters['search']), function ($query) use ($filters) {
+                $query->where('last_note', 'LIKE', '%' . $filters['search'] . '%')
+                    ->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
+            })
+            ->when(isset($filters['arq']) && !empty($filters['arq']), function ($query) {
+                $query->where('obras.status', 'concluida');
+            }, function ($query) {
+                $query->whereIn('obras.status', ['aprovada'])
+                    ->where('obras.status', '<>', 'concluida');
+            })
+            ->when(isset($filters['fav']), function ($query) {
+                $query->whereNotNull('favoritables.id'); // Filtra somente obras marcadas como favoritas
+            })
+            ->when(isset($filters['urgence']), function ($query) {
+                $query->where('obras.obr_urgence', 'Y');
+            })
+            ->groupBy('obras.id')
+            ->paginate(60);
+
+        return ObraResource::collection($obras);
     }
 
     public function show(Request $request, $obra_id)
@@ -70,7 +146,7 @@ class ObraApiController extends Controller
 
         $returnHTML = view('pages.painel.obras.obras.documentos.index')
             ->with('pasta', $pasta)
-            ->with('docsPasta', $docsPasta??[])
+            ->with('docsPasta', $docsPasta ?? [])
             ->with('obra', $obra)
             ->render();
 

@@ -74,7 +74,6 @@ Route::prefix('/v1/api')->group(function () {
         /**
          * Etapas
          */
-
         Route::post('obra/{obra_id}/etapa/reordenar', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'reordenarEtapas'])->name('obra.etapa.update.status');
         Route::post('obra/{obra_id}/etapa/adicionar-etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'addEtapas'])->name('obra.etapa.update.status');
         Route::delete('obra/{obra_id}/etapa/deleteSelected', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'deleteSelected'])->name('obra.etapa.destroy.selected');
@@ -252,6 +251,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Obras
             |--------------------------------------------------------------------------
             */
+            Route::put('obra/{obra_id}/linkar-rdse', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'linkarRdse'])->name('obras.link.rdse');
             Route::post('obras/{obraId}/favorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'favorite'])->name('obras.favorite');
             Route::post('obras/{obraId}//unfavorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'unfavorite'])->name('obras.unfavorite');
             Route::get('obras/etapas/vencidas', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'obrasVencidas'])->name('obras.etapas.vencidas');

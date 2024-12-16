@@ -9,6 +9,7 @@ use App\Models\Concessionaria;
 use App\Models\Department;
 use App\Models\Obra;
 use App\Models\Pasta;
+use App\Models\RSDE\Rdse;
 use App\Models\Service;
 use App\Models\Tipo;
 use Carbon\Carbon;
@@ -315,5 +316,32 @@ class ObrasController extends Controller
         return redirect()
             ->route('obras.show', $obraId)
             ->with('message', 'Feito!');
+    }
+
+    public function linkarRdse(Request $request, $obraId)
+    {
+        $rdse = $request->input('rdse_id');
+
+        if (!$obra = $this->repository->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        if (!$rdse = Rdse::where('id', $rdse)->first()) {
+            return redirect()
+                ->route('rdse.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $rdse->obra_id = $obra->id;
+        $rdse->save();
+
+        $obra->rdse_id = $rdse->id;
+        $obra->save();
+
+        return redirect()
+            ->route('obras.show', $obraId)
+            ->with('message', '');
     }
 }

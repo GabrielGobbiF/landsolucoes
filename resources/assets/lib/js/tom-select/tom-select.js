@@ -4,20 +4,23 @@ USAGE:
         data-request="{{ route('api.table.users') }}" data-value-field="uid" required>
 </select>
 */
-const selectAxOption = (request, valueField) => {
+const selectAxOption = (request, valueField, queryParams = {}) => {
     return {
         valueField: valueField,
         labelField: 'name',
         searchField: 'search',
         preload: true,
         firstUrl: function (query) {
-            // Corrigir a URL para evitar misturar os parâmetros
+            // Converte o objeto `queryParams` em uma string de query
+            const queryString = new URLSearchParams(queryParams).toString();
             const delimiter = request.includes('?') ? '&' : '?';
-            return `${request}${delimiter}search=${encodeURIComponent(query)}&pageSize=30`;
+            return `${request}${delimiter}${queryString}&search=${encodeURIComponent(query)}&pageSize=30`;
         },
         load: function (query, callback) {
+            // Converte o objeto `queryParams` em uma string de query
+            const queryString = new URLSearchParams(queryParams).toString();
             const delimiter = request.includes('?') ? '&' : '?';
-            var url = `${request}${delimiter}search=${encodeURIComponent(query)}&pageSize=30`;
+            var url = `${request}${delimiter}${queryString}&search=${encodeURIComponent(query)}&pageSize=30`;
 
             fetch(url)
                 .then(response => response.json())
@@ -41,6 +44,15 @@ window.newSelect = (item) => {
     let searchTableCloset = item.dataset.searchTable ?? null;
     let itemId = `${item.id}__${i_url}`;
     let localSaveStorage = localStorage.getItem(`${item.id}__${i_url}`);
+    let queryParams = {};
+
+    if (item.dataset.query) {
+        try {
+            queryParams = JSON.parse(item.dataset.query.replace(/=>/g, ':'));
+        } catch (error) {
+            console.error('Erro ao processar data-query: ', error);
+        }
+    }
 
     let options = {
         persist: false,
@@ -55,7 +67,7 @@ window.newSelect = (item) => {
     }
 
     if (request) {
-        options = Object.assign(options, selectAxOption(request, valueField))
+        options = Object.assign(options, selectAxOption(request, valueField, queryParams))
     }
 
     if (item.getAttribute('multiple') != undefined) {

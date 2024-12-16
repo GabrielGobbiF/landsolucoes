@@ -115,12 +115,60 @@
                             <a href="{{ route('comercial.show', $obra->id) }}" class="btn btn-outline-primary ml-2">Comercial <i
                                    class="fas fa-long-arrow-alt-right"></i></a>
 
+
+                            @if ($obra->concessionaria->name != 'RDSE')
+                                @if (empty($obra->rdse_id))
+                                    <button data-toggle="modal" data-target="#link-rdse" class="btn btn-outline-primary ml-2">
+                                        Linkar Medição
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </button>
+
+                                    <div id="link-rdse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <form action="{{ route('obras.link.rdse', $obra->id) }}" method="POST" class="">
+                                                @method('PUT')
+                                                @csrf
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 id="modalTitleId" class="modal-title">
+                                                            Linkar Obra
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <label for="" class="">Selecione a medição</label>
+                                                            <select id="select--rdse" name="rdse_id" class="form-control select-rdse t-select"
+                                                                    data-request="{{ route('rdses.all') }}" data-query='{"obra_id":"empty"}' required>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <button type="salvar" class="btn btn-primary">Linkar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @else
+                                    <a href="{{ route('rdse.show', $obra->rdse_id) }}" target="_blank" class="btn btn-outline-primary ml-2">
+                                        Medição
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                    </a>
+                                @endif
+                            @endif
+
+
                             @if ($obra->concessionaria->name == 'RDSE')
                                 @if ($obra->medicao)
                                     <a href="{{ route('rdse.show', $obra->medicao->id) }}" target="_blank" class="btn btn-outline-primary ml-2">Medição <i
                                            class="fas fa-long-arrow-alt-right"></i></a>
                                 @else
-                                    <button type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#store-rdse_obra">Criar Medição</button>
+                                    <button type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#store-rdse_obra">Criar
+                                        Medição</button>
                                     <div id="store-rdse_obra" class="modal" tabindex="-1" role="dialog">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -264,7 +312,8 @@
                                     <div class="col-md-6">
 
                                         <div class="form-check">
-                                            <input id="nao-concluidas" class="form-check-input search-input" name="nconcluidas" type="checkbox" value="true" />
+                                            <input id="nao-concluidas" class="form-check-input search-input" name="nconcluidas" type="checkbox"
+                                                   value="true" />
                                             <label class="form-check-label" for="nao-concluidas"> Somente Não Concluidas </label>
                                         </div>
                                     </div>

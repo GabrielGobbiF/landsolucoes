@@ -40,6 +40,8 @@ class RdseResource extends JsonResource
             'observations' => limit($this->observations, 30),
             'description' => $this->description,
             'n_order' => $this->n_order ?? '',
+            'name' => $this->n_order ?? '',
+            'search' => $this->n_order ?? '',
             'equipe' => $this->equipe,
             'solicitante' => $this->solicitante,
             'at' => !empty($this->at) ? return_format_date($this->at) : '',
