@@ -23,6 +23,7 @@ class CreateObrasTable extends Migration
             $table->unsignedBigInteger('address_id')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('viabilization_id')->nullable();
+            $table->integer('rdse_id')->nullable();
 
             $table->string('razao_social');
             $table->longText('description')->nullable();
