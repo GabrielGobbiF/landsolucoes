@@ -86,7 +86,15 @@
 //@import "custom/components/demos";
 //@import "custom/components/print";
 
-
 .no-click {
     pointer-events: none; /* Desativa a capacidade de clicar no <i> */
+}
+
+td.highlight.ui-state-highlight {
+    a {
+        border: 1px solid #c5c5c5;
+        background: #ff000063 !important;
+        font-weight: normal;
+        color: #454545;
+    }
 }

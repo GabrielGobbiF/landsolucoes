@@ -39,6 +39,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      * Equipes
      */
     Route::get('rdses/equipes/{equipeId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'getAtividadesEquipesHoje'])->name('api.rdse.get.rdses.atividades.now');
+    Route::get('rdses/equipes/{equipeId}/atividades', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'getAtividadesEquipes'])->name('api.rdse.get.rdses.atividades');
 
     /**
      * PROGRAMAÇÃO

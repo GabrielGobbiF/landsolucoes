@@ -97,7 +97,7 @@
             <div class="row g-3 align-items-center">
                 <div class="col-md-4">
                     <label for="dataInput" class="form-label">Data</label>
-                    <input id="dataInput" tabindex="2" type="date" name="data" class="form-control" required>
+                    <input id="dataInput" tabindex="2" type="text"  name="data" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="col-md-4">
                     <label for="inicioInput" class="form-label">Início</label>

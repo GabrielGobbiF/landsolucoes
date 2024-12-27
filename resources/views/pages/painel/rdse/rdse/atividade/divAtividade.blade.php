@@ -1,3 +1,7 @@
+@section('styles')
+
+@endsection
+
 <div class="d-flex justify-content-between mb-4">
     <h4 class="card-title">Atividades</h4>
     <button id="toggleBtn" class="btn btn-outline-primary">
@@ -35,7 +39,6 @@
 
 
 @section('scripts')
-
     <script>
         $('#toggleBtn').on('click', toggleForm);
 
@@ -277,6 +280,46 @@
 
             equipeSelect.addEventListener("change", verificarInputs);
             dataInput.addEventListener("change", verificarInputs);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            let atividadesPorData = [];
+
+            // Quando selecionar uma equipe, busca as atividades
+            $('#rdse-select_equipe').on('change', function() {
+                const equipeId = $(this).val();
+
+                if (equipeId) {
+                    axios.get(`${base_url}/api/v1/rdses/equipes/${equipeId}/atividades`)
+                        .then(response => {
+                            atividadesPorData = response.data.map(data => {
+                                const partes = data.split('/'); // Divide 'dd/mm/yyyy'
+                                return `${partes[2]}-${partes[1]}-${partes[0]}`; // Reorganiza para 'yyyy-mm-dd'
+                            });
+
+
+
+                            $('#datepicker').datepicker('refresh'); // Atualiza o calendário
+                        })
+                        .catch(error => console.error('Erro ao buscar atividades:', error));
+                } else {
+                    atividadesPorData = [];
+                    $('#dataInput').datepicker('refresh'); // Limpa o calendário
+                }
+            });
+
+            // Configura o Date Picker
+            $('#dataInput').datepicker({
+                beforeShowDay: function(date) {
+                    const formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
+                    if (atividadesPorData.includes(formattedDate)) {
+                        return [true, 'highlight ui-state-highlight', 'Atividade na data']; // Adiciona classe ao <a>
+                    }
+                    return [true, '', ''];
+                }
+            });
         });
     </script>
 @append

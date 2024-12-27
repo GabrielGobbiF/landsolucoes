@@ -412,12 +412,22 @@ class RdseApiController extends Controller
     {
         $date = $request->input('date');
 
-        $dateSearch = __date_format($date,'Y-m-d');
+        $dateSearch = __date_format($date, 'Y-m-d');
 
         $atividades = RdseActivity::where('equipe_id', $equipeId)
             ->whereDate('data', $dateSearch)
             ->get();
 
         return RdseAtividadesResource::collection($atividades);
+    }
+
+    public function getAtividadesEquipes(Request $request, $equipeId)
+    {
+        $atividades = RdseActivity::where('equipe_id', $equipeId)
+            ->select('data')
+            ->get()
+            ->pluck('data');
+
+        return response()->json($atividades);
     }
 }
