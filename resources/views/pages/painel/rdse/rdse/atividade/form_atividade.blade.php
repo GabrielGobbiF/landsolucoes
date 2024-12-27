@@ -97,7 +97,7 @@
             <div class="row g-3 align-items-center">
                 <div class="col-md-4">
                     <label for="dataInput" class="form-label">Data</label>
-                    <input id="dataInput" tabindex="2" type="text"  name="data" class="form-control" autocomplete="off" required>
+                    <input id="dataInput" tabindex="2" type="text" name="data" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="col-md-4">
                     <label for="inicioInput" class="form-label">Início</label>
@@ -157,3 +157,126 @@
         </div>
     </div>
 </form>
+
+@section('scripts')
+    <script class="">
+        document.addEventListener("DOMContentLoaded", function() {
+            const equipeSelect = document.getElementById("rdse-select_equipe");
+            const dataInput = document.getElementById("dataInput");
+            const atividadesTabela = document.getElementById("atividades-tabela");
+            const atividadesContainer = document.getElementById("atividades-container");
+            let debounceTimer;
+
+            // Inicializar o Tom Select
+            new TomSelect("#rdse-select_equipe", {
+                maxItems: 1,
+                placeholder: "Selecione uma equipe",
+            });
+
+            // Função para buscar atividades
+            function buscarAtividades(equipeId, data) {
+                fetch(`${base_url}/api/v1/rdses/equipes/${equipeId}?date=${data}`)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        let dataRow = data.data;
+
+                        atividadesTabela.innerHTML = ""; // Limpa tabela
+
+                        if (dataRow.length > 0) {
+                            dataRow.forEach(atividade => {
+                                atividadesTabela.innerHTML += `
+                        <tr>
+                            <td>${atividade.id}</td>
+                            <td>${atividade.atividade_descricao}</td>
+                            <td>${atividade.data}</td>
+                            <td>${atividade.data_inicio}</td>
+                            <td>${atividade.data_fim}</td>
+                            <td>${atividade.equipe}</td>
+                            <td>${atividade.execucao}</td>
+                        </tr>
+                    `;
+                            });
+                            atividadesContainer.classList.remove("d-none"); // Exibe a tabela
+                        } else {
+                            atividadesTabela.innerHTML = `<tr><td colspan="3">Nenhuma atividade encontrada.</td></tr>`;
+                            atividadesContainer.classList.remove("d-none"); // Exibe a tabela com mensagem
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erro ao buscar atividades:", error);
+                        atividadesTabela.innerHTML = `<tr><td colspan="3">Erro ao carregar atividades.</td></tr>`;
+                        atividadesContainer.classList.remove("d-none"); // Exibe mensagem de erro
+                    });
+            }
+
+            // Evento de mudança nos inputs
+            function verificarInputs() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const equipeId = equipeSelect.value;
+                    const data = dataInput.value;
+                    atividadesTabela.innerHTML = "";
+
+                    if (equipeId && data) {
+                        const formattedDate = formatDate(data);
+                        buscarAtividades(equipeId, formattedDate);
+                    } else {
+                        atividadesContainer.classList.add("d-none");
+                    }
+                }, 800); // Tempo de debounce em milissegundos
+            }
+
+            function formatDate(dateString) {
+                // Dividir a string yyyy-mm-dd em partes
+                const [year, month, day] = dateString.split("-");
+
+                // Retornar a data formatada como d/m/Y
+                return `${day}/${month}/${year}`;
+            }
+
+            equipeSelect.addEventListener("change", verificarInputs);
+            dataInput.addEventListener("change", verificarInputs);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            let atividadesPorData = [];
+
+            // Quando selecionar uma equipe, busca as atividades
+            $('#rdse-select_equipe').on('change', function() {
+                const equipeId = $(this).val();
+
+                if (equipeId) {
+                    axios.get(`${base_url}/api/v1/rdses/equipes/${equipeId}/atividades`)
+                        .then(response => {
+                            atividadesPorData = response.data.map(data => {
+                                const partes = data.split('/'); // Divide 'dd/mm/yyyy'
+                                return `${partes[2]}-${partes[1]}-${partes[0]}`; // Reorganiza para 'yyyy-mm-dd'
+                            });
+
+
+
+                            $('#datepicker').datepicker('refresh'); // Atualiza o calendário
+                        })
+                        .catch(error => console.error('Erro ao buscar atividades:', error));
+                } else {
+                    atividadesPorData = [];
+                    $('#dataInput').datepicker('refresh'); // Limpa o calendário
+                }
+            });
+
+            // Configura o Date Picker
+            $('#dataInput').datepicker({
+                beforeShowDay: function(date) {
+                    const formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
+                    if (atividadesPorData.includes(formattedDate)) {
+                        return [true, 'highlight ui-state-highlight', 'Atividade na data']; // Adiciona classe ao <a>
+                    }
+                    return [true, '', ''];
+                }
+            });
+        });
+    </script>
+@append
