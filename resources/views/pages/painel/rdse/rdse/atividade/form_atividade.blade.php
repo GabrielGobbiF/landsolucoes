@@ -110,13 +110,35 @@
             </div>
         </div>
 
+        <div class="col-12">
+            <div id="atividades-container" class="mt-4 d-none">
+                <h6>Atividades da data </h6>
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Inicio</th>
+                                <th scope="col">Fim</th>
+                                <th scope="col">Equipe</th>
+                                <th scope="col">Executado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="atividades-tabela"> </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div class="col-12 mt-4">
             <label for="atividades" class="form-label">Atividades</label>
             <textarea id="atividades" name="atividades" cols="30" rows="10" class="form-control"></textarea>
         </div>
 
         <div class="col-12 col-md-12 mt-4">
-            <label>Executação</label>
+            <label>Executação </label>
 
             <div class="form-check">
                 <input id="ex" class="form-check-input" type="radio" name="executado" value="true" required />
@@ -135,5 +157,3 @@
         </div>
     </div>
 </form>
-
-

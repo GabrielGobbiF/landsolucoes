@@ -92,7 +92,7 @@
                 let observationsContent = document.getElementById('spanObservations').innerHTML;
                 let observationsExecutionContent = document.getElementById('spanObservationsExecution').innerHTML;
                 let observationsViabilidadeContent = document.getElementById('spanObservationsViabilidade').innerHTML;
-                let observationsProgramacaoContent = document.getElementById('spanObservationsProgramacao').innerHTML;
+                let observationsProgramacaoContent = document.getElementById('spanObservationsProgramacao')?.innerHTML;
                 let observationsAdicionaisContent = document.getElementById('spanObservationsAdicionais').innerHTML;
 
                 // Variável para rastrear qual editor está aberto (observations ou observations_execution)

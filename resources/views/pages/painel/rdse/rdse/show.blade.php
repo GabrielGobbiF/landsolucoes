@@ -102,9 +102,10 @@
                         <span class="d-none d-sm-block">Serviços</span>
                     </a>
                 </li>
+
                 @if (!empty($rdse->obra_id))
                     <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link" href="{{ route('obras.show', $rdse->obra_id) }}">
+                        <a class="nav-link" data-save="false" href="{{ route('obras.show', $rdse->obra_id) }}">
                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                             <span class="d-none d-sm-block">Obra</span>
                         </a>

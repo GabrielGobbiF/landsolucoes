@@ -34,6 +34,17 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      */
     Route::get('handswork', [App\Http\Controllers\Painel\RDSE\Api\HandsworkApiController::class, 'index'])->name('api.handswork.all');
 
+
+    /**
+     * Equipes
+     */
+    Route::get('rdses/equipes/{equipeId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'getAtividadesEquipesHoje'])->name('api.rdse.get.rdses.atividades.now');
+
+    /**
+     * PROGRAMAÇÃO
+     */
+
+
     /**
      * RDSE
      */

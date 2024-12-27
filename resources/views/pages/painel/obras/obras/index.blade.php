@@ -25,7 +25,7 @@
 
                         <div class="col-md-3">
                             <label for="fl_art_nome">Concessionarias</label>
-                            <select id="obra-select_concessionaria_id" name="concessionaria_id" class="form-control select2 search-input">
+                            <select id="obra-select_concessionaria_id" name="concessionaria_id" multiple class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
                                 @foreach ($concessionarias as $concessionaria)
                                     <option value="{{ $concessionaria->id }}"> {{ $concessionaria->name }}</option>

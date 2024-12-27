@@ -3,6 +3,54 @@ window.feather = require('feather-icons');
 
 (function ($) {
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const navPills = document.querySelectorAll(".nav-link");
+        const currentUrl = window.location.pathname; // Obtém a URL atual
+        const storageKey = `activeTab_${currentUrl}`; // Chave única por URL
+
+        // Função para verificar se é uma URL externa
+        function isExternalUrl(href) {
+            return href.startsWith("http://") || href.startsWith("https://");
+        }
+
+        // Função para verificar se o href é um seletor válido para querySelector
+        function isValidSelector(href) {
+            return href && href.startsWith("#");
+        }
+
+        // Restaura a aba ativa do localStorage
+        const savedHref = localStorage.getItem(storageKey);
+        if (savedHref && !isExternalUrl(savedHref) && isValidSelector(savedHref)) {
+            const savedTab = Array.from(navPills).find(tab => tab.getAttribute("href") === savedHref);
+            if (savedTab) {
+                // Simula o clique para ativar a aba
+                savedTab.classList.add("active");
+                document.querySelector(savedHref)?.classList.add("show", "active");
+                // Remove a classe 'active' de outras abas/tabs
+                navPills.forEach(tab => {
+                    if (tab !== savedTab) {
+                        tab.classList.remove("active");
+                        const href = tab.getAttribute("href");
+                        if (isValidSelector(href)) {
+                            document.querySelector(href)?.classList.remove("show", "active");
+                        }
+                    }
+                });
+            }
+        }
+
+        // Evento para salvar a aba ativa no localStorage
+        navPills.forEach(tab => {
+            tab.addEventListener("click", function () {
+                const href = tab.getAttribute("href");
+
+                // Ignora abas com URLs externas ou com data-save presente
+                if (!tab.hasAttribute("data-save") && !isExternalUrl(href) && isValidSelector(href)) {
+                    localStorage.setItem(storageKey, href);
+                }
+            });
+        });
+    });
 
     'use strict';
 

@@ -15,6 +15,7 @@ use App\Models\RSDE\RdseActivityItens;
 use App\Models\RSDE\RdseServices;
 use App\Models\RSDE\Resb;
 use App\Services\Rdse\RdseService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -405,5 +406,18 @@ class RdseApiController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    public function getAtividadesEquipesHoje(Request $request, $equipeId)
+    {
+        $date = $request->input('date');
+
+        $dateSearch = __date_format($date,'Y-m-d');
+
+        $atividades = RdseActivity::where('equipe_id', $equipeId)
+            ->whereDate('data', $dateSearch)
+            ->get();
+
+        return RdseAtividadesResource::collection($atividades);
     }
 }

@@ -598,7 +598,7 @@ class TableApiController extends Controller
                 $join->on('obras.concessionaria_id', '=', 'concessionarias.id')
                     ->where(function ($query) use ($filters) {
                         if (isset($filters['concessionaria_id']) && $filters['concessionaria_id'] != '') {
-                            $query->where('concessionarias.id',  $filters['concessionaria_id']);
+                            $query->whereIn('concessionarias.id',  $filters['concessionaria_id']);
                         }
                     });
             })
@@ -679,21 +679,25 @@ class TableApiController extends Controller
                 $query->where('last_note', 'LIKE', '%' . $filters['search'] . '%')
                     ->orWhere('razao_social', 'LIKE', '%' . $filters['search'] . '%');
             })
-            ->when(isset($filters['arq']) && !empty($filters['arq']), function ($query) {
-                $query->where('obras.status', 'concluida');
-            }, function ($query) {
-                $query->whereIn('obras.status', ['aprovada'])
-                    ->where('obras.status', '<>', 'concluida');
-            })
+
 
             ->when(isset($filters['fav']), function ($query) {
                 $query->whereNotNull('favoritables.id'); // Filtra somente obras marcadas como favoritas
             })
 
-
             ->when(isset($filters['urgence']), function ($query) {
                 $query->where('obras.obr_urgence', 'Y');
             })
+
+            ->where(function ($query)  {
+                if (isset($filters['arq']) && !empty($filters['arq'])) {
+                    $query->whereIn('obras.status', ['aprovada'])
+                    ->where('obras.status', '<>', 'concluida');
+                }else {
+                    $query->where('obras.status', 'concluida');
+                }
+            })
+
             ->groupBy('obras.id')
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);

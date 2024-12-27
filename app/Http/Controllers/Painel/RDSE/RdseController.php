@@ -707,6 +707,7 @@ class RdseController extends Controller
                 foreach ($requisicoesAgrupadas as $unique => $value) {
                     $columns[] = 'Requisição: ' . '<br>' . $value->where('unique', $unique)->first()?->at;
                     $columns[] = 'Execução: ';
+                    $columns[] = 'Total: ';
                 }
             }
         }
@@ -737,6 +738,7 @@ class RdseController extends Controller
 
                         $row[] = $itemReq?->qnt;
                         $row[] = $itemReq?->qnt_executada;
+                        $row[] = 'total';
                     }
                 }
 
