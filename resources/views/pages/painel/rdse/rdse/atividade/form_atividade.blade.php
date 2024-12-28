@@ -269,6 +269,7 @@
 
             // Configura o Date Picker
             $('#dataInput').datepicker({
+                dateFormat: 'dd/mm/yy',
                 beforeShowDay: function(date) {
                     const formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
                     if (atividadesPorData.includes(formattedDate)) {
