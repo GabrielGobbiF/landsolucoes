@@ -192,7 +192,7 @@ class Rdse extends Model
         foreach ($atividades as $atividade) {
 
             if ($atividade->atividade_descricao == 'Cancelada') {
-                $exec = '<span class="text-danger">Cancelada</span>';
+                $exec = '<span class="text-warning">Cancelada</span>';
             } else {
                 $exec = !empty($atividade->execucao) ? '<span class="text-success">Executado</span>' : '<span>Não Executado</span>';
             }
