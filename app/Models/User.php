@@ -12,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasPermissionsTrait, LogTrait,LogsActivity;
+    use HasFactory, Notifiable, HasPermissionsTrait, LogTrait, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -74,6 +74,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function files()
+    {
+        return $this->morphMany(Uploaded::class, 'parentable');
+    }
 
     public function filesFavorites()
     {

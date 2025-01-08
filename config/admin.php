@@ -65,7 +65,13 @@ return [
             [
                 'name' =>  'Dev',
                 'icon' =>  'ri-dashboard-line',
-                'route' => 'arquivos.index',
+                'route' => 'dev.index',
+            ],
+
+            [
+                'name' =>  'Arquivos',
+                'icon' =>  'ri-dashboard-line',
+                'route' => 'dev.uploadeds.index',
             ],
         ],
         'vehicles' => [

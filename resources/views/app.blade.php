@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
 
     <style>
         .form-group-money input {
@@ -271,6 +272,8 @@
         </div>
     </div>
 
+    <x-file-upload />
+
     <div class="rightbar-overlay"></div>
 
     <script src="{{ _mix('panel/js/all.js') }}"></script>
@@ -289,6 +292,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     @yield('scripts')
+
+    @yield('components-scripts')
 
     <script>
         @include('components.toastr')

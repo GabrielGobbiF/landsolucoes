@@ -159,8 +159,13 @@
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <a id="pills-history-tab" class="nav-link " data-toggle="pill" href="#pills-history" role="tab"
-                           aria-controls="pills-history" aria-selected="true">Histórico</a>
+                        <a id="pills-history-tab" class="nav-link " data-toggle="pill" href="#pills-history" role="tab" aria-controls="pills-history"
+                           aria-selected="true">Histórico</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a id="pills-uploadeds-tab" class="nav-link " data-toggle="pill" href="#pills-uploadeds" role="tab"
+                           aria-controls="pills-uploadeds" aria-selected="true">Documentos</a>
                     </li>
                     @if (!auth()->guard('clients')->check())
                         <li class="nav-item d-none" role="presentation">
@@ -216,16 +221,57 @@
                                             </tr>
                                         </thead>
                                         <tbody id="activitiesTableBody"></tbody>
-
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div id="pills-uploadeds" class="tab-pane fade arquivos" role="tabpanel" aria-labelledby="pills-uploadeds-tab">
+
+                        <div class="card text-start">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{-- <button id="button-add-new-file" class="btn btn-primary button-open-file" data-parentModel="App\\Models\\ObraEtapa">
+                                            <i class="fas fa-plus"></i>
+                                            Adicionar novo documento
+                                        </button> --}}
+
+                                        <button id="button-add-new-file" data-parentModel="App\Models\ObraEtapa" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i>
+                                            Adicionar novo documento
+                                        </button>
+                                        <div class="progress mt-3" style="height: 25px; display: none;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 100%">
+                                            0%
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div id="documents-section" class="mt-4">
+                                <div class="row">
+                                    <div id="preloader" style="display: flex; justify-content: center; align-items: center; height: 100px;">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Carregando...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div id="rightbar-etp-overlay" class="rightbar-etp-overlay"></div>

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EtapasResource;
 use App\Http\Resources\TipoResource;
+use App\Http\Resources\UploadedResource;
 use App\Models\Concessionaria;
 use App\Models\Etapa;
 use App\Models\Obra;
+use App\Models\ObraEtapa;
 use App\Models\Service;
 use App\Models\Tipo;
+use App\Models\Uploaded;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -145,5 +148,14 @@ class EtapasApiController extends Controller
             'valor_receber' => $valor_receber,
             'nome_etapa' => $etapa->nome,
         ]), 200);
+    }
+
+    public function getFiles($etpId)
+    {
+        if (!$etapa = ObraEtapa::where('id', $etpId)->first()) {
+            return response()->json('Object Etapa not found', 404);
+        }
+
+        return UploadedResource::collection($etapa->files);
     }
 }

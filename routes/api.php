@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Api\EtapasApiController;
 use App\Http\Controllers\Api\ObraApiController;
+use App\Http\Controllers\Api\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -72,25 +73,22 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      */
     Route::put('rdses/{rdseId}/resb', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateRdseResb'])->name('api.rdse.resb.update');
 
-
     /**
      * Concessionaria X Service
      */
     Route::get('concessionarias/{concessionariaId}/services', [ObraApiController::class, 'getServicesByConcessionaria'])->name('api.concessionaria.services');
 
-
     /**
      * Etapas
      */
-
     Route::get('etapas', [EtapasApiController::class, 'getAll'])->name('api.etapas.all');
-
-
-    /**
-     * Etapas
-     */
     Route::put('obras/{obraId}', [ObraApiController::class, 'update'])->name('api.obras.update');
     Route::get('obras/{obraId}', [ObraApiController::class, 'show'])->name('api.obras.show');
+    Route::get('etapas/{etapaId}/files', [EtapasApiController::class, 'getFiles'])->name('api.etapas.files');
+
+    /**
+     * Arquivos
+     */
+    Route::post('upload', [UploadController::class, 'uploadChunk']);
+    Route::delete('uploadeds/{uploadId}', [UploadController::class, 'destroy']);
 });
-
-

@@ -162,10 +162,10 @@ function getEtapas() {
             $('#preloader-content-list-etp').remove();
         },
     });
-
 }
 
 function showEtapa(etpId) {
+
     $('#pills-tab a[href="#pills-home"]').tab('show');
 
     document.querySelector('.table-activitiesTableBody').classList.add('d-none');
@@ -206,12 +206,23 @@ function showEtapa(etpId) {
             $(`.${data.tipo}`).removeClass('d-none');
 
             getCommentsEtapa(etpId);
+            initFetchEtapaDocumentos(etpId);
+
+            document.getElementById('button-add-new-file').setAttribute('data-parentId', etpId);
 
             document.getElementById('offcanvasRight').classList.add('show');
             document.getElementById('rightbar-etp-overlay').classList.add('show');
             document.getElementById('preloader-content-etp').remove();
             $('#preloader-content-etp').remove();
 
+            const parentModel = 'App\\Models\\ObraEtapa';
+            const parentId = etpId;
+
+            document.getElementById('button-add-new-file').setAttribute('data-parentModel', parentModel);
+            document.getElementById('button-add-new-file').setAttribute('data-parentId', parentId);
+
+            // Inicializa ou reutiliza a instância do Resumable
+            initResumable(parentModel, parentId);
 
             const activities = data.activities;
             const activitiesTableBody = document.getElementById('activitiesTableBody');
@@ -656,3 +667,193 @@ document.getElementById('salvarEtapaBtn')?.addEventListener('click', function ()
             alert('Ocorreu um erro ao adicionar as etapas. Por favor, tente novamente.');
         });
 });
+
+
+/*Documentos Etapas */
+const preloader = document.getElementById('preloader');
+const documentsTable = document.getElementById('documents-section');
+const documentsTableBody = documentsTable.querySelector('.row');
+
+const initFetchEtapaDocumentos = async (etapaId) => {
+    documentsTableBody.innerHTML = preload('preload-etapas-documents');
+    setEtapaDocumentosInDom(etapaId);
+}
+
+const setEtapaDocumentosInDom = async (etapaId) => {
+    const documents = await getEtapaDocumentos(etapaId);
+    documentsTableBody.innerHTML = '';
+    documentsTableBody.innerHTML += documents.data.map((data) =>
+        `
+            <div class="col-6 col-sm-3 col-md-3">
+                <div id="card-file" class="card card-file">
+                    <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
+                        <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
+                             <i class="fas fa-trash mr-2"></i>Deletar
+                        </button>
+                        </div>
+                    </div>
+                    <div class="card-file-thumb">
+                    <i class="far fas fa-file" style="color:#d43030"></i>
+                </div>
+                <div class="card-body">
+                    <span>${data.name}</span>
+                </div>
+            </div>
+        </div>
+    `).join(' ');
+}
+
+const getEtapaDocumentos = async (etapaId) => {
+    return await axios.get(`/api/v1/etapas/${etapaId}/files`)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            toastr.error(error.response.data.message);
+        });
+}
+
+async function deleteFile(fileId, etapaId) {
+    if (!confirm('Tem certeza que deseja excluir este arquivo?')) return;
+
+    try {
+        await axios.delete(`/api/v1/uploadeds/${fileId}`);
+        toastr.success('Deletado com sucesso');
+        initFetchEtapaDocumentos(etapaId);
+    } catch (error) {
+        console.error('Erro ao deletar arquivo:', error);
+        toastr.error('Não foi possivel Deletar');
+    }
+}
+
+async function fetchEtapaDocumentos(etapaId) {
+    const preloader = document.getElementById('preloader');
+    const documentsTable = document.getElementById('documents-section');
+    const documentsTableBody = documentsTable.querySelector('.row');
+
+    try {
+        // Chamar a API
+        const response = await axios.get(`/api/v1/etapas/${etapaId}/files`);
+        const documentos = response.data;
+
+        documentsTableBody.innerHTML = '';
+
+
+        tableTbody.innerHTML += list.data.map((data) => `
+            <tr data-id="${data.id}">
+                <td>${data.id}</td>
+                <td>${data.name}</td>
+                <td class="text-end">
+                    <a href="${base_url}/admin/artists/${data.id}" data-id="${data.id}" >
+                        <i class="fa-solid fa-edit"></i>
+                    </a>
+                </td>
+            </tr>`).join(' ')
+
+
+        documentos.forEach(doc => {
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${doc.id}</td>
+                <td>${doc.name}</td>
+                <td>${doc.mime_type}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="viewDocument(${doc.id})">Visualizar</button>
+                    <button class="btn btn-sm btn-warning" onclick="editDocument(${doc.id})">Editar</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteDocument(${doc.id})">Excluir</button>
+                </td>
+            `;
+            documentsTableBody.appendChild(row);
+        });
+
+        // Exibir a tabela e esconder o preloader
+        preloader.style.display = 'none';
+        documentsTable.style.display = 'table';
+    } catch (error) {
+        console.error('Erro ao buscar documentos:', error);
+        alert('Erro ao carregar os documentos. Tente novamente.');
+    }
+}
+
+let resumableEtapa = null;
+
+function initResumable(parentModel, parentId) {
+    if (resumableEtapa) {
+        resumableEtapa.cancel();
+        resumableEtapa.opts.query = function () {
+            return {
+                _token: '{{ csrf_token() }}',
+                parent_model: parentModel,
+                parent_id: parentId,
+            };
+        };
+        return;
+    }
+
+    // Cria uma nova instância se ainda não existir
+    resumableEtapa = new Resumable({
+        target: '/api/v1/upload',
+        query: function () {
+            return {
+                _token: '{{ csrf_token() }}',
+                parent_model: parentModel,
+                parent_id: parentId,
+            };
+        },
+        chunkSize: 10 * 1024 * 1024, // Tamanho do chunk em bytes
+        headers: {
+            'Accept': 'application/json',
+        },
+        testChunks: false,
+        throttleProgressCallbacks: 1,
+    });
+
+    resumableEtapa.assignBrowse(document.getElementById('button-add-new-file'));
+
+    resumableEtapa.on('fileAdded', function (file) {
+        showProgress();
+        resumableEtapa.upload();
+    });
+
+    resumableEtapa.on('fileProgress', function (file) {
+        updateProgress(Math.floor(file.progress() * 100));
+    });
+
+    resumableEtapa.on('fileSuccess', function (file, response) {
+
+    });
+
+    resumableEtapa.on('fileError', function (file, response) {
+        toastr.error('Erro ao enviar o arquivo.');
+        hideProgress();
+    });
+
+    resumableEtapa.on('complete', function () {
+        toastr.success('Arquivo enviado com sucesso!');
+        initFetchEtapaDocumentos(document.getElementById('js-etapa-id').value);
+        hideProgress();
+    });
+}
+
+let progress = $('.progress');
+
+function showProgress() {
+    progress.find('.progress-bar').css('width', '0%');
+    progress.find('.progress-bar').html('0%');
+    progress.find('.progress-bar').removeClass('bg-success');
+    progress.show();
+}
+
+function updateProgress(value) {
+    progress.find('.progress-bar').css('width', `${value}%`);
+    progress.find('.progress-bar').html(`${value}%`);
+}
+
+function hideProgress() {
+    progress.hide();
+}

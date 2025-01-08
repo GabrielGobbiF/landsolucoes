@@ -539,6 +539,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('script-condutores', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptCondutores'])->name('dev.script.condutores');
             Route::get('script-vehicles', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptVehicles'])->name('dev.script.vehicles');
             Route::get('users/{userId}/auth', [App\Http\Controllers\Painel\UsersController::class, 'userAuth'])->name('user.auth');
+
+
+
         });
     });
 
@@ -561,6 +564,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     Route::group(['middleware' => 'role:developer'], function () {
         Route::get('dev', [App\Http\Controllers\Admin\DeveloperController::class, 'index'])->name('dev.index');
         Route::put('dev/clear-cache', [App\Http\Controllers\Admin\DeveloperController::class, 'clear_cache'])->name('clear.cache');
+
+        Route::get('dev/uploadeds', [App\Http\Controllers\Admin\DeveloperController::class, 'uploadeds'])->name('dev.uploadeds.index');
 
         /*
         |--------------------------------------------------------------------------

@@ -60,6 +60,11 @@ class ObraEtapa extends Model
         return $this->hasMany(ObraEtapasVariables::class, 'etapa_id', 'id');
     }
 
+    public function files()
+    {
+        return $this->morphMany(Uploaded::class, 'parentable');
+    }
+
     public function financeiro()
     {
         return $this->hasMany(ObraEtapasFinanceiro::class, 'etapa_id', 'id');

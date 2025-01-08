@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Activitylog\Models\Activity;
 
 class DeveloperController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Display a listing of the resource.
@@ -20,6 +19,11 @@ class DeveloperController extends Controller
     public function index()
     {
         return view('admin.dev.index', []);
+    }
+
+    public function uploadeds()
+    {
+        return view('admin.dev.uploadeds');
     }
 
     public function clear_cache()
@@ -41,5 +45,4 @@ class DeveloperController extends Controller
             throw $th;
         }
     }
-
 }

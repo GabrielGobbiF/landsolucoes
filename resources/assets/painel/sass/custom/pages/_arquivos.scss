@@ -7,7 +7,6 @@
 }
 
 .arquivos {
-
     a {
         color: #000000c2 !important;
     }
@@ -213,7 +212,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: #FFF;
+        background: #fff;
         height: 100rem;
     }
 
@@ -281,7 +280,8 @@
     .card-file h6 {
         margin-bottom: 0;
     }
-    .card-file h6 a {
+    .card-file h6 a,
+    .card-file .card-body span {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
