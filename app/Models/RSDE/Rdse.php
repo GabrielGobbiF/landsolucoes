@@ -169,18 +169,33 @@ class Rdse extends Model
         return Carbon::parse($this->month_date)->format('Y');
     }
 
-    public function getAtividadesDescriptionsAttribute()
+    public function getAtividadesDescriptionsAttribute($filters = [])
     {
         $html = '';
 
-        $atividades = $this->activities()->orderBy('data')->limit(4)->get();
+        $atividades = $this->activities()
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['atividades']) && $filters['atividades'] != 'all') {
+                    if ($filters['atividades'] == 'nao_execucao') {
+                        $query->whereNull('execucao'); // Filtra apenas atividades com execução nula
+                    } else if ($filters['atividades'] == 'execucao') {
+                        $query->whereNotNull('execucao'); // Filtra atividades com execução preenchida
+                    }
+                }
+            })
+            ->orderBy('data', 'desc')->limit(4)->get();
 
         if ($atividades->count() == 0) {
             return  $html = 'Sem atividades';
         }
 
         foreach ($atividades as $atividade) {
-            $exec = !empty($atividade->execucao) ? 'Executado' : 'Não Executado';
+
+            if ($atividade->atividade_descricao == 'Cancelada') {
+                $exec = '<span class="text-danger">Cancelada</span>';
+            } else {
+                $exec = !empty($atividade->execucao) ? '<span class="text-success">Executado</span>' : '<span>Não Executado</span>';
+            }
 
             $text = $atividade->atividade_descricao . ' ' . $atividade->equipe->name . ' ' . $atividade->data . ' ' . $atividade->data_inicio . '-' . $atividade->data_fim . ' - ' . $exec . '<br>';
 

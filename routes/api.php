@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EtapasApiController;
 use App\Http\Controllers\Api\ObraApiController;
 use App\Http\Controllers\Api\UploadController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -91,4 +92,10 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
      */
     Route::post('upload', [UploadController::class, 'uploadChunk']);
     Route::delete('uploadeds/{uploadId}', [UploadController::class, 'destroy']);
+});
+
+Route::get('check-reset-flag', function () {
+    return response()->json([
+        'resetRequired' => Cache::get('resetReloadFlag', false),
+    ]);
 });

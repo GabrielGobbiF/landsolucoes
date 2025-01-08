@@ -98,7 +98,7 @@
                            @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
                 </div>
 
-                <div id="div-eqipe" class="col-12 col-md-3">
+                <div class="col-12 col-md-3">
                     <label>Equipe</label>
                     <select id="rdse-equipe" name="equipe_id" class="form-control select2 search-input-rdse">
                         <option value="">Selecione</option>
@@ -108,7 +108,16 @@
                     </select>
                 </div>
 
-                <div id="div-eqipe" class="col-12 col-md-1">
+                <div class="col-12 col-md-2">
+                    <label>Atividades</label>
+                    <select id="rdse-atividades" name="atividades" class="form-control select2 search-input-rdse">
+                        <option value="all">Todas</option>
+                        <option value="nao_execucao">Não executado</option>
+                        <option value="execucao">Executado</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-1">
                     <label for="rdse-diretoria">Diretoria</label>
                     <select id="rdse-diretoria" name="diretoria" class="form-control search-input-rdse" required tabindex="1">
                         <option value="">Selecione </option>
@@ -117,7 +126,7 @@
                     </select>
                 </div>
 
-                <div id="div-eqipe" class="col-12 col-md-2">
+                <div class="col-12 col-md-2">
                     <label for="rdse-tipo_obra">Tipo de Obra</label>
                     <select id="select--tipo_obra" name="tipo_obra" class="form-control select-tipo_obra t-select  search-input-rdse"
                             data-request="{{ route('tipos_obra.all') }}" data-value-field="id" required>

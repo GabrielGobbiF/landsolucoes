@@ -30,6 +30,10 @@ class EventServiceProvider extends ServiceProvider
         ComercialStatusChange::class => [
             HandleComercialStatusChange::class,
         ],
+
+        \Illuminate\Cache\Events\CacheCleared::class => [
+            \App\Listeners\ResetReloadFlagListener::class,
+        ],
     ];
 
     /**

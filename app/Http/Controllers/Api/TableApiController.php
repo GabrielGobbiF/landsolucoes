@@ -455,6 +455,14 @@ class TableApiController extends Controller
                 }
             })
 
+            ->where(function ($query) use ($filters) {
+                if ($filters['atividades'] !== 'all') {
+                    $query->whereHas('activities', function ($query) {
+                        $query->where('id', '>', 0);
+                    });
+                }
+            })
+
             ->where('modelo', 0)
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);

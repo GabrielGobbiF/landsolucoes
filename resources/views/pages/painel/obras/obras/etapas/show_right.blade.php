@@ -234,11 +234,6 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-                                        {{-- <button id="button-add-new-file" class="btn btn-primary button-open-file" data-parentModel="App\\Models\\ObraEtapa">
-                                            <i class="fas fa-plus"></i>
-                                            Adicionar novo documento
-                                        </button> --}}
-
                                         <button id="button-add-new-file" data-parentModel="App\Models\ObraEtapa" class="btn btn-primary">
                                             <i class="fas fa-plus"></i>
                                             Adicionar novo documento

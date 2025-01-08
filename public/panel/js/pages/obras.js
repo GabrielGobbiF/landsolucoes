@@ -692,8 +692,9 @@ const setEtapaDocumentosInDom = async (etapaId) => {
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
-                             <i class="fas fa-trash mr-2"></i>Deletar
-                        </button>
+                                <i class="fas fa-trash mr-2"></i>Deletar
+                            </button>
+                            <a target="_blank" class="dropdown-item" href="${data.path}">Visualizar</a>
                         </div>
                     </div>
                     <div class="card-file-thumb">
@@ -730,6 +731,84 @@ async function deleteFile(fileId, etapaId) {
     }
 }
 
+
+let resumableEtapa = null;
+
+function initResumable(parentModel, parentId) {
+    if (resumableEtapa) {
+        resumableEtapa.cancel();
+        resumableEtapa.opts.query = function () {
+            return {
+                _token: '{{ csrf_token() }}',
+                parent_model: parentModel,
+                parent_id: parentId,
+            };
+        };
+        return;
+    }
+
+    // Cria uma nova instância se ainda não existir
+    resumableEtapa = new Resumable({
+        target: '/api/v1/upload',
+        query: function () {
+            return {
+                _token: '{{ csrf_token() }}',
+                parent_model: parentModel,
+                parent_id: parentId,
+            };
+        },
+        chunkSize: 10 * 1024 * 1024, // Tamanho do chunk em bytes
+        headers: {
+            'Accept': 'application/json',
+        },
+        testChunks: false,
+        throttleProgressCallbacks: 1,
+    });
+
+    resumableEtapa.assignBrowse(document.getElementById('button-add-new-file'));
+
+    resumableEtapa.on('fileAdded', function (file) {
+        showProgress();
+        resumableEtapa.upload();
+    });
+
+    resumableEtapa.on('fileProgress', function (file) {
+        updateProgress(Math.floor(file.progress() * 100));
+    });
+
+    resumableEtapa.on('fileSuccess', function (file, response) {});
+
+    resumableEtapa.on('fileError', function (file, response) {
+        toastr.error('Erro ao enviar o arquivo.');
+        hideProgress();
+    });
+
+    resumableEtapa.on('complete', function () {
+        toastr.success('Arquivo enviado com sucesso!');
+        initFetchEtapaDocumentos(document.getElementById('js-etapa-id').value);
+        hideProgress();
+    });
+}
+
+let progress = $('.progress');
+
+function showProgress() {
+    progress.find('.progress-bar').css('width', '0%');
+    progress.find('.progress-bar').html('0%');
+    progress.find('.progress-bar').removeClass('bg-success');
+    progress.show();
+}
+
+function updateProgress(value) {
+    progress.find('.progress-bar').css('width', `${value}%`);
+    progress.find('.progress-bar').html(`${value}%`);
+}
+
+function hideProgress() {
+    progress.hide();
+}
+
+/*
 async function fetchEtapaDocumentos(etapaId) {
     const preloader = document.getElementById('preloader');
     const documentsTable = document.getElementById('documents-section');
@@ -779,81 +858,4 @@ async function fetchEtapaDocumentos(etapaId) {
         alert('Erro ao carregar os documentos. Tente novamente.');
     }
 }
-
-let resumableEtapa = null;
-
-function initResumable(parentModel, parentId) {
-    if (resumableEtapa) {
-        resumableEtapa.cancel();
-        resumableEtapa.opts.query = function () {
-            return {
-                _token: '{{ csrf_token() }}',
-                parent_model: parentModel,
-                parent_id: parentId,
-            };
-        };
-        return;
-    }
-
-    // Cria uma nova instância se ainda não existir
-    resumableEtapa = new Resumable({
-        target: '/api/v1/upload',
-        query: function () {
-            return {
-                _token: '{{ csrf_token() }}',
-                parent_model: parentModel,
-                parent_id: parentId,
-            };
-        },
-        chunkSize: 10 * 1024 * 1024, // Tamanho do chunk em bytes
-        headers: {
-            'Accept': 'application/json',
-        },
-        testChunks: false,
-        throttleProgressCallbacks: 1,
-    });
-
-    resumableEtapa.assignBrowse(document.getElementById('button-add-new-file'));
-
-    resumableEtapa.on('fileAdded', function (file) {
-        showProgress();
-        resumableEtapa.upload();
-    });
-
-    resumableEtapa.on('fileProgress', function (file) {
-        updateProgress(Math.floor(file.progress() * 100));
-    });
-
-    resumableEtapa.on('fileSuccess', function (file, response) {
-
-    });
-
-    resumableEtapa.on('fileError', function (file, response) {
-        toastr.error('Erro ao enviar o arquivo.');
-        hideProgress();
-    });
-
-    resumableEtapa.on('complete', function () {
-        toastr.success('Arquivo enviado com sucesso!');
-        initFetchEtapaDocumentos(document.getElementById('js-etapa-id').value);
-        hideProgress();
-    });
-}
-
-let progress = $('.progress');
-
-function showProgress() {
-    progress.find('.progress-bar').css('width', '0%');
-    progress.find('.progress-bar').html('0%');
-    progress.find('.progress-bar').removeClass('bg-success');
-    progress.show();
-}
-
-function updateProgress(value) {
-    progress.find('.progress-bar').css('width', `${value}%`);
-    progress.find('.progress-bar').html(`${value}%`);
-}
-
-function hideProgress() {
-    progress.hide();
-}
+*/

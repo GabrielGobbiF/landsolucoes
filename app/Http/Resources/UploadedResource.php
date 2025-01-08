@@ -17,6 +17,7 @@ class UploadedResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
+            "path" => asset($this->path),
         ];
     }
 }
