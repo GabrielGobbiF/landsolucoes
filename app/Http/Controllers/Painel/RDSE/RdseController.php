@@ -123,15 +123,17 @@ class RdseController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        if ($rdse->services()->count() == 0) {
-            $rdse->services()->create();
+        $services = $rdse->services();
+
+        if ($services->count() == 0) {
+            $services->create();
         }
 
         $typeRdse = $rdse->type;
         $typeRdseArray = collect(config("admin.rdse.type"))->where('name', $typeRdse)->first();
         $priceUps = $typeRdseArray['value'];
         $codigoType = $typeRdseArray['codigo'];
-        $rdseServices = $rdse->services()->with('handswork')->get();
+        $rdseServices = $services->with('handswork')->get();
         $logs = $rdse->logs();
 
         $atividades = $rdse->activities()->with('equipe')->orderBy('data')->get();
