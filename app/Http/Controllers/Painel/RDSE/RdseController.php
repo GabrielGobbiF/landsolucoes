@@ -134,7 +134,7 @@ class RdseController extends Controller
         $priceUps = $typeRdseArray['value'];
         $codigoType = $typeRdseArray['codigo'];
         $rdseServices = $services->with('handswork')->get();
-        $logs = [];
+        $logs = $rdse->logs();
 
         $atividades = $rdse->activities()->with('equipe')->orderBy('data')->get();
         $itensResb = Resb::where('rdse_id', $rdse->id)->limit(1)->get();

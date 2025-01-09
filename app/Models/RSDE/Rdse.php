@@ -29,6 +29,8 @@ class Rdse extends Model
 
     protected static $logAttributes = ['*'];
 
+    protected static $logExceptAttributes  = ['*'];
+
     protected $appends = ['StatusLabel', 'StatusAPR', 'Month', 'AtividadesDescriptions'];
 
     public function getStatusAPRAttribute()
