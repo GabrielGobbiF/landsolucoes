@@ -174,6 +174,12 @@ class PastaController extends Controller
 
         $pasta->delete();
 
+        if (request()->ajax()) {
+            return response()->json([
+                'message' => 'Deletado com sucesso!',
+            ], 200);
+        }
+
         return redirect()
             ->back()
             ->with('message', 'Deletado com sucesso!');

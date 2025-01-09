@@ -18,7 +18,6 @@
     }
 
     .navbar-nav {
-
         .nav-link {
             font-size: 15px;
             position: relative;
@@ -26,33 +25,35 @@
             color: $menu-item-color;
             font-family: $font-family-secondary;
 
-            i{
+            i {
                 font-size: 15px;
                 vertical-align: inherit;
                 display: inline-block;
             }
-            &:focus, &:hover{
+            &:focus,
+            &:hover {
                 color: $menu-item-active-color;
                 background-color: transparent;
             }
         }
 
-        .dropdown-item{
+        .dropdown-item {
             color: $menu-item-color;
-            &.active, &:hover{
+            &.active,
+            &:hover {
                 color: $menu-item-active-color;
             }
         }
 
-        .nav-item{
-            .nav-link.active{
+        .nav-item {
+            .nav-link.active {
                 color: $menu-item-active-color;
             }
         }
 
-        .dropdown{
-            &.active{
-              >a {
+        .dropdown {
+            &.active {
+                > a {
                     color: $menu-item-active-color;
                     background-color: transparent;
                 }
@@ -62,7 +63,6 @@
 }
 
 @include media-breakpoint-up(xl) {
-
     body[data-layout="horizontal"] {
         .container-fluid,
         .navbar-header {
@@ -85,14 +85,14 @@
         }
 
         .dropdown-item {
-            padding: .5rem 1.5rem;
+            padding: 0.5rem 1.5rem;
             min-width: 180px;
         }
 
         .dropdown {
-            &.mega-dropdown{
+            &.mega-dropdown {
                 // position: static;
-                .mega-dropdown-menu{
+                .mega-dropdown-menu {
                     left: 0px;
                     right: auto;
                 }
@@ -114,20 +114,20 @@
                         position: absolute;
                         top: 0 !important;
                         left: 100%;
-                        display: none
+                        display: none;
                     }
                 }
             }
 
             &:hover {
-                >.dropdown-menu {
+                > .dropdown-menu {
                     display: block;
                 }
             }
         }
 
-        .dropdown:hover>.dropdown-menu>.dropdown:hover>.dropdown-menu {
-            display: block
+        .dropdown:hover > .dropdown-menu > .dropdown:hover > .dropdown-menu {
+            display: block;
         }
     }
 
@@ -144,18 +144,17 @@
         border-style: solid;
         border-width: 0 0 1px 1px;
         content: "";
-        height: .4em;
+        height: 0.4em;
         display: inline-block;
         right: 5px;
         top: 50%;
         margin-left: 10px;
         transform: rotate(-45deg) translateY(-50%);
         transform-origin: top;
-        transition: all .3s ease-out;
-        width: .4em;
+        transition: all 0.3s ease-out;
+        width: 0.4em;
     }
 }
-
 
 @include media-breakpoint-down(lg) {
     .topnav-menu {
@@ -175,11 +174,10 @@
 }
 
 @include media-breakpoint-down(md) {
-
-    .navbar-brand-box{
+    .navbar-brand-box {
         .logo-dark {
             display: $display-block;
-            span.logo-sm{
+            span.logo-sm {
                 display: $display-block;
             }
         }
@@ -205,10 +203,10 @@
                 border: none;
                 box-shadow: none;
                 padding-left: 15px;
-                &.dropdown-mega-menu-xl{
+                &.dropdown-mega-menu-xl {
                     width: auto;
 
-                    .row{
+                    .row {
                         margin: 0px;
                     }
                 }
@@ -234,11 +232,9 @@
     }
 }
 
-
 @include media-breakpoint-up(lg) {
-
     body[data-layout="horizontal"][data-topbar="light"] {
-        .navbar-brand-box{
+        .navbar-brand-box {
             .logo-dark {
                 display: $display-block;
             }
@@ -248,21 +244,21 @@
             }
         }
 
-        .topnav{
+        .topnav {
             background-color: $header-dark-bg;
             .navbar-nav {
-
                 .nav-link {
                     color: rgba($white, 0.6);
 
-                    &:focus, &:hover{
+                    &:focus,
+                    &:hover {
                         color: rgba($white, 0.9);
                     }
                 }
 
-                > .dropdown{
-                    &.active{
-                    >a {
+                > .dropdown {
+                    &.active {
+                        > a {
                             color: rgba($white, 0.9) !important;
                         }
                     }
@@ -271,4 +267,3 @@
         }
     }
 }
-

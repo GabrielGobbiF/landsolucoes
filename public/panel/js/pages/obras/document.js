@@ -24,8 +24,8 @@ async function list() {
     divDocumentList.innerHTML = documents;
 }
 
-function init() {
-    list();
+async function init() {
+    await list();
 
     /**
     * Dropzone
@@ -59,6 +59,29 @@ function init() {
 
     $('.btn-secondary').on('click', function () {
         myDropzone.removeAllFiles();
+    })
+
+    $('.delete-folder').on('click', function (e) {
+        const deleteUrl = $(this).data('href');
+
+        if (confirm('Tem certeza que deseja excluir esta pasta?')) {
+            axios.delete(deleteUrl)
+                .then(response => {
+
+                    if (response.status === 200) {
+                        alert('Pasta excluída com sucesso!');
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+
+                    if (error.response) {
+                        alert(`Erro ao excluir pasta: ${error.response.data.message || 'Tente novamente mais tarde.'}`);
+                    } else {
+                        alert('Erro ao excluir pasta. Verifique sua conexão.');
+                    }
+                });
+        }
     })
 }
 
