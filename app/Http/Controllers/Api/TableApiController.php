@@ -456,10 +456,12 @@ class TableApiController extends Controller
             })
 
             ->where(function ($query) use ($filters) {
-                if ($filters['atividades'] !== 'all') {
-                    $query->whereHas('activities', function ($query) {
-                        $query->where('id', '>', 0);
-                    });
+                if (isset($filters['atividades'])) {
+                    if ($filters['atividades'] !== 'all') {
+                        $query->whereHas('activities', function ($query) {
+                            $query->where('id', '>', 0);
+                        });
+                    }
                 }
             })
 
