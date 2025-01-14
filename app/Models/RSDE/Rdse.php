@@ -78,6 +78,7 @@ class Rdse extends Model
         'obra_id',
         'lote',
         'observations',
+        'diretoria',
         'nf',
         'date_nfe_at',
         'croqui_atualizado_data',

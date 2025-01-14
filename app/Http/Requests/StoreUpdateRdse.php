@@ -29,7 +29,8 @@ class StoreUpdateRdse extends FormRequest
             'n_order' => "required|max:255|unique:rdses,n_order,{$id},id,modelo,0,deleted_at,null",
             'date_nfe_at' => 'nullable|date_format:d/m/Y',
             'month_date' => 'required',
-            'year' => 'required'
+            'year' => 'required',
+            'diretoria' => 'required'
         ];
 
         return $rules;

@@ -65,6 +65,7 @@ class RdseResource extends JsonResource
             'apr_at_input' => $this->apr_at,
             'is_civil' => $this->is_civil,
             'sigeo' => $this->sigeo,
+            'diretoria' => $this->diretoria,
             'month' => monthByFormat($this->Month) . "/" . $year,
             'atividades' => "<a href='javascript:void(0)' onclick='openModaladdItemsModal(this)' data-id='{$this->id}' class='atividades'>
             {$this->getAtividadesDescriptionsAttribute($filters)}

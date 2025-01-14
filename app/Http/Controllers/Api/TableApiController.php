@@ -422,9 +422,7 @@ class TableApiController extends Controller
             })
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['diretoria'])) {
-                    $query->whereHas('activities', function ($query) use ($filters) {
-                        $query->where('diretoria',  $filters['diretoria']);
-                    });
+                    $query->where('diretoria',  $filters['diretoria']);
                 }
             })
 

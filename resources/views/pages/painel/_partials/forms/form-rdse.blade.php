@@ -22,6 +22,7 @@
         </div>
     </div>
 
+
     <div class="col-12 col-md-6">
         <div class="form-group">
             <label for="input--type">Tipo</label>
@@ -60,7 +61,6 @@
         </div>
     </div>
 
-
 </div>
 
 <div class="row">
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-2">
+    <div class="col-12 col-md-3">
         <label>Ano </label>
         <select id="mes" name="year" class="form-control " required>
             <option selected value="">Selecione</option>
@@ -100,6 +100,17 @@
             <option {{ isset($rdse) && $rdse->Year == '2025' ? 'selected' : null }} value="2025">2025 </option>
         </select>
     </div>
+
+        <div class="col-12 col-md-3">
+            <div class="form-group">
+                <label for="rdse-diretoria">Diretoria</label>
+                <select id="rdse-diretoria" name="diretoria" class="form-control" required tabindex="1">
+                    <option value="">Selecione </option>
+                    <option {{ isset($rdse) && $rdse->diretoria == 'PM' ? 'selected' : null }} value='PM'>PM </option>
+                    <option {{ isset($rdse) && $rdse->diretoria == 'HV' ? 'selected' : null }} value='HV'>HV </option>
+                </select>
+            </div>
+        </div>
 </div>
 
 <div class="row">

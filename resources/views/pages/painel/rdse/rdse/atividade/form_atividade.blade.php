@@ -70,16 +70,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
-            <div class="form-group">
-                <label for="rdse-diretoria">Diretoria</label>
-                <select id="rdse-diretoria" name="diretoria" class="form-control" required tabindex="1">
-                    <option value="">Selecione </option>
-                    <option value='PM'>PM </option>
-                    <option value='HV'>HV </option>
-                </select>
-            </div>
-        </div>
+
 
 
         <div class="col-12 col-md-4">

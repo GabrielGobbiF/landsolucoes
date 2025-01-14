@@ -22,7 +22,7 @@ class RdseService
             'veiculo_id' => 'required',
             'supervisor_id' => 'required',
             'encarregado_id' => 'required',
-            'diretoria' => 'required',
+            //'diretoria' => 'required',
             'status_execution' => 'required',
             'atividades' => 'required',
             'data' => 'required',
@@ -42,7 +42,7 @@ class RdseService
             'data_inicio' => $request->input('inicio'),
             'data_fim' => $request->input('fim'),
             'atividade_descricao' => $request->input('status_execution'),
-            'diretoria' => $request->input('diretoria'),
+            //'diretoria' => $request->input('diretoria'),
             'atividades' => $request->input('atividades'),
             'civil' => $request->input('civil'),
         ];
@@ -75,7 +75,7 @@ class RdseService
             'veiculo_id' => 'required',
             'supervisor_id' => 'required',
             'encarregado_id' => 'required',
-            'diretoria' => 'required',
+            //'diretoria' => 'required',
             'status_execution' => 'required',
             'atividades' => 'required',
             'data' => 'required',
@@ -100,7 +100,7 @@ class RdseService
             'data_fim' => $request->input('fim'),
             'atividade_descricao' => $request->input('status_execution'),
             'atividades' => $request->input('atividades'),
-            'diretoria' => $request->input('diretoria'),
+            //'diretoria' => $request->input('diretoria'),
             'civil' => $request->input('civil'),
         ];
 

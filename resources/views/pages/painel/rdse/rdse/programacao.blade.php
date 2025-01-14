@@ -196,6 +196,7 @@
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="sigeo" data-formatter="sigeo">Viab Sigeo</th>
+                                <th data-field="diretoria" >Diretoria</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
