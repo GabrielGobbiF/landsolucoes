@@ -185,7 +185,12 @@ class Rdse extends Model
                     }
                 }
             })
-            ->orderBy('data', 'desc')->limit(4)->get();
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['diretoria'])) {
+                    $query->where('diretoria',  $filters['diretoria']);
+                }
+            })
+            ->orderBy('data', 'desc')->limit(5)->get();
 
         if ($atividades->count() == 0) {
             return  $html = 'Sem atividades';
