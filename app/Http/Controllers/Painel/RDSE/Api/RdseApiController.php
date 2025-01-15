@@ -57,7 +57,7 @@ class RdseApiController extends Controller
         $lastServiceRdseById = $rdse->services()->orderby('id', 'DESC')->limit(1)->first();
 
         if (isset($lastServiceRdseById)) {
-            if ($lastServiceRdseById->minutos == '0') {
+            if ($lastServiceRdseById->qnt_atividade == '0') {
                 return response()->json('andamento', 200);
             }
         }

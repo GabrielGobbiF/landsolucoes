@@ -12,6 +12,9 @@
     <input id="parcial_1" type="hidden" value="{{ $rdse->parcial_1 ?? 0 }}">
     <input id="parcial_2" type="hidden" value="{{ $rdse->parcial_2 ?? 0 }}">
     <input id="parcial_3" type="hidden" value="{{ $rdse->parcial_3 ?? 0 }}">
+    <input id="parcial_4" type="hidden" value="{{ $rdse->parcial_4 ?? 0 }}">
+    <input id="parcial_5" type="hidden" value="{{ $rdse->parcial_5 ?? 0 }}">
+    <input id="parcial_6" type="hidden" value="{{ $rdse->parcial_6 ?? 0 }}">
     <input id="rdse-status" type="hidden" value="{{ $rdse->status ?? '' }}">
 
     <div class="col-12 col-md-6">

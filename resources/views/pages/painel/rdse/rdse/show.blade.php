@@ -453,12 +453,12 @@
                                             @endif
 
                                             @if ($rdse->parcial_3)
-                                            <th colspan="2" class="text-center">
-                                                <div class=" d-grid">
-                                                    <span>Parcial 4</span>
-                                                    <span>{{ !empty($rdse->parcial_4_at) ? formatDateAndTime($rdse->parcial_4_at) : 'Sem Data' }}</span>
-                                                </div>
-                                            </th>
+                                                <th colspan="2" class="text-center">
+                                                    <div class=" d-grid">
+                                                        <span>Parcial 4</span>
+                                                        <span>{{ !empty($rdse->parcial_4_at) ? formatDateAndTime($rdse->parcial_4_at) : 'Sem Data' }}</span>
+                                                    </div>
+                                                </th>
                                             @endif
 
                                             @if ($rdse->parcial_4)
@@ -669,22 +669,22 @@
                                             @endif
 
                                             @if ($rdse->parcial_6)
-                                            <th>
-                                                <input
-                                                       id="p_quantidade6_{{ $service->id }}" min="0" type="number"
-                                                       class="form-control form-control-sm quantidade_parcial" name="p_quantidade6[]"
-                                                       data-id="{{ $service->id }}" data-parcial="6"
-                                                       value="{{ !empty($service->p_quantidade6) ? $service->p_quantidade6 : '0' }}" />
-                                            </th>
-                                            <th>
-                                                <input id="price_total_parcial6_{{ $service->id }}"
-                                                       class="form-control form-control-sm price_parcial price_parcial6 money" name="p_preco6[]"
-                                                       data-id="{{ $service->id }}" data-parcial="6"
-                                                       value="{{ !empty($service->p_preco6) ? $service->p_preco6 : '0' }}" data-toggle="tooltip"
-                                                       data-placement="top"
-                                                       title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade6 : '' }}" />
-                                            </th>
-                                        @endif
+                                                <th>
+                                                    <input
+                                                           id="p_quantidade6_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm quantidade_parcial" name="p_quantidade6[]"
+                                                           data-id="{{ $service->id }}" data-parcial="6"
+                                                           value="{{ !empty($service->p_quantidade6) ? $service->p_quantidade6 : '0' }}" />
+                                                </th>
+                                                <th>
+                                                    <input id="price_total_parcial6_{{ $service->id }}"
+                                                           class="form-control form-control-sm price_parcial price_parcial6 money" name="p_preco6[]"
+                                                           data-id="{{ $service->id }}" data-parcial="6"
+                                                           value="{{ !empty($service->p_preco6) ? $service->p_preco6 : '0' }}" data-toggle="tooltip"
+                                                           data-placement="top"
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade6 : '' }}" />
+                                                </th>
+                                            @endif
 
                                             @if ($rdse->status == 'pending' || $rdse->status == 'approval')
                                                 <th>
@@ -714,6 +714,18 @@
                                         @if ($rdse->parcial_3)
                                             <td>Parcial 4</td>
                                             <td class="total_p3"></td>
+                                        @endif
+                                        @if ($rdse->parcial_4)
+                                            <td>Parcial 5</td>
+                                            <td class="total_p4"></td>
+                                        @endif
+                                        @if ($rdse->parcial_5)
+                                            <td>Parcial 6</td>
+                                            <td class="total_p5"></td>
+                                        @endif
+                                        @if ($rdse->parcial_6)
+                                            <td>Parcial 7</td>
+                                            <td class="total_p6"></td>
                                         @endif
                                     </tr>
                                 </tfoot>
@@ -807,7 +819,7 @@
                                     <div class="col-4">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div id="v-pills-tab" class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                                                <div id="v-pills-tab_totais" class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                                                     <a id="v-pills-total-tab" class="nav-link mb-2 active" data-toggle="pill" href="#v-pills-total"
                                                        role="tab" aria-controls="v-pills-total" aria-selected="true">Total</a>
 
@@ -828,6 +840,26 @@
                                                            role="tab" aria-controls="v-pills-parcial_3" aria-selected="false">Parcial 4
                                                         </a>
                                                     @endif
+
+                                                    @if ($rdse->parcial_4 == 1)
+                                                        <a id="v-pills-parcial_4-tab" class="nav-link" data-toggle="pill" href="#v-pills-parcial_4"
+                                                           role="tab" aria-controls="v-pills-parcial_4" aria-selected="false">Parcial 5
+                                                        </a>
+                                                    @endif
+
+                                                    @if ($rdse->parcial_5 == 1)
+                                                        <a id="v-pills-parcial_5-tab" class="nav-link" data-toggle="pill" href="#v-pills-parcial_5"
+                                                           role="tab" aria-controls="v-pills-parcial_5" aria-selected="false">Parcial 6
+                                                        </a>
+                                                    @endif
+
+                                                    @if ($rdse->parcial_6 == 1)
+                                                        <a id="v-pills-parcial_6-tab" class="nav-link" data-toggle="pill" href="#v-pills-parcial_6"
+                                                           role="tab" aria-controls="v-pills-parcial_6" aria-selected="false">Parcial 7
+                                                        </a>
+                                                    @endif
+
+
 
                                                 </div>
                                             </div>
@@ -884,6 +916,54 @@
                                                     </div>
                                                     <div id="v-pills-parcial_3" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_3-tab">
                                                         <div id="row-total_parcial_3" class="row row-xs no-gutters">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 p_total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 p_total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="v-pills-parcial_4" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_4-tab">
+                                                        <div id="row-total_parcial_4" class="row row-xs no-gutters">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 p_total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 p_total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="v-pills-parcial_5" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_5-tab">
+                                                        <div id="row-total_parcial_5" class="row row-xs no-gutters">
+                                                            <dt class="col-sm-6">Total Espera</dt>
+                                                            <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total Serviços</dt>
+                                                            <dd class="col-sm-6 p_total_servico" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6">Total R$</dt>
+                                                            <dd class="col-sm-6 p_total" style="text-align: end;"></dd>
+
+                                                            <dt class="col-sm-6 text-truncate">Total UPS</dt>
+                                                            <dd class="col-sm-6 p_total_ups" style="text-align: end;"></dd>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="v-pills-parcial_6" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-parcial_6-tab">
+                                                        <div id="row-total_parcial_6" class="row row-xs no-gutters">
                                                             <dt class="col-sm-6">Total Espera</dt>
                                                             <dd class="col-sm-6 p_total_espera" style="text-align: end;"></dd>
 
@@ -1077,6 +1157,18 @@
             }
             if ($('#parcial_3').val() == 1) {
                 attTotalParciais(3);
+            }
+
+            if ($('#parcial_4').val() == 1) {
+                attTotalParciais(4);
+            }
+
+            if ($('#parcial_5').val() == 1) {
+                attTotalParciais(5);
+            }
+
+            if ($('#parcial_6').val() == 1) {
+                attTotalParciais(6);
             }
         });
 
@@ -1396,8 +1488,6 @@
 
                 const service = await storeService();
 
-
-
                 if (service && service.data != undefined && service.data != 'andamento') {
                     let line = service.data;
 
@@ -1407,28 +1497,6 @@
         <tr class="service-row" data-id="${line}" id="services_${line}" tabindex="-1">
             <th class="d-none">
                 <input type="hidden" name="serviceId[]" value="${line}" />
-            </th>
-            <th>
-                <div class="form-group">
-                    <input type="time" class="form-control form-control-sm  chegada_obra"
-                    id="chegada_obra_${line}" name="chegada[]" data-id="${line}" readonly tabindex="-1"/>
-                </div>
-            </th>
-            <th>
-                <div class="form-group ">
-                    <input type="number" class="form-control form-control-sm  qnt_minutos"
-                    id="qnt_minutos_${line}" name="minutos[]" data-id="${line}" value="0" />
-                </div>
-            </th>
-
-            <th>
-                <div class="form-group ">
-                    <input class="form-control form-control-sm  saida_obra" name="saida[]" required readonly tabindex="-1"/>
-                </div>
-            </th>
-
-            <th>
-                <input class="form-control form-control-sm  hours" name="horas[]" id="hours_${line}" readonly data-id="${line}" tabindex="-1"/>
             </th>
 
             <th>
