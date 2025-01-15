@@ -96,8 +96,8 @@ class RdseApiController extends Controller
             return response()->json('Object RDSE not found in scope', 404);
         }
 
-        if (!empty($columns['chegada']) && is_array($columns['chegada'])) {
-            for ($i = 0; $i < count($columns['chegada']); $i++) {
+        if (!empty($columns['codigo_sap']) && is_array($columns['codigo_sap'])) {
+            for ($i = 0; $i < count($columns['codigo_sap']); $i++) {
 
                 /* TODO  */
                 $serviceId = !empty($columns['serviceId'][$i]) ? $columns['serviceId'][$i] : false;
@@ -120,6 +120,15 @@ class RdseApiController extends Controller
                 $p_quantidade3 = !empty($columns['p_quantidade3'][$i]) ? $columns['p_quantidade3'][$i] : '';
                 $p_preco3 = !empty($columns['p_preco3'][$i]) ? $columns['p_preco3'][$i] : '';
 
+                $p_quantidade4 = !empty($columns['p_quantidade4'][$i]) ? $columns['p_quantidade4'][$i] : '';
+                $p_preco4 = !empty($columns['p_preco4'][$i]) ? $columns['p_preco4'][$i] : '';
+
+                $p_quantidade5 = !empty($columns['p_quantidade5'][$i]) ? $columns['p_quantidade5'][$i] : '';
+                $p_preco5 = !empty($columns['p_preco5'][$i]) ? $columns['p_preco5'][$i] : '';
+
+                $p_quantidade6 = !empty($columns['p_quantidade6'][$i]) ? $columns['p_quantidade6'][$i] : '';
+                $p_preco6 = !empty($columns['p_preco6'][$i]) ? $columns['p_preco6'][$i] : '';
+
                 if ($serviceId) {
                     $serviceRdseById = RdseServices::where('id', $serviceId)->limit(1)->first();
 
@@ -137,10 +146,16 @@ class RdseApiController extends Controller
                             'p_preco1' => clearNumber($p_preco1),
                             'p_preco2' => clearNumber($p_preco2),
                             'p_preco3' => clearNumber($p_preco3),
+                            'p_preco4' => clearNumber($p_preco4),
+                            'p_preco5' => clearNumber($p_preco5),
+                            'p_preco6' => clearNumber($p_preco6),
 
                             'p_quantidade1' => $p_quantidade1,
                             'p_quantidade2' => $p_quantidade2,
                             'p_quantidade3' => $p_quantidade3,
+                            'p_quantidade4' => $p_quantidade4,
+                            'p_quantidade5' => $p_quantidade5,
+                            'p_quantidade6' => $p_quantidade6,
 
                         ]);
                     }

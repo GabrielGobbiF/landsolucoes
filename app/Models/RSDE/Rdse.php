@@ -96,6 +96,9 @@ class Rdse extends Model
         'parcial_1_at',
         'parcial_2_at',
         'parcial_3_at',
+        'parcial_4_at',
+        'parcial_5_at',
+        'parcial_6_at',
 
         'apr_at',
         'apr_id',

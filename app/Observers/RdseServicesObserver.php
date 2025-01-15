@@ -20,6 +20,9 @@ class RdseServicesObserver
         $rdseServices->p_preco1 = $rdseServices->isDirty('p_preco1') ? clearNumber($rdseServices->p_preco1) : 0;
         $rdseServices->p_preco2 = $rdseServices->isDirty('p_preco2') ? clearNumber($rdseServices->p_preco2) : 0;
         $rdseServices->p_preco3 = $rdseServices->isDirty('p_preco3') ? clearNumber($rdseServices->p_preco3) : 0;
+        $rdseServices->p_preco4 = $rdseServices->isDirty('p_preco4') ? clearNumber($rdseServices->p_preco4) : 0;
+        $rdseServices->p_preco5 = $rdseServices->isDirty('p_preco5') ? clearNumber($rdseServices->p_preco5) : 0;
+        $rdseServices->p_preco6 = $rdseServices->isDirty('p_preco6') ? clearNumber($rdseServices->p_preco6) : 0;
     }
 
     /**
@@ -33,6 +36,9 @@ class RdseServicesObserver
         $rdseServices->p_preco1 = $rdseServices->isDirty('p_preco1') ? clearNumber($rdseServices->p_preco1) : 0;
         $rdseServices->p_preco2 = $rdseServices->isDirty('p_preco2') ? clearNumber($rdseServices->p_preco2) : 0;
         $rdseServices->p_preco3 = $rdseServices->isDirty('p_preco3') ? clearNumber($rdseServices->p_preco3) : 0;
+        $rdseServices->p_preco4 = $rdseServices->isDirty('p_preco4') ? clearNumber($rdseServices->p_preco4) : 0;
+        $rdseServices->p_preco5 = $rdseServices->isDirty('p_preco5') ? clearNumber($rdseServices->p_preco5) : 0;
+        $rdseServices->p_preco6 = $rdseServices->isDirty('p_preco6') ? clearNumber($rdseServices->p_preco6) : 0;
         #$rdseServices->slug = Str::slug(mb_strtolower($rdseServices->name, 'UTF-8'), '_');
     }
 

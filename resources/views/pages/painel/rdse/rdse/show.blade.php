@@ -217,7 +217,7 @@
                                             </div>
 
                                             <div class="">
-                                                <a href="{{ route('rdse.rsbe', [$rdse->id, "type"=>"enel"]) }}" class="btn btn-outline-danger btn-sm">
+                                                <a href="{{ route('rdse.rsbe', [$rdse->id, 'type' => 'enel']) }}" class="btn btn-outline-danger btn-sm">
                                                     RSBE Enel
                                                 </a>
                                             </div>
@@ -246,7 +246,8 @@
 
                                             @if ($itensResb->isNotEmpty())
                                                 <div class="">
-                                                    <a href="{{ route('rdse.rsbe', [$rdse->id, "type"=>"viabilidade"]) }}" class="btn btn-outline-danger btn-sm">
+                                                    <a href="{{ route('rdse.rsbe', [$rdse->id, 'type' => 'viabilidade']) }}"
+                                                       class="btn btn-outline-danger btn-sm">
                                                         RSBE Viabilidade
                                                     </a>
                                                 </div>
@@ -275,7 +276,7 @@
 
                                             @if ($itensResb->isNotEmpty())
                                                 <div class="">
-                                                    <a href="{{ route('rdse.rsbe', [$rdse->id, "type"=>"executada"]) }}" class="btn btn-outline-danger btn-sm">
+                                                    <a href="{{ route('rdse.rsbe', [$rdse->id, 'type' => 'executada']) }}" class="btn btn-outline-danger btn-sm">
                                                         RSBE Executada
                                                     </a>
                                                 </div>
@@ -404,7 +405,7 @@
                                 </div>
                             </div>
                             <div>
-                                @if ($rdse->status == 'invoice' && $rdse->parcial_3 == 0)
+                                @if ($rdse->status == 'invoice')
                                     <a class="mr-3" href="{{ route('rdse.service.partial.store', $rdse->id) }}">Adicionar Parcial</a>
                                 @endif
                                 @if ($rdse->parcial_1 == 1)
@@ -426,7 +427,7 @@
                                 <thead class="thead-light">
                                     @if ($rdse->parcial_1)
                                         <tr>
-                                            <th colspan="6"></th>
+                                            <th colspan="2"></th>
                                             <th colspan="2" class="text-center">
                                                 <div class=" d-grid">
                                                     <span>Parcial 1</span>
@@ -452,16 +453,46 @@
                                             @endif
 
                                             @if ($rdse->parcial_3)
-                                                <th colspan="2" class="text-center">Parcial 4</th>
+                                            <th colspan="2" class="text-center">
+                                                <div class=" d-grid">
+                                                    <span>Parcial 4</span>
+                                                    <span>{{ !empty($rdse->parcial_4_at) ? formatDateAndTime($rdse->parcial_4_at) : 'Sem Data' }}</span>
+                                                </div>
+                                            </th>
                                             @endif
+
+                                            @if ($rdse->parcial_4)
+                                                <th colspan="2" class="text-center">
+                                                    <div class=" d-grid">
+                                                        <span>Parcial 5</span>
+                                                        <span>{{ !empty($rdse->parcial_5_at) ? formatDateAndTime($rdse->parcial_5_at) : 'Sem Data' }}</span>
+                                                    </div>
+                                                </th>
+                                            @endif
+
+                                            @if ($rdse->parcial_5)
+                                                <th colspan="2" class="text-center">
+                                                    <div class=" d-grid">
+                                                        <span>Parcial 6</span>
+                                                        <span>{{ !empty($rdse->parcial_6_at) ? formatDateAndTime($rdse->parcial_6_at) : 'Sem Data' }}</span>
+                                                    </div>
+                                                </th>
+                                            @endif
+
+                                            @if ($rdse->parcial_6)
+                                                <th colspan="2" class="text-center">
+                                                    <div class=" d-grid">
+                                                        <span>Parcial 7</span>
+                                                        <span>{{ !empty($rdse->parcial_7_at) ? formatDateAndTime($rdse->parcial_7_at) : 'Sem Data' }}</span>
+                                                    </div>
+                                                </th>
+                                            @endif
+
                                         </tr>
                                     @endif
                                     <tr>
                                         <th class="d-none"></th>
-                                        <th class="chegada_obra" style="width: 7%">Chegada</th>
-                                        <th style="width: 6%">Qnt Minutos</th>
-                                        <th class="saida_obra" style="width: 7%">Saida</th>
-                                        <th class="hours" style="width: 7%">Horas</th>
+
                                         <th style="width: 10%">SAP</th>
                                         <th>Descrição</th>
                                         <th style="width: 6%">Horas / <br>Qnt Atividade</th>
@@ -482,6 +513,21 @@
                                             <th style="width: 8%">P Preço 4</th>
                                         @endif
 
+                                        @if ($rdse->parcial_4)
+                                            <th style="width: 6%">P Qnt 5</th>
+                                            <th style="width: 8%">P Preço 5</th>
+                                        @endif
+
+                                        @if ($rdse->parcial_5)
+                                            <th style="width: 6%">P Qnt 6</th>
+                                            <th style="width: 8%">P Preço 6</th>
+                                        @endif
+
+                                        @if ($rdse->parcial_6)
+                                            <th style="width: 6%">P Qnt 7</th>
+                                            <th style="width: 8%">P Preço 7</th>
+                                        @endif
+
                                         @if ($rdse->status == 'pending' || $rdse->status == 'approval')
                                             <th style="width: 1%"></th>
                                         @endif
@@ -493,33 +539,7 @@
                                             <th class="d-none">
                                                 <input type="hidden" name="serviceId[]" value="{{ $service->id }}">
                                             </th>
-                                            <th>
-                                                <div class="form-group">
-                                                    <input id="chegada_obra_{{ $service->id }}" type="time"
-                                                           class="form-control form-control-sm chegada_obra" name="chegada[]" data-id="{{ $service->id }}"
-                                                           value="{{ $service->chegada }}" />
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div class="form-group ">
-                                                    <input id="qnt_minutos_{{ $service->id }}" min="0" type="number"
-                                                           class="form-control form-control-sm qnt_minutos" name="minutos[]" data-id="{{ $service->id }}"
-                                                           value="{{ $service->minutos }}" />
-                                                </div>
-                                            </th>
 
-                                            <th>
-                                                <div class="form-group ">
-                                                    <input class="form-control form-control-sm saida_obra" name="saida[]" required readonly tabindex="-1"
-                                                           value="{{ !empty($service->saida) ? $service->saida : '' }}" />
-                                                </div>
-                                            </th>
-
-                                            <th>
-                                                <input id="hours_{{ $service->id }}" class="form-control form-control-sm hours" name="horas[]" readonly
-                                                       data-id="{{ $service->id }}" value="{{ !empty($service->horas) ? $service->horas : '' }}"
-                                                       tabindex="-1" />
-                                            </th>
 
                                             <th>
                                                 <select name="codigo_sap[]" class="form-control form-control-sm select2 codigo_sap" placeholder="Código SAP"
@@ -611,6 +631,61 @@
                                                 </th>
                                             @endif
 
+                                            @if ($rdse->parcial_4)
+                                                <th>
+                                                    <input
+                                                           id="p_quantidade4_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm quantidade_parcial" name="p_quantidade4[]"
+                                                           data-id="{{ $service->id }}" data-parcial="4"
+                                                           value="{{ !empty($service->p_quantidade4) ? $service->p_quantidade4 : '0' }}" />
+                                                </th>
+                                                <th>
+                                                    <input id="price_total_parcial4_{{ $service->id }}"
+                                                           class="form-control form-control-sm price_parcial price_parcial4 money" name="p_preco4[]"
+                                                           data-id="{{ $service->id }}" data-parcial="4"
+                                                           value="{{ !empty($service->p_preco4) ? $service->p_preco4 : '0' }}" data-toggle="tooltip"
+                                                           data-placement="top"
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade4 : '' }}" />
+                                                </th>
+                                            @endif
+
+
+                                            @if ($rdse->parcial_5)
+                                                <th>
+                                                    <input
+                                                           id="p_quantidade5_{{ $service->id }}" min="0" type="number"
+                                                           class="form-control form-control-sm quantidade_parcial" name="p_quantidade5[]"
+                                                           data-id="{{ $service->id }}" data-parcial="5"
+                                                           value="{{ !empty($service->p_quantidade5) ? $service->p_quantidade5 : '0' }}" />
+                                                </th>
+                                                <th>
+                                                    <input id="price_total_parcial5_{{ $service->id }}"
+                                                           class="form-control form-control-sm price_parcial price_parcial5 money" name="p_preco5[]"
+                                                           data-id="{{ $service->id }}" data-parcial="5"
+                                                           value="{{ !empty($service->p_preco5) ? $service->p_preco5 : '0' }}" data-toggle="tooltip"
+                                                           data-placement="top"
+                                                           title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade5 : '' }}" />
+                                                </th>
+                                            @endif
+
+                                            @if ($rdse->parcial_6)
+                                            <th>
+                                                <input
+                                                       id="p_quantidade6_{{ $service->id }}" min="0" type="number"
+                                                       class="form-control form-control-sm quantidade_parcial" name="p_quantidade6[]"
+                                                       data-id="{{ $service->id }}" data-parcial="6"
+                                                       value="{{ !empty($service->p_quantidade6) ? $service->p_quantidade6 : '0' }}" />
+                                            </th>
+                                            <th>
+                                                <input id="price_total_parcial6_{{ $service->id }}"
+                                                       class="form-control form-control-sm price_parcial price_parcial6 money" name="p_preco6[]"
+                                                       data-id="{{ $service->id }}" data-parcial="6"
+                                                       value="{{ !empty($service->p_preco6) ? $service->p_preco6 : '0' }}" data-toggle="tooltip"
+                                                       data-placement="top"
+                                                       title="{{ !empty($service->handswork) ? 'UPS: ' . $service->handswork->price_ups * $service->p_quantidade6 : '' }}" />
+                                            </th>
+                                        @endif
+
                                             @if ($rdse->status == 'pending' || $rdse->status == 'approval')
                                                 <th>
                                                     <a type="button" href="javascript:void(0)" onclick="deleteService(`{{ $service->id }}`)" class=""
@@ -625,7 +700,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6"></td>
+                                        <td colspan="2"></td>
                                         <td>Parcial 1</td>
                                         <td class="total"></td>
                                         @if ($rdse->parcial_1)
@@ -1440,6 +1515,72 @@
                                     name="p_preco3[]"
                                     id="price_total_parcial3_${line}"
                                     data-parcial="3"
+                                    data-id="${line}"
+                                    value="" />
+                            </th>`
+                        }
+
+                        if ($('#parcial_4').val() == 1) {
+                            html += `
+                            <th>
+                                <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control form-control-sm quantidade_parcial"
+                                    name="p_quantidade4[]" id="p_quantidade4_${line}"
+                                    data-id="${line}"
+                                    data-parcial="4"
+                                    value="" />
+                            </th>
+                            <th>
+                                <input class="form-control form-control-sm price_parcial price_parcial4 money"
+                                    name="p_preco4[]"
+                                    id="price_total_parcial4_${line}"
+                                    data-parcial="4"
+                                    data-id="${line}"
+                                    value="" />
+                            </th>`
+                        }
+
+                        if ($('#parcial_5').val() == 1) {
+                            html += `
+                            <th>
+                                <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control form-control-sm quantidade_parcial"
+                                    name="p_quantidade5[]" id="p_quantidade5_${line}"
+                                    data-id="${line}"
+                                    data-parcial="5"
+                                    value="" />
+                            </th>
+                            <th>
+                                <input class="form-control form-control-sm price_parcial price_parcial5 money"
+                                    name="p_preco5[]"
+                                    id="price_total_parcial5_${line}"
+                                    data-parcial="5"
+                                    data-id="${line}"
+                                    value="" />
+                            </th>`
+                        }
+
+                        if ($('#parcial_6').val() == 1) {
+                            html += `
+                            <th>
+                                <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control form-control-sm quantidade_parcial"
+                                    name="p_quantidade6[]" id="p_quantidade6_${line}"
+                                    data-id="${line}"
+                                    data-parcial="6"
+                                    value="" />
+                            </th>
+                            <th>
+                                <input class="form-control form-control-sm price_parcial price_parcial6 money"
+                                    name="p_preco6[]"
+                                    id="price_total_parcial6_${line}"
+                                    data-parcial="6"
                                     data-id="${line}"
                                     value="" />
                             </th>`

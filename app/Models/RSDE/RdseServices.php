@@ -27,11 +27,18 @@ class RdseServices extends Model
         'type',
 
         'p_quantidade1',
-        'p_preco1',
         'p_quantidade2',
-        'p_preco2',
         'p_quantidade3',
+        'p_quantidade4',
+        'p_quantidade5',
+        'p_quantidade6',
+
+        'p_preco1',
+        'p_preco2',
         'p_preco3',
+        'p_preco4',
+        'p_preco5',
+        'p_preco6',
     ];
 
     public $preventAttrSet = true;
@@ -62,6 +69,27 @@ class RdseServices extends Model
         return $this->preventAttrSet
             ? maskPrice($this->attributes['p_preco3'])
             : $this->attributes['p_preco3'];
+    }
+
+    public function getPPreco4Attribute()
+    {
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['p_preco4'])
+            : $this->attributes['p_preco4'];
+    }
+
+    public function getPPreco5Attribute()
+    {
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['p_preco5'])
+            : $this->attributes['p_preco5'];
+    }
+
+    public function getPPreco6Attribute()
+    {
+        return $this->preventAttrSet
+            ? maskPrice($this->attributes['p_preco6'])
+            : $this->attributes['p_preco6'];
     }
 
     public function setPrecoAttribute($value)

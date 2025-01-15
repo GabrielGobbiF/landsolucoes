@@ -315,6 +315,12 @@ class RdseController extends Controller
             $rdse->parcial_2 = 1;
         } else if ($rdse->parcial_3 == 0) {
             $rdse->parcial_3 = 1;
+        } else if ($rdse->parcial_4 == 0) {
+            $rdse->parcial_4 = 1;
+        } else if ($rdse->parcial_5 == 0) {
+            $rdse->parcial_5 = 1;
+        } else if ($rdse->parcial_6 == 0) {
+            $rdse->parcial_6 = 1;
         }
 
         $rdse->status = 'pending';
