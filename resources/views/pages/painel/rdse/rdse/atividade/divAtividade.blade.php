@@ -106,6 +106,14 @@
 
             const formData = new FormData(form);
 
+            //const imageInput = document.getElementById('cover-input');
+
+            //if (imageInput.files) {
+            //    Array.from(imageInput.files).forEach((file, index) => {
+            //        formData.append(`cover[${index}]`, file);
+            //    });
+            //}
+
             let data = {};
             formData.forEach((value, key) => {
                 //if (key.includes('itens')) {
@@ -127,7 +135,11 @@
             //    data.itens = data.itens.filter(item => item !== null && item !== undefined);
             //}
 
-            axios.post(`${route}/${id}/atividades`, data)
+            axios.post(`${route}/${id}/atividades`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
                 .then(function(response) {
                     alert('Segmento salvo com sucesso!');
                     clearForm();
@@ -150,11 +162,14 @@
 
         function clearForm() {
             const form = document.getElementById('itensForNewAtividade');
+            const previewContainer = document.querySelector('#preview-container')
 
+            const selectVeiculoId = document.getElementById('select--veiculo_id').tomselect.clear();
+            const selectSelectEquipe = document.getElementById('rdse-select_equipe').tomselect.clear();
+
+            previewContainer.innerHTML = '';
             form.reset();
-
             carregarAtividades();
-
             toggleForm();
         }
 

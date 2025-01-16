@@ -1,4 +1,49 @@
-<form id="itensForNewAtividade" action="" method="POST">
+<style>
+    .cover-image {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .cover-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .remove-cover {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 0, 0, 0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .upload-container {
+        margin-top: 10px;
+    }
+
+    .upload-container label {
+        cursor: pointer;
+        color: blue;
+        text-decoration: underline;
+    }
+</style>
+
+
+<form id="itensForNewAtividade" action="" method="POST" enctype="multipart/form-data">
     <input id="routeAddAtividade" type="hidden" value="{{ route('api.rdse.index') }}">
     <input id="modalrdseId" type="hidden" value="{{ isset($rdse) ? $rdse->id : null }}">
 
@@ -70,9 +115,6 @@
             </div>
         </div>
 
-
-
-
         <div class="col-12 col-md-4">
             <div class="form-group">
                 <label for="rdse-civil">Civil</label>
@@ -143,6 +185,16 @@
             </div>
         </div>
 
+        <div class="col-12 col-md-12 mt-2">
+            <div class="cover-container">
+                <div id="upload-container" class="upload-container {{ !empty($bank->cover) ? 'd-none' : '' }}">
+                    <input id="cover-input" type="file" name="uploads[]" accept="image/*" multiple class="d-none" onchange="previewCover(event)">
+                    <label for="cover-input">Clique aqui para enviar imagens</label>
+                </div>
+                <div id="preview-container"></div>
+            </div>
+        </div>
+
         <div class="col-12 col-md-12 mt-4">
             <button id="submitForm" type="button" class="btn btn-primary">Salvar</button>
         </div>
@@ -150,6 +202,28 @@
 </form>
 
 @section('scripts')
+
+    <script>
+        function previewCover(event) {
+            const files = event.target.files; // Obtem os arquivos selecionados
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.innerHTML = ''; // Limpa o container de pré-visualização
+
+            if (files) {
+                Array.from(files).forEach((file) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.width = '100px';
+                        img.style.margin = '10px';
+                        previewContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+    </script>
     <script class="">
         document.addEventListener("DOMContentLoaded", function() {
             const equipeSelect = document.getElementById("rdse-select_equipe");

@@ -49,7 +49,7 @@ class RdseService
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
 
-        $rdseAtividade = RdseActivity::create($data);
+        return RdseActivity::create($data);
 
         /*
         foreach ($request->input('itens') as $item) {
@@ -65,7 +65,6 @@ class RdseService
         }
         */
 
-        return;
     }
 
     public function atualizarAtividade(Request $request, RdseActivity $rdseAtividade)

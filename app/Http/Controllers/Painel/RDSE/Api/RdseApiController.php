@@ -292,7 +292,28 @@ class RdseApiController extends Controller
                 ->with('message', 'Registro (Rdse) não encontrado!');
         }
 
-        $this->rdseService->adicionarAtividade($request, $rdse);
+        $created = $this->rdseService->adicionarAtividade($request, $rdse);
+
+        if ($request->hasFile('uploads')) {
+            foreach ($request->file('uploads') as $file) {
+                // Gera o caminho e salva o arquivo
+                $filePath = $file->store('uploads', 'public');
+                $fileHash = md5_file($file->getRealPath());
+
+                // Salva no banco de dados
+                $created->uploads()->create([
+                    'user_id' => auth()->id(),
+                    'name' => $file->getClientOriginalName(),
+                    'file_name' => basename($filePath),
+                    'mime_type' => $file->getMimeType(),
+                    'path' => 'storage/' . $filePath,
+                    'disk' => 'public',
+                    'file_hash' => $fileHash,
+                    'collection' => 'activity_images',
+                    'extension' => $file->getClientOriginalExtension(),
+                ]);
+            }
+        }
 
         return response()->json(true, 200);
     }

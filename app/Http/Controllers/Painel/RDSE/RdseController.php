@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use ZipArchive;
 
 class RdseController extends Controller
 {
@@ -628,7 +629,7 @@ class RdseController extends Controller
 
     public function showAtividade(Request $request, $atividadeId)
     {
-        if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->with('atividades', 'atividades.handswork')->first()) {
+        if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->with('atividades', 'atividades.handswork', 'uploads')->first()) {
             return redirect()
                 ->route('rdse.programacao.index')
                 ->with('message', 'Registro (Rdse) não encontrado!');
@@ -636,10 +637,13 @@ class RdseController extends Controller
 
         $itens = $rdseAtividade->atividades;
 
+        $imagens = $rdseAtividade->uploads;
+
         return view('pages.painel.rdse.rdse.atividade.show', [
             'rdseAtividade' => $rdseAtividade,
             'equipes' => Equipe::all(),
             'itens' => $itens,
+            'imagens' => $imagens,
         ]);
     }
 
@@ -814,5 +818,64 @@ class RdseController extends Controller
         $rdse->save();
 
         return redirect()->back();
+    }
+
+    public function downloadImages($activityId)
+    {
+        if (!$rdseAtividade = RdseActivity::where('id', $activityId)->with('atividades', 'atividades.handswork', 'uploads')->first()) {
+            return redirect()
+                ->route('rdse.programacao.index')
+                ->with('message', 'Registro (Rdse) não encontrado!');
+        }
+
+        $uploads = $rdseAtividade->uploads;
+
+        if ($uploads->isEmpty()) {
+            return redirect()
+                ->route('rdse.atividades.show')
+                ->with('error', 'Nenhuma imagem encontrada para esta atividade.');
+        }
+
+        // Nome do arquivo compactado
+        $zipFileName = "atividade_{$activityId}_imagens.rar";
+
+        if (!is_dir(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0777, true);
+        }
+
+        // Caminho temporário para salvar o arquivo .rar
+        $tempPath = storage_path("app/temp/{$zipFileName}");
+
+        // Cria a pasta temporária, caso não exista
+        if (!is_dir(dirname($tempPath))) {
+            mkdir(dirname($tempPath), 0777, true);
+        }
+
+        // Inicializa o objeto ZipArchive
+        $zip = new ZipArchive;
+
+        if ($zip->open($tempPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+
+
+            foreach ($uploads as $upload) {
+                $locationPath = str_replace("storage","", $upload->path);
+
+                $filePath = storage_path("app/public/{$locationPath}");
+
+
+                if (file_exists($filePath)) {
+                    // Adiciona o arquivo ao .rar
+                    $zip->addFile($filePath, basename($filePath));
+                }
+            }
+
+            // Fecha o arquivo compactado
+            $zip->close();
+
+            // Retorna o arquivo para download
+            return response()->download($tempPath)->deleteFileAfterSend(true);
+        }
+
+        return response()->json(['message' => 'Erro ao criar o arquivo compactado.'], 500);
     }
 }

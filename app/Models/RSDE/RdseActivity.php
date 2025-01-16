@@ -7,6 +7,7 @@ use App\Models\Activitie;
 use App\Models\Encarregado;
 use App\Models\Equipe;
 use App\Models\Supervisor;
+use App\Models\Uploaded;
 use App\Models\Vehicle;
 use App\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,5 +84,10 @@ class RdseActivity extends Model
     public function canUpdate()
     {
         return empty($this->execucao);
+    }
+
+    public function uploads()
+    {
+        return $this->morphMany(Uploaded::class, 'parentable');
     }
 }
