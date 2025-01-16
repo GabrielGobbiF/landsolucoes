@@ -367,8 +367,17 @@ class TableApiController extends Controller
         $searchColumns = ['id', 'description', 'n_order', 'equipe', 'solicitante', 'at', 'type', 'status'];
 
         $filters = $this->filter;
-
         $filters['search'] =  $this->search;
+
+        $datesPeriodoSearch = null;
+
+        if (!empty($filters['period'])) {
+            $datesPeriodoSearch = calculateDates(
+                $filters['period'],
+                $filters['start_at'],
+                $filters['end_at']
+            );
+        }
 
         $rdses = $rdses
             ->where(function ($query) use ($searchColumns) {
@@ -460,6 +469,14 @@ class TableApiController extends Controller
                             $query->where('id', '>', 0);
                         });
                     }
+                }
+            })
+
+            ->where(function ($query) use ($datesPeriodoSearch) {
+                if (!empty($datesPeriodoSearch)) {
+                    $query->whereHas('activities', function ($query) use ($datesPeriodoSearch) {
+                        $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                    });
                 }
             })
 

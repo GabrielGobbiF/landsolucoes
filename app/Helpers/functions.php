@@ -427,3 +427,94 @@ function __singular($text)
 {
     return Str::singular($text);
 }
+
+/**
+ * Calcula as datas de início e fim com base no período.
+ *
+ * @param string $period
+ * @param string|null $startDate
+ * @param string|null $endDate
+ * @return array
+ * @throws \Exception
+ */
+function calculateDates(string $period, ?string $startDate = null, ?string $endDate = null): array
+{
+    $today = Carbon::today();
+    $start_at = null;
+    $end_at = null;
+
+    switch ($period) {
+        case 'today':
+            $start_at = $end_at = $today;
+            break;
+
+        case 'tomorrow':
+            $start_at = $end_at = $today->copy()->addDay();
+            break;
+
+        case 'yesterday':
+            $start_at = $end_at = $today->copy()->subDay();
+            break;
+
+        case 'last_3_days':
+            $start_at = $today->copy()->subDays(3);
+            $end_at = $today;
+            break;
+
+        case 'last_7_days':
+            $start_at = $today->copy()->subDays(7);
+            $end_at = $today;
+            break;
+
+        case 'last_15_days':
+            $start_at = $today->copy()->subDays(15);
+            $end_at = $today;
+            break;
+
+        case 'last_30_days':
+            $start_at = $today->copy()->subDays(30);
+            $end_at = $today;
+            break;
+
+        case 'next_3_days':
+            $start_at = $today;
+            $end_at = $today->copy()->addDays(3);
+            break;
+
+        case 'next_5_days':
+            $start_at = $today;
+            $end_at = $today->copy()->addDays(5);
+            break;
+
+        case 'next_15_days':
+            $start_at = $today;
+            $end_at = $today->copy()->addDays(15);
+            break;
+
+        case 'next_30_days':
+            $start_at = $today;
+            $end_at = $today->copy()->addDays(30);
+            break;
+
+        case 'specific':
+            if (!$startDate || !$endDate) {
+                throw new \Exception("Para 'Período específico', as datas de início e fim são obrigatórias.");
+            }
+
+            $start_at = Carbon::parse($startDate);
+            $end_at = Carbon::parse($endDate);
+
+            if ($start_at->greaterThan($end_at)) {
+                throw new \Exception("A data inicial não pode ser maior que a data final.");
+            }
+            break;
+
+        default:
+            throw new \Exception("Período inválido.");
+    }
+
+    return [
+        'start_at' => $start_at->toDateString(),
+        'end_at' => $end_at->toDateString(),
+    ];
+}

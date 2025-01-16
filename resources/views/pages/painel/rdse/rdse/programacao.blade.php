@@ -34,136 +34,194 @@
     <div class="card">
         <div class="card-body">
             <div class="row mb-4 no-print">
-                <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
-                    <label>Status de Medição</label>
-                    <select id="rdse-select_status" name="status" class="form-control select2 search-input-rdse" multiple>
-                        @foreach (trans('rdses.status_label') as $status => $text)
-                            <option value='{{ $status }}'
-                                    {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
-                                {{ __trans('rdses.status_label.' . $status) }}
-                            </option>
-                        @endforeach
-                    </select>
+
+                <div class="col-12">
+                    <div class="card text-start">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Filtro RDSE</h4>
+
+                            <div class="row">
+                                <div class="col-12 col-md-auto mb-2" style="min-width: 180px">
+                                    <label>Status de Medição</label>
+                                    <select id="rdse-select_status" name="status" class="form-control select2 search-input-rdse" multiple>
+                                        @foreach (trans('rdses.status_label') as $status => $text)
+                                            <option value='{{ $status }}'
+                                                    {{ request()->filled('status') && in_array($text, request()->input('status')) ? 'selected="selected"' : null }}>
+                                                {{ __trans('rdses.status_label.' . $status) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-auto" style="min-width: 180px">
+                                    <label>Status de Programação</label>
+                                    <select id="rdse-select_status_execution" name="status_execution" class="form-control select2 search-input-rdse" multiple>
+                                        @foreach (trans('rdses.status_execution') as $status_execution)
+                                            <option value='{{ $status_execution }}'
+                                                    {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
+                                                {{ $status_execution }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-auto" style="min-width: 180px">
+                                    <label>Status de Encerramento</label>
+                                    <select id="rdse-select_status_closing" name="status_closing" class="form-control select2 search-input-rdse" multiple>
+                                        @foreach (\App\Supports\Enums\Rdse\RdseClosingStatus::options() as $status_closing)
+                                            <option value='{{ $status_closing['value'] }}'>
+                                                {{ $status_closing['label_translate'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-lg-2 col-xl-2 col-xxl-2">
+                                    <label>Tipo</label>
+                                    <select id="rdse-select--type" name="type" class="form-control select2 search-input-rdse">
+                                        <option value="">Selecione</option>
+                                        @foreach (config('admin.rdse.type') as $type)
+                                            <option value='{{ $type['name'] }}'
+                                                    {{ (!request()->filled('type') && $type['name'] == 'Em Medição' ? ' selected="selected"' : request()->filled('type') && request()->input('type') == $type['name']) ? ' selected="selected"' : '' }}>
+                                                {{ $type['name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div id="div-search_lote" class="col-12 col-md-3 col-lg-2 col-xl-2 col-xxl-2">
+                                    <label>Lote</label>
+                                    <select id="rdse-select--lote" name="lote" class="form-control select2 search-input-rdse">
+                                        <option value="">Selecione</option>
+                                        @foreach ($lotes as $lote)
+                                            <option value='{{ $lote->lote }}'>{{ $lote->lote }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-lg-2 col-xl-auto col-xxl-2">
+                                    <label>Data</label>
+                                    <input type="text" class="form-control search-input-rdse" name="daterange"
+                                           @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
+                                </div>
+
+                                <div class="col-12 col-md-1">
+                                    <label for="rdse-diretoria">Diretoria</label>
+                                    <select id="rdse-diretoria" name="diretoria" class="form-control search-input-rdse" required tabindex="1">
+                                        <option value="">Selecione </option>
+                                        <option value='PM'>PM </option>
+                                        <option value='HV'>HV </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-auto">
+                                    <label for="rdse-tipo_obra">Tipo de Obra</label>
+                                    <select id="select--tipo_obra" name="tipo_obra" class="form-control select-tipo_obra t-select  search-input-rdse"
+                                            data-request="{{ route('tipos_obra.all') }}" data-value-field="id" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12 col-md-1">
+                                    <label>Mês</label>
+                                    <select id="mes" name="month_date" class="form-control search-input-rdse">
+                                        <option selected value="">Selecione</option>
+                                        <option value="01">Janeiro</option>
+                                        <option value="02">Fevereiro</option>
+                                        <option value="03">Março</option>
+                                        <option value="04">Abril</option>
+                                        <option value="05">Maio</option>
+                                        <option value="06">Junho</option>
+                                        <option value="07">Julho</option>
+                                        <option value="08">Agosto</option>
+                                        <option value="09">Setembro</option>
+                                        <option value="10">Outubro</option>
+                                        <option value="11">Novembro</option>
+                                        <option value="12">Dezembro</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-1">
+                                    <label>Ano</label>
+                                    <select id="year" name="year" class="form-control search-input-rdse">
+                                        <option {{ request()->input('year') == '2024' ? 'selected' : null }} value="2024">2024</option>
+                                        <option {{ request()->input('year') == '2025' ? 'selected' : null }} value="2025">2025</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-1">
+                                    <label>NFE</label>
+                                    <input type="text" class="form-control search-input-rdse" name="nfe" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-12 col-md-auto" style="min-width: 180px">
-                    <label>Status de Programação</label>
-                    <select id="rdse-select_status_execution" name="status_execution" class="form-control select2 search-input-rdse" multiple>
-                        @foreach (trans('rdses.status_execution') as $status_execution)
-                            <option value='{{ $status_execution }}'
-                                    {{ request()->filled('status_execution') && in_array($text, request()->input('status_execution')) ? 'selected="selected"' : null }}>
-                                {{ $status_execution }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                <div class="col-12">
+                    <div class="card text-start">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Filtro Atividades</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-1">
+                                    <label>Atividades</label>
+                                    <select id="rdse-atividades" name="atividades" class="form-control select2 search-input-rdse">
+                                        <option value="all">Todas</option>
+                                        <option value="nao_execucao">Não executado</option>
+                                        <option value="execucao">Executado</option>
+                                    </select>
+                                </div>
 
-                <div class="col-12 col-md-auto" style="min-width: 180px">
-                    <label>Status de Encerramento</label>
-                    <select id="rdse-select_status_closing" name="status_closing" class="form-control select2 search-input-rdse" multiple>
-                        @foreach (\App\Supports\Enums\Rdse\RdseClosingStatus::options() as $status_closing)
-                            <option value='{{ $status_closing['value'] }}'>
-                                {{ $status_closing['label_translate'] }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                                <div class="col-12 col-md-1" style="min-width: 180px">
+                                    <label>Equipe</label>
+                                    <select id="rdse-equipe" name="equipe_id" class="form-control select2 search-input-rdse">
+                                        <option value="">Selecione</option>
+                                        @foreach (equipes() as $equipe)
+                                            <option value='{{ $equipe->id }}'>{{ $equipe->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                <div class="col-12 col-md-3">
-                    <label>Tipo</label>
-                    <select id="rdse-select--type" name="type" class="form-control select2 search-input-rdse">
-                        <option value="">Selecione</option>
-                        @foreach (config('admin.rdse.type') as $type)
-                            <option value='{{ $type['name'] }}'
-                                    {{ (!request()->filled('type') && $type['name'] == 'Em Medição' ? ' selected="selected"' : request()->filled('type') && request()->input('type') == $type['name']) ? ' selected="selected"' : '' }}>
-                                {{ $type['name'] }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                                <div class="col-12 col-md-3 col-xl-2">
+                                    <div class="mb-3 form-group  ">
+                                        <label class="form-label" for="period-select">Período:</label>
+                                        <select id="period-select" name="period" class="form-select t-select search-input-rdse">
+                                            <option value="" selected>Selecione</option>
+                                            <option value="today">Hoje</option>
+                                            <option value="yesterday">Ontem</option>
+                                            <option value="tomorrow">Amanha</option>
+                                            <option value="next_3_days">Próximos 03 dias </option>
+                                            <option value="next_5_days">Próximos 05 dias</option>
+                                            <option value="last_3_days">Últimos 03 dias </option>
+                                            <option value="last_5_days">Últimos 05 dias</option>
+                                            <option value="last_15_days">Últimos 15 dias </option>
+                                            <option value="last_30_days">Últimos 30 dias</option>
+                                            <option value="next_15_days">Próximos 15 dias </option>
+                                            <option value="next_30_days">Próximos 30 dias</option>
+                                            <option value="specific">Período específico</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                <div id="div-search_lote" class="col-12 col-md-3">
-                    <label>Lote</label>
-                    <select id="rdse-select--lote" name="lote" class="form-control select2 search-input-rdse">
-                        <option value="">Selecione</option>
-                        @foreach ($lotes as $lote)
-                            <option value='{{ $lote->lote }}'>{{ $lote->lote }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                                <div class="col-12 col-md-6">
+                                    <div id="date-fields" class="mb-3 date-fields row d-none">
+                                        <div class="form-group  col-12 col-md-2" style="min-width: 180px">
+                                            <label class="form-label" for="input--start_at">Dê</label>
+                                            <input id="input--start_at" type="date" name="start_at"
+                                                   class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                        </div>
 
-                <div class="col-12 col-md-3">
-                    <label>Data</label>
-                    <input type="text" class="form-control search-input-rdse" name="daterange"
-                           @if (request()->input('daterange') != null) value="{{ $date_to }} - {{ $date_from }}" @endif />
-                </div>
-
-                <div class="col-12 col-md-3">
-                    <label>Equipe</label>
-                    <select id="rdse-equipe" name="equipe_id" class="form-control select2 search-input-rdse">
-                        <option value="">Selecione</option>
-                        @foreach (equipes() as $equipe)
-                            <option value='{{ $equipe->id }}'>{{ $equipe->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-12 col-md-2">
-                    <label>Atividades</label>
-                    <select id="rdse-atividades" name="atividades" class="form-control select2 search-input-rdse">
-                        <option value="all">Todas</option>
-                        <option value="nao_execucao">Não executado</option>
-                        <option value="execucao">Executado</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-md-1">
-                    <label for="rdse-diretoria">Diretoria</label>
-                    <select id="rdse-diretoria" name="diretoria" class="form-control search-input-rdse" required tabindex="1">
-                        <option value="">Selecione </option>
-                        <option value='PM'>PM </option>
-                        <option value='HV'>HV </option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-md-2">
-                    <label for="rdse-tipo_obra">Tipo de Obra</label>
-                    <select id="select--tipo_obra" name="tipo_obra" class="form-control select-tipo_obra t-select  search-input-rdse"
-                            data-request="{{ route('tipos_obra.all') }}" data-value-field="id" required>
-                    </select>
-                </div>
-
-
-                <div class="col-12 col-md-1">
-                    <label>Mês</label>
-                    <select id="mes" name="month_date" class="form-control search-input-rdse">
-                        <option selected value="">Selecione</option>
-                        <option value="01">Janeiro</option>
-                        <option value="02">Fevereiro</option>
-                        <option value="03">Março</option>
-                        <option value="04">Abril</option>
-                        <option value="05">Maio</option>
-                        <option value="06">Junho</option>
-                        <option value="07">Julho</option>
-                        <option value="08">Agosto</option>
-                        <option value="09">Setembro</option>
-                        <option value="10">Outubro</option>
-                        <option value="11">Novembro</option>
-                        <option value="12">Dezembro</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-md-1">
-                    <label>Ano</label>
-                    <select id="year" name="year" class="form-control search-input-rdse">
-                        <option {{ request()->input('year') == '2024' ? 'selected' : null }} value="2024">2024</option>
-                        <option {{ request()->input('year') == '2025' ? 'selected' : null }} value="2025">2025</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-md-1">
-                    <label>NFE</label>
-                    <input type="text" class="form-control search-input-rdse" name="nfe" value="" />
+                                        <div class="form-group  col-12 col-md-2" style="min-width: 180px">
+                                            <label class="form-label" for="input--end_at">Até</label>
+                                            <input id="input--end_at" type="date" name="end_at"
+                                                   class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <input id="totalTable" type="hidden">
@@ -172,7 +230,6 @@
                 <input id="totalP3" type="hidden">
                 <input id="totalUpsTable" type="hidden">
             </div>
-
 
             <div class="table table-api">
                 <div class="table-responsive d-none">
@@ -196,7 +253,7 @@
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
                                 <th data-field="sigeo" data-formatter="sigeo">Viab Sigeo</th>
-                                <th data-field="diretoria" >Diretoria</th>
+                                <th data-field="diretoria">Diretoria</th>
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
@@ -382,6 +439,27 @@
             localStorage.setItem(id, JSON.stringify(value));
             localStorage.setItem('rdse-selecteds', JSON.stringify([]));
             initButtons();
+
+            if(id == 'input--start_at'){
+                if ($('#input--end_at').val() == '' || $(this).val() == '') {
+                    return;
+                }
+            }
+
+            if(id == 'input--end_at'){
+                if ($('#input--start_at').val() == '' || $(this).val() == '') {
+                    return;
+                }
+            }
+
+            if ($(this).val() == 'specific') {
+                const startAt = document.getElementById('input--start_at');
+                const endAt = document.getElementById('input--end_at');
+                if (startAt.value == '' || endAt.value == '') {
+                    return;
+                }
+            }
+
             initTable();
         })
 
@@ -923,6 +1001,18 @@
 
                 })
         });
+
+        const periodSelect = document.getElementById('period-select');
+        const dateFields = document.getElementById('date-fields');
+
+        periodSelect.addEventListener('change', function() {
+            if (this.value === 'specific') {
+                dateFields.classList.remove('d-none')
+            } else {
+                dateFields.classList.add('d-none')
+            }
+        });
+
 
         //$('#observationModal').on('show.bs.modal', function(event) {
         //    axios.get(`${base_url}/api/v1/rdse/${rdseId}`)

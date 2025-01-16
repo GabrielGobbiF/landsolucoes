@@ -179,6 +179,16 @@ class Rdse extends Model
     {
         $html = '';
 
+        $datesPeriodoSearch = null;
+
+        if (!empty($filters['period'])) {
+            $datesPeriodoSearch = calculateDates(
+                $filters['period'],
+                $filters['start_at'],
+                $filters['end_at']
+            );
+        }
+
         $atividades = $this->activities()
             ->where(function ($query) use ($filters) {
                 if (!empty($filters['atividades']) && $filters['atividades'] != 'all') {
@@ -194,6 +204,13 @@ class Rdse extends Model
                     $query->where('diretoria',  $filters['diretoria']);
                 }
             })
+
+            ->where(function ($query) use ($datesPeriodoSearch) {
+                if (!empty($datesPeriodoSearch)) {
+                    $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                }
+            })
+
             ->orderBy('data', 'desc')->limit(5)->get();
 
         if ($atividades->count() == 0) {
