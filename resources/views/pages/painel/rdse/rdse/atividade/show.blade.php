@@ -18,7 +18,7 @@
                     </div>
 
                     <form id="form-handsworkes" role="form" class="needs-validation" novalidate autocomplete="off"
-                          action="{{ route('rdse.atividades.update', $rdseAtividade->id) }}" method="POST">
+                          action="{{ route('rdse.atividades.update', $rdseAtividade->id) }}" method="POST" enctype="multipart/form-data">
                         <div class="box-body">
                             <div class="row">
 

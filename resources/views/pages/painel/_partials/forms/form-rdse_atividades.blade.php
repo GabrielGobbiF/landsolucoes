@@ -154,10 +154,21 @@
         </div>
         <span class="tx-danger mt-3 d-none mgs-exc">*Se você confirmar essa operação essa atividade não poderá ser mais alterada</span>
     </div>
+
+    <div class="col-12 col-md-12 mt-2">
+        <div class="cover-container">
+            <div id="upload-container" class="upload-container {{ !empty($bank->cover) ? 'd-none' : '' }}">
+                <input id="cover-input" type="file" name="uploads[]" accept="image/*" multiple class="d-none" onchange="previewCover(event)">
+                <label for="cover-input">Clique aqui para enviar imagens</label>
+            </div>
+            <div id="preview-container"></div>
+        </div>
+    </div>
 </div>
+
 @section('scripts')
 
-    <script class="">
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Seleciona os radios e a mensagem
             const radios = document.querySelectorAll('.form-exec');
@@ -181,6 +192,28 @@
             // Executa a função ao carregar a página para definir o estado inicial da mensagem
             toggleMessage();
         });
+    </script>
+
+    <script>
+        function previewCover(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.innerHTML = '';
+
+            if (files) {
+                Array.from(files).forEach((file) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.width = '100px';
+                        img.style.margin = '10px';
+                        previewContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
     </script>
     {{--
     <script>

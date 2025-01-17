@@ -205,9 +205,9 @@
 
     <script>
         function previewCover(event) {
-            const files = event.target.files; // Obtem os arquivos selecionados
+            const files = event.target.files;
             const previewContainer = document.getElementById('preview-container');
-            previewContainer.innerHTML = ''; // Limpa o container de pré-visualização
+            previewContainer.innerHTML = '';
 
             if (files) {
                 Array.from(files).forEach((file) => {

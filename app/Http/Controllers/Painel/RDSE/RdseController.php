@@ -649,6 +649,8 @@ class RdseController extends Controller
 
     public function updateAtividade(Request $request, $atividadeId)
     {
+
+
         $request->merge([
             'data' => Carbon::createFromFormat('d/m/Y', $request->input('data'))->format('Y-m-d'),
         ]);
@@ -660,6 +662,27 @@ class RdseController extends Controller
         }
 
         $this->rdseService->atualizarAtividade($request, $rdseAtividade);
+
+        if ($request->hasFile('uploads')) {
+            foreach ($request->file('uploads') as $file) {
+                // Gera o caminho e salva o arquivo
+                $filePath = $file->store('uploads', 'public');
+                $fileHash = md5_file($file->getRealPath());
+
+                // Salva no banco de dados
+                $rdseAtividade->uploads()->create([
+                    'user_id' => auth()->id(),
+                    'name' => $file->getClientOriginalName(),
+                    'file_name' => basename($filePath),
+                    'mime_type' => $file->getMimeType(),
+                    'path' => 'storage/' . $filePath,
+                    'disk' => 'public',
+                    'file_hash' => $fileHash,
+                    'collection' => 'activity_images',
+                    'extension' => $file->getClientOriginalExtension(),
+                ]);
+            }
+        }
 
         return redirect()
             ->route('rdse.atividades.show', $rdseAtividade->id)
