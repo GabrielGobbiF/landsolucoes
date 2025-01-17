@@ -350,12 +350,11 @@ return [
                     ],
                 ]
             ],
-
-            [
+            /*[
                 'name' =>  'Arquivos',
                 'icon' =>  'fas fa-file',
                 'route' => 'rdse.files.index',
-            ],
+            ],*/
 
         ],
         'epi' => [

@@ -137,7 +137,7 @@ class RdseController extends Controller
         $rdseServices = $services->with('handswork')->get();
         $logs = $rdse->logs();
 
-        $atividades = $rdse->activities()->with('equipe')->orderBy('data')->get();
+        $atividades = $rdse->activities()->with('equipe')->orderBy('data', 'desc')->get();
         $itensResb = Resb::where('rdse_id', $rdse->id)->limit(1)->get();
 
         return view('pages.painel.rdse.rdse.show', [
