@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RdseActivity;
+use App\Exports\AtividadesExport;
 use App\Http\Controllers\Controller;
+use App\Models\RSDE\RdseActivity;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RdseActivityController extends Controller
 {
@@ -18,24 +20,21 @@ class RdseActivityController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $rdseActivitys = RdseActivity::all();
 
         return view('admin.rdseActivitys.index', [
-            'rdseActivitys'=>$rdseActivitys
+            'rdseActivitys' => $rdseActivitys
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateRdseActivity $request)
+    public function store(Request $request)
     {
         $columns = $request->all();
 
@@ -49,8 +48,6 @@ class RdseActivityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RdseActivity  $identify
-     * @return \Illuminate\Http\Response
      */
     public function show(int $identify)
     {
@@ -69,10 +66,8 @@ class RdseActivityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RdseActivity  $identify
-     * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateRdseActivity $request, int $identify)
+    public function update(Request $request, int $identify)
     {
         $columns = $request->all();
 
@@ -93,7 +88,6 @@ class RdseActivityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -110,4 +104,44 @@ class RdseActivityController extends Controller
             ->with('message', 'Deletado com sucesso');
     }
 
+    public function export(Request $request)
+    {
+        $request->validate([
+            'period' => 'required',
+            'start_at' => 'nullable|date',
+            'end_at' => 'nullable|date|after_or_equal:data_inicio',
+        ]);
+
+        $datesPeriodoSearch = calculateDates(
+            $request->input('period'),
+            $request->input('start_at'),
+            $request->input('end_at'),
+        );
+
+        // Filtra as atividades com base nas datas
+        $atividades = RdseActivity::query()
+            ->join('rdses', 'rdse_activities.rdse_id', '=', 'rdses.id')
+            ->join('equipes', 'rdse_activities.equipe_id', '=', 'equipes.id')
+            ->join('supervisores', 'rdse_activities.supervisor_id', '=', 'supervisores.id')
+            ->join('vehicles', 'rdse_activities.veiculo_id', '=', 'vehicles.id')
+            ->join('encarregados', 'rdse_activities.encarregado_id', '=', 'encarregados.id')
+            ->select([
+                'vehicles.name as vehicle_name',
+                'equipes.name as equipe_name',
+                'encarregados.name as encarregado_name',
+                'rdses.diretoria',
+                'rdses.description',
+                'rdses.n_order',
+                'rdse_activities.atividades',
+            ])
+            ->where(function ($query) use ($datesPeriodoSearch) {
+                if (!empty($datesPeriodoSearch)) {
+                    $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                }
+            })
+            ->get()->toArray();
+
+        // Gera o arquivo Excel com as atividades filtradas
+        return Excel::download(new AtividadesExport($atividades), 'atividades.xlsx');
+    }
 }

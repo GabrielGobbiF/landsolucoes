@@ -4,6 +4,7 @@ use App\Http\Controllers\EquipeController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\Painel\RDSE\EncarregadoController;
 use App\Http\Controllers\Painel\RDSE\SupervisorController;
+use App\Http\Controllers\RdseActivityController;
 use App\Http\Controllers\TiposObraController;
 use App\Models\Compras\Category;
 use App\Models\Supervisor;
@@ -435,6 +436,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         Route::prefix('rdse')->group(function () {
 
             Route::prefix('atividades')->group(function () {
+                Route::get('export', [RdseActivityController::class, 'export'])->name('rdse.atividades.export');
+
                 Route::put('/{atividadeId}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'updateAtividade'])->name('rdse.atividades.update');
                 Route::post('/{rdseId}/store', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'storeAtividade'])->name('rdse.atividades.store');
                 Route::get('/{atividadeId}', [App\Http\Controllers\Painel\RDSE\RdseController::class, 'showAtividade'])->name('rdse.atividades.show');

@@ -184,20 +184,20 @@
                                 </div>
 
                                 <div class="col-12 col-md-3 col-xl-2">
-                                    <div class="mb-3 form-group  ">
-                                        <label class="form-label" for="period-select">Período:</label>
-                                        <select id="period-select" name="period" class="form-select t-select search-input-rdse">
+                                    <div class="mb-3 form-group">
+                                        <label class="form-label">Período:</label>
+                                        <select data-target="date-fields-1" name="period" class="form-select t-select search-input-rdse period-select">
                                             <option value="" selected>Selecione</option>
                                             <option value="today">Hoje</option>
                                             <option value="yesterday">Ontem</option>
-                                            <option value="tomorrow">Amanha</option>
-                                            <option value="next_3_days">Próximos 03 dias </option>
+                                            <option value="tomorrow">Amanhã</option>
+                                            <option value="next_3_days">Próximos 03 dias</option>
                                             <option value="next_5_days">Próximos 05 dias</option>
-                                            <option value="last_3_days">Últimos 03 dias </option>
+                                            <option value="last_3_days">Últimos 03 dias</option>
                                             <option value="last_5_days">Últimos 05 dias</option>
-                                            <option value="last_15_days">Últimos 15 dias </option>
+                                            <option value="last_15_days">Últimos 15 dias</option>
                                             <option value="last_30_days">Últimos 30 dias</option>
-                                            <option value="next_15_days">Próximos 15 dias </option>
+                                            <option value="next_15_days">Próximos 15 dias</option>
                                             <option value="next_30_days">Próximos 30 dias</option>
                                             <option value="specific">Período específico</option>
                                         </select>
@@ -205,17 +205,15 @@
                                 </div>
 
                                 <div class="col-12 col-md-6">
-                                    <div id="date-fields" class="mb-3 date-fields row d-none">
-                                        <div class="form-group  col-12 col-md-2" style="min-width: 180px">
-                                            <label class="form-label" for="input--start_at">Dê</label>
-                                            <input id="input--start_at" type="date" name="start_at"
-                                                   class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                    <div data-id="date-fields-1" class="mb-3 date-fields row d-none">
+                                        <div class="form-group col-12 col-md-2" style="min-width: 180px">
+                                            <label class="form-label">De</label>
+                                            <input type="date" name="start_at" class="form-control datetimepicker flatpickr-input search-input-rdse">
                                         </div>
 
-                                        <div class="form-group  col-12 col-md-2" style="min-width: 180px">
-                                            <label class="form-label" for="input--end_at">Até</label>
-                                            <input id="input--end_at" type="date" name="end_at"
-                                                   class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                        <div class="form-group col-12 col-md-2" style="min-width: 180px">
+                                            <label class="form-label">Até</label>
+                                            <input type="date" name="end_at" class="form-control datetimepicker flatpickr-input search-input-rdse">
                                         </div>
                                     </div>
                                 </div>
@@ -235,10 +233,19 @@
                 <div class="table-responsive d-none">
                     <div id="toolbar" class="no-print">
                         <div class="form-inline" role="form">
-                            <div class="btn-group mr-2">
+                            <div class="">
                                 <button type="button" data-toggle="modal" data-target="#modal-add-rdse" class="btn btn-dark waves-effect waves-light">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Novo
                                 </button>
+
+                                <button type="button" data-toggle="modal" data-target="#modal-export-activity"
+                                        class="btn btn-outline-primary waves-effect waves-light mr-2">
+                                    <i class="ri-add-circle-line align-middle mr-2"></i> Exportar Atividades
+                                </button>
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -381,6 +388,61 @@
 
     @include('pages.painel.rdse.rdse.atividade.modal_add_atividade')
 
+    <div id="modal-export-activity" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="exportModalLabel" class="modal-title">Exportar Atividades</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="exportForm" method="GET" action="{{ route('rdse.atividades.export') }}">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <label>Período:</label>
+                                <select data-target="date-fields-2" name="period" class="form-control t-select period-select">
+                                    <option value="" selected>Selecione</option>
+                                    <option value="today">Hoje</option>
+                                    <option value="yesterday">Ontem</option>
+                                    <option value="tomorrow">Amanhã</option>
+                                    <option value="next_3_days">Próximos 03 dias</option>
+                                    <option value="next_5_days">Próximos 05 dias</option>
+                                    <option value="last_3_days">Últimos 03 dias</option>
+                                    <option value="last_5_days">Últimos 05 dias</option>
+                                    <option value="last_15_days">Últimos 15 dias</option>
+                                    <option value="last_30_days">Últimos 30 dias</option>
+                                    <option value="next_15_days">Próximos 15 dias</option>
+                                    <option value="next_30_days">Próximos 30 dias</option>
+                                    <option value="specific">Período específico</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12 col-md-12">
+                                <div data-id="date-fields-2" class="mb-3 date-fields row d-none">
+                                    <div class="form-group col-12 col-md-2" style="min-width: 180px">
+                                        <label class="form-label">De</label>
+                                        <input type="date" name="start_at" class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-2" style="min-width: 180px">
+                                        <label class="form-label">Até</label>
+                                        <input type="date" name="end_at" class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Exportar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @section('scripts')
@@ -440,13 +502,13 @@
             localStorage.setItem('rdse-selecteds', JSON.stringify([]));
             initButtons();
 
-            if(id == 'input--start_at'){
+            if (id == 'input--start_at') {
                 if ($('#input--end_at').val() == '' || $(this).val() == '') {
                     return;
                 }
             }
 
-            if(id == 'input--end_at'){
+            if (id == 'input--end_at') {
                 if ($('#input--start_at').val() == '' || $(this).val() == '') {
                     return;
                 }
@@ -1002,15 +1064,25 @@
                 })
         });
 
-        const periodSelect = document.getElementById('period-select');
-        const dateFields = document.getElementById('date-fields');
 
-        periodSelect.addEventListener('change', function() {
-            if (this.value === 'specific') {
-                dateFields.classList.remove('d-none')
-            } else {
-                dateFields.classList.add('d-none')
-            }
+
+        // Seleciona todos os selects com a classe `period-select`
+        const periodSelects = document.querySelectorAll('.period-select');
+
+        // Adiciona o evento de `change` a cada select
+        periodSelects.forEach(select => {
+            select.addEventListener('change', function() {
+                // Recupera o valor do `data-target` para encontrar o container correspondente
+                const targetId = this.getAttribute('data-target');
+                const dateFields = document.querySelector(`[data-id="${targetId}"]`);
+
+                // Verifica o valor selecionado
+                if (this.value === 'specific') {
+                    dateFields.classList.remove('d-none');
+                } else {
+                    dateFields.classList.add('d-none');
+                }
+            });
         });
 
 
