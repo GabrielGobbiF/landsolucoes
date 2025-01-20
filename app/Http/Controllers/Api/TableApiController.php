@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\CelularesResource;
+use App\Http\Resources\ClientFormInvoicingResource;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\ComercialResource;
 use App\Http\Resources\ConcessionariaResource;
@@ -27,6 +28,7 @@ use App\Http\Resources\VehiclesResource;
 use App\Http\Resources\VisitorResource;
 use App\Models\Celular;
 use App\Models\Client;
+use App\Models\ClientFormInvoicing;
 use App\Models\Compras\Category;
 use App\Models\Compras\Fornecedor;
 use App\Models\Compras\Orcamento;
@@ -332,6 +334,27 @@ class TableApiController extends Controller
             ->paginate($this->limit);
 
         return NameResource::collection($encarregados);
+    }
+
+    public function clientsFormInvoicing()
+    {
+        $ClientFormInvoicing = new ClientFormInvoicing();
+
+        $searchColumns = ['id', 'email_financeiro'];
+
+        $ClientFormInvoicing = $ClientFormInvoicing
+            ->where(function ($query) use ($searchColumns) {
+                $search = $this->search;
+                if ($search != '' && !is_null($searchColumns)) {
+                    foreach ($searchColumns as $searchColumn) {
+                        $query->orWhere($searchColumn, 'LIKE', '%' . $search . '%');
+                    }
+                }
+            })
+            ->orderBy($this->sort, $this->order)
+            ->paginate($this->limit);
+
+        return ClientFormInvoicingResource::collection($ClientFormInvoicing);
     }
 
     public function ModelosRdses()

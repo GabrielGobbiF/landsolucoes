@@ -17,6 +17,9 @@ Auth::routes();
 Route::get('/password/expired', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'change'])->name('password.change');
 Route::post('/password/post_change', [App\Http\Controllers\Auth\ExpiredPasswordController::class, 'postExpired'])->name('password.post_expired');
 
+Route::get('clients/form-invoicing', [App\Http\Controllers\Clients\ClientController::class, 'showInvoicingForm'])->name('clients.form.invoicing');
+Route::post('clients/form-invoicing', [App\Http\Controllers\Clients\ClientController::class, 'storeInvoicingForm']);
+
 //Login Routes Clients...
 Route::get('/cliente/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
 Route::get('/clientes/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'showLoginForm']);
@@ -67,6 +70,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
         Route::get('/etd', [App\Http\Controllers\Api\TableApiController::class, 'etd'])->name('etd.all');
         Route::get('visitors', [App\Http\Controllers\Api\TableApiController::class, 'visitors'])->name('visitors.all');
+        Route::get('clients-form-invoicing', [App\Http\Controllers\Api\TableApiController::class, 'clientsFormInvoicing'])->name('clients-form-invoicing.all');
 
         Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
         Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
@@ -225,6 +229,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
         */
 
         Route::prefix('l')->middleware('auth')->group(function () {
+
+            Route::get('clients/form-invoicing', [App\Http\Controllers\Admin\ClientFormInvoicingController::class, 'index'])->name('admin.clients.form.invoicing');
+
+
             /*
             |--------------------------------------------------------------------------
             | Documentos
@@ -543,9 +551,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('script-condutores', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptCondutores'])->name('dev.script.condutores');
             Route::get('script-vehicles', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'scriptVehicles'])->name('dev.script.vehicles');
             Route::get('users/{userId}/auth', [App\Http\Controllers\Painel\UsersController::class, 'userAuth'])->name('user.auth');
-
-
-
         });
     });
 

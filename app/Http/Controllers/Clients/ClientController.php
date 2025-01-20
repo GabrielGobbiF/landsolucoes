@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Clients;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateClient;
 use App\Models\Client;
+use App\Models\ClientFormInvoicing;
 use App\Models\Obra;
 use App\Models\Pasta;
 use App\Models\Tipo;
@@ -128,7 +129,6 @@ class ClientController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Client  $uuid
-     * @return \Illuminate\Http\Response
      */
     public function destroy($uuid)
     {
@@ -143,5 +143,40 @@ class ClientController extends Controller
         return redirect()
             ->route('clients.index')
             ->with('message', 'Excluir com sucesso!');
+    }
+
+    public function showInvoicingForm(Request $request)
+    {
+        return view('web.form-invoicing');
+    }
+
+    public function storeInvoicingForm(Request $request)
+    {
+        $created = ClientFormInvoicing::create($request->all());
+
+        if ($request->hasFile('upload')) {
+            foreach ($request->file('upload') as $file) {
+                // Gera o caminho e salva o arquivo
+                $filePath = $file->store('uploads', 'public');
+                $fileHash = md5_file($file->getRealPath());
+
+                // Salva no banco de dados
+                $created->uploads()->create([
+                    'user_id' => auth()->id(),
+                    'name' => $file->getClientOriginalName(),
+                    'file_name' => basename($filePath),
+                    'mime_type' => $file->getMimeType(),
+                    'path' =>  $filePath,
+                    'disk' => 'public',
+                    'file_hash' => $fileHash,
+                    'collection' => 'client_form_invoicing',
+                    'extension' => $file->getClientOriginalExtension(),
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('clients.form.invoicing')
+            ->with('message', 'Criado com sucesso!');
     }
 }
