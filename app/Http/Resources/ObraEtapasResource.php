@@ -52,6 +52,8 @@ class ObraEtapasResource extends JsonResource
             "comments" => $this->getComments(),
             "finance" => $this->etapaFinanceiro($this->id_obra),
             "activities" => LogResource::collection($this->activities->sortByDesc('id')),
+            'haveDocuments' => $this->files->count() > 0 ? true : false,
+            'id_etapa' => $this->id_etapa
         ];
 
         return $data;

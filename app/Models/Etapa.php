@@ -40,4 +40,9 @@ class Etapa extends Model
     {
         return $this->hasMany(Variable::class, 'etapa_id');
     }
+
+    public function uploads()
+    {
+        return $this->morphMany(Uploaded::class, 'parentable');
+    }
 }

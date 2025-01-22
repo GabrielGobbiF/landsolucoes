@@ -629,7 +629,7 @@ class RdseController extends Controller
 
     public function showAtividade(Request $request, $atividadeId)
     {
-        if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->with('atividades', 'atividades.handswork', 'uploads')->first()) {
+        if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->with('atividades', 'atividades.handswork', 'uploads', 'activities')->first()) {
             return redirect()
                 ->route('rdse.programacao.index')
                 ->with('message', 'Registro (Rdse) não encontrado!');
@@ -639,11 +639,14 @@ class RdseController extends Controller
 
         $imagens = $rdseAtividade->uploads;
 
+        $rdseActivityHistorys = $rdseAtividade->logs()->sortByDesc('id');
+
         return view('pages.painel.rdse.rdse.atividade.show', [
             'rdseAtividade' => $rdseAtividade,
             'equipes' => Equipe::all(),
             'itens' => $itens,
             'imagens' => $imagens,
+            'rdseActivityHistorys' => $rdseActivityHistorys,
         ]);
     }
 
@@ -881,7 +884,7 @@ class RdseController extends Controller
 
 
             foreach ($uploads as $upload) {
-                $locationPath = str_replace("storage","", $upload->path);
+                $locationPath = str_replace("storage", "", $upload->path);
 
                 $filePath = storage_path("app/public/{$locationPath}");
 

@@ -167,6 +167,12 @@
                         <a id="pills-uploadeds-tab" class="nav-link " data-toggle="pill" href="#pills-uploadeds" role="tab"
                            aria-controls="pills-uploadeds" aria-selected="true">Documentos</a>
                     </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a id="pills-modelo_uploadeds-tab" class="nav-link " data-toggle="pill" href="#pills-modelo_uploadeds" role="tab"
+                           aria-controls="pills-modelo_uploadeds" aria-selected="true">Modelo de Documentos</a>
+                    </li>
+
                     @if (!auth()->guard('clients')->check())
                         <li class="nav-item d-none" role="presentation">
                             <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab"
@@ -228,9 +234,7 @@
                     </div>
 
                     <div id="pills-uploadeds" class="tab-pane fade arquivos" role="tabpanel" aria-labelledby="pills-uploadeds-tab">
-
                         <div class="card text-start">
-
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -239,34 +243,59 @@
                                             Adicionar novo documento
                                         </button>
                                         <div class="progress mt-3" style="height: 25px; display: none;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 100%">
-                                            0%
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div id="documents-section" class="mt-4">
-                                <div class="row">
-                                    <div id="preloader" style="display: flex; justify-content: center; align-items: center; height: 100px;">
-                                        <div class="spinner-border" role="status">
-                                            <span class="visually-hidden">Carregando...</span>
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 100%">
+                                                0%
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="card-body">
+                                <div id="documents-section" class="mt-4">
+                                    <div class="row">
+                                        <div id="preloader" style="display: flex; justify-content: center; align-items: center; height: 100px;">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Carregando...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
+                    <div id="pills-modelo_uploadeds" class="tab-pane fade arquivos" role="tabpanel" aria-labelledby="pills-modelo_uploadeds-tab">
+                        <div class="card text-start">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="progress mt-3" style="height: 25px; display: none;">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 100%">
+                                                0%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div id="modelo_documents-section" class="mt-4">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div id="rightbar-etp-overlay" class="rightbar-etp-overlay"></div>

@@ -34,6 +34,8 @@ class ClientFormInvoicing extends Model
         'isencao_iss',
         'observations',
         'data_preenchimento',
+        'responsible_preenchimento',
+        'email_responsavel_medicao',
     ];
 
     /**

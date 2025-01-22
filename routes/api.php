@@ -86,6 +86,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     Route::put('obras/{obraId}', [ObraApiController::class, 'update'])->name('api.obras.update');
     Route::get('obras/{obraId}', [ObraApiController::class, 'show'])->name('api.obras.show');
     Route::get('etapas/{etapaId}/files', [EtapasApiController::class, 'getFiles'])->name('api.etapas.files');
+    Route::get('etapas/{etapaId}/get-files', [EtapasApiController::class, 'getEtapaFiles'])->name('api.get.etapas.files');
 
     /**
      * Arquivos

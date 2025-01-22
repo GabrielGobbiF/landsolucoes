@@ -53,7 +53,7 @@ class ObrasEtapasApiController extends Controller
                 }
             })
             #->with('financeiro')
-            ->with('tipo')
+            ->with('tipo', 'files')
             ->orderBy('tipo_id')
             ->orderBy('ordem')
             ->get();
@@ -345,6 +345,5 @@ class ObrasEtapasApiController extends Controller
         }
 
         return response()->json('', 200);
-
     }
 }

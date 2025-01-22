@@ -158,4 +158,13 @@ class EtapasApiController extends Controller
 
         return UploadedResource::collection($etapa->files);
     }
+
+    public function getEtapaFiles($etpId)
+    {
+        if (!$etapa = Etapa::where('id', $etpId)->first()) {
+            return response()->json('Object Etapa not found', 404);
+        }
+
+        return UploadedResource::collection($etapa->uploads);
+    }
 }

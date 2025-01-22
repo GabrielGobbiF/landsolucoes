@@ -388,7 +388,7 @@
 
         function edit_etapa(id) {
 
-            console.log('EDIT');
+
 
             $.ajax({
                 url: BASE_URL + '/l/etapas/' + id,
@@ -398,7 +398,7 @@
                 success: function(data) {
                     var j = data.data
 
-                    console.log(j);
+
 
                     var $modal = $('#modal-add-update-etapa');
                     $modal.find('#form-add-update-etapa').attr('action', BASE_URL + '/l/etapas/' + id)
@@ -452,10 +452,96 @@
                         })
                     }
 
+                    const parentModel = 'App\\Models\\Etapa';
+                    const parentId = id;
+                    document.getElementById('button-add-new-file').setAttribute('data-parentModel', parentModel);
+                    document.getElementById('button-add-new-file').setAttribute('data-parentId', parentId);
+                    $('#etapa_id').val(id);
+                    initResumable(parentModel, parentId);
+
+                    initFetchEtapaDocumentos(id)
+
                     $modal.modal('show');
                 },
             });
         }
+
+        let resumableEtapa = null;
+
+        function initResumable(parentModel, parentId) {
+            if (resumableEtapa) {
+                resumableEtapa.cancel();
+                resumableEtapa.opts.query = function() {
+                    return {
+                        _token: '{{ csrf_token() }}',
+                        parent_model: parentModel,
+                        parent_id: parentId,
+                    };
+                };
+                return;
+            }
+
+            // Cria uma nova instância se ainda não existir
+            resumableEtapa = new Resumable({
+                target: '/api/v1/upload',
+                query: function() {
+                    return {
+                        _token: '{{ csrf_token() }}',
+                        parent_model: parentModel,
+                        parent_id: parentId,
+                    };
+                },
+                chunkSize: 10 * 1024 * 1024, // Tamanho do chunk em bytes
+                headers: {
+                    'Accept': 'application/json',
+                },
+                testChunks: false,
+                throttleProgressCallbacks: 1,
+            });
+
+            resumableEtapa.assignBrowse(document.getElementById('button-add-new-file'));
+
+            resumableEtapa.on('fileAdded', function(file) {
+                showProgress();
+                resumableEtapa.upload();
+            });
+
+            resumableEtapa.on('fileProgress', function(file) {
+                updateProgress(Math.floor(file.progress() * 100));
+            });
+
+            resumableEtapa.on('fileSuccess', function(file, response) {});
+
+            resumableEtapa.on('fileError', function(file, response) {
+                toastr.error('Erro ao enviar o arquivo.');
+                hideProgress();
+            });
+
+            resumableEtapa.on('complete', function() {
+                toastr.success('Arquivo enviado com sucesso!');
+                initFetchEtapaDocumentos($('#etapa_id').val());
+                hideProgress();
+            });
+
+            let progress = $('.progress');
+
+            function showProgress() {
+                progress.find('.progress-bar').css('width', '0%');
+                progress.find('.progress-bar').html('0%');
+                progress.find('.progress-bar').removeClass('bg-success');
+                progress.show();
+            }
+
+            function updateProgress(value) {
+                progress.find('.progress-bar').css('width', `${value}%`);
+                progress.find('.progress-bar').html(`${value}%`);
+            }
+
+            function hideProgress() {
+                progress.hide();
+            }
+        }
+
 
         function destroy_variable(variable_id, etapa_id) {
             var url = BASE_URL + '/l/variables/' + variable_id + '/destroy'
@@ -510,6 +596,55 @@
                     },
                 });
             }
+        }
+
+        const preloader = document.getElementById('preloader');
+        const documentsTable = document.getElementById('documents-section');
+        const documentsTableBody = documentsTable.querySelector('.row');
+
+        const initFetchEtapaDocumentos = async (etapaId) => {
+            documentsTableBody.innerHTML = preload('preload-etapas-documents');
+            setEtapaDocumentosInDom(etapaId);
+        }
+
+        const setEtapaDocumentosInDom = async (etapaId) => {
+            const documents = await getEtapaDocumentos(etapaId);
+            documentsTableBody.innerHTML = '';
+            documentsTableBody.innerHTML += documents.data.map((data) =>
+                `
+                        <div class="col-6 col-sm-3 col-md-3">
+                            <div id="card-file" class="card card-file">
+                                <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
+                                    <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
+                                            <i class="fas fa-trash mr-2"></i>Deletar
+                                        </button>
+                                        <a target="_blank" class="dropdown-item" href="${data.path}">Visualizar</a>
+                                        <a target="_blank" download class="dropdown-item" href="${data.path}">Baixar </a>
+                                    </div>
+                                </div>
+                                <div class="card-file-thumb">
+                                <i class="far fas fa-file" style="color:#d43030"></i>
+                            </div>
+                            <div class="card-body">
+                                <span>${data.name}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join(' ');
+        }
+
+        const getEtapaDocumentos = async (etapaId) => {
+            return await axios.get(`/api/v1/etapas/${etapaId}/get-files`)
+                .then(function(response) {
+                    return response.data;
+                })
+                .catch(function(error) {
+                    toastr.error(error.response.data.message);
+                });
         }
     </script>
 @append

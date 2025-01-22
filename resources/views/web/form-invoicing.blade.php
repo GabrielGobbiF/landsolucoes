@@ -261,6 +261,24 @@
                                 </div>
                             </div>
 
+                            <!-- responsavel preenchimento -->
+                            <div class="row mb-3">
+                                <label class="col-sm-4 col-form-label" for="inputResponsible">Responsável pelo Preenchimento </label>
+                                <div class="col-sm-8">
+                                    <input id="inputResponsible" required name="responsible_preenchimento" class="form-control" type="text"
+                                           value="{{ $contato->responsible_preenchimento ?? old('responsible_preenchimento') }}" />
+                                </div>
+                            </div>
+
+                            <!-- email responsavel preenchimento -->
+                            <div class="row mb-3">
+                                <label class="col-sm-4 col-form-label" for="inputEmail_responsavel_medicao">Email do Responsável pelo preenchimento </label>
+                                <div class="col-sm-8">
+                                    <input id="inputEmail_responsavel_medicao" required name="email_responsavel_medicao" class="form-control" type="text"
+                                           value="{{ $contato->email_responsavel_medicao ?? old('email_responsavel_medicao') }}" />
+                                </div>
+                            </div>
+
                             <div class="row  ft10" style="margin-top: 4rem">
                                 <div class="col-12">
                                     <h4 class="mb-3">Informações importantes:</h4>
@@ -284,8 +302,8 @@
                                     <button class="btn btn-primary">Enviar</button>
                                 </div>
                             </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>

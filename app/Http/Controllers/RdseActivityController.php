@@ -51,7 +51,7 @@ class RdseActivityController extends Controller
      */
     public function show(int $identify)
     {
-        if (!$rdseActivity = $this->repository->where('id', $identify)->first()) {
+        if (!$rdseActivity = $this->repository->with('activities')->where('id', $identify)->first()) {
             return redirect()
                 ->route('rdseActivitys.index')
                 ->with('message', 'Registro não encontrado!');
@@ -59,6 +59,7 @@ class RdseActivityController extends Controller
 
         return view('admin.rdseActivitys.show', [
             'rdseActivity' => $rdseActivity,
+            'rdseActivityHistory' => $rdseActivity->activities,
         ]);
     }
 

@@ -260,6 +260,8 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             | Obras
             |--------------------------------------------------------------------------
             */
+            Route::get('obra/{obra_id}/etapas/export', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'exportEtapas'])->name('obras.etapas.export');
+
             Route::put('obra/{obra_id}/linkar-rdse', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'linkarRdse'])->name('obras.link.rdse');
             Route::post('obras/{obraId}/favorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'favorite'])->name('obras.favorite');
             Route::post('obras/{obraId}//unfavorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'unfavorite'])->name('obras.unfavorite');

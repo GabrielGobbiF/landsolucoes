@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Painel\Obras;
 
+use App\Exports\ObraEtapasExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
@@ -15,6 +16,7 @@ use App\Models\Tipo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ObrasController extends Controller
 {
@@ -343,5 +345,25 @@ class ObrasController extends Controller
         return redirect()
             ->route('obras.show', $obraId)
             ->with('message', '');
+    }
+
+    public function exportEtapas($obraId)
+    {
+
+        if (!$obra = $this->repository->with('etapas')->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $etapas = $obra->etapas()->with('comments')->get();
+
+        $obraInfo = [
+            'endereco' => $obra->AddressComplete,
+            'cliente' => $obra->client->username,
+            'assessor' => $obra->service->name
+        ];
+
+        return Excel::download(new ObraEtapasExport($etapas, $obraInfo), $obra->razao_social . '_etapas.xlsx');
     }
 }

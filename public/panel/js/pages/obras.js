@@ -119,35 +119,44 @@ function getEtapas() {
                     let meta = value.meta_etapa != '' ? `Meta: ${value.meta_etapa}` : ''
 
 
-                    html += `<li data-id="${value.id}" data-tipo-id="${value.tipo_id}">
+                    html += `
+                        <li data-id="${value.id}" data-tipo-id="${value.tipo_id}">
                             <div class="col-mail col-mail-1">
                                 <div class="checkbox-wrapper-mail">
-                                    <input type="checkbox" class="js-btn-status" ${checked} onclick="updateStatus(this)"
+                                    <input
+                                        type="checkbox"
+                                        class="js-btn-status"
+                                        ${checked}
+                                        onclick="updateStatus(this)"
                                         id="chk${value.id}"
                                         data-id="${value.id}">
                                     <label for="chk${value.id}" class="toggle"></label>
                                 </div>
 
                                 <div class="checkbox-wrapper-mail d-none">
-                                    <input type="checkbox" class="js-btn-mode-input danger"
+                                    <input
+                                        type="checkbox"
+                                        class="js-btn-mode-input danger"
                                         id="chk_danger${value.id}"
                                         value="${value.id}">
                                     <label for="chk_danger${value.id}" class="toggle"></label>
                                 </div>
 
                                 <a href="javascript:void(0)" onclick="showEtapa(${value.id})" class="title">
-
-                                 ${value.name} ${value.finance != null ? value.finance.state + ' ' + value.finance.total_a_faturar : ''} ${date_abertura}
-
+                                    ${value.name}
+                                    ${value.finance != null ? value.finance.state + ' ' + value.finance.total_a_faturar : ''}
+                                    ${date_abertura}
+                                    ${value.haveDocuments ? '<i class="fas fa-file-alt text-danger"></i>' : ''}
                                 </a>
-
-
                             </div>
+
                             <div class="col-mail col-mail-2">
                                 <span class="teaser badge-success badge">${meta}</span>
-                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''} </span><span> ${comments ?? ''}</span>
+                                <span class="badge-${value.prazo.atraso ?? ''} badge mr-2">${value.prazo.msg ?? ''}</span>
+                                <span>${comments ?? ''}</span>
                             </div>
-                        </li>`;
+                        </li>
+                        `;
                 });
             } else {
                 html = 'Sem Resultados';
@@ -223,6 +232,8 @@ function showEtapa(etpId) {
 
             // Inicializa ou reutiliza a instância do Resumable
             initResumable(parentModel, parentId);
+
+            initFetchModeloEtapaDocumentos(data.id_etapa);
 
             const activities = data.activities;
             const activitiesTableBody = document.getElementById('activitiesTableBody');
@@ -733,7 +744,6 @@ async function deleteFile(fileId, etapaId) {
 
 
 let resumableEtapa = null;
-
 function initResumable(parentModel, parentId) {
     if (resumableEtapa) {
         resumableEtapa.cancel();
@@ -776,7 +786,7 @@ function initResumable(parentModel, parentId) {
         updateProgress(Math.floor(file.progress() * 100));
     });
 
-    resumableEtapa.on('fileSuccess', function (file, response) {});
+    resumableEtapa.on('fileSuccess', function (file, response) { });
 
     resumableEtapa.on('fileError', function (file, response) {
         toastr.error('Erro ao enviar o arquivo.');
@@ -807,6 +817,70 @@ function updateProgress(value) {
 function hideProgress() {
     progress.hide();
 }
+
+
+/*Modelo Documentos Etapas */
+const modeloDocumentsTable = document.getElementById('modelo_documents-section');
+const modeloDocumentsTableBody = modeloDocumentsTable.querySelector('.row');
+
+const initFetchModeloEtapaDocumentos = async (etapaId) => {
+    modeloDocumentsTableBody.innerHTML = preload('preload-etapas-documents');
+    setModeloEtapaDocumentosInDom(etapaId);
+}
+
+const setModeloEtapaDocumentosInDom = async (etapaId) => {
+    const documents = await getModeloEtapaDocumentos(etapaId);
+    modeloDocumentsTableBody.innerHTML = '';
+    modeloDocumentsTableBody.innerHTML += documents.data.map((data) =>
+        `
+            <div class="col-6 col-sm-3 col-md-3">
+                <div id="card-file" class="card card-file">
+                    <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
+                        <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
+                                <i class="fas fa-trash mr-2"></i>Deletar
+                            </button>
+                            <a target="_blank" class="dropdown-item" href="${data.path}">Visualizar</a>
+                        </div>
+                    </div>
+                    <div class="card-file-thumb">
+                    <i class="far fas fa-file" style="color:#d43030"></i>
+                </div>
+                <div class="card-body">
+                    <span>${data.name}</span>
+                </div>
+            </div>
+        </div>
+    `).join(' ');
+}
+
+const getModeloEtapaDocumentos = async (etapaId) => {
+    return await axios.get(`/api/v1/etapas/${etapaId}/get-files`)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            toastr.error(error.response.data.message);
+        });
+}
+
+async function deleteFile(fileId, etapaId) {
+    if (!confirm('Tem certeza que deseja excluir este arquivo?')) return;
+
+    try {
+        await axios.delete(`/api/v1/uploadeds/${fileId}`);
+        toastr.success('Deletado com sucesso');
+        initFetchEtapaDocumentos(etapaId);
+    } catch (error) {
+        console.error('Erro ao deletar arquivo:', error);
+        toastr.error('Não foi possivel Deletar');
+    }
+}
+
+
 
 /*
 async function fetchEtapaDocumentos(etapaId) {

@@ -262,34 +262,42 @@
                     <div class="box box-default box-solid">
                         <div class="col-md-12">
                             <div class="box-header with-border">
-                                <h3 class="box-title text-center my-2">Etapas</h3>
 
-                                <div id="editModeButtons" class="d-none">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="">
+                                        <h3 class="box-title text-center my-2">Etapas</h3>
 
-                                    <button id="sairModoEdicaoBtn" type="button" data-type="exit" class="btn btn-box-tool">
-                                        Sair modo Edição
-                                    </button>
+                                        <div id="editModeButtons" class="d-none">
 
-                                    <button id="addEtapa" data-toggle="modal" data-target="#addEtapaModal" type="button" data-type="addall"
-                                            class="btn btn-box-tool mode">
-                                        <i class="fa fa-plus-circle"></i>
-                                        Adicionar Etapa
-                                    </button>
+                                            <button id="sairModoEdicaoBtn" type="button" data-type="exit" class="btn btn-box-tool">
+                                                Sair modo Edição
+                                            </button>
 
-                                    <button id="deleteSelectionEtapa" type="button" data-type="deleteall" class="btn btn-box-tool mode "><i
-                                           class="fa fa-trash"></i>
-                                        Deletar Selecionados
-                                    </button>
-                                    <button id="updateSelectionEtapa" type="button" data-type="updateall" class="btn btn-box-tool mode "><i
-                                           class="fa fa-edit"></i>
-                                        Atualizar Selecionados
-                                    </button>
+                                            <button id="addEtapa" data-toggle="modal" data-target="#addEtapaModal" type="button" data-type="addall"
+                                                    class="btn btn-box-tool mode">
+                                                <i class="fa fa-plus-circle"></i>
+                                                Adicionar Etapa
+                                            </button>
+
+                                            <button id="deleteSelectionEtapa" type="button" data-type="deleteall" class="btn btn-box-tool mode "><i
+                                                   class="fa fa-trash"></i>
+                                                Deletar Selecionados
+                                            </button>
+                                            <button id="updateSelectionEtapa" type="button" data-type="updateall" class="btn btn-box-tool mode "><i
+                                                   class="fa fa-edit"></i>
+                                                Atualizar Selecionados
+                                            </button>
+                                        </div>
+
+                                        <button id="modoEdicaoBtn" type="button" data-type="active" class="btn btn-box-tool  mode-edition">
+                                            <i class="fa fa-plus-circle"></i>
+                                            Modo Edição
+                                        </button>
+                                    </div>
+
+                                    <a href="{{ route('obras.etapas.export', $obra->id) }}" class="text-danger">Baixar relátorio etapas</a>
                                 </div>
 
-                                <button id="modoEdicaoBtn" type="button" data-type="active" class="btn btn-box-tool  mode-edition">
-                                    <i class="fa fa-plus-circle"></i>
-                                    Modo Edição
-                                </button>
 
                                 <div class="row mt-3">
                                     <div class="col-md-6">
