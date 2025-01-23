@@ -63,18 +63,23 @@ class ObraEtapasExport implements FromCollection, WithHeadings, WithStyles, Shou
 
     public function startCell(): string
     {
-        return 'A6'; // Começa as headings na célula A6, após as informações da obra
+        return 'A7'; // Começa as headings na célula A6, após as informações da obra
     }
 
     public function styles(Worksheet $sheet)
     {
         // Define as informações da obra na primeira linha e segunda coluna
-        $sheet->setCellValue('A1', "Endereço:");
-        $sheet->setCellValue('B1', $this->obraInfo['endereco']);
-        $sheet->setCellValue('A2', "Cliente:");
-        $sheet->setCellValue('B2', $this->obraInfo['cliente']);
-        $sheet->setCellValue('A3', "Assessoria:");
-        $sheet->setCellValue('B3', $this->obraInfo['assessor']);
+
+        $sheet->setCellValue('A1', "Nome da Obra:");
+        $sheet->setCellValue('B1', $this->obraInfo['nome']);
+        $sheet->setCellValue('C1', 'ID: ' . $this->obraInfo['id']);
+
+        $sheet->setCellValue('A2', "Endereço:");
+        $sheet->setCellValue('B2', $this->obraInfo['endereco']);
+        $sheet->setCellValue('A3', "Cliente:");
+        $sheet->setCellValue('B3', $this->obraInfo['cliente']);
+        $sheet->setCellValue('A4', "Assessoria:");
+        $sheet->setCellValue('B4', $this->obraInfo['assessor']);
 
         // Estiliza as informações da obra (negrito para os textos na coluna A)
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);

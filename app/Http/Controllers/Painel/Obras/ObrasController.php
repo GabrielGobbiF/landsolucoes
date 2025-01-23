@@ -359,6 +359,8 @@ class ObrasController extends Controller
         $etapas = $obra->etapas()->with('comments')->get();
 
         $obraInfo = [
+            'id' => $obra->id,
+            'nome' => $obra->razao_social,
             'endereco' => $obra->AddressComplete,
             'cliente' => $obra->client->username,
             'assessor' => $obra->service->name
