@@ -347,8 +347,9 @@ class ObrasController extends Controller
             ->with('message', '');
     }
 
-    public function exportEtapas($obraId)
+    public function exportEtapas(Request $request, $obraId)
     {
+        $tipoEtapa = $request->input('tipo_etapa', null);
 
         if (!$obra = $this->repository->with('etapas')->find($obraId)) {
             return redirect()
@@ -356,7 +357,11 @@ class ObrasController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
-        $etapas = $obra->etapas()->with('comments')->get();
+        $etapas = $obra->etapas()->where(function ($query) use ($tipoEtapa) {
+            if ($tipoEtapa != null) {
+                $query->where('tipo_id', $tipoEtapa);
+            }
+        })->with('comments')->get();
 
         $obraInfo = [
             'id' => $obra->id,

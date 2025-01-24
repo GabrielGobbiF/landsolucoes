@@ -295,7 +295,9 @@
                                         </button>
                                     </div>
 
-                                    <a href="{{ route('obras.etapas.export', $obra->id) }}" class="text-danger">Baixar relátorio etapas</a>
+                                    <a id="download-report" href="javascript:void(0)" data-href="{{ route('obras.etapas.export', $obra->id) }}"
+                                       class="text-danger">Baixar relátorio etapas
+                                    </a>
                                 </div>
 
 
@@ -611,5 +613,23 @@
                 localStorage.setItem(id, JSON.stringify(value));
             });
         })
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElement = document.getElementById('select--type');
+            const downloadLink = document.getElementById('download-report');
+
+            downloadLink.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const selectedType = selectElement.value;
+
+                let baseUrl = this.dataset.href;
+                let query = selectedType ? `?tipo_etapa=${selectedType}` : '';
+
+                window.location.href = baseUrl + query;
+            });
+        });
     </script>
 @append

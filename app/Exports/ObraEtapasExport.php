@@ -28,14 +28,26 @@ class ObraEtapasExport implements FromCollection, WithHeadings, WithStyles, Shou
         $data->push(['', '', '', '', '']);
 
         foreach ($this->etapas as $etapa) {
-            // Adiciona a linha com a etapa
+
+            $etapaNome = $etapa->nome;
+            if ($etapa->check == 'C') {
+                $etapaNome .= ' - concluída';
+            }
+
             $data->push([
                 '' => 'Etapa',
-                'etapa' => $etapa->nome,
-                'nome' => '', // Linha para a etapa principal
-                'comentario' => '', // Linha para a etapa principal
+                'etapa' => $etapaNome,
+                'nome' => '',
+                'comentario' => '',
                 'data' => '',
             ]);
+
+            if (!empty($etapa->nota_numero)) {
+                $data->push([
+                    'etapa' => '',
+                    'nome' => "Nº Nota: {$etapa->nota_numero}",
+                ]);
+            }
 
             // Adiciona os comentários como sublinhas
             foreach ($etapa->comments as $comentario) {
@@ -92,14 +104,52 @@ class ObraEtapasExport implements FromCollection, WithHeadings, WithStyles, Shou
             $etapaCell = $sheet->getCell("B$row")->getValue();
             $comentarioCell = $sheet->getCell("C$row")->getValue();
 
-            // Verifica se a linha é uma etapa
             if (!empty($etapaCell) && empty($comentarioCell)) {
-                // Aplica estilo azul para o nome da etapa
-                $sheet->getStyle("B$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('0000FF'));
+
+                if (str_contains($etapaCell, ' - concluída')) {
+
+                   #// Separa o nome da etapa e a palavra "concluída"
+                   #$etapaParts = explode(' - ', $etapaCell);
+                   #$etapaNome = $etapaParts[0];
+                   #$concluidaTexto = ' - ' . $etapaParts[1];
+
+                   #// Cria um RichText para estilizar partes da célula
+                   #$richText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
+
+                   #// Adiciona o nome da etapa sem estilo especial
+                   #$richText->createText($etapaNome);
+
+                   #// Adiciona a palavra "concluída" com estilo verde
+                   #$concluidaRichText = $richText->createTextRun($concluidaTexto);
+                   #$concluidaRichText->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('008000')); // Verde
+                   #$concluidaRichText->getFont()->setBold(true);
+
+                   #// Define o RichText na célula
+                   #$sheet->getCell("B$row")->setValue($richText);
+
+                    $sheet->getStyle("B$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('008000')); // Verde
+                } else if (str_contains($etapaCell, 'Nº Nota')) {
+                    $sheet->getStyle("B$row")->getFont()->setBold(true);
+                    $sheet->getStyle("B$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('ff3d60'));
+                }else {
+                    $sheet->getStyle("B$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('0000FF'));
+
+                }
+
                 $sheet->getStyle("B$row")->getFont()->setBold(true);
             } elseif (empty($etapaCell) && !empty($comentarioCell)) {
-                // Aplica estilo preto para comentários
-                $sheet->getStyle("A$row:C$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('000000'));
+
+                if (str_contains($etapaCell, 'Nº Nota')) {
+                    $sheet->getStyle("B$row")->getFont()->setBold(true);
+                    $sheet->getStyle("B$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('ff3d60'));
+
+                }else {
+                    $sheet->getStyle("A$row:C$row")->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('000000'));
+
+                }
+
+
+
             }
         }
 
