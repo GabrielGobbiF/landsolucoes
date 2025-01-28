@@ -35,6 +35,8 @@ class AtividadesExport implements FromCollection, WithHeadings, WithStyles, With
     public function headings(): array
     {
         return [
+            'DATA SERVIÇO',
+            'SUPERVISOR',
             'VEICULO',
             'EQUIPE',
             'ENCARREGADO',

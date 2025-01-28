@@ -127,6 +127,8 @@ class RdseActivityController extends Controller
             ->join('vehicles', 'rdse_activities.veiculo_id', '=', 'vehicles.id')
             ->join('encarregados', 'rdse_activities.encarregado_id', '=', 'encarregados.id')
             ->select([
+                'data',
+                'supervisores.name as supervisor_name',
                 'vehicles.name as vehicle_name',
                 'equipes.name as equipe_name',
                 'encarregados.name as encarregado_name',

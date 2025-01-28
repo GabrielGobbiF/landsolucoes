@@ -57,14 +57,14 @@ class SupervisorController extends Controller
      */
     public function show(int $identify)
     {
-        if (!$equipe = $this->repository->where('id', $identify)->first()) {
+        if (!$supervisor = $this->repository->where('id', $identify)->first()) {
             return redirect()
                 ->route('supervisores.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
         return view('pages.painel.rdse.supervisores.show', [
-            'equipe' => $equipe,
+            'supervisor' => $supervisor,
         ]);
     }
 

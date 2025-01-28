@@ -392,56 +392,62 @@
 
         })
 
-        function reloadWithCSSAndClearCookies(att) {
-            // Verifica no localStorage se a ação já foi executada
-            const hasReloaded = localStorage.getItem('hasReloaded');
+        function checkAndClearCache() {
+            axios.get(`${base_url}/api/check-reset-cache`)
+                .then(response => {
+                    const {
+                        reset_cache
+                    } = response.data;
 
-            if (att === true && !hasReloaded) {
-                // Recarregar o CSS
-                const links = document.querySelectorAll('link[rel="stylesheet"]');
-                links.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href) {
-                        const newHref = href.split('?')[0] + '?v=' + new Date().getTime(); // Força o recarregamento adicionando um timestamp
-                        link.setAttribute('href', newHref);
+                    if (reset_cache) {
+                        clearBrowserCache();
+                        disableResetCache();
                     }
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar o reset_cache:', error);
                 });
-
-                // Limpar todos os cookies
-                document.cookie.split(';').forEach(cookie => {
-                    const eqPos = cookie.indexOf('=');
-                    const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-                    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
-                });
-
-                // Marca no localStorage que a ação foi realizada
-                localStorage.setItem('hasReloaded', 'true');
-
-                // Recarregar a página (Ctrl + F5 simulado)
-                location.reload(true); // Força um reload total
-            }
         }
 
-        async function checkAndResetGlobalReload() {
-            try {
-                // Faz uma requisição ao servidor para verificar se a flag está ativada
-                const response = await fetch(`${base_url}/api/check-reset-flag`);
-                const {
-                    resetRequired
-                } = await response.json();
-
-                // Se o servidor indicar que o reset é necessário, limpar o localStorage
-                if (resetRequired) {
-                    localStorage.removeItem('hasReloaded');
-                    console.log('hasReloaded foi resetado devido a uma instrução do servidor!');
+        function clearBrowserCache() {
+            const links = document.querySelectorAll('link[rel="stylesheet"]');
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href) {
+                    const newHref = href.split('?')[0] + '?v=' + new Date().getTime(); // Força o recarregamento adicionando um timestamp
+                    link.setAttribute('href', newHref);
                 }
-            } catch (error) {
-                console.error('Erro ao verificar o estado de reset global:', error);
-            }
+            });
+
+            // Limpar todos os cookies
+            document.cookie.split(';').forEach(cookie => {
+                const eqPos = cookie.indexOf('=');
+                const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+                document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+            });
+
+            // Marca no localStorage que a ação foi realizada
+            localStorage.setItem('hasReloaded', 'true');
+
+            // Recarregar a página (Ctrl + F5 simulado)
+            location.reload(true); // Força um reload total
         }
 
-        checkAndResetGlobalReload();
-        reloadWithCSSAndClearCookies(true);
+        function disableResetCache() {
+            axios.post(`${base_url}/api/disable-reset-cache`)
+                .then(() => {
+                    console.log('reset_cache desativado para o usuário:', userId);
+                })
+                .catch(error => {
+                    console.error('Erro ao desativar reset_cache:', error);
+                });
+        }
+
+
+        // Verifica periodicamente o cache para o usuário logado
+        //setInterval(() => {
+        checkAndClearCache();
+        //}, 60000); // Verifica a cada 60 segundos
     </script>
 
 </body>

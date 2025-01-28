@@ -303,7 +303,7 @@
 
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        <select id="select--type" name="type" class="form-control select2 search-input search-input__sales">
+                                        <select id="select--type" name="type" class="form-control select2 search-input search-input__obras_etapa">
                                             <option value="" selected>Todos</option>
                                             @foreach ($tipos as $tipo)
                                                 <option value="{{ $tipo->id }}">{{ $tipo->name }}</option>
@@ -562,6 +562,50 @@
 
 @stop
 @section('scripts')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        let isDragging = false;
+
+        $('#modal-add-documento').on('dragenter dragover', function(e) {
+            $('#select__pasta').select2('close');
+        });
+
+        $('#modal-add-documento').on('dragleave drop', function(e) {
+            $('#select__pasta').select2('close');
+            isDragging = true;
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $('#modal-add-documento').on('hidden.bs.modal', function(e) {
+            $('#div_select-pasta').removeClass('d-none'); // Esconde o select
+
+        });
+
+        $('#select__pasta').select2({
+            dropdownParent: $("#modal-add-documento"),
+            allowClear: true,
+        });
+
+        $('.search-input__obras_etapa').each(function() {
+            const id = $(this).attr('id');
+            $(`#${id}`).val(JSON.parse(localStorage.getItem(id))).trigger('change');
+        })
+
+        $('#nao-concluidas').on('change', function() {
+            getEtapas();
+        });
+
+        $('.search-input__obras_etapa').on('change keyup', function() {
+            const value = $(this).val();
+            const id = $(this).attr('id');
+            localStorage.setItem(id, JSON.stringify(value));
+        });
+    });
+</script>
+
     <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
     <script src="{{ asset('panel/js/pages/obras/document.js') }}"></script>
 
@@ -572,48 +616,6 @@
     @endif
 
 
-    <script>
-        $(document).ready(function() {
-
-            let isDragging = false;
-
-            $('#modal-add-documento').on('dragenter dragover', function(e) {
-                $('#select__pasta').select2('close');
-            });
-
-            $('#modal-add-documento').on('dragleave drop', function(e) {
-                $('#select__pasta').select2('close');
-                isDragging = true;
-                e.stopPropagation();
-                e.preventDefault();
-            });
-
-            $('#modal-add-documento').on('hidden.bs.modal', function(e) {
-                $('#div_select-pasta').removeClass('d-none'); // Esconde o select
-
-            });
-
-            $('#select__pasta').select2({
-                dropdownParent: $("#modal-add-documento"),
-                allowClear: true,
-            });
-
-            $('.search-input__sales').each(function() {
-                const id = $(this).attr('id');
-                $(`#${id}`).val(JSON.parse(localStorage.getItem(id))).trigger('change');
-            })
-
-            $('#nao-concluidas').on('change', function() {
-                getEtapas();
-            });
-
-            $('.search-input__sales').on('change keyup', function() {
-                const value = $(this).val();
-                const id = $(this).attr('id');
-                localStorage.setItem(id, JSON.stringify(value));
-            });
-        })
-    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

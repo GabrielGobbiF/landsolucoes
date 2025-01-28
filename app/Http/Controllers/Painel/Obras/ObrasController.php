@@ -361,7 +361,7 @@ class ObrasController extends Controller
             if ($tipoEtapa != null) {
                 $query->where('tipo_id', $tipoEtapa);
             }
-        })->with('comments')->get();
+        })->with('comments')->orderBy('ordem')->get();
 
         $obraInfo = [
             'id' => $obra->id,
@@ -371,6 +371,6 @@ class ObrasController extends Controller
             'assessor' => $obra->service->name
         ];
 
-        return Excel::download(new ObraEtapasExport($etapas, $obraInfo), $obra->razao_social . '_etapas.xlsx');
+        return Excel::download(new ObraEtapasExport($etapas, $obraInfo), slug($obra->razao_social, '_') . '_etapas.xlsx');
     }
 }

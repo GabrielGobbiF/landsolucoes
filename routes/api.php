@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ObraApiController;
 use App\Http\Controllers\Api\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -95,8 +96,28 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     Route::delete('uploadeds/{uploadId}', [UploadController::class, 'destroy']);
 });
 
-Route::get('check-reset-flag', function () {
-    return response()->json([
-        'resetRequired' => Cache::get('resetReloadFlag', false),
-    ]);
+Route::get('check-reset-cache', function () {
+    $resetCache = DB::table('reset_cache')
+        ->where('user_id', auth()->user()->id)
+        ->value('reset_cache');
+
+    if ($resetCache === null) {
+        DB::table('reset_cache')->insert([
+            'user_id' => auth()->user()->id,
+            'reset_cache' => false,
+        ]);
+
+        $resetCache = true; // Define como false, já que acabou de ser criado
+    }
+
+    return response()->json(['reset_cache' => $resetCache]);
+});
+
+Route::post('disable-reset-cache', function () {
+
+    DB::table('reset_cache')
+        ->where('user_id', auth()->user()->id)
+        ->update(['reset_cache' => false]);
+
+    return response()->json(['success' => true]);
 });
