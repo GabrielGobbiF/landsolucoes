@@ -559,52 +559,51 @@
             </div>
         </div>
     </div>
-
 @stop
 @section('scripts')
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-        let isDragging = false;
+            let isDragging = false;
 
-        $('#modal-add-documento').on('dragenter dragover', function(e) {
-            $('#select__pasta').select2('close');
+            $('#modal-add-documento').on('dragenter dragover', function(e) {
+                $('#select__pasta').select2('close');
+            });
+
+            $('#modal-add-documento').on('dragleave drop', function(e) {
+                $('#select__pasta').select2('close');
+                isDragging = true;
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            $('#modal-add-documento').on('hidden.bs.modal', function(e) {
+                $('#div_select-pasta').removeClass('d-none'); // Esconde o select
+
+            });
+
+            $('#select__pasta').select2({
+                dropdownParent: $("#modal-add-documento"),
+                allowClear: true,
+            });
+
+            $('.search-input__obras_etapa').each(function() {
+                const id = $(this).attr('id');
+                $(`#${id}`).val(JSON.parse(localStorage.getItem(id))).trigger('change');
+            })
+
+            $('#nao-concluidas').on('change', function() {
+                getEtapas();
+            });
+
+            $('.search-input__obras_etapa').on('change keyup', function() {
+                const value = $(this).val();
+                const id = $(this).attr('id');
+                localStorage.setItem(id, JSON.stringify(value));
+            });
         });
-
-        $('#modal-add-documento').on('dragleave drop', function(e) {
-            $('#select__pasta').select2('close');
-            isDragging = true;
-            e.stopPropagation();
-            e.preventDefault();
-        });
-
-        $('#modal-add-documento').on('hidden.bs.modal', function(e) {
-            $('#div_select-pasta').removeClass('d-none'); // Esconde o select
-
-        });
-
-        $('#select__pasta').select2({
-            dropdownParent: $("#modal-add-documento"),
-            allowClear: true,
-        });
-
-        $('.search-input__obras_etapa').each(function() {
-            const id = $(this).attr('id');
-            $(`#${id}`).val(JSON.parse(localStorage.getItem(id))).trigger('change');
-        })
-
-        $('#nao-concluidas').on('change', function() {
-            getEtapas();
-        });
-
-        $('.search-input__obras_etapa').on('change keyup', function() {
-            const value = $(this).val();
-            const id = $(this).attr('id');
-            localStorage.setItem(id, JSON.stringify(value));
-        });
-    });
-</script>
+    </script>
 
     <script src="{{ asset('panel/js/pages/obras.js') }}"></script>
     <script src="{{ asset('panel/js/pages/obras/document.js') }}"></script>
@@ -614,8 +613,6 @@
             showEtapa(`{{ $input }}`)
         </script>
     @endif
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

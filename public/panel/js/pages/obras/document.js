@@ -10,10 +10,7 @@ $(document).ready(function () {
 
 Dropzone.autoDiscover = false;
 
-const obraId = document.getElementById('input--obra_id').value;
-const BASE_URL = document.querySelector('meta[name=js-base_url]').getAttribute('content');
-const BASE_URL_API = document.querySelector('meta[name=js-base_url_api]').getAttribute('content');
-const BASE_URL_API_OBRA = `${BASE_URL_API}obra/${obraId}/`
+
 const urlDocument = `${BASE_URL_API_OBRA}documents`;
 const divDocumentList = document.querySelector('#documents__list');
 
