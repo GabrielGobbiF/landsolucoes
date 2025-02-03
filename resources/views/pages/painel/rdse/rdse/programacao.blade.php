@@ -249,7 +249,7 @@
                             </div>
                         </div>
                     </div>
-                    <table id="ttable" data-toggle="table" data-table="rdses" data-on-click="true">
+                    <table id="ttable" data-toggle="table" data-table="rdses" data-on-click="true" data-target="true">
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
