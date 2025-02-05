@@ -1,26 +1,28 @@
-@extends("auth.app")
+@extends('auth.app')
 
 @section('content')
-
     <div class="login row justify-content-center align-items-center d-flex vh-100">
         <div class="col-lg-5 mx-auto">
             <div class="card">
                 @if (session('error'))
                     <div class="alert alert-danger" role="alert">
-                            <li>{{ session('error') }}</li>
+                        <li>{{ session('error') }}</li>
                     </div>
                 @endif
                 <div class="card-body osahan-login p-5">
                     <form method="POST" action="{{ route('login') }}" class="needs-validation">
                         @csrf
                         <div class="text-center mb-5">
-                            <a href="/"><img src="{{ asset('panel/images/logo-sm.png') }}" height="100" alt=""></a>
+                            <a href="/"><img src="{{ asset('panel/images/logo.png') }}" style="object-fit: contain;
+    height: 68px;" height="100"
+                                     alt="">
+                            </a>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input id="email" type="text" class="form-control" name="email_or_username" value="{{ old('email') }}" required autocomplete="email"
-                                autofocus>
+                            <input id="email" type="text" class="form-control" name="email_or_username" value="{{ old('email') }}" required
+                                   autocomplete="email" autofocus>
                         </div>
 
                         <div class="form-group">
@@ -31,7 +33,7 @@
                         <div class="d-flex justify-content-between my-4">
                             <div class="align-self-center">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" checked="">
+                                    <input id="remember" class="form-check-input" type="checkbox" name="remember" checked="">
 
                                     <label class="form-check-label" for="remember">
                                         Lembrar
@@ -46,7 +48,7 @@
                         </div>
 
                         <button class="btn btn-primary btn-block text-uppercase btn-submit" type="submit" data-btn-text="Entrando...">
-                            {{ __('Login') }}
+                            {{ __('Acessar') }}
                         </button>
                     </form>
                 </div>
