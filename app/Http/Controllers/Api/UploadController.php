@@ -14,6 +14,7 @@ use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
+use ZipArchive;
 
 class UploadController extends Controller
 {
@@ -121,5 +122,58 @@ class UploadController extends Controller
         $upload->delete();
 
         return TheOneResponse::ok([]);
+    }
+
+    public function generateArchive(Request $request)
+    {
+        // Validação da requisição
+        $request->validate([
+            'ids' => 'required'
+        ]);
+
+        // Recupera e processa os IDs enviados (string ou array)
+        $ids = $request->input('ids');
+        if (is_string($ids)) {
+            $ids = explode(',', $ids);
+        }
+
+        // Busca os uploads no banco de dados
+        $uploads = Uploaded::whereIn('id', $ids)->get();
+        if ($uploads->isEmpty()) {
+            return response()->json(['message' => 'Nenhum arquivo encontrado.'], 404);
+        }
+
+        // Define o nome e o caminho do arquivo ZIP
+        $zipFileName = 'arquivo_' . time() . '.zip';
+        $zipFilePath = storage_path("app/public/00tR9vps6D/$zipFileName.zip");
+
+        // Cria o arquivo ZIP
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
+            return response()->json(['message' => 'Não foi possível criar o arquivo ZIP.'], 500);
+        }
+
+        // Adiciona os arquivos ao ZIP
+        foreach ($uploads as $upload) {
+            $fileFullPath = Storage::disk($upload->disk)->path(str_replace('storage', 'public', $upload->path));
+
+            // Verifica se o arquivo realmente existe
+            if (file_exists($fileFullPath)) {
+                $zip->addFile($fileFullPath, $upload->file_name);
+            } else {
+                \Log::warning("Arquivo não encontrado: {$fileFullPath}");
+            }
+        }
+
+        // Fecha o ZIP
+        $zip->close();
+
+        // Verifica se o arquivo ZIP foi criado
+        if (!file_exists($zipFilePath)) {
+            return response()->json(['message' => 'O arquivo ZIP não foi gerado.'], 500);
+        }
+
+        // Retorna o arquivo para download e apaga-o após o envio
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
     }
 }

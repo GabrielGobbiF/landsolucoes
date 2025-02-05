@@ -45,6 +45,7 @@ class Obra extends Model
         'remove_finance',
         'ultima_atualizacao',
         'diretoria',
+        'gestor_id'
     ];
 
     protected $dates = ['deleted_at'];
@@ -91,6 +92,11 @@ class Obra extends Model
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function gestor()
+    {
+        return $this->belongsTo(User::class, 'gestor_id');
     }
 
     public function concessionaria()

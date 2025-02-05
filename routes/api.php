@@ -92,6 +92,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     /**
      * Arquivos
      */
+    Route::post('uploadeds/generateArchive', [UploadController::class, 'generateArchive']);
     Route::post('upload', [UploadController::class, 'uploadChunk']);
     Route::delete('uploadeds/{uploadId}', [UploadController::class, 'destroy']);
 });

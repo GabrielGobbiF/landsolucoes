@@ -611,8 +611,7 @@
             const documents = await getEtapaDocumentos(etapaId);
             documentsTableBody.innerHTML = '';
             documentsTableBody.innerHTML += documents.data.map((data) =>
-                `
-                        <div class="col-6 col-sm-3 col-md-3">
+                `<div class="col-6 col-sm-3 col-md-3">
                             <div id="card-file" class="card card-file">
                                 <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
                                     <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
@@ -645,6 +644,19 @@
                 .catch(function(error) {
                     toastr.error(error.response.data.message);
                 });
+        }
+
+        async function deleteFile(fileId, etapaId) {
+            if (!confirm('Tem certeza que deseja excluir este arquivo?')) return;
+
+            try {
+                await axios.delete(`/api/v1/uploadeds/${fileId}`);
+                toastr.success('Deletado com sucesso');
+                initFetchEtapaDocumentos(etapaId);
+            } catch (error) {
+                console.error('Erro ao deletar arquivo:', error);
+                toastr.error('Não foi possivel Deletar');
+            }
         }
     </script>
 @append

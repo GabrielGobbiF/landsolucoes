@@ -735,9 +735,12 @@ class TableApiController extends Controller
             })
 
             ->when(isset($filters['fav']), function ($query) {
-                $query->whereNotNull('favoritables.id'); // Filtra somente obras marcadas como favoritas
+                $query->whereNotNull('favoritables.id');
             })
 
+            ->when(isset($filters['gestor_id']), function ($query) use($filters) {
+                $query->where('gestor_id', $filters['gestor_id']);
+            })
 
             ->when(isset($filters['urgence']), function ($query) {
                 $query->where('obras.obr_urgence', 'Y');

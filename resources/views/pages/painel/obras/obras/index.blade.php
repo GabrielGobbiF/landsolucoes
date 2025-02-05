@@ -43,11 +43,24 @@
                             </select>
                         </div>
 
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-2">
+                            <label for="obra-select_gestor">Gestor</label>
+                            <select id="obra-select_gestor" name="gestor_id" class="form-control select2 search-input">
+                                <option value="" selected>Selecione</option>
+                                @foreach ($userAll as $user)
+                                    <option value="{{ $user->id }}"> {{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="col-md-3 justify-content-end align-self-center mg-t-25">
                             <button class="btn btn-dark btn-empty-search">Limpar </button>
                         </div>
-
                     </div>
+
                 </div>
 
                 <div class="card-body">
@@ -109,7 +122,6 @@
                                     <th data-field="updated_at">Ultima Att</th>
                                     <th data-field="progressEtapas" data-formatter="progressFormatter">Etapas</th>
                                     <th data-field="observations" data-formatter="observationInput">Obs</th>
-
                                 </tr>
                             </thead>
                             <tbody></tbody>

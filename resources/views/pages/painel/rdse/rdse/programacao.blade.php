@@ -249,7 +249,7 @@
                             </div>
                         </div>
                     </div>
-                    <table id="ttable" data-toggle="table" data-table="rdses" data-on-click="true" data-target="true">
+                    <table id="ttable" data-toggle="table" data-table="rdses" data-on-click="true" data-target="false">
                         <thead class="thead-light">
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
@@ -726,7 +726,7 @@
                             return;
                         }
                         if (field != 'statusButton') {
-                            window.location.href = `${BASE_URL}${URL}/${row.id}`
+                            window.open(`${BASE_URL}${URL}/${row.id}`, '_blank')
                         }
                     },
                     onLoadSuccess: function() {

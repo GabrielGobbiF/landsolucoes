@@ -1,5 +1,6 @@
 <div id="offcanvasRight" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="offcanvasRightLabel" aria-modal="true" role="dialog">
     <input id="js-etapa-id" type="hidden">
+    <input id="selectedFilesInput" type="hidden" name="selected_files" />
 
     <div id="div--etp" class="col-md-12 etp">
         <div class="box-header with-border mg-t-10">
@@ -150,8 +151,11 @@
 
             <hr class="my-5">
 
-
             <div>
+                <div class="text-right float-end">
+                    <button id="generateArchiveButton" class="btn btn-sm btn-outline-primary d-none" onclick="generateArchive()">Gerar Arquivo</button>
+                </div>
+
                 <ul id="pills-tab" class="nav nav-pills mb-3" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a id="pills-home-tab" class="nav-link active" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
@@ -242,6 +246,8 @@
                                             <i class="fas fa-plus"></i>
                                             Adicionar novo documento
                                         </button>
+
+
                                         <div class="progress mt-3" style="height: 25px; display: none;">
                                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
                                                  aria-valuemin="0" aria-valuemax="100" style="width: 0%; height: 100%">

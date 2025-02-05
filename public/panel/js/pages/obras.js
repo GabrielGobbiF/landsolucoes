@@ -701,30 +701,33 @@ const initFetchEtapaDocumentos = async (etapaId) => {
 const setEtapaDocumentosInDom = async (etapaId) => {
     const documents = await getEtapaDocumentos(etapaId);
     documentsTableBody.innerHTML = '';
-    documentsTableBody.innerHTML += documents.data.map((data) =>
-        `
+    documentsTableBody.innerHTML += documents.data
+        .map((data) =>
+            `
             <div class="col-6 col-sm-3 col-md-3">
-                <div id="card-file" class="card card-file">
-                    <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
-                        <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
-                                <i class="fas fa-trash mr-2"></i>Deletar
-                            </button>
-                            <a target="_blank" class="dropdown-item" href="${data.path}">Visualizar</a>
-                        </div>
-                    </div>
-                    <div class="card-file-thumb">
-                    <i class="far fas fa-file" style="color:#d43030"></i>
+              <div class="card card-file" id="card-file-${data.id}" onclick="toggleSelect(${data.id}, event)">
+                <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
+                  <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
+                      <i class="fas fa-trash mr-2"></i>Deletar
+                    </button>
+                    <a target="_blank" class="dropdown-item" href="${data.path}">Visualizar</a>
+                  </div>
+                </div>
+                <div class="card-file-thumb">
+                  <i class="far fas fa-file" style="color:#d43030"></i>
                 </div>
                 <div class="card-body">
-                    <span>${data.name}</span>
+                  <span>${data.name}</span>
                 </div>
+              </div>
             </div>
-        </div>
-    `).join(' ');
+        `
+        )
+        .join(' ');
 }
 
 const getEtapaDocumentos = async (etapaId) => {
@@ -748,6 +751,57 @@ async function deleteFile(fileId, etapaId) {
         console.error('Erro ao deletar arquivo:', error);
         toastr.error('Não foi possivel Deletar');
     }
+}
+
+function generateArchive() {
+    const selectedIds = document.getElementById('selectedFilesInput').value;
+
+    axios.post(
+        '/api/v1/uploadeds/generateArchive',
+        { ids: selectedIds },
+        { responseType: 'blob' } // importante para tratar a resposta como um arquivo binário
+    )
+        .then(response => {
+            $('#generateArchiveButton').addClass('d-none');
+
+            document.querySelectorAll('.card-file.selected').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+
+            // Cria um link temporário para disparar o download
+            const link = document.createElement('a');
+            link.href = url;
+
+            // Tenta extrair o nome do arquivo a partir do header 'content-disposition'
+            let fileName = 'arquivo.zip';
+            const disposition = response.headers['content-disposition'];
+            if (disposition && disposition.indexOf('filename=') !== -1) {
+                const fileNameMatch = disposition.match(/filename="?([^"]+)"?/);
+                if (fileNameMatch && fileNameMatch.length === 2) {
+                    fileName = fileNameMatch[1];
+                }
+            }
+            link.setAttribute('download', fileName);
+
+            // Adiciona o link ao DOM, clica nele para iniciar o download e depois remove-o
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Libera o objeto URL criado
+            window.URL.revokeObjectURL(url);
+
+            toastr.success('Arquivo gerado com sucesso!');
+        })
+        .catch(error => {
+            console.log(error);
+            toastr.error(error.response.data.message || 'Erro ao gerar o arquivo');
+        }).finally(() => {
+            document.getElementById('selectedFilesInput').value = '';
+            console.log(document.getElementById('selectedFilesInput').value)
+        });
 }
 
 
@@ -842,15 +896,13 @@ const setModeloEtapaDocumentosInDom = async (etapaId) => {
     modeloDocumentsTableBody.innerHTML += documents.data.map((data) =>
         `
             <div class="col-6 col-sm-3 col-md-3">
-                <div id="card-file" class="card card-file">
+                 <div class="card card-file" id="card-file-${data.id}" onclick="toggleSelect(${data.id}, event)">
                     <div class="dropdown-file" style="position: absolute;right: 4px;top: 8px;">
                         <a class="dropdown-link" data-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button type="button" class="dropdown-item delete" onclick="deleteFile(${data.id}, ${etapaId})">
-                                <i class="fas fa-trash mr-2"></i>Deletar
-                            </button>
+
                             <a target="_blank" class="dropdown-item" href="${data.path}">Visualizar</a>
                         </div>
                     </div>
@@ -875,19 +927,41 @@ const getModeloEtapaDocumentos = async (etapaId) => {
         });
 }
 
-async function deleteFile(fileId, etapaId) {
-    if (!confirm('Tem certeza que deseja excluir este arquivo?')) return;
+let selectedDocumentIds = [];
 
-    try {
-        await axios.delete(`/api/v1/uploadeds/${fileId}`);
-        toastr.success('Deletado com sucesso');
-        initFetchEtapaDocumentos(etapaId);
-    } catch (error) {
-        console.error('Erro ao deletar arquivo:', error);
-        toastr.error('Não foi possivel Deletar');
+/**
+ * Função chamada ao clicar no card.
+ * @param {number} documentId - O ID do documento clicado.
+ * @param {Event} event - O objeto de evento para manipular a propagação.
+ */
+function toggleSelect(documentId, event) {
+    if (event.target.closest('.dropdown-file')) return;
+
+    const card = event.currentTarget;
+
+    const index = selectedDocumentIds.indexOf(documentId);
+    if (index === -1) {
+        selectedDocumentIds.push(documentId);
+        card.classList.add('selected');
+    } else {
+        selectedDocumentIds.splice(index, 1);
+        card.classList.remove('selected');
+    }
+
+    const hiddenInput = document.getElementById('selectedFilesInput');
+    if (hiddenInput) {
+        hiddenInput.value = selectedDocumentIds.join(',');
+    }
+
+    const generateButton = document.getElementById('generateArchiveButton');
+    if (generateButton) {
+        if (selectedDocumentIds.length > 0) {
+            generateButton.classList.remove('d-none');
+        } else {
+            generateButton.classList.add('d-none');
+        }
     }
 }
-
 
 
 /*

@@ -10,6 +10,10 @@
             animation: pulse 1s infinite;
         }
 
+        .card-file.selected {
+            border: 2px solid #007bff;
+        }
+
         /* Animação de pulsar */
         @keyframes pulse {
             0% {
@@ -26,6 +30,7 @@
                 transform: scale(1);
                 opacity: 1;
             }
+
         }
     </style>
     <div class="page--obra">
@@ -44,6 +49,9 @@
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="ri-calendar-event-line mr-2"></i> {{ return_format_date($obra->build_at, 'pt', '/') ?? '' }}
                         </h6>
                         <h6 class="col-12 mb-3 d-flex tx-18"> <i class="fas fa-map-marked mr-2"></i> {{ $obra->AddressComplete }}</h6>
+
+                        <h6 style="cursor: pointer;" data-toggle="modal" data-target="#modal-update_gestor" class="col-12 mb-3 d-flex tx-18">Gestor da Obra:
+                            {{ $obra->gestor?->name }}</h6>
 
                         <div class="col-12 mt-3">
                             <div class="form-group">
@@ -137,7 +145,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
-                                                            <label for="" class="">Selecione a medição</label>
+                                                            <label class="">Selecione a medição</label>
                                                             <select id="select--rdse" name="rdse_id" class="form-control select-rdse t-select"
                                                                     data-request="{{ route('rdses.all') }}" data-query='{"obra_id":"empty"}' required>
                                                             </select>
@@ -320,7 +328,6 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-
                                         <div class="form-check">
                                             <input id="nao-concluidas" class="form-check-input search-input" name="nconcluidas" type="checkbox"
                                                    value="true" />
@@ -559,7 +566,39 @@
             </div>
         </div>
     </div>
+
+
+    <div id="modal-update_gestor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+                <form action="{{ route('obras.updated.gestor', $obra->id) }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Selecione o Usuário</label>
+                            <select id="" class="form-control form-select select2" name="gestor_id">
+                                <option value="" class="">Selecione</option>
+                                @foreach ($userAll as $user)
+                                    <option {{ isset($obra) && $obra->gestor_id == $user->id ? 'selected' : null }} value="{{ $user->id }}">
+                                        {{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="salvar" class="btn btn-primary">Alterar Gestor da Obra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @stop
+
+
 @section('scripts')
 
     <script>

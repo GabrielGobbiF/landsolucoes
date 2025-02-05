@@ -13,6 +13,7 @@ use App\Models\Pasta;
 use App\Models\RSDE\Rdse;
 use App\Models\Service;
 use App\Models\Tipo;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -36,6 +37,8 @@ class ObrasController extends Controller
      */
     public function index()
     {
+        $userAll = User::all();
+
         $clients = Client::whereHas('obras', function ($query) {
             $query->where('obras.status', 'aprovada');
         })->get(['id', 'username']);
@@ -46,7 +49,8 @@ class ObrasController extends Controller
         return view('pages.painel.obras.obras.index', [
             'clients' => $clients,
             'concessionarias' => $concessionarias,
-            'services' => $services
+            'services' => $services,
+            'userAll' => $userAll
         ]);
     }
 
@@ -90,6 +94,7 @@ class ObrasController extends Controller
                 ->with('message', 'Registro não encontrado!');
         }
 
+        $userAll = User::all();
         $tipos  = Tipo::all();
         $address  = $obra->address;
 
@@ -120,7 +125,8 @@ class ObrasController extends Controller
             'tipos' => $tipos,
             'address' => $address,
             'pastas' => $pastas,
-            'pastaPadrao' => $pastaPadrao
+            'pastaPadrao' => $pastaPadrao,
+            'userAll' => $userAll
         ]);
     }
 
@@ -372,5 +378,21 @@ class ObrasController extends Controller
         ];
 
         return Excel::download(new ObraEtapasExport($etapas, $obraInfo), slug($obra->razao_social, '_') . '_etapas.xlsx');
+    }
+
+    public function updatedGestor(Request $request, $obraId)
+    {
+        if (!$obra = $this->repository->find($obraId)) {
+            return redirect()
+                ->route('obras.index')
+                ->with('message', 'Registro não encontrado!');
+        }
+
+        $obra->gestor_id = $request->input('gestor_id');
+        $obra->save();
+
+        return redirect()
+            ->route('obras.show', $obraId)
+            ->with('message', 'Gestor Alterado com sucesso!');
     }
 }
