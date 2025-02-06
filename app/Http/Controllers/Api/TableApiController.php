@@ -746,6 +746,7 @@ class TableApiController extends Controller
                 $query->where('obras.obr_urgence', 'Y');
             })
             ->groupBy('obras.id')
+            ->whereNull('deleted_at')
             ->orderBy($this->sort, $this->order)
             ->paginate($this->limit);
 
