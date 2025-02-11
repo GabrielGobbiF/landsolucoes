@@ -488,8 +488,12 @@ class TableApiController extends Controller
             ->where(function ($query) use ($filters) {
                 if (isset($filters['atividades'])) {
                     if ($filters['atividades'] !== 'all') {
-                        $query->whereHas('activities', function ($query) {
-                            $query->where('id', '>', 0);
+                        $query->whereHas('activities', function ($query) use ($filters) {
+                            if ($filters['atividades'] == 'nao_execucao') {
+                                $query->whereNull('execucao'); // Filtra apenas atividades com execução nula
+                            } else if ($filters['atividades'] == 'execucao') {
+                                $query->whereNotNull('execucao'); // Filtra atividades com execução preenchida
+                            }
                         });
                     }
                 }
@@ -738,7 +742,7 @@ class TableApiController extends Controller
                 $query->whereNotNull('favoritables.id');
             })
 
-            ->when(isset($filters['gestor_id']), function ($query) use($filters) {
+            ->when(isset($filters['gestor_id']), function ($query) use ($filters) {
                 $query->where('gestor_id', $filters['gestor_id']);
             })
 
