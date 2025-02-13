@@ -144,6 +144,7 @@ class RdseActivityController extends Controller
             })
             ->get()->toArray();
 
+
         // Gera o arquivo Excel com as atividades filtradas
         return Excel::download(new AtividadesExport($atividades), 'atividades.xlsx');
     }

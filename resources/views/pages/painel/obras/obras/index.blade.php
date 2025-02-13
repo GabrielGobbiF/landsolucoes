@@ -94,7 +94,7 @@
                                     <div class="form-check form-check-inline">
                                         <input id="obras_etapas_vencidas" class="form-check-input wd-15 ht-15" name="obras_etapas_vencidas" type="checkbox"
                                                value="true">
-                                        <label class="form-check-label" for="obras_etapas_vencidas">Etapas Vencidadas</label>
+                                        <label class="form-check-label" for="obras_etapas_vencidas">Etapas Vencidas</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input id="updated_at" class="form-check-input wd-15 ht-15" name="updated_at" type="checkbox" value="true">
