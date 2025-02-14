@@ -126,12 +126,14 @@
             </div>
         </div>
 
+
         <div class="col-12 col-md-12">
             <div class="row g-3 align-items-center">
                 <div class="col-md-4">
                     <label for="dataInput" class="form-label">Data</label>
                     <input id="dataInput" tabindex="2" type="text" name="data" class="form-control" autocomplete="off" required>
                 </div>
+                {{--
                 <div class="col-md-4">
                     <label for="inicioInput" class="form-label">Início</label>
                     <input id="inicioInput" tabindex="3" type="time" name="inicio" class="form-control" required>
@@ -139,6 +141,16 @@
                 <div class="col-md-4">
                     <label for="fimInput" class="form-label">Fim</label>
                     <input id="fimInput" tabindex="4" type="time" name="fim" class="form-control" required>
+                </div>
+--}}
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="horario">Horario</label>
+                        <select id="horario" name="horario" class="form-control" required tabindex="1">
+                            <option value="diurno">Diurno</option>
+                            <option value="noturno">Noturno</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,8 +250,11 @@
                 placeholder: "Selecione uma equipe",
             });
 
+
             // Função para buscar atividades
             function buscarAtividades(equipeId, data) {
+
+
                 fetch(`${base_url}/api/v1/rdses/equipes/${equipeId}?date=${data}`)
                     .then(response => response.json())
                     .then(data => {
@@ -294,10 +309,10 @@
 
             function formatDate(dateString) {
                 // Dividir a string yyyy-mm-dd em partes
-                const [year, month, day] = dateString.split("-");
+                const [year, month, day] = dateString.split("/");
 
                 // Retornar a data formatada como d/m/Y
-                return `${day}/${month}/${year}`;
+                return `${day}-${month}-${year}`;
             }
 
             equipeSelect.addEventListener("change", verificarInputs);
