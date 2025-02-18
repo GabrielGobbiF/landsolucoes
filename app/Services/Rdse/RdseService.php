@@ -57,6 +57,7 @@ class RdseService
                 $dataFim = now()->addDay()->setTime(6, 0, 0)->format('H:i'); // 06:00 (no dia seguinte)
             }
         }
+
         $data = [
             'rdse_id' => $rdse->id,
             'equipe_id' => $request->input('equipe_id'),

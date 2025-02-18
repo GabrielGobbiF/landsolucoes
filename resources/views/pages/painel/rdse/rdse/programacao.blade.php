@@ -185,7 +185,7 @@
 
                                 <div class="col-12 col-md-3 col-xl-2">
                                     <div class="mb-3 form-group">
-                                        <label class="form-label">Período:</label>
+                                        <label class="form-label">Data:</label>
                                         <select data-target="date-fields-1" name="period" class="form-select t-select search-input-rdse period-select">
                                             <option value="" selected>Selecione</option>
                                             <option value="today">Hoje</option>
@@ -200,6 +200,17 @@
                                             <option value="next_15_days">Próximos 15 dias</option>
                                             <option value="next_30_days">Próximos 30 dias</option>
                                             <option value="specific">Período específico</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xl-2">
+                                    <div class="mb-3 form-group">
+                                        <label class="form-label">Periodo:</label>
+                                        <select name="hour" class="form-select t-select search-input-rdse ">
+                                            <option value="all" selected>Todos</option>
+                                            <option value="diurno">Diurno</option>
+                                            <option value="noturno">Noturno</option>
                                         </select>
                                     </div>
                                 </div>

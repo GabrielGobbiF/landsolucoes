@@ -505,6 +505,21 @@ class TableApiController extends Controller
                         $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
                     });
                 }
+            })->where(function ($q) use ($filters) {
+
+                if (isset($filters['hour'])) {
+                    $q->whereHas('activities', function ($query) use ($filters) {
+                        $turno = $filters['hour'];
+
+                        if ($turno === 'diurno') {
+                            $query->whereBetween('data_inicio', ['07:00', '19:00']);
+                        } elseif ($turno === 'noturno') {
+                            // Turno noturno: das 19:40 às 06:00 (passando pela meia-noite)
+                            $query->whereBetween('data_inicio', ['19:40', '23:59'])
+                                ->orWhereBetween('data_inicio', ['00:00', '06:00']);
+                        }
+                    });
+                }
             })
 
             ->where('modelo', 0)
