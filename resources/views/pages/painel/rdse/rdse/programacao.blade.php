@@ -254,9 +254,6 @@
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Exportar Atividades
                                 </button>
 
-
-
-
                             </div>
                         </div>
                     </div>
@@ -277,7 +274,7 @@
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
                                 <th data-field="month">Mês</th>
 
-                                {{-- }}
+                                {{--
                                 <th data-field="total_p1" data-visible="false" data-footer-formatter="valor_totalp1">Valor P2</th>
                                 <th data-field="total_p2" data-visible="false" data-footer-formatter="valor_totalp2">Valor P3</th>
                                 <th data-field="total_p3" data-visible="false" data-footer-formatter="valor_totalp3">Valor P4</th>
@@ -410,8 +407,8 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 col-md-12">
-                                <label>Período:</label>
-                                <select data-target="date-fields-2" name="period" class="form-control t-select period-select">
+                                <label>Data:</label>
+                                <select data-target="date-fields-2" name="period" class="form-control t-select period-select" required>
                                     <option value="" selected>Selecione</option>
                                     <option value="today">Hoje</option>
                                     <option value="yesterday">Ontem</option>
@@ -426,6 +423,18 @@
                                     <option value="next_30_days">Próximos 30 dias</option>
                                     <option value="specific">Período específico</option>
                                 </select>
+                            </div>
+
+
+                            <div class="col-12 col-md-12 mt-3">
+                                <div class="mb-3 form-group">
+                                    <label class="form-label">Periodo:</label>
+                                    <select name="hour" class="form-select t-select search-input-rdse " required>
+                                        <option value="all" selected>Todos</option>
+                                        <option value="diurno">Diurno</option>
+                                        <option value="noturno">Noturno</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row mt-4">

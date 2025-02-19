@@ -111,6 +111,7 @@ class RdseActivityController extends Controller
             'period' => 'required',
             'start_at' => 'nullable|date',
             'end_at' => 'nullable|date|after_or_equal:data_inicio',
+            'hour' => 'nullable',
         ]);
 
         $datesPeriodoSearch = calculateDates(
@@ -142,7 +143,18 @@ class RdseActivityController extends Controller
                     $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
                 }
             })
-            ->get()->toArray();
+            ->where(function ($q) use ($request) {
+                if (isset($request['hour'])) {
+                    $turno = $request['hour'];
+                    if ($turno === 'diurno') {
+                        $q->whereBetween('rdse_activities.data_inicio', ['07:00', '19:00']);
+                    } elseif ($turno === 'noturno') {
+                        // Turno noturno: das 19:40 às 06:00 (passando pela meia-noite)
+                        $q->whereBetween('rdse_activities.data_inicio', ['19:40', '23:59'])
+                            ->orWhereBetween('data_inicio', ['00:00', '06:00']);
+                    }
+                }
+            })->get()->toArray();
 
 
         // Gera o arquivo Excel com as atividades filtradas
