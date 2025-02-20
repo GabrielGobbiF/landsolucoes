@@ -126,6 +126,17 @@
             </div>
         </div>
 
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label for="rdse-tipo_ordem">Tipo de Ordem</label>
+                <select id="rdse-tipo_ordem" name="tipo_ordem" class="form-control" required tabindex="1">
+                    <option  value='p2'>P2 </option>
+                    <option  value='fi'>FI </option>
+                    <option  value='pie'>PIE </option>
+                </select>
+            </div>
+        </div>
+
 
         <div class="col-12 col-md-12">
             <div class="row g-3 align-items-center">

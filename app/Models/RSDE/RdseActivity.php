@@ -38,6 +38,7 @@ class RdseActivity extends Model
         'data_fim',
         'execucao',
         'civil',
+        'tipo_ordem',
     ];
 
     /**

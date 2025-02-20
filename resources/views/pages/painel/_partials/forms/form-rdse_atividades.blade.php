@@ -70,7 +70,6 @@
     </div>
 
 
-
     <div class="col-12 col-md-4">
         <div class="form-group">
             <label for="rdse-civil">Civil</label>
@@ -78,6 +77,18 @@
                 <option value="">Selecione </option>
                 <option {{ $rdseAtividade->civil == '1' ? 'selected' : null }} value='1'>Sim </option>
                 <option {{ $rdseAtividade->civil == '0' ? 'selected' : null }} value='0'>Não </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="form-group">
+            <label for="rdse-tipo_ordem">tipo_ordem</label>
+            <select id="rdse-tipo_ordem" name="tipo_ordem" class="form-control" required tabindex="1">
+                <option value="">Selecione </option>
+                <option {{ $rdseAtividade->tipo_ordem == 'p2' ? 'selected' : null }} value='p2'>P2 </option>
+                <option {{ $rdseAtividade->tipo_ordem == 'fi' ? 'selected' : null }} value='fi'>FI </option>
+                <option {{ $rdseAtividade->tipo_ordem == 'pie' ? 'selected' : null }} value='pie'>PIE </option>
             </select>
         </div>
     </div>

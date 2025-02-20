@@ -31,10 +31,11 @@ class RdseService
             'horario' => 'required',
             'executado' => 'nullable',
             'civil' => 'required|boolean',
+            'tipo_ordem' => 'required',
         ]);
 
         $horario = $request->input('horario');
-        $diretoria = $rdse->diretoria??'PM';
+        $diretoria = $rdse->diretoria ?? 'PM';
 
         // Define os valores de data_inicio e data_fim com base na seleção
         $dataInicio = '';
@@ -71,6 +72,7 @@ class RdseService
             //'diretoria' => $request->input('diretoria'),
             'atividades' => $request->input('atividades'),
             'civil' => $request->input('civil'),
+            'tipo_ordem' => $request->input('tipo_ordem'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();
@@ -107,6 +109,7 @@ class RdseService
             'fim' => 'required|date_format:H:i',
             'executado' => 'nullable',
             'civil' => 'required|boolean',
+            'tipo_ordem' => 'required',
         ]);
 
         throw_if(
@@ -126,6 +129,7 @@ class RdseService
             'atividades' => $request->input('atividades'),
             //'diretoria' => $request->input('diretoria'),
             'civil' => $request->input('civil'),
+            'tipo_ordem' => $request->input('tipo_ordem'),
         ];
 
         $data['execucao'] = $request->input('executado', null) == 'false' ?  null : now();

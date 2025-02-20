@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithDrawings;
@@ -14,16 +15,13 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class AtividadesExport implements FromCollection, WithHeadings, WithStyles, WithEvents, WithDrawings, WithCustomStartCell
 {
-    protected $atividades;
 
     // Construtor para receber os dados da controller
-    public function __construct($atividades)
-    {
-        $this->atividades = $atividades;
-    }
+    public function __construct(protected $atividades, public $datesPeriodo, public $period = 'all') {}
 
     /**
      * Retorna os dados passados pela controller.
@@ -49,10 +47,11 @@ class AtividadesExport implements FromCollection, WithHeadings, WithStyles, With
             'ENDEREÇO',
             'OBRA',
             'SERVIÇO PROGRAMADO',
+            'TIPO ORDEM'
         ];
     }
 
-   /**
+    /**
      * Define a célula de início para que as linhas 1 e 2 fiquem reservadas ao cabeçalho customizado.
      */
     public function startCell(): string
@@ -81,22 +80,25 @@ class AtividadesExport implements FromCollection, WithHeadings, WithStyles, With
                 $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('A2')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
+                $dateStart = date_format(Carbon::parse(str_replace('/', '-', $this->datesPeriodo['start_at'])), 'd/m/Y');
+                $dateEnd = date_format(Carbon::parse(str_replace('/', '-', $this->datesPeriodo['end_at'])), 'd/m/Y');
+
                 // Inserir a data de geração na célula I2, centralizada
-                $sheet->setCellValue('I2', date('d/m/Y'));
+                $sheet->setCellValue('I2',  $dateStart . ' ' . $dateEnd);
                 $sheet->getStyle('I2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('I2')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
                 // === Estilização da collection (a partir da linha 3) ===
                 // Define o fundo da linha de cabeçalho da collection (linha 3)
                 $sheet->getStyle('A3:I3')->getFill()
-                      ->setFillType(Fill::FILL_SOLID)
-                      ->getStartColor()->setARGB('FFB8CCE4');
+                    ->setFillType(Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('FFB8CCE4');
 
                 // Centraliza horizontal e verticalmente todas as células a partir da linha 3 até a última linha
                 $lastRow = $sheet->getHighestRow();
                 $sheet->getStyle("A3:I{$lastRow}")->getAlignment()
-                      ->setHorizontal(Alignment::HORIZONTAL_CENTER)
-                      ->setVertical(Alignment::VERTICAL_CENTER);
+                    ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+                    ->setVertical(Alignment::VERTICAL_CENTER);
             },
         ];
     }
@@ -113,6 +115,22 @@ class AtividadesExport implements FromCollection, WithHeadings, WithStyles, With
 
         // Para a coluna I, manter uma largura mínima de 39 unidades (~272px)
         $sheet->getColumnDimension('I')->setWidth(39);
+
+
+        $lastRow = $sheet->getHighestRow();
+
+        // Aplica estilos condicionalmente em cada linha
+        for ($row = 6; $row <= $lastRow; $row++) {
+            $etapaCell = $sheet->getCell("J$row")->getValue();
+            if ($etapaCell != 'p2') {
+
+                $sheet->getStyle("A$row:J$row")->getFill()
+                    ->setFillType(Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('FFFF00');
+            }
+        }
+
+        $sheet->removeColumnByIndex(Coordinate::columnIndexFromString('J'));
 
         return [];
     }

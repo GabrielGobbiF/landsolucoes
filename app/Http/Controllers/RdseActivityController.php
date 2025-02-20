@@ -137,6 +137,7 @@ class RdseActivityController extends Controller
                 'rdses.description',
                 'rdses.n_order',
                 'rdse_activities.atividades',
+                'rdse_activities.tipo_ordem',
             ])
             ->where(function ($query) use ($datesPeriodoSearch) {
                 if (!empty($datesPeriodoSearch)) {
@@ -154,10 +155,12 @@ class RdseActivityController extends Controller
                             ->orWhereBetween('data_inicio', ['00:00', '06:00']);
                     }
                 }
-            })->get()->toArray();
+            })
+            ->orderByRaw('CAST(REPLACE(equipes.name, "UNC-", "") AS UNSIGNED)')
+            ->get()->toArray();
 
 
         // Gera o arquivo Excel com as atividades filtradas
-        return Excel::download(new AtividadesExport($atividades), 'atividades.xlsx');
+        return Excel::download(new AtividadesExport($atividades, $datesPeriodoSearch, $request->input('hour')), 'atividades.xlsx');
     }
 }
