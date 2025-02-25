@@ -164,7 +164,8 @@ class Obra extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('obras.status', '<>', 'concluida');
+        return $query->whereIn('obras.status', ['aprovada'])
+            ->where('obras.status', '<>', 'concluida');
     }
 
     public function getCountEtapas()
