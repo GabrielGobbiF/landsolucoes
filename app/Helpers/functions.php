@@ -11,6 +11,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+if (!function_exists('only_numbers')) {
+    /**
+     * Extrai apenas os números de uma string.
+     *
+     * @param string $string
+     * @return string
+     */
+    function only_numbers($string)
+    {
+        return preg_replace('/\D/', '', $string);
+    }
+}
+
 function validateDate($date, $format = 'd/m/Y')
 {
     $d = \DateTime::createFromFormat($format, $date);
@@ -196,6 +209,8 @@ function dataLimpa($date)
 function somarData($soma, $date, $type = 'days', $formatReturn = 'Y-m-d H:i:s')
 {
     $soma = intVal($soma);
+
+    $date = str_replace('/', '-', $date);
 
     $date = $date != '' ? Carbon::parse($date) : Carbon::parse(date('Y-m-d H:i:s'));
 

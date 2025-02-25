@@ -42,7 +42,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                     </div>
 
                     <div class="row mt-2">
@@ -50,8 +49,8 @@
                             <label for="obra-select_gestor">Gestor</label>
                             <select id="obra-select_gestor" name="gestor_id" class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
-                                @foreach ($userAll as $user)
-                                    <option value="{{ $user->id }}"> {{ $user->name }}</option>
+                                @foreach ($userGestorObras as $userGestor)
+                                    <option value="{{ $userGestor->id }}"> {{ $userGestor->name }}</option>
                                 @endforeach
                             </select>
                         </div>

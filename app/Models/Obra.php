@@ -162,6 +162,11 @@ class Obra extends Model
             ->first();
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('obras.status', '<>', 'concluida');
+    }
+
     public function getCountEtapas()
     {
         $idObra = $this->id;
@@ -193,5 +198,14 @@ class Obra extends Model
         $html .= '</div>';
 
         return $html;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($obra) {
+            $obra->etapas()->forceDelete();
+        });
     }
 }

@@ -5,6 +5,19 @@ return [
 
     'menus' => [
         'l' => [
+
+            [
+                'name' =>  'Dashboard ',
+                'icon' =>  'ri-dashboard-line',
+                'route' => 'l.dashboard',
+            ],
+
+            [
+                'name' =>  'Obras',
+                'icon' =>  'ri-building-4-line',
+                'route' => 'obras.index',
+            ],
+
             [
                 'name' =>  'Clientes',
                 'atc' =>  'clients',
@@ -29,11 +42,7 @@ return [
                 'icon' =>  'ri-file-edit-fill',
                 'route' => 'comercial.index',
             ],
-            [
-                'name' =>  'Obras',
-                'icon' =>  'ri-building-4-line',
-                'route' => 'obras.index',
-            ],
+
             [
                 'name' =>  'Financeiro',
                 'atc' =>  'arquivos',
@@ -541,6 +550,15 @@ return [
         ["name" => "Litro (L)", "is_active" => true],
         ["name" => "Mililitro (ML)", "is_active" => true],
         ["name" => "Fardo (FD)", "is_active" => true],
+    ],
+
+
+    'gerentes_obras' => [
+        '266',
+        '267',
+        '140',
+        '142',
+        '256'
     ]
 
 ];

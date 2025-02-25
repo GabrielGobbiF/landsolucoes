@@ -66,6 +66,13 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <label>Data Prazo Total</label>
+                                <input id="input--data_prazo_total" type="text" class="form-control date" name="data_prazo_total" autocomplete="off">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12 align-self-center">

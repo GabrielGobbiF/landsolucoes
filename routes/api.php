@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('obras', [ObraApiController::class, 'all'])->name('api.obras.all');
 
+
+
 Route::prefix('v1')->middleware('auth:web')->group(function () {
 
     Route::delete('activities/{id}', [App\Http\Controllers\Api\ActivitiesApiController::class, 'delete'])->name('api.activities.delete');

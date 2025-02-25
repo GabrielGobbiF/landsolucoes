@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\Date;
+use App\Casts\OnlyNumber;
 use App\Supports\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +38,21 @@ class ObraEtapa extends Model
         'data_prazo_total',
         'meta_etapa',
         'data_pedido'
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected $casts = [
+        'data_abertura' => Date::class,
+        'meta_etapa' => Date::class,
+        'data_programada' => Date::class,
+        'data_iniciada' => Date::class,
+        'data_pedido' => Date::class,
+        'data_prazo_total' => Date::class,
+        'prazo_atendimento' => OnlyNumber::class,
     ];
 
     protected $table = 'obras_etapas';
@@ -134,6 +151,13 @@ class ObraEtapa extends Model
         return null;
     }
 
+    public function scopeObraActive($query)
+    {
+        return $query->whereHas('obra', function ($query) {
+            $query->Active();
+        });
+    }
+
     protected static function booted()
     {
         static::saved(function ($etapa) {
@@ -142,12 +166,10 @@ class ObraEtapa extends Model
 
         static::updating(function ($etapa) {
             if ($etapa->isDirty('check') && $etapa->check === 'C') {
-                // Registre o log
                 $user = auth()->user();
                 $etapa->setLog(['message' => 'concluido']);
             }
         });
-
 
         static::deleted(function ($etapa) {
             $etapa->obra->touch(); // Atualiza o `updated_at` da obra

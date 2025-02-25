@@ -33,96 +33,6 @@ Route::group(['middleware' => ['CheckClient']], function () {
     });
 });
 
-Route::prefix('/v1/api')->group(function () {
-
-    Route::group(['middleware' => ['CheckAuth']], function () {
-        Route::get('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'all'])->name('obra.etapa.all');
-        Route::get('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'get'])->name('obra.etapa.show');
-        Route::get('etapa/{etapa_id}/comments', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'getComments'])->name('obra.etapa.comments');
-        Route::get('obra/{obraId}/documents', [App\Http\Controllers\Api\ObraApiController::class, 'documents'])->name('obras.documents.all');
-        Route::post('obra/{obra_id}/etapa/{etapa_id}/comment/store', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentStore'])->name('obra.etapa.comment.store');
-        Route::delete('obra/{obra_id}/etapa/{etapa_id}/comment/{commentId}/delete', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentDestroy'])->name('obra.etapa.comment.destroy');
-    });
-
-    Route::group(['middleware' => ['auth']], function () {
-        Route::get('/clients', [App\Http\Controllers\Api\TableApiController::class, 'clients'])->name('clients.all');
-        Route::get('/users', [App\Http\Controllers\Api\TableApiController::class, 'users'])->name('users.all');
-        Route::get('/users_table', [App\Http\Controllers\Api\TableApiController::class, 'users_table'])->name('users.table.all');
-        Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
-        Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
-        Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');
-        Route::get('/obras', [App\Http\Controllers\Api\TableApiController::class, 'obras'])->name('obras.all');
-        Route::get('/drivers', [App\Http\Controllers\Api\TableApiController::class, 'drivers'])->name('drivers.all');
-        Route::get('/employees', [App\Http\Controllers\Api\TableApiController::class, 'employees'])->name('employees.all');
-        Route::get('/portarias', [App\Http\Controllers\Api\TableApiController::class, 'portarias'])->name('portarias.all');
-        Route::get('/vehicles', [App\Http\Controllers\Api\TableApiController::class, 'vehicles'])->name('vehicles.all');
-        Route::get('/fornecedores', [App\Http\Controllers\Api\TableApiController::class, 'fornecedores'])->name('fornecedores.all');
-        Route::get('/produtos', [App\Http\Controllers\Api\TableApiController::class, 'produtos'])->name('produtos.all');
-        Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
-        Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
-        Route::get('/equipes', [App\Http\Controllers\Api\TableApiController::class, 'equipes'])->name('equipes.all');
-        Route::get('/inventories', [App\Http\Controllers\Api\TableApiController::class, 'inventories'])->name('inventories.all');
-        Route::get('/tipos_obra', [App\Http\Controllers\Api\TableApiController::class, 'tiposObras'])->name('tipos_obra.all');
-        Route::get('/supervisores', [App\Http\Controllers\Api\TableApiController::class, 'supervisores'])->name('supervisores.all');
-        Route::get('/encarregados', [App\Http\Controllers\Api\TableApiController::class, 'encarregados'])->name('encarregados.all');
-        Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
-        Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
-        Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
-        Route::get('/etd', [App\Http\Controllers\Api\TableApiController::class, 'etd'])->name('etd.all');
-        Route::get('visitors', [App\Http\Controllers\Api\TableApiController::class, 'visitors'])->name('visitors.all');
-        Route::get('clients-form-invoicing', [App\Http\Controllers\Api\TableApiController::class, 'clientsFormInvoicing'])->name('clients-form-invoicing.all');
-
-        Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
-        Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
-        Route::get('concessionaria/{concessionaria_id}/services', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'servicesByConcessionariaId'])->name('concessionaria.service.all');
-
-        /**
-         * Etapas
-         */
-        Route::post('obra/{obra_id}/etapa/reordenar', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'reordenarEtapas'])->name('obra.etapa.update.status');
-        Route::post('obra/{obra_id}/etapa/adicionar-etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'addEtapas'])->name('obra.etapa.update.status');
-        Route::delete('obra/{obra_id}/etapa/deleteSelected', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'deleteSelected'])->name('obra.etapa.destroy.selected');
-        Route::post('obra/{obra_id}/update', [App\Http\Controllers\Api\ObraApiController::class, 'update'])->name('api.obra.update');
-        Route::post('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateSelecteds'])->name('obra.etapa.update.selecteds');
-        Route::post('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'update'])->name('obra.etapa.update');
-        Route::post('obra/{obra_id}/etapa/{etapa_id}/status', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateStatus'])->name('obra.etapa.update.status');
-
-        /**
-         * Tasks
-         */
-        Route::get('tasks', [App\Http\Controllers\Api\TaskController::class, 'all'])->name('tasks.all');
-        Route::post('tasks', [App\Http\Controllers\Api\TaskController::class, 'store'])->name('task.store');
-        Route::get('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'show'])->name('task.show');
-        Route::post('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'update'])->name('task.update');
-        Route::post('tasks/{task_id}/status', [App\Http\Controllers\Api\TaskController::class, 'updateStatus'])->name('obra.etapa.update.status');
-
-        /**
-         * Departamento
-         */
-        Route::get('departments/{departmentId}', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'show'])->name('departments.show');
-
-        /*
-          |--------------------------------------------------------------------------
-          | Etapas X Faturamento
-          |--------------------------------------------------------------------------
-        */
-        Route::get('obras/{obraId}/finance/{etapaId}', [App\Http\Controllers\Api\FinanceiroApiController::class, 'show'])->name('etapas.faturamento.show');
-        Route::delete('obras/{obraId}/finance/{etapaId}/{faturamentoId}/destroy', [App\Http\Controllers\Api\FinanceiroApiController::class, 'destroy'])->name('etapas.faturamento.destroy');
-        Route::put('obras/{obraId}/finance/{etapaId}/{faturamentoId}/updateStatus', [App\Http\Controllers\Api\FinanceiroApiController::class, 'updateStatus'])->name('etapas.faturamento.update.status');
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Pesquisa Global
-        |--------------------------------------------------------------------------
-        */
-        Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
-        Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
-
-        Route::get('visitors/all', [App\Http\Controllers\Api\Frotas\VisitorsApiController::class, 'all'])->name('api.visitors.all');
-        Route::PUT('visitors/{visitorId}/updateStatus', [App\Http\Controllers\Api\Frotas\VisitorsApiController::class, 'updateStatus'])->name('api.visitors.update.status');
-    });
-});
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
@@ -230,6 +140,10 @@ Route::group(['middleware' => ['CheckPassword']], function () {
 
         Route::prefix('l')->middleware('auth')->group(function () {
 
+
+            Route::get('dashboard', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'dashboard'])->name('l.dashboard');
+
+
             Route::get('clients/form-invoicing', [App\Http\Controllers\Admin\ClientFormInvoicingController::class, 'index'])->name('admin.clients.form.invoicing');
 
 
@@ -261,7 +175,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::get('obra/{obra_id}/etapas/export', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'exportEtapas'])->name('obras.etapas.export');
-
             Route::put('obra/{obra_id}/gestor', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'updatedGestor'])->name('obras.updated.gestor');
             Route::put('obra/{obra_id}/linkar-rdse', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'linkarRdse'])->name('obras.link.rdse');
             Route::post('obras/{obraId}/favorite', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'favorite'])->name('obras.favorite');
@@ -273,7 +186,6 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::delete('obras/{obraId}/remove-finance', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'removeFinance'])->name('obras.remove.finance');
             Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
             Route::get('finances', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'index'])->name('finances.index');
-
             Route::put('obras/{obraId}/finance/{etapa_id}/storeFaturamento', [App\Http\Controllers\Api\FinanceiroApiController::class, 'storeFaturamento'])->name('etapas.faturamento.store');
 
             /*
@@ -602,3 +514,94 @@ Route::get('/sesmt', [App\Http\Controllers\Painel\DesenvolvedorController::class
 Route::get('/enel', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'downloadEnel']);
 Route::get('v1/api/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
 #Route::get('v1/api/getObraByNumberNota/{nNota}', [App\Http\Controllers\Api\BaseController::class, 'getObraByNumberNota']);
+
+Route::prefix('/v1/api')->group(function () {
+
+    Route::group(['middleware' => ['CheckAuth']], function () {
+        Route::get('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'all'])->name('obra.etapa.all');
+        Route::get('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'get'])->name('obra.etapa.show');
+        Route::get('etapa/{etapa_id}/comments', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'getComments'])->name('obra.etapa.comments');
+        Route::get('obra/{obraId}/documents', [App\Http\Controllers\Api\ObraApiController::class, 'documents'])->name('obras.documents.all');
+        Route::post('obra/{obra_id}/etapa/{etapa_id}/comment/store', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentStore'])->name('obra.etapa.comment.store');
+        Route::delete('obra/{obra_id}/etapa/{etapa_id}/comment/{commentId}/delete', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'commentDestroy'])->name('obra.etapa.comment.destroy');
+    });
+
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/clients', [App\Http\Controllers\Api\TableApiController::class, 'clients'])->name('clients.all');
+        Route::get('/users', [App\Http\Controllers\Api\TableApiController::class, 'users'])->name('users.all');
+        Route::get('/users_table', [App\Http\Controllers\Api\TableApiController::class, 'users_table'])->name('users.table.all');
+        Route::get('/concessionarias', [App\Http\Controllers\Api\TableApiController::class, 'concessionarias'])->name('concessionarias.all');
+        Route::get('/services', [App\Http\Controllers\Api\TableApiController::class, 'services'])->name('services.all');
+        Route::get('/comercial', [App\Http\Controllers\Api\TableApiController::class, 'comercial'])->name('comercial.all');
+        Route::get('/obras', [App\Http\Controllers\Api\TableApiController::class, 'obras'])->name('obras.all');
+        Route::get('/drivers', [App\Http\Controllers\Api\TableApiController::class, 'drivers'])->name('drivers.all');
+        Route::get('/employees', [App\Http\Controllers\Api\TableApiController::class, 'employees'])->name('employees.all');
+        Route::get('/portarias', [App\Http\Controllers\Api\TableApiController::class, 'portarias'])->name('portarias.all');
+        Route::get('/vehicles', [App\Http\Controllers\Api\TableApiController::class, 'vehicles'])->name('vehicles.all');
+        Route::get('/fornecedores', [App\Http\Controllers\Api\TableApiController::class, 'fornecedores'])->name('fornecedores.all');
+        Route::get('/produtos', [App\Http\Controllers\Api\TableApiController::class, 'produtos'])->name('produtos.all');
+        Route::get('/orcamentos', [App\Http\Controllers\Api\TableApiController::class, 'orcamentos'])->name('orcamentos.all');
+        Route::get('/handswork', [App\Http\Controllers\Api\TableApiController::class, 'handswork'])->name('handswork.all');
+        Route::get('/equipes', [App\Http\Controllers\Api\TableApiController::class, 'equipes'])->name('equipes.all');
+        Route::get('/inventories', [App\Http\Controllers\Api\TableApiController::class, 'inventories'])->name('inventories.all');
+        Route::get('/tipos_obra', [App\Http\Controllers\Api\TableApiController::class, 'tiposObras'])->name('tipos_obra.all');
+        Route::get('/supervisores', [App\Http\Controllers\Api\TableApiController::class, 'supervisores'])->name('supervisores.all');
+        Route::get('/encarregados', [App\Http\Controllers\Api\TableApiController::class, 'encarregados'])->name('encarregados.all');
+        Route::get('/rdses', [App\Http\Controllers\Api\TableApiController::class, 'rdses'])->name('rdses.all');
+        Route::get('/modelos-rdses', [App\Http\Controllers\Api\TableApiController::class, 'ModelosRdses'])->name('modelos.rdses.all');
+        Route::get('/epi', [App\Http\Controllers\Api\TableApiController::class, 'epi'])->name('epi.all');
+        Route::get('/etd', [App\Http\Controllers\Api\TableApiController::class, 'etd'])->name('etd.all');
+        Route::get('visitors', [App\Http\Controllers\Api\TableApiController::class, 'visitors'])->name('visitors.all');
+        Route::get('clients-form-invoicing', [App\Http\Controllers\Api\TableApiController::class, 'clientsFormInvoicing'])->name('clients-form-invoicing.all');
+
+        Route::get('/comercial/{comercial_id}/etapasFinanceiro', [App\Http\Controllers\Api\TableApiController::class, 'etapas_financeiro'])->name('comercial.etapas.financeiro.all');
+        Route::post('/comercial/{comercial_id}/etapasFinanceiro/store', [App\Http\Controllers\Api\EtapasApiController::class, 'etapas_financeiro_store'])->name('comercial.etapas.financeiro.store');
+        Route::get('concessionaria/{concessionaria_id}/services', [App\Http\Controllers\Painel\Obras\ConcessionariaServiceController::class, 'servicesByConcessionariaId'])->name('concessionaria.service.all');
+
+        /**
+         * Etapas
+         */
+        Route::post('obra/{obra_id}/etapa/reordenar', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'reordenarEtapas'])->name('obra.etapa.update.status');
+        Route::post('obra/{obra_id}/etapa/adicionar-etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'addEtapas'])->name('obra.etapa.update.status');
+        Route::delete('obra/{obra_id}/etapa/deleteSelected', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'deleteSelected'])->name('obra.etapa.destroy.selected');
+        Route::post('obra/{obra_id}/update', [App\Http\Controllers\Api\ObraApiController::class, 'update'])->name('api.obra.update');
+        Route::post('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateSelecteds'])->name('obra.etapa.update.selecteds');
+        Route::post('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'update'])->name('obra.etapa.update');
+        Route::post('obra/{obra_id}/etapa/{etapa_id}/status', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateStatus'])->name('obra.etapa.update.status');
+
+        /**
+         * Tasks
+         */
+        Route::get('tasks', [App\Http\Controllers\Api\TaskController::class, 'all'])->name('tasks.all');
+        Route::post('tasks', [App\Http\Controllers\Api\TaskController::class, 'store'])->name('task.store');
+        Route::get('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'show'])->name('task.show');
+        Route::post('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'update'])->name('task.update');
+        Route::post('tasks/{task_id}/status', [App\Http\Controllers\Api\TaskController::class, 'updateStatus'])->name('obra.etapa.update.status');
+
+        /**
+         * Departamento
+         */
+        Route::get('departments/{departmentId}', [App\Http\Controllers\Painel\Obras\DepartmentController::class, 'show'])->name('departments.show');
+
+        /*
+          |--------------------------------------------------------------------------
+          | Etapas X Faturamento
+          |--------------------------------------------------------------------------
+        */
+        Route::get('obras/{obraId}/finance/{etapaId}', [App\Http\Controllers\Api\FinanceiroApiController::class, 'show'])->name('etapas.faturamento.show');
+        Route::delete('obras/{obraId}/finance/{etapaId}/{faturamentoId}/destroy', [App\Http\Controllers\Api\FinanceiroApiController::class, 'destroy'])->name('etapas.faturamento.destroy');
+        Route::put('obras/{obraId}/finance/{etapaId}/{faturamentoId}/updateStatus', [App\Http\Controllers\Api\FinanceiroApiController::class, 'updateStatus'])->name('etapas.faturamento.update.status');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pesquisa Global
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/global', [App\Http\Controllers\Api\BaseController::class, 'global'])->name('global');
+        Route::get('/global-search', [App\Http\Controllers\Api\BaseController::class, 'global_search'])->name('global.search');
+
+        Route::get('visitors/all', [App\Http\Controllers\Api\Frotas\VisitorsApiController::class, 'all'])->name('api.visitors.all');
+        Route::PUT('visitors/{visitorId}/updateStatus', [App\Http\Controllers\Api\Frotas\VisitorsApiController::class, 'updateStatus'])->name('api.visitors.update.status');
+    });
+});

@@ -89,6 +89,11 @@ class User extends Authenticatable
         return $this->morphedByMany(Obra::class, 'favoritable');
     }
 
+    public function obras()
+    {
+        return $this->hasMany(Obra::class, 'gestor_id');
+    }
+
     public function tasks()
     {
         return $this->hasMany(Task::class, 'user_id', 'id');
@@ -106,5 +111,10 @@ class User extends Authenticatable
         if (!$this->favorites()->where($attributes)->exists()) {
             return $this->favorites()->create($attributes);
         }
+    }
+
+    public function scopeGestorObras($query)
+    {
+        return $query->whereIn('id', config('admin.gerentes_obras'));
     }
 }

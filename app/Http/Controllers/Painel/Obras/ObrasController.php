@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Department;
 use App\Models\Obra;
+use App\Models\ObraEtapa;
 use App\Models\Pasta;
 use App\Models\RSDE\Rdse;
 use App\Models\Service;
@@ -30,6 +31,124 @@ class ObrasController extends Controller
         $this->repository = $obra;
     }
 
+    public function dashboard(Request $request)
+    {
+        $hoje = Carbon::now();
+        $cincoDiasDepois = $hoje->copy()->addDays(5);
+
+        $queryObras = Obra::Active();
+        $countObras = $queryObras->count();
+        $countObrasByUser = $queryObras->where('gestor_id', auth()->user()->id)->count();
+        $countObrasNotUser = Obra::Active()->whereNull('gestor_id')->count();
+
+        $obrasComEtapasAtrasadas =  Obra::Active()->whereHas('etapas', function ($query) use ($hoje) {
+            $query->where('data_prazo_total', '<', $hoje)
+                ->whereNotNull('data_abertura')
+                ->whereNotNull('prazo_atendimento');
+        })->count();
+
+        $obrasComEtapasAtrasadasByUser =  Obra::Active()->whereHas('etapas', function ($query) use ($hoje) {
+            $query->where('data_prazo_total', '<', $hoje)
+                ->whereNotNull('data_abertura')
+                ->whereNotNull('prazo_atendimento');
+        })->where('gestor_id', auth()->user()->id)->count();
+
+
+        $queryEtapas = ObraEtapa::ObraActive();
+
+        // Etapas atrasadas
+        $etapasAtrasadas = $queryEtapas->where('data_prazo_total', '<', $hoje)
+            ->whereNotNull('data_abertura')
+            ->whereNotNull('prazo_atendimento')
+            ->limit(30)
+            ->get();
+
+        // Etapas que vencem hoje
+        $etapasVencemHoje = $queryEtapas->whereDate('data_prazo_total', $hoje->toDateString())
+            ->whereNotNull('data_abertura')
+            ->whereNotNull('prazo_atendimento')
+            ->limit(30)
+            ->get();
+
+        // Etapas que vencem nos próximos 5 dias
+        $etapasPrestesAVencer = $queryEtapas->whereBetween('data_prazo_total', [$hoje, $cincoDiasDepois])
+            ->whereNotNull('data_abertura')
+            ->whereNotNull('prazo_atendimento')
+            ->limit(30)
+            ->get();
+
+        $gestores = User::GestorObras()->withCount([
+            // Total number of obras per gestor
+            'obras' => function ($query) {
+                $query->Active();
+            },
+
+            // Obras with etapas that are not updated (missing deadlines or start dates)
+            'obras as nao_atualizadas' => function ($query) {
+                $query->whereHas('etapas', function ($q) {
+                    $q->whereNull('data_prazo_total')
+                        ->orWhereNull('data_abertura');
+                });
+            },
+
+            // Obras with etapas due within the next 3 days
+            'obras as etapas_a_vencer' => function ($query) {
+                $query->whereHas('etapas', function ($q) {
+                    $q->whereNotNull('data_prazo_total')
+                        ->whereNotNull('data_abertura')
+                        ->whereBetween('data_prazo_total', [Carbon::now(), Carbon::now()->addDays(3)]);
+                });
+            },
+
+            // Obras with overdue etapas
+            'obras as etapas_vencidas' => function ($query) {
+                $query->whereHas('etapas', function ($q) {
+                    $q->whereNotNull('data_prazo_total')
+                        ->whereNotNull('data_abertura')
+                        ->where('data_prazo_total', '<', Carbon::now());
+                });
+            },
+
+            // Obras with etapas that have no pending issues (due far in the future)
+            'obras as sem_pendencias' => function ($query) {
+                $query->whereHas('etapas', function ($q) {
+                    $q->whereNotNull('data_prazo_total')
+                        ->whereNotNull('data_abertura')
+                        ->where('data_prazo_total', '>', Carbon::now()->addDays(3));
+                });
+            }
+        ])->get();
+
+        // Prepare data for charts
+        $labels = $gestores->pluck('name')->toArray();
+        $nao_atualizadas = $gestores->pluck('nao_atualizadas')->toArray();
+        $etapas_a_vencer = $gestores->pluck('etapas_a_vencer')->toArray();
+        $etapas_vencidas = $gestores->pluck('etapas_vencidas')->toArray();
+        $sem_pendencias = $gestores->pluck('sem_pendencias')->toArray();
+
+
+        return view('pages.painel.obras.dashboard',  [
+            'countObras' => $countObras,
+            'countObrasByUser' => $countObrasByUser,
+            'countObrasNotUser' => $countObrasNotUser,
+            'obrasComEtapasAtrasadas' => $obrasComEtapasAtrasadas,
+            'obrasComEtapasAtrasadasByUser' => $obrasComEtapasAtrasadasByUser,
+
+            'etapasAtrasadas' => $etapasAtrasadas,
+            'etapasVencemHoje' => $etapasVencemHoje,
+            'etapasPrestesAVencer' => $etapasPrestesAVencer,
+
+
+            'labels' => $labels,
+            'nao_atualizadas' => $nao_atualizadas,
+            'etapas_a_vencer' => $etapas_a_vencer,
+            'etapas_vencidas' => $etapas_vencidas,
+            'sem_pendencias' => $sem_pendencias,
+
+            #'countObras' => $countObras,
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +156,7 @@ class ObrasController extends Controller
      */
     public function index()
     {
-        $userAll = User::all();
+        $userGestorObras = User::gestorObras()->get();
 
         $clients = Client::whereHas('obras', function ($query) {
             $query->where('obras.status', 'aprovada');
@@ -50,7 +169,7 @@ class ObrasController extends Controller
             'clients' => $clients,
             'concessionarias' => $concessionarias,
             'services' => $services,
-            'userAll' => $userAll
+            'userGestorObras' => $userGestorObras
         ]);
     }
 
