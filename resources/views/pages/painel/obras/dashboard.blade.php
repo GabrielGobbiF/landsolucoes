@@ -139,6 +139,66 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-1 overflow-hidden">
+                                    <p class="text-truncate font-size-14 mb-2">Etapas Atrasadas</p>
+                                    <h4 class="mb-0">{{ $etapasAtrasadas->count() }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body border-top py-3 d-none">
+                            <div class="text-truncate">
+                                <span class="badge bg-success-subtle text-success  font-size-11"><i class="mdi mdi-menu-up"> </i> 2.4% </span>
+                                <span class="text-muted ms-2">From previous period</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-1 overflow-hidden">
+                                    <p class="text-truncate font-size-14 mb-2">Etapas Vencem Hoje</p>
+                                    <h4 class="mb-0">{{ $etapasVencemHoje->count() }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body border-top py-3 d-none">
+                            <div class="text-truncate">
+                                <span class="badge bg-success-subtle text-success  font-size-11"><i class="mdi mdi-menu-up"> </i> 2.4% </span>
+                                <span class="text-muted ms-2">From previous period</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-1 overflow-hidden">
+                                    <p class="text-truncate font-size-14 mb-2">Etapas Vão Vencer</p>
+                                    <h4 class="mb-0">{{ $etapasPrestesAVencer->count() }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body border-top py-3 d-none">
+                            <div class="text-truncate">
+                                <span class="badge bg-success-subtle text-success  font-size-11"><i class="mdi mdi-menu-up"> </i> 2.4% </span>
+                                <span class="text-muted ms-2">From previous period</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -237,12 +297,12 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($etapasVencemHoje as $etapaVencemHoje)
+                                                @foreach ($etapasPrestesAVencer as $etapaPrestesAVencer)
                                                     <tr>
-                                                        <td>{{ $etapaVencemHoje->nome }}</td>
-                                                        <td>{{ $etapaVencemHoje->obra->razao_social }}</td>
+                                                        <td>{{ $etapaPrestesAVencer->nome }}</td>
+                                                        <td>{{ $etapaPrestesAVencer->obra->razao_social }}</td>
                                                         <td class="text-end">
-                                                            <a href="{{ route('obras.show', $etapaVencemHoje->obra->id) }}" class="">
+                                                            <a href="{{ route('obras.show', $etapaPrestesAVencer->obra->id) }}" class="">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
                                                         </td>
@@ -302,7 +362,7 @@
 
         </div>
 
-        <div class="col-12 col-md-6 mt-2">
+        <div class="col-12 col-md-6 mt-2 d-none">
             <div class="card text-start">
                 <div class="card-body">
                     <h3 class="mb-3">Etapas Sem Pendências</h3>
