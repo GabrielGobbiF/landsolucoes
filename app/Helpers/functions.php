@@ -543,5 +543,5 @@ function clearNumberToSendWhats($number)
 
 function currency($value, $in = "BRL", $locale = 'pt-BR')
 {
-    return Number::currency(only_numbers($value), $in, $locale);
+    return Number::currency(($value), $in, $locale);
 }
