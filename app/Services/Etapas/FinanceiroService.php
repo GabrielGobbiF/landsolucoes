@@ -60,17 +60,17 @@ class FinanceiroService
         return [
             'id' => $etapaFinanceira->id,
             'nome' => $etapaFinanceira->nome_etapa,
-            'total_faturado' => ($totalFaturado),
-            'a_faturar' => ($aFaturar),
-            'a_receber' => ($valorFaturadoNaoRecebido),
-            'recebido' => ($valorRecebido),
+            'total_faturado' => ($totalFaturado) / 100,
+            'a_faturar' => ($aFaturar)/ 100,
+            'a_receber' => ($valorFaturadoNaoRecebido)/ 100,
+            'recebido' => ($valorRecebido)/ 100,
             'vencidas' => [
                 'valor' => $valorVencido,
                 'quantidade' => $qtdVencidas,
                 'faturas' => $faturasVencidas
             ],
             'proximo_vencimento' => $proximoVencimento,
-            'valor_total' => ($valorTotal),
+            'valor_total' => ($valorTotal)/ 100,
             'percentual_recebido' => $valorTotal > 0 ? ($valorRecebido / $valorTotal * 100) : 0,
             'percentual_faturado' => $valorTotal > 0 ? ($totalFaturado / $valorTotal * 100) : 0,
             'status' => $etapaFinanceira->status,
