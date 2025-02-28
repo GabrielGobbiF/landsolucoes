@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         #$schedule->command('command:carReview')->everyFourHours();
 
+        $schedule->command('queue:work --sleep=3 --tries=3 --timeout=90')->everyMinute();
+
         $schedule->command('command:notifyLembrete')->everyMinute();
 
         $schedule->command('telescope:prune --hours=48')->daily();
