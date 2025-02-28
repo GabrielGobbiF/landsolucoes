@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Managers\ApiBrasil\ApiBrasilAuth;
+use App\Managers\ApiBrasil\Requests\ApiBrasilRequest;
 use App\Models\{
     Documento,
     Employee,
@@ -17,7 +19,8 @@ use App\Models\{
     ObraFinanceiro,
     ObraEtapa,
     User,
-    Visitor
+    Visitor,
+    EtapasFaturamento
 };
 use App\Models\RSDE\Handswork;
 use App\Models\RSDE\RdseServices;
@@ -33,6 +36,7 @@ use App\Observers\{
     EtapaObserver,
     ComercialObserver,
     DriverObserver,
+    EtapasFaturamentoObserver,
     FileObserver,
     ObraFinanceiroObserver,
     HandworkObserver,
@@ -58,7 +62,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ApiBrasilRequest::class, function () {
+            $accessToken = $params['access_token'] ?? null;
+            if (!$accessToken) {
+                $accessToken = $this->app->make(ApiBrasilAuth::class)->getAccessToken();
+            }
+            return new ApiBrasilRequest($accessToken);
+        });
     }
 
     /**
@@ -95,6 +105,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Visitor::observe(VisitorObserver::class);
         Driver::observe(DriverObserver::class);
+        EtapasFaturamento::observe(EtapasFaturamentoObserver::class);
 
         $this->app->instance(IlluminateDatabaseChannel::class, new DataBaseChannel);
     }

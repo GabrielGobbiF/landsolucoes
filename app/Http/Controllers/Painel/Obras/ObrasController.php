@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel\Obras;
 use App\Exports\ObraEtapasExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Managers\ApiBrasil\ApiBrasil;
 use App\Models\Client;
 use App\Models\Concessionaria;
 use App\Models\Department;
@@ -162,6 +163,8 @@ class ObrasController extends Controller
      */
     public function index()
     {
+        #dd(app(ApiBrasil::class)->send('11971590068', ''));
+
         $userGestorObras = User::gestorObras()->get();
 
         $clients = Client::whereHas('obras', function ($query) {
@@ -178,7 +181,6 @@ class ObrasController extends Controller
             'userGestorObras' => $userGestorObras
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.

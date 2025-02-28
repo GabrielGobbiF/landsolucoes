@@ -758,7 +758,11 @@ class TableApiController extends Controller
             })
 
             ->when(isset($filters['gestor_id']), function ($query) use ($filters) {
-                $query->where('gestor_id', $filters['gestor_id']);
+                if ($filters['gestor_id'] == 'not') {
+                    $query->whereNull('gestor_id');
+                } else {
+                    $query->where('gestor_id', $filters['gestor_id']);
+                }
             })
 
             ->when(isset($filters['urgence']), function ($query) {

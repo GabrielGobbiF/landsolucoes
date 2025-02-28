@@ -448,7 +448,7 @@
 
                     @if (auth()->user()->hasRole('builds') || auth()->user()->hasRole('admin'))
                         <div class="grid_itens">
-                            <a href="{{ route('l.dashboard') }}" class="underline text-gray-900 ">
+                            <a href="{{ route('obras.index') }}" class="underline text-gray-900 ">
                                 <i class="fas fa-city mr-2"></i>
                                 Obras
                             </a>

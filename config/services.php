@@ -30,4 +30,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'apibrasil' => [
+        'login' => env('APIBRASIL_LOGIN'),
+        'pass' => env('APIBRASIL_PASS'),
+        'device' => env('APIBRASIL_DEVICE'),
+        'url' => env('APIBRASIL_URL'),
+        'auth_url' => env('APIBRASIL_AUTH_URL'),
+        'key_admin' => env('APIBRASIL_KEY_ADMIN'),
+        'active' => env('APIBRASIL_ACTIVE', true)
+    ],
+
 ];

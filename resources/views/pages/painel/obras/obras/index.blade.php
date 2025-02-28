@@ -49,6 +49,7 @@
                             <label for="obra-select_gestor">Gestor</label>
                             <select id="obra-select_gestor" name="gestor_id" class="form-control select2 search-input">
                                 <option value="" selected>Selecione</option>
+                                <option value="not"> Sem Gestor</option>
                                 @foreach ($userGestorObras as $userGestor)
                                     <option value="{{ $userGestor->id }}"> {{ $userGestor->name }}</option>
                                 @endforeach

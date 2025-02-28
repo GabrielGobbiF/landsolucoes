@@ -10,6 +10,8 @@ use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Money\Money;
+use Illuminate\Support\Number;
 
 if (!function_exists('only_numbers')) {
     /**
@@ -532,4 +534,14 @@ function calculateDates(string $period, ?string $startDate = null, ?string $endD
         'start_at' => $start_at->toDateString(),
         'end_at' => $end_at->toDateString(),
     ];
+}
+
+function clearNumberToSendWhats($number)
+{
+    return '55' . clear($number);
+}
+
+function currency($value, $in = "BRL", $locale = 'pt-BR')
+{
+    return Number::currency(only_numbers($value), $in, $locale);
 }

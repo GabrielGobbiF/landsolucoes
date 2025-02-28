@@ -17,7 +17,8 @@ class ObraEtapasFinanceiro extends Model
         'metodo_pagamento',
         'valor',
         'valor_receber',
-        'nome_etapa'
+        'nome_etapa',
+        'status'
     ];
 
     protected $table = 'obras_etapas_financeiro';

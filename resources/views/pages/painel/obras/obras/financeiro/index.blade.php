@@ -13,6 +13,10 @@
             color: #b34e4e;
             background-color: rgb(211 22 22 / 28%);
         }
+
+        .cross-line {
+            text-decoration: line-through;
+        }
     </style>
     <section class="invoice">
 
@@ -50,70 +54,90 @@
                         <thead class='thead-light'>
                             <tr>
                                 <th>Etapa de faturamento</th>
-                                <th>Valor Total Etapa</th>
+                                <th>Total</th>
                                 <th>Total Faturado</th>
-                                <th>Vencidas / Vencimento</th>
-                                <th>Saldo à Faturar</th>
+                                <th>À Faturar</th>
+                                <th>À Receber</th>
+                                <th>Recebido</th>
+                                <th>Vencidas</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                $saldoAFaturar = 0;
-                                $totalFaturado = 0;
-                                $totalRecebido = 0;
-                            @endphp
 
-                            @foreach ($faturamento as $etapa)
-                                @php
-                                    $totalFaturado += $etapa['total_faturado'];
-                                    $saldoAFaturar += $etapa['valor_etapa'] - $etapa['total_faturado'];
-                                    $totalRecebido += $etapa['recebido'];
-                                @endphp
-                                <tr>
-                                    <th>{{ mb_strimwidth($etapa['nome_etapa'], 0, 38, '...') }}</th>
-                                    <th>R$ {{ maskPrice($etapa['valor_etapa']) }}</th>
-                                    <th>R$ {{ maskPrice($etapa['total_faturado']) }}</th>
-                                    <th>{{ $etapa['qnt_vencidas'] }} vencida(s) </th>
-                                    <th>R$
-                                        {{ $etapa['valor_etapa'] != '0' && $etapa['status'] == 'C' ? maskPrice($etapa['valor_etapa'] - $etapa['total_faturado']) : '0' }}
+                            @foreach ($dadosFinanceirosCollection as $dadosEtapa)
+                                <tr class="{{ $dadosEtapa['recebido'] == $dadosEtapa['valor_total'] ? 'cross-line' : '' }}">
+
+                                    {{-- Etapa de faturamento --}}
+                                    <th>{{ $dadosEtapa['nome'] }}</th>
+
+                                    {{-- Total --}}
+                                    <th>{{ currency($dadosEtapa['valor_total']) }}</th>
+
+                                    {{-- Total Faturado --}}
+                                    <th>{{ currency($dadosEtapa['total_faturado']) }}</th>
+
+                                    {{-- A Faturado --}}
+                                    <th>
+                                        <span class="text-{{ $dadosEtapa['a_faturar'] > 0 ? 'success' : '' }}">
+                                            {{ currency($dadosEtapa['a_faturar']) }}
+                                        </span>
+                                    </th>
+
+                                    {{-- A Receber --}}
+                                    <th>
+                                        <span class="text-{{ $dadosEtapa['a_receber'] > 0 ? 'success' : '' }}">
+                                            {{ currency($dadosEtapa['a_receber']) }}
+                                        </span>
+                                    </th>
+
+                                    {{-- A Recebido --}}
+                                    <th>{{ currency($dadosEtapa['recebido']) }}</th>
+
+                                    {{-- Vencidas --}}
+                                    <th>
+                                        <span class="text-{{ $dadosEtapa['vencidas']['quantidade'] > 0 ? 'danger' : '' }}">
+                                            {{ $dadosEtapa['vencidas']['quantidade'] }}
+                                        </span>
                                     </th>
 
                                     <th>
-                                        @if ($etapa['total_faturado'] != '0' && $etapa['total_faturado'] == $etapa['valor_etapa'])
-                                            @if ($etapa['total_receber'] != 0)
-                                                @if ($etapa['dataVencimento'] <= date('Y-m-d'))
-                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}"
-                                                       data-id="{{ $etapa['id'] }}">
+                                        @if ($dadosEtapa['total_faturado'] != '0' && $dadosEtapa['total_faturado'] == $dadosEtapa['valor_total'])
+                                            @if ($dadosEtapa['a_receber'] != 0)
+                                                @if ($dadosEtapa['proximo_vencimento'] <= date('Y-m-d'))
+                                                    <a href="javascript:void(0)" class="{{ $dadosEtapa['status_etapa'] == 'C' ? 'btn-faturamento' : '' }}"
+                                                       data-id="{{ $dadosEtapa['id'] }}">
                                                         <div class="badge badge-soft-receber">
                                                             Receber
                                                         </div>
                                                     </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}"
-                                                       data-id="{{ $etapa['id'] }}">
+                                                    <a href="javascript:void(0)" class="{{ $dadosEtapa['status_etapa'] == 'C' ? 'btn-faturamento' : '' }}"
+                                                       data-id="{{ $dadosEtapa['id'] }}">
                                                         <div class="badge badge-soft-success">
                                                             Faturado
                                                         </div>
                                                     </a>
                                                 @endif
                                             @else
-                                                <a href="javascript:void(0)" class="btn-faturamento" data-id="{{ $etapa['id'] }}">
+                                                <a href="javascript:void(0)" class="btn-faturamento" data-id="{{ $dadosEtapa['id'] }}">
                                                     <div class="badge badge-soft-success">
                                                         Recebido
                                                     </div>
                                                 </a>
                                             @endif
                                         @else
-                                            <a href="javascript:void(0)" class="{{ $etapa['status'] == 'C' ? 'btn-faturamento' : '' }}"
-                                               data-id="{{ $etapa['id'] }}">
-                                                <div class="badge badge-soft-{{ $etapa['label'] }}">
-                                                    {{ __('etapa.status.' . $etapa['status']) }}
+                                            <a href="javascript:void(0)" class="{{ $dadosEtapa['status_etapa'] == 'C' ? 'btn-faturamento' : '' }}"
+                                               data-id="{{ $dadosEtapa['id'] }}">
+                                                <div class="badge badge-soft-{{ $dadosEtapa['label_etapa'] }}">
+                                                    {{ __('etapa.status.' . $dadosEtapa['status_etapa']) }}
                                                 </div>
                                             </a>
                                         @endif
                                     </th>
                                 </tr>
+
+
                             @endforeach
 
                         </tbody>
@@ -129,25 +153,27 @@
                                 <tbody>
                                     <tr>
                                         <th style="width:50%">Valor Negociado: </th>
-                                        <td>R$ {{ maskPrice($obra->financeiro->valor_negociado) }}</td>
+                                        <td>{{ currency($obra->financeiro->valor_negociado) }}</td>
                                     </tr>
                                     <tr>
                                         <th>A Faturar: </th>
-                                        <td>R$ {{ maskPrice($saldoAFaturar) }}</td>
+                                        <td>{{ currency($dadosFinanceirosCollection->sum('a_faturar')) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Faturado: </th>
-                                        <td>R$ {{ maskPrice($totalFaturado) }}</td>
+                                        <td>{{ currency($dadosFinanceirosCollection->sum('total_faturado')) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Recebido: </th>
-                                        <td>R$ {{ maskPrice($totalRecebido) }}</td>
+                                        <td>{{ currency($dadosFinanceirosCollection->sum('recebido')) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Saldo: </th>
-                                        <td>R$ {{ maskPrice($obra->financeiro->valor_negociado - $totalFaturado) }}</td>
+                                        <td>{{ currency($obra->financeiro->valor_negociado - $dadosFinanceirosCollection->sum('total_faturado')) }}</td>
                                     </tr>
                                 </tbody>
+
+
                             </table>
                         </div>
                     </div>
@@ -156,9 +182,12 @@
         </div>
     </section>
 
+
+
     @include('pages.painel.obras._partials.modals.modal-etapas-financeiro')
 
 @stop
+
 @section('scripts')
     @yield('scripts')
     <script src="{{ asset('panel/js/pages/obras/financeiro.js') }}"></script>
@@ -167,4 +196,4 @@
             show(`{{ $input }}`)
         </script>
     @endif
-@endsection
+@append

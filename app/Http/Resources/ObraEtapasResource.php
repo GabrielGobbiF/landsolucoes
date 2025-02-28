@@ -39,7 +39,6 @@ class ObraEtapasResource extends JsonResource
             "data_prazo_total" => $this->data_prazo_total != '' ? $this->data_prazo_total : NULL,
             "data_pedido" => $this->data_pedido != '' ? $this->data_pedido : NULL,
             "prazo_atendimento" => $this->prazo_atendimento,
-            "data_prazo_total" => $this->data_prazo_total,
             "check" => $this->check,
             "responsavel" => $this->responsavel,
             "cliente_responsavel" => $this->cliente_responsavel,

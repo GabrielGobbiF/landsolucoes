@@ -7,13 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Obra;
 use App\Models\ObraEtapasFinanceiro;
+use App\Services\Etapas\FinanceiroService;
 use Illuminate\Support\Facades\DB;
 
 class FinanceiroController extends Controller
 {
     protected $repository;
 
-    public function __construct(Obra $obra)
+    public function __construct(Obra $obra, private FinanceiroService $financeiroService)
     {
         $this->middleware('role:finance');
         $this->repository = $obra;
@@ -47,7 +48,7 @@ class FinanceiroController extends Controller
                 $query->orWhere('status', 'concluida');
             })
             ->whereNull('remove_finance')
-            ->with('financeiro', 'client')
+            ->with('financeiro', 'client', 'etapas')
             //->limit(200)
             ->get(['razao_social', 'id', 'last_note', 'status', 'client_id']);
 
@@ -145,7 +146,6 @@ class FinanceiroController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function show(int $obraId)
     {
@@ -163,40 +163,55 @@ class FinanceiroController extends Controller
                 ->with('message', 'Atualize o financeiro primeiro!');
         }
 
-        $etapas_faturamento = $obra->etapas_financeiro()->with('faturamento')->get();
+        #$etapas_faturamento = $obra->etapas_financeiro()->with('faturamento')->get();
 
-        foreach ($etapas_faturamento as $etapa_faturamento) {
-            $r = $etapa_faturamento->aReceber();
-            $d = $etapa_faturamento->vencidas();
+        $etapasFinanceiras = ObraEtapasFinanceiro::where('obra_id', $obraId)
+            #->where('id', 3)
+            ->with('faturamento')
+            ->get();
 
-            $etapa = $etapa_faturamento->StatusEtapa;
+        $dadosFinanceirosCollection = [];
 
-            $valor_etapa = $etapa_faturamento->valor_receber;
-
-            $etapaFaturado = $etapa_faturamento->faturado();
-            $etapaRecebido = $etapa_faturamento->recebido();
-            $qntVencidas = $d->qnt;
-            $dataVencimento = $r->data_vencimento;
-            $totalAReceber = $r->sum;
-
-            $faturamento[] = [
-                'id' => $etapa_faturamento->id,
-                'nome_etapa' => $etapa['nome'],
-                'valor_etapa' => $valor_etapa,
-                'total_faturado' => $etapaFaturado,
-                'total_a_faturar' => $valor_etapa != '0' ? maskPrice($valor_etapa - $etapaFaturado) : '0',
-                'qnt_vencidas' => $qntVencidas,
-                'dataVencimento' => $dataVencimento,
-                'total_receber' => $totalAReceber,
-                'status' => $etapa['text'],
-                'label' => $etapa['label'],
-                'recebido' => $etapaRecebido,
-            ];
+        foreach ($etapasFinanceiras as $etapa) {
+            $dadosFinanceirosCollection[$etapa->id] = $this->financeiroService
+                ->calcularInfoFinanceira($etapa->id);
         }
+
+        $dadosFinanceirosCollection = collect($dadosFinanceirosCollection);
+
+        #foreach ($etapas_faturamento as $etapa_faturamento) {
+        #$r = $etapa_faturamento->aReceber();
+        #$d = $etapa_faturamento->vencidas();
+
+        #$etapa = $etapa_faturamento->StatusEtapa;
+
+        #$valor_etapa = $etapa_faturamento->valor_receber;
+
+        #$etapaFaturado = $etapa_faturamento->faturado();
+        #$etapaRecebido = $etapa_faturamento->recebido();
+        #$qntVencidas = $d->qnt;
+        #$dataVencimento = $r->data_vencimento;
+        #$totalAReceber = $r->sum;
+
+        #$faturamento[] = [
+        #    'id' => $etapa_faturamento->id,
+        #    'nome_etapa' => $etapa['nome'],
+        #    'valor_etapa' => $valor_etapa,
+        #    'total_faturado' => $etapaFaturado,
+        #    'total_a_faturar' => $valor_etapa != '0' ? maskPrice($valor_etapa - $etapaFaturado) : '0',
+        #    'qnt_vencidas' => $qntVencidas,
+        #    'dataVencimento' => $dataVencimento,
+        #    'total_receber' => $totalAReceber,
+        #    'status' => $etapa['text'],
+        #    'label' => $etapa['label'],
+        #    'recebido' => $etapaRecebido,
+        #];
+        #}
 
         return view('pages.painel.obras.obras.financeiro.index', [
             'obra' => $obra,
-            'faturamento' => $faturamento
+            'faturamento' => $faturamento,
+            'dadosFinanceirosCollection' => $dadosFinanceirosCollection,
         ]);
     }
 }

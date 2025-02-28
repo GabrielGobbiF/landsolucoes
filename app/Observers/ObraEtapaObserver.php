@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Models\ObraEtapa;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ObraEtapaObserver
 {

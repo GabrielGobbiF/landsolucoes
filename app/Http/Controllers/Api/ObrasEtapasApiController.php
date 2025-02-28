@@ -12,6 +12,7 @@ use App\Models\ObraEtapa;
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\User;
 use App\Notifications\EtapaMencionUser;
+use App\Services\EtapaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -177,11 +178,16 @@ class ObrasEtapasApiController extends Controller
         $etapaNome = $etapa->nome;
         $obraNome = $obra->razao_social;
 
-        $etapaFinanceiro = $obra->etapas_financeiro()->where('etapa_id', $etapa->id)->first();
+        $etapaFinanceiro = ObraEtapasFinanceiro::where('etapa_id', $etapa->id_etapa)
+            ->where('obra_id', $obra->id)
+            ->first();
 
-        $etapa = $etapa->update(['check' => $check]);
+        $etapa->update(['check' => $check]);
 
         if ($etapaFinanceiro && $check == 'C') {
+
+            app(EtapaService::class)->sendMessageCheckFaturamento($etapa, $etapaFinanceiro);
+
             /* todoFazer  */
             #slack("Obra: $obraNome \n Etapa: $etapaNome Liberado para faturamento veja " . route('obras.finance', $obra->id));
         }
