@@ -49,7 +49,10 @@ class FinanceiroController extends Controller
             })
             ->whereNull('remove_finance')
             ->with('financeiro', 'client', 'etapas')
-            ->limit(200)
+            ->whereNull('obras.deleted_at')
+            ->whereIn('obras.status', ['aprovada'])
+            ->where('obras.status', '<>', 'concluida')
+            //->limit(200)
             ->get(['razao_social', 'id', 'last_note', 'status', 'client_id']);
 
 
