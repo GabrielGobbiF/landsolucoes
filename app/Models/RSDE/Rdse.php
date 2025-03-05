@@ -207,13 +207,17 @@ class Rdse extends Model
 
             ->where(function ($query) use ($datesPeriodoSearch) {
                 if (!empty($datesPeriodoSearch)) {
-                    $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                    if ($datesPeriodoSearch['start_at'] == $datesPeriodoSearch['end_at']) {
+                        $query->whereDate('data', [$datesPeriodoSearch['start_at']]);
+                    } else {
+                        $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                    }
                 }
             })
 
             ->where(function ($q) use ($filters) {
 
-                if (isset($filters['hour'])) {
+                if (isset($filters['hour']) && $filters['hour'] != 'all') {
                     $q->whereHas('activities', function ($query) use ($filters) {
                         $turno = $filters['hour'];
 

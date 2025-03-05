@@ -471,8 +471,13 @@ class TableApiController extends Controller
                 }
             })
             ->where(function ($query) use ($filters) {
-                if (!empty($filters['month_date'])) {
+                if (isset($filters['month_date']) && !empty($filters['month_date'])) {
                     $query->whereMonth('month_date', $filters['month_date']);
+                }
+            })
+
+            ->where(function ($query) use ($filters) {
+                if (isset($filters['year']) && !empty($filters['year'])) {
                     $query->whereYear('month_date', $filters['year']);
                 }
             })
@@ -487,7 +492,7 @@ class TableApiController extends Controller
 
             ->where(function ($query) use ($filters) {
                 if (isset($filters['atividades'])) {
-                    if ($filters['atividades'] !== 'all') {
+                    if ($filters['atividades'] != 'all') {
                         $query->whereHas('activities', function ($query) use ($filters) {
                             if ($filters['atividades'] == 'nao_execucao') {
                                 $query->whereNull('execucao'); // Filtra apenas atividades com execução nula
@@ -502,15 +507,18 @@ class TableApiController extends Controller
             ->where(function ($query) use ($datesPeriodoSearch) {
                 if (!empty($datesPeriodoSearch)) {
                     $query->whereHas('activities', function ($query) use ($datesPeriodoSearch) {
-                        $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                        if ($datesPeriodoSearch['start_at'] == $datesPeriodoSearch['end_at']) {
+                            $query->whereDate('data', [$datesPeriodoSearch['start_at']]);
+                        } else {
+                            $query->whereBetween('data', [$datesPeriodoSearch['start_at'], $datesPeriodoSearch['end_at']]);
+                        }
                     });
                 }
             })->where(function ($q) use ($filters) {
 
-                if (isset($filters['hour'])) {
+                if (isset($filters['hour']) && $filters['hour'] != 'all') {
                     $q->whereHas('activities', function ($query) use ($filters) {
                         $turno = $filters['hour'];
-
                         if ($turno === 'diurno') {
                             $query->whereBetween('data_inicio', ['07:00', '19:00']);
                         } elseif ($turno === 'noturno') {

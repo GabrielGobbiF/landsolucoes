@@ -145,6 +145,7 @@
                                 <div class="col-12 col-md-1">
                                     <label>Ano</label>
                                     <select id="year" name="year" class="form-control search-input-rdse">
+                                        <option  value="all">Todos</option>
                                         <option {{ request()->input('year') == '2024' ? 'selected' : null }} value="2024">2024</option>
                                         <option {{ request()->input('year') == '2025' ? 'selected' : null }} value="2025">2025</option>
                                     </select>
