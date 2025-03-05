@@ -443,12 +443,12 @@
                                 <div data-id="date-fields-2" class="mb-3 date-fields row d-none">
                                     <div class="form-group col-12 col-md-2" style="min-width: 180px">
                                         <label class="form-label">De</label>
-                                        <input type="date" name="start_at" class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                        <input type="date" name="start_at" class="form-control datetimepicker flatpickr-input">
                                     </div>
 
                                     <div class="form-group col-12 col-md-2" style="min-width: 180px">
                                         <label class="form-label">Até</label>
-                                        <input type="date" name="end_at" class="form-control datetimepicker flatpickr-input search-input-rdse">
+                                        <input type="date" name="end_at" class="form-control datetimepicker flatpickr-input">
                                     </div>
                                 </div>
                             </div>
