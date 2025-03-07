@@ -63,7 +63,7 @@ class RdseController extends Controller
     {
         $date = Carbon::now()->format('d/m/Y');
 
-        $year = $request->has('year') ? $request->input('year') : Carbon::now()->format('Y');
+        $year = $request->has('year') ? $request->input('year') : NULL;
         $request->merge(['year' => $year]);
 
         $status = $request->has('status') ? $request->input('status') : ['pending'];

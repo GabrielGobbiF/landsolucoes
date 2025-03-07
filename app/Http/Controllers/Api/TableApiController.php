@@ -472,13 +472,19 @@ class TableApiController extends Controller
             })
             ->where(function ($query) use ($filters) {
                 if (isset($filters['month_date']) && !empty($filters['month_date'])) {
-                    $query->whereMonth('month_date', $filters['month_date']);
+
+                    if($filters['month_date'] != 'all'){
+                        $query->whereMonth('month_date', $filters['month_date']);
+                    }
                 }
             })
 
             ->where(function ($query) use ($filters) {
                 if (isset($filters['year']) && !empty($filters['year'])) {
+                    if($filters['year'] != 'all'){
+
                     $query->whereYear('month_date', $filters['year']);
+                    }
                 }
             })
 
