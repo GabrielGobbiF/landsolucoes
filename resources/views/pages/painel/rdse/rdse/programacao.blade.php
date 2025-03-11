@@ -430,7 +430,7 @@
                             <div class="col-12 col-md-12 mt-3">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Periodo:</label>
-                                    <select name="hour" class="form-select t-select search-input-rdse " required>
+                                    <select name="hour" class="form-select t-select  " required>
                                         <option value="all" selected>Todos</option>
                                         <option value="diurno">Diurno</option>
                                         <option value="noturno">Noturno</option>
@@ -464,9 +464,7 @@
     </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalId">
-    Launch
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
