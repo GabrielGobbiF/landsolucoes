@@ -199,11 +199,7 @@ class Rdse extends Model
                     }
                 }
             })
-            ->where(function ($query) use ($filters) {
-                if (!empty($filters['diretoria'])) {
-                    $query->where('diretoria',  $filters['diretoria']);
-                }
-            })
+            
 
             ->where(function ($query) use ($datesPeriodoSearch) {
                 if (!empty($datesPeriodoSearch)) {
