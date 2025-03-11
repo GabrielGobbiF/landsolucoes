@@ -218,7 +218,7 @@ class Rdse extends Model
             ->where(function ($q) use ($filters) {
 
                 if (isset($filters['hour']) && $filters['hour'] != 'all') {
-                    $q->whereHas('activities', function ($query) use ($filters) {
+                    $q->where( function ($query) use ($filters) {
                         $turno = $filters['hour'];
 
                         if ($turno === 'diurno') {
