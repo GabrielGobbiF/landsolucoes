@@ -237,7 +237,7 @@ class Rdse extends Model
                 }
             })
 
-            ->orderBy('data', 'desc')->limit(3)->get();
+            ->orderBy('data', 'desc')->limit(6)->get();
 
         if ($atividades->count() == 0) {
             return  $html = 'Sem atividades';
