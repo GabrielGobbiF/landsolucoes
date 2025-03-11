@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
+use App\Http\Resources\ConcessionariaResource;
 use App\Http\Resources\EtapasFaturamento;
 use App\Http\Resources\ServiceResource;
 use App\Models\Comment;
@@ -13,6 +14,7 @@ use App\Models\Etapa;
 use App\Models\EtapasFaturamento as ModelsEtapasFaturamento;
 use App\Models\Obra;
 use App\Models\ObraEtapa;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -164,5 +166,13 @@ class BaseController extends Controller
         }
     }
 
+    public function concessionarias(Request $request)
+    {
+        return ConcessionariaResource::collection(Concessionaria::all());
+    }
 
+    public function servicos(Request $request)
+    {
+        return ServiceResource::collection(Service::all());
+    }
 }

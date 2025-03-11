@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('obras', [ObraApiController::class, 'all'])->name('api.obras.all');
 
 
+Route::get('concessionarias', [BaseController::class, 'concessionarias'])->name('api.concessionarias.all');
+Route::get('servicos', [BaseController::class, 'servicos'])->name('api.sevicos.all');
+
 
 Route::prefix('v1')->middleware('auth:web')->group(function () {
 
