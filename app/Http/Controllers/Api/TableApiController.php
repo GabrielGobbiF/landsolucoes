@@ -539,7 +539,7 @@ class TableApiController extends Controller
 
             ->where('modelo', 0)
             ->orderBy($this->sort, $this->order)
-            ->paginate($this->limit);
+            ->paginate(10);
 
         #dd([$rdses->toSql(), $rdses->getBindings()]);
 
