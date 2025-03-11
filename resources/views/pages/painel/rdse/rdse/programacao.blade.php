@@ -430,7 +430,7 @@
                             <div class="col-12 col-md-12 mt-3">
                                 <div class="mb-3 form-group">
                                     <label class="form-label">Periodo:</label>
-                                    <select name="hour" class="form-select t-select " required>
+                                    <select name="hour" class="form-select t-select search-input-rdse " required>
                                         <option value="all" selected>Todos</option>
                                         <option value="diurno">Diurno</option>
                                         <option value="noturno">Noturno</option>
@@ -463,8 +463,154 @@
         </div>
     </div>
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalId">
+    Launch
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Adicionar em Massa
+                </h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('rdse.store') }}">
+                    @csrf
+                
+                    <div id="formulario">
+                        <div class="linha-formulario">
+                            <div class="row">
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label>Descrição / Endereço</label>
+                                        <input type="text" name="description[]" class="form-control @error('description') is-invalid @enderror" autocomplete="off" required>
+                                    </div>
+                                </div>
+                
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <select name="type[]" class="form-control select2">
+                                            @foreach (config('admin.rdse.type') as $status)
+                                                <option value="{{ $status['name'] }}">{{ $status['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label>Solicitante</label>
+                                        <input type="text" name="solicitante[]" class="form-control @error('solicitante') is-invalid @enderror" value="{{ auth()->user()->name }}" autocomplete="off">
+                                    </div>
+                                </div>
+                
+                
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label>Data</label>
+                                        <input type="text" name="at[]" class="form-control date @error('at') is-invalid @enderror" value="{{ date('d/m/Y') }}" autocomplete="off">
+                                    </div>
+                                </div>
+                
+                                <div class="col-12 col-md-2">
+                                    <div class="form-group">
+                                        <label>Data Mês</label>
+                                        <select name="month_date[]" class="form-control" required>
+                                            <option value="">Selecione</option>
+                                            <option value="01">Janeiro</option>
+                                            <option value="02">Fevereiro</option>
+                                            <option selected value="03">Março</option>
+                                            <option value="04">Abril</option>
+                                            <option value="05">Maio</option>
+                                            <option value="06">Junho</option>
+                                            <option value="07">Julho</option>
+                                            <option value="08">Agosto</option>
+                                            <option value="09">Setembro</option>
+                                            <option value="10">Outubro</option>
+                                            <option value="11">Novembro</option>
+                                            <option value="12">Dezembro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label>Ano</label>
+                                        <select name="year[]" class="form-control" required>
+                                            <option value="">Selecione</option>
+                                            <option value="2024">2024</option>
+                                            <option selected value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label>Diretoria</label>
+                                        <select name="diretoria[]" class="form-control" required>
+                                            <option value="">Selecione</option>
+                                            <option value="PM">PM</option>
+                                            <option value="HV">HV</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="col-12 mt-2">
+                                <button type="button" class="btn btn-danger btn-remover">Remover</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-12 mt-3">
+                        <button type="button" id="btn-adicionar" class="btn btn-primary">Adicionar mais</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            // Adicionar nova linha
+            $('#btn-adicionar').click(function() {
+                var novaLinha = $('.linha-formulario:first').clone();
+                novaLinha.find('input').val(''); // Limpa os valores dos inputs
+                novaLinha.find('select').val(''); // Limpa os valores dos selects
+                novaLinha.appendTo('#formulario');
+
+                // Reinicie plugins como Select2 ou datepicker, se estiver usando
+                // novaLinha.find('.select2').select2();
+                // novaLinha.find('.date').datepicker();
+            });
+
+            // Remover linha
+            $(document).on('click', '.btn-remover', function() {
+                if ($('.linha-formulario').length > 1) {
+                    $(this).closest('.linha-formulario').remove();
+                } else {
+                    alert('Você deve manter pelo menos uma linha.');
+                }
+            });
+        });
+    </script>
+@append
 
 @section('scripts')
     @yield('modal-scripts')
