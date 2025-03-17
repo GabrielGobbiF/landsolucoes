@@ -199,7 +199,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::post('comercial/approved', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'approved'])->name('comercial.approved');
 
             Route::put('comercial/{comercialId}/edit-data', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'updateData'])->name('comercial.updata.data');
-            Route::get('comercial/{comercialId}/edit-data', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'edit'])->name('comercial.edit');
+            Route::get('comercial/{comercialId}/edit-data', [App\Http\Controllers\Painel\Obras\ComercialController::class, 'edit'])->name('comercial.edit-data');
             Route::resource('comercial', App\Http\Controllers\Painel\Obras\ComercialController::class);
 
             /*

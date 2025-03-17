@@ -56,7 +56,7 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Dados</h3>
                                         @if ($comercial->status->value == 'elaboração')
-                                            <a href="{{ route('comercial.edit', $comercial->id) }}" class="btn btn-primary float-right">
+                                            <a href="{{ route('comercial.edit-data', $comercial->id) }}" class="btn btn-primary float-right">
                                                 Atualizar Dados
                                             </a>
                                         @endif
