@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Etapa extends Model
 {
-    use HasFactory;
+    use HasFactory, Cachable;
 
     protected $fillable = [
         'tipo_id',
