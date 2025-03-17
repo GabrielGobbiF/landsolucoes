@@ -238,7 +238,7 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             |--------------------------------------------------------------------------
             */
             Route::resource('etapas', App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class);
-            Route::delete('comercial/etapasFinanceiro/{etapa_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class, 'etapas_financeiro_destroy'])->name('comercial.etapas.financeiro.store');;
+            Route::delete('comercial/etapasFinanceiro/{etapa_id}/destroy', [App\Http\Controllers\Painel\Obras\Etapas\EtapaController::class, 'etapas_financeiro_destroy'])->name('comercial.etapas.financeiro.destroy');;
 
 
             /*
