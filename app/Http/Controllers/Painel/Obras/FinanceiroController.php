@@ -44,8 +44,8 @@ class FinanceiroController extends Controller
         })
 
             ->where(function ($query) use ($filter) {
-                $query->where('status', 'aprovada');
-                $query->orWhere('status', 'concluida');
+                //$query->where('status', 'aprovada');
+                //$query->orWhere('status', 'concluida');
             })
             ->whereNull('remove_finance')
             ->with('financeiro', 'client', 'etapas')
