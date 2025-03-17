@@ -472,7 +472,7 @@ class TableApiController extends Controller
             ->where(function ($query) use ($filters) {
                 if (isset($filters['month_date']) && !empty($filters['month_date'])) {
 
-                    if($filters['month_date'] != 'all'){
+                    if ($filters['month_date'] != 'all') {
                         $query->whereMonth('month_date', $filters['month_date']);
                     }
                 }
@@ -480,9 +480,9 @@ class TableApiController extends Controller
 
             ->where(function ($query) use ($filters) {
                 if (isset($filters['year']) && !empty($filters['year'])) {
-                    if($filters['year'] != 'all'){
+                    if ($filters['year'] != 'all') {
 
-                    $query->whereYear('month_date', $filters['year']);
+                        $query->whereYear('month_date', $filters['year']);
                     }
                 }
             })
@@ -519,25 +519,23 @@ class TableApiController extends Controller
                         }
                     });
                 }
-            })->whereHas('activities', function ($query) use ($filters) {
-                if (isset($filters['hour']) && $filters['hour'] != 'all') {
-                    $turno = $filters['hour'];
-                    if ($turno === 'diurno') {
-                        $query->whereTime('data_inicio', '>=', '07:00')
-                              ->whereTime('data_inicio', '<', '19:00');
-                    } elseif ($turno === 'noturno') {
-                        // Turno noturno: das 19:40 às 06:00 (passando pela meia-noite)
-                        $query->where(function ($subQuery) {
-                            $subQuery->whereTime('data_inicio', '>=', '19:40')
-                                     ->whereTime('data_inicio', '<=', '23:59')
-                                     ->orWhereTime('data_inicio', '>=', '00:00')
-                                     ->whereTime('data_inicio', '<', '06:00');
-                        });
-                    }
-                }
-            })
-
-            ->where('modelo', 0)
+            })->when(!empty($filters['hour']) && $filters['hour'] != 'all', function ($query) use ($filters) {
+                $query->whereHas('activities', function ($query) use ($filters) {
+                        $turno = $filters['hour'];
+                        if ($turno === 'diurno') {
+                            $query->whereTime('data_inicio', '>=', '07:00')
+                                ->whereTime('data_inicio', '<', '19:00');
+                        } elseif ($turno === 'noturno') {
+                            // Turno noturno: das 19:40 às 06:00 (passando pela meia-noite)
+                            $query->where(function ($subQuery) {
+                                $subQuery->whereTime('data_inicio', '>=', '19:40')
+                                    ->whereTime('data_inicio', '<=', '23:59')
+                                    ->orWhereTime('data_inicio', '>=', '00:00')
+                                    ->whereTime('data_inicio', '<', '06:00');
+                            });
+                        }
+                });
+            })->where('modelo', 0)
             ->orderBy($this->sort, $this->order)
             ->paginate(10);
 
