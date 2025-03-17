@@ -6,6 +6,7 @@ use App\Casts\Date;
 use App\Models\RSDE\Rdse;
 use App\Supports\Enums\Comercial\ComercialStatus;
 use App\Traits\LogTrait;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Obra extends Model
 {
-    use HasFactory, SoftDeletes, LogTrait;
+    use HasFactory, SoftDeletes, LogTrait, Cachable;
 
 
     /**
