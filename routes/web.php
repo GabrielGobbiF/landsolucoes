@@ -561,13 +561,13 @@ Route::prefix('/v1/api')->group(function () {
         /**
          * Etapas
          */
-        Route::post('obra/{obra_id}/etapa/reordenar', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'reordenarEtapas'])->name('obra.etapa.update.status');
-        Route::post('obra/{obra_id}/etapa/adicionar-etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'addEtapas'])->name('obra.etapa.update.status');
+        Route::post('obra/{obra_id}/etapa/reordenar', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'reordenarEtapas']);
+        Route::post('obra/{obra_id}/etapa/adicionar-etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'addEtapas']);
         Route::delete('obra/{obra_id}/etapa/deleteSelected', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'deleteSelected'])->name('obra.etapa.destroy.selected');
         Route::post('obra/{obra_id}/update', [App\Http\Controllers\Api\ObraApiController::class, 'update'])->name('api.obra.update');
         Route::post('obra/{obra_id}/etapas', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateSelecteds'])->name('obra.etapa.update.selecteds');
         Route::post('obra/{obra_id}/etapa/{etapa_id}', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'update'])->name('obra.etapa.update');
-        Route::post('obra/{obra_id}/etapa/{etapa_id}/status', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateStatus'])->name('obra.etapa.update.status');
+        Route::post('obra/{obra_id}/etapa/{etapa_id}/status', [App\Http\Controllers\Api\ObrasEtapasApiController::class, 'updateStatus']);
 
         /**
          * Tasks
@@ -576,7 +576,7 @@ Route::prefix('/v1/api')->group(function () {
         Route::post('tasks', [App\Http\Controllers\Api\TaskController::class, 'store'])->name('task.store');
         Route::get('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'show'])->name('task.show');
         Route::post('tasks/{task_id}', [App\Http\Controllers\Api\TaskController::class, 'update'])->name('task.update');
-        Route::post('tasks/{task_id}/status', [App\Http\Controllers\Api\TaskController::class, 'updateStatus'])->name('obra.etapa.update.status');
+        Route::post('tasks/{task_id}/status', [App\Http\Controllers\Api\TaskController::class, 'updateStatus']);
 
         /**
          * Departamento
