@@ -6,6 +6,7 @@ use App\Casts\Date;
 use App\Supports\Enums\Rdse\RdseClosingStatus;
 use App\Traits\LogTrait;
 use Carbon\Carbon;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Rdse extends Model
 {
-    use HasFactory, SoftDeletes, LogTrait, LogsActivity;
+    use HasFactory, SoftDeletes, LogTrait, LogsActivity, Cachable;
 
     protected static $logName = 'RDSE';
 
@@ -199,7 +200,7 @@ class Rdse extends Model
                     }
                 }
             })
-            
+
 
             ->where(function ($query) use ($datesPeriodoSearch) {
                 if (!empty($datesPeriodoSearch)) {

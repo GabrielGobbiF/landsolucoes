@@ -8,11 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasPermissionsTrait;
 use App\Traits\LogTrait;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasPermissionsTrait, LogTrait, LogsActivity;
+    use HasFactory, Notifiable, HasPermissionsTrait, LogTrait, LogsActivity, Cachable;
 
     /**
      * The attributes that are mass assignable.
