@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel\RDSE;
 
 use App\Exports\MedicaoExport;
+use App\Imports\PlanilhaRdseImport;
 use App\Models\RSDE\Rdse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateRdse;
@@ -61,6 +62,7 @@ class RdseController extends Controller
      */
     public function programacao(Request $request)
     {
+
         $date = Carbon::now()->format('d/m/Y');
 
         $year = $request->has('year') ? $request->input('year') : NULL;
@@ -80,9 +82,12 @@ class RdseController extends Controller
             ->groupBy('lote')
             ->get();
 
+        $atividades = Rdse::first()->activities()->with('equipe')->orderBy('data', 'desc')->get();
+
         return view('pages.painel.rdse.rdse.programacao', [
             'lotes' => $lotes,
             'year' => $year,
+            'atividades' => $atividades,
         ])->with($request->only('status', 'date_to', 'date_from', 'year'));
     }
 
@@ -903,5 +908,12 @@ class RdseController extends Controller
         }
 
         return response()->json(['message' => 'Erro ao criar o arquivo compactado.'], 500);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new PlanilhaRdseImport, $request->file('file'));
+
+        return redirect()->back()->with('success', '');
     }
 }

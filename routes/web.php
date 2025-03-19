@@ -3,6 +3,7 @@
 use App\Http\Controllers\EquipeController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\Painel\RDSE\EncarregadoController;
+use App\Http\Controllers\Painel\RDSE\RdseController;
 use App\Http\Controllers\Painel\RDSE\SupervisorController;
 use App\Http\Controllers\RdseActivityController;
 use App\Http\Controllers\TiposObraController;
@@ -357,6 +358,9 @@ Route::group(['middleware' => ['CheckPassword']], function () {
     */
     Route::group(['middleware' => 'role:rdse'], function () {
         Route::prefix('rdse')->group(function () {
+
+            Route::POST('import', [RdseController::class, 'import'])->name('rdse.import');
+
 
             Route::prefix('atividades')->group(function () {
                 Route::get('export', [RdseActivityController::class, 'export'])->name('rdse.atividades.export');

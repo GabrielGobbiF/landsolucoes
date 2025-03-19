@@ -145,7 +145,7 @@
                                 <div class="col-12 col-md-1">
                                     <label>Ano</label>
                                     <select id="year" name="year" class="form-control search-input-rdse">
-                                        <option  value="all">Todos</option>
+                                        <option value="all">Todos</option>
                                         <option {{ request()->input('year') == '2024' ? 'selected' : null }} value="2024">2024</option>
                                         <option {{ request()->input('year') == '2025' ? 'selected' : null }} value="2025">2025</option>
                                     </select>
@@ -253,6 +253,11 @@
                                 <button type="button" data-toggle="modal" data-target="#modal-export-activity"
                                         class="btn btn-outline-primary waves-effect waves-light mr-2">
                                     <i class="ri-add-circle-line align-middle mr-2"></i> Exportar Atividades
+                                </button>
+
+                                <button type="button" data-toggle="modal" data-target="#modal-import"
+                                        class="btn btn-outline-primary waves-effect waves-light mr-2">
+                                    <i class="ri-add-circle-line align-middle mr-2"></i> Importar Planilha
                                 </button>
 
                             </div>
@@ -404,6 +409,7 @@
                     <h5 id="exportModalLabel" class="modal-title">Exportar Atividades</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <form id="exportForm" method="GET" action="{{ route('rdse.atividades.export') }}">
                     <div class="modal-body">
                         <div class="row">
@@ -425,7 +431,6 @@
                                     <option value="specific">Período específico</option>
                                 </select>
                             </div>
-
 
                             <div class="col-12 col-md-12 mt-3">
                                 <div class="mb-3 form-group">
@@ -463,124 +468,284 @@
         </div>
     </div>
 
-<!-- Button trigger modal -->
+    <div id="modal-import" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="exportModalLabel" class="modal-title">Importar Planilha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">
-                    Adicionar em Massa
-                </h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="{{ route('rdse.store') }}">
+                <form method="POST" action="{{ route('rdse.import') }}" enctype="multipart/form-data">
                     @csrf
-                
-                    <div id="formulario">
-                        <div class="linha-formulario">
-                            <div class="row">
-                                <div class="col-12 col-md-3">
-                                    <div class="form-group">
-                                        <label>Descrição / Endereço</label>
-                                        <input type="text" name="description[]" class="form-control @error('description') is-invalid @enderror" autocomplete="off" required>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="card ">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <input id="file_document" type="file" name="file" required>
+                                            <p class="help-block">somente arquivos <b>EXCEL</b></p>
+                                            <br>
+                                        </div>
                                     </div>
                                 </div>
-                
-                                <div class="col-12 col-md-2">
-                                    <div class="form-group">
-                                        <label>Tipo</label>
-                                        <select name="type[]" class="form-control select2">
-                                            @foreach (config('admin.rdse.type') as $status)
-                                                <option value="{{ $status['name'] }}">{{ $status['name'] }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                
-                                <div class="col-12 col-md-2">
-                                    <div class="form-group">
-                                        <label>Solicitante</label>
-                                        <input type="text" name="solicitante[]" class="form-control @error('solicitante') is-invalid @enderror" value="{{ auth()->user()->name }}" autocomplete="off">
-                                    </div>
-                                </div>
-                
-                
-                                <div class="col-12 col-md-2">
-                                    <div class="form-group">
-                                        <label>Data</label>
-                                        <input type="text" name="at[]" class="form-control date @error('at') is-invalid @enderror" value="{{ date('d/m/Y') }}" autocomplete="off">
-                                    </div>
-                                </div>
-                
-                                <div class="col-12 col-md-2">
-                                    <div class="form-group">
-                                        <label>Data Mês</label>
-                                        <select name="month_date[]" class="form-control" required>
-                                            <option value="">Selecione</option>
-                                            <option value="01">Janeiro</option>
-                                            <option value="02">Fevereiro</option>
-                                            <option selected value="03">Março</option>
-                                            <option value="04">Abril</option>
-                                            <option value="05">Maio</option>
-                                            <option value="06">Junho</option>
-                                            <option value="07">Julho</option>
-                                            <option value="08">Agosto</option>
-                                            <option value="09">Setembro</option>
-                                            <option value="10">Outubro</option>
-                                            <option value="11">Novembro</option>
-                                            <option value="12">Dezembro</option>
-                                        </select>
-                                    </div>
-                                </div>
-                
-                                <div class="col-12 col-md-3">
-                                    <div class="form-group">
-                                        <label>Ano</label>
-                                        <select name="year[]" class="form-control" required>
-                                            <option value="">Selecione</option>
-                                            <option value="2024">2024</option>
-                                            <option selected value="2025">2025</option>
-                                        </select>
-                                    </div>
-                                </div>
-                
-                                <div class="col-12 col-md-3">
-                                    <div class="form-group">
-                                        <label>Diretoria</label>
-                                        <select name="diretoria[]" class="form-control" required>
-                                            <option value="">Selecione</option>
-                                            <option value="PM">PM</option>
-                                            <option value="HV">HV</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                
-                            <div class="col-12 mt-2">
-                                <button type="button" class="btn btn-danger btn-remover">Remover</button>
                             </div>
                         </div>
                     </div>
-                
-                    <div class="col-12 mt-3">
-                        <button type="button" id="btn-adicionar" class="btn btn-primary">Adicionar mais</button>
-                        <button type="submit" class="btn btn-success">Salvar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Importar</button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+
+    <div id="modalId" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalTitleId" class="modal-title">
+                        Adicionar em Massa
+                    </h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('rdse.store') }}">
+                        @csrf
+
+                        <div id="formulario">
+                            <div class="linha-formulario">
+                                <div class="row">
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label>Descrição / Endereço</label>
+                                            <input type="text" name="description[]" class="form-control @error('description') is-invalid @enderror"
+                                                   autocomplete="off" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-2">
+                                        <div class="form-group">
+                                            <label>Tipo</label>
+                                            <select name="type[]" class="form-control select2">
+                                                @foreach (config('admin.rdse.type') as $status)
+                                                    <option value="{{ $status['name'] }}">{{ $status['name'] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-2">
+                                        <div class="form-group">
+                                            <label>Solicitante</label>
+                                            <input type="text" name="solicitante[]" class="form-control @error('solicitante') is-invalid @enderror"
+                                                   value="{{ auth()->user()->name }}" autocomplete="off">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-12 col-md-2">
+                                        <div class="form-group">
+                                            <label>Data</label>
+                                            <input type="text" name="at[]" class="form-control date @error('at') is-invalid @enderror"
+                                                   value="{{ date('d/m/Y') }}" autocomplete="off">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-2">
+                                        <div class="form-group">
+                                            <label>Data Mês</label>
+                                            <select name="month_date[]" class="form-control" required>
+                                                <option value="">Selecione</option>
+                                                <option value="01">Janeiro</option>
+                                                <option value="02">Fevereiro</option>
+                                                <option selected value="03">Março</option>
+                                                <option value="04">Abril</option>
+                                                <option value="05">Maio</option>
+                                                <option value="06">Junho</option>
+                                                <option value="07">Julho</option>
+                                                <option value="08">Agosto</option>
+                                                <option value="09">Setembro</option>
+                                                <option value="10">Outubro</option>
+                                                <option value="11">Novembro</option>
+                                                <option value="12">Dezembro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label>Ano</label>
+                                            <select name="year[]" class="form-control" required>
+                                                <option value="">Selecione</option>
+                                                <option value="2024">2024</option>
+                                                <option selected value="2025">2025</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label>Diretoria</label>
+                                            <select name="diretoria[]" class="form-control" required>
+                                                <option value="">Selecione</option>
+                                                <option value="PM">PM</option>
+                                                <option value="HV">HV</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-2">
+                                    <button type="button" class="btn btn-danger btn-remover">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <button id="btn-adicionar" type="button" class="btn btn-primary">Adicionar mais</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+
+
+    <style class="">
+        /* Estilos customizados para o sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 25%;
+            position: fixed;
+            top: 0rem;
+            bottom: 0rem;
+            right: 0;
+            background-color: #fff;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1050;
+            border-radius: 2%;
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            display: none;
+        }
+
+        .sidebar.show+.overlay {
+            display: block;
+        }
+
+        #sidebarDireita .txt {
+            float: inline-end;
+        }
+    </style>
+
+    <!-- Sidebar -->
+    <div id="sidebarDireita" class="sidebar collapse ">
+        <div class="p-3">
+
+            <div class="d-flex justify-content-between">
+                <h5 class="mb-3">Programação</h5>
+                <div class="d-flex gap-3" style="gap:1rem">
+                    <a href="javscript:void(0)" data-toggle="collapse" data-target="#sidebarDireita">
+                        <i class="fas fa-expand-alt"></i>
+                    </a>
+
+                    <a href="javscript:void(0)" class="" data-toggle="collapse" data-target="#sidebarDireita">
+                        <i class="far fa-times-circle"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-3 row">
+                <div class="col-12">
+                    <h6 class="">Atividades</h6>
+                    <table class="w-100">
+                        <tbody>
+                            <tr>
+                                <td class="align-top py-1">
+                                    <div class="d-flex">
+                                        <h6 class="text-body mb-0 text-nowrap">Endereço :</h6>
+                                    </div>
+                                </td>
+                                <td class="ps-3 py-1"><a class="txt fw-semibold d-block lh-sm description" href="#!"> </a></td>
+                            </tr>
+                            <tr>
+                                <td class="align-top py-1">
+                                    <div class="d-flex">
+                                        <h6 class="text-body mb-0 text-nowrap">Tipo de Obra:</h6>
+                                    </div>
+                                </td>
+                                <td class="ps-3 py-1">
+                                    <a class="txt fw-semibold d-block lh-sm tipo_obra_nome" href="#!"></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="align-top py-1">
+                                    <div class="d-flex">
+                                        <h6 class="text-body mb-0 text-nowrap">Status da Obra: </h6>
+                                    </div>
+                                </td>
+                                <td class="ps-3 py-1"><a class="txt fw-semibold d-block lh-sm status_execution" href="#!"></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="align-top py-1">
+                                    <div class="d-flex">
+                                        <h6 class="text-body mb-0 text-nowrap">Data: </h6>
+                                    </div>
+                                </td>
+                                <td class="ps-3 py-1"><a class="txt fw-semibold d-block lh-sm at" href="#!"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card text-start">
+                        <div class="card-body">
+
+                            <ul id="sidebarContentAtividades" class=""></ul>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" data-toggle="collapse" data-target="#sidebarDireita"></div>
+
 @endsection
 
 @section('scripts')
@@ -612,6 +777,7 @@
 
 @section('scripts')
     @yield('modal-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <script src="{{ asset('panel/js/pages/rdse/rdse.js') }}"></script>
@@ -883,6 +1049,61 @@
                         };
                     },
                     onClickCell: function(field, value, row, $element) {
+
+
+                        if (field === 'description') {
+
+                            axios.get(`${BASE_URL}/api/v1/rdses/${row.id}`)
+                                .then(function(response) {
+
+                                    const filters = getFilters();
+
+                                    // Faz a requisição Axios com o ID e os filtros como parâmetros
+                                    const responseAtividades = axios.get(`${BASE_URL}/api/v1/rdses/${row.id}/atividades`, {
+                                        params: filters // Passa os filtros como query parameters
+                                    }).then(function(responseAtividades) {
+                                        const atividades = responseAtividades.data.data;
+
+                                        const sidebarContentAtividades = document.querySelector('#sidebarContentAtividades');
+                                        sidebarContentAtividades.innerHTML = ''; // Limpa o conteúdo anterior
+
+                                        if (atividades.length > 0) {
+                                            // Itera sobre as atividades e cria o HTML
+                                            atividades.forEach(atividade => {
+                                                const atividadeHTML = `
+                                                <li style="margin-bottom: 1.5rem;">
+                                                    ${atividade.equipe} - ${atividade.data_format}
+                                                    <br>
+                                                    ${atividade.atividades}
+                                                </li>
+                                            `;
+                                                sidebarContentAtividades.innerHTML += atividadeHTML;
+                                            });
+                                        } else {
+                                            sidebarContentAtividades.innerHTML = '<p>Nenhuma atividade encontrada.</p>';
+                                        }
+                                    })
+
+                                    const data = response.data.data;
+
+                                    // Preenche cada campo do sidebar com os dados da resposta
+                                    document.querySelector('#sidebarDireita .description').innerHTML = data.description || 'N/A';
+                                    document.querySelector('#sidebarDireita .tipo_obra_nome').innerHTML = data.tipo_obra_nome || 'N/A';
+                                    document.querySelector('#sidebarDireita .status_execution').innerHTML = data.status_execution || 'N/A';
+                                    document.querySelector('#sidebarDireita .at').innerHTML = data.month || 'N/A';
+
+                                    $('#sidebarDireita').collapse('show');
+                                })
+                                .catch(function(error) {
+                                    console.error('Erro ao carregar dados:', error);
+                                    $('#sidebarContent').html('<p>Erro ao carregar os dados.</p>');
+                                    $('#sidebarDireita').collapse('show');
+                                });
+
+                            return;
+                        }
+
+
                         if (click == 'false' || field == 'state' || field == 'status_execution' || field == 'apr_at' || field == 'is_civil' ||
                             field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field ==
                             'tipo_obra' || field == 'sigeo'
@@ -916,6 +1137,34 @@
                         }
                         saveItemRdses(item);
                     })
+                }
+
+                function getFilters() {
+                    // Captura os valores dos campos
+                    const atividades = document.querySelector('#rdse-atividades').value; // 'all', 'nao_execucao', 'execucao'
+                    const equipe = document.querySelector('#rdse-equipe').value; // ID da equipe ou vazio
+                    const period = document.querySelector('.period-select').value; // 'today', 'yesterday', 'specific', etc.
+                    const hour = document.querySelector('select[name="hour"]').value; // 'all', 'diurno', 'noturno'
+                    const start_at = document.querySelector('input[name="start_at"]').value; // Data inicial (se "specific")
+                    const end_at = document.querySelector('input[name="end_at"]').value; // Data final (se "specific")
+
+                    // Se o período for "specific", usa as datas start_at e end_at; caso contrário, usa o period
+                    const dateFilter = period == 'specific' ? {
+                        start_at,
+                        end_at
+                    } : {
+                        period
+                    };
+
+                    // Retorna um objeto com todos os filtros
+                    return {
+                        atividades,
+                        equipe,
+                        hour,
+                        period,
+                        start_at,
+                        end_at
+                    };
                 }
 
                 const saveItemRdses = function(item) {

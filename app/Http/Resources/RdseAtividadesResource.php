@@ -26,7 +26,9 @@ class RdseAtividadesResource extends JsonResource
             'data_fim' => $this->data_fim,
             'equipe' => $this->equipe->name,
             'execucao' => !empty($this->execucao) ? 'Executado' : 'Não Executado',
-            'btn_edit' => "<a class='btn btn-sm btn-outline-secondary' href='$route'>Editar</a>"
+            'btn_edit' => "<a class='btn btn-sm btn-outline-secondary' href='$route'>Editar</a>",
+            "data_format" => "{$this->data} {$this->data_inicio} - {$this->data_fim}",
+            "atividades" => $this->atividades
         ];
     }
 }
