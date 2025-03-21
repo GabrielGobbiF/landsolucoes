@@ -654,6 +654,10 @@
             display: none;
         }
 
+        #sidebarDireita{
+            overflow: auto;
+        }
+
         .sidebar.show+.overlay {
             display: block;
         }
@@ -664,7 +668,7 @@
     </style>
 
     <!-- Sidebar -->
-    <div id="sidebarDireita" class="sidebar collapse ">
+    <div id="sidebarDireita" data class="sidebar collapse ">
         <div class="p-3">
 
             <div class="d-flex justify-content-between">
