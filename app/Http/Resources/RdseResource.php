@@ -40,6 +40,7 @@ class RdseResource extends JsonResource
         return [
             'id' => $this->id,
             'observations' => limit($this->observations, 30),
+            'observations_not_limit' => $this->observations,
             'description' => $this->description,
             'n_order' => $this->n_order ?? '',
             'name' => $this->n_order ?? '',

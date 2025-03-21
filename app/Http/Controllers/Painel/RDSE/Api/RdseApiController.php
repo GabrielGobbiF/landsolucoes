@@ -74,8 +74,8 @@ class RdseApiController extends Controller
     public function update(Request $request, int $identify)
     {
         $columns = $request->input('collumn');
-
         $value = $request->input('value');
+
         if (!$rdse = $this->repository->where('id', $identify)->first()) {
             return response()->json('Object RDSE not found in scope', 404);
         }

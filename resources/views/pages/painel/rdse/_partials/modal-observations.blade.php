@@ -118,6 +118,7 @@
             }, 1500);
 
             function openObservationModal(rdseId, row) {
+
                 quill.off('text-change');
 
                 $("#modal-row_value").val('')
@@ -126,7 +127,7 @@
 
                 axios.get(`${base_url}/api/v1/rdses/${rdseId}`)
                     .then(function(response) {
-                        $("#modal-row_value").val(response.data.observations)
+                        $("#modal-row_value").val(response.data.data.observations_not_limit)
                         $("#modal-row").val(row)
                         $("#modal-rdseId").val(rdseId)
                         init();
