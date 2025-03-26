@@ -538,8 +538,18 @@ class TableApiController extends Controller
                     });
                 }
             })->where('modelo', 0)
-            ->orderBy($this->sort, $this->order)
-            ->paginate(10);
+            ->orderBy($this->sort, $this->order);
+
+        # ->paginate(10);
+
+        if (!empty($filters['hour']) && $filters['hour'] != 'all') {
+            $rdses = $rdses->get()->filter(function ($item) use ($filters) {
+                // Chama o método getAtividadesDescriptionsAttribute e verifica "Sem atividades"
+                return !str_contains($item->getAtividadesDescriptionsAttribute($filters), 'Sem atividades');
+            });
+        } else {
+            $rdses = $rdses->paginate($this->limit);
+        }
 
         #dd([$rdses->toSql(), $rdses->getBindings()]);
 

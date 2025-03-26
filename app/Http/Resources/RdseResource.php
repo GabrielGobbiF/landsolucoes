@@ -17,27 +17,34 @@ class RdseResource extends JsonResource
     {
         $year = year();
 
+        // Inicializa a variável para armazenar informações
         $p = '';
         $valorTotal = $this->getServicesTotal();
 
+        // Calcula o valorUPS baseado na configuração
         $typeRdse = $this->type;
-        $valorUps = $valorTotal['p'] / collect(config("admin.rdse.type", []))->where('name', $typeRdse)->first()['value'];
+        $rdseConfig = collect(config("admin.rdse.type", []))->where('name', $typeRdse)->first();
 
-        if ($this->parcial_1 == true) {
+        $valorUps = !empty($rdseConfig) ? $valorTotal['p'] / $rdseConfig['value'] : 0;
+
+        // Verifica o status parcial e define o valor de 'p'
+        if ($this->parcial_1) {
             $p = 'P2';
         }
 
-        if ($this->parcial_2 == true) {
+        if ($this->parcial_2) {
             $p = 'P3';
         }
 
-        if ($this->parcial_3 == true) {
+        if ($this->parcial_3) {
             $p = 'P4';
         }
 
+        // Filtros vindos da requisição
         $filters = $request->get('filter', []);
 
-        return [
+        // Array principal de dados
+        $data = [
             'id' => $this->id,
             'observations' => limit($this->observations, 30),
             'observations_not_limit' => $this->observations,
@@ -52,7 +59,7 @@ class RdseResource extends JsonResource
             'tipo_obra' => $this->tipo_obra,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
-            'valor_total' => $p . ' R$ ' . maskPrice($valorTotal['p']),
+            'valor_total' => "{$p} R$ " . maskPrice($valorTotal['p']),
             'valor' => 'R$ ' . maskPrice($valorTotal['total']),
             'valor_ups' => maskPrice($valorUps),
             'ups' => $valorUps,
@@ -67,11 +74,14 @@ class RdseResource extends JsonResource
             'is_civil' => $this->is_civil,
             'sigeo' => $this->sigeo,
             'diretoria' => $this->diretoria,
-            'month' => monthByFormat($this->Month) . "/" . $year,
+            'month' => monthByFormat($this->Month) . "/{$year}",
             'atividades' => "<a href='javascript:void(0)' onclick='openModaladdItemsModal(this)' data-id='{$this->id}' class='atividades'>
             {$this->getAtividadesDescriptionsAttribute($filters)}
-            </a>"
+        </a>",
         ];
+
+
+        return $data;
     }
 
     private function getTipoObraSelect()
