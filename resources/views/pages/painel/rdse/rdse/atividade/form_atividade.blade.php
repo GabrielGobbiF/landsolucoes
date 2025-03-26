@@ -97,6 +97,13 @@
                 <label for="rdse-encarregado">Veiculo</label>
                 <select id="select--veiculo_id" name="veiculo_id" class="form-control select-veiculo_id t-select " data-request="{{ route('vehicles.all') }}"
                         data-value-field="id" required>
+
+                    @if (isset($rdse))
+                        <option value='{{ $rdseAtividade->veiculo?->id }}'>
+                            {{ $rdseAtividade->veiculo?->board }}
+                        </option>
+                    @endif
+
                 </select>
             </div>
         </div>
@@ -130,9 +137,9 @@
             <div class="form-group">
                 <label for="rdse-tipo_ordem">Tipo de Ordem</label>
                 <select id="rdse-tipo_ordem" name="tipo_ordem" class="form-control" required tabindex="1">
-                    <option  value='p2'>P2 </option>
-                    <option  value='fi'>FI </option>
-                    <option  value='pie'>PIE </option>
+                    <option value='p2'>P2 </option>
+                    <option value='fi'>FI </option>
+                    <option value='pie'>PIE </option>
                 </select>
             </div>
         </div>

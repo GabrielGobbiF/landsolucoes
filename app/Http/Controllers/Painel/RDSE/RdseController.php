@@ -657,10 +657,10 @@ class RdseController extends Controller
 
     public function updateAtividade(Request $request, $atividadeId)
     {
-
+        $dataFormat =  date_format(Carbon::parse(str_replace('/', '-', $request->input('data'))), 'Y-m-d');
 
         $request->merge([
-            'data' => Carbon::createFromFormat('d/m/Y', $request->input('data'))->format('Y-m-d'),
+            'data' => Carbon::parse($dataFormat)->format('Y-m-d'),
         ]);
 
         if (!$rdseAtividade = RdseActivity::where('id', $atividadeId)->first()) {
