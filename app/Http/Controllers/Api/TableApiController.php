@@ -519,8 +519,9 @@ class TableApiController extends Controller
                         }
                     });
                 }
-            })->when(!empty($filters['hour']) && $filters['hour'] != 'all', function ($query) use ($filters) {
-                $query->whereHas('activities', function ($query) use ($filters) {
+            })->where(function ($query) use ($filters) {
+                if (!empty($filters['hour']) && $filters['hour'] != 'all') {
+                    $query->whereHas('activities', function ($query) use ($filters) {
                         $turno = $filters['hour'];
                         if ($turno === 'diurno') {
                             $query->whereTime('data_inicio', '>=', '07:00')
@@ -534,7 +535,8 @@ class TableApiController extends Controller
                                     ->whereTime('data_inicio', '<', '06:00');
                             });
                         }
-                });
+                    });
+                }
             })->where('modelo', 0)
             ->orderBy($this->sort, $this->order)
             ->paginate(10);
