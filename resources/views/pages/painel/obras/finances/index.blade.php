@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="col-4 col-md-3 align-self-center">
-                        <button type="submit" class='btn btn-primary'>Buscar</button>
+                        <button id="apply-filters" type="button" class='btn btn-primary'>Buscar</button>
                     </div>
                 </div>
             </form>
@@ -69,72 +69,14 @@
         <div class="card-body">
             <div class="table table-responsive" style="font-size: 13px;">
                 <table class='table table-hover table-centered table-condensed'>
-                    <thead class='thead-light'>
-                        <tr>
-                            <th>Nome da Obra</th>
-                            <th>Cliente</th>
-                            <th>Valor Negociado</th>
-                            <th>Valor a Receber</th>
-                            <th>Valor Recebido</th>
-                            <th>Liberado Faturar</th>
-                            <th>Nº Nota</th>
-                            <th>Vencidas</th>
-                            <th>Data Vencimento</th>
-                            <th>Saldo</th>
-                            <th></th>
-                        </tr>
+                    <thead>
+                        <!-- cabeçalhos aqui -->
                     </thead>
-                    <tbody>
-                        @php
-                            $total_negociado = 0;
-                            $total_receber = 0;
-                            $total_recebido = 0;
-                            $total_a_faturar = 0;
-                            $total_saldo = 0;
-                        @endphp
-                        @foreach ($finances as $finance)
-                            @php
-                                $total_negociado += $finance['valor_negociado'];
-                                $total_receber += $finance['total_receber'];
-                                $total_recebido += $finance['total_recebido'];
-                                $total_a_faturar += $finance['total_a_faturar'];
-                                $total_saldo += $finance['saldo'];
-                            @endphp
-
-                            <tr>
-                                <th>
-                                    <a target="_blank" href="{{ route('obras.finance', $finance['obraId']) }}">{{ limit($finance['nome_obra']) }}
-                                    </a>
-                                </th>
-                                <th> {{ $finance['client_name'] }}</th>
-                                <th> R$ {{ maskPrice($finance['valor_negociado']) }}</th>
-                                <th> R$ {{ maskPrice($finance['total_receber']) }}</th>
-                                <th> R$ {{ maskPrice($finance['total_recebido']) }}</th>
-                                <th> R$ {{ maskPrice($finance['total_a_faturar']) }}</th>
-                                <th> {{ $finance['n_nota'] }}</th>
-                                <th> {{ $finance['vencidas'] }}</th>
-                                <th> {{ $finance['data_vencimento'] != '' ? formatDateAndTime($finance['data_vencimento']) : null }}</th>
-                                <th> R$ {{ maskPrice($finance['saldo']) }}</th>
-                                <th>
-                                    <a href="#!" class="open-activities" data-obraId="{{ $finance['obraId'] }}">
-                                        <i class="fas fa-info-circle no-click"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                        @endforeach
-                        <tr>
-                            <th> Total: </th>
-                            <th> R$ {{ maskPrice($total_negociado) }}</th>
-                            <th> R$ {{ maskPrice($total_receber) }}</th>
-                            <th> R$ {{ maskPrice($total_recebido) }}</th>
-                            <th> R$ {{ maskPrice($total_a_faturar) }}</th>
-                            <th> </th>
-                            <th> </th>
-                            <th> </th>
-                            <th> R$ {{ maskPrice($total_saldo) }}</th>
-                            <th> </th>
-                        </tr>
+                    <tbody id="finance-body">
+                        <!-- será preenchido por JS -->
                     </tbody>
+
+                    <div id="loader" style="display:none;">Carregando...</div>
                 </table>
             </div>
         </div>
@@ -162,8 +104,8 @@
                             </li>
                             @if (!auth()->guard('clients')->check())
                                 <li class="nav-item d-none" role="presentation">
-                                    <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab"
-                                       aria-controls="pills-profile" aria-selected="false">Pendências</a>
+                                    <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile"
+                                       aria-selected="false">Pendências</a>
                                 </li>
                             @endif
                         </ul>
@@ -213,7 +155,159 @@
 
 @endsection
 
+
 @section('scripts')
+
+    <script class="">
+        let currentPage = 1;
+        let lastPage = null;
+        let loading = false;
+
+        let totals = {
+            valor_negociado: 0,
+            total_receber: 0,
+            total_recebido: 0,
+            total_a_faturar: 0,
+            saldo: 0,
+        };
+
+        const tbody = document.getElementById('finance-body');
+        const loader = document.getElementById('loader');
+
+        function formatCurrency(value) {
+            return `R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        }
+
+        function getFilters() {
+            const filters = {};
+            const obrName = document.getElementById('obr_name')?.value;
+            const clients = document.getElementById('clients')?.value;
+            const faturar = document.getElementById('faturar')?.checked;
+            const receber = document.getElementById('receber')?.checked;
+            const vencimento = document.getElementById('vencimento')?.checked;
+
+            if (obrName) filters.obr_name = obrName;
+            if (clients) filters.clients = clients;
+            if (faturar) filters.faturar = 1;
+            if (receber) filters.receber = 1;
+            if (vencimento) filters.vencimento = 1;
+
+            return filters;
+        }
+
+        function buildQueryString(params) {
+            return Object.entries(params)
+                .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
+                .join('&');
+        }
+
+        function renderTotalRow() {
+            const totalRow = document.getElementById('totals-row');
+            if (totalRow) totalRow.remove();
+
+            const row = document.createElement('tr');
+            row.id = 'totals-row';
+            row.innerHTML = `
+        <th>Total:</th>
+        <th>${formatCurrency(totals.valor_negociado)}</th>
+        <th>${formatCurrency(totals.total_receber)}</th>
+        <th>${formatCurrency(totals.total_recebido)}</th>
+        <th>${formatCurrency(totals.total_a_faturar)}</th>
+        <th></th><th></th><th></th>
+        <th>${formatCurrency(totals.saldo)}</th>
+        <th></th>
+    `;
+            tbody.appendChild(row);
+        }
+
+        function appendRow(finance) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+        <th><a target="_blank" href="/obras/${finance.obraId}/finance">${finance.nome_obra}</a></th>
+        <th>${finance.client_name}</th>
+        <th>${formatCurrency(finance.valor_negociado)}</th>
+        <th>${formatCurrency(finance.total_receber)}</th>
+        <th>${formatCurrency(finance.total_recebido)}</th>
+        <th>${formatCurrency(finance.total_a_faturar)}</th>
+        <th>${finance.n_nota ?? ''}</th>
+        <th>${finance.vencidas}</th>
+        <th>${finance.data_vencimento ?? ''}</th>
+        <th>${formatCurrency(finance.saldo)}</th>
+        <th><a href="#!" class="open-activities" data-obraId="${finance.obraId}">
+            <i class="fas fa-info-circle no-click"></i>
+        </a></th>
+    `;
+            tbody.appendChild(row);
+
+            // Atualiza os totais
+            totals.valor_negociado += Number(finance.valor_negociado);
+            totals.total_receber += Number(finance.total_receber);
+            totals.total_recebido += Number(finance.total_recebido);
+            totals.total_a_faturar += Number(finance.total_a_faturar);
+            totals.saldo += Number(finance.saldo);
+        }
+
+        function loadFinances(page = 1) {
+            if (loading || (lastPage && page > lastPage)) return;
+
+            loading = true;
+            loader.style.display = 'block';
+
+            const filters = getFilters();
+            const queryString = buildQueryString({
+                ...filters,
+                page
+            });
+
+            axios.get(`${base_url}/api/v1/finances?${queryString}`)
+                .then(response => {
+                    const data = response.data.data;
+                    const meta = response.data;
+
+                    currentPage = meta.current_page;
+                    lastPage = meta.last_page;
+
+                    data.forEach(finance => appendRow(finance));
+
+                    renderTotalRow();
+                })
+                .catch(error => {
+                    console.error("Erro ao carregar dados:", error);
+                })
+                .finally(() => {
+                    loading = false;
+                    loader.style.display = 'none';
+                });
+        }
+
+        function resetTable() {
+            tbody.innerHTML = '';
+            totals = {
+                valor_negociado: 0,
+                total_receber: 0,
+                total_recebido: 0,
+                total_a_faturar: 0,
+                saldo: 0,
+            };
+            currentPage = 1;
+            lastPage = null;
+        }
+
+        document.getElementById('apply-filters').addEventListener('click', () => {
+            resetTable();
+            loadFinances();
+        });
+
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+            if (nearBottom) {
+                loadFinances(currentPage + 1);
+            }
+        });
+
+        // 🚀 Primeira carga
+        loadFinances();
+    </script>
 
     <script class="">
         const BASE_URL_API = document.querySelector('meta[name=js-base_url]').getAttribute('content');
@@ -334,4 +428,4 @@
         });
     </script>
 
-@endsection
+@append

@@ -4,6 +4,7 @@ use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Api\EtapasApiController;
 use App\Http\Controllers\Api\ObraApiController;
 use App\Http\Controllers\Api\UploadController;
+use App\Http\Controllers\Painel\Obras\FinanceiroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,10 @@ Route::get('servicos', [BaseController::class, 'servicos'])->name('api.sevicos.a
 
 
 Route::prefix('v1')->middleware('auth:web')->group(function () {
+
+
+    Route::get('finances', [FinanceiroController::class, 'getAll'])->name('api.finances.all');
+
 
     Route::delete('activities/{id}', [App\Http\Controllers\Api\ActivitiesApiController::class, 'delete'])->name('api.activities.delete');
     Route::post('comercial/{comercialId}/activities', [App\Http\Controllers\Api\ActivitiesApiController::class, 'store'])->name('api.activities.store');
