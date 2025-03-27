@@ -14,13 +14,33 @@ trait LogTrait
 {
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()
-            ->logOnly($this->getFillable())
+        $fillable = $this->getFilteredFillable();
+
+        $options = LogOptions::defaults()
+            ->logOnly($fillable)
             ->logOnlyDirty()
             ->useLogName(singular($this->getTable()))
             ->setDescriptionForEvent(fn(string $eventName) => "logs.events.badge.{$eventName}")
             ->dontSubmitEmptyLogs();
+
+        if (method_exists($this, 'customizeLogOptions')) {
+            $options = $this->customizeLogOptions($options);
+        }
+
+        return $options;
     }
+
+    private function getFilteredFillable(): array
+    {
+        $fillable = $this->getFillable();
+
+        if (property_exists($this, 'ignoreChangedAttributes') && is_array(static::$ignoreChangedAttributes)) {
+            $fillable = array_diff($fillable, static::$ignoreChangedAttributes);
+        }
+
+        return $fillable;
+    }
+
 
     public function logs()
     {
