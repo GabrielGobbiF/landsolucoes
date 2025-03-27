@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Etapas\FinanceiroService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -46,5 +47,12 @@ class EtapasFaturamento extends Model
     public function setValorAttribute($value)
     {
         $this->attributes['valor'] = clearNumber($value);
+    }
+
+    protected static function booted()
+    {
+        static::saved(function ($obraFinanceiro) {
+            app(FinanceiroService::class)->saveObraFinanceiro($obraFinanceiro->obra->id);
+        });
     }
 }

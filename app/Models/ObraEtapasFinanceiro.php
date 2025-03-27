@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Etapas\FinanceiroService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +25,11 @@ class ObraEtapasFinanceiro extends Model
     protected $table = 'obras_etapas_financeiro';
 
     protected $appends = ['StatusEtapa'];
+
+    public function obra()
+    {
+        return $this->belongsTo(Obra::class, 'obra_id', 'id');
+    }
 
     public function getStatusEtapaAttribute()
     {
@@ -54,9 +60,7 @@ class ObraEtapasFinanceiro extends Model
         return $this->hasMany(EtapasFaturamento::class, 'obr_etp_financerio_id', 'id');
     }
 
-    public function aFaturar()
-    {
-    }
+    public function aFaturar() {}
 
     public function aReceber()
     {
@@ -102,5 +106,20 @@ class ObraEtapasFinanceiro extends Model
                 break;
         }
         return $label;
+    }
+
+    protected static function booted()
+    {
+        static::saved(function ($obraFinanceiro) {
+            $obraFinanceiro->obra->touch(); // Atualiza o `updated_at` da obra
+        });
+
+        static::updating(function ($obraFinanceiro) {
+            app(FinanceiroService::class)->saveObraFinanceiro($obraFinanceiro->obra->id);
+        });
+
+        static::deleted(function ($obraFinanceiro) {
+            $obraFinanceiro->obra->touch(); // Atualiza o `updated_at` da obra
+        });
     }
 }

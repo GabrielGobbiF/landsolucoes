@@ -8,6 +8,7 @@ use App\Http\Resources\FinanceObraResource;
 use App\Models\Client;
 use App\Models\Obra;
 use App\Models\ObraEtapasFinanceiro;
+use App\Models\ObraFinanceiro;
 use App\Services\Etapas\FinanceiroService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -30,126 +31,158 @@ class FinanceiroController extends Controller
     {
         $clients = Client::all();
 
+        $filter = $request->all();
+
+        $finances = [];
+
+        $obras = $this->repository->where(function ($query) use ($filter) {
+            if (isset($filter['obr_name']) && $filter['obr_name'] != '') {
+                return $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
+            }
+        })->where(function ($query) use ($filter) {
+            if (!empty($filter['clients'])) {
+                $query->where('client_id', $filter['clients']);
+            }
+        })
+
+            ->where(function ($query) use ($filter) {
+                //$query->where('status', 'aprovada');
+                //$query->orWhere('status', 'concluida');
+            })
+            ->whereNull('remove_finance')
+            ->with('financeiro', 'client')
+            ->whereNull('obras.deleted_at')
+            ->whereIn('obras.status', ['aprovada'])
+            ->where('obras.status', '<>', 'concluida')
+            //->limit(200)
+            ->get(['razao_social', 'id', 'last_note', 'status', 'client_id']);
+
         return view('pages.painel.obras.finances.index', [
             #'finances' => $finances,
             'clients' => $clients,
+            'obras' => $obras
         ]);
     }
 
     public function getAll(Request $request)
-{
-    $filter = $request->all();
-    $perPage = $request->input('per_page', 1000);
-    $page = $request->input('page', 1);
+    {
+        $filter = $request->all();
+        $perPage = $request->input('per_page', 10);
+        $page = $request->input('page', 1);
 
-    // ⚠️ Aqui NÃO fazemos paginate ainda
-    $query = $this->repository
-        ->select('razao_social', 'id', 'last_note', 'status', 'client_id')
-        ->whereNull('remove_finance')
-        ->with('financeiro', 'client', 'etapas')
-        ->whereNull('obras.deleted_at')
-        ->whereIn('obras.status', ['aprovada'])
-        ->where('obras.status', '<>', 'concluida');
+        $query = $this->repository
+            ->select(['id', 'razao_social', 'last_note', 'status', 'client_id'])
+            ->whereNull('remove_finance')
+            ->whereNull('obras.deleted_at')
+            ->whereIn('obras.status', ['aprovada'])
+            ->where('obras.status', '<>', 'concluida')
+            ->with([
+                'financeiro',
+                'client:id,company_name',
+                'etapas_financeiro.faturamento',
+            ])
+            ->when(
+                !empty($filter['obr_name']),
+                fn($q) =>
+                $q->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%')
+            )
+            ->when(
+                !empty($filter['clients']),
+                fn($q) =>
+                $q->where('client_id', $filter['clients'])
+            );
 
-    if (!empty($filter['obr_name'])) {
-        $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
-    }
+        $obras = $query->paginate($perPage, ['*'], 'page', $page);
 
-    if (!empty($filter['clients'])) {
-        $query->where('client_id', $filter['clients']);
-    }
+        $finances = [];
 
-    // ⚠️ Carrega tudo (ou limita pra evitar crash)
-    $obras = $query->limit(500)->get(); // LIMITAR PRA SEGURAR MEMÓRIA
+        foreach ($obras as $obra) {
+            if (!$obra->financeiro) continue;
 
-    $finances = [];
+            $valorNegociadoObra = $obra->financeiro->valor_negociado ?? 0;
+            $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
 
-    foreach ($obras as $obra) {
-        if (!$obra->financeiro) continue;
+            $totalFaturado = 0;
+            $saldoAFaturar = 0;
+            $totalRecebido = 0;
+            $totalReceber = 0;
+            $vencidas = 0;
+            $data_vencimento = '';
 
-        $valorNegociadoObra = $obra->financeiro->valor_negociado ?? 0;
-        $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
+            foreach ($etapas as $etapa) {
+                $status = $etapa->StatusEtapa;
+                $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
 
-        $totalFaturado = 0;
-        $saldoAFaturar = 0;
-        $totalRecebido = 0;
-        $totalReceber = 0;
-        $vencidas = 0;
-        $data_vencimento = '';
+                $etapaFaturado = $etapa->faturado();
+                $etapaRecebido = $etapa->recebido();
+                $etapaAReceber = $etapa->aReceber();
+                $etapaVencidas = $etapa->vencidas();
 
-        foreach ($etapas as $etapa) {
-            $status = $etapa->StatusEtapa;
-            $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
+                $totalFaturado += $etapaFaturado;
+                $saldoAFaturar += ($etapaValor != '0') ? $etapaValor - $etapaFaturado : 0;
+                $totalRecebido += $etapaRecebido;
+                $totalReceber  += $etapaAReceber?->sum ?? 0;
 
-            $etapaFaturado = $etapa->faturado();
-            $etapaRecebido = $etapa->recebido();
-            $etapaAReceber = $etapa->aReceber();
-            $etapaVencidas = $etapa->vencidas();
-
-            $totalFaturado += $etapaFaturado;
-            $saldoAFaturar += ($etapaValor != '0') ? $etapaValor - $etapaFaturado : 0;
-            $totalRecebido += $etapaRecebido;
-            $totalReceber  += $etapaAReceber?->sum ?? 0;
-
-            if ($etapaVencidas && $etapaVencidas->qnt != '') {
-                $vencidas += $etapaVencidas->qnt;
-                $data_vencimento = $etapaVencidas->data_vencimento ?? '';
+                if ($etapaVencidas && $etapaVencidas->qnt != '') {
+                    $vencidas += $etapaVencidas->qnt;
+                    $data_vencimento = $etapaVencidas->data_vencimento ?? '';
+                }
             }
+
+            if (
+                ($valorNegociadoObra - $totalFaturado == 0 && $totalReceber == 0) ||
+                ($totalReceber == 0 && $obra->status == 'concluida')
+            ) {
+                continue;
+            }
+
+            $finances[] = [
+                'valor_negociado' => $valorNegociadoObra,
+                'obraId' => $obra->id,
+                'n_nota' => $obra->last_note,
+                'nome_obra' => $obra->razao_social,
+                'total_faturado' => $totalFaturado,
+                'total_a_faturar' => $saldoAFaturar,
+                'total_recebido' => $totalRecebido,
+                'total_receber' => $totalReceber,
+                'saldo' => $valorNegociadoObra - $totalFaturado,
+                'vencidas' => $vencidas,
+                'data_vencimento' => $data_vencimento,
+                'client_name' => limit($obra->client->company_name),
+            ];
         }
 
-        // ⚠️ Aqui é onde a maioria das obras morrem
-        if (
-            ($valorNegociadoObra - $totalFaturado == 0 && $totalReceber == 0) ||
-            ($totalReceber == 0 && $obra->status == 'concluida')
-        ) {
-            continue;
+        dd($finances);
+
+        $finances = collect($finances);
+
+        // 🔍 filtros pós-processamento
+        if (isset($filter['faturar'])) {
+            $finances = $finances->where('total_a_faturar', '<>', 0);
         }
 
-        $finances[] = [
-            'valor_negociado' => $valorNegociadoObra,
-            'obraId' => $obra->id,
-            'n_nota' => $obra->last_note,
-            'nome_obra' => $obra->razao_social,
-            'total_faturado' => $totalFaturado,
-            'total_a_faturar' => $saldoAFaturar,
-            'total_recebido' => $totalRecebido,
-            'total_receber' => $totalReceber,
-            'saldo' => $valorNegociadoObra - $totalFaturado,
-            'vencidas' => $vencidas,
-            'data_vencimento' => $data_vencimento,
-            'client_name' => limit($obra->client->company_name),
-        ];
+        if (isset($filter['receber'])) {
+            $finances = $finances->where('total_receber', '<>', 0);
+        }
+
+        if (isset($filter['vencimento'])) {
+            $finances = $finances->where('vencidas', '<>', 0);
+        }
+
+        // 🔄 paginação correta sobre o resultado final
+        $total = $finances->count();
+        $results = $finances->forPage($page, $perPage)->values();
+
+        $paginator = new LengthAwarePaginator(
+            FinanceObraResource::collection($results),
+            $total,
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return $paginator;
     }
-
-    $finances = collect($finances);
-
-    // 🔍 filtros pós-processamento
-    if (isset($filter['faturar'])) {
-        $finances = $finances->where('total_a_faturar', '<>', 0);
-    }
-
-    if (isset($filter['receber'])) {
-        $finances = $finances->where('total_receber', '<>', 0);
-    }
-
-    if (isset($filter['vencimento'])) {
-        $finances = $finances->where('vencidas', '<>', 0);
-    }
-
-    // 🔄 paginação correta sobre o resultado final
-    $total = $finances->count();
-    $results = $finances->forPage($page, $perPage)->values();
-
-    $paginator = new LengthAwarePaginator(
-        FinanceObraResource::collection($results),
-        $total,
-        $perPage,
-        $page,
-        ['path' => $request->url(), 'query' => $request->query()]
-    );
-
-    return $paginator;
-}
 
     /**
      * Display a listing of the resource.

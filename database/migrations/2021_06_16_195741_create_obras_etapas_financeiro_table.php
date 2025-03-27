@@ -23,6 +23,11 @@ class CreateObrasEtapasFinanceiroTable extends Migration
             $table->double('valor', 10, 2)->nullable();
             $table->double('valor_receber', 10, 2)->nullable();
 
+            $table->double('faturado', 10, 2)->default(0);
+            $table->double('recebido', 10, 2)->default(0);
+            $table->double('a_receber', 10, 2)->default(0);
+            $table->double('vencidas', 10, 2)->default(0);
+
             $table->timestamps();
 
             //$table->foreign('etapa_id')

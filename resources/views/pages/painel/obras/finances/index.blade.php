@@ -69,14 +69,80 @@
         <div class="card-body">
             <div class="table table-responsive" style="font-size: 13px;">
                 <table class='table table-hover table-centered table-condensed'>
-                    <thead>
-                        <!-- cabeçalhos aqui -->
+                    <thead class='thead-light'>
+                        <tr>
+                            <th>Nº Nota</th>
+                            <th>Nome da Obra</th>
+                            <th>Cliente</th>
+                            <th>Valor Negociado</th>
+                            <th>Valor a Receber</th>
+                            <th>Valor Recebido</th>
+                            <th>Faturado</th>
+                            <th>Liberado Faturar</th>
+                            <th>Vencidas</th>
+                            <th>Saldo</th>
+                            <th></th>
+                        </tr>
                     </thead>
-                    <tbody id="finance-body">
-                        <!-- será preenchido por JS -->
-                    </tbody>
+                    <tbody>
+                        @php
+                            $total_negociado = 0;
+                            $total_receber = 0;
+                            $total_recebido = 0;
+                            $total_a_faturar = 0;
+                            $total_saldo = 0;
+                            $total_faturado = 0;
+                            $total_vencidas = 0;
+                        @endphp
+                        @foreach ($obras as $obra)
+                            @php
+                                $total_negociado += $obra->financeiro->valor_negociado;
+                                $total_receber += $obra->financeiro->a_receber;
+                                $total_recebido += $obra->financeiro->recebido;
+                                $total_a_faturar += $obra->financeiro->total_a_faturar;
+                                $total_saldo += $obra->financeiro->saldo;
+                                $total_faturado += $obra->financeiro->faturado;
+                                $total_vencidas += $obra->financeiro->vencidas;
+                            @endphp
+                            <tr class="">
+                                <td>{{ $obra->last_note }}</td>
+                                <td>{{ limit($obra->razao_social) }}</td>
+                                <td>{{ limit($obra->client->company_name) }}</td>
+                                <td>R$ {{ maskPrice($obra->financeiro->valor_negociado) }}</td>
+                                <td>R$ {{ maskPrice($obra->financeiro->a_receber) }}</td>
+                                <td>R$ {{ maskPrice($obra->financeiro->recebido) }}</td>
+                                <td>R$ {{ maskPrice($obra->financeiro->faturado) }}</td>
+                                <td>R$ {{ maskPrice($obra->financeiro->total_a_faturar) }}</td>
+                                <td>{{ $obra->financeiro->vencidas }}</td>
+                                <td>R$ {{ maskPrice($obra->financeiro->saldo) }}</td>
+                                <td>
+                                    <div class="d-flex gap-2" style="gap: 0.6rem">
+                                        <a href="#!" class="open-activities" data-obraId="{{ $obra->id }}">
+                                            <i class="fas fa-info-circle no-click"></i>
+                                        </a>
 
-                    <div id="loader" style="display:none;">Carregando...</div>
+                                        <a href="{{ route('obras.finance', $obra->id) }}" class="">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <th> Total: </th>
+                            <th> </th>
+                            <th> </th>
+
+                            <th> R$ {{ maskPrice($total_negociado) }}</th>
+                            <th> R$ {{ maskPrice($total_receber) }}</th>
+                            <th> R$ {{ maskPrice($total_recebido) }}</th>
+                            <th> R$ {{ maskPrice($total_faturado) }}</th>
+                            <th> R$ {{ maskPrice($total_a_faturar) }}</th>
+                            <th> {{ ($total_vencidas) }} </th>
+                            <th> R$ {{ maskPrice($total_saldo) }}</th>
+                            <th> </th>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -104,8 +170,8 @@
                             </li>
                             @if (!auth()->guard('clients')->check())
                                 <li class="nav-item d-none" role="presentation">
-                                    <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile"
-                                       aria-selected="false">Pendências</a>
+                                    <a id="pills-profile-tab" class="nav-link" data-toggle="pill" href="#pills-profile" role="tab"
+                                       aria-controls="pills-profile" aria-selected="false">Pendências</a>
                                 </li>
                             @endif
                         </ul>

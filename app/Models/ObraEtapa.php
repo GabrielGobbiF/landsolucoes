@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\Date;
 use App\Casts\OnlyNumber;
+use App\Services\Etapas\FinanceiroService;
 use App\Supports\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -169,6 +170,10 @@ class ObraEtapa extends Model
                 $user = auth()->user();
                 $etapa->setLog(['message' => 'concluido']);
             }
+        });
+
+        static::updated(function ($etapa) {
+            app(FinanceiroService::class)->saveObraFinanceiro($etapa->obra->id);
         });
 
         static::deleted(function ($etapa) {

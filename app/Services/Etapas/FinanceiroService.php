@@ -4,8 +4,11 @@ namespace App\Services\Etapas;
 
 use App\Models\ObraEtapasFinanceiro;
 use App\Models\EtapasFaturamento;
+use App\Models\Obra;
 use App\Models\ObraEtapa;
+use App\Models\ObraFinanceiro;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class FinanceiroService
 {
@@ -78,5 +81,76 @@ class FinanceiroService
             'status_etapa' => $etapaFinanceira->StatusEtapa['text'],
             'label_etapa' => $etapaFinanceira->StatusEtapa['label'],
         ];
+    }
+
+    public function calcularInfoFinanceiraPorObra($obraId)
+    {
+        $obra = app("model-cache")->runDisabled(function () use ($obraId) {
+            return Obra::where('id', $obraId)->first();
+        });
+
+        $valorNegociadoObra = $obra->financeiro->valor_negociado ?? 0;
+        $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
+
+        $totalFaturado = 0;
+        $saldoAFaturar = 0;
+        $totalRecebido = 0;
+        $totalReceber = 0;
+        $vencidas = 0;
+        $data_vencimento = '';
+
+        foreach ($etapas as $etapa) {
+            $status = $etapa->StatusEtapa;
+            $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
+
+            $etapaFaturado = $etapa->faturado();
+            $etapaRecebido = $etapa->recebido();
+            $etapaAReceber = $etapa->aReceber();
+            $etapaVencidas = $etapa->vencidas();
+
+            $totalFaturado += $etapaFaturado;
+            $saldoAFaturar += ($etapaValor != '0') ? $etapaValor - $etapaFaturado : 0;
+            $totalRecebido += $etapaRecebido;
+            $totalReceber  += $etapaAReceber?->sum ?? 0;
+
+            if ($etapaVencidas && $etapaVencidas->qnt != '') {
+                $vencidas += $etapaVencidas->qnt;
+                $data_vencimento = $etapaVencidas->data_vencimento ?? '';
+            }
+        }
+
+        return [
+            'valor_negociado' => $valorNegociadoObra,
+            'obraId' => $obra->id,
+            'n_nota' => $obra->last_note,
+            'nome_obra' => $obra->razao_social,
+            'total_faturado' => $totalFaturado,
+            'total_a_faturar' => $saldoAFaturar,
+            'total_recebido' => $totalRecebido,
+            'total_receber' => $totalReceber,
+            'saldo' => $valorNegociadoObra - $totalFaturado,
+            'vencidas' => $vencidas,
+            'data_vencimento' => $data_vencimento,
+            'client_name' => limit($obra->client->company_name),
+        ];
+    }
+
+    public function saveObraFinanceiro($obraId)
+    {
+        $dadosFinanceiro = $this->calcularInfoFinanceiraPorObra($obraId);
+
+        $obraFinanceiro = ObraFinanceiro::where('id_obra', $obraId)->first();
+
+        #Log::info($dadosFinanceiro['total_a_faturar']);
+
+        if ($obraFinanceiro) {
+            $obraFinanceiro->faturado = ($dadosFinanceiro['total_faturado']);
+            $obraFinanceiro->total_a_faturar = ($dadosFinanceiro['total_a_faturar']);
+            $obraFinanceiro->recebido = ($dadosFinanceiro['total_recebido']);
+            $obraFinanceiro->a_receber = ($dadosFinanceiro['total_receber']);
+            $obraFinanceiro->vencidas = ($dadosFinanceiro['vencidas']);
+            $obraFinanceiro->saldo = ($dadosFinanceiro['saldo']);
+            $obraFinanceiro->save();
+        }
     }
 }

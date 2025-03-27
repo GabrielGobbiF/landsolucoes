@@ -27,7 +27,7 @@ class ApiResponseException extends Exception
 
         $errorMessage = $decodedBody['errors'] ?? 'Erro desconhecido';
 
-        Log::channel('slack')->error('Erro na API IUGU', [
+        Log::channel('stack')->error('', [
             'message' => $errorMessage,
             'response' => $decodedBody
         ]);

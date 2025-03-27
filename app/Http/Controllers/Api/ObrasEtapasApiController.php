@@ -186,8 +186,9 @@ class ObrasEtapasApiController extends Controller
 
         if ($etapaFinanceiro && $check == 'C') {
 
-            app(EtapaService::class)->sendMessageCheckFaturamento($etapa, $etapaFinanceiro);
-
+            if (app()->isProduction()) {
+                app(EtapaService::class)->sendMessageCheckFaturamento($etapa, $etapaFinanceiro);
+            }
             /* todoFazer  */
             #slack("Obra: $obraNome \n Etapa: $etapaNome Liberado para faturamento veja " . route('obras.finance', $obra->id));
         }
