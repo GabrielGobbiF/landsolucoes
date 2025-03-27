@@ -293,10 +293,10 @@
             lastPage = null;
         }
 
-        document.getElementById('apply-filters').addEventListener('click', () => {
-            resetTable();
-            loadFinances();
-        });
+        //document.getElementById('apply-filters').addEventListener('click', () => {
+        //    resetTable();
+        //    loadFinances();
+        //});
 
         window.addEventListener('scroll', () => {
             const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
@@ -306,7 +306,7 @@
         });
 
         // 🚀 Primeira carga
-        loadFinances();
+        //loadFinances();
     </script>
 
     <script class="">
