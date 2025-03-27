@@ -39,7 +39,7 @@ class UpdateObraFinanceiro extends Command
      */
     public function handle()
     {
-        $obras = Obra::whereNull('financeiro_update')->select('id')->limit(10)->get();
+        $obras = Obra::whereNull('financeiro_update')->select('id')->limit(40)->get();
 
         foreach ($obras as $obra) {
             app(FinanceiroService::class)->saveObraFinanceiro($obra->id);
