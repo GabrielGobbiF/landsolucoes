@@ -98,11 +98,6 @@
                 <select id="select--veiculo_id" name="veiculo_id" class="form-control select-veiculo_id t-select " data-request="{{ route('vehicles.all') }}"
                         data-value-field="id" required>
 
-                    @if (isset($rdse))
-                        <option value='{{ $rdseAtividade->veiculo?->id }}'>
-                            {{ $rdseAtividade->veiculo?->board }}
-                        </option>
-                    @endif
 
                 </select>
             </div>
