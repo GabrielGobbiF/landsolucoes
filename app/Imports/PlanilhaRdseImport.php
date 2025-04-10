@@ -48,6 +48,7 @@ class PlanilhaRdseImport implements ToModel, SkipsEmptyRows, WithStartRow
             'Coleta de Óleo Reticulado' => '35',
             'Coleta de Óleo Radial' => '41',
             'Coleta de Óleo em Pedestal' => '3',
+            'Medição de Carga (24h) - Reticulado' => '46',
             default => null
         };
     }
