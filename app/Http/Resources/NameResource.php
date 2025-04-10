@@ -17,6 +17,7 @@ class NameResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'search' => $this->name,
         ];
     }
 }
