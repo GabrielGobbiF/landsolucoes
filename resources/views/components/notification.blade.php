@@ -17,7 +17,8 @@
                 </div>
             </div>
         </div>
-        <div data-simplebar style="max-height: 230px;" class="card-maximum-height">
+        <div data-simplebar="" class="h-4" class="card-maximum-height" style="height: 200px;
+    overflow: auto;">
             @if (isset($notifications) && count($notifications) > 0)
                 @foreach ($notifications as $unreadNotification)
                     <a href="{{ route('notifications.show', $unreadNotification->id) }}" class="text-reset notification-item notification-item-header"
