@@ -43,9 +43,10 @@ class ProgramacaoStatusAprVencida extends Command
     {
         $hoje = Carbon::now();
 
-
-        $registrosVencidos = app("model-cache")->runDisabled(function () use ($hoje) {
-            return Rdse::select('n_order', 'id', 'apr_at', 'notify_at')->where('apr_at', '<', $hoje)->get(); // or any other stuff you need to run with model-caching disabled
+        $registrosVencidos = app("model-cache")->runDisabled(closure: function () use ($hoje) {
+            return Rdse::select('n_order', 'id', 'apr_at', 'notify_at')
+                ->where('notify_at', '<>', $hoje)
+                ->where('apr_at', '<', $hoje)->limit(30)->get();
         });
 
         if ($registrosVencidos->isEmpty()) {
@@ -73,7 +74,5 @@ class ProgramacaoStatusAprVencida extends Command
             $registroVencidos->notify_at = $hoje;
             $registroVencidos->save();
         }
-
-        Log::info('Notificação de Programação enviada ' . $registrosVencidos->pluck('id'));
     }
 }
