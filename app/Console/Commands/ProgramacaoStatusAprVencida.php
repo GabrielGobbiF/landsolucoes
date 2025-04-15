@@ -46,10 +46,10 @@ class ProgramacaoStatusAprVencida extends Command
         $registrosVencidos = app("model-cache")->runDisabled(closure: function () use ($hoje) {
             return Rdse::select('n_order', 'id', 'apr_at', 'notify_at')
                 ->where(function ($query) use ($hoje) {
-                    $query->where('notify_at', '<>', $hoje);
+                    $query->whereDate('notify_at', '<>', $hoje);
                     $query->orWhere('notify_at', null);
                 })
-                ->where('apr_at', '<', $hoje)->limit(30)->get();
+                ->whereDate('apr_at', '<', $hoje)->limit(30)->get();
         });
 
         if ($registrosVencidos->isEmpty()) {
