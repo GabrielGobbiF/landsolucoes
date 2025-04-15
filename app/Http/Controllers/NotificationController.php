@@ -141,7 +141,7 @@ class NotificationController extends Controller
     public function getUnread(Request $request)
     {
         $user = Auth::user();
-        $unreadNotifications = $user->unreadNotifications()->limit(10)->get();
+        $unreadNotifications = $user->unreadNotifications()->limit(50)->get();
 
         return response()->json([
             'success' => true,
@@ -160,19 +160,19 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
         $notification = $user->notifications()->where('id', $id)->first();
-        
+
         if ($notification) {
             $notification->markAsRead();
-            
+
             $hasUrl = isset($notification->data['url']) && !empty($notification->data['url']);
-            
+
             return response()->json([
                 'success' => true,
                 'hasUrl' => $hasUrl,
                 'url' => $hasUrl ? $notification->data['url'] : null
             ]);
         }
-        
+
         return response()->json([
             'success' => false,
             'message' => 'Notificação não encontrada'
