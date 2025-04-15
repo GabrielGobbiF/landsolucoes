@@ -514,6 +514,8 @@ Route::get('/cron', function () {
     Artisan::call("schedule:run");
 });
 
+Route::get('/programacao-status-apr-vencida', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'programacaoStatus']);
+
 Route::get('/sesmt', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'sesmtEnel']);
 Route::get('/enel', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'downloadEnel']);
 Route::get('v1/api/celulares', [App\Http\Controllers\Api\TableApiController::class, 'celulares'])->name('celulares.all');
