@@ -26,19 +26,27 @@ class Kernel extends ConsoleKernel
     {
         #$schedule->command('command:carReview')->everyFourHours();
 
-        $schedule->command('queue:work --sleep=3 --tries=3 --timeout=90')->everyMinute();
+        $schedule->command('queue:work --once --sleep=3 --tries=3 --timeout=90')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->timeout(80);
 
-        $schedule->command('command:notifyLembrete')->everyMinute();
+        $schedule->command('command:notifyLembrete')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->timeout(60);
 
         $schedule->command('telescope:prune --hours=48')->daily();
 
-        $schedule->command('backup:clean --disable-notifications')->daily()->at('01:00')->onFailure(function () {
-            slack(['Erro ao limpar o backup']);
-        });
+        $schedule->command('backup:clean --disable-notifications')
+            ->daily()
+            ->at('01:00')
+            ->onFailure(fn() => slack(['Erro ao limpar o backup']));
 
-        $schedule->command('backup:run --disable-notifications')->daily()->at('01:30')->onFailure(function () {
-            slack(['Erro ao fazer o backup']);
-        });
+        $schedule->command('backup:run --disable-notifications')
+            ->daily()
+            ->at('01:30')
+            ->onFailure(fn() => slack(['Erro ao fazer o backup']));
     }
 
     /**
