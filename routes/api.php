@@ -4,6 +4,7 @@ use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Api\EtapasApiController;
 use App\Http\Controllers\Api\ObraApiController;
 use App\Http\Controllers\Api\UploadController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Painel\Obras\FinanceiroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -62,6 +63,7 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
     /**
      * RDSE
      */
+    Route::put('rdse/{rdseId}/update-sigeo_at', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateSigeoAt'])->name('api.rdse.update.sigeo.at');
     Route::put('rdse/{rdseId}/update-status-execution', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'updateStatusExecution'])->name('api.rdse.update.status.execution');
     Route::get('rdses/bygroup', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'getRdsesByGroup'])->name('api.rdse.get.rdses.bygroup');
     Route::put('rdse/{rdseId}', [App\Http\Controllers\Painel\RDSE\Api\RdseApiController::class, 'update'])->name('api.rdse.update');
@@ -131,4 +133,15 @@ Route::post('disable-reset-cache', function () {
         ->update(['reset_cache' => false]);
 
     return response()->json(['success' => true]);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Rotas para o sistema de notificações
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications/unread', [NotificationController::class, 'getUnread']);
+    Route::post('/notifications/mark-as-read/{id}', [NotificationController::class, 'markAsRead']);
+    Route::post('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
 });

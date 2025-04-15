@@ -11,7 +11,7 @@ class NotificationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+
      */
     public function index()
     {
@@ -48,7 +48,7 @@ class NotificationController extends Controller
      * Read Notification
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+
      */
     public function show($uid)
     {
@@ -69,7 +69,7 @@ class NotificationController extends Controller
      * Read All By User Notification
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+
      */
     public function readAll()
     {
@@ -86,7 +86,7 @@ class NotificationController extends Controller
      * Archived Notification
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+
      */
     public function archived(Request $request, $uid)
     {
@@ -111,7 +111,6 @@ class NotificationController extends Controller
      * Deleted Notification
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function deleted(Request $request, $uid)
     {
@@ -131,5 +130,66 @@ class NotificationController extends Controller
         return redirect()
             ->route('notifications.index')
             ->with('message', 'Deletada com sucesso!');
+    }
+
+    /**
+     * Obtém todas as notificações não lidas do usuário atual
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUnread(Request $request)
+    {
+        $user = Auth::user();
+        $unreadNotifications = $user->unreadNotifications()->limit(10)->get();
+
+        return response()->json([
+            'success' => true,
+            'notifications' => $unreadNotifications
+        ]);
+    }
+
+    /**
+     * Marca uma notificação específica como lida
+     *
+     * @param Request $request
+     * @param string $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function markAsRead(Request $request, $id)
+    {
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id', $id)->first();
+        
+        if ($notification) {
+            $notification->markAsRead();
+            
+            $hasUrl = isset($notification->data['url']) && !empty($notification->data['url']);
+            
+            return response()->json([
+                'success' => true,
+                'hasUrl' => $hasUrl,
+                'url' => $hasUrl ? $notification->data['url'] : null
+            ]);
+        }
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Notificação não encontrada'
+        ], 404);
+    }
+
+    /**
+     * Marca todas as notificações do usuário como lidas
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function markAllAsRead(Request $request)
+    {
+        $user = Auth::user();
+        $user->unreadNotifications->markAsRead();
+
+        return response()->json(['success' => true]);
     }
 }

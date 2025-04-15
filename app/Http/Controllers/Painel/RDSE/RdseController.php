@@ -17,6 +17,7 @@ use App\Models\RSDE\Resb;
 use App\Services\Rdse\RdseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -62,6 +63,9 @@ class RdseController extends Controller
      */
     public function programacao(Request $request)
     {
+        //$user = Auth::user();
+        //$service = new \App\Services\NotificationsExampleService();
+        //$service->notifyUser($user, 'Novo orçamento', 'Foi criado um novo orçamento para você revisar', 'info', '/orcamentos/123');
 
         $date = Carbon::now()->format('d/m/Y');
 

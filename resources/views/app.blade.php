@@ -18,6 +18,7 @@
     <link id="bootstrap-style" href="{{ _mix('panel/css/bootstrap.css') }}" rel="stylesheet">
     <link id="app-style" href="{{ _mix('panel/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('panel/icons/icons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/css/notifications-toast.css') }}" rel="stylesheet">
 
     <script src="{{ _mix('panel/js/bootstrap.js') }}"></script>
 
@@ -278,6 +279,96 @@
                     <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
+                <hr class="mt-1" />
+
+                <h6 class="text-muted mb-3">Notificações</h6>
+
+                <div class="custom-control custom-switch mb-3">
+                    <input id="browser-notification-switch" type="checkbox" class="custom-control-input " />
+                    <label class="custom-control-label" for="browser-notification-switch">Notificações do navegador</label>
+                </div>
+
+
+                <small class="text-muted d-block mb-2">Receba notificações mesmo quando não estiver com o sistema aberto.</small>
+
+                <div class="notification-btn-group mt-2 mb-3">
+                    <button id="enable-notification-btn" class="btn btn-sm btn-success mr-2">
+                        Ativar notificações
+                    </button>
+                    <button id="disable-notification-btn" class="btn btn-sm btn-light border">
+                        Desativar
+                    </button>
+                </div>
+
+                <button id="test-notification-btn" class="btn btn-sm btn-light border">
+                    Testar notificação
+                </button>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const notificationSwitch = document.getElementById('browser-notification-switch');
+                        const enableBtn = document.getElementById('enable-notification-btn');
+                        const disableBtn = document.getElementById('disable-notification-btn');
+                        const storageKey = 'browser_notifications_enabled';
+
+                        // Função para atualizar a UI baseado no status das notificações
+                        function updateNotificationUI() {
+                            const savedPreference = localStorage.getItem(storageKey);
+                            const isEnabled = (savedPreference === 'granted' && Notification.permission === 'granted');
+
+                            // Atualiza o switch
+                            if (notificationSwitch) {
+                                notificationSwitch.checked = isEnabled;
+                            }
+
+                            // Atualiza os botões
+                            if (enableBtn && disableBtn) {
+                                enableBtn.disabled = isEnabled;
+                                disableBtn.disabled = !isEnabled;
+                            }
+                        }
+
+                        // Configura os botões de ativar/desativar
+                        if (enableBtn) {
+                            enableBtn.addEventListener('click', function() {
+                                if (Notification.permission !== 'granted') {
+                                    Notification.requestPermission().then(permission => {
+                                        if (permission === 'granted') {
+                                            localStorage.setItem(storageKey, 'granted');
+                                            updateNotificationUI();
+
+                                            // Mostra notificação de teste
+                                            const notification = new Notification('Notificações ativadas!', {
+                                                body: 'Você receberá notificações mesmo quando não estiver com o sistema aberto.',
+                                                icon: `${base_url}/favicon.ico`
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    localStorage.setItem(storageKey, 'granted');
+                                    updateNotificationUI();
+                                }
+                            });
+                        }
+
+                        if (disableBtn) {
+                            disableBtn.addEventListener('click', function() {
+                                localStorage.setItem(storageKey, 'denied');
+                                updateNotificationUI();
+                            });
+                        }
+
+                        $("#browser-notification-switch").on("click", function(e) {
+                            alert('ipo');
+                            $("#browser-notification-switch").prop("checked", true);
+
+                        });
+
+                        // Inicializa o estado da UI
+                        updateNotificationUI();
+                    });
+                </script>
+
             </div>
 
         </div>
@@ -287,10 +378,14 @@
 
     <div class="rightbar-overlay"></div>
 
+    <!-- Componente de Notificações Toast -->
+    @include('components.notifications-toast')
+
     <script src="{{ _mix('panel/js/all.js') }}"></script>
     <script src="{{ _mix('panel/js/app.js') }}"></script>
     <script src="{{ asset('panel/js/lib/select2/select2.js') }}"></script>
     <script src="{{ asset('panel/js/lib/functions.js') }}"></script>
+    <script src="{{ asset('panel/js/notifications-toast.js') }}"></script>
     {{--
     <script src="https://cdn.tiny.cloud/1/rxt6gu66oa6gavl0hljt0k37ibd9qw3l0fev1vtpsexwx573/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>

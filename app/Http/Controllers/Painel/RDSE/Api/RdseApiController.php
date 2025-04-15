@@ -520,4 +520,18 @@ class RdseApiController extends Controller
 
         return response()->json($atividades);
     }
+
+    public function updateSigeoAt(Request $request, $rdseId)
+    {
+        $checked = $request->input('checked', null);
+
+        if (!$rdse = $this->repository->where('id', $rdseId)->first()) {
+            return response()->json('Object RDSE not found in scope', 404);
+        }
+
+        $rdse->sigeo_at = $checked  ? now() : null;
+        $rdse->save();
+
+        return new RdseResource($rdse);
+    }
 }

@@ -269,7 +269,7 @@
                                 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-visible="false">#</th>
                                 <th data-field="n_order" data-sortable="true" data-width="10">Nº Ordem</th>
-                                <th data-field="description">Descrição / Endereço</th>
+                                <th data-field="description_limit">Descrição / Endereço</th>
                                 <th data-field="tipo_obra" data-formatter="tipo_obra">Tipo de Obra</th>
                                 <th data-field="status_execution" data-formatter="statusExecution">Status de Programação</th>
                                 <th data-field="atividades" data-width="500">Atividades Programação</th>
@@ -278,6 +278,7 @@
                                 <th data-field="apr_at" data-formatter="aprInput">Data Pré APR</th>
                                 <th data-field="enel_deadline" data-formatter="enelDeadline">Data Limite ENEL</th>
                                 <th data-field="observations" data-formatter="observationInput">Obs</th>
+                                <th data-field="sigeo_at" data-formatter="sigeoInput">Sigeo</th>
                                 <th data-field="month">Mês</th>
 
                                 {{--
@@ -654,7 +655,7 @@
             display: none;
         }
 
-        #sidebarDireita{
+        #sidebarDireita {
             overflow: auto;
         }
 
@@ -973,6 +974,7 @@
             }
 
 
+
             if ($table.length > 0) {
                 var paginate = $table.attr('data-paginate') != undefined ? false : true;
                 var eExport = $table.attr('data-export') != undefined ? false : true;
@@ -1054,8 +1056,22 @@
                     },
                     onClickCell: function(field, value, row, $element) {
 
+                        //if (fiel == 'sigeo_at') {
+                        //    axios.post(`${base_url}/api/v1/rdse/${rdseId}/update-status-execution`, {
+                        //            _method: 'PUT',
+                        //            status_execution: $('#modalUpdateStatus input[name="status"]').val(),
+                        //            status_observation: $('#modalUpdateStatus #form-updateStatusRdse textarea[name="status_observation"]')
+                        //            .val(),
+                        //        }).then(function(error) {
+                        //            toastr.success('Alterado');
+                        //            $('#modalUpdateStatus').modal('hide');
+                        //        })
+                        //        .catch(function(error) {
+                        //            toastr.error(error);
+                        //        });
+                        //}
 
-                        if (field === 'description') {
+                        if (field === 'description_limit') {
 
                             axios.get(`${BASE_URL}/api/v1/rdses/${row.id}`)
                                 .then(function(response) {
@@ -1110,7 +1126,7 @@
 
                         if (click == 'false' || field == 'state' || field == 'status_execution' || field == 'apr_at' || field == 'is_civil' ||
                             field == 'enel_deadline' || field == 'observations' || field == 'atividades' || field == 'type' || field ==
-                            'tipo_obra' || field == 'sigeo'
+                            'tipo_obra' || field == 'sigeo' || field == 'sigeo_at'
 
                         ) {
                             return;
@@ -1325,6 +1341,31 @@
                 </a>
             `;
         }
+
+        function sigeoInput(value, row) {
+            let isChecked = value === null ? '' : 'checked';
+            let checkboxId = `sigeo-check-${row.id}`;
+
+            return `
+                <input type="checkbox" id="${checkboxId}" ${isChecked}
+                    onchange="handleSigeoToggle(${row.id}, this.checked)"
+                >
+            `;
+        }
+
+        function handleSigeoToggle(id, isChecked) {
+
+            axios.put(`${base_url}/api/v1/rdse/${id}/update-sigeo_at`, {
+                    checked: isChecked
+                })
+                .then(response => {
+                    console.log('Atualizado com sucesso:', response.data);
+                })
+                .catch(error => {
+                    console.error('Erro ao atualizar Sigeo:', error);
+                });
+        }
+
 
         function aprInput(value, row) {
             let rowValue = value === null ? '' : value;

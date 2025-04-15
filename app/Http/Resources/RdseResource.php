@@ -48,7 +48,8 @@ class RdseResource extends JsonResource
             'id' => $this->id,
             'observations' => limit($this->observations, 30),
             'observations_not_limit' => $this->observations,
-            'description' => $this->description,
+            'description' => ($this->description),
+            'description_limit' => limit($this->description, 18),
             'n_order' => $this->n_order ?? '',
             'name' => $this->n_order ?? '',
             'search' => $this->n_order ?? '',
@@ -74,6 +75,7 @@ class RdseResource extends JsonResource
             'is_civil' => $this->is_civil,
             'sigeo' => $this->sigeo,
             'diretoria' => $this->diretoria,
+            'sigeo_at' => $this->sigeo_at,
             'month' => monthByFormat($this->Month) . "/{$year}",
             'atividades' => "<a href='javascript:void(0)' onclick='openModaladdItemsModal(this)' data-id='{$this->id}' class='atividades'>
             {$this->getAtividadesDescriptionsAttribute($filters)}
