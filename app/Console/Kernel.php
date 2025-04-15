@@ -28,13 +28,11 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('queue:work --once --sleep=3 --tries=3 --timeout=90')
             ->everyMinute()
-            ->withoutOverlapping()
-            ->timeout(80);
+            ->withoutOverlapping();
 
         $schedule->command('command:notifyLembrete')
             ->everyMinute()
-            ->withoutOverlapping()
-            ->timeout(60);
+            ->withoutOverlapping();
 
         $schedule->command('telescope:prune --hours=48')->daily();
 

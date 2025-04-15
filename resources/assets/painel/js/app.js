@@ -308,6 +308,85 @@ window.feather = require('feather-icons');
         };
     };
 
+    /* --------------------------------------------------------------
+#
+HOW TO USE THIS
+        < div class="card-body" >
+            <button class="btn btn-outline-danger"
+                data-js="btn-confirm-submit"
+                data-action="delete"
+                data-route="{{route('')}}"
+                data-btnText="Deletar">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Reembolsar Pagamento
+            </button>
+</div >
+        --------------------------------------------------------------*/
+
+    const addModalConfirmInTheDom = btn => {
+        btn.preventDefault();
+        let token = document.querySelector('meta[name="csrf-token"]').content;
+        let route = btn.target.dataset.route;
+        let text = btn.target.dataset.btnText || 'Deletar';
+        let action = btn.target.dataset.action || 'POST';
+        let btnClass = btn.target.dataset.btnClass || btn.target.getAttribute('class');
+        let btnHtml = btn.target.innerHTML;
+
+        let htmlModalEl = `
+        <div class="modal fade effect-scale" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <form id="form-confirm" role="form" class="needs-validation" action="${route}" method="POST">
+                        <div class="modal-header">
+                            <h6 class="modal-title"></h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <span class="mg-b-0 modal-text-body"></span>
+                        </div>
+                        <div class="modal-footer gap-1">
+                            <button type="button" id="modal-cancel" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <input type="hidden" name="_token" value="${token}">
+                            <input type="hidden" name="_method" value="${action}">
+                            <button type="submit" data-btn-text="" class="btn-modal ${btnClass}">
+                                ${btnHtml}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>`
+        document.body.insertAdjacentHTML('beforeend', htmlModalEl);
+
+        var $modal = $("#modal-delete");
+
+        // Ajusta título e texto do corpo do modal
+        $modal.find('.modal-title').text(text);
+        $modal.find('.modal-text-body').text(`Tem certeza que deseja ${text}?`);
+
+        // Adiciona campo de observação caso necessário
+        if ($(btn.target).data('observation')) {
+            $modal.find('.modal-body').append(`
+                <div class="form-group mt-2">
+                    <label for="input-observations">Motivo</label>
+                    <textarea name="observations" type="text" class="form-control" rows="5"
+                        id="input-observations" required></textarea>
+                </div>
+            `);
+        }
+        // Mostra o modal
+        $modal.modal('show');
+
+        // Remove o modal após ser fechado
+        $modal.on('hidden.bs.modal', function () {
+            $modal.remove();
+        });
+    }
+
+    document.querySelectorAll('[data-js=btn-confirm-submit]').forEach(item => {
+        item.addEventListener('click', addModalConfirmInTheDom);
+    })
+
     function init() {
         //initMetisMenu();
         initLeftMenuCollapse();

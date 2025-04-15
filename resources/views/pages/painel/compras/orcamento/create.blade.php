@@ -1,4 +1,4 @@
-@extends("app")
+@extends('app')
 
 @section('title', 'Novo Orçamento')
 
@@ -8,7 +8,6 @@
         .form-control.active {
             border: 1px solid green;
         }
-
     </style>
 
     <div class="row">
@@ -36,19 +35,20 @@
                                             <tr id="{{ $item->id }}">
                                                 @if ($item->variables->count() > 0)
                                                     <th colspan="{{ count($fornecedores) + 4 }}">
-                                                        <a href="javascript:void(0)" data-id="{{ $item->id }}" class="js-openClose__variable">{{ limit($item->name, 30) }}</a>
+                                                        <a href="javascript:void(0)" data-id="{{ $item->id }}"
+                                                           class="js-openClose__variable">{{ limit($item->name, 30) }}</a>
                                                     </th>
                                                 @else
                                                     <th>{{ limit($item->name, 40) }}</th>
                                                     <th>{{ $item->unidade }}</th>
                                                     <th style="width: 12%">
-                                                        <input type="number" data-unidade="{{ $item->unidade }}" class="form-control qnt reset" min="1" name="qnt" required value="0"
-                                                            data-tr="{{ $item->id }}">
+                                                        <input type="number" data-unidade="{{ $item->unidade }}" class="form-control qnt reset" min="1"
+                                                               name="qnt" required value="0" data-tr="{{ $item->id }}">
                                                     </th>
                                                     @foreach ($fornecedores as $fornecedor)
                                                         <th style="width: 12%">
-                                                            <input type="text" class="form-control money price reset" name="price" id="{{ $fornecedor->id }}" data-tr="{{ $item->id }}" required
-                                                                value="0">
+                                                            <input id="{{ $fornecedor->id }}" type="text" class="form-control money price reset" name="price"
+                                                                   data-tr="{{ $item->id }}" required value="0">
                                                         </th>
                                                     @endforeach
                                                     <th class="text-center total">0</th>
@@ -67,13 +67,14 @@
                                                             </th>
                                                             <th>{{ $item->unidade }}</th>
                                                             <th style="width: 12%">
-                                                                <input type="number" data-unidade='{{ $item->unidade }}' class="form-control qnt reset" min="1" name="qnt"
-                                                                    data-tr="{{ $item->id . $variable->id }}" required value="0">
+                                                                <input type="number" data-unidade='{{ $item->unidade }}' class="form-control qnt reset"
+                                                                       min="1" name="qnt" data-tr="{{ $item->id . $variable->id }}" required
+                                                                       value="0">
                                                             </th>
                                                             @foreach ($fornecedores as $fornecedor)
                                                                 <th style="width: 12%">
-                                                                    <input type="text" class="form-control money price reset" name="price" id="{{ $fornecedor->id }}"
-                                                                        data-tr="{{ $item->id . $variable->id }}" required value="0">
+                                                                    <input id="{{ $fornecedor->id }}" type="text" class="form-control money price reset"
+                                                                           name="price" data-tr="{{ $item->id . $variable->id }}" required value="0">
                                                                 </th>
                                                             @endforeach
                                                             <th class="text-center total">0</th>
@@ -90,7 +91,8 @@
 
                         <div class="col-md-12 d-none">
                             <button type="button" class="btn btn-primary btn-submit float-right">Salvar</button>
-                            <button type="button" class="btn btn-outline-danger js-btn-delete float-left" data-text="Excluir Produto" data-href="{{ route('produtos.destroy', $produto->id ?? '') }}">
+                            <button type="button" class="btn btn-outline-danger js-btn-delete float-left" data-text="Excluir Produto"
+                                    data-href="{{ route('produtos.destroy', $produto->id ?? '') }}">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -114,7 +116,7 @@
                     <div class="card-body">
                         <div id="div-etapas">
                             <div class="d-flex justify-content-between mb-2">
-                                <input type="text" class="form-control wd-250" name="search-etapa" id="search-etapa" value="" placeholder="Pesquisar">
+                                <input id="search-etapa" type="text" class="form-control wd-250" name="search-etapa" value="" placeholder="Pesquisar">
                                 <button class="btn btn-primary btn-new-store">Novo Produto</button>
                             </div>
 
@@ -142,9 +144,10 @@
                         <div class="row justify-content-center mt-4">
                             <div class="col-3">
                                 <label>Selecione a categoria</label>
-                                <select name='categoria' id="select__categoria" class='form-control select2' required>
+                                <select id="select__categoria" name='categoria' class='form-control select2' required>
                                     @foreach ($categorias as $atuacao)
-                                        <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao->name ? 'selected' : '' }} value='{{ $atuacao->name }}'>
+                                        <option {{ request()->input('categoria') && request()->input('categoria') == $atuacao->name ? 'selected' : '' }}
+                                                value='{{ $atuacao->name }}'>
                                             {{ $atuacao->name }}
                                         </option>
                                     @endforeach
