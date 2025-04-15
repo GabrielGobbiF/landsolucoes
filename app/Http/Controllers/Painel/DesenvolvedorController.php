@@ -194,16 +194,11 @@ class DesenvolvedorController extends Controller
         $registrosVencidos = app("model-cache")->runDisabled(closure: function () use ($hoje) {
             return Rdse::select('n_order', 'id', 'apr_at', 'notify_at')
                 ->where(function ($query) use ($hoje) {
-                    $query->whereDate('notify_at', '<>', $hoje);
+                    $query->whereDate('notify_at', '<>', $hoje->subDays(45));
                     $query->orWhere('notify_at', null);
                 })
                 ->whereDate('apr_at', '<', $hoje)->limit(30)->get();
         });
-
-        if ($registrosVencidos->isEmpty()) {
-            $this->info('Nenhum registro vencido encontrado.');
-            return 0;
-        }
 
         $usersId = [1, 258, 259, 263, 264, 262];
 

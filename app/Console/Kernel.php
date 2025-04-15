@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('telescope:prune --hours=48')->daily();
 
-        $schedule->command('app:programacao-status-apr-vencida')->everyMinute();
+        #$schedule->command('app:programacao-status-apr-vencida')->everyMinute();
 
         $schedule->command('backup:clean --disable-notifications')
             ->daily()
