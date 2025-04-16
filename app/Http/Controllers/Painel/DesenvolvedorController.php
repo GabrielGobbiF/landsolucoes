@@ -194,7 +194,7 @@ class DesenvolvedorController extends Controller
         $registrosVencidos = app("model-cache")->runDisabled(closure: function () use ($hoje) {
             return Rdse::select('n_order', 'id', 'apr_at', 'notify_at')
                 ->where(function ($query) use ($hoje) {
-                    //$query->whereDate('notify_at', '<>', $hoje->subDays(45));
+                    $query->whereDate('apr_at', '>=', $hoje->subDays(45));
                     $query->orWhere('notify_at', null);
                 })
                 ->where('status_execution', '<>', 'Execução 100%')
@@ -208,18 +208,21 @@ class DesenvolvedorController extends Controller
         $service = new \App\Services\NotificationsExampleService();
 
         foreach ($registrosVencidos as $registroVencidos) {
-            $route = route('rdse.programacao.show', $registroVencidos->id);
+            if ($registroVencidos->StatusAPR['status'] == 'Vencida') {
 
-            $n_order = $registroVencidos->n_order;
-            $apr_at = $registroVencidos->apr_at;
-            $description = "$n_order - Status APR VENCIDA! - $apr_at";
+                $route = route('rdse.programacao.show', $registroVencidos->id);
 
-            foreach ($users as $user) {
-                $service->notifyUser($user, 'Programação', $description, 'danger', $route);
+                $n_order = $registroVencidos->n_order;
+                $apr_at = $registroVencidos->apr_at;
+                $description = "$n_order - Status APR VENCIDA! - $apr_at";
+
+                foreach ($users as $user) {
+                    $service->notifyUser($user, 'Programação', $description, 'danger', $route);
+                }
+
+                $registroVencidos->notify_at = $hoje;
+                $registroVencidos->save();
             }
-
-            $registroVencidos->notify_at = $hoje;
-            $registroVencidos->save();
         }
     }
 }
