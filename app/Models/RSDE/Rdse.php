@@ -365,17 +365,17 @@ class Rdse extends Model
         return auth()->user()->id === 1 || auth()->user()->id === 8;
     }
 
-    #protected static function booted()
-    #{
-    #    static::updating(function ($rdse) {
-    #        if ($rdse->isDirty('apr_at')) {
-    #            $dataAntiga = $rdse->getOriginal('apr_at');
-    #            $dataNova = $rdse->apr_at;
-    #
-    #            if ($dataNova < $dataAntiga) {
-    #                $evento->user->notify(new EventoDataAlteradaNotification($evento, $dataAntiga, $dataNova));
-    #            }
-    #        }
-    #    });
-    #}
+    protected static function booted()
+    {
+        static::updating(function ($rdse) {
+            if ($rdse->isDirty('apr_at')) {
+                $dataAntiga = $rdse->getOriginal('apr_at');
+                $dataNova = $rdse->apr_at;
+
+                if ($dataNova != $dataAntiga) {
+                    $rdse->notify_at = null;
+                }
+            }
+        });
+    }
 }

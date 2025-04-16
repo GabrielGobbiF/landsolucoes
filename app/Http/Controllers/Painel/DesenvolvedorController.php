@@ -194,9 +194,10 @@ class DesenvolvedorController extends Controller
         $registrosVencidos = app("model-cache")->runDisabled(closure: function () use ($hoje) {
             return Rdse::select('n_order', 'id', 'apr_at', 'notify_at')
                 ->where(function ($query) use ($hoje) {
-                    $query->whereDate('notify_at', '<>', $hoje->subDays(45));
+                    //$query->whereDate('notify_at', '<>', $hoje->subDays(45));
                     $query->orWhere('notify_at', null);
                 })
+                ->where('status_execution', '<>', 'Execução 100%')
                 ->whereDate('apr_at', '<', $hoje)->limit(30)->get();
         });
 
@@ -220,7 +221,5 @@ class DesenvolvedorController extends Controller
             $registroVencidos->notify_at = $hoje;
             $registroVencidos->save();
         }
-
-        Log::info('foi');
     }
 }

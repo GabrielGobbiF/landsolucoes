@@ -513,7 +513,6 @@ Route::get('/cron', function () {
     //Artisan::call("command:carReview");
     Artisan::call("schedule:run");
 });
-
 Route::get('/programacao-status-apr-vencida', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'programacaoStatus']);
 
 Route::get('/sesmt', [App\Http\Controllers\Painel\DesenvolvedorController::class, 'sesmtEnel']);
