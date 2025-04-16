@@ -35,9 +35,7 @@ class ApiBrasil
             #"title" => "Title Button",
             #"description" => "Description Button",
             #"footer" => "Footer Button",
-            "textMessage" => [
-                "text" => $message
-            ],
+            "text" => $message,
             #"buttons" => [
             #    [
             #        "type" => "pix",
