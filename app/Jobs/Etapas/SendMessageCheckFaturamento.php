@@ -33,6 +33,5 @@ class SendMessageCheckFaturamento implements ShouldQueue
     public function handle()
     {
         app(ApiBrasil::class)->sendEtapaCheckFaturamento();
-
     }
 }
