@@ -20,10 +20,6 @@ class ApiBrasil
 
     public function __construct()
     {
-        if (!config('services.apibrasil.active')) {
-            return;
-        }
-
         $this->request = app(ApiBrasilRequest::class);
     }
 
