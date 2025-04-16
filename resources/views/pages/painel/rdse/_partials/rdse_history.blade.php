@@ -56,7 +56,7 @@
                         <span class="text-success">{{ $log->properties['attributes']['status_execution'] }}</span>
                     </h4>
                     <p>Observação: {{ $log->properties['attributes']['observation_status'] ?? null }}</p>
-                    <p>Por: {{ $log->causer->name }}</p>
+                    <p>Por: {{ $log->causer?->name }}</p>
                     <time>{{ $log->created_at->format('d/m/Y h:i') }}</time>
                 </div>
             @endif
