@@ -111,6 +111,8 @@ class ApiBrasilRequest
 
     protected function handleErrors($response): array
     {
+        Log::info($response->getBody());
+
         return match ($response->getStatusCode()) {
             200 => json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR),
             201 => json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR),
