@@ -14,7 +14,7 @@ class NotificationsToast {
         this.apiUrl = `${base_url}/api/notifications/unread`;
         this.markAsReadUrl = `${base_url}/api/notifications/mark-as-read`;
         this.notifications = [];
-        this.maxVisibleNotifications = 2;
+        this.maxVisibleNotifications = 1;
         this.fetchInterval = 30000; // 30 segundos
         this.initialized = false;
         this.lastNotificationCount = 0;
