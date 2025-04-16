@@ -58,8 +58,12 @@ class NotificationController extends Controller
 
         $notification->markAsRead();
 
-        if ($notification->data['link'] != '') {
-            return redirect($notification->data['link']);
+        $link = isset($notification->data['link'])
+            ? $notification->data['link']
+            : (isset($notification->data['url']) ? $notification->data['url'] : null);
+
+        if ($link) {
+            return redirect($link);
         } else {
             return redirect()->route('notifications.index');
         }
