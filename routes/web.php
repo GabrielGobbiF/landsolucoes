@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EquipeController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\Painel\DesenvolvedorController;
 use App\Http\Controllers\Painel\RDSE\EncarregadoController;
 use App\Http\Controllers\Painel\RDSE\RdseController;
 use App\Http\Controllers\Painel\RDSE\SupervisorController;
@@ -27,13 +28,14 @@ Route::get('/clientes/login', [App\Http\Controllers\Auth\Clients\LoginController
 Route::post('/clientes/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'login'])->name('clients.login');
 Route::post('/clientes/logout', [App\Http\Controllers\Auth\Clients\LoginController::class, 'logout']);
 
+Route::get('teste-whats', [DesenvolvedorController::class, 'testeWhats']);
+
 Route::group(['middleware' => ['CheckClient']], function () {
     Route::prefix('clientes')->group(function () {
         Route::get('/obras', [App\Http\Controllers\Clients\ClientController::class, 'index'])->name('clients.obras');
         Route::get('/obras/{obraId}', [App\Http\Controllers\Clients\ClientController::class, 'show'])->name('clients.obras.show');
     });
 });
-
 
 Route::group(['middleware' => ['CheckPassword']], function () {
 
@@ -186,7 +188,11 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::put('obras/{obraId}/urgence', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'urgence'])->name('obras.urgence');
             Route::delete('obras/{obraId}/remove-finance', [App\Http\Controllers\Painel\Obras\ObrasController::class, 'removeFinance'])->name('obras.remove.finance');
             Route::resource('obras', App\Http\Controllers\Painel\Obras\ObrasController::class);
+
+
             Route::get('finances', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'index'])->name('finances.index');
+            Route::get('finances/export', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'export'])->name('finances.export');
+
             Route::put('obras/{obraId}/finance/{etapa_id}/storeFaturamento', [App\Http\Controllers\Api\FinanceiroApiController::class, 'storeFaturamento'])->name('etapas.faturamento.store');
 
             /*

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Painel\Obras;
 
+use App\Exports\ObraFinanceiroExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceObraResource;
@@ -12,6 +13,7 @@ use App\Models\ObraFinanceiro;
 use App\Services\Etapas\FinanceiroService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FinanceiroController extends Controller
 {
@@ -35,7 +37,7 @@ class FinanceiroController extends Controller
 
         $finances = [];
 
-        $obras = $this->repository->where(function ($query) use ($filter) {
+        $obras = Obra::where(function ($query) use ($filter) {
             if (isset($filter['obr_name']) && $filter['obr_name'] != '') {
                 return $query->where('razao_social', 'LIKE', '%' . $filter['obr_name'] . '%');
             }
@@ -54,7 +56,35 @@ class FinanceiroController extends Controller
             ->whereNull('obras.deleted_at')
             ->whereIn('obras.status', ['aprovada'])
             ->where('obras.status', '<>', 'concluida')
-            //->limit(200)
+
+
+            ->when(
+                !empty($filter['faturar']),
+                function ($q) {
+                    $q->whereHas('financeiro', function ($qf) {
+                        $qf->where('total_a_faturar', '>', 0);
+                    });
+                }
+            )
+
+            ->when(
+                !empty($filter['receber']),
+                function ($q) {
+                    $q->whereHas('financeiro', function ($qf) {
+                        $qf->where('a_receber', '>', 0);
+                    });
+                }
+            )
+
+            ->when(
+                !empty($filter['vencimento']),
+                function ($q) {
+                    $q->whereHas('financeiro', function ($qf) {
+                        $qf->where('vencidas', '>', 0);
+                    });
+                }
+            )
+
             ->get(['razao_social', 'id', 'last_note', 'status', 'client_id']);
 
         return view('pages.painel.obras.finances.index', [
@@ -151,8 +181,6 @@ class FinanceiroController extends Controller
                 'client_name' => limit($obra->client->company_name),
             ];
         }
-
-        dd($finances);
 
         $finances = collect($finances);
 
@@ -254,5 +282,12 @@ class FinanceiroController extends Controller
             'faturamento' => $faturamento,
             'dadosFinanceirosCollection' => $dadosFinanceirosCollection,
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        $filter = $request->all();
+
+        return Excel::download(new ObraFinanceiroExport($filter), 'obras.xlsx');
     }
 }

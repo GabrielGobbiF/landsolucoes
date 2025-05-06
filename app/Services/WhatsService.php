@@ -8,14 +8,11 @@ use Illuminate\Http\Request;
 
 class WhatsService
 {
-    public function __construct(protected TableRepository $tableRepository)
-    {
-    }
+    public function __construct(protected TableRepository $tableRepository) {}
 
     public function send(Model $model)
     {
-        if(config())
-        return $this->tableRepository->all($model);
+        if (config())
+            return $this->tableRepository->all($model);
     }
-
 }

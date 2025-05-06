@@ -3,6 +3,19 @@
 @section('title', 'Financeiro')
 
 @section('content')
+
+    <style>
+        @media (min-width: 1200px) {
+
+            .container,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl {
+                max-width: 1460px !important;
+            }
+        }
+    </style>
     <div class="card">
         <div class="card-body">
             <form id='form-search-finance' role='form' class='needs-validation' action='{{ route('finances.index') }}' method='get'>
@@ -60,7 +73,10 @@
                         </div>
                     </div>
                     <div class="col-4 col-md-3 align-self-center">
-                        <button id="apply-filters" type="button" class='btn btn-primary'>Buscar</button>
+                        <button id="apply-filters" type="submit" class='btn btn-primary'>Buscar</button>
+                        <a href="{{ route('finances.export', request()->all()) }}" class="btn btn-outline-primary">
+                            Exportar
+                        </a>
                     </div>
                 </div>
             </form>
@@ -138,7 +154,7 @@
                             <th> R$ {{ maskPrice($total_recebido) }}</th>
                             <th> R$ {{ maskPrice($total_faturado) }}</th>
                             <th> R$ {{ maskPrice($total_a_faturar) }}</th>
-                            <th> {{ ($total_vencidas) }} </th>
+                            <th> {{ $total_vencidas }} </th>
                             <th> R$ {{ maskPrice($total_saldo) }}</th>
                             <th> </th>
                         </tr>

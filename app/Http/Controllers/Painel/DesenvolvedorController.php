@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Managers\ApiBrasil\ApiBrasil;
 use App\Models\Client;
 use App\Models\Driver;
 use App\Models\RSDE\Rdse;
@@ -224,5 +225,10 @@ class DesenvolvedorController extends Controller
                 $registroVencidos->save();
             }
         }
+    }
+
+    public function testeWhats(Request $request)
+    {
+        app(ApiBrasil::class)->send('11971590068', 'Oi');
     }
 }
