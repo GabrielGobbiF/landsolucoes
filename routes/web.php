@@ -28,7 +28,7 @@ Route::get('/clientes/login', [App\Http\Controllers\Auth\Clients\LoginController
 Route::post('/clientes/login', [App\Http\Controllers\Auth\Clients\LoginController::class, 'login'])->name('clients.login');
 Route::post('/clientes/logout', [App\Http\Controllers\Auth\Clients\LoginController::class, 'logout']);
 
-Route::get('teste-whats', [DesenvolvedorController::class, 'testeWhats']);
+Route::get('teste-whats', [DesenvolvedorController::class, 'enviarMensagem']);
 
 Route::group(['middleware' => ['CheckClient']], function () {
     Route::prefix('clientes')->group(function () {

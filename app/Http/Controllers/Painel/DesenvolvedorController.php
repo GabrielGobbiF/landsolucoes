@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendWhats;
 use App\Managers\ApiBrasil\ApiBrasil;
 use App\Models\Client;
 use App\Models\Driver;
