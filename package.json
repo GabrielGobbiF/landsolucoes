@@ -31,6 +31,8 @@
         "bootstrap4-duallistbox": "^4.0.2",
         "dropzone": "^5.9.2",
         "feather-icons": "^4.28.0",
+        "flatpickr": "^4.6.13",
+        "inputmask": "^5.0.8-beta.15",
         "jconfirm": "^4.5.3",
         "jquery-mask-plugin": "^1.14.16",
         "select2": "^4.0.13",

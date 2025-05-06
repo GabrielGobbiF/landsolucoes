@@ -222,7 +222,7 @@ class FinanceiroController extends Controller
 
         if (!$obra = $this->repository->with('address')->with('client')->with('financeiro')->find($obraId)) {
             return redirect()
-                ->route('obras')
+                ->route('obras.index')
                 ->with('message', 'Registro não encontrado!');
         }
 

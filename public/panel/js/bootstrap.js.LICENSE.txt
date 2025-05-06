@@ -13,6 +13,14 @@
  */
 
 /*!
+ * dist/inputmask
+ * https://github.com/RobinHerbots/Inputmask
+ * Copyright (c) 2010 - 2022 Robin Herbots
+ * Licensed under the MIT license
+ * Version: 5.0.8-beta.15
+ */
+
+/*!
  * jQuery JavaScript Library v3.7.1
  * https://jquery.com/
  *

@@ -12,7 +12,7 @@
             .container-md,
             .container-sm,
             .container-xl {
-                max-width: 1460px !important;
+                max-width: 1640px !important;
             }
         }
     </style>
@@ -236,6 +236,8 @@
 
 
 @endsection
+
+
 
 
 @section('scripts')

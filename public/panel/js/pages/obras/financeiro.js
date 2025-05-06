@@ -46,14 +46,20 @@ function show(etapaId) {
                 </td>
             </tr>`;
         });
+
         modal.find('.etapa-valor_receber').html(`R$ ${numberFormat(data.aReceber)}`)
         modal.find('.etapa-valor_receber').attr('data-value', data.aReceber)
         document.querySelector('#results-faturamento').innerHTML = table;
         modal.modal('show');
 
         modal.find('#input--valor').on('keyup', function () {
-            let receber = modal.find('.etapa-valor_receber').attr('data-value');
-            let val = clearNumber($(this).val());
+            let receber = (modal.find('.etapa-valor_receber').attr('data-value'));
+            let val = valorToDec($(this).val());
+
+            console.log(receber)
+            console.log(val)
+
+
             let count = receber - val;
             modal.find('.etapa-valor_receber').html(`R$ ${numberFormat(count)}`)
             if (val > receber) {
@@ -100,4 +106,49 @@ function clearNumber(number) {
     number = number.toString().replace("R$", "").replace(".", "");
     number = number.replace(",", ".");
     return number != '' ? numeral(number).value() : 0;
+}
+
+/**
+         * Converte uma string de valor monetário (ex: "R$ 1.234,56", "2.345.678", "3,14") em número.
+         * @param {string} valor — string formatada
+         * @throws {Error} se o valor não for numérico após o parsing
+         * @returns {number}
+         */
+function valorToDec(valor) {
+    // 1. Remove espaços invisíveis e normais
+    let money = valor.replace(/[\u00A0\u202F\s]/g, '');
+
+    // 2. Remove “R$” e “%”
+    money = money.replace(/R\$|%/gi, '');
+
+    // 3. Lógica de separadores
+    if (money.includes(',') && money.includes('.')) {
+        // tanto vírgula quanto ponto: decide pelo que vem por último
+        if (money.lastIndexOf(',') > money.lastIndexOf('.')) {
+            // vírgula = decimal
+            money = money.replace(/\./g, ''); // remove pontos de milhar
+            money = money.replace(',', '.'); // vírgula vira ponto
+        } else {
+            // ponto = decimal
+            money = money.replace(/,/g, ''); // remove vírgulas de milhar
+        }
+    } else if (money.includes(',')) {
+        // só vírgula: decimal
+        money = money.replace(/\./g, '');
+        money = money.replace(',', '.');
+    } else if (money.includes('.')) {
+        // só ponto: trata todo ponto como milhar
+        money = money.replace(/\./g, '');
+    }
+    // else: nem vírgula nem ponto → nada a fazer
+
+    // 4. Converte para número
+    const num = Number(money);
+
+    // 5. Validação
+    if (isNaN(num)) {
+        throw new Error('Valor Numérico Informado é Inválido: ' + valor);
+    }
+
+    return num;
 }

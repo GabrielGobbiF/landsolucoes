@@ -1,10 +1,18 @@
 window._ = require('lodash');
+import Inputmask from 'inputmask';
+import flatpickr from 'flatpickr';
+import { Portuguese } from "flatpickr/dist/l10n/pt.js"
 
 try {
+
     window.$ = window.jQuery = require('jquery');
     window.Popper = require('popper.js').default;
     window.toastr = require('toastr');
     window.TomSelect = require('tom-select');
+    window.Inputmask = Inputmask;
+    window.flatpickr = flatpickr;
+    window.flatpickrlang = Portuguese;
+
 
     require('bootstrap');
     require('jquery-mask-plugin');

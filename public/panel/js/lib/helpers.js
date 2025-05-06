@@ -378,6 +378,35 @@ function axiosCath() {
     return '<div class="text-center"><a onclick="location.reload()" class="btn btn-sm btn-danger"><i class="fas fa-redo-alt"></i> ERROR - Recarregar</a> </div>';
 }
 
+const toggles = document.querySelectorAll('[data-inputmask]');
+
+const options = {
+    rightAlign: false,
+};
+
+Inputmask(options).mask(toggles);
+
+const togglesFlatpickr = document.querySelectorAll('[data-flatpickr]');
+
+togglesFlatpickr.forEach((toggle) => {
+
+    const defaultOptions = {
+        locale: window.flatpickrlang
+    };
+
+    const elementOptions = toggle.dataset.flatpickr ? JSON.parse(toggle.dataset.flatpickr) : {};
+
+    const options = {
+        ...elementOptions,
+        ...defaultOptions,
+    };
+
+    flatpickr(toggle, options);
+});
+
+// Make available globally for users of the /dist folder
+// Feel free to comment this out if you're working in the /src folder
+
 
 
 

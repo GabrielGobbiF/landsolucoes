@@ -33,7 +33,10 @@ class EtapasFinanceiroResource extends JsonResource
         }
 
         $data['faturado'] = $history['faturado'] ?? 0;
-        $data['aReceber'] = $this->valor_receber -  $data['faturado'];
+
+
+        $receber = round($this->valor_receber -  $data['faturado'], 2);
+        $data['aReceber'] = $receber;
 
         return $data;
     }

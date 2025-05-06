@@ -270,7 +270,7 @@ class ObrasController extends Controller
 
         if (!$obra = $this->repository->where('id', $id)->first()) {
             return redirect()
-                ->route('obras')
+                ->route('obras.index')
                 ->with('message', 'Registro não encontrado!');
         }
 
