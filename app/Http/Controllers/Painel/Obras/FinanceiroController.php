@@ -84,7 +84,7 @@ class FinanceiroController extends Controller
                     });
                 }
             )
-
+            ->whereHas('financeiro')
             ->get(['razao_social', 'id', 'last_note', 'status', 'client_id']);
 
         return view('pages.painel.obras.finances.index', [
