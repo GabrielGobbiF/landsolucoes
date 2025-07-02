@@ -222,6 +222,7 @@ class ObrasController extends Controller
         }
 
         $userAll = User::all();
+        $userGestorObras = User::gestorObras()->get();
         $tipos  = Tipo::all();
         $address  = $obra->address;
 
@@ -253,7 +254,8 @@ class ObrasController extends Controller
             'address' => $address,
             'pastas' => $pastas,
             'pastaPadrao' => $pastaPadrao,
-            'userAll' => $userAll
+            'userAll' => $userAll,
+            'userGestorObras' => $userGestorObras,
         ]);
     }
 

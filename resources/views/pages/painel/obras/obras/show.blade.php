@@ -579,7 +579,7 @@
                             <label class="form-label">Selecione o Usuário</label>
                             <select id="" class="form-control form-select t-select" name="gestor_id">
                                 <option value="" class="">Selecione</option>
-                                @foreach ($userAll as $user)
+                                @foreach ($userGestorObras as $user)
                                     <option {{ isset($obra) && $obra->gestor_id == $user->id ? 'selected' : null }} value="{{ $user->id }}">
                                         {{ $user->name }}</option>
                                 @endforeach
