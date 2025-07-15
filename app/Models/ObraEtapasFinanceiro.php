@@ -31,6 +31,7 @@ class ObraEtapasFinanceiro extends Model
         return $this->belongsTo(Obra::class, 'obra_id', 'id');
     }
 
+
     public function getStatusEtapaAttribute()
     {
         $status = DB::select('select * from obras_etapas where id_etapa = ? AND id_obra = ? ', [

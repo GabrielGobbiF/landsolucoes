@@ -8,6 +8,7 @@ use App\Models\Obra;
 use App\Models\ObraEtapa;
 use App\Models\ObraFinanceiro;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class FinanceiroService
@@ -22,7 +23,7 @@ class FinanceiroService
     {
         $etapaFinanceira = ObraEtapasFinanceiro::findOrFail($etapaFinanceiroId);
         $faturamentos = EtapasFaturamento::where('obr_etp_financerio_id', $etapaFinanceira->id)->get();
-        $obraEtapa = ObraEtapa::where('id_etapa', $etapaFinanceira->etapa_id)->first();
+        $obraEtapa = ObraEtapa::where('id_etapa', $etapaFinanceira->etapa_id)->where('id_obra', $etapaFinanceira->obra_id)->first();
 
         $hoje = Carbon::now();
 
@@ -39,7 +40,7 @@ class FinanceiroService
         $totalFaturado = $valorRecebido + $valorFaturadoNaoRecebido;
 
         // Quanto ainda falta faturar
-        $aFaturar = $obraEtapa->check == 'C' ? max(0, $valorTotal - $totalFaturado) : 0;
+        $aFaturar = isset($obraEtapa) && $obraEtapa->check == 'C' ? max(0, $valorTotal - $totalFaturado) : 0;
 
         // Faturas vencidas (não recebidas e com data de vencimento no passado)
         $faturasVencidas = $faturamentos->filter(function ($fatura) use ($hoje) {
@@ -63,6 +64,7 @@ class FinanceiroService
         return [
             'id' => $etapaFinanceira->id,
             'nome' => $etapaFinanceira->nome_etapa,
+            'nome_etapa' => $obraEtapa?->nome,
             'total_faturado' => ($totalFaturado),
             'a_faturar' => ($aFaturar),
             'a_receber' => ($valorFaturadoNaoRecebido),
@@ -83,40 +85,54 @@ class FinanceiroService
         ];
     }
 
+    /**
+     * Calcula informações financeiras completas para uma obra
+     *
+     * @param int $obraId
+     * @return array
+     */
     public function calcularInfoFinanceiraPorObra($obraId)
     {
+        // Busca a obra com relacionamentos necessários em uma única query
         $obra = app("model-cache")->runDisabled(function () use ($obraId) {
-            return Obra::where('id', $obraId)->first();
+            return Obra::with([
+                'financeiro',
+                'client:id,company_name',
+                'etapas_financeiro.faturamento',
+                'etapas' => function($query) use ($obraId) {
+                    $query->where('id_obra', $obraId)
+                          ->select('id', 'id_obra', 'id_etapa', 'check');
+                }
+            ])->find($obraId);
         });
 
+        if (!$obra) {
+            throw new \Exception("Obra com ID {$obraId} não encontrada");
+        }
+
+        if (!$obra->financeiro) {
+            Log::warning("Obra {$obraId} não possui registro financeiro");
+            return $this->getDefaultFinancialData($obra);
+        }
+
         $valorNegociadoObra = $obra->financeiro->valor_negociado ?? 0;
-        $etapas = $obra->etapas_financeiro()->with('faturamento')->get();
+        $etapasFinanceiras = $obra->etapas_financeiro;
 
-        $totalFaturado = 0;
-        $saldoAFaturar = 0;
-        $totalRecebido = 0;
-        $totalReceber = 0;
-        $vencidas = 0;
-        $data_vencimento = '';
+        // Criar map das etapas da obra por etapa_id para lookup rápido
+        $etapasObraMap = collect($obra->etapas)->keyBy('id_etapa');
 
-        foreach ($etapas as $etapa) {
-            $status = $etapa->StatusEtapa;
-            $etapaValor = $status['text'] != 'EM' ? $etapa->valor_receber : 0;
+        // Inicializar totalizadores
+        $totais = [
+            'totalFaturado' => 0,
+            'saldoAFaturar' => 0,
+            'totalRecebido' => 0,
+            'totalReceber' => 0,
+            'vencidas' => 0,
+            'data_vencimento' => null
+        ];
 
-            $etapaFaturado = $etapa->faturado();
-            $etapaRecebido = $etapa->recebido();
-            $etapaAReceber = $etapa->aReceber();
-            $etapaVencidas = $etapa->vencidas();
-
-            $totalFaturado += $etapaFaturado;
-            $saldoAFaturar += ($etapaValor != '0') ? $etapaValor - $etapaFaturado : 0;
-            $totalRecebido += $etapaRecebido;
-            $totalReceber  += $etapaAReceber?->sum ?? 0;
-
-            if ($etapaVencidas && $etapaVencidas->qnt != '') {
-                $vencidas += $etapaVencidas->qnt;
-                $data_vencimento = $etapaVencidas->data_vencimento ?? '';
-            }
+        foreach ($etapasFinanceiras as $etapaFinanceira) {
+            $this->processarEtapaFinanceira($etapaFinanceira, $etapasObraMap, $totais);
         }
 
         return [
@@ -124,33 +140,109 @@ class FinanceiroService
             'obraId' => $obra->id,
             'n_nota' => $obra->last_note,
             'nome_obra' => $obra->razao_social,
-            'total_faturado' => $totalFaturado,
-            'total_a_faturar' => $saldoAFaturar,
-            'total_recebido' => $totalRecebido,
-            'total_receber' => $totalReceber,
-            'saldo' => $valorNegociadoObra - $totalFaturado,
-            'vencidas' => $vencidas,
-            'data_vencimento' => $data_vencimento,
-            'client_name' => limit($obra->client->company_name),
+            'total_faturado' => $totais['totalFaturado'],
+            'total_a_faturar' => $totais['saldoAFaturar'],
+            'total_recebido' => $totais['totalRecebido'],
+            'total_receber' => $totais['totalReceber'],
+            'saldo' => $valorNegociadoObra - $totais['totalFaturado'],
+            'vencidas' => $totais['vencidas'],
+            'data_vencimento' => $totais['data_vencimento'],
+            'client_name' => limit($obra->client->company_name ?? ''),
+        ];
+    }
+
+    /**
+     * Processa uma etapa financeira e atualiza os totalizadores
+     *
+     * @param ObraEtapasFinanceiro $etapaFinanceira
+     * @param \Illuminate\Support\Collection $etapasObraMap
+     * @param array &$totais
+     */
+    private function processarEtapaFinanceira($etapaFinanceira, $etapasObraMap, &$totais)
+    {
+        // Verificar se a etapa existe na obra
+        $etapaObra = $etapasObraMap->get($etapaFinanceira->etapa_id);
+        
+        if (!$etapaObra) {
+            Log::warning("Etapa financeira {$etapaFinanceira->id} não encontrada na obra {$etapaFinanceira->obra_id}");
+            return;
+        }
+
+        // Determinar valor da etapa baseado no status
+        $etapaValor = ($etapaObra->check !== 'EM') ? $etapaFinanceira->valor_receber : 0;
+
+        // Calcular valores da etapa
+        $etapaFaturado = $etapaFinanceira->faturado();
+        $etapaRecebido = $etapaFinanceira->recebido();
+        $etapaAReceber = $etapaFinanceira->aReceber();
+        $etapaVencidas = $etapaFinanceira->vencidas();
+
+        // Atualizar totalizadores
+        $totais['totalFaturado'] += $etapaFaturado;
+        $totais['saldoAFaturar'] += ($etapaValor > 0) ? ($etapaValor - $etapaFaturado) : 0;
+        $totais['totalRecebido'] += $etapaRecebido;
+        $totais['totalReceber'] += $etapaAReceber->sum ?? 0;
+
+        // Processar faturas vencidas
+        if ($etapaVencidas && $etapaVencidas->qnt > 0) {
+            $totais['vencidas'] += $etapaVencidas->qnt;
+            
+            // Guardar a data de vencimento mais recente
+            if ($etapaVencidas->data_vencimento) {
+                $totais['data_vencimento'] = $etapaVencidas->data_vencimento;
+            }
+        }
+    }
+
+    /**
+     * Retorna dados financeiros padrão quando a obra não tem registro financeiro
+     *
+     * @param Obra $obra
+     * @return array
+     */
+    private function getDefaultFinancialData($obra)
+    {
+        return [
+            'valor_negociado' => 0,
+            'obraId' => $obra->id,
+            'n_nota' => $obra->last_note,
+            'nome_obra' => $obra->razao_social,
+            'total_faturado' => 0,
+            'total_a_faturar' => 0,
+            'total_recebido' => 0,
+            'total_receber' => 0,
+            'saldo' => 0,
+            'vencidas' => 0,
+            'data_vencimento' => null,
+            'client_name' => limit($obra->client->company_name ?? ''),
         ];
     }
 
     public function saveObraFinanceiro($obraId)
     {
-        $dadosFinanceiro = $this->calcularInfoFinanceiraPorObra($obraId);
+        try {
+            $dadosFinanceiro = $this->calcularInfoFinanceiraPorObra($obraId);
 
-        $obraFinanceiro = ObraFinanceiro::where('id_obra', $obraId)->first();
+            $obraFinanceiro = ObraFinanceiro::where('id_obra', $obraId)->first();
 
-        #Log::info($dadosFinanceiro['total_a_faturar']);
+            if ($obraFinanceiro) {
+                $obraFinanceiro->faturado = $dadosFinanceiro['total_faturado'];
+                $obraFinanceiro->total_a_faturar = $dadosFinanceiro['total_a_faturar'];
+                $obraFinanceiro->recebido = $dadosFinanceiro['total_recebido'];
+                $obraFinanceiro->a_receber = $dadosFinanceiro['total_receber'];
+                $obraFinanceiro->vencidas = $dadosFinanceiro['vencidas'];
+                $obraFinanceiro->saldo = $dadosFinanceiro['saldo'];
+                $obraFinanceiro->save();
 
-        if ($obraFinanceiro) {
-            $obraFinanceiro->faturado = ($dadosFinanceiro['total_faturado']);
-            $obraFinanceiro->total_a_faturar = ($dadosFinanceiro['total_a_faturar']);
-            $obraFinanceiro->recebido = ($dadosFinanceiro['total_recebido']);
-            $obraFinanceiro->a_receber = ($dadosFinanceiro['total_receber']);
-            $obraFinanceiro->vencidas = ($dadosFinanceiro['vencidas']);
-            $obraFinanceiro->saldo = ($dadosFinanceiro['saldo']);
-            $obraFinanceiro->save();
+                Log::info("Financeiro atualizado para obra {$obraId}: " . json_encode($dadosFinanceiro));
+                return true;
+            } else {
+                Log::warning("ObraFinanceiro não encontrado para obra {$obraId}");
+                return false;
+            }
+        } catch (\Exception $e) {
+            Log::error("Erro ao atualizar financeiro da obra {$obraId}: " . $e->getMessage());
+            return false;
         }
     }
 }

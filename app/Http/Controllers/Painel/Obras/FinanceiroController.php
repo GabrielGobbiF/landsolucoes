@@ -57,7 +57,6 @@ class FinanceiroController extends Controller
             ->whereIn('obras.status', ['aprovada'])
             ->where('obras.status', '<>', 'concluida')
 
-
             ->when(
                 !empty($filter['faturar']),
                 function ($q) {

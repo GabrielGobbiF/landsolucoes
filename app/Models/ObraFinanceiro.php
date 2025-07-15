@@ -18,6 +18,12 @@ class ObraFinanceiro extends Model
         'valor_custo',
         'metodo_pagamento',
         'envio_at',
+        'faturado',
+        'total_a_faturar',
+        'recebido',
+        'a_receber',
+        'vencidas',
+        'saldo',
     ];
 
     protected $table = 'obras_financeiro';

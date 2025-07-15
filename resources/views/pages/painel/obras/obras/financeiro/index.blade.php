@@ -53,6 +53,7 @@
                     <table class='table table-hover table-condensed'>
                         <thead class='thead-light'>
                             <tr>
+                                <th>Etapa</th>
                                 <th>Etapa de faturamento</th>
                                 <th>Total</th>
                                 <th>Total Faturado</th>
@@ -67,6 +68,9 @@
 
                             @foreach ($dadosFinanceirosCollection as $dadosEtapa)
                                 <tr class="{{ $dadosEtapa['recebido'] == $dadosEtapa['valor_total'] ? 'cross-line' : '' }}">
+
+                                    {{-- Etapa de faturamento --}}
+                                    <th>{{ $dadosEtapa['nome_etapa'] }}</th>
 
                                     {{-- Etapa de faturamento --}}
                                     <th>{{ $dadosEtapa['nome'] }}</th>
