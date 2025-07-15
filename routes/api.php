@@ -110,20 +110,22 @@ Route::prefix('v1')->middleware('auth:web')->group(function () {
 });
 
 Route::get('check-reset-cache', function () {
-    $resetCache = DB::table('reset_cache')
-        ->where('user_id', auth()->user()->id)
-        ->value('reset_cache');
+    if (auth()->check()) {
+        $resetCache = DB::table('reset_cache')
+            ->where('user_id', auth()->user()->id)
+            ->value('reset_cache');
 
-    if ($resetCache === null) {
-        DB::table('reset_cache')->insert([
-            'user_id' => auth()->user()->id,
-            'reset_cache' => false,
-        ]);
+        if ($resetCache === null) {
+            DB::table('reset_cache')->insert([
+                'user_id' => auth()->user()->id,
+                'reset_cache' => false,
+            ]);
 
-        $resetCache = true; // Define como false, já que acabou de ser criado
+            $resetCache = true; // Define como false, já que acabou de ser criado
+        }
     }
 
-    return response()->json(['reset_cache' => $resetCache]);
+    return response()->json(['reset_cache' => $resetCache?? false]);
 });
 
 Route::post('disable-reset-cache', function () {
