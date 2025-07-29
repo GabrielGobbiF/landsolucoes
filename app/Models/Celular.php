@@ -5,11 +5,12 @@ namespace App\Models;
 use App\Traits\LogTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Celular extends Model
 {
-    use HasFactory, LogTrait, LogsActivity;
+    use HasFactory, LogTrait, LogsActivity, SoftDeletes;
 
     protected static $logName = 'Celulares';
 
