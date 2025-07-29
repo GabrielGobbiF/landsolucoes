@@ -24,6 +24,7 @@ class CreateCelularsTable extends Migration
             $table->string('centro_custo')->nullable();
             $table->string('assinatura')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
 
         });

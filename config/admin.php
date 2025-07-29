@@ -437,6 +437,14 @@ return [
             'RH/DP',
             'Tec Segurança',
             'TMA',
+            'FRAUDE',
+            'BT0',
+            'COMGÁS',
+            'PLPT (PIAUÍ)',
+            'FROTA',
+            'PORTARIA ',
+            'ROÇADA',
+            'CONSTRUÇÃO DE REDE',
         ]
 
     ],
