@@ -14,14 +14,6 @@
                     <div class="col-md-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-primary btn-submit">Salvar</button>
 
-                        <form id="form-delete-" role="form" class="needs-validation" onSubmit="if(!confirm('Tem certeza que deseja excluir?')){return false;}"
-                              action="{{ route('celulares.destroy', $celular->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" data-btn-text="Deletando" class="btn btn-outline-danger delete">
-                                <i data-feather="trash"></i>Deletar
-                            </button>
-                        </form>
 
                         <a href="{{ route('celular.signature', $celular->id) }}" type="button" class="btn btn-outline-light d-none">
                             Assinatura
@@ -32,6 +24,19 @@
                     </div>
                 </div>
             </form>
+
+            <div class="mt-4">
+
+                <form id="form-delete-" role="form" class="needs-validation" onSubmit="if(!confirm('Tem certeza que deseja excluir?')){return false;}"
+                      action="{{ route('celulares.destroy', $celular->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" data-btn-text="Deletando" class="btn btn-outline-danger delete">
+                        <i data-feather="trash"></i>Deletar
+                    </button>
+                </form>
+
+            </div>
 
             <div class="mt-4">
                 <div class="box-body">
