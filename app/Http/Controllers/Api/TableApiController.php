@@ -393,6 +393,7 @@ class TableApiController extends Controller
         $filters['search'] =  $this->search;
         $datesPeriodoSearch = null;
 
+
         if (!empty($filters['period'])) {
             $datesPeriodoSearch = calculateDates(
                 $filters['period'],
@@ -414,7 +415,13 @@ class TableApiController extends Controller
                 if (!empty($filters['status'])) {
                     $query->whereIn('rdses.status', $filters['status']);
                 }
-            })->where(function ($query) use ($filters) {
+            })
+            ->where(function ($query) use ($filters) {
+                if (!empty($filters['n_order'])) {
+                    $query->whereIn('rdses.n_order', $filters['n_order']);
+                }
+            })
+            ->where(function ($query) use ($filters) {
                 if (!empty($filters['type'])) {
                     $query->where('rdses.type', $filters['type']);
                 }
