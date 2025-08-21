@@ -32,7 +32,6 @@ class RdseApiController extends Controller
      */
     public function index(Request $request) {}
 
-
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +44,6 @@ class RdseApiController extends Controller
 
         return new RdseResource($rdse);
     }
-
 
     public function storeService(Request $request, $rdseId)
     {
