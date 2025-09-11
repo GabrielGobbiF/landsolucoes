@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <label for="input--rms">Numero RMS</label>
                         <input id="input--rms" type="text" name="rms" class="form-control @error('rms') is-invalid @enderror"
-                               value="{{ $visitor->rms ?? old('rms') }}" autocomplete="off" required>
+                               value="{{ $visitor->rms ?? old('rms') }}" autocomplete="off" >
                     </div>
                 </div>
 
