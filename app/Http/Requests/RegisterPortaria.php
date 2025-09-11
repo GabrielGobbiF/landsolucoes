@@ -36,6 +36,7 @@ class RegisterPortaria extends FormRequest
             'attachments' => ['nullable'],
             'finality' => ['required'],
             'veiculo_tipo' => ['required'],
+            'rms' => ['required'],
         ];
     }
 }

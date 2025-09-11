@@ -27,6 +27,14 @@
 
     <div class="col-12 col-md-12">
         <div class="form-group">
+            <label for="input--rms">Numero RMS</label>
+            <input id="input--rms" type="text" name="rms" class="form-control @error('rms') is-invalid @enderror"
+                   value="{{ $visitor->rms ?? old('rms') }}" autocomplete="off" required>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-12">
+        <div class="form-group">
             <label for="input--document">Documento</label>
             <input id="input--document" type="text" name="document" class="form-control @error('document') is-invalid @enderror"
                    value="{{ $visitor->document ?? old('document') }}" autocomplete="off" required>

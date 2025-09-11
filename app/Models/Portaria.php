@@ -37,6 +37,7 @@ class Portaria extends Model
         'veiculo_nome',
         'veiculo_placa',
         'motorista',
+        'rms',
     ];
 
     protected static $logAttributes = [

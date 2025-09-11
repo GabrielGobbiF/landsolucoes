@@ -80,6 +80,7 @@ class PortariaController extends Controller
                     "data" => Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s'),
                     "observacoes" => $portaria->observacoes,
                     "type" => $portaria->type,
+                    "rms" => $portaria->rms,
                 ];
             }
         }
@@ -114,6 +115,7 @@ class PortariaController extends Controller
                 "data" => Carbon::parse($portaria->created_at)->format('d/m/Y H:i:s'),
                 "observacoes" => $portaria->observacoes,
                 "type" => $portaria->type,
+                "rms" => $portaria->rms,
             ];
         }
 

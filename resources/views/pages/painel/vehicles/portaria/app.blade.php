@@ -152,6 +152,7 @@
                                         <th>Veiculo</th>
                                         <th>Data</th>
                                         <th>Tipo</th>
+                                        <th>RMS</th>
 
                                     </tr>
                                 </thead>
@@ -163,6 +164,7 @@
                                             <td>{{ $portaria['veiculo'] }}</td>
                                             <td>{{ $portaria['data'] }}</td>
                                             <td>{{ $portaria['type'] == 'retorno' ? 'entrada' : 'saida' }}</td>
+                                            <td>{{ $portaria['rms'] }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

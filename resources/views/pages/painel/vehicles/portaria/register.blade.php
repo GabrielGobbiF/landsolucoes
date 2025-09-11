@@ -48,8 +48,8 @@
                             </div>
                             <div class="form-check">
                                 <input
-                                       id="op2" {{ old('controlador') == 'valnei de almeida' ? 'checked' : '' }} class="form-check-input"
-                                       type="radio" name="controlador" value="valnei de almeida" required />
+                                       id="op2" {{ old('controlador') == 'valnei de almeida' ? 'checked' : '' }} class="form-check-input" type="radio"
+                                       name="controlador" value="valnei de almeida" required />
                                 <label class="form-check-label" for="op2">
                                     {{ titleCase('valnei de almeida') }}
                                 </label>
@@ -66,8 +66,8 @@
 
                             <div class="form-check">
                                 <input
-                                       id="op4" {{ old('controlador') == 'valdivino da silva' ? 'checked' : '' }} class="form-check-input"
-                                       type="radio" name="controlador" value="valdivino da silva" required />
+                                       id="op4" {{ old('controlador') == 'valdivino da silva' ? 'checked' : '' }} class="form-check-input" type="radio"
+                                       name="controlador" value="valdivino da silva" required />
                                 <label class="form-check-label" for="op4">
                                     {{ titleCase('valdivino da silva') }}
                                 </label>
@@ -152,6 +152,14 @@
                             <label for="" class="form-label">Finalidade</label>
                             <input id="" type="text" class="form-control" name="finality" required value="{{ old('finality') }}" required />
                         </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12">
+                    <div class="form-group">
+                        <label for="input--rms">Numero RMS</label>
+                        <input id="input--rms" type="text" name="rms" class="form-control @error('rms') is-invalid @enderror"
+                               value="{{ $visitor->rms ?? old('rms') }}" autocomplete="off" required>
                     </div>
                 </div>
 
