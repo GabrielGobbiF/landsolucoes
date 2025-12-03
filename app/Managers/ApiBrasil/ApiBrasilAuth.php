@@ -93,10 +93,10 @@ class ApiBrasilAuth
      */
     public function getAccessToken()
     {
-        if (!Cache::has('ApiBrasilAccountAccessToken')) {
-            $this->generateAccessToken();
-        }
-
-        return Cache::get('ApiBrasilAccountAccessToken');
+        #if (!Cache::has('ApiBrasilAccountAccessToken')) {
+        #    $this->generateAccessToken();
+        #}
+#
+        #return Cache::get('ApiBrasilAccountAccessToken');
     }
 }

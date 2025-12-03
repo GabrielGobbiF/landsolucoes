@@ -24,6 +24,8 @@ class ObraFinanceiro extends Model
         'a_receber',
         'vencidas',
         'saldo',
+        'valor_locacao',
+        'valor_compras_materiais',
     ];
 
     protected $table = 'obras_financeiro';

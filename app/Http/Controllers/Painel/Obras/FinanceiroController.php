@@ -52,7 +52,7 @@ class FinanceiroController extends Controller
                 //$query->orWhere('status', 'concluida');
             })
             ->whereNull('remove_finance')
-            ->with('financeiro', 'client')
+            ->with(['financeiro', 'client'])
             ->whereNull('obras.deleted_at')
             ->whereIn('obras.status', ['aprovada'])
             ->where('obras.status', '<>', 'concluida')
@@ -121,7 +121,12 @@ class FinanceiroController extends Controller
                 $q->where('client_id', $filter['clients'])
             );
 
-        $obras = $query->paginate($perPage, ['*'], 'page', $page);
+        // Se per_page for muito alto, retorna todos os dados
+        if ($perPage >= 1000) {
+            $obras = $query->get();
+        } else {
+            $obras = $query->paginate($perPage, ['*'], 'page', $page);
+        }
 
         $finances = [];
 
@@ -165,11 +170,16 @@ class FinanceiroController extends Controller
                 continue;
             }
 
+            // Calcular valores de locação e compras de materiais
+            $valorLocacao = $this->financeiroService->calcularValorPorTipoEtapa($obra->id, [235, 476, 542]);
+            $valorComprasMateriais = $this->financeiroService->calcularValorPorTipoEtapa($obra->id, [18, 377, 834]);
+            $maoObra = $saldoAFaturar - $valorLocacao - $valorComprasMateriais;
+
             $finances[] = [
                 'valor_negociado' => $valorNegociadoObra,
                 'obraId' => $obra->id,
                 'n_nota' => $obra->last_note,
-                'nome_obra' => $obra->razao_social,
+                'nome_obra' => limit($obra->razao_social, 40),
                 'total_faturado' => $totalFaturado,
                 'total_a_faturar' => $saldoAFaturar,
                 'total_recebido' => $totalRecebido,
@@ -178,6 +188,9 @@ class FinanceiroController extends Controller
                 'vencidas' => $vencidas,
                 'data_vencimento' => $data_vencimento,
                 'client_name' => limit($obra->client->company_name),
+                'valor_locacao' => $valorLocacao,
+                'valor_compras_materiais' => $valorComprasMateriais,
+                'mao_obra' => $maoObra,
             ];
         }
 
@@ -198,6 +211,18 @@ class FinanceiroController extends Controller
 
         // 🔄 paginação correta sobre o resultado final
         $total = $finances->count();
+
+        if ($perPage >= 1000) {
+            // Retorna todos os dados sem paginação
+            return response()->json([
+                'data' => FinanceObraResource::collection($finances),
+                'total' => $total,
+                'per_page' => $perPage,
+                'current_page' => 1,
+                'last_page' => 1
+            ]);
+        }
+
         $results = $finances->forPage($page, $perPage)->values();
 
         $paginator = new LengthAwarePaginator(

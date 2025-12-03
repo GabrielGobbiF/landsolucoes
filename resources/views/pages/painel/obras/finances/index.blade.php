@@ -12,7 +12,7 @@
             .container-md,
             .container-sm,
             .container-xl {
-                max-width: 1640px !important;
+                max-width: 1940px !important;
             }
         }
     </style>
@@ -83,81 +83,51 @@
         </div>
 
         <div class="card-body">
+            <div id="loader" style="display: none; text-align: center; padding: 20px;">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Carregando...</p>
+            </div>
             <div class="table table-responsive" style="font-size: 13px;">
-                <table class='table table-hover table-centered table-condensed'>
+                <table id="finance-table" class='table table-hover table-centered table-condensed'>
                     <thead class='thead-light'>
                         <tr>
-                            <th>Nº Nota</th>
-                            <th>Nome da Obra</th>
-                            <th>Cliente</th>
-                            <th>Valor Negociado</th>
-                            <th>Valor a Receber</th>
-                            <th>Valor Recebido</th>
-                            <th>Faturado</th>
-                            <th>Liberado Faturar</th>
-                            <th>Vencidas</th>
-                            <th>Saldo</th>
+                            <th>Obra / Cliente</th>
+                            <th class="sortable" data-column="valor_negociado" style="cursor: pointer;">
+                                Valor Negociado <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="total_receber" style="cursor: pointer;">
+                                Valor a Receber <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="total_recebido" style="cursor: pointer;">
+                                Valor Recebido <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="total_faturado" style="cursor: pointer;">
+                                Faturado <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="total_a_faturar" style="cursor: pointer;">
+                                Liberado Faturar <i class="fas fa-sort"></i>
+                            </th>
+                            {{--
+                            <th class="sortable" data-column="valor_locacao" style="cursor: pointer;">
+                                Locação <i class="fas fa-sort"></i>
+                            </th>--}}
+                            <th class="sortable" data-column="valor_compras_materiais" style="cursor: pointer;">
+                                 Materiais <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="mao_obra" style="cursor: pointer;">
+                                Mão de Obra <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="vencidas" style="cursor: pointer;">
+                                Vencidas <i class="fas fa-sort"></i>
+                            </th>
+                            <th class="sortable" data-column="saldo" style="cursor: pointer;">
+                                Saldo <i class="fas fa-sort"></i>
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php
-                            $total_negociado = 0;
-                            $total_receber = 0;
-                            $total_recebido = 0;
-                            $total_a_faturar = 0;
-                            $total_saldo = 0;
-                            $total_faturado = 0;
-                            $total_vencidas = 0;
-                        @endphp
-                        @foreach ($obras as $obra)
-                            @php
-                                $total_negociado += $obra->financeiro->valor_negociado;
-                                $total_receber += $obra->financeiro->a_receber;
-                                $total_recebido += $obra->financeiro->recebido;
-                                $total_a_faturar += $obra->financeiro->total_a_faturar;
-                                $total_saldo += $obra->financeiro->saldo;
-                                $total_faturado += $obra->financeiro->faturado;
-                                $total_vencidas += $obra->financeiro->vencidas;
-                            @endphp
-                            <tr class="">
-                                <td>{{ $obra->last_note }}</td>
-                                <td>{{ limit($obra->razao_social) }}</td>
-                                <td>{{ limit($obra->client->company_name) }}</td>
-                                <td>R$ {{ maskPrice($obra->financeiro->valor_negociado) }}</td>
-                                <td>R$ {{ maskPrice($obra->financeiro->a_receber) }}</td>
-                                <td>R$ {{ maskPrice($obra->financeiro->recebido) }}</td>
-                                <td>R$ {{ maskPrice($obra->financeiro->faturado) }}</td>
-                                <td>R$ {{ maskPrice($obra->financeiro->total_a_faturar) }}</td>
-                                <td>{{ $obra->financeiro->vencidas }}</td>
-                                <td>R$ {{ maskPrice($obra->financeiro->saldo) }}</td>
-                                <td>
-                                    <div class="d-flex gap-2" style="gap: 0.6rem">
-                                        <a href="#!" class="open-activities" data-obraId="{{ $obra->id }}">
-                                            <i class="fas fa-info-circle no-click"></i>
-                                        </a>
-
-                                        <a href="{{ route('obras.finance', $obra->id) }}" class="">
-                                            <i class="fas fa-external-link-alt"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        <tr>
-                            <th> Total: </th>
-                            <th> </th>
-                            <th> </th>
-
-                            <th> R$ {{ maskPrice($total_negociado) }}</th>
-                            <th> R$ {{ maskPrice($total_receber) }}</th>
-                            <th> R$ {{ maskPrice($total_recebido) }}</th>
-                            <th> R$ {{ maskPrice($total_faturado) }}</th>
-                            <th> R$ {{ maskPrice($total_a_faturar) }}</th>
-                            <th> {{ $total_vencidas }} </th>
-                            <th> R$ {{ maskPrice($total_saldo) }}</th>
-                            <th> </th>
-                        </tr>
+                    <tbody id="finance-body">
+                        <!-- Dados carregados via JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -242,39 +212,36 @@
 
 @section('scripts')
 
-    <script class="">
-        let currentPage = 1;
-        let lastPage = null;
-        let loading = false;
+    <script>
+        const BASE_URL = document.querySelector('meta[name=js-base_url]').getAttribute('content');
 
-        let totals = {
-            valor_negociado: 0,
-            total_receber: 0,
-            total_recebido: 0,
-            total_a_faturar: 0,
-            saldo: 0,
-        };
+        let allFinances = [];
+        let filteredFinances = [];
+        let sortColumn = null;
+        let sortDirection = 'asc';
+        let loading = false;
 
         const tbody = document.getElementById('finance-body');
         const loader = document.getElementById('loader');
 
         function formatCurrency(value) {
-            return `R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            console.log(value)
+            return `R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         }
 
         function getFilters() {
             const filters = {};
-            const obrName = document.getElementById('obr_name')?.value;
-            const clients = document.getElementById('clients')?.value;
-            const faturar = document.getElementById('faturar')?.checked;
-            const receber = document.getElementById('receber')?.checked;
-            const vencimento = document.getElementById('vencimento')?.checked;
+            const obrName = document.getElementById('input--obr_name')?.value;
+            const clients = document.querySelector('select[name="clients"]')?.value;
+            const faturar = document.getElementById('formCheckFaturar')?.checked;
+            const receber = document.getElementById('formCheckReceber')?.checked;
+            const vencimento = document.getElementById('formCheckVencimento')?.checked;
 
             if (obrName) filters.obr_name = obrName;
             if (clients) filters.clients = clients;
-            if (faturar) filters.faturar = 1;
-            if (receber) filters.receber = 1;
-            if (vencimento) filters.vencimento = 1;
+            if (faturar) filters.faturar = 'true';
+            if (receber) filters.receber = 'true';
+            if (vencimento) filters.vencimento = 'true';
 
             return filters;
         }
@@ -285,78 +252,150 @@
                 .join('&');
         }
 
-        function renderTotalRow() {
-            const totalRow = document.getElementById('totals-row');
-            if (totalRow) totalRow.remove();
+        function sortData(column) {
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
 
-            const row = document.createElement('tr');
-            row.id = 'totals-row';
-            row.innerHTML = `
-        <th>Total:</th>
-        <th>${formatCurrency(totals.valor_negociado)}</th>
-        <th>${formatCurrency(totals.total_receber)}</th>
-        <th>${formatCurrency(totals.total_recebido)}</th>
-        <th>${formatCurrency(totals.total_a_faturar)}</th>
-        <th></th><th></th><th></th>
-        <th>${formatCurrency(totals.saldo)}</th>
-        <th></th>
-    `;
-            tbody.appendChild(row);
+            filteredFinances.sort((a, b) => {
+                let aVal = Number(a[column]) || 0;
+                let bVal = Number(b[column]) || 0;
+
+                return sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+            });
+
+            updateSortIcons();
+            renderTable();
         }
 
-        function appendRow(finance) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-        <th><a target="_blank" href="/obras/${finance.obraId}/finance">${finance.nome_obra}</a></th>
-        <th>${finance.client_name}</th>
-        <th>${formatCurrency(finance.valor_negociado)}</th>
-        <th>${formatCurrency(finance.total_receber)}</th>
-        <th>${formatCurrency(finance.total_recebido)}</th>
-        <th>${formatCurrency(finance.total_a_faturar)}</th>
-        <th>${finance.n_nota ?? ''}</th>
-        <th>${finance.vencidas}</th>
-        <th>${finance.data_vencimento ?? ''}</th>
-        <th>${formatCurrency(finance.saldo)}</th>
-        <th><a href="#!" class="open-activities" data-obraId="${finance.obraId}">
-            <i class="fas fa-info-circle no-click"></i>
-        </a></th>
-    `;
-            tbody.appendChild(row);
+        function updateSortIcons() {
+            document.querySelectorAll('.sortable i').forEach(icon => {
+                icon.className = 'fas fa-sort';
+            });
 
-            // Atualiza os totais
-            totals.valor_negociado += Number(finance.valor_negociado);
-            totals.total_receber += Number(finance.total_receber);
-            totals.total_recebido += Number(finance.total_recebido);
-            totals.total_a_faturar += Number(finance.total_a_faturar);
-            totals.saldo += Number(finance.saldo);
+            if (sortColumn) {
+                const header = document.querySelector(`.sortable[data-column="${sortColumn}"] i`);
+                if (header) {
+                    header.className = sortDirection === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+                }
+            }
         }
 
-        function loadFinances(page = 1) {
-            if (loading || (lastPage && page > lastPage)) return;
+        function renderTable() {
+            tbody.innerHTML = '';
+
+            const totals = {
+                valor_negociado: 0,
+                total_receber: 0,
+                total_recebido: 0,
+                total_faturado: 0,
+                total_a_faturar: 0,
+                valor_locacao: 0,
+                valor_compras_materiais: 0,
+                mao_obra: 0,
+                vencidas: 0,
+                saldo: 0
+            };
+
+            filteredFinances.forEach(finance => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div>
+                            <a target="_blank" href="/l/obras/${finance.obraId}/finance" style="font-weight: 500;">${finance.nome_obra || ''}</a>
+                        </div>
+                        <small class="text-muted">${finance.client_name || ''}</small>
+                    </td>
+                    <td>${formatCurrency(finance.valor_negociado)}</td>
+                    <td>${formatCurrency(finance.total_receber)}</td>
+                    <td>${formatCurrency(finance.total_recebido)}</td>
+                    <td>${formatCurrency(finance.total_faturado)}</td>
+                    <td>${formatCurrency(finance.total_a_faturar)}</td>
+
+                    <td>${formatCurrency(finance.valor_compras_materiais)}</td>
+                    <td>${formatCurrency(finance.mao_obra)}</td>
+                    <td>${finance.vencidas || 0}</td>
+                    <td>${formatCurrency(finance.saldo)}</td>
+                    <td>
+                        <div class="d-flex gap-2" style="gap: 0.6rem">
+                            <a href="#!" class="open-activities" data-obraid="${finance.obraId}">
+                                <i class="fas fa-info-circle no-click"></i>
+                            </a>
+                            <a href="/l/obras/${finance.obraId}/finance">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+
+                totals.valor_negociado += Number(finance.valor_negociado) || 0;
+                totals.total_receber += Number(finance.total_receber) || 0;
+                totals.total_recebido += Number(finance.total_recebido) || 0;
+                totals.total_faturado += Number(finance.total_faturado) || 0;
+                totals.total_a_faturar += Number(finance.total_a_faturar) || 0;
+                totals.valor_compras_materiais += Number(finance.valor_compras_materiais) || 0;
+                totals.mao_obra += Number(finance.mao_obra) || 0;
+                totals.vencidas += Number(finance.vencidas) || 0;
+                totals.saldo += Number(finance.saldo) || 0;
+            });
+
+            const totalRow = document.createElement('tr');
+            totalRow.innerHTML = `
+                <th>Total:</th>
+                <th>${formatCurrency(totals.valor_negociado)}</th>
+                <th>${formatCurrency(totals.total_receber)}</th>
+                <th>${formatCurrency(totals.total_recebido)}</th>
+                <th>${formatCurrency(totals.total_faturado)}</th>
+                <th>${formatCurrency(totals.total_a_faturar)}</th>
+                <th>${formatCurrency(totals.valor_compras_materiais)}</th>
+                <th>${formatCurrency(totals.mao_obra)}</th>
+                <th>${totals.vencidas}</th>
+                <th>${formatCurrency(totals.saldo)}</th>
+                <th></th>
+            `;
+            tbody.appendChild(totalRow);
+
+            attachEventListeners();
+        }
+
+        function attachEventListeners() {
+            document.querySelectorAll('.open-activities').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const obraId = this.getAttribute('data-obraid');
+                    getActivitiesEtapa(obraId);
+                });
+            });
+        }
+
+        function loadFinances() {
+            if (loading) return;
 
             loading = true;
             loader.style.display = 'block';
+            tbody.innerHTML = '';
 
             const filters = getFilters();
-            const queryString = buildQueryString({
-                ...filters,
-                page
-            });
+            const queryString = buildQueryString({ ...filters, per_page: 1000 });
 
-            axios.get(`${base_url}/api/v1/finances?${queryString}`)
+            axios.get(`${BASE_URL}/api/v1/finances?${queryString}`)
                 .then(response => {
-                    const data = response.data.data;
-                    const meta = response.data;
+                    allFinances = response.data.data || [];
+                    filteredFinances = [...allFinances];
 
-                    currentPage = meta.current_page;
-                    lastPage = meta.last_page;
-
-                    data.forEach(finance => appendRow(finance));
-
-                    renderTotalRow();
+                    if (sortColumn) {
+                        sortData(sortColumn);
+                    } else {
+                        renderTable();
+                    }
                 })
                 .catch(error => {
                     console.error("Erro ao carregar dados:", error);
+                    tbody.innerHTML = '<tr><td colspan="13" class="text-center text-danger">Erro ao carregar dados</td></tr>';
                 })
                 .finally(() => {
                     loading = false;
@@ -364,33 +403,19 @@
                 });
         }
 
-        function resetTable() {
-            tbody.innerHTML = '';
-            totals = {
-                valor_negociado: 0,
-                total_receber: 0,
-                total_recebido: 0,
-                total_a_faturar: 0,
-                saldo: 0,
-            };
-            currentPage = 1;
-            lastPage = null;
-        }
-
-        //document.getElementById('apply-filters').addEventListener('click', () => {
-        //    resetTable();
-        //    loadFinances();
-        //});
-
-        window.addEventListener('scroll', () => {
-            const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
-            if (nearBottom) {
-                loadFinances(currentPage + 1);
-            }
+        document.getElementById('apply-filters').addEventListener('click', (e) => {
+            e.preventDefault();
+            loadFinances();
         });
 
-        // 🚀 Primeira carga
-        //loadFinances();
+        document.querySelectorAll('.sortable').forEach(header => {
+            header.addEventListener('click', function() {
+                const column = this.getAttribute('data-column');
+                sortData(column);
+            });
+        });
+
+        loadFinances();
     </script>
 
     <script class="">

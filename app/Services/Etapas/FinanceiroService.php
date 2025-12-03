@@ -135,6 +135,10 @@ class FinanceiroService
             $this->processarEtapaFinanceira($etapaFinanceira, $etapasObraMap, $totais);
         }
 
+        // Calcular valores de locação e compras de materiais
+        $valorComprasMateriais = $this->calcularValorPorTipoEtapa($obraId, [18, 377, 834]);
+        $valorLocacao = $this->calcularValorPorTipoEtapa($obraId, [235, 476, 542]);
+
         return [
             'valor_negociado' => $valorNegociadoObra,
             'obraId' => $obra->id,
@@ -148,6 +152,8 @@ class FinanceiroService
             'vencidas' => $totais['vencidas'],
             'data_vencimento' => $totais['data_vencimento'],
             'client_name' => limit($obra->client->company_name ?? ''),
+            'valor_locacao' => $valorLocacao,
+            'valor_compras_materiais' => $valorComprasMateriais,
         ];
     }
 
@@ -162,7 +168,7 @@ class FinanceiroService
     {
         // Verificar se a etapa existe na obra
         $etapaObra = $etapasObraMap->get($etapaFinanceira->etapa_id);
-        
+
         if (!$etapaObra) {
             Log::warning("Etapa financeira {$etapaFinanceira->id} não encontrada na obra {$etapaFinanceira->obra_id}");
             return;
@@ -186,7 +192,7 @@ class FinanceiroService
         // Processar faturas vencidas
         if ($etapaVencidas && $etapaVencidas->qnt > 0) {
             $totais['vencidas'] += $etapaVencidas->qnt;
-            
+
             // Guardar a data de vencimento mais recente
             if ($etapaVencidas->data_vencimento) {
                 $totais['data_vencimento'] = $etapaVencidas->data_vencimento;
@@ -215,7 +221,32 @@ class FinanceiroService
             'vencidas' => 0,
             'data_vencimento' => null,
             'client_name' => limit($obra->client->company_name ?? ''),
+            'valor_locacao' => 0,
+            'valor_compras_materiais' => 0,
         ];
+    }
+
+    /**
+     * Calcula o valor a faturar para etapas específicas (Locação ou Compra de Materiais)
+     *
+     * @param int $obraId
+     * @param array $etapaIds IDs das etapas
+     * @return float
+     */
+    public function calcularValorPorTipoEtapa($obraId, $etapaIds)
+    {
+        $etapasFinanceiras = ObraEtapasFinanceiro::where('obra_id', $obraId)
+            ->whereIn('etapa_id', $etapaIds)
+            ->get();
+
+        $valorTotal = 0;
+
+        foreach ($etapasFinanceiras as $etapaFinanceira) {
+            $infoFinanceira = $this->calcularInfoFinanceira($etapaFinanceira->id);
+            $valorTotal += $infoFinanceira['a_faturar'];
+        }
+
+        return $valorTotal;
     }
 
     public function saveObraFinanceiro($obraId)
@@ -232,6 +263,8 @@ class FinanceiroService
                 $obraFinanceiro->a_receber = $dadosFinanceiro['total_receber'];
                 $obraFinanceiro->vencidas = $dadosFinanceiro['vencidas'];
                 $obraFinanceiro->saldo = $dadosFinanceiro['saldo'];
+                $obraFinanceiro->valor_locacao = $dadosFinanceiro['valor_locacao'];
+                $obraFinanceiro->valor_compras_materiais = $dadosFinanceiro['valor_compras_materiais'];
                 $obraFinanceiro->save();
 
                 Log::info("Financeiro atualizado para obra {$obraId}: " . json_encode($dadosFinanceiro));
