@@ -7,8 +7,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="js-base_url" content="{{ env('APP_URL') }}">
-    <meta name="js-base_url_api" content="{{ env('APP_URL_API') }}">
+    <meta name="js-base_url" content="{{ config('app.url') }}">
+    <meta name="js-base_url_api" content="{{ config('app.url_api') }}">
     <meta name="url" content="{{ str_replace([Request::getQueryString(), '?'], '', Request::getPathInfo()) }}">
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
