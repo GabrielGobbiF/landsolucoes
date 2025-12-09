@@ -166,9 +166,16 @@ class ObraEtapa extends Model
         });
 
         static::updating(function ($etapa) {
-            if ($etapa->isDirty('check') && $etapa->check === 'C') {
+            if ($etapa->isDirty('check')) {
                 $user = auth()->user();
-                $etapa->setLog(['message' => 'concluido']);
+
+                if ($etapa->check === 'C') {
+                    $etapa->setLog(['message' => 'concluido']);
+                }
+
+                if ($etapa->check === 'EM') {
+                    $etapa->setLog(['message' => 'desconcluida']);
+                }
             }
         });
 

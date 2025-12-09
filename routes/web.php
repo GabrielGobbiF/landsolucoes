@@ -30,6 +30,8 @@ Route::post('/clientes/logout', [App\Http\Controllers\Auth\Clients\LoginControll
 
 Route::get('teste-whats', [DesenvolvedorController::class, 'enviarMensagem']);
 
+Route::get('teste-obras', [DesenvolvedorController::class, 'testeObra']);
+
 Route::group(['middleware' => ['CheckClient']], function () {
     Route::prefix('clientes')->group(function () {
         Route::get('/obras', [App\Http\Controllers\Clients\ClientController::class, 'index'])->name('clients.obras');
@@ -194,6 +196,16 @@ Route::group(['middleware' => ['CheckPassword']], function () {
             Route::get('finances/export', [App\Http\Controllers\Painel\Obras\FinanceiroController::class, 'export'])->name('finances.export');
 
             Route::put('obras/{obraId}/finance/{etapa_id}/storeFaturamento', [App\Http\Controllers\Api\FinanceiroApiController::class, 'storeFaturamento'])->name('etapas.faturamento.store');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Relatórios Financeiros
+            |--------------------------------------------------------------------------
+            */
+            Route::get('relatorios/financeiro', [App\Http\Controllers\Painel\Relatorios\RelatorioFinanceiroController::class, 'index'])->name('relatorios.financeiro.index');
+            Route::get('relatorios/financeiro/data', [App\Http\Controllers\Painel\Relatorios\RelatorioFinanceiroController::class, 'getData'])->name('relatorios.financeiro.data');
+            Route::get('relatorios/financeiro/obras', [App\Http\Controllers\Painel\Relatorios\RelatorioFinanceiroController::class, 'getObras'])->name('relatorios.financeiro.obras');
+            Route::get('relatorios/financeiro/etapas', [App\Http\Controllers\Painel\Relatorios\RelatorioFinanceiroController::class, 'getEtapas'])->name('relatorios.financeiro.etapas');
 
             /*
             |--------------------------------------------------------------------------

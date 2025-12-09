@@ -61,6 +61,8 @@ class EtapasFaturamentoObserver
             ->where('recebido_status', 'Y')  // Considerar apenas faturas recebidas
             ->sum('valor');
 
+        $aFaturar = $etapaFinanceira->valor_receber - $totalFaturado;
+
         // Compara com arredondamento para evitar problemas com números de ponto flutuante
         if (round($totalFaturado, 2) >= round($etapaFinanceira->valor_receber, 2)) {
             // Atualiza status na etapa financeira

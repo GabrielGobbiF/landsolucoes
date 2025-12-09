@@ -43,12 +43,35 @@ return [
                 'route' => 'comercial.index',
             ],
 
+            //[
+            //    'name' =>  'Financeiro',
+            //    'atc' =>  'arquivos',
+            //    'icon' =>  'ri-file-list-3-line',
+            //    'route' => 'finances.index',
+            //],
+
             [
                 'name' =>  'Financeiro',
                 'atc' =>  'arquivos',
-                'icon' =>  'ri-file-list-3-line',
-                'route' => 'finances.index',
+                'icon' =>  'ri-file-edit-fill',
+                'collapse' => 'true',
+                'sub-menus' => [
+                    [
+                        'name' =>  'Financeiro',
+                        'atc' =>  'arquivos',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'finances.index',
+                    ],
+
+                    [
+                        'name' =>  'Relatórios',
+                        'atc' =>  'arquivos',
+                        'icon' =>  'ri-file-list-3-line',
+                        'route' => 'relatorios.financeiro.index',
+                    ],
+                ]
             ],
+
             //[
             //    'name' =>  'Arquivos',
             //    'atc' =>  'arquivos',

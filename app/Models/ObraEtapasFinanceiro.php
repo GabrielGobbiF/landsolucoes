@@ -18,6 +18,10 @@ class ObraEtapasFinanceiro extends Model
         'metodo_pagamento',
         'valor',
         'valor_receber',
+        'valor_a_faturar',
+        'valor_faturado',
+        'valor_recebido',
+        'valor_a_receber',
         'nome_etapa',
         'status'
     ];
@@ -30,7 +34,6 @@ class ObraEtapasFinanceiro extends Model
     {
         return $this->belongsTo(Obra::class, 'obra_id', 'id');
     }
-
 
     public function getStatusEtapaAttribute()
     {

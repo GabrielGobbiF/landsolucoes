@@ -34,6 +34,11 @@ class EtapasFaturamento extends Model
         return $this->belongsTo(Obra::class, 'obra_id');
     }
 
+    public function etapaFinanceiro()
+    {
+        return $this->belongsTo(ObraEtapasFinanceiro::class, 'obr_etp_financerio_id', 'id');
+    }
+
     public function setDataVencimentoAttribute($value)
     {
         $this->attributes['data_vencimento'] = Carbon::parse(str_replace('/', '-', $value))->format('Y-m-d H:i:s');

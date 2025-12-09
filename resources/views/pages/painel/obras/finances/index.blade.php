@@ -15,6 +15,31 @@
                 max-width: 1940px !important;
             }
         }
+
+        /*
+        .table-responsive {
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        #finance-table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa;
+            z-index: 10;
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #finance-table thead th:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            border-bottom: 1px solid #dee2e6;
+        }
+            */
     </style>
     <div class="card">
         <div class="card-body">

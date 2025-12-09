@@ -543,5 +543,9 @@ function clearNumberToSendWhats($number)
 
 function currency($value, $in = "BRL", $locale = 'pt-BR')
 {
+    if (empty($value)) {
+        return 'R$ 0,00';
+    }
+
     return Number::currency(($value), $in, $locale);
 }

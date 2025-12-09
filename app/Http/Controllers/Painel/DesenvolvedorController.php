@@ -7,9 +7,14 @@ use App\Jobs\SendWhats;
 use App\Managers\ApiBrasil\ApiBrasil;
 use App\Models\Client;
 use App\Models\Driver;
+use App\Models\EtapasFaturamento;
+use App\Models\Obra;
+use App\Models\ObraEtapa;
+use App\Models\ObraEtapasFinanceiro;
 use App\Models\RSDE\Rdse;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Services\Etapas\FinanceiroService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -231,5 +236,40 @@ class DesenvolvedorController extends Controller
     public function testeWhats(Request $request)
     {
         app(ApiBrasil::class)->send('11971590068', 'Oi');
+    }
+
+    public function testeObra()
+    {
+        // Toda vez que uma ObraEtapa for atualizada verificar se tem obraEtapaFinanceiro
+        // Se tiver alterar o status ObraEtapasFinanceiro
+        // Se obraEtapa check == "C" e tiver valor para faturar mudar o status ObraEtapasFinanceiro para faturar
+        // em ObraEtapasFinanceiro quero adicionar a coluna, total faturado, faturar, recebido
+
+
+        $financeiroObra = app(FinanceiroService::class)->calcularInfoFinanceiraPorObra(673);
+
+        return;
+        $obra = Obra::where('id', '694')->first();
+
+        $obrasEtapas = ObraEtapa::where('id_obra', $obra->id)->get();
+
+        $lancamentos = EtapasFaturamento::where('obra_id', $obra->id)->get();
+
+        dd($lancamentos);
+
+        foreach ($obrasEtapas as $etapa) {
+
+            $etapaFinanceiro = ObraEtapasFinanceiro::where('etapa_id', $etapa->id_etapa)
+                ->where('obra_id', $obra->id)
+                ->first();
+
+            if (!$etapaFinanceiro) {
+                continue;
+            }
+
+            $lancamentosetapaFinanceiro = $lancamentos->where('obr_etp_financerio_id', $etapa->etapaFinanceiro);
+
+            dd($lancamentosetapaFinanceiro);
+        }
     }
 }

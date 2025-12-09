@@ -40,7 +40,7 @@ class FinanceiroService
         $totalFaturado = $valorRecebido + $valorFaturadoNaoRecebido;
 
         // Quanto ainda falta faturar
-        $aFaturar = isset($obraEtapa) && $obraEtapa->check == 'C' ? max(0, $valorTotal - $totalFaturado) : 0;
+        $aFaturar = $etapaFinanceira->valor_a_faturar; #isset($obraEtapa) && $obraEtapa->check == 'C' ? max(0, $valorTotal - $totalFaturado) : 0;
 
         // Faturas vencidas (não recebidas e com data de vencimento no passado)
         $faturasVencidas = $faturamentos->filter(function ($fatura) use ($hoje) {
@@ -60,6 +60,13 @@ class FinanceiroService
         if ($faturasAVencer->count() > 0) {
             $proximoVencimento = $faturasAVencer->sortBy('data_vencimento')->first()->data_vencimento;
         }
+
+        #if (($etapaFinanceira)->id == '1569') {
+        #    dd([
+        #        $valorTotal,
+        #        $valorRecebido
+        #    ]);
+        #}
 
         return [
             'id' => $etapaFinanceira->id,
@@ -99,9 +106,9 @@ class FinanceiroService
                 'financeiro',
                 'client:id,company_name',
                 'etapas_financeiro.faturamento',
-                'etapas' => function($query) use ($obraId) {
+                'etapas' => function ($query) use ($obraId) {
                     $query->where('id_obra', $obraId)
-                          ->select('id', 'id_obra', 'id_etapa', 'check');
+                        ->select('id', 'id_obra', 'id_etapa', 'check');
                 }
             ])->find($obraId);
         });
@@ -131,9 +138,29 @@ class FinanceiroService
             'data_vencimento' => null
         ];
 
+        $totaisEtapasArray = [];
         foreach ($etapasFinanceiras as $etapaFinanceira) {
-            $this->processarEtapaFinanceira($etapaFinanceira, $etapasObraMap, $totais);
+            $totaisEtapas = $this->processarEtapaFinanceira($etapaFinanceira, $etapasObraMap, $totais);
+
+            $status = 'pendente';
+
+            if ($totais['saldoAFaturar'] > 0) {
+                $status = 'faturar';
+            }
+
+            DB::table('obras_etapas_financeiro')
+                ->where('id', $etapaFinanceira->id)
+                ->update([
+                    'valor_a_faturar' => $totais['saldoAFaturar'],
+                    'valor_a_receber'   => $totais['totalReceber'],
+                    'valor_faturado'  => $totais['totalFaturado'],
+                    'valor_recebido'  => $totais['totalRecebido'],
+                    'status'          => $status
+                ]);
+
+            $totaisEtapasArray[] = $totaisEtapas;
         }
+
 
         // Calcular valores de locação e compras de materiais
         $valorComprasMateriais = $this->calcularValorPorTipoEtapa($obraId, [18, 377, 834]);
@@ -166,13 +193,30 @@ class FinanceiroService
      */
     private function processarEtapaFinanceira($etapaFinanceira, $etapasObraMap, &$totais)
     {
+        $totais = [
+            'id' => 0,
+            'totalFaturado' => 0,
+            'saldoAFaturar' => 0,
+            'totalRecebido' => 0,
+            'totalReceber' => 0,
+            'vencidas' => 0,
+            'data_vencimento' => '',
+        ];
+
+        $etapaFaturado = 0;
+        $etapaRecebido = 0;
+        $etapaAReceber = 0;
+        $etapaVencidas = 0;
+
         // Verificar se a etapa existe na obra
         $etapaObra = $etapasObraMap->get($etapaFinanceira->etapa_id);
 
         if (!$etapaObra) {
-            Log::warning("Etapa financeira {$etapaFinanceira->id} não encontrada na obra {$etapaFinanceira->obra_id}");
+            #Log::warning("Etapa financeira {$etapaFinanceira->id} não encontrada na obra {$etapaFinanceira->obra_id}");
             return;
         }
+
+        $totais['id'] = $etapaObra->id;
 
         // Determinar valor da etapa baseado no status
         $etapaValor = ($etapaObra->check !== 'EM') ? $etapaFinanceira->valor_receber : 0;
@@ -183,9 +227,14 @@ class FinanceiroService
         $etapaAReceber = $etapaFinanceira->aReceber();
         $etapaVencidas = $etapaFinanceira->vencidas();
 
-        // Atualizar totalizadores
+        $etapaValor    = (string) $etapaValor;
+        $etapaFaturado = (string) $etapaFaturado;
+
+        // Subtração com precisão de 2 casas decimais
+        $diferenca = bcsub($etapaValor, $etapaFaturado, 2);
+
         $totais['totalFaturado'] += $etapaFaturado;
-        $totais['saldoAFaturar'] += ($etapaValor > 0) ? ($etapaValor - $etapaFaturado) : 0;
+        $totais['saldoAFaturar'] += $diferenca;
         $totais['totalRecebido'] += $etapaRecebido;
         $totais['totalReceber'] += $etapaAReceber->sum ?? 0;
 
@@ -198,6 +247,18 @@ class FinanceiroService
                 $totais['data_vencimento'] = $etapaVencidas->data_vencimento;
             }
         }
+
+        #$etapaFinanceira->valor_a_faturar = $totais['saldoAFaturar'];
+        #$etapaFinanceira->valor_receber = $totais['totalReceber'];
+        #$etapaFinanceira->valor_faturado = $totais['totalFaturado'];
+        #$etapaFinanceira->valor_recebido = $totais['totalRecebido'];
+        #if ($totais['saldoAFaturar'] > 0) {
+        #    $etapaFinanceira->status = 'faturar';
+        #}
+        #$etapaFinanceira->save();
+
+
+        return $totais;
     }
 
     /**
