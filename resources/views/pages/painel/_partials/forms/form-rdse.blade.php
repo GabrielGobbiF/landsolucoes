@@ -100,7 +100,8 @@
         <select id="mes" name="year" class="form-control " required>
             <option selected value="">Selecione</option>
             <option {{ isset($rdse) && $rdse->Year == '2024' ? 'selected' : null }} value="2024">2024 </option>
-            <option {{ isset($rdse) && $rdse->Year == '2025' ? 'selected' : null }} value="2025">2025 </option>
+            <option {{ isset($rdse) && $rdse->Year == '2026' ? 'selected' : null }} value="2026">2026 </option>
+            <option {{ isset($rdse) && $rdse->Year == '2026' ? 'selected' : null }} value="2026">2026 </option>
         </select>
     </div>
 
