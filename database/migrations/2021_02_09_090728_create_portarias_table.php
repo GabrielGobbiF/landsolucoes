@@ -21,6 +21,7 @@ class CreatePortariasTable extends Migration
             $table->string('observations')->nullable();
             $table->string('rms')->nullable();
             $table->longText('file')->nullable();
+            $table->string('base')->nullable();
             $table->enum('type', ['saida', 'retorno'])->default('saida');
 
             $table->string('veiculo_tipo')->default('cena');

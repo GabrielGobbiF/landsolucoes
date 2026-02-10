@@ -123,6 +123,21 @@
 
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label>Base</label>
+                        <select id="base" name="base" class="select2" required>
+                            <option value="">Selecione</option>
+                            <option value="Camacan">Camacan</option>
+                            <option value="Coaquira">Coaquira</option>
+                            <option value="Jaguaré">Jaguaré</option>
+                            <option value="Campinas">Campinas</option>
+                            <option value="Teresina">Teresina</option>
+                            <option value="Embu">Embu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
                         <label>Motorista</label>
                         <select id="motorista_id" name="motorista_id" class="select2" required>
                             <option value="">Selecione</option>
@@ -159,7 +174,7 @@
                     <div class="form-group">
                         <label for="input--rms">Numero RMS</label>
                         <input id="input--rms" type="text" name="rms" class="form-control @error('rms') is-invalid @enderror"
-                               value="{{ $visitor->rms ?? old('rms') }}" autocomplete="off" >
+                               value="{{ $visitor->rms ?? old('rms') }}" autocomplete="off">
                     </div>
                 </div>
 

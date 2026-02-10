@@ -32,6 +32,7 @@ class Portaria extends Model
         'departamento',
         'km',
         'finality',
+        'base',
 
         'veiculo_tipo',
         'veiculo_nome',

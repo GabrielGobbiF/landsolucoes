@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -152,6 +151,7 @@
                                         <th>Veiculo</th>
                                         <th>Data</th>
                                         <th>Tipo</th>
+                                        <th>Base</th>
                                         <th>RMS</th>
 
                                     </tr>
@@ -164,6 +164,7 @@
                                             <td>{{ $portaria['veiculo'] }}</td>
                                             <td>{{ $portaria['data'] }}</td>
                                             <td>{{ $portaria['type'] == 'retorno' ? 'entrada' : 'saida' }}</td>
+                                            <td>{{ $portaria['base'] }}</td>
                                             <td>{{ $portaria['rms'] }}</td>
                                         </tr>
                                     @endforeach
