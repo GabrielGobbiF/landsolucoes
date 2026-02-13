@@ -117,6 +117,7 @@ class PortariaController extends Controller
                 "observacoes" => $portaria->observacoes,
                 "type" => $portaria->type,
                 "rms" => $portaria->rms,
+                "base" => $portaria->base,
             ];
         }
 
