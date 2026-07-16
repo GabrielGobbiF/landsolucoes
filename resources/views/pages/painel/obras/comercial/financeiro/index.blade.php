@@ -21,22 +21,24 @@
                                     <tbody>
                                         @foreach ($etapasCompras as $etapa)
                                             @if ($etapa->variables->count() == 0)
+                                                @php
+                                                    $quantidade = (float) clearNumber($etapa->quantidade);
+                                                    $preco = (float) clearNumber($etapa->preco);
+                                                    $subtotal = $quantidade * $preco;
+                                                @endphp
                                                 <tr id="{{ $etapa->id }}">
                                                     <th>{{ $etapa->nome }}</th>
                                                     <th style="width: 20%">
                                                         <div class="text-center">
-                                                            <input type="number" min="0" name="etapa[{{ $etapa->id }}]" data-id="{{ $etapa->id }}" data-price="{{ $etapa->preco }}"
-                                                                value="{{ $etapa->quantidade }}"
+                                                            <input type="number" min="0" name="etapa[{{ $etapa->id }}]" data-id="{{ $etapa->id }}" data-price="{{ $preco }}"
+                                                                value="{{ $quantidade }}"
                                                                 class="js-qntEtapa wd-70 text-center">
                                                         </div>
                                                     </th>
                                                     <th>{{ $etapa->unidade }}</th>
                                                     <th>R$ {{ $etapa->preco }}</th>
-                                                    <th class="sub-total" data-value="{{ 
-                                                    $etapa->quantidade * 
-                                                    ($etapa->preco != '' ? $etapa->preco : 0) }}
-                                                    "> R$
-                                                        {{ $etapa->quantidade * ($etapa->preco != '' ? $etapa->preco : 0) }}
+                                                    <th class="sub-total" data-value="{{ $subtotal }}"> R$
+                                                        {{ $subtotal }}
                                                     </th>
                                                 </tr>
                                             @else
@@ -58,19 +60,24 @@
                                                             <table class="table">
                                                                 <tbody>
                                                                     @foreach ($etapa->variables as $variable)
+                                                                        @php
+                                                                            $quantidade = (float) clearNumber($variable->quantidade);
+                                                                            $preco = (float) clearNumber($variable->preco);
+                                                                            $subtotal = $quantidade * $preco;
+                                                                        @endphp
                                                                         <tr id="{{ $variable->id }}">
                                                                             <th style="width: 16%;">{{ $variable->nome }}</th>
                                                                             <th style="width: 20%">
                                                                                 <div class="text-center">
                                                                                     <input type="number" name="variable[{{ $variable->id }}]" min="0" data-id="{{ $variable->id }}"
-                                                                                        data-price="{{ $variable->preco }}"
-                                                                                        value="{{ $variable->quantidade }}" class="js-qntEtapa wd-70 text-center">
+                                                                                        data-price="{{ $preco }}"
+                                                                                        value="{{ $quantidade }}" class="js-qntEtapa wd-70 text-center">
                                                                                 </div>
                                                                             </th>
                                                                             <th style="width: 20%;">{{ $etapa->unidade }}</th>
                                                                             <th>R$ {{ $variable->preco }}</th>
-                                                                            <th class="sub-total" data-value="{{ $variable->quantidade * $variable->preco }}"> R$
-                                                                                {{ $variable->quantidade * $variable->preco }}</th>
+                                                                            <th class="sub-total" data-value="{{ $subtotal }}"> R$
+                                                                                {{ $subtotal }}</th>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
