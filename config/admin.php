@@ -481,27 +481,27 @@ return [
             ],
             [
                 'name' => 'LDS',
-                'value' => '216.54',
+                'value' => '226.48',
                 'codigo' => '4610003729'
             ],
             [
                 'name' => 'Manutenção',
-                'value' => '216.54',
+                'value' => '226.48',
                 'codigo' => '4610003730'
             ],
             [
                 'name' => 'Futurabilit',
-                'value' => '216.54',
+                'value' => '226.48',
                 'codigo' => '4610003673'
             ],
             [
                 'name' => 'Civil',
-                'value' => '216.54',
+                'value' => '226.48',
                 'codigo' => '4610003675'
             ],
             [
                 'name' => 'Atendimento ao cliente',
-                'value' => '216.54',
+                'value' => '226.48',
                 'codigo' => '4610003728'
             ],
         ]
