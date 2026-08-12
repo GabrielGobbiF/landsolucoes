@@ -476,7 +476,7 @@ return [
         'type' => [
             [
                 'name' => 'Emergencial',
-                'value' => '384.24',
+                'value' => '401.88',
                 'codigo' => '4610003674'
             ],
             [
